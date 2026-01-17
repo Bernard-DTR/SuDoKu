@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>SuDoKu.Frm_SDK</StartupObject>
+    <RootNamespace>SuDoKu</RootNamespace>
+    <AssemblyName>SuDoKu</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>C:\SuDoKu_Publication\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>\\HPOmen16\SuDoKu_Publication\</InstallUrl>
+    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationVersion>2022.0815.7.14</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>SuDoKu.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036,42099</WarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>SuDoKu.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42024,42032,42036,42099</WarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>Off</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>SuDoKu.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>5E533D4DB78F0D0C87D7B1249BDBBF8F76A0649C</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>SuDoKu_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Excel\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Word\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.PowerShell.Commands.Management, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\v1.0\Microsoft.PowerShell.Commands.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.PowerShell.ConsoleHost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\v1.0\Microsoft.PowerShell.ConsoleHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.PowerShell.Security, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\v1.0\Microsoft.PowerShell.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\v1.0\System.Management.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="MediaPlayer" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Windows.Forms.Design" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="M03_Paint_g.vb" />
+    <Compile Include="Models\XLink_Cls.vb" />
+    <Compile Include="Apriori\A%40%40_En_Cours.vb" />
+    <Compile Include="A%40_Colorisation.vb" />
+    <Compile Include="Apriori\A00_Public.vb" />
+    <Compile Include="A01_OnlyOnce.vb" />
+    <Compile Include="A02_Occasionally.vb" />
+    <Compile Include="CustomToolTip.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dancing_Links\B_DancingArena.vb" />
+    <Compile Include="Dancing_Links\E_DancingColumn.vb" />
+    <Compile Include="Dancing_Links\A_Copyright.vb" />
+    <Compile Include="Dancing_Links\D_DancingNode.vb" />
+    <Compile Include="Forms\Frm_Police.Designer.vb">
+      <DependentUpon>Frm_Police.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_Police.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Production\M49_Prd_General.vb" />
+    <Compile Include="Production\M50_Production.vb" />
+    <Compile Include="Production\M59_Prd_Batch.vb" />
+    <Compile Include="Strategy\P09_Strategy_DCdd.vb" />
+    <Compile Include="Strategy\P19_Strategy_SKy.vb" />
+    <Compile Include="Strategy\P30_Strategy_ForceBrute.vb" />
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Cellule_Cls.vb" />
+    <Compile Include="ColorComboBox.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_Dictionnaire.Designer.vb">
+      <DependentUpon>Frm_Dictionnaire.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_Dictionnaire.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_Insérer_Candidats.Designer.vb">
+      <DependentUpon>Frm_Insérer_Candidats.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_Insérer_Candidats.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_LoadPartiesHodoku.Designer.vb">
+      <DependentUpon>Frm_LoadPartiesHodoku.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_LoadPartiesHodoku.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_MySettings.Designer.vb">
+      <DependentUpon>Frm_MySettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_MySettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_SDK.Designer.vb">
+      <DependentUpon>Frm_SDK.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_SDK.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_SystemInfoBrowser.Designer.vb">
+      <DependentUpon>Frm_SystemInfoBrowser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_SystemInfoBrowser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M03_Sélection.vb" />
+    <Compile Include="Forms\Frm_About.Designer.vb">
+      <DependentUpon>Frm_About.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_About.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M02_ClipBoard.vb" />
+    <Compile Include="M02_Menu_Management.vb" />
+    <Compile Include="M10_Message.vb" />
+    <Compile Include="M02_U.vb" />
+    <Compile Include="M02_Wh_Q.vb" />
+    <Compile Include="M03_Paint.vb" />
+    <Compile Include="M10_Transformation.vb" />
+    <Compile Include="M12_Collection.vb" />
+    <Compile Include="M20_Game.vb" />
+    <Compile Include="M01_Enregistrement_Partie.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Strategy\P01_Strategy.vb" />
+    <Compile Include="Strategy\P10_Strategy_CdU.vb" />
+    <Compile Include="Strategy\P11_Strategy_CdO.vb" />
+    <Compile Include="Strategy\P12_Strategy_Cbl.vb" />
+    <Compile Include="Strategy\P13_Strategy_Tpl.vb" />
+    <Compile Include="Strategy\P14_Strategy_Xwg.vb" />
+    <Compile Include="Strategy\P15_Strategy_XYw.vb" />
+    <Compile Include="Strategy\P16_Strategy_Swf.vb" />
+    <Compile Include="Strategy\P17_Strategy_Jly.vb" />
+    <Compile Include="Strategy\P18_Strategy_XYZ.vb" />
+    <Compile Include="Strategy\P20_Strategy_Unq.vb" />
+    <Compile Include="NativeMethods.vb" />
+    <Compile Include="Forms\Frm_Préférences.Designer.vb">
+      <DependentUpon>Frm_Préférences.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_Préférences.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_LoadParties.Designer.vb">
+      <DependentUpon>Frm_LoadParties.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_LoadParties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="G20_Général.vb" />
+    <Compile Include="Settings.vb" />
+    <Compile Include="Dancing_Links\C_SudokuArena.vb" />
+    <Compile Include="Strategy_G\G000_Base.vb" />
+    <Compile Include="Strategy_G\G050_Affichage_Liens.vb" />
+    <Compile Include="Strategy_G\G100_Strategy_bi-locaux.vb" />
+    <Compile Include="Strategy_G\G150_Strategy_bi-values.vb" />
+    <Compile Include="Strategy_G\G200_Strategy_Coloration_Simple.vb" />
+    <Compile Include="Strategy_X\Q000_Strategy_X.vb" />
+    <Compile Include="Strategy_X\Q030_Strategy_X_Chain.vb" />
+    <Compile Include="Strategy_X\Q040_Strategy_XY_Chain.vb" />
+    <Compile Include="Strategy_X\Q060_Strategy_Nice_Loop.vb" />
+    <Compile Include="Strategy_X\Q050_Remote_Pairs.vb" />
+    <Compile Include="Strategy_X\Q100_Strategy_Wing_W.vb" />
+    <Compile Include="Strategy_X\Q070_Strategy_Wing_X.vb" />
+    <Compile Include="Strategy_X\Q080_Strategy_Wing_XY.vb" />
+    <Compile Include="Strategy_X\Q090_Strategy_Wing_XYZ.vb" />
+    <Compile Include="V01_CodeAnalyse.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ColorComboBox.resx">
+      <DependentUpon>ColorComboBox.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_Dictionnaire.resx">
+      <DependentUpon>Frm_Dictionnaire.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_Insérer_Candidats.resx">
+      <DependentUpon>Frm_Insérer_Candidats.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_LoadPartiesHodoku.resx">
+      <DependentUpon>Frm_LoadPartiesHodoku.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_MySettings.resx">
+      <DependentUpon>Frm_MySettings.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_Police.resx">
+      <DependentUpon>Frm_Police.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_SDK.resx">
+      <DependentUpon>Frm_SDK.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_SystemInfoBrowser.resx">
+      <DependentUpon>Frm_SystemInfoBrowser.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_About.resx">
+      <DependentUpon>Frm_About.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_Préférences.resx">
+      <DependentUpon>Frm_Préférences.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_LoadParties.resx">
+      <DependentUpon>Frm_LoadParties.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Effacer.gif" />
+    <None Include="Resources\Undo.png" />
+    <None Include="Resources\Redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MediaPlayer">
+      <Guid>{22D6F304-B0F6-11D0-94AB-0080C74C7E95}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SuDoKu.ico" />
+    <None Include="Resources\PasteTable_16x.png" />
+    <None Include="Resources\SQL_16x.png" />
+    <None Include="Resources\Close_16x.png" />
+    <None Include="Resources\HiddenFile_16x.png" />
+    <None Include="Resources\OpenFile_16x.png" />
+    <None Include="Resources\OpenFolder_16x.png" />
+    <None Include="Resources\Camera_16x.png" />
+    <None Include="Resources\Repair_16x.png" />
+    <None Include="Resources\Rotate_16x.png" />
+    <None Include="Resources\ScriptWarning_16x.png" />
+    <None Include="Resources\Create_16x.png" />
+    <None Include="Resources\ExportToExcel_16x.png" />
+    <None Include="Resources\SpecialFolderOpen_16x.png" />
+    <None Include="Resources\Repeat.png" />
+    <None Include="Resources\Terre.png" />
+    <None Include="Resources\Copy_RTF.png" />
+    <None Include="Resources\Copy_Text.png" />
+    <None Include="Resources\AnnulerG.png" />
+    <None Include="Resources\Aimant_Bas.png" />
+    <None Include="Resources\Aimant_Droit.png" />
+    <None Include="Resources\Aimant_Gauche.png" />
+    <None Include="Resources\Process_16x.png" />
+    <None Include="Resources\Engrenage_Noir.gif" />
+    <None Include="Resources\Engrenage_Couleur.gif" />
+    <None Include="Resources\XY_Start.ico" />
+    <None Include="Resources\XY_Deb.png" />
+    <None Include="Resources\XY_Fin.png" />
+    <Content Include="SuDoKu.ico" />
+    <None Include="Resources\Couleur_Annule.png" />
+    <None Include="Resources\Annuler.png" />
+    <Content Include="Apriori\aMaintenance.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

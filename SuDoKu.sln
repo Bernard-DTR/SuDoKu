@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SuDoKu", "SuDoKu\SuDoKu.vbproj", "{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4B0AB79F-C254-465B-8583-8BF74CF6DCCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+		Description = Résolution et Génération de Sudoku
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Debug|Any CPU.Build.0 = Debug|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Debug|x86.ActiveCfg = Debug|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Debug|x86.Build.0 = Debug|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Release|Any CPU.ActiveCfg = Release|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Release|Mixed Platforms.Build.0 = Release|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Release|x86.ActiveCfg = Release|x86
+		{DBE2E8FA-FCAF-4344-9458-C15E5E8535BC}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B1DB499C-070F-4D39-9033-B7A60273A8AB}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

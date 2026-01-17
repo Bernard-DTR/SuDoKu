@@ -1,0 +1,253 @@
+﻿Option Strict On
+Option Explicit On
+
+Friend Module M03_Sélection
+  '-------------------------------------------------------------------------------
+  ' Traitement de la Sélection 
+  '-------------------------------------------------------------------------------
+
+  Sub Cell_Val_Insert(V As String, Cellule As Integer, Origine As String)
+    ' 01  Les Conditions d'Insertion
+    If Cellule < 0 Or Cellule > 80 Then Exit Sub
+    If U(Cellule, 2) <> " " Then Exit Sub
+    If (V < "1") Or (V > "9") Then Exit Sub
+    If Plcy_Gnrl = "Edi" Then Exit Sub
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
+    Game_Undo_Redo = "Normal"
+    Dim Av_Jeu As String = Act_Jeu()
+    Dim Av_AllCdd As String = Act_Candidats()
+    Dim Candidats_Avant As String = U(Cellule, 3)
+
+    ' 02  L'insertion dans les ressources
+    Select Case Plcy_Gnrl
+      Case "Nrm"
+        If Plcy_Solution_Existante = True And V = U_Sol(Cellule) _
+        Or Plcy_Solution_Existante = False Then
+          U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
+          U_CddExc(Cellule) = Cnddts_Blancs
+          Cdd_Remove_Cell_Coll_IA(U, Cellule)
+          Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
+        End If
+        If Plcy_Solution_Existante = True And V <> U_Sol(Cellule) Then
+          Insertion_Exclusion_Nb_Erreurs += 1
+          Act_Add(Cellule, "? Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
+        End If
+        Pbl_Cell_Candidat_CdS = V
+      Case "Sas"
+        U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
+    End Select
+
+    ' 03  L'affichage du résultat
+    '     Traitements communs
+    '     L'insertion ne concerne qu'une cellule à la fois
+    Pbl_Cell_Select = Cellule
+    Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+    Dim Gril As New Grille_Cls
+    Select Case Plcy_Gnrl
+      Case "Nrm"
+        Select Case Plcy_Strg
+          Case "   "
+            Gril.G3_Grille_Paint_Indirecte()
+            G4_Grid_Stratégie_All()
+            sc.Cellule_Refresh()
+          Case Else
+            If Plcy_AideGraphique Then
+              Gril.Grille_Refresh()
+            End If
+            If Not Plcy_AideGraphique Then
+              Gril.G3_Grille_Paint_Indirecte()
+              sc.Cellule_Refresh_Cell_Coll()
+            End If
+        End Select
+      Case "Sas"
+        Gril.G3_Grille_Paint_Indirecte()
+        sc.Cellule_Refresh()
+    End Select
+
+    ' Traitements communs
+    ' 04  La cellule est sélectée
+    sc.G7_Cellule_Paint_Select()
+    Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+
+    Insert_Nb_Cell += 1
+    'Lors de chaque insertion, si la mode Suggestion est actif, alors Pzzl_Suggest est lancé
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 Then
+      'Affiche du coup dans la zone Info l'explication de la suggestion
+      Cell_Slv_Interactif("S", "Mode Suggestion")
+    Else
+      Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00113", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    End If
+
+    ' 05 Fin de partie
+    If Wh_Nb_Cell(U).Remplies = 81 Then
+      Strategy_Dsp_Standard()
+      Gril.G8_Grille_Partie_Terminée()
+      Gril.Grille_Refresh()
+    End If
+  End Sub
+
+  Sub Cell_Val_Delete(Cellule As Integer, Origine As String)
+    'Avant toute modification
+    Dim Av_Jeu As String = Act_Jeu()
+    Dim Av_AllCdd As String = Act_Candidats()
+    Game_Undo_Redo = "Normal"
+    Dim VE As String = U(Cellule, 2)        'Valeur effacée  
+
+    If Plcy_Gnrl = "Edi" Then Exit Sub
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
+    Pbl_Cell_Select = Cellule
+    Select Case Plcy_Gnrl
+      Case "Nrm"
+        U(Cellule, 2) = " "
+        U(Cellule, 3) = Cnddts
+        U_CddExc(Cellule) = Cnddts_Blancs
+        'Remettre le candidat enlevé VE dans les cellules collatérales
+        Dim Grp() As Integer = U_20Cell_Coll(Cellule)
+        For g As Integer = 0 To UBound(Grp)
+          If U(Grp(g), 2) <> " " Then Continue For
+          If U(Grp(g), 3).Contains(VE) = False Then
+            Dim Candidats As String = U(Grp(g), 3)
+            Mid$(Candidats, CInt(VE), 1) = VE
+            U(Grp(g), 3) = Candidats
+          End If
+        Next g
+        'Remet l'ensemble des Cdd, qui sont ensuite enlevés à/p des actions de A
+        Grid_Cdd_Remove_Cell_Coll_IA(U)
+      Case "Sas"
+        U(Cellule, 2) = " "
+        U(Cellule, 3) = Cnddts_Blancs
+    End Select
+    Act_Add(Cellule, "Effacer", VE, Cnddts_Blancs, Origine, Av_Jeu, Av_AllCdd)
+    '"#426
+    'Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00112", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides)})
+    Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00113", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+
+    Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+    'Affiche la grille avec la valeur effacée 
+    Dim Gril As New Grille_Cls
+    Gril.Grille_Refresh()
+    Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+    sc.G7_Cellule_Paint_Select()
+  End Sub
+
+  Sub Cell_Cdd_Insert(V As String, Cellule As Integer, Origine As String)
+    'Le candidat est enlevé des candidats U(Cellule,3)
+    '   ET       est ajouté dans les candidats Exclus U_CddExc(Cellule)
+    If Plcy_Gnrl = "Edi" Then Exit Sub
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
+
+    Try
+      'Avant toute modification
+      Game_Undo_Redo = "Normal"
+      Dim Av_Jeu As String = Act_Jeu()
+      Dim Av_AllCdd As String = Act_Candidats()
+
+      Dim Candidats As String = U(Cellule, 3)
+      Dim Candidats_Exclus As String = U_CddExc(Cellule)
+      Mid$(Candidats, CInt(V), 1) = V
+      Mid$(Candidats_Exclus, CInt(V), 1) = " "
+      U(Cellule, 3) = Candidats
+      U_CddExc(Cellule) = Candidats_Exclus
+      ' Evite le message pour les cellules déjà remplies
+      If U(Cellule, 1) <> " " Then Act_Add(Cellule, "Replacer" & Origine, V, Candidats_Exclus, Procédure_Name_Get(), Av_Jeu, Av_AllCdd)
+      Pbl_Cell_Select = Cellule
+      Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+      Dim Gril As New Grille_Cls
+      'G3_Grille_Paint_Indirecte()
+      Gril.G3_Grille_Paint_Indirecte()
+      sc.Cellule_Refresh()
+    Catch ex As Exception
+      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+    End Try
+
+    'Lors de chaque insertion, si la mode Suggestion est actif, alors Pzzl_Suggest est lancé
+    ' Insertion d'une valeur   Cell_Val_Insert
+    ' Insertion d'un  candidat Cell_Cdd_Insert
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 Then
+      'Affiche du coup dans la zone Info l'explication de la suggestion
+      Cell_Slv_Interactif("S", "Mode Suggestion")
+    End If
+  End Sub
+
+  Sub Cell_Cdd_Exclude(V As String, Cellule As Integer)
+    If Plcy_Gnrl = "Edi" Then Exit Sub
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
+    Try
+      If U(Cellule, 3).Contains(V) = False Then Exit Sub
+      Game_Undo_Redo = "Normal"
+      'Avant toute modification
+      Dim Av_Jeu As String = Act_Jeu()
+      Dim Av_AllCdd As String = Act_Candidats()
+
+      Dim Candidats As String = U(Cellule, 3)
+      If Plcy_Solution_Existante = True And V <> U_Sol(Cellule) _
+      Or Plcy_Solution_Existante = False Then
+        Dim Candidats_Exclus As String = U_CddExc(Cellule)
+        Mid$(Candidats, CInt(V), 1) = " "
+        Mid$(Candidats_Exclus, CInt(V), 1) = V
+        U(Cellule, 3) = Candidats
+        U_CddExc(Cellule) = Candidats_Exclus
+        '18/11/2025
+        'Act_Add(Cellule, "Exclure_Cdd", V, Candidats, Procédure_Name_Get(), Av_Jeu, Av_AllCdd)
+        Act_Add(Cellule, "Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
+      End If
+      If Plcy_Solution_Existante = True And V = U_Sol(Cellule) Then
+        Insertion_Exclusion_Nb_Erreurs += 1
+        '18/11/2025
+        'Act_Add(Cellule, "? Exclure_Cdd", V, Candidats, Procédure_Name_Get(), Av_Jeu, Av_AllCdd)
+        Act_Add(Cellule, "? Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
+      End If
+      Pbl_Cell_Select = Cellule
+      Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+      Dim Gril As New Grille_Cls
+      Gril.G3_Grille_Paint_Indirecte()
+      sc.Cellule_Refresh()
+    Catch ex As Exception
+      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+    End Try
+  End Sub
+
+  Public Function Cdd_Remove_Cell_Coll_IA(ByRef U_temp(,) As String, Cellule As Integer) As Integer
+    ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales
+    ' Retourne le nombre de cellules dans lesquelles un candidat a été enlevé 
+    '         -1 en cas d'erreur
+    ' Le tableau U_temp des cellules est passé en ByRef, car il sort modifié de la fonction 
+
+    Dim nb As Integer = 0
+    If Cellule < 0 Or Cellule > 80 Then
+      Return -1
+    End If
+
+    Dim Valeur As String = U_temp(Cellule, 2)
+    If Valeur = " " Then
+      Return 0
+    End If
+
+    Dim Grp() As Integer = U_20Cell_Coll(Cellule)
+
+    For Each Cell_Coll As Integer In Grp
+      ' Si la cellule collatérale a déjà une valeur, continuer
+      If U_temp(Cell_Coll, 2) <> " " Then Continue For
+
+      ' Enlever la valeur des candidats de la cellule collatérale
+      Dim Candidats As String = U_temp(Cell_Coll, 3)
+      If Candidats.Substring(CInt(Valeur) - 1, 1) = Valeur Then
+        ' Remplacer la valeur par un espace
+        Mid$(Candidats, CInt(Valeur), 1) = " "
+        U_temp(Cell_Coll, 3) = Candidats
+        nb += 1
+      End If
+    Next Cell_Coll
+
+    Return nb
+  End Function
+
+  Public Sub Grid_Cdd_Remove_Cell_Coll_IA(ByRef U_temp(,) As String)
+    ' 17/10/2024 Suppression des valeurs des cellules collatérales de toute la grille
+    For i As Integer = 0 To 80
+      Cdd_Remove_Cell_Coll_IA(U_temp, i)
+    Next i
+  End Sub
+End Module

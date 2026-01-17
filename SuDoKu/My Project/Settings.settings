@@ -1,0 +1,161 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="Prf_00_Onglet_Sélecté" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="LP_Nom" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Sudoku_Paramètres</Value>
+    </Setting>
+    <Setting Name="LP_Prb" Type="System.String" Scope="User">
+      <Value Profile="(Default)">080000500000407000003000020004050030030900806700002000000100003905004070010020900</Value>
+    </Setting>
+    <Setting Name="LP_Jeu" Type="System.String" Scope="User">
+      <Value Profile="(Default)">080000500000407000003000020004050030030900806700002000000100003905004070010020900</Value>
+    </Setting>
+    <Setting Name="LP_Sol" Type="System.String" Scope="User">
+      <Value Profile="(Default)">489263517251487369673519428194658732532971846768342195847196253925834671316725984</Value>
+    </Setting>
+    <Setting Name="LP_Frc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="LP_Numéro" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">348</Value>
+    </Setting>
+    <Setting Name="SDK_IE_Last_Url" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="Prf_01C_Taille_Cellule" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Prf_02C_Create_Nb_Cel_Demandées" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="LP_Plcy_Gnrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Nrm</Value>
+    </Setting>
+    <Setting Name="LP_Cdd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</Value>
+    </Setting>
+    <Setting Name="LP_Numéro_Hodoku" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="Prf_01C_Fond_Grille" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Prf_01C_Clr_ComboBoxVI" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+    <Setting Name="Prf_01C_Clr_ComboBoxVCdd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Green</Value>
+    </Setting>
+    <Setting Name="DGV_Dictionnaire_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100;100;100;100;100;100;100;100;100;</Value>
+    </Setting>
+    <Setting Name="DGV_CodT_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100;100;100;100;100;100;100;100;100;</Value>
+    </Setting>
+    <Setting Name="DGV_MotT_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100;100;100;100;100;100;100;100;100;</Value>
+    </Setting>
+    <Setting Name="Sql_TB_MotT_Input" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DGV_PrcT_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100;100;100;100;100;100;100;100;100;</Value>
+    </Setting>
+    <Setting Name="DGV_MsgT_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100;100;100;100;100;100;100;100;100;</Value>
+    </Setting>
+    <Setting Name="Sql_TB_PrcT_Input" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Sql_TB_MsgT_Input" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DGV_MotTRéservés_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100;100;100;100;100;100;100;100;100;</Value>
+    </Setting>
+    <Setting Name="Connect" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;Data Source=HPOMEN16\SQLEXPRESS;Initial Catalog=SuDoKu;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=HPOMEN16\SQLEXPRESS;Initial Catalog=SuDoKu;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="LP_CddExc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</Value>
+    </Setting>
+    <Setting Name="DGV_PrmT_Width" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Prf_05D_Plcy_Globale" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Prf_01C_MouseClick_Middle" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Prf_02C_Plcy_Batch_Generate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Prf_02C_Nb_Batch_Generate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="SDK_Partie_Test" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Développement\SuDoKu_2023\S50_SDK\Etude\UOBTXYSJZQ\SDK_UO----SJ--EC_01.txt</Value>
+    </Setting>
+    <Setting Name="Sql_TB_CodT_Input" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Prf_02C_Create_Chat" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Prf_02C_Create_Nb_Tentatives" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="Prf_02C_Create_Contrainte" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Format_DAB" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Thème_Clr" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Prf_05D_Plcy_Dancing_Link" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Prf_05D_Plcy_Open_Display" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Prf_02C_Nb_Max_Dl" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="Date_Extraction" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Prf_05D_Plcy_AfficherDCdd_Bande" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Prf_03R_Plcy_Stg_Clb" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NNNNNNNNNN</Value>
+    </Setting>
+    <Setting Name="Obj_Colors" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Obj_Symbol" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A</Value>
+    </Setting>
+    <Setting Name="Obj_Forme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Carré</Value>
+    </Setting>
+    <Setting Name="Prf_08H_Flèche" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="Prd_Number" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">700</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

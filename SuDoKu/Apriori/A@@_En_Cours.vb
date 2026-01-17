@@ -1,0 +1,53 @@
+﻿Option Strict On
+Option Explicit On
+
+Friend Module En_Cours
+#Region "Menus Test A à J"
+  Public Sub TestA()
+    Jrn_Add(, {Procédure_Name_Get()})
+    Pzzl_Crt_Interactif_81("P")
+  End Sub
+  Public Sub TestB()
+    Jrn_Add(, {Procédure_Name_Get()})
+    If Batch_en_Cours Then Exit Sub
+    If Plcy_Generate_Batch Then
+      Jrn_Add(, {"Lancement du traitement de création de grille en arrière-plan"})
+      Frm_SDK.Batch_Timer.Interval = 5000
+      'Process_16x est un png 16x16 32 bits
+      'Me.Mnu08.Size = New System.Drawing.Size(98, 32)
+      Frm_SDK.Mnu08.Image = SuDoKu.My.Resources.Resources.Process_16x
+      Frm_SDK.Mnu08.Font = New Font(Frm_SDK.Mnu08.Font, FontStyle.Italic)
+      Batch_Initial()
+    Else
+      Jrn_Add(, {"L'option Plcy_Generate_Batch est unabled."})
+    End If
+  End Sub
+  Public Sub TestC()
+    Jrn_Add(, {Procédure_Name_Get()})
+  End Sub
+  Public Sub TestD()
+    Jrn_Add(, {Procédure_Name_Get()})
+  End Sub
+  Public Sub TestE()
+    Jrn_Add(, {Procédure_Name_Get()})
+  End Sub
+  Public Sub TestF()
+    Jrn_Add(, {Procédure_Name_Get()})
+  End Sub
+  Public Sub TestG()
+    Jrn_Add(, {Procédure_Name_Get()})
+  End Sub
+  Public Sub TestH()
+    Jrn_Add(, {Procédure_Name_Get()})
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Jrn_Add_Red(Pzzl_Slv_UO(U_temp).ToString)
+  End Sub
+  Public Sub TestI()
+    Jrn_Add(, {Procédure_Name_Get()})
+  End Sub
+  Public Sub TestJ()
+    Jrn_Add(, {Procédure_Name_Get()})
+  End Sub
+#End Region
+End Module

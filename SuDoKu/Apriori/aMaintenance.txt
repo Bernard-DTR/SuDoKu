@@ -1,0 +1,182 @@
+﻿#300 J  04/09/2025  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                   28773 Lignes de code pour 80 fichiers. dont 4757 Lignes de commentaires (soit):  17%
+                    2020 Lignes vides. 
+                   23139 Lignes de Code. 
+                    5634 Lignes Designer. 
+                       7 cahiers de 192 pages de 22 lignes.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                   SDK fonctionne sur HPOmen16, IA est sollicité, Dl est généralisé, il existe un standard de stockage,
+                   9 stratégies de Liens sont opérationnelles
+
+#301 J  04/09/2025 Menu Fichier_Abandon de Export de la partie sous Excel
+                   Suppression de l'option et de l'icône
+                   Pzzl_Excel_Export()
+#302 J  04/09/2025 Enregistrer le journal est désormais une seule option en RTF systématiquement
+#303               Menu Edition, modification des textes et abandon de l'option Coller NKH
+#304               Menu Affichage, pas de modifications
+#305               Menu Stratégies
+#306               Stg_List.Add(New Stg_Cls("Cdd", "C", "E", "C", "Stratégie des Candidats")), puis abandon
+#307               Cdd Stratégie des Candidats Btn_Cdd et Mnu04n_Cdd
+#308               CdU Stratégie des Candidats Btn_CdU et Mnu04n_CdU
+#309               Les boutons de la Barre d'outils sont corrigés
+#310               Les stratégies "classiques" et les 5 stratégies X sont corrigées
+#311 V  05/09/2025 Les stratégies Wing sont en place
+#312               Le Menu Stratégies est terminé et conserve Suggérer, Résoudre une cellule, mode Suggestion
+#313 V  05/09/2025 Les menus sont en place
+#314 D  07/09/2025 Les menus sont en place et sont opérationnels
+#315 L  08/09/2025 Le lettre des stratégies X&W passe de # à L
+#316               Plcy_Strg = "Cdd" est utilisé 3 fois 
+                               G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd() 
+                               Frm_SDK_MouseClick_Left( 
+                               Mnu_Mngt_Conditions_Générales
+#317               Stg_List.Add(New Stg_Cls("Cdd", "C", "O", "F", "C", "Stratégie des Candidats")) Résultat correct
+#318 Ma 09/09/2025 Ajout des listes dans Stg_List_Display
+#319 J  11/09/2025 Strategy DCd
+                   Utilisation des signets et #319
+                   Il existe une stratégie DCd et un programme qui les calcule Strategy_DCd(U_temp)
+                   l'option qui présente les résultats affiche une erreur !
+                   Stg_List.Add(New Stg_Cls("DCd", "D", "N", "I", "F", "Stratégie des Derniers Candidats"))
+                   L'erreur est corrigée lors de l'affichage de la stratégie DCd
+                   Dim Bandes As New Dictionary(Of Integer, String) From {{0, "Bh0"}, {1, "Bh1"}, {2, "Bh2"}, {3, "Bv0"}, {4, "Bv1"}, {5, "Bv2"}}
+#320 D  14/09/2025 La stratégie DCd comporte également CdU et CdO
+#321               Les flèches sont enlevées lors de l'affichage des filtres des candidats
+                   Les cadres sont enlevés lors de l'affichage des candidats si la cellule comporte 2 candidats et Aide_Graphique
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+                   Version 2026
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+#400 D  12/10/2025 Les plcy Edi et Obj (Edition de la grille et dissiner sur la grille) sont ajouter à la liste des stratégies
+#401               Lorsqu'une grille a une solution, si on est en mode normal
+                   l'insertion d'une valeur est effectuée si la valeur correspond à la solution
+                   le même test est effectué pour la suppression d'un candidat.
+#402 J  16/10/2025 Les options de démonstration Options / Stratégie X sont corrigées et perdent l'information 2025
+#403               Jouer une Partie FMDE (Option 1/4)
+#404 V  17/10/2025 Pzzl_Save1 enregistrement d'une partie avec modification du nom
+#405               Mise en place dans la création d'un puzzle interactivement.
+#406               Le répertoire \Interactif est devenu inutile
+#407               Création d'un puzzle E : SDK_E_00058.txt (Lire les commentaires)
+#408               Mise en place dans la création d'un puzzle en arrière_plan
+#409 S  18/10/2025 Ajout de Event_OnPaint sur Batch_Sudoku
+#410 L  20/10/2025 Mise en place pour la création d'un puzzle avec d'autres VI
+#411 Me 22/10/2025 Option de lancement de création de grille en arrière plan
+#412 J  23/10/2025 Le nombre de grilles est plafonné à la valeur du stock
+#413 D  26/10/2025 Ajout de Trace_On_Paint dans 3 cas pour contrôle et de MyBase.OnPaint(e)
+#414 L  27/10/2025 Déplacement de Event_OnPaint de Frm_SDK à A00_Public
+#415 Me 29/10/2025 Contrôle de l'activité de calcul en arrière-plan lorsqu'on arrête Sudoku
+#416 V  31/10/2025 Ajout du raccourci Ctrl + X pour lancer le calcul de grilles en arrière plan.
+#417 V  31/10/2025 Mise en place de "C:\Développement\SuDoKu_2026\S50_SDK\Sudoku.jrn"
+#418 D  02/11/2025 Expérimentation de l'affichage des liens forts avec Xbl
+#419 L  10/11/2025 Mise en place de Xbl, y compris dans Outils 
+#420 Me 12/11/2025 Chaque Stratégie productive Event_OnPaint = "Stratégie_X" Frm_SDK.Invalidate()
+#421               Mise en place de Xbv  
+#422               Mise en place du menu d'un menu de suppression des candidats des stratégies X
+#423               Ajout de l'option de visualisation du journal général.
+#424 J  13/11/2025 Ajout de l'exemple XBv
+#425               Suppression du répertoire GSP_Sudoku
+                   (Application DOS, je garde le fichier des grilles)
+#426 V  14/11/2025 Affichage du nombre de candidats
+#427               Ajout de coordonnées Blk/Numéro (Denis Berthier)
+#428 S  15/11/2025 Si devenv est lancé (maintenance de Sudoku), le processus de génération de grilles peut être évité.
+#429               la Taille du Dictionnaire est correcte
+#430 D  16/11/2025 Stratégie du DCdd
+#431 L  17/11/2025 Utilisation de Cell_FY_List dans DCdd, mise en place définitive de DCdd
+                   Construction de la list
+                   Utilisation dans DCdd
+#432 Ma 18/11/2025 Mise en place de Public Function Stg_Get(Code As String) As Stg_Cls 
+                   pour remplacer Stg_Lettre/Type/Texte_ByCode
+#433 Me 19/11/2025 Dim DCdd2 As DCdd_Cls = DCdd_Get(Pbl_Cell_Select) 
+#434               Les valeurs des stratégies dans Stg_List sont standardisées
+#435               Stg_Get(Plcy_strg).Type remplace Stg_Type_ByCode(Plcy_strg)
+#436 J  20/11/2025 Installation de la 17.14.21                   
+#437               Stg_Get("abc").Lettre remplace Stg_Lettre_ByCode("abc")
+#438 J  20/11/2025 Suppression des fonctions Stg_Lettre/Texte_ByCode                   
+#439 J  20/11/2025 Mise en place de Stratégies_X_End() pour les 11 stratégies X                   
+#440 V  21/11/2025 Les boutons des stratégies sont grisés si les stratégies ne sont pas cochées
+#441               Option Edition/Copier les Candidats
+#442               Pzzl_Load_Partie_Test enregistre les candidats dans PR_Cdd
+#443               Pzzl_Open charge les candidats de PR_Cdd  
+#444 S  22/11/2025 Message si devenv est lancé Oui/Non au lieu de OK/Annuler
+#445 D  24/11/2025 Prise en charge de PR_Cdd dans le chargement d'une partie test
+#446 Ma 25/11/2025 Nouvelle stratégie XCs optimisée
+#447 Me 26/11/2025 Ajout d'une durée de calcul dans la structure XRslt
+#448               Comparaison des 2 solutions de Coloration simple. OK (Distinction entre l'index et le compteur)
+#449 Me 26/11/2025 Le formulaire du Dictionnaire a un menu système 
+#450               Test des différentes coloration de Hodoku. OK
+#451 J  27/11/2025 Mise en place de la nouvelle stratégie Coloration Simple XCs
+#452               Comment se déplacer à la fin du journal général et du journal de maintenance ? OK
+#453 V  28/11/2025 Mise en place définitive du test de la limite atteinte  
+#454 S  29/11/2025 Je place la classe XLink_Cls dans Modèle/XLink_Cls.vb
+#455 L  01/12/2025 Mise en place de la DFS Anfreas Soularidis
+#456 L  01/12/2025 ClipBoard_Copier est devenu une fonction
+#457 Ma 02/12/2025 Les stratégies bv et bl sont regroupées dans un module propre.
+#458 Ma 02/12/2025 Travail sur la stratégie DFS, affichage des noeuds et des branches   
+#459 V  05/12/2025 Mise en place de la stratégie CdS Candidat Saisi
+#460 V  05/12/2025 Strategy_Dsp(strategyCode As String, action As Action) pour CdO et CdU et FLT
+#461 S  06/12/2025 Strategy_Dsp(strategyCode As String, action As Action) en place
+#462 S  06/12/2025 Mise en place d'un dossier Apriori pour les modules toujours utilisés
+#463 D  07/12/2025 Ajout de la liste des objets dans Dessiner sur la grille
+#464 L  08/12/2025 La version V0 de la coloration simple est correcte
+#465 L  08/12/2025 Abandon de la version V1 Construction + Vérification
+#466 Me 10/12/2025 J'ai compris la construction du graphe de la coloration simple
+#467 Me 10/12/2025 Séparation d'un traitement de vérification XCs    en 2 fonctions
+#468 L  15/12/2025 Mise en place de la stratégie GCs Coloration Simple, beaucoup plus rapide
+#469 J  18/12/2025 Création de la fonction Pzzl_Slv_UO(U_temp)qui indique si une grille peut être résolu en CdU-CdO
+#470 L  22/12/2025 Affichage des liens forts avec GLink_Cls
+#471 Me 24/12/2025 Affichage des liens bi-locaux (Candidats bloqués) avec GLink_Cls
+#472 J  25/12/2025 Affichage des liens bi-values avec GLink_Cls
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+                   Version 2026_O1 #500
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+                   30195 Lignes de code pour 87 fichiers. dont 5225 Lignes de commentaires (soit):  17%
+                    2205 Lignes vides. 
+                   24544 Lignes de Code. 
+                    5651 Lignes Designer. 
+                       7 cahiers de 192 pages de 22 lignes.
+#500 J  01/01/2026 Affichage de la date avec une majuscule pour le nom du jour
+#501 J  01/01/2026 Mise en place de la Coloration Simple (DFS + Nouveaux Noms)
+#502               La stratégie est actuellement GCt et sera à terme GCs
+#503               Les informations de volumétrie sont ajoutées à GRslt
+#504               Informations d'utilisation mémoire
+#505 J  01/01/2026 Tests satisfaisants
+#506 J  01/01/2026 Suppression de la version XCs
+                   Ancienne Coloration Simple Extension Option J 
+                   Plcy_Strg = "XCs"
+                   Strategy_XCs(U_temp)
+#507 J  01/01/2026 Suppression de la version GCs
+#508 V  02/01/2026 GLk_Affichage des liens forts
+                   Informations complémentaires dans GRslt
+                   Candidats de début et fin de liens en bleu
+                   Candidats de la stratégie en cerclés blancs s'il y a un seul candidat
+#509 V  02/01/2026 Gbl_Affichage des bi-locaux
+                   Gbl remplace Xbl, l'affichage est revu 
+#510 V  02/01/2026 Gbv_Affichage des bi-values. Ils s'agit de liens forts.
+                   Gbv remplace Xbv, l'affichage est revu en liens forts
+#511 V  02/01/2026 GCs Coloration simple 
+#512 V  02/01/2026 GCs remplace GCt, alternance des couleurs avec la première et la dernière
+                   GCs l'alternance des couleurs peut-elle être traitée autrement ?
+                   Comprendre le code Trap 
+                   Mettre à jour le rapport
+#513 V  02/01/2026 Suppression de code inutilisé et regroupement de code
+#514 S  03/01/2026 Correction affichage des liens G4_Grid_Stratégie_Gbv()
+#515 S  03/01/2026 Indication du nom du fichier lors de l'enregistrement du journal
+#516 J  08/01/2026 Correction de la couleur du dernier lien fort de la stratégie GCs
+#517 J  08/01/2026 Mise en place dans le menu Graphe de l'exécution des stratégies et de la suppression des candidats
+#518 L  12/01/2025 Git / GitHub
+#519 Me 14/01/2026 Choix d'une partie au hasard dans le stock de grilles                   
+#520 J  15/01/2026 Problème 1 - Abandon 
+#521               Frm_Grp passe de 82 occurences à 50 
+#522               Ajout de SetStyle(ControlStyles.UserPaint Or ControlStyles.AllPaintingInWmPaint, True)
+#523               Abandon de Journal_Add
+#524 V  16/01/2026 Suppression des occurences de Frm_Grp.
+#525 V  16/01/2026 Amélioration des fonction Paint_Fonds, Valeurs et Candidats
+
+##############################################################################################################################
+
+	               Il y a une nouvelle erreur dans le calcul de résolution d’une partie E
+	               Lors de la saisie, est-ce que DL est calculé
+	               Comment traiter les écarts entre ma solution et celle de DL ?
+	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
+	               Ajouter un rafraîchissement de la grille à chaque évènement de Frm_SDK
+                       Revoir le traitement en arrière-plan si on est en mode de maintenance
+
+##############################################################################################################################
