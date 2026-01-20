@@ -1494,7 +1494,7 @@ Public NotInheritable Class Frm_SDK
     Mnu01_Commencer.Enabled = True
   End Sub
   Private Sub Mnu06_SudokuPCA_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuPCA.Click
-    Dim Shell_St As String = Path_SDK & "\S95_AutresJeux\PCA_Sudoku\Sudoku.exe"
+    Dim Shell_St As String = Path_SDKAJ & "PCA_Sudoku\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1503,7 +1503,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_SudokuAngusJohnson_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuAngusJohnson.Click
-    Dim Shell_St As String = Path_SDK & "S95_AutresJeux\SimpleSudoku\simplesudoku.exe"
+    Dim Shell_St As String = Path_SDKAJ & "SimpleSudoku\simplesudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1512,7 +1512,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_SudokuDarrenColes_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuDarrenColes.Click
-    Dim Shell_St As String = Path_SDK & "S95_AutresJeux\WinSudoku\Sudoku.exe"
+    Dim Shell_St As String = Path_SDKAJ & "WinSudoku\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1522,7 +1522,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu06_SudokuPatriceHenrion_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuPatriceHenrion.Click
     'Ligne de commande /p lance le jeu en petite taille
-    Dim Shell_St As String = Path_SDK & "S95_AutresJeux\SudokuPH\Sudoku.exe /p"
+    Dim Shell_St As String = Path_SDKAJ & "SudokuPH\Sudoku.exe /p"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1557,7 +1557,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_SudokuFedynaK_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuFedynaK.Click
     'Lancement Grille Python + Escape + Entrée
     Dim Grille As String = LP_Prb.Replace(" ", "0")
-    Dim Shell_St As String = "C:\Users\berna\AppData\Local\Programs\Python\Python313\pythonw.exe " & Path_SDK & "S95_AutresJeux\Python\FedynaK\Sudoku_FedynaK\Sudoku_FedynaK.py " & Grille
+    Dim Shell_St As String = "C:\Users\berna\AppData\Local\Programs\Python\Python313\pythonw.exe " & Path_SDKAJ & "Python\FedynaK\Sudoku_FedynaK\Sudoku_FedynaK.py " & Grille
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
@@ -1581,7 +1581,7 @@ Public NotInheritable Class Frm_SDK
     End If
   End Sub
   Private Sub Mnu06_SudoCue_Click(sender As Object, e As EventArgs) Handles Mnu06_SudoCue.Click
-    Dim Shell_St As String = Path_SDK & "S95_AutresJeux\SudoCue\SudoCue.exe"
+    Dim Shell_St As String = Path_SDKAJ & "SudoCue\SudoCue.exe"
 
     Jrn_Add(, {Shell_St})
     Try
@@ -1595,16 +1595,18 @@ Public NotInheritable Class Frm_SDK
     ClipBoard_Copier_New("1") ' Copier les valeurs initiales de SDK
     Dim Processing As New Process()
     Processing.StartInfo.FileName = "cmd.exe"
-    Processing.StartInfo.Arguments = "/c """ & Path_SDK & "S95_AutresJeux\DiufSudoku\gui.bat"""
+    Processing.StartInfo.Arguments = "/c """ & Path_SDKAJ & "DiufSudoku\gui.bat"""
     'gui.bat comporte java -Xms512m -Xmx2G -jar dist\DiufSudoku.jar SudokuExplainer.log
-    Processing.StartInfo.WorkingDirectory = Path_SDK & "S95_AutresJeux\DiufSudoku"
+    Processing.StartInfo.WorkingDirectory = Path_SDKAJ & "DiufSudoku"
     Processing.StartInfo.CreateNoWindow = False ' True = cacher la fenêtre noire
     Processing.StartInfo.UseShellExecute = False
     Processing.Start()
   End Sub
 
   Private Sub Mnu06_MUDancingLink_Click(sender As Object, e As EventArgs) Handles Mnu06_MUDancingLink.Click
-    Dim Shell_St As String = Path_SDK & "\S95_AutresJeux\Dancing_Link\Dancing_Links_Library_100\Dancing_Links_Library\Dancing_Links_Library\bin\Debug\Dancing_Links_Library.exe"
+    ClipBoard_Copier_New("1") ' Copier les valeurs initiales de SDK
+
+    Dim Shell_St As String = Path_SDKAJ & "Dancing_Link\Dancing_Links_Library_100\Dancing_Links_Library\Dancing_Links_Library\bin\Debug\Dancing_Links_Library.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1627,7 +1629,7 @@ Public NotInheritable Class Frm_SDK
     End Using
   End Sub
   Private Sub Mnu06_ClassicSudoku_Click(sender As Object, e As EventArgs) Handles Mnu06_ClassicSudoku.Click
-    Dim Shell_St As String = Path_SDK & "S95_AutresJeux\CP_Sudoku\SudokuSolver_src\SudokuSolver src\bin\Debug\SudokuSolver.exe"
+    Dim Shell_St As String = Path_SDKAJ & "CP_Sudoku\SudokuSolver_src\SudokuSolver src\bin\Debug\SudokuSolver.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1636,7 +1638,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_SudokuSolver_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuSolver.Click
-    Dim Shell_St As String = Path_SDK & "S95_AutresJeux\Planete\VB_Net_Sud1916447222005\Sudoku\bin\Sudoku.exe"
+    Dim Shell_St As String = Path_SDKAJ & "Planete\VB_Net_Sud1916447222005\Sudoku\bin\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1645,7 +1647,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_MicrosoftSudoku_Click(sender As Object, e As EventArgs) Handles Mnu06_MicrosoftSudoku.Click
-    Dim Shell_St As String = Path_SDK & "S95_AutresJeux\Sudoku_VisualBasic\bin\Debug\Sudoku.exe"
+    Dim Shell_St As String = Path_SDKAJ & "Sudoku_VisualBasic\bin\Debug\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1654,7 +1656,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_HHSudokuGame_Click(sender As Object, e As EventArgs) Handles Mnu06_HHSudokuGame.Click
-    Dim Shell_St As String = Path_SDK & "S95_AutresJeux\SudokuGame\SudokuGame\bin\Debug\SudokuPuzzle.exe"
+    Dim Shell_St As String = Path_SDKAJ & "SudokuGame\SudokuGame\bin\Debug\SudokuPuzzle.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)

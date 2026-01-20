@@ -49,6 +49,7 @@ Friend Module A01_OnlyOnce
     Path_Batch = Path_SDK & "S50_SDK\Batch\"
     Path_Batch_Poubelle = Path_SDK & "S50_SDK\Batch_Poubelle\"
     Path_Save = Path_SDK & "S50_SDK\"
+    Path_SDKAJ = Path2 & Base_Folder & "_S95\"
     File_SDKDoc = Path_SDK & "S01_Documentation\Rapport.docx"
     File_ValUsi = Path_SDK & "S20_Initial\Valeurs_Initiales.ini"
 

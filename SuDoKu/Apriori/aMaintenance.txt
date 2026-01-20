@@ -169,6 +169,12 @@
 #523               Abandon de Journal_Add
 #524 V  16/01/2026 Suppression des occurences de Frm_Grp.
 #525 V  16/01/2026 Amélioration des fonction Paint_Fonds, Valeurs et Candidats
+#526 L  19/01/2026 Clash GitHub
+#527 Ma 20/01/2026 Séparation de S95_Autres_Jeux 
+#528               Correction des 5 appels d'application VB.Net
+
+
+
 
 ##############################################################################################################################
 

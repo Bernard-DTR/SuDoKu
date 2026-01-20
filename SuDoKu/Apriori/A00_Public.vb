@@ -12,7 +12,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_01_01 #525"
+  Public SDK_Version As String = "V2026_01_01 #528"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -56,6 +56,7 @@ Module A00_Public
   Public Path_Batch As String
   Public Path_Batch_Poubelle As String
   Public Path_Save As String
+  Public Path_SDKAJ As String
   Public File_SDKDoc As String
   Public File_ValUsi As String
   Public File_Journal As String
