@@ -174,7 +174,7 @@
 #528               Correction des 5 appels d'application VB.Net
 #529 Ma 20/01/2026 Reprise de la gestion de g avec OnPaint
 #530 Ma 20/01/2026 OnPaint appelle Grille_Refresh_g(g As Graphics)
-
+#531 Ma 20/01/2026 Grille_Refresh_g(g As Graphics) appelle G1_Grid_Paint_g(g)
 
 
 

@@ -516,7 +516,7 @@ Public Class Grille_Cls
   Public Sub Grille_Refresh_g(g As Graphics)
     'La grille est rafraîchie entièrement, aucune cellule n'est sélectée
     Jrn_Add_Yellow(Procédure_Name_Get())
-    G1_Grid_Paint()
+    G1_Grid_Paint_g(g)
     Dim Gril As New Grille_Cls
     Gril.G2_Grille_Paint_Fond()
     G4_Grid_Stratégie_All()
