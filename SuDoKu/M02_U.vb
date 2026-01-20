@@ -33,41 +33,6 @@ Module M02_U
     End Select
     Return U_Coord
   End Function
-  Function U_Coord_DB(Cellule As Integer) As String
-    'U_Coord_DB (Denis Berthier) propose le Blk et le Numéro du Carré dans le Blk
-    Dim Row As Integer = U_Row(Cellule)
-    Dim Col As Integer = U_Col(Cellule)
-    Dim Blk As Integer = CInt(1 + (3 * Int(Row / 3)) + Int(Col / 3))
-    Dim Nuc As Integer = 1 + 3 * ((Row + 3) Mod 3) + (Col + 3) Mod 3
-    Select Case Cellule
-      Case 0 To 80 : U_Coord_DB = "B" & Blk & "_" & "n" & Nuc                                   'format Bx_ny
-      Case Else : U_Coord_DB = "#" & CStr(Cellule).PadLeft(3) & "#"                             'format #-1 ou #82 #
-    End Select
-    Return U_Coord_DB
-  End Function
-
-  'For i As Integer = 0 To 80
-  '    Jrn_Add_Orange(CStr(i).PadLeft(3) & " " & U_Coord(i) & " " & U_Coord_DB(i))
-  'Next
-  '  0 L1_C1 B1_n1
-  '  1 L1_C2 B1_n2
-  '  2 L1_C3 B1_n3
-  '  9 L2_C1 B1_n4
-  ' 10 L2_C2 B1_n5
-  ' 11 L2_C3 B1_n6
-  ' 18 L3_C1 B1_n7
-  ' 19 L3_C2 B1_n8
-  ' 20 L3_C3 B1_n9
-  ' ...
-  ' 60 L7_C7 B9_n1
-  ' 61 L7_C8 B9_n2
-  ' 62 L7_C9 B9_n3
-  ' 69 L8_C7 B9_n4
-  ' 70 L8_C8 B9_n5
-  ' 71 L8_C9 B9_n6
-  ' 78 L9_C7 B9_n7
-  ' 79 L9_C8 B9_n8
-  ' 80 L9_C9 B9_n9
 
   Public Sub U_Display()
     Jrn_Add("SDK_30010")

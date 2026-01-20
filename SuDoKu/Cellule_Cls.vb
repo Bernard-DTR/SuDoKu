@@ -16,19 +16,13 @@ Public Class Cellule_Cls
 
   ' --- Propriété ---
   Private _numéro As Integer
-  Private _numéro_next As Integer
   Private _coté As Integer
-  Private _ligne As Integer     'Les numéros de ligne, colonne et région sont données de 1 à 9
-  Private _colonne As Integer
-  Private _région As Integer
-  Private _coordonnées As String
   Private _candidat_unique As Boolean
   Private _typologie As String
   Private _couleur_fond As Color
   Private _couleur_valeur As Color
   Private _position As Point
   Private _position_Center As Point
-  Private _candidats_contains As Boolean
   Private _text_tooltip As String
   Private _valeur As Integer                     ' Nouveau : INTEGER 0 si rien ou 1 à 9
   Private _valeur_initiale As Boolean            ' Nouveau : True ou False
@@ -53,14 +47,6 @@ Public Class Cellule_Cls
     Set(value As Integer)
       _numéro = value
     End Set
-  End Property
-  ''' <summary>Numéro de la Cellule suivante.</summary>
-  Public ReadOnly Property Numéro_Next As Integer
-    Get
-      _numéro_next = Numéro + 1
-      'Rappel If _numéro > 80 Then _numéro = 0
-      Return _numéro_next
-    End Get
   End Property
   ''' <summary>Text_ToolTip de la cellule.</summary>
   Public Property Text_ToolTip As String
@@ -134,39 +120,6 @@ Public Class Cellule_Cls
       Return _coté
     End Get
   End Property
-  ''' <summary>Numéro de ligne de la Cellule.</summary>
-  Public ReadOnly Property Ligne As Integer
-    Get
-      _ligne = 1 + (Numéro \ 9)
-      Return _ligne
-    End Get
-  End Property
-  ''' <summary>Numéro de Colonne de la Cellule.</summary>
-  Public ReadOnly Property Colonne As Integer
-    Get
-      _colonne = 1 + (Numéro - ((Numéro \ 9) * 9))
-      Return _colonne
-    End Get
-  End Property
-  ''' <summary>Numéro de Région de la Cellule.</summary>
-  Public ReadOnly Property Région As Integer
-    Get
-      Dim lig As Integer = Numéro \ 27
-      Dim col As Integer = (Numéro Mod 9) \ 3
-      _région = 1 + (lig * 3) + col
-      Return _région
-    End Get
-  End Property
-  ''' <summary>Coordonnées de la Cellule.
-  ''' En mode absolu. U_Coord fournit les coordonnées visuelles
-  ''' </summary>
-  Public ReadOnly Property Coordonnées As String
-    Get
-      'U_Coord et .Coordonnées ont le même format
-      _coordonnées = "L" & CStr(Ligne) & "_" & "C" & CStr(Colonne)
-      Return _coordonnées
-    End Get
-  End Property
   ''' <summary>Position de la Cellule.</summary>
   Public ReadOnly Property Position As Point
     Get
@@ -213,14 +166,6 @@ Public Class Cellule_Cls
         Case "R" : Return Color_VCdd
         Case Else : Return Color.Transparent
       End Select
-    End Get
-  End Property
-  ''' <summary>Contient ou Ne Contient pas de Candidats.</summary>
-  Public ReadOnly Property Candidats_Contains As Boolean
-    Get 'Propriété dépendante de U
-      _candidats_contains = False
-      If U(Numéro, 1) = " " And U(Numéro, 2) = " " And U(Numéro, 3) <> Cnddts_Blancs Then _candidats_contains = True
-      Return _candidats_contains
     End Get
   End Property
   ''' <summary>Précise si la cellule est arrondie ou non.</summary>
@@ -389,8 +334,8 @@ Public Class Cellule_Cls
     End Select
 
     Select Case Plcy_Gbl_Etendue
-      Case True : Frm_SDK.B_Position.Text = Coordonnées & " (" & Numéro & ")"
-      Case False : Frm_SDK.B_Position.Text = Coordonnées
+      Case True : Frm_SDK.B_Position.Text = U_Coord(Numéro) & " (" & Numéro & ")"
+      Case False : Frm_SDK.B_Position.Text = U_Coord(Numéro)
     End Select
   End Sub
   Public Sub Cellule_Refresh()

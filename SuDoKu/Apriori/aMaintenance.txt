@@ -175,6 +175,9 @@
 #529 Ma 20/01/2026 Reprise de la gestion de g avec OnPaint
 #530 Ma 20/01/2026 OnPaint appelle Grille_Refresh_g(g As Graphics)
 #531 Ma 20/01/2026 Grille_Refresh_g(g As Graphics) appelle G1_Grid_Paint_g(g)
+#532 Ma 20/01/2026 Dans Cellule_Cls, suppression de ligne_colonne_région_coordonnées
+#533 Ma 20/01/2026 Les 4 procédures de quadrillage tracent 1 seul trait et disposent les GDI+
+#534 Ma 20/01/2026 Dans Cellule_Cls, suppression de propriétés inutilisées
 
 
 
