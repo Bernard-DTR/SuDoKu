@@ -402,9 +402,6 @@ Friend Module Q000_Strategy_X
           Frm_SDK.Mnu0902.Text = "Supprimer " & GRslt.CelExcl.Count & " Candidat(s) : " & Stg_Get(Plcy_Strg).Texte & "."
           Frm_SDK.Mnu0902.Enabled = True
           GRslt_Display() 'Pour contrôle
-          Memory_Display()
-          Event_OnPaint = "Stratégie_G"
-          Frm_SDK.Invalidate()
         Else
           Jrn_Add(, {Stg_Get(Plcy_Strg).Texte & " sans résultat."})
           Frm_SDK.Mnu0902.Enabled = False
@@ -414,15 +411,13 @@ Friend Module Q000_Strategy_X
           Frm_SDK.Mnu0902.Text = "Supprimer " & XRslt.CelExcl.Count & " Candidat(s) : " & Stg_Get(Plcy_Strg).Texte & "."
           Frm_SDK.Mnu0902.Enabled = True
           XRslt_Display_New() 'Pour contrôle
-          Memory_Display()
-          Event_OnPaint = "Stratégie_G"
-          Frm_SDK.Invalidate()
         Else
           Jrn_Add(, {Stg_Get(Plcy_Strg).Texte & " sans résultat."})
           Frm_SDK.Mnu0902.Enabled = False
         End If
     End Select
-
-
+    'Memory_Display()
+    Event_OnPaint = "Stratégie_G"
+    Frm_SDK.Invalidate()
   End Sub
 End Module

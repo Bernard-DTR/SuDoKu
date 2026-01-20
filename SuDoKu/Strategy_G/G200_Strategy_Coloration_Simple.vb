@@ -46,8 +46,6 @@ Module G200_Strategy_Coloration_Simple
 
       ' 40 Vérification des chemins
       If GRoads_Vérification_dfs(U_Temp, GAllRoads) Then Exit For
-      Event_OnPaint = "Stratégie_G"
-      Frm_SDK.Invalidate()
     Next Cdd
 
     Stratégies_G_End()

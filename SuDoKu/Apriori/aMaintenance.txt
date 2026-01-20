@@ -172,6 +172,7 @@
 #526 L  19/01/2026 Clash GitHub
 #527 Ma 20/01/2026 Séparation de S95_Autres_Jeux 
 #528               Correction des 5 appels d'application VB.Net
+#529 Ma 20/01/2026 Reprise de la gestion de g avec OnPaint
 
 
 
