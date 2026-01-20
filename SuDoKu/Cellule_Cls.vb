@@ -512,6 +512,22 @@ Public Class Grille_Cls
       sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
     Next i
   End Sub
+
+  Public Sub Grille_Refresh_g(g As Graphics)
+    'La grille est rafraîchie entièrement, aucune cellule n'est sélectée
+    Jrn_Add_Yellow(Procédure_Name_Get())
+    G1_Grid_Paint()
+    Dim Gril As New Grille_Cls
+    Gril.G2_Grille_Paint_Fond()
+    G4_Grid_Stratégie_All()
+    Dim sc As New Cellule_Cls
+    For i As Integer = 0 To 80
+      sc.Numéro = i
+      sc.G5_Cellule_Paint_Valeur()
+      sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+    Next i
+  End Sub
+
   Public Sub G8_Grille_Partie_Terminée()
     Dim Cellule_Clct As New Collection
     ' Ne se fait que si Plcy_Gnrl = "Nrm" ou "Sas"

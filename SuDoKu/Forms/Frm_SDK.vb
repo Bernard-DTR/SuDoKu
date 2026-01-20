@@ -551,7 +551,7 @@ Public NotInheritable Class Frm_SDK
       Case "Stratégie_G"
         Jrn_Add_Yellow(Procédure_Name_Get() & " Plcy_strg=" & Plcy_Strg & " Event_OnPaint=" & Event_OnPaint)
         Dim Gril As New Grille_Cls
-        Gril.Grille_Refresh()
+        Gril.Grille_Refresh_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
         sc.Cellule_Refresh()
         sc.G7_Cellule_Paint_Select()
