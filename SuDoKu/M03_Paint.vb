@@ -1981,7 +1981,7 @@ Friend Module M03_Paint
         If U_MdC(i).MdE(j) <> "" Then MdC_Exist = True
         M2 &= U_MdC(i).MdE(j).PadLeft(4) & " "
       Next j
-      M1 = CStr(i).PadLeft(3) & " " & U_Coord(U_MdC(i).Cellule)
+      M1 = CStr(i).PadLeft(3) & " " & U_cr(U_MdC(i).Cellule)
       If MdC_Exist = True Then Jrn_Add(, {M1 & " : " & M2})
     Next i
   End Sub

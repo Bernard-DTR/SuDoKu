@@ -210,7 +210,7 @@ Pzzl_Choix_Cellule:
       If U_temp(Cellule, 2) <> " " Then
         'PRD_10230=%0 symétrique de %1 est déjà remplie.
         ' Ce qui est vraisemblable avec les cellules placées sur les axes de symétrie !
-        If Prd.Prd_Chat Then Jrn_Add("PRD_10230", {CStr(Anomalies_Nb), CStr(Anomalies_Nb_Lim), U_Coord(Cellule), U_Coord(Prv_Cellule)}, "Italique")
+        If Prd.Prd_Chat Then Jrn_Add("PRD_10230", {CStr(Anomalies_Nb), CStr(Anomalies_Nb_Lim), U_cr(Cellule), U_cr(Prv_Cellule)}, "Italique")
         Anomalies_Nb += 1
         GoTo Pzzl_Choix_Cellule
       End If
@@ -220,7 +220,7 @@ Pzzl_Choix_Candidat:
     ' PRD_10241=|                             | La cellule choisie %0 ne contient plus de candidats.
     ' Anomalie à envisager
     If U_temp(Cellule, 3) = Cnddts_Blancs Then
-      If Prd.Prd_Chat Then Jrn_Add("PRD_10241", {CStr(Anomalies_Nb), CStr(Anomalies_Nb_Lim), U_Coord(Cellule)}, "Italique")
+      If Prd.Prd_Chat Then Jrn_Add("PRD_10241", {CStr(Anomalies_Nb), CStr(Anomalies_Nb_Lim), U_cr(Cellule)}, "Italique")
       Anomalies_Nb += 1
       GoTo Pzzl_Crt_End
     End If
@@ -235,7 +235,7 @@ Pzzl_Choix_Candidat:
       End If
     Next i
     If Candidats_Clct.Count = 0 Then
-      If Prd.Prd_Chat Then Jrn_Add("PRD_10242", {CStr(Anomalies_Nb), CStr(Anomalies_Nb_Lim), U_Coord(Cellule), CStr(Prd.Prd_Cnt_Valeur)}, "Italique")
+      If Prd.Prd_Chat Then Jrn_Add("PRD_10242", {CStr(Anomalies_Nb), CStr(Anomalies_Nb_Lim), U_cr(Cellule), CStr(Prd.Prd_Cnt_Valeur)}, "Italique")
       Anomalies_Nb += 1
 
       GoTo Pzzl_Choix_Cellule
@@ -254,7 +254,7 @@ Pzzl_Choix_Candidat:
     ' La cellule choisie et le candidat sélectionné sont listés
     '   avec le n° de la cellule, le nombre de candidats enlevés des cell_coll,
     '   et le nombre total de candidats restants de la grille 
-    If Prd.Prd_Chat Then Jrn_Add("PRD_10005", {CStr(Nb_Cellules_Ajoutées).PadLeft(3), U_Coord(Cellule), Candidats, Candidat,
+    If Prd.Prd_Chat Then Jrn_Add("PRD_10005", {CStr(Nb_Cellules_Ajoutées).PadLeft(3), U_cr(Cellule), Candidats, Candidat,
                           CStr(Cell_Coll_Nb).PadLeft(3), CStr(Wh_Grid_Nb_Candidats(U_temp)).PadLeft(3), CStr(Wh_Grid_Nb_Cellules_Vides(U_temp)).PadLeft(3)})
     '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -673,7 +673,7 @@ Pzzl_Crt_Exit:
       End If
 
       Jrn_Add(, {Col1 &
-            "| " & U_Coord(Cellule) &
+            "| " & U_cr(Cellule) &
             " | " & Col3 &
             " | " & Valeur & " | " & Candidat &
             " | " & Candidats_av & " | " & Candidats_ap &
@@ -1000,7 +1000,7 @@ Phase_B:
     Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
     Prd.Prd_DlCode = DL.DLCode
     Prd.Prd_DlSolution = DL.Solution(0)
-    If Create_Chat Then Jrn_Add(, {CStr(Limite).PadLeft(3) & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "  " & CStr(DL.Nb_Solution).PadLeft(6) & "  " & Wh_Grid_Nb_Cellules_Initiales(U_temp)})
+    If Create_Chat Then Jrn_Add(, {CStr(Limite).PadLeft(3) & "  " & U_cr(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "  " & CStr(DL.Nb_Solution).PadLeft(6) & "  " & Wh_Grid_Nb_Cellules_Initiales(U_temp)})
     If DL.Nb_Solution = 1 Then
       'Limite_Successive_DL = 0
     Else
@@ -1009,7 +1009,7 @@ Phase_B:
       U_temp(Cellule, 3) = Cnddts
       Grid_Cdd_Remove_Cell_Coll_IA(U_temp)
       Limite_Successive_Dl += 1
-      If Create_Chat Then Jrn_Add(, {"   " & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "               Limite_Successive_DL =" & CStr(Limite_Successive_Dl)})
+      If Create_Chat Then Jrn_Add(, {"   " & "  " & U_cr(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "               Limite_Successive_DL =" & CStr(Limite_Successive_Dl)})
     End If
 
     Dim Limite_Atteinte As Boolean = False
@@ -1161,7 +1161,7 @@ Phase_B:
     U_temp(Cellule, 3) = Cnddts
     Grid_Cdd_Remove_Cell_Coll_IA(U_temp)
     Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
-    If Create_Chat Then Jrn_Add(, {CStr(Limite).PadLeft(3) & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "  " & CStr(DL.Nb_Solution).PadLeft(6) & "  " & Wh_Grid_Nb_Cellules_Initiales(U_temp)})
+    If Create_Chat Then Jrn_Add(, {CStr(Limite).PadLeft(3) & "  " & U_cr(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "  " & CStr(DL.Nb_Solution).PadLeft(6) & "  " & Wh_Grid_Nb_Cellules_Initiales(U_temp)})
     If DL.Nb_Solution = 1 Then
       'Limite_Successive_DL = 0
     Else
@@ -1170,7 +1170,7 @@ Phase_B:
       U_temp(Cellule, 3) = Cnddts
       Grid_Cdd_Remove_Cell_Coll_IA(U_temp)
       Limite_Successive_Dl += 1
-      If Create_Chat Then Jrn_Add(, {"   " & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "               Limite_Successive_DL =" & CStr(Limite_Successive_Dl)})
+      If Create_Chat Then Jrn_Add(, {"   " & "  " & U_cr(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "               Limite_Successive_DL =" & CStr(Limite_Successive_Dl)})
     End If
 
     Dim Limite_Atteinte As Boolean = False
@@ -1605,7 +1605,7 @@ Xwing_Boucle_End:
         U_Suggest(CInt(Strategy_Rslt(k, n))) = Strategy_Rslt(1, 0) 'La valeur "0" est la valeur négative
         Virgule += 1
         If Virgule > 1 Then Plage &= ", "
-        Plage &= U_Coord(CInt(Strategy_Rslt(k, n)))
+        Plage &= U_cr(CInt(Strategy_Rslt(k, n)))
       End If
     Next k
     Select Case Cellules_Type

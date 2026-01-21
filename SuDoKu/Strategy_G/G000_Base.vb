@@ -50,10 +50,10 @@ Friend Module G000_Base
         Dim edges As List(Of Edge) = Graph(kvp.Key)
         Dim sb As New System.Text.StringBuilder()
         For Each edge As Edge In edges
-          sb.AppendFormat(" → (Cel {0} )", U_Coord(edge.Neighbor))
+          sb.AppendFormat(" → (Cel {0} )", U_cr(edge.Neighbor))
         Next
         Dim edgeCount As String = $" ({edges.Count})"
-        Jrn_Add(, {$"{l,2} Cel {U_Coord(kvp.Key)}:{edgeCount}{sb}"})
+        Jrn_Add(, {$"{l,2} Cel {U_cr(kvp.Key)}:{edgeCount}{sb}"})
       Next
     End Sub
 
@@ -89,7 +89,7 @@ Friend Module G000_Base
       Dim pathIndex As Integer = 0
       For Each path As List(Of Integer) In AllPaths
         pathIndex += 1
-        Dim pathStrg As String = String.Join(" → ", path.ConvertAll(Function(n) U_Coord(n)))
+        Dim pathStrg As String = String.Join(" → ", path.ConvertAll(Function(n) U_cr(n)))
         Jrn_Add(, {$"Path {pathIndex,3} ({path.Count,2}) : {pathStrg}"})
       Next
     End Sub
@@ -152,7 +152,7 @@ Friend Module G000_Base
     For Each gCel As GCel_Cls In GCels
       Nb += 1
       With gCel
-        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(.Cel) & " Candidats : " & String.Join("-", .Cdd) & " Cellule " & CStr(.Cel).PadLeft(2)})
+        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_cr(.Cel) & " Candidats : " & String.Join("-", .Cdd) & " Cellule " & CStr(.Cel).PadLeft(2)})
       End With
     Next gCel
   End Sub
@@ -246,8 +246,8 @@ Friend Module G000_Base
         With gLink
           Nb += 1
           Dim S As String = .Cdd(4) & " " &
-            U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
-            U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
+            U_cr(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
+            U_cr(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
             " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Cdd_Composition &
             " Cellules n° " & CStr(.Cel(0)).PadLeft(2) & "-" & CStr(.Cel(1)).PadLeft(2)
           Jrn_Add(, {ChrW(Nb + Lettre_Flèche_ChrW) & " " & CStr(Nb).PadLeft(2) & " " & S})
@@ -285,7 +285,7 @@ Friend Module G000_Base
       Jrn_Add(, {"Nb Noeuds      " & .Nb_Noeuds})
       Jrn_Add(, {"Nb Paths       " & .Nb_Paths})
       Jrn_Add(, {"Path_Number    " & .Path_Number})
-      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_Coord(c)))})
+      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_cr(c)))})
       Jrn_Add(, {"Productivité   " & .Productivité.ToString()})
     End With
     If GRslt.RoadRight.Count <> 0 Then
@@ -295,8 +295,8 @@ Friend Module G000_Base
         With gLink
           Nb += 1
           Dim S As String = .Cdd(4) & " " &
-            U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
-            U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
+            U_cr(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
+            U_cr(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
             " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Cdd_Composition &
             " Cellules n° " & CStr(.Cel(0)).PadLeft(2) & "↔" & CStr(.Cel(1)).PadLeft(2)
           Jrn_Add(, {ChrW(Nb + Lettre_Flèche_ChrW) & " " & CStr(Nb).PadLeft(2) & " " & S})
@@ -310,7 +310,7 @@ Friend Module G000_Base
       For Each XCel As GCel_Excl_Cls In GRslt.CelExcl
         With XCel
           Nb += 1
-          Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(.Cel) & " Candidat : " & .Cdd & " Extrémités : " & U_Coord(.Exc(0)) & " ←→ " & U_Coord(.Exc(1))})
+          Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_cr(.Cel) & " Candidat : " & .Cdd & " Extrémités : " & U_cr(.Exc(0)) & " ←→ " & U_cr(.Exc(1))})
         End With
       Next XCel
 
@@ -327,7 +327,7 @@ Friend Module G000_Base
             With gCel
               Dim DL_Cellule As Integer = .Cel
               If XSolution(DL_Cellule) = .Cdd Then
-                Jrn_Add(, {"❗ La cellule " & U_Coord(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
+                Jrn_Add(, {"❗ La cellule " & U_cr(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
               End If
             End With
           Next gCel

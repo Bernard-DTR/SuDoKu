@@ -19,10 +19,10 @@ Public Class Frm_Insérer_Candidats
     BackColor = Color_Frm_BackColor
     Select Case Plcy_Slm
       Case True
-        Btn_Insérer.Text = Msg_Read_IA("SDK_10071", {U_Coord(Pbl_Cell_Select)})
+        Btn_Insérer.Text = Msg_Read_IA("SDK_10071", {U_cr(Pbl_Cell_Select)})
         TT.SetToolTip(Btn_Insérer, Msg_Read_IA("SDK_10061"))
       Case False
-        Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_Coord(Pbl_Cell_Select)})
+        Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_cr(Pbl_Cell_Select)})
         TT.SetToolTip(Btn_Insérer, Msg_Read_IA("SDK_10060"))
     End Select
     CB01.Text = Msg_Read_IA("SDK_10040")
@@ -59,10 +59,10 @@ Public Class Frm_Insérer_Candidats
     End If
     Select Case Plcy_Slm
       Case True
-        Btn_Insérer.Text = Msg_Read_IA("SDK_10071", {U_Coord(Pbl_Cell_Select)})
+        Btn_Insérer.Text = Msg_Read_IA("SDK_10071", {U_cr(Pbl_Cell_Select)})
         TT.SetToolTip(Btn_Insérer, Msg_Read_IA("SDK_10061"))
       Case False
-        Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_Coord(Pbl_Cell_Select)})
+        Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_cr(Pbl_Cell_Select)})
         TT.SetToolTip(Btn_Insérer, Msg_Read_IA("SDK_10060"))
     End Select
   End Sub

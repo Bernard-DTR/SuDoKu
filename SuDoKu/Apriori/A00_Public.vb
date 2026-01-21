@@ -12,7 +12,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_01_01 #537"
+  Public SDK_Version As String = "V2026_01_01 #539"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -108,6 +108,7 @@ Module A00_Public
 
   Public U_Col(0 To 80) As Integer                   'Indique dans quelle Colonne se trouve une cellule (de 0 à 8)
   Public U_Row(0 To 80) As Integer                   '        dans quelle Ligne   se trouve une cellule (de 0 à 8)
+  Public U_cr(0 To 80) As String                     '        les coordonnées Lx_Cy de chaque cellule
   Public U_Reg(0 To 80) As Integer                   '        dans quelle Région  se trouve une cellule (de 0 à 8)
   Public U_Suggest(0 To 80) As String                '        Précise les cellules suggérées en mode suggestion
 

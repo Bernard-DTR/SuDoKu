@@ -560,7 +560,7 @@ Public NotInheritable Class Frm_SDK
         Jrn_Add("SDK_00000", {"e As PaintEventArgs      : " & e.ToString})
         Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
         Jrn_Add("SDK_00000", {"Valeur Event_OnPaint_MAP : " & Event_OnPaint_MAP})
-        Jrn_Add("SDK_00000", {"La grille n'est pas rafraîchie, La cellule " & U_Coord(Pbl_Cell_Select) & " n'est pas sélectionnée."})
+        Jrn_Add("SDK_00000", {"La grille n'est pas rafraîchie, La cellule " & U_cr(Pbl_Cell_Select) & " n'est pas sélectionnée."})
         Jrn_Add("SDK_00010", JourDateHeure())
     End Select
     Event_OnPaint = "#"
@@ -912,7 +912,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Public Sub Aimantation(Cellule As Integer)
     'Positionnement du Formulaire d'insertion de Candidats
-    Frm_Insérer_Candidats.Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_Coord(Cellule)})
+    Frm_Insérer_Candidats.Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_cr(Cellule)})
     Dim Pos_L As Integer = Left + Sqr_Cel(Cellule).Left
     Dim Pos_T As Integer = Top + Sqr_Cel(Cellule).Top
     Select Case Plcy_FIC_Zone_Aimantée
@@ -2111,7 +2111,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Dim Cellule_Exc As Integer = Pbl_Cell_Select
       Dim Titre As String = "Exclure un ou plusieurs candidats"
-      Dim Texte As String = "Candidat(s) souhaité(s) en " & U_Coord(Cellule_Exc) & " :" & vbCrLf
+      Dim Texte As String = "Candidat(s) souhaité(s) en " & U_cr(Cellule_Exc) & " :" & vbCrLf
       Texte &= "La chaîne de caractères ne doit pas dépasser 9."
       Texte &= "Les candidats peuvent être présentés dans le désordre, et comporter des blancs ."
       Dim Dftvalue As String = U_Strg_Cdd_Exc(Cellule_Exc)

@@ -181,7 +181,8 @@
 #535 Me 21/01/2026 Une fois la partie lancée, les couleurs de fond des cellules sont figées.
 #536               je place les couleurs dans Public U_Clr_Cell_Fond(0 To 80) As Color 
 #537 Me 21/01/2026 Suppression de la propriété Couleur_Fond dans Cellule_Cls
-
+#538 Me 21/01/2026 U_Clr_Cell_Fond(i) = Color_Fond_Typ_RV/Color_Fond_Typ_I
+#539 Me 21/01/2026 U_cr(80) as string est calculé une fois et remplace U_Coord
 
 
 

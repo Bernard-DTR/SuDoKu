@@ -71,7 +71,7 @@ Friend Module P15_Strategy_XYw
       If Wh_Cell_Nb_Candidats(U_temp, i) = 2 Then
         n += 1
         XY1_t(0, n) = CStr(n)
-        XY1_t(1, n) = CStr(i) : XY1_t(2, n) = U_Coord(i)
+        XY1_t(1, n) = CStr(i) : XY1_t(2, n) = U_cr(i)
         Dim n1 As Integer = 0 'Premier et deuxième candidat
         For j As Integer = 0 To 8
           If Mid$(U_temp(i, 3), j + 1, 1) <> " " Then

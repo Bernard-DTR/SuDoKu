@@ -125,11 +125,11 @@ Module M01_Enregistrement_Partie
       Pzzl_Record_Ligne(File, Ligne)
 
       If Prd.Prd_Ext_Triplet <> "#" Then
-        Ligne = Msg_Read_IA("PRD_20030", {"Triplet                      : " & Prd.Prd_Ext_Triplet & " " & U_Coord(Prd.Prd_Ext_Triplet_Cellule)})
+        Ligne = Msg_Read_IA("PRD_20030", {"Triplet                      : " & Prd.Prd_Ext_Triplet & " " & U_cr(Prd.Prd_Ext_Triplet_Cellule)})
         Pzzl_Record_Ligne(File, Ligne)
       End If
       If Prd.Prd_Ext_XWing <> "#" Then
-        Ligne = Msg_Read_IA("PRD_20030", {"Xwing                        : " & Prd.Prd_Ext_XWing & " " & U_Coord(Prd.Prd_Ext_XWing_Cellule)})
+        Ligne = Msg_Read_IA("PRD_20030", {"Xwing                        : " & Prd.Prd_Ext_XWing & " " & U_cr(Prd.Prd_Ext_XWing_Cellule)})
         Pzzl_Record_Ligne(File, Ligne)
       End If
 

@@ -52,8 +52,8 @@ Friend Module P19_Strategy_SKy
     For i As Integer = 0 To SKy_List.Count - 1
       S = CStr(i).PadRight(5) & "  " & SKy_List.Item(i).Typologie & " " &
                                        SKy_List.Item(i).Candidat & " " &
-                                       U_Coord(SKy_List.Item(i).Cellule_1) & " " &
-                                       U_Coord(SKy_List.Item(i).Cellule_2) & " "
+                                       U_cr(SKy_List.Item(i).Cellule_1) & " " &
+                                       U_cr(SKy_List.Item(i).Cellule_2) & " "
       Jrn_Add(, {S})
     Next i
   End Sub
@@ -255,10 +255,10 @@ Friend Module P19_Strategy_SKy
     For i As Integer = 0 To Kyt_list.Count - 1
       S = CStr(i).PadRight(5) & "  " & Kyt_list.Item(i).Candidat & " " &
                                        Kyt_list.Item(i).Typologie & " " &
-                                       U_Coord(Kyt_list.Item(i).Cellule_H1) & " " &
-                                       U_Coord(Kyt_list.Item(i).Cellule_H2) & " " &
-                                       U_Coord(Kyt_list.Item(i).Cellule_V1) & " " &
-                                       U_Coord(Kyt_list.Item(i).Cellule_V2) & " "
+                                       U_cr(Kyt_list.Item(i).Cellule_H1) & " " &
+                                       U_cr(Kyt_list.Item(i).Cellule_H2) & " " &
+                                       U_cr(Kyt_list.Item(i).Cellule_V1) & " " &
+                                       U_cr(Kyt_list.Item(i).Cellule_V2) & " "
       Jrn_Add(, {S})
     Next i
   End Sub

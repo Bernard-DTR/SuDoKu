@@ -145,7 +145,9 @@ Friend Module A01_OnlyOnce
       U_Reg(i) = Wh_Région_Cel(i)
       U_Suggest(i) = "0"
     Next i
-
+    For i As Integer = 0 To 80
+      U_cr(i) = "L" & U_Row(i) + 1 & "_" & "C" & U_Col(i) + 1             ' Format Lx_Cy
+    Next i
     'Une fois U_Reg construit
     For i As Integer = 0 To 80
       Select Case U_Reg(i)

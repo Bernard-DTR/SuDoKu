@@ -34,6 +34,7 @@ Module M02_U
     Return U_Coord
   End Function
 
+
   Public Sub U_Display()
     Jrn_Add("SDK_30010")
     Jrn_Add("SDK_30011")
@@ -46,7 +47,7 @@ Module M02_U
 
       Dim S As String = "| "
       S &= CStr(i).PadLeft(2)
-      S = S & " | " & U_Coord(i)
+      S = S & " | " & U_cr(i)
       S = S & " | " & U(i, 2)
       S = S & " | " & U(i, 3)
       S = S & " | " & U_CddExc(i)

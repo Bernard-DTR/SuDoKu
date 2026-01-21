@@ -343,7 +343,7 @@ Friend Module P01_Strategy
             For k As Integer = 0 To 8
               p = 10 + (9 * j) + k
               If Strategy_Rslt(p, i) <> "__" Then
-                S &= U_Coord(CInt(Strategy_Rslt(p, i))) & " "
+                S &= U_cr(CInt(Strategy_Rslt(p, i))) & " "
               Else
                 S &= "_____" & " "
               End If
@@ -364,7 +364,7 @@ Friend Module P01_Strategy
             For k As Integer = 0 To 8
               p = 55 + (9 * j) + k
               If Strategy_Rslt(p, i) <> "__" Then
-                S &= U_Coord(CInt(Strategy_Rslt(p, i))) & " "
+                S &= U_cr(CInt(Strategy_Rslt(p, i))) & " "
               Else
                 S &= "_____" & " "
               End If

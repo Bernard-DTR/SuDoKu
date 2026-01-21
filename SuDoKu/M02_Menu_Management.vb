@@ -35,7 +35,7 @@ Module M02_Menu_Management
         XPos = Frm_SDK.Left + WH * (U_Col(Cellule) + 1)
         YPos = Frm_SDK.Top + WH * (U_Row(Cellule) + 1)
         Titre = "Saisir une valeur"
-        Texte = "Valeur souhaitée en " & U_Coord(Cellule) & ":" & vbCrLf
+        Texte = "Valeur souhaitée en " & U_cr(Cellule) & ":" & vbCrLf
         Texte &= "La valeur est comprise entre 1 et 9."
         Dim DftValue As String = U(Cellule, 2)
         Dim Valeur As String
@@ -51,7 +51,7 @@ Module M02_Menu_Management
         XPos = Frm_SDK.Left + WH * (U_Col(Cellule) + 1)
         YPos = Frm_SDK.Top + WH * (U_Row(Cellule) + 1)
         Titre = "Saisir un ou plusieurs candidats"
-        Texte = "Candidat(s) souhaité(s) en " & U_Coord(Cellule) & ":" & vbCrLf
+        Texte = "Candidat(s) souhaité(s) en " & U_cr(Cellule) & ":" & vbCrLf
         Texte &= "La chaîne de caractères ne doit pas dépasser 9."
         Texte &= "Les candidats peuvent être présentés dans le désordre."
         Dim DftValue As String = U(Cellule, 3)
@@ -78,7 +78,7 @@ Module M02_Menu_Management
         'Définir une cellule qui est en VI en valeur normale
         U(Cellule, 1) = " "
       Case Else
-        Jrn_Add("ERR_00000", {sender.ToString() & " Action : " & Action & " en: " & U_Coord(Cellule)}, "Erreur")
+        Jrn_Add("ERR_00000", {sender.ToString() & " Action : " & Action & " en: " & U_cr(Cellule)}, "Erreur")
     End Select
 
     'la cellule sélectionnée sera la cellule suivante
@@ -362,7 +362,7 @@ Module M02_Menu_Management
         Jrn_Add("ERR_00000", {"Item    : " & Ligne.ToString()}, "Erreur")
         Jrn_Add("ERR_00000", {"Lig      : " & Lig}, "Erreur")
         Jrn_Add("ERR_00000", {"Opt      : " & Opt}, "Erreur")
-        Jrn_Add("ERR_00000", {"Cellule  : " & U_Coord(Cellule) & " V : " & U(Cellule, 2) & " Candidats :" & U(Cellule, 3) & "."}, "Erreur")
+        Jrn_Add("ERR_00000", {"Cellule  : " & U_cr(Cellule) & " V : " & U(Cellule, 2) & " Candidats :" & U(Cellule, 3) & "."}, "Erreur")
       End Try
     Next Ligne
   End Sub

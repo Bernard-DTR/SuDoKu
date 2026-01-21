@@ -278,7 +278,7 @@ Module G20_Général
         Act(4, Act_Index) = "     "
       Case Else
         Act(3, Act_Index) = CStr(Cellule)
-        Act(4, Act_Index) = U_Coord(Cellule)
+        Act(4, Act_Index) = U_cr(Cellule)
     End Select
     Act(5, Act_Index) = Valeur
     Act(6, Act_Index) = Candidats

@@ -19,7 +19,6 @@ Public Class Cellule_Cls
   Private _coté As Integer
   Private _candidat_unique As Boolean
   Private _typologie As String
-  Private _couleur_fond As Color
   Private _couleur_valeur As Color
   Private _position As Point
   Private _position_Center As Point
@@ -147,15 +146,6 @@ Public Class Cellule_Cls
       'En mode Sas, une cellule vide n'a de candidats que s'ils ont été insérés.
       If U(Numéro, 1) = " " And U(Numéro, 2) = " " Then _typologie = "V"
       Return _typologie
-    End Get
-  End Property
-  ''' <summary>Couleur de Fond de la Cellule.</summary>
-  Public ReadOnly Property Couleur_Fond As Color
-    Get 'Propriété dépendante de U
-      _couleur_fond = Color_Frm_BackColor
-      If U(Numéro, 1) <> " " Then _couleur_fond = Color_Fond_Typ_I
-      If U(Numéro, 1) = " " Then _couleur_fond = Color_Fond_Typ_RV
-      Return _couleur_fond
     End Get
   End Property
   ''' <summary>Couleur de la valeur de la Cellule.</summary>
@@ -339,8 +329,8 @@ Public Class Cellule_Cls
     End Select
 
     Select Case Plcy_Gbl_Etendue
-      Case True : Frm_SDK.B_Position.Text = U_Coord(Numéro) & " (" & Numéro & ")"
-      Case False : Frm_SDK.B_Position.Text = U_Coord(Numéro)
+      Case True : Frm_SDK.B_Position.Text = U_cr(Numéro) & " (" & Numéro & ")"
+      Case False : Frm_SDK.B_Position.Text = U_cr(Numéro)
     End Select
   End Sub
   Public Sub Cellule_Refresh()
