@@ -178,7 +178,16 @@
 #532 Ma 20/01/2026 Dans Cellule_Cls, suppression de ligne_colonne_région_coordonnées
 #533 Ma 20/01/2026 Les 4 procédures de quadrillage tracent 1 seul trait et disposent les GDI+
 #534 Ma 20/01/2026 Dans Cellule_Cls, suppression de propriétés inutilisées
+#535 Me 21/01/2026 Une fois la partie lancée, les couleurs de fond des cellules sont figées.
+#536               je place les couleurs dans Public U_Clr_Cell_Fond(0 To 80) As Color 
+#537 Me 21/01/2026 Suppression de la propriété Couleur_Fond dans Cellule_Cls
 
+
+
+
+
+
+il y a un certain nombre de choses que je calcule sans aucun intêret U_coord c'est toujours pareil les couleurs de fond ou de valeurs idem c'est pareil pour une partie
 
 
 ##############################################################################################################################

@@ -133,8 +133,13 @@ Friend Module M20_Game
       If LP_Sol(i) >= "1" AndAlso LP_Sol(i) <= "9" Then
         U_Sol(i) = LP_Sol(i)                        ' Solution
       End If
+      '#536
+      If U(i, 1) = " " Then
+        U_Clr_Cell_Fond(i) = Color_Fond_Typ_RV
+      Else
+        U_Clr_Cell_Fond(i) = Color_Fond_Typ_I
+      End If
     Next i
-
     If Plcy_Dancing_Link Then
       ' Vérification d'une solution unique
       '29/07/2025 Dans le cadre des tests XChains, il peut être possible de vérifier la solution! 

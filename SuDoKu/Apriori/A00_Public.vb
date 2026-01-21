@@ -12,7 +12,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_01_01 #534"
+  Public SDK_Version As String = "V2026_01_01 #537"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -88,6 +88,7 @@ Module A00_Public
   Public Const UNbCopy As Integer = 324         ' soit (U.GetUpperBound(0) + 1) * (U.GetUpperBound(1) + 1)
   Public U_CddExc(0 To 80) As String            ' Comporte les candidats exclus 
   Public U_Sol(0 To 80) As String
+  Public U_Clr_Cell_Fond(0 To 80) As Color      ' Couleur de fond de chaque cellule
 
   'Ce tableau concerne les stratégies Cdd, CdU, CdO, Flt et Cbl à Unq
   'Il stocke les cellules concernées par la stratégie (Niveau de base Simple et Aide Graphique) pour n'effacer que celles-là

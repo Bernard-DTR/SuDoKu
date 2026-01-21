@@ -197,24 +197,29 @@ Public Class Cellule_Cls
     '                 0 est le "Fond Standard", ie une couleur et non une photo
 
     Dim g As Graphics = Frm_SDK.CreateGraphics
-    If Plcy_Fond_Grille = 0 Then
-      ' Un fond standard est affiché
-      If Cellule_Arrondie Then
-        g.FillPath(New SolidBrush(Couleur_Fond), Sqr_Pth(Numéro))
+    Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
+          brsh As New SolidBrush(Color_Frm_BackColor)
+
+
+      If Plcy_Fond_Grille = 0 Then
+        ' Un fond standard est affiché
+        If Cellule_Arrondie Then
+          g.FillPath(brsh_0, Sqr_Pth(Numéro))
+        Else
+          g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
+        End If
       Else
-        g.FillRectangle(New SolidBrush(Couleur_Fond), Sqr_Cel(Numéro))
+        ' L'image de fond est affichée
+        If Cellule_Arrondie Then
+          g.ResetClip()
+          g.SetClip(Sqr_Pth(Numéro), CombineMode.Replace)
+          g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
+        Else
+          g.FillRectangle(brsh, Sqr_Cel(Numéro))
+          g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
+        End If
       End If
-    Else
-      ' L'image de fond est affichée
-      If Cellule_Arrondie Then
-        g.ResetClip()
-        g.SetClip(Sqr_Pth(Numéro), CombineMode.Replace)
-        g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
-      Else
-        g.FillRectangle(New SolidBrush(Color_Frm_BackColor), Sqr_Cel(Numéro))
-        g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
-      End If
-    End If
+    End Using
     g.Dispose()
 
     'Traite les Cas particuliers et la propriété Text_ToolTip
