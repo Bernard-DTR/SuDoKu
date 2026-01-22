@@ -19,7 +19,6 @@ Public Class Cellule_Cls
   Private _coté As Integer
   Private _candidat_unique As Boolean
   Private _typologie As String
-  Private _couleur_valeur As Color
   Private _position As Point
   Private _position_Center As Point
   Private _text_tooltip As String
@@ -148,16 +147,6 @@ Public Class Cellule_Cls
       Return _typologie
     End Get
   End Property
-  ''' <summary>Couleur de la valeur de la Cellule.</summary>
-  Public ReadOnly Property Couleur_Valeur As Color
-    Get 'Propriété dépendante de U
-      Select Case Typologie
-        Case "I" : Return Color_VI
-        Case "R" : Return Color_VCdd
-        Case Else : Return Color.Transparent
-      End Select
-    End Get
-  End Property
   ''' <summary>Précise si la cellule est arrondie ou non.</summary>
   Public ReadOnly Property Cellule_Arrondie As Boolean
     ' Définition des cellules arrondies selon les formats DAB
@@ -236,21 +225,75 @@ Public Class Cellule_Cls
       End Select
     End If
   End Sub
+  Public Sub G2_Cellule_Paint_Fond_g(g As Graphics)
+    'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
+    'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
+    '                 0 est le "Fond Standard", ie une couleur et non une photo
+    Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
+          brsh As New SolidBrush(Color_Frm_BackColor)
+
+      If Plcy_Fond_Grille = 0 Then    ' Un fond standard est affiché
+        If Cellule_Arrondie Then
+          g.FillPath(brsh_0, Sqr_Pth(Numéro))
+        Else
+          g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
+        End If
+      Else                            ' L'image de fond est affichée
+        If Cellule_Arrondie Then
+          g.ResetClip()
+          g.SetClip(Sqr_Pth(Numéro), CombineMode.Replace)
+          g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
+        Else
+          g.FillRectangle(brsh, Sqr_Cel(Numéro))
+          g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
+        End If
+      End If
+    End Using
+
+    'Traite les Cas particuliers et la propriété Text_ToolTip
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+      Select Case Typologie
+        Case "I"
+        Case "R"
+          ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
+          If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
+            G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(128, Color.Green))
+            Text_ToolTip = "Valeur non conforme à la solution."
+          End If
+        Case "V"
+          ' 2 Indication d'une cellule sans candidat
+          If Nombre_Candidats = -1 Then
+            G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(128, Color.Red))
+            Text_ToolTip = "La cellule n'a plus de candidat."
+          End If
+          ' 3 Mode Suggestion
+          If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
+            G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
+            Text_ToolTip = "... Cellule à jouer."
+          End If
+      End Select
+    End If
+  End Sub
 
   ''' <summary>Peint la valeur d'une cellule IR.</summary>
   Public Sub G5_Cellule_Paint_Valeur()
     'Concerne l'ensemble des Cellules Initiales et Remplies
     'Les valeurs sont peintes dans une couleur différentes suivant leur typologie I/R
     Dim g As Graphics = Frm_SDK.CreateGraphics
-    g.DrawString(Subst_Police(U(Numéro, 2)),
-                 New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular),
-                 New SolidBrush(Couleur_Valeur),
+    Using brsh As New SolidBrush(U_Clr_Cell_Val(Numéro)),
+          fnt As New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular)
+      g.DrawString(Subst_Police(U(Numéro, 2)),
+                 fnt,
+                 brsh,
                  Position_Center.X, Position_Center.Y, Format_Center)
+    End Using
     g.Dispose()
   End Sub
+
   ''' <summary>Dessine UN Candidat de la Cellule.</summary>
   Public Sub G6_Cellule_Paint_Candidat(Candidat As String, Couleur As Color)
     'Dessine UN Candidat d'une cellule dans un cercle de couleur
+    'Un candidat a toujours la même couleur, puisqu'il ne peut être affiché que dans la typologie V
     Dim Coté_6 As Integer = (WH \ 6)
     If Not Candidats.Contains(Candidat) Then Exit Sub
     Dim Cdd_n As Integer = (Numéro * 10) + CInt(Candidat)
@@ -409,6 +452,14 @@ Public Class Grille_Cls
       sc.G2_Cellule_Paint_Fond()
     Next i
   End Sub
+  Public Sub G2_Grille_Paint_Fond_g(g As Graphics)
+    Jrn_Add_Yellow(Procédure_Name_Get())
+    Dim sc As New Cellule_Cls
+    For i As Integer = 0 To 80
+      sc.Numéro = i
+      sc.G2_Cellule_Paint_Fond_g(g)
+    Next i
+  End Sub
 
   ''' <summary>Compose la couche indirecte.</summary>
   Public Sub G3_Grille_Paint_Indirecte()
@@ -458,7 +509,7 @@ Public Class Grille_Cls
     Jrn_Add_Yellow(Procédure_Name_Get())
     G1_Grid_Paint_g(g)
     Dim Gril As New Grille_Cls
-    Gril.G2_Grille_Paint_Fond()
+    Gril.G2_Grille_Paint_Fond_g(g)
     G4_Grid_Stratégie_All()
     Dim sc As New Cellule_Cls
     For i As Integer = 0 To 80

@@ -285,7 +285,7 @@ Friend Module G000_Base
       Jrn_Add(, {"Nb Noeuds      " & .Nb_Noeuds})
       Jrn_Add(, {"Nb Paths       " & .Nb_Paths})
       Jrn_Add(, {"Path_Number    " & .Path_Number})
-      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_cr(c)))})
+      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_Coord(c)))})
       Jrn_Add(, {"Productivité   " & .Productivité.ToString()})
     End With
     If GRslt.RoadRight.Count <> 0 Then

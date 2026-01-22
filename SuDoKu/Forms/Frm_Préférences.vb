@@ -375,7 +375,6 @@ Public Class Frm_Préférences
       My.Settings.Format_DAB = Cb01_Format.SelectedIndex
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 7 Then Plcy_Format_DAB = Rdc.Next(0, 6)
-      G1_Grid_Paint()
       OC_Présentation()
       Event_OnPaint = "Frm_Préférences"
       Frm_SDK.Invalidate()
@@ -420,7 +419,6 @@ Public Class Frm_Préférences
 
       End Select
       OC_Présentation()
-      G1_Grid_Paint()
       Event_OnPaint = "Frm_Préférences"
       Frm_SDK.Invalidate()
     End If

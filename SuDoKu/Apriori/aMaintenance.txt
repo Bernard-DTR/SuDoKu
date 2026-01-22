@@ -183,14 +183,15 @@
 #537 Me 21/01/2026 Suppression de la propriété Couleur_Fond dans Cellule_Cls
 #538 Me 21/01/2026 U_Clr_Cell_Fond(i) = Color_Fond_Typ_RV/Color_Fond_Typ_I
 #539 Me 21/01/2026 U_cr(80) as string est calculé une fois et remplace U_Coord
+#540 Me 21/01/2026 U_Clr_Cell_VCdd(i) = Color_Fond_Typ_RV/Color_Fond_Typ_I
+#541 J  22/01/2026 Mise en place dans OnPaint Event_OnPaint Case "Partiel_Fond"
+#542 J  22/01/2026 Pzzl_Crt_Interactif      utilise G1_Grid_Paint_g
+#543 J  22/01/2026 Pzzl_Crt_Interactif_81   utilise G1_Grid_Paint_g
+#544               Frm_SDK.CreateGraphics : Occurences 16 
+#545 J  22/01/2026 Mnu03_AfficherLaSolution_Click utilise OnPaint
 
 
-
-
-
-il y a un certain nombre de choses que je calcule sans aucun intêret U_coord c'est toujours pareil les couleurs de fond ou de valeurs idem c'est pareil pour une partie
-
-
+                    
 ##############################################################################################################################
 
 	               Il y a une nouvelle erreur dans le calcul de résolution d’une partie E

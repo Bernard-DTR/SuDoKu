@@ -227,7 +227,7 @@ Friend Module Q000_Strategy_X
       Jrn_Add(, {"Code Stratégie " & .Code & ", " & Stg_Get(.Code).Texte})
       Jrn_Add(, {"Candidat       " & String.Join(", ", .Candidat)})
       Jrn_Add(, {" La valeur 0 d'un candidat signifie que ce candidat n'est pas pris en compte."}, "Italique")
-      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_cr(c)))})
+      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_Coord(c)))})
       Jrn_Add(, {" La valeur # -1# d'une cellule signifie que la stratégie n'utilise pas cette information."}, "Italique")
 
       Jrn_Add(, {"XRoads_Nombre  " & .XRoads_Nombre.ToString()})
@@ -287,7 +287,7 @@ Friend Module Q000_Strategy_X
       Jrn_Add(, {"Code Stratégie " & .Code & ", " & Stg_Get(.Code).Texte})
       Jrn_Add(, {"Candidat       " & String.Join(", ", .Candidat)})
       Jrn_Add(, {" La valeur 0 d'un candidat signifie que ce candidat n'est pas pris en compte."}, "Italique")
-      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_cr(c)))})
+      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_Coord(c)))})
       Jrn_Add(, {" La valeur # -1# d'une cellule signifie que la stratégie n'utilise pas cette information."}, "Italique")
 
       Jrn_Add(, {"XRoads_Nombre  " & .XRoads_Nombre.ToString()})

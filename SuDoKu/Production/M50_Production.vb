@@ -696,18 +696,14 @@ Pzzl_Crt_Exit:
     ' Le nombre de tentative dépend de la valeur stockée dans Préférences / Création / Nombre limite de tentatives
     Dim Prc As Integer = 5
 
-    'Effacement de toute la grille et du journal 
-    Frm_SDK.Journal.Text = ""
-    Frm_SDK.Journal.Refresh()
     Jrn_Add("SDK_00011", JourDateHeure())
     For i As Integer = 0 To 80
       U(i, 1) = " "
       U(i, 2) = " "
       U(i, 3) = Cnddts
     Next i
-    G1_Grid_Paint()
-    Dim Gril As New Grille_Cls
-    Gril.G2_Grille_Paint_Fond()
+    Event_OnPaint = "Partiel_Fond"
+    Frm_SDK.Invalidate()
 
     Jrn_Add(, {Procédure_Name_Get()})
     Cursor.Current = Cursors.WaitCursor
@@ -820,18 +816,14 @@ Pzzl_Prd_End:
     Dim Tentative As Integer = 0
     Dim Prc As Integer = 5
 
-    'Effacement de toute la grille et du journal 
-    G1_Grid_Paint()
-    Dim Gril As New Grille_Cls
-    Gril.G2_Grille_Paint_Fond()
-    Frm_SDK.Journal.Text = ""
-    Frm_SDK.Journal.Refresh()
     Jrn_Add("SDK_00011", JourDateHeure())
     For i As Integer = 0 To 80
       U(i, 1) = " "
       U(i, 2) = " "
       U(i, 3) = Cnddts
     Next i
+    Event_OnPaint = "Partiel_Fond"
+    Frm_SDK.Invalidate()
 
     Jrn_Add(, {Procédure_Name_Get()})
     Cursor.Current = Cursors.WaitCursor

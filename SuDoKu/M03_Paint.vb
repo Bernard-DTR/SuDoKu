@@ -1551,6 +1551,54 @@ Friend Module M03_Paint
     End Select
     g.Dispose()
   End Sub
+  Public Sub G0_Cell_Figure_g(g As Graphics, Cellule As Integer, Figure As String, Couleurp As Color)
+    Dim Couleur As Color = Color.FromArgb(192, Couleur) ' 128+64 = 192
+
+    'Dessine des figures à partir de 4 points A0, B0, C0, D0 représentant les 4 points du square A0= Left_Top, C0= Right_Bottom
+    '                             déclinés en A1, B1, C1, D1 décalé de 1/4 
+    '                             déclinés en A2, B2, C2, D2 décalé de 2/4 
+    '                             déclinés en A3, B3, C3, D3 décalé de 3/4 
+    Const Inflate As Integer = -5
+
+    Dim Rct_Cercle As New Rectangle(x:=CInt(U_Pt20(Cellule, 0).X), CInt(U_Pt20(Cellule, 0).Y), width:=WH - 3, height:=WH - 3)
+    Dim Pt1 As Point, Pt2 As Point, Pt3 As Point, Pt4 As Point
+    Pt1 = New Point(CInt(U_Pt20(Cellule, 0).X), CInt(U_Pt20(Cellule, 0).Y))
+    Pt2 = New Point(CInt(U_Pt20(Cellule, 1).X), CInt(U_Pt20(Cellule, 1).Y))
+    Pt3 = New Point(CInt(U_Pt20(Cellule, 2).X), CInt(U_Pt20(Cellule, 2).Y))
+    Pt4 = New Point(CInt(U_Pt20(Cellule, 3).X), CInt(U_Pt20(Cellule, 3).Y))
+
+    Using pen As New Pen(Couleur, 2),
+          brsh As New SolidBrush(Couleur),
+          pen_Inflate As New Pen(Couleur, Math.Abs(Inflate) * 2)
+      Select Case Figure
+        Case "Cadre"
+          ' Comme le trait du rectangle dépasse de la moitié à droite et à gauche du trait, l'inflate doit être le double
+          Rct_Cercle.Inflate(Inflate, Inflate)
+          g.DrawRectangle(pen_Inflate, Rct_Cercle)
+        Case "Carré"
+          g.FillRectangle(brsh, Rct_Cercle)
+        Case "Croix"
+          g.DrawLine(pen, Pt1, Pt3)
+          g.DrawLine(pen, Pt2, Pt4)
+        Case "Cercle"
+          g.DrawArc(pen, Rct_Cercle, 0.0F, 360.0F)
+        Case "Disque"
+          g.FillPie(brsh, Rct_Cercle, 0.0F, 360.0F)
+        Case "Ellipse"
+          '28/01/2025 Cette figure n'est plus utilisée
+          Dim Rct_V As New Rectangle(x:=Sqr_Cel(Cellule).X + (1 * WHthird), y:=Sqr_Cel(Cellule).Y, width:=WHthird, height:=WH - 3)
+          Dim Rct_H As New Rectangle(x:=Sqr_Cel(Cellule).X + 1, y:=Sqr_Cel(Cellule).Y + (1 * WHthird), width:=WH - 3, height:=WHthird)
+          g.DrawEllipse(pen, Rct_V)
+          g.DrawEllipse(pen, Rct_H)
+          g.DrawArc(pen, Rct_Cercle, 0.0F, 360.0F)
+        Case "Double_Carré"
+          g.DrawPolygon(pen, {U_Pt20(Cellule, 4), U_Pt20(Cellule, 5), U_Pt20(Cellule, 6), U_Pt20(Cellule, 7)})
+          g.DrawPolygon(pen, {U_Pt20(Cellule, 12), U_Pt20(Cellule, 13), U_Pt20(Cellule, 14), U_Pt20(Cellule, 15)})
+        Case Else
+          Jrn_Add(, {Procédure_Name_Get() & " Figure Inconnue : " & Figure}, "Erreur")
+      End Select
+    End Using
+  End Sub
 
   Public Sub G0_Cdd_Figure(Cellule As Integer, Candidat As Integer, Figure As String, Couleur As Color)
     Couleur = Color.FromArgb(128 + 64, Couleur)

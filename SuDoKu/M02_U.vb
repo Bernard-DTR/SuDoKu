@@ -26,14 +26,12 @@ Module M02_U
   '-------------------------------------------------------------------------------
 
   Function U_Coord(Cellule As Integer) As String
-    'U_Coord et .Coordonnées ont le même format
-    Select Case Cellule
-      Case 0 To 80 : U_Coord = "L" & U_Row(Cellule) + 1 & "_" & "C" & U_Col(Cellule) + 1     'format Lx_Cy
-      Case Else : U_Coord = "#" & CStr(Cellule).PadLeft(3) & "#"                             'format #-1 ou #82 #
-    End Select
-    Return U_Coord
+    'U_Coord devient un wrapper
+    If Cellule < 1 OrElse Cellule > 81 Then
+      Return $"[ERR:{Cellule}]"
+    End If
+    Return U_cr(Cellule)
   End Function
-
 
   Public Sub U_Display()
     Jrn_Add("SDK_30010")

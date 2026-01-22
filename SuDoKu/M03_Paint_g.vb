@@ -19,6 +19,7 @@ Imports System.Drawing.Drawing2D
 
 Module M03_Paint_g
 
+#Region "G1 Couche Quadrillage"
   Public Sub G1_Grid_Paint_g(g As Graphics)
     Jrn_Add_Yellow(Procédure_Name_Get())
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
@@ -36,7 +37,6 @@ Module M03_Paint_g
       Case 5, 6 : G1_Grid_Paint_Quadrillage_36_g(g)
     End Select
   End Sub
-
   Public Sub G1_Grid_Paint_Quadrillage_00_g(g As Graphics)
     'Les suffixes 00,04,20,36 représentent le nombre de coins arrondis ou biseautés
     'Quadrillage de référence pour l'entourage, les régions et les cellules horizontal et vertical
@@ -64,7 +64,6 @@ Module M03_Paint_g
       Next i
     End Using
   End Sub
-
   Public Sub G1_Grid_Paint_Quadrillage_04_g(g As Graphics)
     ' 4 Coins arrondis ou biseautés
     'Quadrillage de référence pour l'entourage, les régions et les cellules horizontal et vertical
@@ -141,7 +140,6 @@ Module M03_Paint_g
     End Using
 
   End Sub
-
   Public Sub G1_Grid_Paint_Quadrillage_20_g(g As Graphics)
     'Quadrillage Coins Arrondis
     ' 1 Traits intérieurs fins 
@@ -420,5 +418,6 @@ Module M03_Paint_g
       End Using
     End Using
   End Sub
+#End Region
 
 End Module

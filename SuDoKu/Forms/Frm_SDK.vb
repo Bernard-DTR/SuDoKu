@@ -547,14 +547,18 @@ Public NotInheritable Class Frm_SDK
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
         sc.Cellule_Refresh()
         sc.G7_Cellule_Paint_Select()
+
         '#529
-      Case "Stratégie_G"
+      Case "Global", "Stratégie_G"
         Jrn_Add_Yellow(Procédure_Name_Get() & " Plcy_strg=" & Plcy_Strg & " Event_OnPaint=" & Event_OnPaint)
         Dim Gril As New Grille_Cls
         Gril.Grille_Refresh_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
         sc.Cellule_Refresh()
         sc.G7_Cellule_Paint_Select()
+      Case "Partiel_Fond"
+        G1_Grid_Paint_g(e.Graphics)
+
       Case Else
         Jrn_Add("SDK_00000", {"Protected Overrides Sub OnPaint(e As PaintEventArgs) est activée: "})
         Jrn_Add("SDK_00000", {"e As PaintEventArgs      : " & e.ToString})
@@ -1282,17 +1286,20 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 1) = " " And U_Sol(i) <> " " Then U(i, 2) = U_Sol(i)
     Next i
-    'Un seul Invalidate par fonction
+
     B_Info.Text = "Affichage de la Solution"
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
+    Event_OnPaint = "Solution_Affichée"
+    Me.Invalidate()
+    Application.DoEvents()   'Affiche la grille avec solutions
 
     Thread.Sleep(2000) 'Le temps de lire quelques valeurs
+
     For i As Integer = 0 To 80 : U(i, 2) = LP_Jeu.Substring(i, 1) : Next i
     B_Info.Text = " _ "
-    ' A cet endroit, il n'est pas nécessaire de faire un B_Info.Grille_Refresh !!!
     Event_OnPaint = "Solution_Affichée"
     Invalidate()
+    Application.DoEvents()   'Affiche la grille sans solutions immédiatement
+
   End Sub
   Private Sub Mnu03_Rafraîchir_Click(sender As Object, e As EventArgs) Handles Mnu03_Rafraîchir.Click
     Dim Gril As New Grille_Cls

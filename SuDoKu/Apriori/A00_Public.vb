@@ -89,6 +89,7 @@ Module A00_Public
   Public U_CddExc(0 To 80) As String            ' Comporte les candidats exclus 
   Public U_Sol(0 To 80) As String
   Public U_Clr_Cell_Fond(0 To 80) As Color      ' Couleur de fond de chaque cellule
+  Public U_Clr_Cell_Val(0 To 80) As Color       ' Couleur de la valeur de chaque cellule
 
   'Ce tableau concerne les stratégies Cdd, CdU, CdO, Flt et Cbl à Unq
   'Il stocke les cellules concernées par la stratégie (Niveau de base Simple et Aide Graphique) pour n'effacer que celles-là
