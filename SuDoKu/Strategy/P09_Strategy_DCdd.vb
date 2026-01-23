@@ -35,7 +35,7 @@ Friend Module P09_Strategy_DCdd
     Dim Nb As Integer = 0
     For Each DCdd As DCdd_Cls In DCdd_List
       Nb += 1
-      Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & " Stratégie " & DCdd.Stratégie & " " & U_cr(DCdd.Cellule) & " Candidat : " & DCdd.Candidat & " Sous_Stratégie " & DCdd.Sous_Stratégie})
+      Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & " Stratégie " & DCdd.Stratégie & " " & U_Coord(DCdd.Cellule) & " Candidat : " & DCdd.Candidat & " Sous_Stratégie " & DCdd.Sous_Stratégie})
     Next DCdd
   End Sub
 

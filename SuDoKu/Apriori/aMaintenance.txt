@@ -188,9 +188,9 @@
 #542 J  22/01/2026 Pzzl_Crt_Interactif      utilise G1_Grid_Paint_g
 #543 J  22/01/2026 Pzzl_Crt_Interactif_81   utilise G1_Grid_Paint_g
 #544               Frm_SDK.CreateGraphics : Occurences 16 
-#545 J  22/01/2026 Mnu03_AfficherLaSolution_Click utilise OnPaint
-
-
+#545 J  22/01/2026 Mnu03_AfficherLaSolution_Click utilise OnPaint Global
+#546 V  23/01/2026 Cell_Val_Delete utilise OnPaint Global
+#547 V  23/01/2026 Remise en place du wrapper U_Coord à la place de U_cr
                     
 ##############################################################################################################################
 

@@ -13,6 +13,11 @@ Friend Module M03_Sélection
     If (V < "1") Or (V > "9") Then Exit Sub
     If Plcy_Gnrl = "Edi" Then Exit Sub
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
+
+    'Jrn_Add_Yellow(Procédure_Name_Get() & " " & U_cr(Cellule) & " Origine : " & Origine)
+    Event_OnPaint = Procédure_Name_Get()
+
+
     Game_Undo_Redo = "Normal"
     Dim Av_Jeu As String = Act_Jeu()
     Dim Av_AllCdd As String = Act_Candidats()
@@ -118,16 +123,11 @@ Friend Module M03_Sélection
         U(Cellule, 3) = Cnddts_Blancs
     End Select
     Act_Add(Cellule, "Effacer", VE, Cnddts_Blancs, Origine, Av_Jeu, Av_AllCdd)
-    '"#426
-    'Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00112", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides)})
     Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00113", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-    'Affiche la grille avec la valeur effacée 
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
-    Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-    sc.G7_Cellule_Paint_Select()
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
   End Sub
 
   Sub Cell_Cdd_Insert(V As String, Cellule As Integer, Origine As String)
@@ -169,6 +169,7 @@ Friend Module M03_Sélection
       Cell_Slv_Interactif("S", "Mode Suggestion")
     End If
   End Sub
+
 
   Sub Cell_Cdd_Exclude(V As String, Cellule As Integer)
     If Plcy_Gnrl = "Edi" Then Exit Sub

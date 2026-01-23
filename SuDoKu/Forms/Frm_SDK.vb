@@ -536,7 +536,6 @@ Public NotInheritable Class Frm_SDK
            "Frm_SDK_SizeChanged",
            "Frm_SDK_VisibleChanged",
            "Game_New_Game",
-           "Solution_Affichée",
            "Frm_Préférences",
            "Stratégie_X",
            "AfficherDCdd",
@@ -545,7 +544,7 @@ Public NotInheritable Class Frm_SDK
         Dim Gril As New Grille_Cls
         Gril.Grille_Refresh()
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.Cellule_Refresh()
+        'sc.Cellule_Refresh()
         sc.G7_Cellule_Paint_Select()
 
         '#529
@@ -554,9 +553,10 @@ Public NotInheritable Class Frm_SDK
         Dim Gril As New Grille_Cls
         Gril.Grille_Refresh_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.Cellule_Refresh()
+        ' Pourquoi la cellule est raffraichie après la grille ?
+        'sc.Cellule_Refresh()
         sc.G7_Cellule_Paint_Select()
-      Case "Partiel_Fond"
+      Case "Partiel_Fond"              ' Utilisé lors de la production d'une grille
         G1_Grid_Paint_g(e.Graphics)
 
       Case Else
@@ -564,7 +564,7 @@ Public NotInheritable Class Frm_SDK
         Jrn_Add("SDK_00000", {"e As PaintEventArgs      : " & e.ToString})
         Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
         Jrn_Add("SDK_00000", {"Valeur Event_OnPaint_MAP : " & Event_OnPaint_MAP})
-        Jrn_Add("SDK_00000", {"La grille n'est pas rafraîchie, La cellule " & U_cr(Pbl_Cell_Select) & " n'est pas sélectionnée."})
+        Jrn_Add("SDK_00000", {"La grille n'est pas rafraîchie, La cellule " & U_Coord(Pbl_Cell_Select) & " n'est pas sélectionnée."})
         Jrn_Add("SDK_00010", JourDateHeure())
     End Select
     Event_OnPaint = "#"
@@ -916,7 +916,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Public Sub Aimantation(Cellule As Integer)
     'Positionnement du Formulaire d'insertion de Candidats
-    Frm_Insérer_Candidats.Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_cr(Cellule)})
+    Frm_Insérer_Candidats.Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_Coord(Cellule)})
     Dim Pos_L As Integer = Left + Sqr_Cel(Cellule).Left
     Dim Pos_T As Integer = Top + Sqr_Cel(Cellule).Top
     Select Case Plcy_FIC_Zone_Aimantée
@@ -1288,7 +1288,7 @@ Public NotInheritable Class Frm_SDK
     Next i
 
     B_Info.Text = "Affichage de la Solution"
-    Event_OnPaint = "Solution_Affichée"
+    Event_OnPaint = "Global"
     Me.Invalidate()
     Application.DoEvents()   'Affiche la grille avec solutions
 
@@ -1296,7 +1296,7 @@ Public NotInheritable Class Frm_SDK
 
     For i As Integer = 0 To 80 : U(i, 2) = LP_Jeu.Substring(i, 1) : Next i
     B_Info.Text = " _ "
-    Event_OnPaint = "Solution_Affichée"
+    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()   'Affiche la grille sans solutions immédiatement
 
@@ -2118,7 +2118,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Dim Cellule_Exc As Integer = Pbl_Cell_Select
       Dim Titre As String = "Exclure un ou plusieurs candidats"
-      Dim Texte As String = "Candidat(s) souhaité(s) en " & U_cr(Cellule_Exc) & " :" & vbCrLf
+      Dim Texte As String = "Candidat(s) souhaité(s) en " & U_Coord(Cellule_Exc) & " :" & vbCrLf
       Texte &= "La chaîne de caractères ne doit pas dépasser 9."
       Texte &= "Les candidats peuvent être présentés dans le désordre, et comporter des blancs ."
       Dim Dftvalue As String = U_Strg_Cdd_Exc(Cellule_Exc)

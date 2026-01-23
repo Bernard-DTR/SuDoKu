@@ -171,8 +171,8 @@ Friend Module M49_Prd_General
       Jrn_Add(, {"Ini " & S1.Replace(" ", ".")})
       Jrn_Add(, {"Val " & S2.Replace(" ", ".")})
 
-      If .Prd_Ext_Triplet <> "#" Then Jrn_Add(, {"Triplet                      : " & .Prd_Ext_Triplet & " " & U_cr(.Prd_Ext_Triplet_Cellule)})
-      If .Prd_Ext_XWing <> "#" Then Jrn_Add(, {"Xwing                        : " & .Prd_Ext_XWing & " " & U_cr(.Prd_Ext_XWing_Cellule)})
+      If .Prd_Ext_Triplet <> "#" Then Jrn_Add(, {"Triplet                      : " & .Prd_Ext_Triplet & " " & U_Coord(.Prd_Ext_Triplet_Cellule)})
+      If .Prd_Ext_XWing <> "#" Then Jrn_Add(, {"Xwing                        : " & .Prd_Ext_XWing & " " & U_Coord(.Prd_Ext_XWing_Cellule)})
       If .Prd_DlCode <> "" Then Jrn_Add(, {"Prd_DlCode                   : " & .Prd_DlCode})
       If .Prd_DlCode = "Dlu" Then Jrn_Add(, {"Prd_DlSolution               : " & .Prd_DlSolution})
       Jrn_Add(, {"Origine Batch_Interactive    : " & .Prd_BI})

@@ -414,7 +414,7 @@ Strategy_Unq_End:
     Jrn_Add(, {"Liste de Unq1_list : Nombre de Postes " & CStr(Unq1_list.Count)})
     Dim S As String
     For i As Integer = 0 To Unq1_list.Count - 1
-      S = CStr(i).PadRight(5) & "  " & U_cr(Unq1_list.Item(i).Cellule) & " " &
+      S = CStr(i).PadRight(5) & "  " & U_Coord(Unq1_list.Item(i).Cellule) & " " &
                                        Unq1_list.Item(i).Candidats &
                                        " Occurences: " & Unq1_list.Item(i).Occurences
       Jrn_Add(, {S})
@@ -424,9 +424,9 @@ Strategy_Unq_End:
     Jrn_Add(, {"Liste de Unq2_list : Nombre de Postes " & CStr(Unq2_list.Count)})
     Dim S As String
     For i As Integer = 0 To Unq2_list.Count - 1
-      S = CStr(i).PadRight(5) & "  " & U_cr(Unq2_list.Item(i).Cellule_A) & " " &
-                                       U_cr(Unq2_list.Item(i).Cellule_B) & " " &
-                                       U_cr(Unq2_list.Item(i).Cellule_C) & " " &
+      S = CStr(i).PadRight(5) & "  " & U_Coord(Unq2_list.Item(i).Cellule_A) & " " &
+                                       U_Coord(Unq2_list.Item(i).Cellule_B) & " " &
+                                       U_Coord(Unq2_list.Item(i).Cellule_C) & " " &
                                        Unq2_list.Item(i).Candidats
       Jrn_Add(, {S})
     Next i
@@ -435,9 +435,9 @@ Strategy_Unq_End:
     Jrn_Add(, {"Liste de Unq3_list : Nombre de Postes " & CStr(Unq3_list.Count)})
     Dim S As String
     For i As Integer = 0 To Unq3_list.Count - 1
-      S = CStr(i).PadRight(5) & "  " & U_cr(Unq3_list.Item(i).Cellule_A) & " " &
-                                       U_cr(Unq3_list.Item(i).Cellule_B) & " " &
-                                       U_cr(Unq3_list.Item(i).Cellule_C) & " " &
+      S = CStr(i).PadRight(5) & "  " & U_Coord(Unq3_list.Item(i).Cellule_A) & " " &
+                                       U_Coord(Unq3_list.Item(i).Cellule_B) & " " &
+                                       U_Coord(Unq3_list.Item(i).Cellule_C) & " " &
                                        Unq3_list.Item(i).Candidats & " " &
                                        Unq3_list.Item(i).Typologie
       Jrn_Add(, {S})

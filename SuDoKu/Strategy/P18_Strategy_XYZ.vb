@@ -46,7 +46,7 @@ Friend Module P18_Strategy_XYZ
       If Wh_Cell_Nb_Candidats(U_temp, i) = 3 Then
         n += 1
         XYZ_t(0, n) = CStr(n)
-        XYZ_t(1, n) = CStr(i) : XYZ_t(2, n) = U_cr(i)
+        XYZ_t(1, n) = CStr(i) : XYZ_t(2, n) = U_Coord(i)
         Dim n1 As Integer = 0 'Premier, deuxième et troisième candidat
         For j As Integer = 0 To 8
           If Mid$(U_temp(i, 3), j + 1, 1) <> " " Then

@@ -59,7 +59,7 @@ Friend Module Q000_Strategy_X
     For Each XWCel As GCel_Cls In GCels
       Nb += 1
       With XWCel
-        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_cr(.Cel) & " Candidats : " & String.Join("-", .Cdd) & " Cellule " & CStr(.Cel).PadLeft(2)})
+        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(.Cel) & " Candidats : " & String.Join("-", .Cdd) & " Cellule " & CStr(.Cel).PadLeft(2)})
       End With
     Next XWCel
   End Sub
@@ -86,8 +86,8 @@ Friend Module Q000_Strategy_X
             'Cdd(2 et 3)  sont les candidats de cel(1)
             'Cdd(4)       est le candidat commun
             S = .Cdd(4) & " " &
-            U_cr(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
-            U_cr(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
+            U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
+            U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
             " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Composition &
             " N° Cellules " & CStr(.Cel(0)).PadLeft(2) & " " & CStr(.Cel(1)).PadLeft(2)
           Case Else
@@ -109,8 +109,8 @@ Friend Module Q000_Strategy_X
         'Cdd(2 et 3)  sont les candidats de cel(1)
         'Cdd(4)       est le candidat commun
         S = .Cdd(4) & " " &
-      U_cr(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ") " &
-      U_cr(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
+      U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ") " &
+      U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
       " Type-Lien " & .Type & " Unité " & .Unité.PadRight(6) &
       " N° Cellules " & CStr(.Cel(0)).PadLeft(2) & " " & CStr(.Cel(1)).PadLeft(2)
       End With
@@ -130,8 +130,8 @@ Friend Module Q000_Strategy_X
         'Cdd(3 et  4) sont les candidats de cel(1)
         'Cdd(5)       est le candidat commun
         S = .Cdd(5) & " " &
-        U_cr(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & "-" & .Cdd(2) & ") " &
-        U_cr(.Cel(1)) & " (" & .Cdd(3) & "-" & .Cdd(4) & ") " &
+        U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & "-" & .Cdd(2) & ") " &
+        U_Coord(.Cel(1)) & " (" & .Cdd(3) & "-" & .Cdd(4) & ") " &
         " Type-Lien " & .Type & " Unité " & .Unité.PadRight(6) &
         " N° Cellules " & CStr(.Cel(0)).PadLeft(2) & " " & CStr(.Cel(1)).PadLeft(2)
       End With
@@ -252,7 +252,7 @@ Friend Module Q000_Strategy_X
     For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
       With XCel
         Nb += 1
-        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_cr(.Cel) & " Candidat : " & .Cdd & " Cellules extrémités : " & U_cr(.Exc(0)) & " <--> " & U_cr(.Exc(1))})
+        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(.Cel) & " Candidat : " & .Cdd & " Cellules extrémités : " & U_Coord(.Exc(0)) & " <--> " & U_Coord(.Exc(1))})
       End With
     Next XCel
 
@@ -269,7 +269,7 @@ Friend Module Q000_Strategy_X
           With XCel
             Dim DL_Cellule As Integer = .Cel
             If XSolution(DL_Cellule) = .Cdd Then
-              Jrn_Add(, {" La cellule " & U_cr(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
+              Jrn_Add(, {" La cellule " & U_Coord(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
             End If
           End With
         Next XCel
@@ -316,7 +316,7 @@ Friend Module Q000_Strategy_X
     For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
       With XCel
         Nb += 1
-        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_cr(.Cel) & " Candidat : " & .Cdd & " Cellules extrémités : " & U_cr(.Exc(0)) & " <--> " & U_cr(.Exc(1))})
+        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(.Cel) & " Candidat : " & .Cdd & " Cellules extrémités : " & U_Coord(.Exc(0)) & " <--> " & U_Coord(.Exc(1))})
       End With
     Next XCel
 
@@ -333,7 +333,7 @@ Friend Module Q000_Strategy_X
           With XCel
             Dim DL_Cellule As Integer = .Cel
             If XSolution(DL_Cellule) = .Cdd Then
-              Jrn_Add(, {" La cellule " & U_cr(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
+              Jrn_Add(, {" La cellule " & U_Coord(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
             End If
           End With
         Next XCel

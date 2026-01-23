@@ -46,8 +46,8 @@ Friend Module A__Colorisation
       With Obj
         Jrn_Add(, {"Couleur " & .Symbol.PadLeft(1) & " " &
                                 .Forme.PadRight(8) & " From " &
-                                U_cr(.Cel_From) & "-" & .Cdd_From & " To " &
-                                U_cr(.Cel_To) & "-" & .Cdd_To &
+                                U_Coord(.Cel_From) & "-" & .Cdd_From & " To " &
+                                U_Coord(.Cel_To) & "-" & .Cdd_To &
                                 " Pt_From " & .Point_From.ToString() & " Pt_To " & .Point_To.ToString()})
       End With
     Next obj
