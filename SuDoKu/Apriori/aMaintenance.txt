@@ -192,6 +192,7 @@
 #546 V  23/01/2026 Cell_Val_Delete utilise OnPaint Global
 #547 V  23/01/2026 Remise en place du wrapper U_Coord à la place de U_cr
 #548 V  23/01/2026 Compte git 
+#549 V  23/01/2026 Git uniquement local
                     
 ##############################################################################################################################
 
