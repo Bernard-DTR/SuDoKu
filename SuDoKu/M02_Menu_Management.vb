@@ -81,15 +81,8 @@ Module M02_Menu_Management
         Jrn_Add("ERR_00000", {sender.ToString() & " Action : " & Action & " en: " & U_Coord(Cellule)}, "Erreur")
     End Select
 
-    'la cellule sélectionnée sera la cellule suivante
-    Pbl_Cell_Select += 1
-    If Pbl_Cell_Select = 80 Then Pbl_Cell_Select = 0
-    'Affiche après exécution de EDI
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
-    Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-    sc.G7_Cellule_Paint_Select()
-    Exit Sub
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
   End Sub
 
   Sub Mnu_Mngt_Conditions_Générales(Cellule As Integer)

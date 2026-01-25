@@ -27,8 +27,8 @@ Module M02_U
 
   Function U_Coord(Cellule As Integer) As String
     'U_Coord devient un wrapper
-    If Cellule < 1 OrElse Cellule > 81 Then
-      Return $"[ERR:{Cellule}]"
+    If Cellule < 0 OrElse Cellule > 80 Then
+      Return "❗" & Cellule.ToString().PadRight(4)
     End If
     Return U_cr(Cellule)
   End Function

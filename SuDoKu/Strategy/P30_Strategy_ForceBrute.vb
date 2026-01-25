@@ -87,13 +87,13 @@ Friend Module P30_Strategy_ForceBrute
 
     Rslt = Calcul_ForceBrute()
     'Cube_Sdk_Lst()
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
     If Rslt > 0 Then
       Jrn_Add(, {"Stratégie de Force Brute : maximum recursion profondeur: " & Rslt.ToString()})
     Else
       Jrn_Add(, {"Stratégie de Force Brute : ECHEC!"})
     End If
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
   End Sub
 
   Public Function Calcul_ForceBrute() As Integer

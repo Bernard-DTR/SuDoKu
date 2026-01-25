@@ -5,7 +5,6 @@ Friend Module M03_Sélection
   '-------------------------------------------------------------------------------
   ' Traitement de la Sélection 
   '-------------------------------------------------------------------------------
-
   Sub Cell_Val_Insert(V As String, Cellule As Integer, Origine As String)
     ' 01  Les Conditions d'Insertion
     If Cellule < 0 Or Cellule > 80 Then Exit Sub
@@ -15,13 +14,12 @@ Friend Module M03_Sélection
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
 
     'Jrn_Add_Yellow(Procédure_Name_Get() & " " & U_cr(Cellule) & " Origine : " & Origine)
-    Event_OnPaint = Procédure_Name_Get()
-
 
     Game_Undo_Redo = "Normal"
     Dim Av_Jeu As String = Act_Jeu()
     Dim Av_AllCdd As String = Act_Candidats()
     Dim Candidats_Avant As String = U(Cellule, 3)
+    Pbl_Cell_Select = Cellule
 
     ' 02  L'insertion dans les ressources
     Select Case Plcy_Gnrl
@@ -45,7 +43,6 @@ Friend Module M03_Sélection
     ' 03  L'affichage du résultat
     '     Traitements communs
     '     L'insertion ne concerne qu'une cellule à la fois
-    Pbl_Cell_Select = Cellule
     Dim sc As New Cellule_Cls With {.Numéro = Cellule}
     Dim Gril As New Grille_Cls
     Select Case Plcy_Gnrl
@@ -53,10 +50,10 @@ Friend Module M03_Sélection
         Select Case Plcy_Strg
           Case "   "
             Gril.G3_Grille_Paint_Indirecte()
-            G4_Grid_Stratégie_All()
             sc.Cellule_Refresh()
           Case Else
             If Plcy_AideGraphique Then
+              Gril.G3_Grille_Paint_Indirecte()
               Gril.Grille_Refresh()
             End If
             If Not Plcy_AideGraphique Then
@@ -84,11 +81,7 @@ Friend Module M03_Sélection
     End If
 
     ' 05 Fin de partie
-    If Wh_Nb_Cell(U).Remplies = 81 Then
-      Strategy_Dsp_Standard()
-      Gril.G8_Grille_Partie_Terminée()
-      Gril.Grille_Refresh()
-    End If
+    If Wh_Nb_Cell(U).Remplies = 81 Then Gril.G8_Grille_Partie_Terminée()
   End Sub
 
   Sub Cell_Val_Delete(Cellule As Integer, Origine As String)

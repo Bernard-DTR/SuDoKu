@@ -340,11 +340,13 @@ Public Class Cellule_Cls
   Public Sub G7_Cellule_Paint_Select()
     ' C'est l'affichage des candidats qui constitue l'affichage de la sélection
     Dim g As Graphics = Frm_SDK.CreateGraphics
-    If Cellule_Arrondie Then
-      g.FillPath(New SolidBrush(Color_Cell_Select), Sqr_Pth(Numéro))
-    Else
-      g.FillRectangle(New SolidBrush(Color_Cell_Select), Sqr_Cel(Numéro))
-    End If
+    Using brsh As New SolidBrush(Color_Cell_Select)
+      If Cellule_Arrondie Then
+        g.FillPath(brsh, Sqr_Pth(Numéro))
+      Else
+        g.FillRectangle(brsh, Sqr_Cel(Numéro))
+      End If
+    End Using
     g.Dispose()
 
     If Typologie = "V" Then
@@ -383,6 +385,7 @@ Public Class Cellule_Cls
     G5_Cellule_Paint_Valeur()
     G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
   End Sub
+
   ''' <summary>Rafraîchit la Cellule et les Cellules Collatérales</summary>
   Public Sub Cellule_Refresh_Cell_Coll()
     'La cellule et les cellules collatérales sont rafraîchies, la Cellule n'est pas sélectionnée
@@ -525,7 +528,7 @@ Public Class Grille_Cls
     If Plcy_Gnrl <> "Nrm" And Plcy_Gnrl <> "Sas" Then Exit Sub
     ' Il faut que les 81 cellules soient remplies et que la grille soit correcte
     ' Il faut que la partie ait été jouée (Act_Index > 1)
-
+    Strategy_Dsp_Standard()
     Dim U_Chk(80, 3) As String
     Array.Copy(U, U_Chk, UNbCopy)
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
@@ -575,6 +578,7 @@ Public Class Grille_Cls
       End Using
       Cursor.Current = Cursors.Default
     End If
+    Grille_Refresh()
   End Sub
 #End Region
 End Class
@@ -695,16 +699,6 @@ Public Class SDK_ColorDialog
 End Class
 
 Friend Module Cell_Grid
-
-  ''' <summary>Retourne False/True en fonction du numéro de la cellule</summary>
-  Public Function Cell_Numéro_Valide(ByRef Cellule As Integer) As Boolean
-    Cell_Numéro_Valide = False
-    If Cellule >= 0 And Cellule <= 80 Then
-      Cell_Numéro_Valide = True
-    End If
-    Return Cell_Numéro_Valide
-  End Function
-
   Public Function Subst_Police(Source As String) As String
     'Source est compris entre 1 et 9
     'Donc Subst_Police(Cstr(0)) retourne vide et le bouton n'affiche rien

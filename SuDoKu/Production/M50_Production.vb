@@ -1280,8 +1280,8 @@ Phase_End:
       U(i, 3) = Prd.Prd_Candidats(i)
     Next i
 
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
   End Sub
 
   Public Sub Pzzl_Crt_Triplet(ByRef Prd As Prd_Struct)
@@ -1615,11 +1615,8 @@ Xwing_Boucle_End:
       Case "Mode Suggestion"
         Frm_SDK.B_Info.Text = "Mode Suggestion. " & Stratégie_Explicite & " en " & Plage
     End Select
-
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
-    Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-    sc.G7_Cellule_Paint_Select()
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
   End Sub
 
 

@@ -116,17 +116,6 @@ Module M02_Wh_Q
     'Calcule le Pourcentage de cellules remplies dans la grille
     Return CStr((Wh_Nb_Cell(U).Remplies * 100) \ 81) & " %"
   End Function
-  Public Function Wh_PremièreCelluleVide() As Integer
-    'Détermine la Première Cellule Vide 
-    'Si aucune cellule n'est remplie, retourne 0
-    Wh_PremièreCelluleVide = 0
-    For i As Integer = 0 To 80
-      If U(i, 2) = " " Then
-        Wh_PremièreCelluleVide = i
-        Exit For
-      End If
-    Next i
-  End Function
   Public Function Wh_RandomCelluleVide() As Integer
     'Détermine une Cellule Vide au hasard
     'Si aucune cellule n'est vide, retourne -1

@@ -513,7 +513,6 @@ Public NotInheritable Class Frm_SDK
     End Select
   End Sub
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
-    ' Ajout du 26/10/2025
     ' Cela garantit que la logique de peinture de la classe de base (le cas échéant) est exécutée.
     ' Par exemple, elle peut gérer la peinture de l'arrière-plan ou d'autres comportements par défaut
     MyBase.OnPaint(e)
@@ -528,34 +527,12 @@ Public NotInheritable Class Frm_SDK
     e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
 
     Select Case Event_OnPaint
-      Case "Frm_SDK_Activated",
-           "Frm_SDK_Resize",
-           "Frm_SDK_MinimumSizeChanged",
-           "Frm_SDK_LocationChanged",
-           "Frm_SDK_Move",
-           "Frm_SDK_SizeChanged",
-           "Frm_SDK_VisibleChanged",
-           "Game_New_Game",
-           "Frm_Préférences",
-           "Stratégie_X",
-           "AfficherDCdd",
-           "Batch_Sudoku",
-           "Frm_SDK_FormClosing"
-        Dim Gril As New Grille_Cls
-        Gril.Grille_Refresh()
-        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        'sc.Cellule_Refresh()
-        sc.G7_Cellule_Paint_Select()
-
-        '#529
       Case "Global", "Stratégie_G"
-        Jrn_Add_Yellow(Procédure_Name_Get() & " Plcy_strg=" & Plcy_Strg & " Event_OnPaint=" & Event_OnPaint)
         Dim Gril As New Grille_Cls
         Gril.Grille_Refresh_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        ' Pourquoi la cellule est raffraichie après la grille ?
-        'sc.Cellule_Refresh()
         sc.G7_Cellule_Paint_Select()
+
       Case "Partiel_Fond"              ' Utilisé lors de la production d'une grille
         G1_Grid_Paint_g(e.Graphics)
 
@@ -569,8 +546,9 @@ Public NotInheritable Class Frm_SDK
     End Select
     Event_OnPaint = "#"
   End Sub
+
   Private Sub Frm_SDK_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
-    Event_OnPaint = "Frm_SDK_Activated"
+    Event_OnPaint = "Global"
   End Sub
 
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -619,7 +597,8 @@ Public NotInheritable Class Frm_SDK
       Cursor = Cursors.WaitCursor
 
       ' Attendre la fin du thread
-      Event_OnPaint = "Frm_SDK_FormClosing"
+      Event_OnPaint = "Global"
+
       Invalidate()
       MsgBox("SuDoKu est en train de calculer des grilles " & vbCrLf & "Merci de patienter ! ",
       MsgBoxStyle.Information, "SuDoKu")
@@ -634,23 +613,23 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Frm_SDK_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
     'Se produit quand le contrôle est redimensionné par exemple après une Réduction 
-    Event_OnPaint = "Frm_SDK_Resize"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_MinimumSizeChanged(sender As Object, e As EventArgs) Handles MyBase.MinimumSizeChanged
-    Event_OnPaint = "Frm_SDK_MinimumSizeChanged"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
-    Event_OnPaint = "Frm_SDK_LocationChanged"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_Move(sender As Object, e As EventArgs) Handles MyBase.Move
     'Génére OnPaint, lorsque le Move est hors écran
-    Event_OnPaint = "Frm_SDK_Move"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
-    Event_OnPaint = "Frm_SDK_SizeChanged"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_VisibleChanged(sender As Object, e As EventArgs) Handles MyBase.VisibleChanged
-    Event_OnPaint = "Frm_SDK_VisibleChanged"
+    Event_OnPaint = "Global"
   End Sub
 
 #Region "Clavier et Mouse Clic"
@@ -1302,10 +1281,8 @@ Public NotInheritable Class Frm_SDK
 
   End Sub
   Private Sub Mnu03_Rafraîchir_Click(sender As Object, e As EventArgs) Handles Mnu03_Rafraîchir.Click
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
-    Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-    sc.G7_Cellule_Paint_Select()
+    Event_OnPaint = "Global"
+    Invalidate()
   End Sub
   '--------------Transformation---------------------------------------------------
   Private Sub Mnu031I_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Mnu031I.SelectedIndexChanged
@@ -1410,8 +1387,8 @@ Public NotInheritable Class Frm_SDK
     Select Case Swt_Mode_Suggestion
       Case -1 'Mode Suggestion Hors Fonction
         For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
-        Dim Gril As New Grille_Cls
-        Gril.Grille_Refresh()
+        Event_OnPaint = "Global"
+        Invalidate()
       Case +1 'Mode Suggestion En Fonction
         If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
           'Affiche du coup dans la zone Info l'explication de la suggestion
@@ -1468,7 +1445,7 @@ Public NotInheritable Class Frm_SDK
     End Select
     My.Settings.Prf_05D_Plcy_Globale = Plcy_Gbl_Etendue
     OC_Présentation()
-    Event_OnPaint = "Frm_Préférences"
+    Event_OnPaint = "Global"
     Invalidate()
   End Sub
   Private Sub Mnu05_Dictionnaire_Click(sender As Object, e As EventArgs) Handles Mnu05_Dictionnaire.Click
@@ -1940,8 +1917,8 @@ Public NotInheritable Class Frm_SDK
         For i As Integer = 0 To 80
           U(i, 2) = DL.Solution(0).Substring(i, 1)
         Next i
-        Dim Gril As New Grille_Cls
-        Gril.Grille_Refresh()
+        Event_OnPaint = "Global"
+        Invalidate()
       Case Else
         Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
         For i As Integer = 1 To DL.Solution.Length - 1
@@ -2018,8 +1995,8 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
     Next i
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
+    Event_OnPaint = "Global"
+    Invalidate()
   End Sub
 
 #End Region
@@ -2249,8 +2226,8 @@ Public NotInheritable Class Frm_SDK
     My.Settings.Save()
 
     If ToRefresh Then
-      Dim Gril As New Grille_Cls
-      Gril.Grille_Refresh()
+      Event_OnPaint = "Global"
+      Invalidate()
     End If
   End Sub
   '-------------------------------------------------------------------------------
@@ -2367,9 +2344,8 @@ Public NotInheritable Class Frm_SDK
     B_Info.Text = Procédure_Name_Get()
     Dsp_AideGraphique("Non")
     U_Strg_Effacer()
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
-
+    Event_OnPaint = "Global"
+    Invalidate()
     Dim U_temp(80, 3) As String
 
     For i As Integer = 0 To Stg_List_Link.Count - 1

@@ -96,8 +96,8 @@ Friend Module P01_Strategy
     Frm_SDK.B_Info.Text = Procédure_Name_Get()
     Dsp_AideGraphique("Non")
     U_Strg_Effacer()
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
     Sélection_Pbl_Cell_Standard()
   End Sub
   Sub Strategy_Dsp_Cdd()
@@ -217,17 +217,8 @@ Friend Module P01_Strategy
                       " | " & Action
     Jrn_Add(, {S}, Action)
 
-    Dim Cellule As Integer = Wh_PremièreCelluleVide()
-    Dim Gril As New Grille_Cls
-    Gril.Grille_Refresh()
-    Try
-      If Cell_Numéro_Valide(CInt(Act(3, UR_A_Index))) Then Cellule = CInt(Act(3, UR_A_Index))
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-    Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-    sc.G7_Cellule_Paint_Select()
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
   End Sub
   Sub Strategy_Switch(Strg As String)
     ' Switch la Plcy_Strg_Swt entre 1 et -1

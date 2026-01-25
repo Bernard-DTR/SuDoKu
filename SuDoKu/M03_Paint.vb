@@ -109,7 +109,7 @@ Friend Module M03_Paint
     Dim Strategy_Rslt(,) As String
     Dim Cellule As Integer
     Dim Candidat As String
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "CdU") Then Exit Sub
+    If Not Plcy_Strg = "CdU" Then Exit Sub
 
     Try
       U_Strg_Effacer()
@@ -157,7 +157,7 @@ Friend Module M03_Paint
   End Sub
 
   Public Sub G4_Grid_Stratégie_CdS()
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "CdS") Then Exit Sub
+    If Not Plcy_Strg = "CdS" Then Exit Sub
     If Pbl_Cell_Candidat_CdS = " " Then Exit Sub
 
     U_Strg_Effacer()
@@ -176,7 +176,7 @@ Friend Module M03_Paint
     Dim Strategy_Rslt(,) As String
     Dim Cellule As Integer
     Dim Candidat As String
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "CdO") Then Exit Sub
+    If Not Plcy_Strg = "CdO" Then Exit Sub
     Try
       U_Strg_Effacer() ' Efface la précédente, y compris la dernière
       Array.Copy(U, U_temp, UNbCopy)
@@ -229,7 +229,7 @@ Friend Module M03_Paint
   End Sub
   Public Sub G4_Grid_Stratégie_Flt()
 
-    If Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" Then
+    If Mid$(Plcy_Strg, 1, 2) = "FV" Then
       Dim Cellule As Integer
       Dim Région As Integer
       Dim Région_Collatérale As Integer
@@ -314,7 +314,7 @@ Friend Module M03_Paint
     End If
 
     ' Affichage des Candidats Filtrés
-    If Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FC" Then
+    If Mid$(Plcy_Strg, 1, 2) = "FC" Then
       Try
         U_Strg_Effacer()
         Dim Candidat As String = Mid$(Plcy_Strg, 3, 1)
@@ -337,7 +337,7 @@ Friend Module M03_Paint
   Public Sub G4_Grid_Stratégie_DCd()
     Dim U_temp(80, 3) As String
     Dim Cellule As Integer
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "DCd") Then Exit Sub
+    If Not Plcy_Strg = "DCd" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -442,7 +442,7 @@ Friend Module M03_Paint
     Dim Cellule As Integer
     Dim Candidat As String
 
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cbl") Then Exit Sub
+    If Not Plcy_Strg = "Cbl" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -492,7 +492,7 @@ Friend Module M03_Paint
     Dim Cellule As Integer
     Dim Candidat As String
 
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Tpl") Then Exit Sub
+    If Not Plcy_Strg = "Tpl" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -550,7 +550,7 @@ Friend Module M03_Paint
     '     sous-stratégie Fnd_C Fnd_L affichage de trait et d'une diagonale 
     '                    les candidats concernés sont en carré
 
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Xwg") Then Exit Sub
+    If Not Plcy_Strg = "Xwg" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -646,7 +646,7 @@ Friend Module M03_Paint
     Dim Cellule As Integer
     Dim Candidat As String
 
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "XYw") Then Exit Sub
+    If Not Plcy_Strg = "XYw" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -700,7 +700,7 @@ Friend Module M03_Paint
     Dim Cellule As Integer
     Dim Candidat As String
 
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Swf") Then Exit Sub
+    If Not Plcy_Strg = "Swf" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -750,7 +750,7 @@ Friend Module M03_Paint
     Dim Cellule As Integer
     Dim Candidat As String
 
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Jly") Then Exit Sub
+    If Not Plcy_Strg = "Jly" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -800,7 +800,7 @@ Friend Module M03_Paint
     Dim Cellule As Integer
     Dim Candidat As String
 
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "XYZ") Then Exit Sub
+    If Not Plcy_Strg = "XYZ" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -849,7 +849,7 @@ Friend Module M03_Paint
     Dim Cellule As Integer
 
     Dim Candidat As String
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "SKy") Then Exit Sub
+    If Not Plcy_Strg = "SKy" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -940,7 +940,7 @@ Friend Module M03_Paint
     Dim Cellule As Integer
     Dim Candidats_Txt As String = ""
     Dim Candidats As String
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Unq") Then Exit Sub
+    If Not Plcy_Strg = "Unq" Then Exit Sub
     Try
       U_Strg_Effacer()
       Array.Copy(U, U_temp, UNbCopy)
@@ -994,8 +994,7 @@ Friend Module M03_Paint
   End Sub
 
   Public Sub G4_Grid_Stratégie_XCx_XCy_XNl()
-    If Not (Plcy_Gnrl = "Nrm" And
-           (Plcy_Strg = "XCx" Or Plcy_Strg = "XCy" Or Plcy_Strg = "XNl")) Then Exit Sub
+    If Not (Plcy_Strg = "XCx" Or Plcy_Strg = "XCy" Or Plcy_Strg = "XNl") Then Exit Sub
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
@@ -1066,7 +1065,7 @@ Friend Module M03_Paint
   End Sub
 
   Public Sub G4_Grid_Stratégie_XRp()
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "XRp") Then Exit Sub
+    If Not Plcy_Strg = "XRp" Then Exit Sub
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
@@ -1133,7 +1132,7 @@ Friend Module M03_Paint
   End Sub
 
   Public Sub G4_Grid_Stratégie_WgX_WgY_WgZ_WgW()
-    If Not (Plcy_Gnrl = "Nrm" And (Plcy_Strg = "WgX" Or Plcy_Strg = "WgY" Or Plcy_Strg = "WgZ" Or Plcy_Strg = "WgW")) Then Exit Sub
+    If Not (Plcy_Strg = "WgX" Or Plcy_Strg = "WgY" Or Plcy_Strg = "WgZ" Or Plcy_Strg = "WgW") Then Exit Sub
 
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
@@ -1211,7 +1210,7 @@ Friend Module M03_Paint
   End Sub
 
   Public Sub G4_Grid_Stratégie_GLk()
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "GLk") Then Exit Sub
+    If Not Plcy_Strg = "GLk" Then Exit Sub
     Try
       If GLinks.Count = 0 Then
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
@@ -1252,7 +1251,7 @@ Friend Module M03_Paint
   End Sub
 
   Public Sub G4_Grid_Stratégie_Gbl()
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Gbl") Then Exit Sub
+    If Not Plcy_Strg = "Gbl" Then Exit Sub
 
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
@@ -1310,7 +1309,7 @@ Friend Module M03_Paint
 
   End Sub
   Public Sub G4_Grid_Stratégie_Gbv()
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Gbv") Then Exit Sub
+    If Not Plcy_Strg = "Gbv" Then Exit Sub
 
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
@@ -1377,7 +1376,7 @@ Friend Module M03_Paint
   End Sub
 
   Public Sub G4_Grid_Stratégie_GCs()
-    If Not (Plcy_Gnrl = "Nrm" And (Plcy_Strg = "GCs")) Then Exit Sub
+    If Not (Plcy_Strg = "GCs") Then Exit Sub
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
@@ -1449,7 +1448,7 @@ Friend Module M03_Paint
 
   Public Sub G4_Grid_Stratégie_Obj()
     Dim sc As New Cellule_Cls
-    If Not (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj") Then Exit Sub
+    If Not Plcy_Strg = "Obj" Then Exit Sub
     For i As Integer = 0 To 80
       sc.Numéro = i
       sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
@@ -1552,7 +1551,7 @@ Friend Module M03_Paint
     g.Dispose()
   End Sub
   Public Sub G0_Cell_Figure_g(g As Graphics, Cellule As Integer, Figure As String, Couleurp As Color)
-    Dim Couleur As Color = Color.FromArgb(192, Couleur) ' 128+64 = 192
+    Dim Couleur As Color = Color.FromArgb(192, Couleurp) ' 128+64 = 192
 
     'Dessine des figures à partir de 4 points A0, B0, C0, D0 représentant les 4 points du square A0= Left_Top, C0= Right_Bottom
     '                             déclinés en A1, B1, C1, D1 décalé de 1/4 

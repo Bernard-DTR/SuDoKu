@@ -324,7 +324,7 @@ Public Class Frm_Préférences
     My.Settings.Prf_01C_Taille_Cellule = WH
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -334,7 +334,7 @@ Public Class Frm_Préférences
     Color_VI = Color.FromName(CB01_ColorComboboxVI.Cbb_Color_Selected)
     If Not Mode_Load Then
       'Pour prendre en compte la nouvelle couleur
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -344,7 +344,7 @@ Public Class Frm_Préférences
     Color_VCdd = Color.FromName(CB01_ColorComboboxVCdd.Cbb_Color_Selected)
     If Not Mode_Load Then
       'Pour prendre en compte la nouvelle couleur
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -354,7 +354,7 @@ Public Class Frm_Préférences
     If Not Mode_Load Then
       ' Recalculer Sqr_Img et Font_Style
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -376,7 +376,7 @@ Public Class Frm_Préférences
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 7 Then Plcy_Format_DAB = Rdc.Next(0, 6)
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -385,7 +385,7 @@ Public Class Frm_Préférences
     If Not Mode_Load Then
       My.Settings.Thème_Clr = CB01_Thèmes.SelectedIndex
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       OC_Thèmes_Couleurs(My.Settings.Thème_Clr)
       BackColor = Color_Frm_BackColor
@@ -419,7 +419,7 @@ Public Class Frm_Préférences
 
       End Select
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -487,7 +487,7 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -504,7 +504,7 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -521,7 +521,7 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -538,7 +538,7 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -606,7 +606,7 @@ Public Class Frm_Préférences
       Case Else
     End Select
     Préférences_Load(sender, e)
-    Event_OnPaint = "Frm_Préférences"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
   'Saisie numérique dans les textBox
@@ -810,7 +810,7 @@ Public Class Frm_Préférences
          " B " & Prf06_Clr(i).B.ToString().PadLeft(3)})
     Next i
     OC_Présentation()
-    Event_OnPaint = "Frm_Préférences"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
 

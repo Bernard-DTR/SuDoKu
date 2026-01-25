@@ -86,7 +86,7 @@ Friend Module M20_Game
     Pbl_Cell_Select = Wh_RandomCelluleVide()
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-    Event_OnPaint = Procédure_Name_Get()
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
 
