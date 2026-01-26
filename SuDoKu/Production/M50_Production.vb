@@ -702,7 +702,7 @@ Pzzl_Crt_Exit:
       U(i, 2) = " "
       U(i, 3) = Cnddts
     Next i
-    Event_OnPaint = "Partiel_Fond"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
 
     Jrn_Add(, {Procédure_Name_Get()})
@@ -822,7 +822,7 @@ Pzzl_Prd_End:
       U(i, 2) = " "
       U(i, 3) = Cnddts
     Next i
-    Event_OnPaint = "Partiel_Fond"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
 
     Jrn_Add(, {Procédure_Name_Get()})
@@ -1579,7 +1579,7 @@ Xwing_Boucle_End:
     'La fonction propose une solution au hasard des solutions de Strategy_Rslt
     Dim Plage As String = ""
     Dim Virgule As Integer = 0
-    For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
+    'For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
     If Strategy_Rslt.GetUpperBound(1) = 0 Then
       Strategy_Rslt_Display_Ligne(Strategy_Rslt, -1)
       Exit Sub
@@ -1594,7 +1594,7 @@ Xwing_Boucle_End:
     For k As Integer = 10 To 54
       If Strategy_Rslt(k, n) = "__" Then Exit For
       If Strategy_Rslt(k, n) <> "__" Then
-        U_Suggest(CInt(Strategy_Rslt(k, n))) = Strategy_Rslt(1, 0) 'La valeur "0" est la valeur négative
+        'U_Suggest(CInt(Strategy_Rslt(k, n))) = Strategy_Rslt(1, 0) 'La valeur "0" est la valeur négative
         Virgule += 1
         If Virgule > 1 Then Plage &= ", "
         Plage &= U_Coord(CInt(Strategy_Rslt(k, n)))

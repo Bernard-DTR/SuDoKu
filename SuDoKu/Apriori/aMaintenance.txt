@@ -194,10 +194,25 @@
 #548 V  23/01/2026 Compte git 
 #549 V  23/01/2026 Git uniquement local
 #550 D  25/01/2026 Nombreuses optimisations dans le code de peinture et modifications
+#551 L  26/01/2026 On paint ne traite que Event_OnPaint = "Global"
+#552 L  26/01/2026 Abandon de la couleur "Non conforme à la solution"
+#553 L  26/01/2026 Abandon de la couleur "Cellule sans candidat"
+#554 L  26/01/2026 Abandon de la couleur "Suggection"
+#555 L  26/01/2026 Abandon de la propriété text_tooltip  
+#556 L  26/01/2026 Abandon de Gril.G3_Grille_Paint_Indirecte() 
+#557 L  26/01/2026 Abandon de Mnu04n_ModeSuggestion_Click, Swt_Mode_Suggestion,  U_Suggest
+#558 L  26/01/2026 Abandon de Suggérer une cellule Mnu04n_Suggérer_Click
+#559 L  26/01/2026 Abandon de Cell_Slv_Interactif("S", "Suggérer une Cellule")
 
 
 
-                    
+
+
+
+
+
+
+
 ##############################################################################################################################
 
 	               Il y a une nouvelle erreur dans le calcul de résolution d’une partie E

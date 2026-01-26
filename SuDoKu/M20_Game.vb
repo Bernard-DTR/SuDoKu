@@ -69,10 +69,10 @@ Friend Module M20_Game
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
     Plcy_AideGraphique = False
     Dsp_AideGraphique("Non")           '(Non)
-    Swt_Mode_Suggestion = -1           '(Non)
+    'Swt_Mode_Suggestion = -1           '(Non)
 
     Dim ToolTipText As String = Nothing
-    For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
+    'For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
 
     Select Case Frm_SDK.B_Solution.Text
       Case " " : ToolTipText = "Puzzle sans solution"

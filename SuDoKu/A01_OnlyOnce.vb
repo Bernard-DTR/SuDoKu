@@ -105,7 +105,7 @@ Friend Module A01_OnlyOnce
 
     Bld_Journal_Affiché_Width = Bld_Journal_Width
     Plcy_AideGraphique = False
-    Swt_Mode_Suggestion = -1
+    'Swt_Mode_Suggestion = -1
 
   End Sub
   ''' <summary>Charge le fichier des messages dans un dictionnaire.</summary>
@@ -143,7 +143,7 @@ Friend Module A01_OnlyOnce
       U_Col(i) = i Mod 9
       U_Row(i) = i \ 9
       U_Reg(i) = Wh_Région_Cel(i)
-      U_Suggest(i) = "0"
+      'U_Suggest(i) = "0"
     Next i
     For i As Integer = 0 To 80
       U_cr(i) = "L" & U_Row(i) + 1 & "_" & "C" & U_Col(i) + 1               ' Format Lx_Cy

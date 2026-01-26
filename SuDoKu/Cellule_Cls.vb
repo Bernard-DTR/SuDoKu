@@ -21,7 +21,7 @@ Public Class Cellule_Cls
   Private _typologie As String
   Private _position As Point
   Private _position_Center As Point
-  Private _text_tooltip As String
+  'Private _text_tooltip As String
   Private _valeur As Integer                     ' Nouveau : INTEGER 0 si rien ou 1 à 9
   Private _valeur_initiale As Boolean            ' Nouveau : True ou False
   Private _candidats As String                   ' Nouveau : 123456789 ou 9blancs ou 1b3bb6b89
@@ -46,15 +46,15 @@ Public Class Cellule_Cls
       _numéro = value
     End Set
   End Property
-  ''' <summary>Text_ToolTip de la cellule.</summary>
-  Public Property Text_ToolTip As String
-    Get
-      Return _text_tooltip
-    End Get
-    Set(value As String)
-      _text_tooltip = value
-    End Set
-  End Property
+  '''' <summary>Text_ToolTip de la cellule.</summary>
+  'Public Property Text_ToolTip As String
+  '  Get
+  '    Return _text_tooltip
+  '  End Get
+  '  Set(value As String)
+  '    _text_tooltip = value
+  '  End Set
+  'End Property
   ''' <summary>le Candidat est-il Unique ? </summary>
   Public ReadOnly Property Candidat_Unique As Boolean
     'Propriété dépendante de U
@@ -201,29 +201,29 @@ Public Class Cellule_Cls
     End Using
     g.Dispose()
 
-    'Traite les Cas particuliers et la propriété Text_ToolTip
-    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-      Select Case Typologie
-        Case "I"
-        Case "R"
-          ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
-          If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
-            G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Green))
-            Text_ToolTip = "Valeur non conforme à la solution."
-          End If
-        Case "V"
-          ' 2 Indication d'une cellule sans candidat
-          If Nombre_Candidats = -1 Then
-            G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Red))
-            Text_ToolTip = "La cellule n'a plus de candidat."
-          End If
-          ' 3 Mode Suggestion
-          If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
-            G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
-            Text_ToolTip = "... Cellule à jouer."
-          End If
-      End Select
-    End If
+    ''Traite les Cas particuliers et la propriété Text_ToolTip
+    'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+    '  Select Case Typologie
+    '    Case "I"
+    '    Case "R"
+    '      ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
+    '      If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
+    '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Green))
+    '        Text_ToolTip = "Valeur non conforme à la solution."
+    '      End If
+    '    Case "V"
+    '      ' 2 Indication d'une cellule sans candidat
+    '      If Nombre_Candidats = -1 Then
+    '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Red))
+    '        Text_ToolTip = "La cellule n'a plus de candidat."
+    '      End If
+    '      ' 3 Mode Suggestion
+    '      If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
+    '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
+    '        Text_ToolTip = "... Cellule à jouer."
+    '      End If
+    '  End Select
+    'End If
   End Sub
   Public Sub G2_Cellule_Paint_Fond_g(g As Graphics)
     'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
@@ -250,29 +250,29 @@ Public Class Cellule_Cls
       End If
     End Using
 
-    'Traite les Cas particuliers et la propriété Text_ToolTip
-    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-      Select Case Typologie
-        Case "I"
-        Case "R"
-          ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
-          If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
-            G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(128, Color.Green))
-            Text_ToolTip = "Valeur non conforme à la solution."
-          End If
-        Case "V"
-          ' 2 Indication d'une cellule sans candidat
-          If Nombre_Candidats = -1 Then
-            G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(128, Color.Red))
-            Text_ToolTip = "La cellule n'a plus de candidat."
-          End If
-          ' 3 Mode Suggestion
-          If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
-            G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
-            Text_ToolTip = "... Cellule à jouer."
-          End If
-      End Select
-    End If
+    ''Traite les Cas particuliers et la propriété Text_ToolTip
+    'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+    '  Select Case Typologie
+    '    Case "I"
+    '    Case "R"
+    '      ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
+    '      If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
+    '        G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(128, Color.Green))
+    '        Text_ToolTip = "Valeur non conforme à la solution."
+    '      End If
+    '    Case "V"
+    '      ' 2 Indication d'une cellule sans candidat
+    '      If Nombre_Candidats = -1 Then
+    '        G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(128, Color.Red))
+    '        Text_ToolTip = "La cellule n'a plus de candidat."
+    '      End If
+    '      ' 3 Mode Suggestion
+    '      If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
+    '        G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
+    '        Text_ToolTip = "... Cellule à jouer."
+    '      End If
+    '  End Select
+    'End If
   End Sub
 
   ''' <summary>Peint la valeur d'une cellule IR.</summary>
@@ -464,34 +464,34 @@ Public Class Grille_Cls
     Next i
   End Sub
 
-  ''' <summary>Compose la couche indirecte.</summary>
-  Public Sub G3_Grille_Paint_Indirecte()
-    'Les couches G2 et G3 sont à traiter ensemble pour la couche indirecte
-    ' G2_Grille_Paint_Fond = 81 G2_Cellule_Paint_Fond
-    ' G3_Grille_Paint_Indirecte
-    ' Les 2 Fonctions reprennent les mêmes conditions pour les effets indirects.
+  '''' <summary>Compose la couche indirecte.</summary>
+  'Public Sub G3_Grille_Paint_Indirecte()
+  '  'Les couches G2 et G3 sont à traiter ensemble pour la couche indirecte
+  '  ' G2_Grille_Paint_Fond = 81 G2_Cellule_Paint_Fond
+  '  ' G3_Grille_Paint_Indirecte
+  '  ' Les 2 Fonctions reprennent les mêmes conditions pour les effets indirects.
 
-    Dim U_G3(80) As Boolean ' Un tableau booléen est créé FALSE
-    'A Analyse des causes et des effets indirects
-    For i As Integer = 0 To 80
-      ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
-      ' 2 Indication d'une cellule sans candidat
-      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Wh_Cell_Nb_Candidats(U, i) = 0 Then U_G3(i) = True
-      ' 3 Indication Dernier Candidat d'une Unitée en mode Nrm ou Sas
-      ' 4 Mode Suggestion
-      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 And U_Suggest(i) <> "0" Then U_G3(i) = True
-    Next i
+  '  Dim U_G3(80) As Boolean ' Un tableau booléen est créé FALSE
+  '  'A Analyse des causes et des effets indirects
+  '  For i As Integer = 0 To 80
+  '    ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
+  '    ' 2 Indication d'une cellule sans candidat
+  '    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Wh_Cell_Nb_Candidats(U, i) = 0 Then U_G3(i) = True
+  '    ' 3 Indication Dernier Candidat d'une Unitée en mode Nrm ou Sas
+  '    ' 4 Mode Suggestion
+  '    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 And U_Suggest(i) <> "0" Then U_G3(i) = True
+  '  Next i
 
-    'B Répercussion effets indirects dans la grille
-    '  La fonction Cellule_Refresh effectue G2_Cellule_Paint_Fond()
-    Dim sc As New Cellule_Cls
-    For i As Integer = 0 To 80
-      If U_G3(i) = True Then
-        sc.Numéro = i
-        sc.Cellule_Refresh()
-      End If
-    Next i
-  End Sub
+  '  'B Répercussion effets indirects dans la grille
+  '  '  La fonction Cellule_Refresh effectue G2_Cellule_Paint_Fond()
+  '  Dim sc As New Cellule_Cls
+  '  For i As Integer = 0 To 80
+  '    If U_G3(i) = True Then
+  '      sc.Numéro = i
+  '      sc.Cellule_Refresh()
+  '    End If
+  '  Next i
+  'End Sub
 
   Public Sub Grille_Refresh()
     'La grille est rafraîchie entièrement, aucune cellule n'est sélectée

@@ -220,7 +220,6 @@ Public Class Frm_Préférences
       .SelectionMode = DataGridViewSelectionMode.CellSelect
       .MultiSelect = False
       .DefaultCellStyle.Font = New Font("Tahoma", 10)
-      '.DefaultCellStyle.SelectionBackColor = Color_Cell_Select
       .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
       DGV_Color_Display()
     End With
@@ -252,7 +251,7 @@ Public Class Frm_Préférences
                     Prf06_Pt_TopLeft.X - 10, Prf06_Pt_TopLeft.Y - 10, Prf06_WH_Grid + 20, Prf06_WH_Grid + 20)
 
     ' 2 Traçage des traits et de l'entourage
-    Dim Pt_H1, Pt_H2, Pt_V1, Pt_V2 As Point
+    Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
     For i As Integer = 0 To 4
       Pt_H1 = New Point(x:=Prf06_Pt_TopLeft.X,
                         y:=Prf06_Pt_TopLeft.Y + Prf06_Trait_Pos_xy(i))
@@ -771,7 +770,6 @@ Public Class Frm_Préférences
       'Affichage de la ColorDialog
       If .ShowDialog() = DialogResult.OK Then
         Dim A As Integer = 255
-        'If Clr = 7 Or Clr = 8 Then A = 128
         If Clr = 8 Then A = 128
         Prf06_Clr(Clr) = Color.FromArgb(A, .Color.R, .Color.G, .Color.B)
       End If
@@ -870,7 +868,6 @@ Public Class Frm_Préférences
     ' Restauration des couleurs d'origine de Coloriage 
     Color_List = Color_Originale_List
     DGV_Color_Display()
-
   End Sub
 
   Private Sub Btn3_Nuancier_Click(sender As Object, e As EventArgs) Handles Btn07_03.Click
@@ -880,10 +877,8 @@ Public Class Frm_Préférences
 
   Private Sub CB08_01_CheckedChanged(sender As Object, e As EventArgs) Handles CB08_01.CheckedChanged
     Select Case CB08_01.CheckState
-      Case CheckState.Unchecked '0  'Non
-        Xap = False
-      Case CheckState.Checked '1  'Oui
-        Xap = True
+      Case CheckState.Unchecked : Xap = False  '0  'Non
+      Case CheckState.Checked : Xap = True     '1  'Oui
     End Select
   End Sub
 
@@ -902,6 +897,4 @@ Public Class Frm_Préférences
   Private Sub Btn08_99_Click(sender As Object, e As EventArgs) Handles Btn08_99.Click
     Close()
   End Sub
-
-
 End Class

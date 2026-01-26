@@ -353,14 +353,14 @@ Public NotInheritable Class Frm_SDK
     AddHandler Mnu04n_RésoudreUneCellule.Click, AddressOf Mnu04n_RésoudreUneCellule_Click
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_RésoudreUneCellule)
 
-    Dim Mnu04n_Suggérer As New ToolStripMenuItem() With
-        {
-        .Text = "Suggérer",
-        .ForeColor = SystemColors.ControlText,
-        .ShortcutKeys = Keys.Shift Or Keys.F11
-        }
-    AddHandler Mnu04n_Suggérer.Click, AddressOf Mnu04n_Suggérer_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Suggérer)
+    'Dim Mnu04n_Suggérer As New ToolStripMenuItem() With
+    '    {
+    '    .Text = "Suggérer",
+    '    .ForeColor = SystemColors.ControlText,
+    '    .ShortcutKeys = Keys.Shift Or Keys.F11
+    '    }
+    'AddHandler Mnu04n_Suggérer.Click, AddressOf Mnu04n_Suggérer_Click
+    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Suggérer)
 
     Dim Mnu04n_Sep04 As New ToolStripSeparator
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep04)
@@ -389,20 +389,20 @@ Public NotInheritable Class Frm_SDK
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_MettreEnÉvidenceLeCandidatSaisi)
 
 
-    Dim Mnu04n_Sep05 As New ToolStripSeparator
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep05)
+    'Dim Mnu04n_Sep05 As New ToolStripSeparator
+    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep05)
 
-    Dim Mnu04n_ModeSuggestion As New ToolStripMenuItem() With
-        {
-        .Text = "Mode Suggestion",
-        .Checked = False,
-        .CheckOnClick = True,
-        .ForeColor = SystemColors.ControlText,
-        .CheckState = 0
-         }
-    'C'est la propriété CheckOnClick qui gère automatiquement la coche
-    AddHandler Mnu04n_ModeSuggestion.Click, AddressOf Mnu04n_ModeSuggestion_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_ModeSuggestion)
+    'Dim Mnu04n_ModeSuggestion As New ToolStripMenuItem() With
+    '    {
+    '    .Text = "Mode Suggestion",
+    '    .Checked = False,
+    '    .CheckOnClick = True,
+    '    .ForeColor = SystemColors.ControlText,
+    '    .CheckState = 0
+    '     }
+    ''C'est la propriété CheckOnClick qui gère automatiquement la coche
+    'AddHandler Mnu04n_ModeSuggestion.Click, AddressOf Mnu04n_ModeSuggestion_Click
+    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_ModeSuggestion)
 #End Region
 
 #Region "Mnu06_Divers Internet Explorer et Url diverses"
@@ -527,14 +527,11 @@ Public NotInheritable Class Frm_SDK
     e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
 
     Select Case Event_OnPaint
-      Case "Global", "Stratégie_G"
+      Case "Global"
         Dim Gril As New Grille_Cls
         Gril.Grille_Refresh_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
         sc.G7_Cellule_Paint_Select()
-
-      Case "Partiel_Fond"              ' Utilisé lors de la production d'une grille
-        G1_Grid_Paint_g(e.Graphics)
 
       Case Else
         Jrn_Add("SDK_00000", {"Protected Overrides Sub OnPaint(e As PaintEventArgs) est activée: "})
@@ -1368,9 +1365,9 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu04n_RésoudreUneCellule_Click(sender As Object, e As EventArgs)
     Cell_Slv_Interactif("S", "Résoudre une Cellule")
   End Sub
-  Private Sub Mnu04n_Suggérer_Click(sender As Object, e As EventArgs)
-    Cell_Slv_Interactif("S", "Suggérer une Cellule")
-  End Sub
+  'Private Sub Mnu04n_Suggérer_Click(sender As Object, e As EventArgs)
+  '  Cell_Slv_Interactif("S", "Suggérer une Cellule")
+  'End Sub
   Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
     Strategy_Dsp("DCd", AddressOf Sélection_Pbl_Cell_Standard)
   End Sub
@@ -1378,32 +1375,32 @@ Public NotInheritable Class Frm_SDK
     Strategy_Dsp("CdS", AddressOf Sélection_Pbl_Cell_Standard)
   End Sub
 
-  Private Sub Mnu04n_ModeSuggestion_Click(sender As Object, e As EventArgs)
-    Strategy_Dsp_Standard()
-    'U_Suggest comporte 0/1 pour afficher un disque jaune dans les cellules à documenter
-    Swt_Mode_Suggestion *= -1
-    For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
+  'Private Sub Mnu04n_ModeSuggestion_Click(sender As Object, e As EventArgs)
+  '  Strategy_Dsp_Standard()
+  '  'U_Suggest comporte 0/1 pour afficher un disque jaune dans les cellules à documenter
+  '  Swt_Mode_Suggestion *= -1
+  '  For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
 
-    Select Case Swt_Mode_Suggestion
-      Case -1 'Mode Suggestion Hors Fonction
-        For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
-        Event_OnPaint = "Global"
-        Invalidate()
-      Case +1 'Mode Suggestion En Fonction
-        If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-          'Affiche du coup dans la zone Info l'explication de la suggestion
-          Cell_Slv_Interactif("S", "Mode Suggestion")
-          ' Un tableau U_Suggest(i) stocke les cellules suggérées
-          ' Le mode suggestion propose toutes les cellules d'une stratégie de type Cbl, Tpl à Unq
-          ' Il n'est pas prévu d'explications (à placer ou à enlever)
-          ' Il est lancé dans Mnu04n_ModeSuggestion_Click
-          '              et ensuite après chaque insertion de valeurs ou de candidats
-          '              dans Cell_Cdd_Insert
-          '                   Cell_Val_Insert
+  '  Select Case Swt_Mode_Suggestion
+  '    Case -1 'Mode Suggestion Hors Fonction
+  '      For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
+  '      Event_OnPaint = "Global"
+  '      Invalidate()
+  '    Case +1 'Mode Suggestion En Fonction
+  '      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+  '        'Affiche du coup dans la zone Info l'explication de la suggestion
+  '        Cell_Slv_Interactif("S", "Mode Suggestion")
+  '        ' Un tableau U_Suggest(i) stocke les cellules suggérées
+  '        ' Le mode suggestion propose toutes les cellules d'une stratégie de type Cbl, Tpl à Unq
+  '        ' Il n'est pas prévu d'explications (à placer ou à enlever)
+  '        ' Il est lancé dans Mnu04n_ModeSuggestion_Click
+  '        '              et ensuite après chaque insertion de valeurs ou de candidats
+  '        '              dans Cell_Cdd_Insert
+  '        '                   Cell_Val_Insert
 
-        End If
-    End Select
-  End Sub
+  '      End If
+  '  End Select
+  'End Sub
   '--------------04---------------------------------------------------------------
 
   Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown

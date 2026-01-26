@@ -12,7 +12,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_01_01 #549"
+  Public SDK_Version As String = "V2026_01_01 #559"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -111,7 +111,7 @@ Module A00_Public
   Public U_Row(0 To 80) As Integer                   '        dans quelle Ligne   se trouve une cellule (de 0 à 8)
   Public U_cr(0 To 80) As String                     '        les coordonnées Lx_Cy de chaque cellule
   Public U_Reg(0 To 80) As Integer                   '        dans quelle Région  se trouve une cellule (de 0 à 8)
-  Public U_Suggest(0 To 80) As String                '        Précise les cellules suggérées en mode suggestion
+  'Public U_Suggest(0 To 80) As String                '        Précise les cellules suggérées en mode suggestion
 
   'Le terme Rectangle est remplacé par le terme Bande 
   Public U_Bh(0 To 80) As Integer                    '        N° de la bande horizontale
@@ -329,7 +329,7 @@ Module A00_Public
   Public Nsd_LV As ListViewItem.ListViewSubItem
   Public Nsd_P As Process
   'Préférences_Grille
-  Public Swt_Mode_Suggestion As Integer = -1                 '(Non)
+  'Public Swt_Mode_Suggestion As Integer = -1                 '(Non)
   Public Swt_Mode_Dessin As Integer = -1                     '(Non)
   Public Swt_DéroulerJournal As Integer = 1                  '(Oui)
   Public Journal_Emp_Blocage As Integer = 0

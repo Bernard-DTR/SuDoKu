@@ -49,20 +49,20 @@ Friend Module M03_Sélection
       Case "Nrm"
         Select Case Plcy_Strg
           Case "   "
-            Gril.G3_Grille_Paint_Indirecte()
+            'Gril.G3_Grille_Paint_Indirecte()
             sc.Cellule_Refresh()
           Case Else
             If Plcy_AideGraphique Then
-              Gril.G3_Grille_Paint_Indirecte()
+              'Gril.G3_Grille_Paint_Indirecte()
               Gril.Grille_Refresh()
             End If
             If Not Plcy_AideGraphique Then
-              Gril.G3_Grille_Paint_Indirecte()
+              'Gril.G3_Grille_Paint_Indirecte()
               sc.Cellule_Refresh_Cell_Coll()
             End If
         End Select
       Case "Sas"
-        Gril.G3_Grille_Paint_Indirecte()
+        'Gril.G3_Grille_Paint_Indirecte()
         sc.Cellule_Refresh()
     End Select
 
@@ -72,13 +72,13 @@ Friend Module M03_Sélection
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     Insert_Nb_Cell += 1
-    'Lors de chaque insertion, si la mode Suggestion est actif, alors Pzzl_Suggest est lancé
-    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 Then
-      'Affiche du coup dans la zone Info l'explication de la suggestion
-      Cell_Slv_Interactif("S", "Mode Suggestion")
-    Else
-      Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00113", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-    End If
+    ''Lors de chaque insertion, si la mode Suggestion est actif, alors Pzzl_Suggest est lancé
+    'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 Then
+    '  'Affiche du coup dans la zone Info l'explication de la suggestion
+    '  Cell_Slv_Interactif("S", "Mode Suggestion")
+    'Else
+    '  Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00113", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    'End If
 
     ' 05 Fin de partie
     If Wh_Nb_Cell(U).Remplies = 81 Then Gril.G8_Grille_Partie_Terminée()
@@ -147,20 +147,20 @@ Friend Module M03_Sélection
       Dim sc As New Cellule_Cls With {.Numéro = Cellule}
       Dim Gril As New Grille_Cls
       'G3_Grille_Paint_Indirecte()
-      Gril.G3_Grille_Paint_Indirecte()
+      'Gril.G3_Grille_Paint_Indirecte()
       sc.Cellule_Refresh()
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
 
-    'Lors de chaque insertion, si la mode Suggestion est actif, alors Pzzl_Suggest est lancé
-    ' Insertion d'une valeur   Cell_Val_Insert
-    ' Insertion d'un  candidat Cell_Cdd_Insert
-    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 Then
-      'Affiche du coup dans la zone Info l'explication de la suggestion
-      Cell_Slv_Interactif("S", "Mode Suggestion")
-    End If
+    ''Lors de chaque insertion, si la mode Suggestion est actif, alors Pzzl_Suggest est lancé
+    '' Insertion d'une valeur   Cell_Val_Insert
+    '' Insertion d'un  candidat Cell_Cdd_Insert
+    'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 Then
+    '  'Affiche du coup dans la zone Info l'explication de la suggestion
+    '  Cell_Slv_Interactif("S", "Mode Suggestion")
+    'End If
   End Sub
 
 
@@ -195,7 +195,7 @@ Friend Module M03_Sélection
       Pbl_Cell_Select = Cellule
       Dim sc As New Cellule_Cls With {.Numéro = Cellule}
       Dim Gril As New Grille_Cls
-      Gril.G3_Grille_Paint_Indirecte()
+      'Gril.G3_Grille_Paint_Indirecte()
       sc.Cellule_Refresh()
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
