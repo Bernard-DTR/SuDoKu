@@ -5,6 +5,7 @@ Friend Module M03_Sélection
   '-------------------------------------------------------------------------------
   ' Traitement de la Sélection 
   '-------------------------------------------------------------------------------
+
   Sub Cell_Val_Insert(V As String, Cellule As Integer, Origine As String)
     ' 01  Les Conditions d'Insertion
     If Cellule < 0 Or Cellule > 80 Then Exit Sub
@@ -12,8 +13,6 @@ Friend Module M03_Sélection
     If (V < "1") Or (V > "9") Then Exit Sub
     If Plcy_Gnrl = "Edi" Then Exit Sub
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
-
-    'Jrn_Add_Yellow(Procédure_Name_Get() & " " & U_cr(Cellule) & " Origine : " & Origine)
 
     Game_Undo_Redo = "Normal"
     Dim Av_Jeu As String = Act_Jeu()
@@ -49,20 +48,16 @@ Friend Module M03_Sélection
       Case "Nrm"
         Select Case Plcy_Strg
           Case "   "
-            'Gril.G3_Grille_Paint_Indirecte()
             sc.Cellule_Refresh()
           Case Else
             If Plcy_AideGraphique Then
-              'Gril.G3_Grille_Paint_Indirecte()
               Gril.Grille_Refresh()
             End If
             If Not Plcy_AideGraphique Then
-              'Gril.G3_Grille_Paint_Indirecte()
               sc.Cellule_Refresh_Cell_Coll()
             End If
         End Select
       Case "Sas"
-        'Gril.G3_Grille_Paint_Indirecte()
         sc.Cellule_Refresh()
     End Select
 
@@ -72,13 +67,6 @@ Friend Module M03_Sélection
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     Insert_Nb_Cell += 1
-    ''Lors de chaque insertion, si la mode Suggestion est actif, alors Pzzl_Suggest est lancé
-    'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 Then
-    '  'Affiche du coup dans la zone Info l'explication de la suggestion
-    '  Cell_Slv_Interactif("S", "Mode Suggestion")
-    'Else
-    '  Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00113", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-    'End If
 
     ' 05 Fin de partie
     If Wh_Nb_Cell(U).Remplies = 81 Then Gril.G8_Grille_Partie_Terminée()
@@ -182,14 +170,10 @@ Friend Module M03_Sélection
         Mid$(Candidats_Exclus, CInt(V), 1) = V
         U(Cellule, 3) = Candidats
         U_CddExc(Cellule) = Candidats_Exclus
-        '18/11/2025
-        'Act_Add(Cellule, "Exclure_Cdd", V, Candidats, Procédure_Name_Get(), Av_Jeu, Av_AllCdd)
         Act_Add(Cellule, "Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
       End If
       If Plcy_Solution_Existante = True And V = U_Sol(Cellule) Then
         Insertion_Exclusion_Nb_Erreurs += 1
-        '18/11/2025
-        'Act_Add(Cellule, "? Exclure_Cdd", V, Candidats, Procédure_Name_Get(), Av_Jeu, Av_AllCdd)
         Act_Add(Cellule, "? Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
       End If
       Pbl_Cell_Select = Cellule

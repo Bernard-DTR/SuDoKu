@@ -242,75 +242,83 @@ Public Class Frm_Préférences
   Private Sub Onglet_06_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs)
     ' Construction des contrôles de l'Onglet_06
 
-    Dim g As Graphics = e.Graphics
-    'Les Pen et Brush ne sont définis en tant que variable
-    'Les Font ne sont pas calculées
+    Using pen_1 As New Pen(Prf06_Clr(2), 1),
+          pen_3 As New Pen(Prf06_Clr(2), 3),
+          brsh_1 As New SolidBrush(Prf06_Clr(1)),
+          brsh_3 As New SolidBrush(Prf06_Clr(3)),
+          brsh_4 As New SolidBrush(Prf06_Clr(4)),
+          brsh_5 As New SolidBrush(Prf06_Clr(5)),
+          brsh_6 As New SolidBrush(Prf06_Clr(6)),
+          brsh_7 As New SolidBrush(Prf06_Clr(7)),
+          brsh_8 As New SolidBrush(Prf06_Clr(8)),
+          font_30 As New Font(Font_Name_ValCdd, 30),
+          font_10 As New Font(Font_Name_ValCdd, 10)
 
-    ' 1 Efface l'intégralité de l'emplacement de la grille avec un carré unique
-    g.FillRectangle(brush:=New SolidBrush(Prf06_Clr(1)),
+      ' 1 Efface l'intégralité de l'emplacement de la grille avec un carré unique
+      e.Graphics.FillRectangle(brsh_1,
                     Prf06_Pt_TopLeft.X - 10, Prf06_Pt_TopLeft.Y - 10, Prf06_WH_Grid + 20, Prf06_WH_Grid + 20)
 
-    ' 2 Traçage des traits et de l'entourage
-    Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
-    For i As Integer = 0 To 4
-      Pt_H1 = New Point(x:=Prf06_Pt_TopLeft.X,
-                        y:=Prf06_Pt_TopLeft.Y + Prf06_Trait_Pos_xy(i))
-      Pt_H2 = New Point(x:=Pt_H1.X + Prf06_WH_Grid - 1,
-                        y:=Pt_H1.Y)
-      Pt_V1 = New Point(x:=Prf06_Pt_TopLeft.X + Prf06_Trait_Pos_xy(i),
-                        y:=Prf06_Pt_TopLeft.Y)
-      Pt_V2 = New Point(x:=Pt_V1.X,
-                        y:=Pt_V1.Y + Prf06_WH_Grid - 1)
-      Select Case i
-        Case 0, 3        '  Trait de 3
-          g.DrawLine(New Pen(Prf06_Clr(2), 3), Pt_H1, Pt_H2)
-          g.DrawLine(New Pen(Prf06_Clr(2), 3), Pt_V1, Pt_V2)
-        Case 1, 2 '  Trait de 1
-          g.DrawLine(New Pen(Prf06_Clr(2), 1), Pt_H1, Pt_H2)
-          g.DrawLine(New Pen(Prf06_Clr(2), 1), Pt_V1, Pt_V2)
-      End Select
-    Next i
+      ' 2 Traçage des traits et de l'entourage
+      Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
+      For i As Integer = 0 To 4
+        Pt_H1 = New Point(x:=Prf06_Pt_TopLeft.X,
+                          y:=Prf06_Pt_TopLeft.Y + Prf06_Trait_Pos_xy(i))
+        Pt_H2 = New Point(x:=Pt_H1.X + Prf06_WH_Grid - 1,
+                          y:=Pt_H1.Y)
+        Pt_V1 = New Point(x:=Prf06_Pt_TopLeft.X + Prf06_Trait_Pos_xy(i),
+                          y:=Prf06_Pt_TopLeft.Y)
+        Pt_V2 = New Point(x:=Pt_V1.X,
+                          y:=Pt_V1.Y + Prf06_WH_Grid - 1)
+        Select Case i
+          Case 0, 3        '  Trait de 3
+            e.Graphics.DrawLine(pen_3, Pt_H1, Pt_H2)
+            e.Graphics.DrawLine(pen_3, Pt_V1, Pt_V2)
+          Case 1, 2 '  Trait de 1
+            e.Graphics.DrawLine(pen_1, Pt_H1, Pt_H2)
+            e.Graphics.DrawLine(pen_1, Pt_V1, Pt_V2)
+        End Select
+      Next i
 
-    ' 3 Fonds des 9 cellules Les couleurs sont arbitraires
-    g.FillRectangle(New SolidBrush(Prf06_Clr(3)), Prf06_Sqr(0))
-    g.FillRectangle(New SolidBrush(Prf06_Clr(5)), Prf06_Sqr(1))
-    g.FillRectangle(New SolidBrush(Prf06_Clr(5)), Prf06_Sqr(2))
-    g.FillRectangle(New SolidBrush(Prf06_Clr(5)), Prf06_Sqr(3))
-    g.FillRectangle(New SolidBrush(Prf06_Clr(3)), Prf06_Sqr(4))
-    g.FillRectangle(New SolidBrush(Prf06_Clr(5)), Prf06_Sqr(5))
-    g.FillRectangle(New SolidBrush(Prf06_Clr(5)), Prf06_Sqr(6))
-    g.FillRectangle(New SolidBrush(Prf06_Clr(5)), Prf06_Sqr(7))
-    g.FillRectangle(New SolidBrush(Prf06_Clr(3)), Prf06_Sqr(8))
+      ' 3 Fonds des 9 cellules Les couleurs sont arbitraires
+      e.Graphics.FillRectangle(brsh_3, Prf06_Sqr(0))
+      e.Graphics.FillRectangle(brsh_5, Prf06_Sqr(1))
+      e.Graphics.FillRectangle(brsh_5, Prf06_Sqr(2))
+      e.Graphics.FillRectangle(brsh_5, Prf06_Sqr(3))
+      e.Graphics.FillRectangle(brsh_3, Prf06_Sqr(4))
+      e.Graphics.FillRectangle(brsh_5, Prf06_Sqr(5))
+      e.Graphics.FillRectangle(brsh_5, Prf06_Sqr(6))
+      e.Graphics.FillRectangle(brsh_5, Prf06_Sqr(7))
+      e.Graphics.FillRectangle(brsh_3, Prf06_Sqr(8))
 
-    ' 4 Valeurs dans Cellules Initiales et dans Cellules Remplies 
-    g.DrawString("9", New Font(Font_Name_ValCdd, 30), New SolidBrush(Prf06_Clr(4)), Prf06_Sqr(0).X + Prf06_WH2, Prf06_Sqr(0).Y + Prf06_WH2, Format_Center)
-    g.DrawString("1", New Font(Font_Name_ValCdd, 30), New SolidBrush(Prf06_Clr(4)), Prf06_Sqr(4).X + Prf06_WH2, Prf06_Sqr(4).Y + Prf06_WH2, Format_Center)
-    g.DrawString("7", New Font(Font_Name_ValCdd, 30), New SolidBrush(Prf06_Clr(4)), Prf06_Sqr(8).X + Prf06_WH2, Prf06_Sqr(8).Y + Prf06_WH2, Format_Center)
-    g.DrawString("2", New Font(Font_Name_ValCdd, 30), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr(2).X + Prf06_WH2, Prf06_Sqr(2).Y + Prf06_WH2, Format_Center)
-    g.DrawString("5", New Font(Font_Name_ValCdd, 30), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr(5).X + Prf06_WH2, Prf06_Sqr(5).Y + Prf06_WH2, Format_Center)
+      ' 4 Valeurs dans Cellules Initiales et dans Cellules Remplies 
+      e.Graphics.DrawString("9", font_30, brsh_4, Prf06_Sqr(0).X + Prf06_WH2, Prf06_Sqr(0).Y + Prf06_WH2, Format_Center)
+      e.Graphics.DrawString("1", font_30, brsh_4, Prf06_Sqr(4).X + Prf06_WH2, Prf06_Sqr(4).Y + Prf06_WH2, Format_Center)
+      e.Graphics.DrawString("7", font_30, brsh_4, Prf06_Sqr(8).X + Prf06_WH2, Prf06_Sqr(8).Y + Prf06_WH2, Format_Center)
+      e.Graphics.DrawString("2", font_30, brsh_6, Prf06_Sqr(2).X + Prf06_WH2, Prf06_Sqr(2).Y + Prf06_WH2, Format_Center)
+      e.Graphics.DrawString("5", font_30, brsh_6, Prf06_Sqr(5).X + Prf06_WH2, Prf06_Sqr(5).Y + Prf06_WH2, Format_Center)
 
-    ' 5 Candidats
-    g.DrawString("3", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(63).X + Prf06_WH6, Prf06_Sqr_Cdd(63).Y + Prf06_WH6, Format_Center)
-    g.DrawString("4", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(64).X + Prf06_WH6, Prf06_Sqr_Cdd(64).Y + Prf06_WH6, Format_Center)
-    g.DrawString("6", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(66).X + Prf06_WH6, Prf06_Sqr_Cdd(66).Y + Prf06_WH6, Format_Center)
-    g.DrawString("8", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(68).X + Prf06_WH6, Prf06_Sqr_Cdd(68).Y + Prf06_WH6, Format_Center)
+      ' 5 Candidats
+      e.Graphics.DrawString("3", font_10, brsh_6, Prf06_Sqr_Cdd(63).X + Prf06_WH6, Prf06_Sqr_Cdd(63).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("4", font_10, brsh_6, Prf06_Sqr_Cdd(64).X + Prf06_WH6, Prf06_Sqr_Cdd(64).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("6", font_10, brsh_6, Prf06_Sqr_Cdd(66).X + Prf06_WH6, Prf06_Sqr_Cdd(66).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("8", font_10, brsh_6, Prf06_Sqr_Cdd(68).X + Prf06_WH6, Prf06_Sqr_Cdd(68).Y + Prf06_WH6, Format_Center)
 
-    ' 6 Aide Graphique
-    '   Uniquement pour les cellules 0, 1, 2
-    g.FillRectangle(New SolidBrush(Prf06_Clr(7)), Prf06_Sqr(0).X, Prf06_Sqr(0).Y + Prf06_WH3, (Prf06_WH * 3) + 4, Prf06_WH3)
+      ' 6 Aide Graphique
+      '   Uniquement pour les cellules 0, 1, 2
+      e.Graphics.FillRectangle(brsh_7, Prf06_Sqr(0).X, Prf06_Sqr(0).Y + Prf06_WH3, (Prf06_WH * 3) + 4, Prf06_WH3)
 
-    ' 7 la Sélection    g.DrawString("3", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(63).X + Prf06_WH6, Prf06_Sqr_Cdd(63).Y + Prf06_WH6, Format_Center)
-    g.DrawString("1", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(71).X + Prf06_WH6, Prf06_Sqr_Cdd(71).Y + Prf06_WH6, Format_Center)
-    g.DrawString("2", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(72).X + Prf06_WH6, Prf06_Sqr_Cdd(72).Y + Prf06_WH6, Format_Center)
-    g.DrawString("3", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(73).X + Prf06_WH6, Prf06_Sqr_Cdd(73).Y + Prf06_WH6, Format_Center)
-    g.DrawString("4", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(74).X + Prf06_WH6, Prf06_Sqr_Cdd(74).Y + Prf06_WH6, Format_Center)
-    g.DrawString("5", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(75).X + Prf06_WH6, Prf06_Sqr_Cdd(75).Y + Prf06_WH6, Format_Center)
-    g.DrawString("6", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(76).X + Prf06_WH6, Prf06_Sqr_Cdd(76).Y + Prf06_WH6, Format_Center)
-    g.DrawString("7", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(77).X + Prf06_WH6, Prf06_Sqr_Cdd(77).Y + Prf06_WH6, Format_Center)
-    g.DrawString("8", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(78).X + Prf06_WH6, Prf06_Sqr_Cdd(78).Y + Prf06_WH6, Format_Center)
-    g.DrawString("9", New Font(Font_Name_ValCdd, 10), New SolidBrush(Prf06_Clr(6)), Prf06_Sqr_Cdd(79).X + Prf06_WH6, Prf06_Sqr_Cdd(79).Y + Prf06_WH6, Format_Center)
-    g.FillRectangle(New SolidBrush(Prf06_Clr(8)), Prf06_Sqr(7))
-
+      ' 7 la Sélection    
+      e.Graphics.DrawString("1", font_10, brsh_6, Prf06_Sqr_Cdd(71).X + Prf06_WH6, Prf06_Sqr_Cdd(71).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("2", font_10, brsh_6, Prf06_Sqr_Cdd(72).X + Prf06_WH6, Prf06_Sqr_Cdd(72).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("3", font_10, brsh_6, Prf06_Sqr_Cdd(73).X + Prf06_WH6, Prf06_Sqr_Cdd(73).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("4", font_10, brsh_6, Prf06_Sqr_Cdd(74).X + Prf06_WH6, Prf06_Sqr_Cdd(74).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("5", font_10, brsh_6, Prf06_Sqr_Cdd(75).X + Prf06_WH6, Prf06_Sqr_Cdd(75).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("6", font_10, brsh_6, Prf06_Sqr_Cdd(76).X + Prf06_WH6, Prf06_Sqr_Cdd(76).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("7", font_10, brsh_6, Prf06_Sqr_Cdd(77).X + Prf06_WH6, Prf06_Sqr_Cdd(77).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("8", font_10, brsh_6, Prf06_Sqr_Cdd(78).X + Prf06_WH6, Prf06_Sqr_Cdd(78).Y + Prf06_WH6, Format_Center)
+      e.Graphics.DrawString("9", font_10, brsh_6, Prf06_Sqr_Cdd(79).X + Prf06_WH6, Prf06_Sqr_Cdd(79).Y + Prf06_WH6, Format_Center)
+      e.Graphics.FillRectangle(brsh_8, Prf06_Sqr(7))
+    End Using
   End Sub
   '-------------------------------------------------------------------------------
   ' Contrôles par onglet et ordre de contrôle
