@@ -30,10 +30,12 @@ Public NotInheritable Class Frm_SDK
 
   Dim Key_CtrlDown As Boolean = False
   Dim Prv_Key_CtrlDown As Boolean = False
+  Private ReadOnly PBG_Prc As Integer
 
   Public Sub New()
     ' Cet appel est requis par le concepteur.
     InitializeComponent()
+    'Me.DoubleBuffered = True
   End Sub
 
   Private Sub Frm_SDK_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -531,7 +533,33 @@ Public NotInheritable Class Frm_SDK
         Dim Gril As New Grille_Cls
         Gril.Grille_Refresh_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G7_Cellule_Paint_Select()
+        sc.G7_Cellule_Paint_Select_g(e.Graphics)
+
+      Case "Cell_Val_Insert"
+        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+        sc.G2_Cellule_Paint_Fond_g(e.Graphics)
+        sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+        sc.G7_Cellule_Paint_Select_g(e.Graphics)
+
+      Case "Cell_Move_Prv"
+        Dim sc_Prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
+        sc_Prv.G2_Cellule_Paint_Fond_g(e.Graphics)
+        sc_Prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
+        sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(e.Graphics)
+
+      Case "Cell_Move"
+        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+        'If Plcy_AideGraphique Then
+        'G4_Grid_Stratégie_All_g(e.Graphics)
+        'Else
+        's'c.Cellule_Refresh_g(e.Graphics)
+        'End If
+        sc.G7_Cellule_Paint_Select_g(e.Graphics)
+
+      Case "Animation"
+        Dim Gril As New Grille_Cls
+        Gril.Grille_Refresh_g(e.Graphics)
+        Gril.G8_Grille_Partie_Terminée_g(e.Graphics)
 
       Case Else
         Jrn_Add("SDK_00000", {"Protected Overrides Sub OnPaint(e As PaintEventArgs) est activée: "})
@@ -541,8 +569,10 @@ Public NotInheritable Class Frm_SDK
         Jrn_Add("SDK_00000", {"La grille n'est pas rafraîchie, La cellule " & U_Coord(Pbl_Cell_Select) & " n'est pas sélectionnée."})
         Jrn_Add("SDK_00010", JourDateHeure())
     End Select
+
     Event_OnPaint = "#"
   End Sub
+
 
   Private Sub Frm_SDK_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
     Event_OnPaint = "Global"
@@ -605,8 +635,6 @@ Public NotInheritable Class Frm_SDK
       Cursor = Cursors.Default
       Enabled = True
     End If
-  End Sub
-  Private Sub Frm_SDK_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
   End Sub
   Private Sub Frm_SDK_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
     'Se produit quand le contrôle est redimensionné par exemple après une Réduction 
@@ -802,13 +830,6 @@ Public NotInheritable Class Frm_SDK
     Dim Cellule_MM As Integer      ' Il s'agit de la Cellule où se trouve la souris
     Dim Candidat_MM_Pt As Integer  ' Il s'agit du Candidat dans la Cellule où se trouve la souris
     ' Test des sélections multiples
-    With My.Computer.Keyboard
-      If Plcy_Gnrl = "Sas" Then
-        If .CtrlKeyDown Or .ShiftKeyDown Then Plcy_Slm = True
-      End If
-      If Not .CtrlKeyDown And Not .ShiftKeyDown Then Plcy_Slm = False
-    End With
-
     Try
       'Se produit après l'effacement d'une valeur
       If Prv_MM_Pt = MM_Pt Then Exit Sub
@@ -821,8 +842,6 @@ Public NotInheritable Class Frm_SDK
       'Le traitement est effectué quelque soit la typologie de la cellule
       '0 La cellule sur laquelle passe la souris devient la Pbl_Cell_Select
       Pbl_Cell_Select = Cellule_MM
-      'Le 13/08/2025 Je ne sais à quoi sert cette instruction
-      'Cursor.Current = DefaultCursor
       Dim Rct_Cdd_Numéro As Integer = (Pbl_Cell_Select * 10) + Candidat_MM_Pt
       Pbl_Cell_Candidat_Select = Candidat_MM_Pt
 
@@ -832,59 +851,23 @@ Public NotInheritable Class Frm_SDK
       If Prv_Pbl_Cell_Select < 0 _
       Or Prv_Pbl_Cell_Select > Sqr_Cel.GetUpperBound(0) Then Prv_Rct_Cdd_Numéro = 0
 
-
-      'Select Case Plcy_Zoom
-      '  Case True
-      '    If Sqr_Cdd(Prv_Rct_Cdd_Numéro).Contains(MM_Pt) Then Exit Sub
-      '  Case False
       If Sqr_Cel(Prv_Pbl_Cell_Select).Contains(MM_Pt) Then Exit Sub
-      '      End Select
 
-      Dim sc As New Cellule_Cls With {.Numéro = Cellule_MM}
-      Select Case Plcy_Slm
-        Case True
-          '1 On sélectionne la cellule  
-          U_Slm(Pbl_Cell_Select) = True
-          sc.Cellule_Refresh()
-          sc.G7_Cellule_Paint_Select()
-        Case False
-          '0 Si slm, on remet les cellules précédentes en état
-          If Prv_Plcy_Slm Then
-            Dim sc_Slm As New Cellule_Cls
-            For i As Integer = 0 To 80
-              If U_Slm(i) Then
-                sc_Slm.Numéro = i
-                sc_Slm.G2_Cellule_Paint_Fond()
-                sc_Slm.G5_Cellule_Paint_Valeur()
-                sc_Slm.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-                U_Slm(i) = False
-              End If
-            Next i
-          End If
-          '1 On remet la cellule précédente en état
-          Dim sc_Prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
-          sc_Prv.G2_Cellule_Paint_Fond()
-          sc_Prv.G5_Cellule_Paint_Valeur()
-          sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+      Event_OnPaint = "Cell_Move_Prv"
+      Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
+        Invalidate(reg, False)
+      End Using
+      Application.DoEvents()   'Affiche la grille avec solutions
 
-          '2 On sélectionne la cellule passée sous la souris
-          ' Si Plcy_AideGraphique, il faut alors rafraîchir les cellules explicatives, sinon Uniquement la cellule concernée
-          If Plcy_AideGraphique Then
-            ' les valeurs ont été dessinées pour la grille.
-            G4_Grid_Stratégie_All()
-          Else
-            sc.Cellule_Refresh()
-          End If
-          sc.G7_Cellule_Paint_Select()
-          '3 La cellule sur laquelle passe la souris devient la Prv_Pbl_Cell_Select
-          Prv_Pbl_Cell_Select = Pbl_Cell_Select
-          Prv_Pbl_Cell_Candidat_Select = Pbl_Cell_Candidat_Select
-      End Select
+      Event_OnPaint = "Cell_Move"
+      Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+        Invalidate(reg, False)
+      End Using
+      Application.DoEvents()   'Affiche la grille avec solutions
 
-      'Positionnement du Formulaire d'insertion de Candidats
-      Prv_Rct_Cdd_Numéro = Rct_Cdd_Numéro
-      If Plcy_FIC_Frm_Insérer_Candidats Then Aimantation(Pbl_Cell_Select)
-      Prv_Plcy_Slm = Plcy_Slm
+      Prv_Pbl_Cell_Select = Pbl_Cell_Select
+      Prv_Pbl_Cell_Candidat_Select = Pbl_Cell_Candidat_Select
+
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")

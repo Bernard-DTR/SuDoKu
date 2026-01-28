@@ -21,7 +21,6 @@ Module M03_Paint_g
 
 #Region "G1 Couche Quadrillage"
   Public Sub G1_Grid_Paint_g(g As Graphics)
-    Jrn_Add_Yellow(Procédure_Name_Get())
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
     ' et dessiner ensuite le quadrillage
     ' le fond du formulaire est Color_Frm_BackColor, il est défini dans Sub Présentation_SDK

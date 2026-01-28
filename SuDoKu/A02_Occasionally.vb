@@ -743,22 +743,24 @@ Friend Module A02_Occasionally
     Font_Cdd_Size_Zoom = (4 * Font_Val_Size) / 6
     Font_Cdd_Size = CalculateFontSize_IA(Font_Name_ValCdd, FontStyle.Italic, CSng(WH / 3), "1")
   End Sub
-
-  Private Function CalculateFontSize_IA(fontName As String, fontStyle As FontStyle, maxHeight As Single, text As String) As Single
+  Private Function CalculateFontSize_IA(fontName As String,
+                                      fontStyle As FontStyle,
+                                      maxHeight As Single,
+                                      text As String) As Single
     Dim size As Single
-    Dim g As Graphics = Frm_SDK.CreateGraphics
-    For p As Integer = 5 To 100
-      Dim TempFont As New Font(fontName, p, fontStyle, GraphicsUnit.Pixel)
-      If g.MeasureString(text, TempFont).Height < maxHeight Then
-        size = CSng(p / 2)
-      Else
-        Exit For
-      End If
-    Next p
-    g.Dispose()
+    Using g As Graphics = Graphics.FromHwnd(IntPtr.Zero)
+      For p As Integer = 5 To 100
+        Using temp_font As New Font(fontName, p, fontStyle, GraphicsUnit.Pixel)
+          If g.MeasureString(text, temp_font).Height < maxHeight Then
+            size = CSng(p / 2)
+          Else
+            Exit For
+          End If
+        End Using
+      Next
+    End Using
     Return size
   End Function
-
   Public Sub OC_Grid_Cutting_Image()
     'Découpage de l'image en 81 morceaux 
     If Plcy_Fond_Grille = 0 Then Exit Sub 'Il n'y a pas d'affichage de fond

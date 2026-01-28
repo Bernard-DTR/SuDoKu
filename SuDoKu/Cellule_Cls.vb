@@ -179,7 +179,6 @@ Public Class Cellule_Cls
     Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
           brsh As New SolidBrush(Color_Frm_BackColor)
 
-
       If Plcy_Fond_Grille = 0 Then
         ' Un fond standard est affiché
         If Cellule_Arrondie Then
@@ -231,7 +230,6 @@ Public Class Cellule_Cls
     '                 0 est le "Fond Standard", ie une couleur et non une photo
     Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
           brsh As New SolidBrush(Color_Frm_BackColor)
-
       If Plcy_Fond_Grille = 0 Then    ' Un fond standard est affiché
         If Cellule_Arrondie Then
           g.FillPath(brsh_0, Sqr_Pth(Numéro))
@@ -250,29 +248,6 @@ Public Class Cellule_Cls
       End If
     End Using
 
-    ''Traite les Cas particuliers et la propriété Text_ToolTip
-    'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-    '  Select Case Typologie
-    '    Case "I"
-    '    Case "R"
-    '      ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
-    '      If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
-    '        G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(128, Color.Green))
-    '        Text_ToolTip = "Valeur non conforme à la solution."
-    '      End If
-    '    Case "V"
-    '      ' 2 Indication d'une cellule sans candidat
-    '      If Nombre_Candidats = -1 Then
-    '        G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(128, Color.Red))
-    '        Text_ToolTip = "La cellule n'a plus de candidat."
-    '      End If
-    '      ' 3 Mode Suggestion
-    '      If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
-    '        G0_Cell_Figure_g(g, Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
-    '        Text_ToolTip = "... Cellule à jouer."
-    '      End If
-    '  End Select
-    'End If
   End Sub
 
   ''' <summary>Peint la valeur d'une cellule IR.</summary>
@@ -288,6 +263,17 @@ Public Class Cellule_Cls
                  Position_Center.X, Position_Center.Y, Format_Center)
     End Using
     g.Dispose()
+  End Sub
+  Public Sub G5_Cellule_Paint_Valeur_g(g As Graphics)
+    'Concerne l'ensemble des Cellules Initiales et Remplies
+    'Les valeurs sont peintes dans une couleur différentes suivant leur typologie I/R
+    Using brsh As New SolidBrush(U_Clr_Cell_Val(Numéro)),
+          fnt As New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular)
+      g.DrawString(Subst_Police(U(Numéro, 2)),
+                 fnt,
+                 brsh,
+                 Position_Center.X, Position_Center.Y, Format_Center)
+    End Using
   End Sub
 
   ''' <summary>Dessine UN Candidat de la Cellule.</summary>
@@ -336,6 +322,16 @@ Public Class Cellule_Cls
       G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
     End If
   End Sub
+  Public Sub G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(g As Graphics)
+    '10 occurences
+    'Concerne UNIQUEMENT les cellules Vides avec des Candidats et dans les conditions précisées
+    If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
+    Or (Plcy_Gnrl = "Edi") _
+    Or (Plcy_Gnrl = "Sas") Then
+      G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+    End If
+  End Sub
+
   ''' <summary>Peint la sélection de la Cellule.</summary>
   Public Sub G7_Cellule_Paint_Select()
     ' C'est l'affichage des candidats qui constitue l'affichage de la sélection
@@ -378,12 +374,57 @@ Public Class Cellule_Cls
       Case False : Frm_SDK.B_Position.Text = U_cr(Numéro)
     End Select
   End Sub
+  Public Sub G7_Cellule_Paint_Select_g(g As Graphics)
+    Using brsh As New SolidBrush(Color_Cell_Select)
+      If Cellule_Arrondie Then
+        g.FillPath(brsh, Sqr_Pth(Numéro))
+      Else
+        g.FillRectangle(brsh, Sqr_Cel(Numéro))
+      End If
+    End Using
+
+    If Typologie = "V" Then
+      If (Plcy_Gnrl = "Sas" And U(Numéro, 3) = Cnddts_Blancs) _
+      Or (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
+      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I" And Not Plcy_AideGraphique) _
+      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E" And Not Plcy_AideGraphique) _
+      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" And Not Plcy_AideGraphique) Then
+        Select Case Plcy_Saisir_Commencer
+          Case True : G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+          Case False : G6_Cellule_Paint_Candidats("Les9Candidats")
+        End Select
+      End If
+
+      If (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I" And Plcy_AideGraphique) _
+      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E" And Plcy_AideGraphique) _
+      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" And Plcy_AideGraphique) Then
+        G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+      End If
+    End If
+
+    Select Case Plcy_Gnrl
+      Case "Nrm", "Sas" : Mnu_Mngt(Numéro)
+      Case Else
+    End Select
+
+    Select Case Plcy_Gbl_Etendue
+      Case True : Frm_SDK.B_Position.Text = U_cr(Numéro) & " (" & Numéro & ")"
+      Case False : Frm_SDK.B_Position.Text = U_cr(Numéro)
+    End Select
+  End Sub
   Public Sub Cellule_Refresh()
     'La Cellule est rafraîchie, la Cellule n'est pas sélectionnée 
     G2_Cellule_Paint_Fond()
     G4_Grid_Stratégie_All()
     G5_Cellule_Paint_Valeur()
     G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+  End Sub
+  Public Sub Cellule_Refresh_g(g As Graphics)
+    'La Cellule est rafraîchie, la Cellule n'est pas sélectionnée 
+    G2_Cellule_Paint_Fond_g(g)
+    G4_Grid_Stratégie_All_g(g)
+    G5_Cellule_Paint_Valeur_g(g)
+    G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(g)
   End Sub
 
   ''' <summary>Rafraîchit la Cellule et les Cellules Collatérales</summary>
@@ -448,15 +489,7 @@ Public Class Grille_Cls
 #End Region
 
 #Region "Méthodes"
-  Public Sub G2_Grille_Paint_Fond()
-    Dim sc As New Cellule_Cls
-    For i As Integer = 0 To 80
-      sc.Numéro = i
-      sc.G2_Cellule_Paint_Fond()
-    Next i
-  End Sub
   Public Sub G2_Grille_Paint_Fond_g(g As Graphics)
-    Jrn_Add_Yellow(Procédure_Name_Get())
     Dim sc As New Cellule_Cls
     For i As Integer = 0 To 80
       sc.Numéro = i
@@ -464,65 +497,21 @@ Public Class Grille_Cls
     Next i
   End Sub
 
-  '''' <summary>Compose la couche indirecte.</summary>
-  'Public Sub G3_Grille_Paint_Indirecte()
-  '  'Les couches G2 et G3 sont à traiter ensemble pour la couche indirecte
-  '  ' G2_Grille_Paint_Fond = 81 G2_Cellule_Paint_Fond
-  '  ' G3_Grille_Paint_Indirecte
-  '  ' Les 2 Fonctions reprennent les mêmes conditions pour les effets indirects.
-
-  '  Dim U_G3(80) As Boolean ' Un tableau booléen est créé FALSE
-  '  'A Analyse des causes et des effets indirects
-  '  For i As Integer = 0 To 80
-  '    ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
-  '    ' 2 Indication d'une cellule sans candidat
-  '    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Wh_Cell_Nb_Candidats(U, i) = 0 Then U_G3(i) = True
-  '    ' 3 Indication Dernier Candidat d'une Unitée en mode Nrm ou Sas
-  '    ' 4 Mode Suggestion
-  '    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 And U_Suggest(i) <> "0" Then U_G3(i) = True
-  '  Next i
-
-  '  'B Répercussion effets indirects dans la grille
-  '  '  La fonction Cellule_Refresh effectue G2_Cellule_Paint_Fond()
-  '  Dim sc As New Cellule_Cls
-  '  For i As Integer = 0 To 80
-  '    If U_G3(i) = True Then
-  '      sc.Numéro = i
-  '      sc.Cellule_Refresh()
-  '    End If
-  '  Next i
-  'End Sub
-
-  Public Sub Grille_Refresh()
-    'La grille est rafraîchie entièrement, aucune cellule n'est sélectée
-    G1_Grid_Paint()
-    Dim Gril As New Grille_Cls
-    Gril.G2_Grille_Paint_Fond()
-    G4_Grid_Stratégie_All()
-    Dim sc As New Cellule_Cls
-    For i As Integer = 0 To 80
-      sc.Numéro = i
-      sc.G5_Cellule_Paint_Valeur()
-      sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-    Next i
-  End Sub
-
   Public Sub Grille_Refresh_g(g As Graphics)
     'La grille est rafraîchie entièrement, aucune cellule n'est sélectée
-    Jrn_Add_Yellow(Procédure_Name_Get())
     G1_Grid_Paint_g(g)
     Dim Gril As New Grille_Cls
     Gril.G2_Grille_Paint_Fond_g(g)
-    G4_Grid_Stratégie_All()
+    G4_Grid_Stratégie_All_g(g)
     Dim sc As New Cellule_Cls
     For i As Integer = 0 To 80
       sc.Numéro = i
-      sc.G5_Cellule_Paint_Valeur()
-      sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+      sc.G5_Cellule_Paint_Valeur_g(g)
+      sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(g)
     Next i
   End Sub
 
-  Public Sub G8_Grille_Partie_Terminée()
+  Public Sub G8_Grille_Partie_Terminée_g(g As Graphics)
     Dim Cellule_Clct As New Collection
     ' Ne se fait que si Plcy_Gnrl = "Nrm" ou "Sas"
     If Plcy_Gnrl <> "Nrm" And Plcy_Gnrl <> "Sas" Then Exit Sub
@@ -559,30 +548,59 @@ Public Class Grille_Cls
       ' Animation de la Grille
       Dim Rect As Rectangle
       Dim Inflate As Integer = 0
-      Using g As Graphics = Frm_SDK.CreateGraphics
-        For i As Integer = 1 To Cellule_Clct.Count
-          sc.Numéro = Clct_Random(Cellule_Clct)
-          Rect = Sqr_Cel(sc.Numéro)
-          Inflate += 2        '2
-          If Inflate > WH \ 2 Then Exit For
-          Rect.Inflate(New Size(Inflate - 2, Inflate - 2))
-          g.DrawIcon(My.Resources.SuDoKu, Rect)
-          Thread.Sleep(100)
-          Rect.Inflate(New Size(Inflate, Inflate))
-          g.DrawIcon(My.Resources.SuDoKu, Rect)
-          Thread.Sleep(100)
-          Rect.Inflate(New Size(Inflate + 1, Inflate + 1))
-          g.DrawIcon(My.Resources.SuDoKu, Rect)
-          Thread.Sleep(100)
-        Next i
-      End Using
+      For i As Integer = 1 To Cellule_Clct.Count
+        sc.Numéro = Clct_Random(Cellule_Clct)
+        Rect = Sqr_Cel(sc.Numéro)
+        Inflate += 2        '2
+        If Inflate > WH \ 2 Then Exit For
+        Rect.Inflate(New Size(Inflate - 2, Inflate - 2))
+        g.DrawIcon(My.Resources.SuDoKu, Rect)
+        Thread.Sleep(100)
+        Rect.Inflate(New Size(Inflate, Inflate))
+        g.DrawIcon(My.Resources.SuDoKu, Rect)
+        Thread.Sleep(100)
+        Rect.Inflate(New Size(Inflate + 1, Inflate + 1))
+        g.DrawIcon(My.Resources.SuDoKu, Rect)
+        Thread.Sleep(100)
+      Next i
       Cursor.Current = Cursors.Default
     End If
-    Grille_Refresh()
   End Sub
+
 #End Region
 End Class
 
+Public Class SDK_ColorDialog
+  '05/04/2024 Personnalisation du Titre de la Boîte des couleurs
+  Inherits ColorDialog
+
+  <DllImport("user32.dll")>
+  Private Shared Function SetWindowText(hWnd As IntPtr, lpString As String) As Boolean
+  End Function
+
+  Private _title As String = String.Empty
+  Private _titleSet As Boolean = False
+
+  Public Property Title As String
+    Get
+      Return _title
+    End Get
+    Set(value As String)
+      If value IsNot Nothing AndAlso value <> _title Then
+        _title = value
+        _titleSet = False
+      End If
+    End Set
+  End Property
+
+  Protected Overrides Function HookProc(hWnd As IntPtr, msg As Integer, wparam As IntPtr, lparam As IntPtr) As IntPtr
+    If Not _titleSet Then
+      SetWindowText(hWnd, _title)
+      _titleSet = True
+    End If
+    Return MyBase.HookProc(hWnd, msg, wparam, lparam)
+  End Function
+End Class
 Public Class ProgressBarGraphic_Cls
   '------------------------------------------------------------------------------------------
   'Date de création: Samedi 10/09/2022
@@ -652,52 +670,23 @@ Public Class ProgressBarGraphic_Cls
     Dim PBG_Rct_Txt As New Rectangle(x:=Position_Left, y:=Position_Top,
                                      width:=Largeur,
                                      height:=Hauteur)
+
     Using g As Graphics = Frm_SDK.CreateGraphics
-      g.FillRectangle(New SolidBrush(Color_Frm_BackColor), PBG_Rct_Txt) ' Rafraîchissement
-      g.FillRectangle(New SolidBrush(Couleur), PBG_Rct)
-      g.DrawString(CStr(Prc) & " %",
-                   New Font(Font_Name_ValCdd, 10, FontStyle.Regular),
-                   New SolidBrush(Color.Red),
-                   Position_Left + Largeur \ 2, Position_Top + Hauteur \ 2, Format_Center)
+      Using brsh_1 As New SolidBrush(Color_Frm_BackColor),
+                      brsh_2 As New SolidBrush(Couleur),
+                      brsh_3 As New SolidBrush(Color.Red),
+                      font_txt As New Font(Font_Name_ValCdd, 10, FontStyle.Regular)
+        g.FillRectangle(brsh_1, PBG_Rct_Txt) ' Rafraîchissement
+        g.FillRectangle(brsh_2, PBG_Rct)
+        g.DrawString($"{Prc} %",
+                     font_txt,
+                     brsh_3,
+                     Position_Left + Largeur \ 2, Position_Top + Hauteur \ 2, Format_Center)
+      End Using
     End Using
   End Sub
 #End Region
-
 End Class
-
-'https://www.bing.com/search?q=ColorDialog%20title%20modification%20Visual%20Studio%20Visual%20Basic&qs=ds&form=ATCVAJ
-Public Class SDK_ColorDialog
-  'Vendredi 05/04/2024 Personnalisation du Titre de la Boîte des couleurs
-  Inherits ColorDialog
-
-  <DllImport("user32.dll")>
-  Private Shared Function SetWindowText(hWnd As IntPtr, lpString As String) As Boolean
-  End Function
-
-  Private _title As String = String.Empty
-  Private _titleSet As Boolean = False
-
-  Public Property Title As String
-    Get
-      Return _title
-    End Get
-    Set(value As String)
-      If value IsNot Nothing AndAlso value <> _title Then
-        _title = value
-        _titleSet = False
-      End If
-    End Set
-  End Property
-
-  Protected Overrides Function HookProc(hWnd As IntPtr, msg As Integer, wparam As IntPtr, lparam As IntPtr) As IntPtr
-    If Not _titleSet Then
-      SetWindowText(hWnd, _title)
-      _titleSet = True
-    End If
-    Return MyBase.HookProc(hWnd, msg, wparam, lparam)
-  End Function
-End Class
-
 Friend Module Cell_Grid
   Public Function Subst_Police(Source As String) As String
     'Source est compris entre 1 et 9

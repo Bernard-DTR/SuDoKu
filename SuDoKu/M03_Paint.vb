@@ -34,34 +34,11 @@ Friend Module M03_Paint
     Next i
   End Sub
 
-#Region "G1 Couche Quadrillage"
-  Public Sub G1_Grid_Paint()
-    ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
-    ' et dessiner ensuite le quadrillage
-    ' le fond du formulaire est Color_Frm_BackColor, il est défini dans Sub Présentation_SDK
-    Using g As Graphics = Frm_SDK.CreateGraphics
-      g.Clear(Color_Frm_BackColor)
-      ' Efface l'intégralité de l'emplacement de la grille avec un carré unique
-      g.FillRectangle(brush:=New SolidBrush(Color_Frm_BackColor),
-                            Gz_Pt_TopLeft.X,
-                            Gz_Pt_TopLeft.Y,
-                            Bld_WH_Grid, Bld_WH_Grid)
-      Select Case Plcy_Format_DAB
-        Case 0 : G1_Grid_Paint_Quadrillage_00_g(g)
-        Case 1, 2 : G1_Grid_Paint_Quadrillage_04_g(g)
-        Case 3, 4 : G1_Grid_Paint_Quadrillage_20_g(g)
-        Case 5, 6 : G1_Grid_Paint_Quadrillage_36_g(g)
-      End Select
-    End Using
-  End Sub
-#End Region
-
 #Region "G4 Couche Stratégie"
   '   La couche G4 stratégies n'est appelée que dans G4_Grid_Stratégie_All,
   '   G4_Grid_Stratégie_Flt est également appelé dans Frm_SDK_MouseWheel
-  Public Sub G4_Grid_Stratégie_All()
+  Public Sub G4_Grid_Stratégie_All_g(g As Graphics)
     If Plcy_Gnrl = "Nrm" And Plcy_Strg <> "   " Then
-      'Jrn_Add_White(Procédure_Name_Get())
       For i As Integer = 0 To 80
         U_Strg_Val_Ins(i) = ""
         U_Strg_Cdd_Exc(i) = Cnddts_Blancs
@@ -80,7 +57,37 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_XYZ()
       G4_Grid_Stratégie_SKy()
       G4_Grid_Stratégie_Unq()
-      G4_Grid_Stratégie_Obj()
+      G4_Grid_Stratégie_Obj(g)
+      G4_Grid_Stratégie_XCx_XCy_XNl()
+      G4_Grid_Stratégie_XRp()
+      G4_Grid_Stratégie_WgX_WgY_WgZ_WgW()
+      G4_Grid_Stratégie_GLk()
+      G4_Grid_Stratégie_Gbl()
+      G4_Grid_Stratégie_Gbv()
+      G4_Grid_Stratégie_GCs()
+    End If
+  End Sub
+  Public Sub G4_Grid_Stratégie_All()
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg <> "   " Then
+      For i As Integer = 0 To 80
+        U_Strg_Val_Ins(i) = ""
+        U_Strg_Cdd_Exc(i) = Cnddts_Blancs
+      Next i
+      G4_Grid_Stratégie_CdU()
+      G4_Grid_Stratégie_CdO()
+      G4_Grid_Stratégie_Flt()
+      G4_Grid_Stratégie_CdS()
+      G4_Grid_Stratégie_DCd()
+      G4_Grid_Stratégie_Cbl()
+      G4_Grid_Stratégie_Tpl()
+      G4_Grid_Stratégie_Xwg()
+      G4_Grid_Stratégie_XYw()
+      G4_Grid_Stratégie_Swf()
+      G4_Grid_Stratégie_Jly()
+      G4_Grid_Stratégie_XYZ()
+      G4_Grid_Stratégie_SKy()
+      G4_Grid_Stratégie_Unq()
+      'G4_Grid_Stratégie_Obj()
       G4_Grid_Stratégie_XCx_XCy_XNl()
       G4_Grid_Stratégie_XRp()
       G4_Grid_Stratégie_WgX_WgY_WgZ_WgW()
@@ -1446,7 +1453,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_Obj()
+  Public Sub G4_Grid_Stratégie_Obj(g As Graphics)
     Dim sc As New Cellule_Cls
     If Not Plcy_Strg = "Obj" Then Exit Sub
     For i As Integer = 0 To 80
@@ -1466,7 +1473,7 @@ Friend Module M03_Paint
                 G0_Cdd_Figure(.Cel_From, .Cdd_From, .Forme, Color_BySymbol(.Symbol))
             End Select
           Case "Flèche"
-            G0_Cdd_Flèche(.Cel_From, .Cdd_From, .Cel_To, .Cdd_To, Color_BySymbol(.Symbol))
+            G0_Cdd_Flèche(g, .Cel_From, .Cdd_From, .Cel_To, .Cdd_To, Color_BySymbol(.Symbol))
           Case Else
         End Select
       End With

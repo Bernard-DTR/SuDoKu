@@ -735,6 +735,7 @@ Pzzl_Prd_Boucle:
       ' Barre graphique de Progression sur le contrôle B_Info
       Dim PBG As New ProgressBarGraphic_Cls
       PBG.Draw_ProgressBarGraphic(Prc)
+
     End With
 
     If Create_Chat Then
@@ -891,8 +892,8 @@ Pzzl_Prd_Boucle:
     Jrn_Add(, {"Les candidats ne sont pas recalculés."}, "Info")
     Dim Wh_Nb As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
     Wh_Nb_Cell_Display(Wh_Nb)
-    Dim Gril_2 As New Grille_Cls
-    Gril_2.Grille_Refresh()
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
 
 Pzzl_Prd_End:
     Select Case Prd.Prd_Code_Retour
