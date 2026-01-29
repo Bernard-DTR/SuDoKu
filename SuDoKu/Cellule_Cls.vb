@@ -312,6 +312,27 @@ Public Class Cellule_Cls
       Next cdd
     End Using
   End Sub
+
+  Public Sub G6_Cellule_Paint_Candidats_g(g As Graphics, ByVal typeCdd As String)
+    'Procédure utilisée pour dessiner le fond de sélection d'une cellule
+    If Typologie = "I" Or Typologie = "R" Then Exit Sub
+    Dim Coté_6 As Integer = Coté \ 6
+    Dim cdd_n As Integer
+    Using font As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
+          brsh As New SolidBrush(Color_VCdd)
+      For cdd As Integer = 1 To 9
+        If (typeCdd = "Les9Candidats") _
+        Or (typeCdd = "LesCandidatsEligibles" And Candidats.Contains(cdd.ToString())) Then
+          cdd_n = (Numéro * 10) + cdd
+          g.DrawString(Subst_Police(CStr(cdd)),
+                       font,
+                       brsh,
+                       Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
+        End If
+      Next cdd
+    End Using
+  End Sub
+
   ''' <summary>Dessine les Candidats de la Cellule sous conditions habituelles.</summary>
   Public Sub G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
     '10 occurences
@@ -328,7 +349,7 @@ Public Class Cellule_Cls
     If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
     Or (Plcy_Gnrl = "Edi") _
     Or (Plcy_Gnrl = "Sas") Then
-      G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+      G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
     End If
   End Sub
 

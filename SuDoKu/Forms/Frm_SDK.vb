@@ -548,12 +548,9 @@ Public NotInheritable Class Frm_SDK
         sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(e.Graphics)
 
       Case "Cell_Move"
+        If Plcy_AideGraphique Then G4_Grid_Stratégie_All_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        'If Plcy_AideGraphique Then
-        'G4_Grid_Stratégie_All_g(e.Graphics)
-        'Else
-        's'c.Cellule_Refresh_g(e.Graphics)
-        'End If
+        sc.Cellule_Refresh_g(e.Graphics)
         sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
       Case "Animation"
@@ -1084,7 +1081,8 @@ Public NotInheritable Class Frm_SDK
     Loop While NewMW <> StartVal
 
     Strategy_Switch("FV" & CStr(NewMW))
-    G4_Grid_Stratégie_Flt()
+    'TODO à Corriger
+    'G4_Grid_Stratégie_Flt()
     Sélection_Pbl_Cell_Standard()
   End Sub
   Public Sub MouseWheel_Candidat(ByVal Sens As Integer)
@@ -1092,7 +1090,8 @@ Public NotInheritable Class Frm_SDK
     If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), FiltreMW) Then Exit Sub
     Dim NewMW As Integer = ((FiltreMW + Sens + 8) Mod 9) + 1
     Strategy_Switch("FC" & CStr(NewMW))
-    G4_Grid_Stratégie_Flt()
+    'TODO à Corriger
+    'G4_Grid_Stratégie_Flt()
     Sélection_Pbl_Cell_Standard()
   End Sub
 #End Region

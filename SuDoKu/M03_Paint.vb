@@ -43,28 +43,28 @@ Friend Module M03_Paint
         U_Strg_Val_Ins(i) = ""
         U_Strg_Cdd_Exc(i) = Cnddts_Blancs
       Next i
-      G4_Grid_Stratégie_CdU()
-      G4_Grid_Stratégie_CdO()
-      G4_Grid_Stratégie_Flt()
-      G4_Grid_Stratégie_CdS()
-      G4_Grid_Stratégie_DCd()
-      G4_Grid_Stratégie_Cbl()
-      G4_Grid_Stratégie_Tpl()
-      G4_Grid_Stratégie_Xwg()
-      G4_Grid_Stratégie_XYw()
-      G4_Grid_Stratégie_Swf()
-      G4_Grid_Stratégie_Jly()
-      G4_Grid_Stratégie_XYZ()
-      G4_Grid_Stratégie_SKy()
-      G4_Grid_Stratégie_Unq()
-      G4_Grid_Stratégie_Obj(g)
-      G4_Grid_Stratégie_XCx_XCy_XNl()
-      G4_Grid_Stratégie_XRp()
-      G4_Grid_Stratégie_WgX_WgY_WgZ_WgW()
+      G4_Grid_Stratégie_CdU_g(g)
+      G4_Grid_Stratégie_CdO_g(g)
+      G4_Grid_Stratégie_Flt_g(g)
+      G4_Grid_Stratégie_CdS_g(g)
+      G4_Grid_Stratégie_DCd_g(g)
+      G4_Grid_Stratégie_Cbl_g(g)
+      G4_Grid_Stratégie_Tpl_g(g)
+      G4_Grid_Stratégie_Xwg_g(g)
+      G4_Grid_Stratégie_XYw_g(g)
+      G4_Grid_Stratégie_Swf_g(g)
+      G4_Grid_Stratégie_Jly_g(g)
+      G4_Grid_Stratégie_XYZ_g(g)
+      G4_Grid_Stratégie_SKy_g(g)
+      G4_Grid_Stratégie_Unq_g(g)
+      G4_Grid_Stratégie_Obj_g(g)
+      G4_Grid_Stratégie_XCx_XCy_XNl_g(g)
+      G4_Grid_Stratégie_XRp_g(g)
+      G4_Grid_Stratégie_WgX_WgY_WgZ_WgW_g(g)
       G4_Grid_Stratégie_GLk()
       G4_Grid_Stratégie_Gbl()
       G4_Grid_Stratégie_Gbv()
-      G4_Grid_Stratégie_GCs()
+      G4_Grid_Stratégie_GCs_g(g)
     End If
   End Sub
   Public Sub G4_Grid_Stratégie_All()
@@ -73,28 +73,28 @@ Friend Module M03_Paint
         U_Strg_Val_Ins(i) = ""
         U_Strg_Cdd_Exc(i) = Cnddts_Blancs
       Next i
-      G4_Grid_Stratégie_CdU()
-      G4_Grid_Stratégie_CdO()
-      G4_Grid_Stratégie_Flt()
-      G4_Grid_Stratégie_CdS()
-      G4_Grid_Stratégie_DCd()
-      G4_Grid_Stratégie_Cbl()
-      G4_Grid_Stratégie_Tpl()
-      G4_Grid_Stratégie_Xwg()
-      G4_Grid_Stratégie_XYw()
-      G4_Grid_Stratégie_Swf()
-      G4_Grid_Stratégie_Jly()
-      G4_Grid_Stratégie_XYZ()
-      G4_Grid_Stratégie_SKy()
-      G4_Grid_Stratégie_Unq()
+      'G4_Grid_Stratégie_CdU()
+      'G4_Grid_Stratégie_CdO()
+      'G4_Grid_Stratégie_Flt()
+      'G4_Grid_Stratégie_CdS()
+      'G4_Grid_Stratégie_DCd()
+      'G4_Grid_Stratégie_Cbl()
+      'G4_Grid_Stratégie_Tpl()
+      'G4_Grid_Stratégie_Xwg()
+      'G4_Grid_Stratégie_XYw()
+      'G4_Grid_Stratégie_Swf()
+      'G4_Grid_Stratégie_Jly()
+      'G4_Grid_Stratégie_XYZ()
+      'G4_Grid_Stratégie_SKy()
+      'G4_Grid_Stratégie_Unq()
       'G4_Grid_Stratégie_Obj()
-      G4_Grid_Stratégie_XCx_XCy_XNl()
-      G4_Grid_Stratégie_XRp()
-      G4_Grid_Stratégie_WgX_WgY_WgZ_WgW()
+      'G4_Grid_Stratégie_XCx_XCy_XNl()
+      'G4_Grid_Stratégie_XRp()
+      'G4_Grid_Stratégie_WgX_WgY_WgZ_WgW()
       G4_Grid_Stratégie_GLk()
       G4_Grid_Stratégie_Gbl()
       G4_Grid_Stratégie_Gbv()
-      G4_Grid_Stratégie_GCs()
+      'G4_Grid_Stratégie_GCs()
     End If
   End Sub
 
@@ -110,7 +110,7 @@ Friend Module M03_Paint
   'Les cellules en stratégie sont notées dans U_Strg(80) as Boolean
   '-------------------------------------------------------------------------------   
 
-  Public Sub G4_Grid_Stratégie_CdU()
+  Public Sub G4_Grid_Stratégie_CdU_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -134,7 +134,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, i) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, i))
           U_Strg_Val_Ins(Cellule) = Strategy_Rslt(5, i)
-          G0_Cell_Figure(Cellule, "Double_Carré", Color_Stratégique)
+          G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
           U_Strg(Cellule) = True
         Next k
       Next i
@@ -163,7 +163,7 @@ Friend Module M03_Paint
     End Try
   End Sub
 
-  Public Sub G4_Grid_Stratégie_CdS()
+  Public Sub G4_Grid_Stratégie_CdS_g(g As Graphics)
     If Not Plcy_Strg = "CdS" Then Exit Sub
     If Pbl_Cell_Candidat_CdS = " " Then Exit Sub
 
@@ -171,13 +171,13 @@ Friend Module M03_Paint
     ' 1 Aide Simple uniquement
     For i As Integer = 0 To 80
       If U(i, 2) = Pbl_Cell_Candidat_CdS Then
-        G0_Cell_Figure(i, "Double_Carré", Color_Stratégique)
+        G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
         U_Strg(i) = True
       End If
     Next i
   End Sub
 
-  Public Sub G4_Grid_Stratégie_CdO()
+  Public Sub G4_Grid_Stratégie_CdO_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -200,7 +200,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, i) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, i))
           U_Strg_Val_Ins(Cellule) = Strategy_Rslt(5, i)
-          G0_Cell_Figure(Cellule, "Double_Carré", Color_Stratégique)
+          G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
           U_Strg(Cellule) = True
         Next k
       Next i
@@ -234,7 +234,7 @@ Friend Module M03_Paint
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-  Public Sub G4_Grid_Stratégie_Flt()
+  Public Sub G4_Grid_Stratégie_Flt_g(g As Graphics)
 
     If Mid$(Plcy_Strg, 1, 2) = "FV" Then
       Dim Cellule As Integer
@@ -247,7 +247,7 @@ Friend Module M03_Paint
         ' 1 Aide Simple
         For i As Integer = 0 To 80
           If U(i, 2) = Valeur_Filtrée Then
-            G0_Cell_Figure(i, "Double_Carré", Color_Stratégique)
+            G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
             U_Strg(i) = True 'Dans TOUS les cas
           End If
         Next i
@@ -283,20 +283,20 @@ Friend Module M03_Paint
           End Select
 
           U_MdC_Init()
-          For g As Integer = 0 To 3                                        ' Traitement des 4 régions collatérales
-            Région_Collatérale = Grp_Région_Collatérales(g)
+          For g3 As Integer = 0 To 3                                        ' Traitement des 4 régions collatérales
+            Région_Collatérale = Grp_Région_Collatérales(g3)
             Dim Grp_2 As Integer() = U_9CelReg(Région_Collatérale)
             For i As Integer = 0 To 8
               If U(Grp_2(i), 2) = Valeur_Filtrée Then     ' La cellule de la région collatérale comporte la valeur
                 Cellule_Région_Collatérale = Grp_2(i)     ' Cellule filtrée dans la région collatérale
-                Select Case g
+                Select Case g3
                   Case 0, 1 : G4_MdC_Row_Col_Box("Row", U_Row(Cellule_Région_Collatérale))    ' Traitement Horizontal
                   Case 2, 3 : G4_MdC_Row_Col_Box("Col", U_Col(Cellule_Région_Collatérale))    ' Traitement Vertical
                 End Select
                 'U_Strg est documenté dans G4_MdC_Row_Col_Box 
               End If
             Next i
-          Next g
+          Next g3
           G4_MdC_Paint()
 
           ' Affichage de la valeur à placer s'il ne reste qu'une cellule dans la Région
@@ -341,7 +341,7 @@ Friend Module M03_Paint
     End If
 
   End Sub
-  Public Sub G4_Grid_Stratégie_DCd()
+  Public Sub G4_Grid_Stratégie_DCd_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Cellule As Integer
     If Not Plcy_Strg = "DCd" Then Exit Sub
@@ -360,7 +360,7 @@ Friend Module M03_Paint
       For Each DCdd As DCdd_Cls In DCdd_List
         Cellule = DCdd.Cellule
         U_Strg_Val_Ins(Cellule) = DCdd.Candidat
-        G0_Cell_Figure(Cellule, "Double_Carré", Color_Stratégique)
+        G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
         U_Strg(Cellule) = True
       Next DCdd
       Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
@@ -403,7 +403,7 @@ Friend Module M03_Paint
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-  Public Sub Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt(,) As String, U_Strg() As Boolean)
+  Public Sub Strategy_BTXYSJZKQ_Aide_Simple_g(g As Graphics, Strategy_Rslt(,) As String, U_Strg() As Boolean)
     Dim Cellule As Integer
     Dim Candidat As String
     Dim Candidats As String
@@ -438,11 +438,11 @@ Friend Module M03_Paint
     Next i '/For i = 1 To UBound(Strategy_Rslt, 2)
 
     For i As Integer = 0 To 80
-      If U_Strg(i) Then G0_Cell_Figure(i, "Double_Carré", Color_Stratégique)
+      If U_Strg(i) Then G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
     Next i
 
   End Sub
-  Public Sub G4_Grid_Stratégie_Cbl()
+  Public Sub G4_Grid_Stratégie_Cbl_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -460,7 +460,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       ' 2 Aide Graphique
@@ -492,7 +492,7 @@ Friend Module M03_Paint
     End Try
 
   End Sub
-  Public Sub G4_Grid_Stratégie_Tpl()
+  Public Sub G4_Grid_Stratégie_Tpl_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -510,7 +510,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       ' 2 Aide Graphique
@@ -541,7 +541,7 @@ Friend Module M03_Paint
     End Try
 
   End Sub
-  Public Sub G4_Grid_Stratégie_Xwg()
+  Public Sub G4_Grid_Stratégie_Xwg_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -568,7 +568,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       ' 2 Aide Graphique
@@ -646,7 +646,7 @@ Friend Module M03_Paint
     End Try
 
   End Sub
-  Public Sub G4_Grid_Stratégie_XYw()
+  Public Sub G4_Grid_Stratégie_XYw_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -664,7 +664,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       ' 2 Aide Graphique
@@ -700,7 +700,7 @@ Friend Module M03_Paint
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-  Public Sub G4_Grid_Stratégie_Swf()
+  Public Sub G4_Grid_Stratégie_Swf_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -718,7 +718,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       ' 2 Aide Graphique
@@ -750,7 +750,7 @@ Friend Module M03_Paint
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-  Public Sub G4_Grid_Stratégie_Jly()
+  Public Sub G4_Grid_Stratégie_Jly_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -768,7 +768,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       ' 2 Aide Graphique
@@ -800,7 +800,7 @@ Friend Module M03_Paint
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-  Public Sub G4_Grid_Stratégie_XYZ()
+  Public Sub G4_Grid_Stratégie_XYZ_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -818,7 +818,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       ' 2 Aide Graphique
@@ -845,7 +845,7 @@ Friend Module M03_Paint
     End Try
   End Sub
 
-  Public Sub G4_Grid_Stratégie_SKy()
+  Public Sub G4_Grid_Stratégie_SKy_g(g As Graphics)
     'La stratégie SKy regroupe 2 Sous-Stratégies:
     '   s/Stratégie   SKY Skyscraper Gratte-Ciel
     '   s/Stratégie   Kyt Kyte       Cerf-Volant
@@ -867,7 +867,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
@@ -934,7 +934,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_Unq()
+  Public Sub G4_Grid_Stratégie_Unq_g(g As Graphics)
     'Unq est traité pour l'aide simple comme les autres stratégies avec Strategy_BTXYSJZKQ_Aide_Simple
     '               Pour l'Aide Graphique, le traitement diffère : 
     ' Strategy_BTXYSJZK_ :  Dim Candidat as String  = Strategy_Rslt(5, Ligne)
@@ -958,7 +958,7 @@ Friend Module M03_Paint
       End If
 
       ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple(Strategy_Rslt, U_Strg)
+      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
@@ -1000,7 +1000,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_XCx_XCy_XNl()
+  Public Sub G4_Grid_Stratégie_XCx_XCy_XNl_g(g As Graphics)
     If Not (Plcy_Strg = "XCx" Or Plcy_Strg = "XCy" Or Plcy_Strg = "XNl") Then Exit Sub
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
@@ -1038,8 +1038,8 @@ Friend Module M03_Paint
           ' 3 Affichage des Extrémités des liens  
           Dim PremierLien As XLink_Cls = XRslt.RoadRight.First()
           Dim DernierLien As XLink_Cls = XRslt.RoadRight.Last()
-          G0_Cell_Icône(PremierLien.Cel(0), "Start")
-          G0_Cell_Icône(DernierLien.Cel(1), "End")
+          G0_Cell_Icône_g(g, PremierLien.Cel(0), "Start")
+          G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
           Select Case Plcy_Strg
             Case "XCy"
               G0_Cdd_Figure(PremierLien.Cel(0), CInt(PremierLien.Cdd(0)), "Disque", Color_Link_S)
@@ -1071,7 +1071,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_XRp()
+  Public Sub G4_Grid_Stratégie_XRp_g(g As Graphics)
     If Not Plcy_Strg = "XRp" Then Exit Sub
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
@@ -1106,12 +1106,12 @@ Friend Module M03_Paint
 
       ' 3 Affichage des Extrémités des liens  
       Dim PremierLien As XLink_Cls = XRslt.RoadRight.First()
-      G0_Cell_Icône(PremierLien.Cel(0), "Start")
+      G0_Cell_Icône_g(g, PremierLien.Cel(0), "Start")
       G0_Cdd_Figure(PremierLien.Cel(0), CInt(XRslt.Candidat(0)), "Disque", Color_Link_W)
       G0_Cdd_Figure(PremierLien.Cel(0), CInt(XRslt.Candidat(1)), "Disque", Color_Link_W)
 
       Dim DernierLien As XLink_Cls = XRslt.RoadRight.Last()
-      G0_Cell_Icône(DernierLien.Cel(1), "End")
+      G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
       G0_Cdd_Figure(DernierLien.Cel(1), CInt(XRslt.Candidat(0)), "Disque", Color_Link_W)
       G0_Cdd_Figure(DernierLien.Cel(1), CInt(XRslt.Candidat(1)), "Disque", Color_Link_W)
 
@@ -1138,7 +1138,7 @@ Friend Module M03_Paint
     End Try
   End Sub
 
-  Public Sub G4_Grid_Stratégie_WgX_WgY_WgZ_WgW()
+  Public Sub G4_Grid_Stratégie_WgX_WgY_WgZ_WgW_g(g As Graphics)
     If Not (Plcy_Strg = "WgX" Or Plcy_Strg = "WgY" Or Plcy_Strg = "WgZ" Or Plcy_Strg = "WgW") Then Exit Sub
 
     Try
@@ -1183,15 +1183,15 @@ Friend Module M03_Paint
       ' 3 Affichage des Extrémités des liens  
       Select Case Plcy_Strg
         Case "WgX"
-          G0_Cell_Icône(XRslt.RoadRight.Item(0).Cel(0), "Start")
-          G0_Cell_Icône(XRslt.RoadRight.Item(1).Cel(0), "Start")
+          G0_Cell_Icône_g(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
+          G0_Cell_Icône_g(g, XRslt.RoadRight.Item(1).Cel(0), "Start")
         Case "WgY"
-          G0_Cell_Icône(XRslt.RoadRight.Item(0).Cel(0), "Start")
+          G0_Cell_Icône_g(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
         Case "WgZ"
-          G0_Cell_Icône(XRslt.RoadRight.Item(0).Cel(0), "Start")
+          G0_Cell_Icône_g(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
         Case "WgW"
-          G0_Cell_Icône(XRslt.Cellule(0), "Start")
-          G0_Cell_Icône(XRslt.Cellule(1), "Start")
+          G0_Cell_Icône_g(g, XRslt.Cellule(0), "Start")
+          G0_Cell_Icône_g(g, XRslt.Cellule(1), "Start")
       End Select
 
       ' 4 Affichage des Candidats à exclure 
@@ -1382,7 +1382,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_GCs()
+  Public Sub G4_Grid_Stratégie_GCs_g(g As Graphics)
     If Not (Plcy_Strg = "GCs") Then Exit Sub
     Try
       Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
@@ -1428,8 +1428,8 @@ Friend Module M03_Paint
         Case 0 : sc_LCdd.G6_Cellule_Paint_Candidat(lastLien.Cdd(0), Color.Green)
         Case 1 : sc_LCdd.G6_Cellule_Paint_Candidat(lastLien.Cdd(0), Color.Blue)
       End Select
-      G0_Cell_Icône(firstLien.Cel(0), "Start")
-      G0_Cell_Icône(lastLien.Cel(1), "End")
+      G0_Cell_Icône_g(g, firstLien.Cel(0), "Start")
+      G0_Cell_Icône_g(g, lastLien.Cel(1), "End")
 
       ' 4 Affichage des Candidats à exclure 
       Dim Candidats As String = Cnddts_Blancs
@@ -1453,7 +1453,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_Obj(g As Graphics)
+  Public Sub G4_Grid_Stratégie_Obj_g(g As Graphics)
     Dim sc As New Cellule_Cls
     If Not Plcy_Strg = "Obj" Then Exit Sub
     For i As Integer = 0 To 80
@@ -1468,7 +1468,7 @@ Friend Module M03_Paint
           Case "Cadre", "Carré", "Disque", "Cercle", "Croix"
             Select Case .Cdd_From
               Case 0    'Cellule
-                G0_Cell_Figure(.Cel_From, .Forme, Color_BySymbol(.Symbol))
+                G0_Cell_Figure_g(g, .Cel_From, .Forme, Color_BySymbol(.Symbol))
               Case Else 'Candidat
                 G0_Cdd_Figure(.Cel_From, .Cdd_From, .Forme, Color_BySymbol(.Symbol))
             End Select
@@ -1484,7 +1484,7 @@ Friend Module M03_Paint
 
 #Region "Paint Figures et Formes de base"
 
-  Public Sub G0_Cell_Icône(Cellule As Integer, Icône As String)
+  Public Sub G0_Cell_Icône_g(g As Graphics, Cellule As Integer, Icône As String)
     ' Place une icône de Début dans le premier candidat "libre" de la cellule
     '       une icône de Fin   dans le second candidat "libre" de la cellule
 
@@ -1492,22 +1492,19 @@ Friend Module M03_Paint
     Dim candidatsVides As Integer() = Cdd_i.
        Where(Function(c) Not U(Cellule, 3).Contains(c.ToString())).Take(2).ToArray()
 
-    Using g As Graphics = Frm_SDK.CreateGraphics
-      Select Case Icône
-        Case "Start"
-          Dim rect As Rectangle = Sqr_Cdd((Cellule * 10) + candidatsVides(0))
-          Using img As Image = My.Resources.XC_Start
-            g.DrawImage(img, rect)
-          End Using
-        Case "End"
-          Dim rect As Rectangle = Sqr_Cdd((Cellule * 10) + candidatsVides(1))
-          Using img As Image = My.Resources.XC_End
-            g.DrawImage(img, rect)
-          End Using
-      End Select
-    End Using
+    Select Case Icône
+      Case "Start"
+        Dim rect As Rectangle = Sqr_Cdd((Cellule * 10) + candidatsVides(0))
+        Using img As Image = My.Resources.XC_Start
+          g.DrawImage(img, rect)
+        End Using
+      Case "End"
+        Dim rect As Rectangle = Sqr_Cdd((Cellule * 10) + candidatsVides(1))
+        Using img As Image = My.Resources.XC_End
+          g.DrawImage(img, rect)
+        End Using
+    End Select
   End Sub
-
   Public Sub G0_Cell_Figure(Cellule As Integer, Figure As String, Couleur As Color)
     Couleur = Color.FromArgb(128 + 64, Couleur)
     'Dessine des figures à partir de 4 points A0, B0, C0, D0 représentant les 4 points du square A0= Left_Top, C0= Right_Bottom
@@ -1645,6 +1642,45 @@ Friend Module M03_Paint
         Jrn_Add(, {Procédure_Name_Get() & " Figure Inconnue : " & Figure}, "Erreur")
     End Select
     g.Dispose()
+  End Sub
+  Public Sub G0_Cdd_Figure_g(g As Graphics, Cellule As Integer, Candidat As Integer, Figure As String, Couleurp As Color)
+    Dim Couleur As Color = Color.FromArgb(192, Couleurp) ' 128+64 = 192
+    'Dessine des figures à partir de 4 points A0, B0, C0, D0 représentant les 4 points du square A0= Left_Top, C0= Right_Bottom
+    '                             déclinés en A1, B1, C1, D1 décalé de 1/4 
+    '                             déclinés en A2, B2, C2, D2 décalé de 2/4 
+    '                             déclinés en A3, B3, C3, D3 décalé de 3/4 
+
+    If Cellule < 0 Or Cellule > 80 Then Exit Sub
+    If Candidat < 1 Or Candidat > 9 Then Exit Sub
+
+    Dim Cdd_n As Integer = (Cellule * 10) + Candidat
+    'Diminution du cercle du candidat 
+    Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd(Cdd_n)
+    Sqr_Cdd_n.Inflate(-1, -1)    'Diminution du cercle du candidat  
+    ' Définir les coins du rectangle
+    Dim Pt1 As New Point(Sqr_Cdd_n.X, Sqr_Cdd_n.Y)                                      ' Coin supérieur gauche
+    Dim Pt2 As New Point(Sqr_Cdd_n.X + Sqr_Cdd_n.Width, Sqr_Cdd_n.Y)                    ' Coin supérieur droit
+    Dim Pt3 As New Point(Sqr_Cdd_n.X + Sqr_Cdd_n.Width, Sqr_Cdd_n.Y + Sqr_Cdd_n.Height) ' Coin inférieur droit
+    Dim Pt4 As New Point(Sqr_Cdd_n.X, Sqr_Cdd_n.Y + Sqr_Cdd_n.Height)                   ' Coin inférieur gauche
+
+    Using pen As New Pen(Couleur, 2),
+          brsh As New SolidBrush(Couleur)
+      Select Case Figure
+        Case "Cadre"
+          g.DrawRectangle(pen, Sqr_Cdd_n)
+        Case "Carré"
+          g.FillRectangle(brsh, Sqr_Cdd_n)
+        Case "Croix"
+          g.DrawLine(pen, Pt1, Pt3)
+          g.DrawLine(pen, Pt2, Pt4)
+        Case "Cercle"
+          g.DrawArc(pen, Sqr_Cdd_n, 0.0F, 360.0F)
+        Case "Disque"
+          g.FillPie(brsh, Sqr_Cdd_n, 0.0F, 360.0F)
+        Case Else
+          Jrn_Add(, {Procédure_Name_Get() & " Figure Inconnue : " & Figure}, "Erreur")
+      End Select
+    End Using
   End Sub
 
   Function DeCasteljau(t As Single, p0 As PointF, p1 As PointF, p2 As PointF, p3 As PointF) As PointF

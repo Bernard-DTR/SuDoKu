@@ -212,7 +212,7 @@
 #565               - dispose systématique des objets GDI+
 #566               - utilisation comprise de Onpaint
 #567 Me 27/01/2026 Cell_Val_Insert utilise correctement Invalidate
-
+#568 J  28/01/2026 Corrections diverses
 
 
 
