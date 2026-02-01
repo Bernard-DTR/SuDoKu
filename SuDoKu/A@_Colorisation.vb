@@ -164,22 +164,20 @@ Friend Module A__Colorisation
     Return Pts
   End Function
 
-  Public Sub G0_Cdd_Flèche(g As Graphics, From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer, Color As Color)
+  Public Sub G0_Cdd_Flèche_g(g As Graphics, From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer, Color As Color)
     If From_Cellule = -1 Or From_Candidat = 0 Or To_Cellule = -1 Or To_Candidat = 0 Then Exit Sub
 
     Dim From_Centre As PointF = Get_CentreF(From_Cellule, From_Candidat)
     Dim To_Centre As PointF = Get_CentreF(To_Cellule, To_Candidat)
     Dim Pts As Points_Struct = Get_AdjustedPoints(From_Centre, To_Centre)
 
-    'Dim g As Graphics = Frm_SDK.CreateGraphics
     Using LinePen As New Pen(Color, Bld_Trait_2) With {.DashStyle = DashStyle.Solid}
       g.DrawLine(LinePen, Pts.Pt_From, Pts.Pt_To)
     End Using
 
     DrawCustomArrow_IA(g, Pts.Pt_From, Pts.Pt_To, Color, Bld_Trait_2)
-    G0_Cdd_Figure(From_Cellule, From_Candidat, "Cercle", Color)
-    G0_Cdd_Figure(To_Cellule, To_Candidat, "Cercle", Color)
-    'g.Dispose()
+    G0_Cdd_Figure_g(g, From_Cellule, From_Candidat, "Cercle", Color)
+    G0_Cdd_Figure_g(g, To_Cellule, To_Candidat, "Cercle", Color)
   End Sub
 
   Public Function Get_Pt_From_To_Flèche(From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer) As Points_Struct

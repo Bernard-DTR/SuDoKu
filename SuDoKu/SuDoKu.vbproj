@@ -190,12 +190,6 @@
     <Compile Include="Forms\Frm_Dictionnaire.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Frm_Insérer_Candidats.Designer.vb">
-      <DependentUpon>Frm_Insérer_Candidats.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Frm_Insérer_Candidats.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Frm_LoadPartiesHodoku.Designer.vb">
       <DependentUpon>Frm_LoadPartiesHodoku.vb</DependentUpon>
     </Compile>
@@ -298,10 +292,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm_Dictionnaire.resx">
       <DependentUpon>Frm_Dictionnaire.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Frm_Insérer_Candidats.resx">
-      <DependentUpon>Frm_Insérer_Candidats.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm_LoadPartiesHodoku.resx">

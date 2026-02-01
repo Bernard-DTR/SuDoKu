@@ -250,7 +250,7 @@ Pzzl_Choix_Candidat:
     U_temp(Cellule, 2) = Candidat
     U_temp(Cellule, 3) = Cnddts_Blancs
     ' Cette valeur est enlevée des 20 cellules collatérales
-    Dim Cell_Coll_Nb As Integer = Cdd_Remove_Cell_Coll_IA(U_temp, Cellule)
+    Dim Cell_Coll_Nb As Integer = Cdd_Remove_Cell_Coll(U_temp, Cellule)
     ' La cellule choisie et le candidat sélectionné sont listés
     '   avec le n° de la cellule, le nombre de candidats enlevés des cell_coll,
     '   et le nombre total de candidats restants de la grille 
@@ -455,7 +455,7 @@ Pzzl_Crt_Exit:
             U_temp(i, 3) = Cnddts_Blancs
           End If
         Next i
-        Grid_Cdd_Remove_Cell_Coll_IA(U_temp) ' Mise à jour des candidats éligibles
+        Grid_Cdd_Remove_Cell_Coll(U_temp) ' Mise à jour des candidats éligibles
       Case "S"
         For i As Integer = 0 To 80
           U_temp(i, 1) = Prd.Prd_Ini(i)
@@ -541,7 +541,7 @@ Pzzl_Crt_Exit:
       U_temp(Cellule_CdU_CdO, 3) = Cnddts_Blancs
       Dim Candidats_ap As String = U_temp(Cellule_CdU_CdO, 3)
       Strategy_Nb += 1
-      Nsd_i = Cdd_Remove_Cell_Coll_IA(U_temp, Cellule_CdU_CdO)
+      Nsd_i = Cdd_Remove_Cell_Coll(U_temp, Cellule_CdU_CdO)
       Jrn_Add_Pzzl_Slv(Production_Type, U_temp, Strategy_Rslt, i, Prd, Cellule_CdU_CdO, Valeur, Candidat, Candidats_av, Candidats_ap, Nsd_i)
     Next i
     Return Strategy_Nb
@@ -732,10 +732,6 @@ Pzzl_Prd_Boucle:
     With Frm_SDK
       .B_Pourcentage.Text = CStr(Prc) & "%"
       .B_Pourcentage.Refresh()
-      ' Barre graphique de Progression sur le contrôle B_Info
-      Dim PBG As New ProgressBarGraphic_Cls
-      PBG.Draw_ProgressBarGraphic(Prc)
-
     End With
 
     If Create_Chat Then
@@ -852,9 +848,6 @@ Pzzl_Prd_Boucle:
     With Frm_SDK
       .B_Pourcentage.Text = CStr(Prc) & "%"
       .B_Pourcentage.Refresh()
-      ' Barre graphique de Progression sur le contrôle B_Info
-      Dim PBG As New ProgressBarGraphic_Cls
-      PBG.Draw_ProgressBarGraphic(Prc)
     End With
 
     Jrn_Add("SDK_Space")
@@ -989,7 +982,7 @@ Phase_B:
     U_temp(Cellule, 1) = " "
     U_temp(Cellule, 2) = " "
     U_temp(Cellule, 3) = Cnddts
-    Grid_Cdd_Remove_Cell_Coll_IA(U_temp)
+    Grid_Cdd_Remove_Cell_Coll(U_temp)
     Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
     Prd.Prd_DlCode = DL.DLCode
     Prd.Prd_DlSolution = DL.Solution(0)
@@ -1000,7 +993,7 @@ Phase_B:
       U_temp(Cellule, 1) = Valeur
       U_temp(Cellule, 2) = " "
       U_temp(Cellule, 3) = Cnddts
-      Grid_Cdd_Remove_Cell_Coll_IA(U_temp)
+      Grid_Cdd_Remove_Cell_Coll(U_temp)
       Limite_Successive_Dl += 1
       If Create_Chat Then Jrn_Add(, {"   " & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "               Limite_Successive_DL =" & CStr(Limite_Successive_Dl)})
     End If
@@ -1034,7 +1027,7 @@ Phase_End:
       Prb &= U(i, 1)
       Jeu &= U(i, 1)
     Next i
-    Grid_Cdd_Remove_Cell_Coll_IA(U)
+    Grid_Cdd_Remove_Cell_Coll(U)
 
     '   Sol n'a pas changé
 
@@ -1152,7 +1145,7 @@ Phase_B:
     U_temp(Cellule, 1) = " "
     U_temp(Cellule, 2) = " "
     U_temp(Cellule, 3) = Cnddts
-    Grid_Cdd_Remove_Cell_Coll_IA(U_temp)
+    Grid_Cdd_Remove_Cell_Coll(U_temp)
     Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
     If Create_Chat Then Jrn_Add(, {CStr(Limite).PadLeft(3) & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "  " & CStr(DL.Nb_Solution).PadLeft(6) & "  " & Wh_Grid_Nb_Cellules_Initiales(U_temp)})
     If DL.Nb_Solution = 1 Then
@@ -1161,7 +1154,7 @@ Phase_B:
       U_temp(Cellule, 1) = Valeur
       U_temp(Cellule, 2) = " "
       U_temp(Cellule, 3) = Cnddts
-      Grid_Cdd_Remove_Cell_Coll_IA(U_temp)
+      Grid_Cdd_Remove_Cell_Coll(U_temp)
       Limite_Successive_Dl += 1
       If Create_Chat Then Jrn_Add(, {"   " & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "               Limite_Successive_DL =" & CStr(Limite_Successive_Dl)})
     End If
@@ -1198,7 +1191,7 @@ Phase_End:
       Prb &= U(i, 1)
       Jeu &= U(i, 1)
     Next i
-    Grid_Cdd_Remove_Cell_Coll_IA(U)
+    Grid_Cdd_Remove_Cell_Coll(U)
 
     '   Sol n'a pas changé
     Dim Frc As String = "0"
@@ -1362,8 +1355,8 @@ Phase_End:
       U_temp(Cel, 1) = Cdd
       U_temp(Cel, 2) = Cdd
       U_temp(Cel, 3) = Cnddts_Blancs
-      'Dim Cell_Coll_Nb As Integer = Cdd_Remove_Cell_Coll_IA(U_temp, Cel)
-      Cdd_Remove_Cell_Coll_IA(U_temp, Cel)
+      'Dim Cell_Coll_Nb As Integer = Cdd_Remove_Cell_Coll(U_temp, Cel)
+      Cdd_Remove_Cell_Coll(U_temp, Cel)
       Prd.Prd_Ext_Triplet_Cellule = Cel
 Triplet_End:
     End If
@@ -1525,8 +1518,8 @@ Triplet_End:
                   U_temp(Cel, 1) = Cdd
                   U_temp(Cel, 2) = Cdd
                   U_temp(Cel, 3) = Cnddts_Blancs
-                  'Dim Cell_Coll_Nb As Integer = Cdd_Remove_Cell_Coll_IA(U_temp, Cel)
-                  Cdd_Remove_Cell_Coll_IA(U_temp, Cel)
+                  'Dim Cell_Coll_Nb As Integer = Cdd_Remove_Cell_Coll(U_temp, Cel)
+                  Cdd_Remove_Cell_Coll(U_temp, Cel)
                   Prd.Prd_Ext_XWing_Cellule = Cel
                   XWing = True
 Xwing_Boucle_End:
@@ -1709,7 +1702,7 @@ Pzzl_Prd_Batch_End:
         If U_tempa(i, 2) = " " Then U_tempa(i, 3) = Cnddts
         If U_tempa(i, 2) <> " " Then U_tempa(i, 3) = Cnddts_Blancs
       Next i
-      Grid_Cdd_Remove_Cell_Coll_IA(U_tempa)
+      Grid_Cdd_Remove_Cell_Coll(U_tempa)
       For i As Integer = 0 To 80
         If Trim(U_tempa(i, 3)).Length = 1 Then
           Cdu_Exists = True

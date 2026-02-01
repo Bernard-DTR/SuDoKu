@@ -28,7 +28,7 @@ Friend Module M03_Sélection
         Or Plcy_Solution_Existante = False Then
           U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
           U_CddExc(Cellule) = Cnddts_Blancs
-          Cdd_Remove_Cell_Coll_IA(U, Cellule)
+          Cdd_Remove_Cell_Coll(U, Cellule)
           Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
         End If
         If Plcy_Solution_Existante = True And V <> U_Sol(Cellule) Then
@@ -107,7 +107,7 @@ Friend Module M03_Sélection
   '      Or Plcy_Solution_Existante = False Then
   '        U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
   '        U_CddExc(Cellule) = Cnddts_Blancs
-  '        Cdd_Remove_Cell_Coll_IA(U, Cellule)
+  '        Cdd_Remove_Cell_Coll(U, Cellule)
   '        Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
   '      End If
   '      If Plcy_Solution_Existante = True And V <> U_Sol(Cellule) Then
@@ -178,7 +178,7 @@ Friend Module M03_Sélection
           End If
         Next g
         'Remet l'ensemble des Cdd, qui sont ensuite enlevés à/p des actions de A
-        Grid_Cdd_Remove_Cell_Coll_IA(U)
+        Grid_Cdd_Remove_Cell_Coll(U)
       Case "Sas"
         U(Cellule, 2) = " "
         U(Cellule, 3) = Cnddts_Blancs
@@ -267,33 +267,24 @@ Friend Module M03_Sélection
     End Try
   End Sub
 
-  Public Function Cdd_Remove_Cell_Coll_IA(ByRef U_temp(,) As String, Cellule As Integer) As Integer
+  Public Function Cdd_Remove_Cell_Coll(ByRef U_temp(,) As String, Cellule As Integer) As Integer
     ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales
     ' Retourne le nombre de cellules dans lesquelles un candidat a été enlevé 
     '         -1 en cas d'erreur
     ' Le tableau U_temp des cellules est passé en ByRef, car il sort modifié de la fonction 
 
     Dim nb As Integer = 0
-    If Cellule < 0 Or Cellule > 80 Then
-      Return -1
-    End If
+    If Cellule < 0 Or Cellule > 80 Then Return -1
 
     Dim Valeur As String = U_temp(Cellule, 2)
-    If Valeur = " " Then
-      Return 0
-    End If
+    If Valeur = " " Then Return 0
 
     Dim Grp() As Integer = U_20Cell_Coll(Cellule)
-
     For Each Cell_Coll As Integer In Grp
-      ' Si la cellule collatérale a déjà une valeur, continuer
-      If U_temp(Cell_Coll, 2) <> " " Then Continue For
-
-      ' Enlever la valeur des candidats de la cellule collatérale
+      If U_temp(Cell_Coll, 2) <> " " Then Continue For  ' Si la cellule collatérale a déjà une valeur, continuer
       Dim Candidats As String = U_temp(Cell_Coll, 3)
       If Candidats.Substring(CInt(Valeur) - 1, 1) = Valeur Then
-        ' Remplacer la valeur par un espace
-        Mid$(Candidats, CInt(Valeur), 1) = " "
+        Mid$(Candidats, CInt(Valeur), 1) = " "        ' Remplacer la valeur par un espace
         U_temp(Cell_Coll, 3) = Candidats
         nb += 1
       End If
@@ -302,10 +293,9 @@ Friend Module M03_Sélection
     Return nb
   End Function
 
-  Public Sub Grid_Cdd_Remove_Cell_Coll_IA(ByRef U_temp(,) As String)
-    ' 17/10/2024 Suppression des valeurs des cellules collatérales de toute la grille
+  Public Sub Grid_Cdd_Remove_Cell_Coll(ByRef U_temp(,) As String)
     For i As Integer = 0 To 80
-      Cdd_Remove_Cell_Coll_IA(U_temp, i)
+      Cdd_Remove_Cell_Coll(U_temp, i)
     Next i
   End Sub
 End Module

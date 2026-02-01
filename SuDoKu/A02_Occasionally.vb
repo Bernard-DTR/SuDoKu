@@ -5,10 +5,9 @@ Imports System.Drawing.Drawing2D
 Imports System.Text
 
 '------------------------------------------------------------------------------------------
-' Date de création: Dimanche 28/07/2024
+' Date de création: 28/07/2024
 ' Ce Module regroupe les traitements effectués lors des changements de présentation
 '   Couleur, WH, ...etc
-' 28/07/2024 Ruyaulcourt
 '            Color_Frm_BackColor = Color.FromArgb(255, n'est plus transparent
 '------------------------------------------------------------------------------------------
 
@@ -79,7 +78,6 @@ Friend Module A02_Occasionally
     Next Stg
     Stg_Profondeur = sb.ToString()
 
-    '#440
     ' 3  Gestion des boutons des stratégies Enabled/Unelabled de la barre d'outils
     'Stg_List_Code: CdU , CdO, Cbl, Tpl, Xwg, XYw, Swf, Jly, XYZ, SKy, Unq
     For i As Integer = 0 To Stg_Bll.Count - 1

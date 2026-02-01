@@ -21,7 +21,6 @@ Public Class Cellule_Cls
   Private _typologie As String
   Private _position As Point
   Private _position_Center As Point
-  'Private _text_tooltip As String
   Private _valeur As Integer                     ' Nouveau : INTEGER 0 si rien ou 1 à 9
   Private _valeur_initiale As Boolean            ' Nouveau : True ou False
   Private _candidats As String                   ' Nouveau : 123456789 ou 9blancs ou 1b3bb6b89
@@ -293,6 +292,26 @@ Public Class Cellule_Cls
                        Sqr_Cdd(Cdd_n).X + Coté_6, Sqr_Cdd(Cdd_n).Y + Coté_6, Format_Center)
     End Using
   End Sub
+
+  Public Sub G6_Cellule_Paint_Candidat_g(g As Graphics, Candidat As String, Couleur As Color)
+    'Dessine UN Candidat d'une cellule dans un cercle de couleur
+    'Un candidat a toujours la même couleur, puisqu'il ne peut être affiché que dans la typologie V
+    Dim Coté_6 As Integer = (WH \ 6)
+    If Not Candidats.Contains(Candidat) Then Exit Sub
+    Dim Cdd_n As Integer = (Numéro * 10) + CInt(Candidat)
+    Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd(Cdd_n)
+    Sqr_Cdd_n.Inflate(-1, -1)    'Diminution du cercle du candidat  
+    Using brsh_1 As New SolidBrush(Color.FromArgb(128, Couleur)),
+          brsh_2 As New SolidBrush(Color_VCdd),
+          font As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular)
+      g.FillPie(brsh_1, Sqr_Cdd_n, 0.0F, 360.0F)
+      g.DrawString(Subst_Police(Candidat),
+                   font,
+                   brsh_2,
+                   Sqr_Cdd(Cdd_n).X + Coté_6, Sqr_Cdd(Cdd_n).Y + Coté_6, Format_Center)
+    End Using
+  End Sub
+
   ''' <summary>Dessine les Candidats de la Cellule.</summary>
   Public Sub G6_Cellule_Paint_Candidats(ByVal typeCdd As String)
     'Procédure utilisée pour dessiner le fond de sélection d'une cellule
@@ -476,10 +495,10 @@ Public Class Grille_Cls
 #Region "Propriétés"
   Private _nb_cellules_initiales As Integer            ' Nouveau  
   Private _nb_cellules_remplies As Integer             ' Nouveau  
-  Private _nb_cellules_vides As Integer                ' Nouveau  
   Public ReadOnly Property Nb_Cellules_Initiales As Integer
     Get
       Dim sc As New Cellule_Cls
+      _nb_cellules_initiales = 0
       For i As Integer = 0 To 80
         sc.Numéro = i
         If sc.Valeur_Initiale Then _nb_cellules_initiales += 1
@@ -490,21 +509,12 @@ Public Class Grille_Cls
   Public ReadOnly Property Nb_Cellules_Remplies As Integer
     Get
       Dim sc As New Cellule_Cls
+      _nb_cellules_remplies = 0
       For i As Integer = 0 To 80
         sc.Numéro = i
         If sc.Valeur <> 0 Then _nb_cellules_remplies += 1
       Next i
       Return _nb_cellules_remplies
-    End Get
-  End Property
-  Public ReadOnly Property Nb_Cellules_Vides As Integer
-    Get
-      Dim sc As New Cellule_Cls
-      For i As Integer = 0 To 80
-        sc.Numéro = i
-        If sc.Valeur = 0 Then _nb_cellules_vides += 1
-      Next i
-      Return _nb_cellules_vides
     End Get
   End Property
 #End Region
@@ -622,107 +632,3 @@ Public Class SDK_ColorDialog
     Return MyBase.HookProc(hWnd, msg, wparam, lparam)
   End Function
 End Class
-Public Class ProgressBarGraphic_Cls
-  '------------------------------------------------------------------------------------------
-  'Date de création: Samedi 10/09/2022
-  'Mise en place d'un barre de progression graphique qui adopte la couleur du trait du thème
-  'Elle est positionnée en lieu et place de Frm_SDK.B_Info
-  '------------------------------------------------------------------------------------------
-#Region "Propriétés"
-  Private _position As Point
-  Private _position_left As Integer
-  Private _position_top As Integer
-  Private _hauteur As Integer
-  Private _largeur As Integer
-  Private _couleur As Color
-  ''' <summary>Position de la Progress Bar Graphic.</summary>
-  Public ReadOnly Property Position As Point
-    Get
-      _position.X = Frm_SDK.B_Info.Location.X
-      _position.Y = Frm_SDK.B_Info.Location.Y
-      Return _position
-    End Get
-  End Property
-  ''' <summary>Position Left de la Progress Bar Graphic.</summary>
-  Public ReadOnly Property Position_Left As Integer
-    Get
-      _position_left = Frm_SDK.B_Info.Location.X
-      Return _position_left
-    End Get
-  End Property
-  ''' <summary>Position_Top de la Progress Bar Graphic.</summary>
-  Public ReadOnly Property Position_Top As Integer
-    Get
-      _position_top = Frm_SDK.B_Info.Location.Y
-      Return _position_top
-    End Get
-  End Property
-  ''' <summary>Hauteur de la Progress Bar Graphic.</summary>
-  Public ReadOnly Property Hauteur As Integer
-    Get
-      _hauteur = Frm_SDK.B_Info.Height
-      Return _hauteur
-    End Get
-  End Property
-  ''' <summary>Largeur de la Progress Bar Graphic.</summary>
-  Public ReadOnly Property Largeur As Integer
-    Get
-      _largeur = Frm_SDK.B_Info.Width
-      Return _largeur
-    End Get
-  End Property
-  ''' <summary>Couleur de la Progress Bar Graphic.</summary>
-  Public ReadOnly Property Couleur As Color
-    Get
-      _couleur = Color_Trait
-      Return _couleur
-    End Get
-  End Property
-#End Region
-
-#Region "Méthodes"
-  ''' <summary>Peint la Progress Bar Graphic.</summary>
-  Public Sub Draw_ProgressBarGraphic(Prc As Integer)
-    ' Sécurisation de la valeur
-    Prc = Math.Max(0, Math.Min(100, Prc))
-    Dim PBG_Rct As New Rectangle(x:=Position_Left, y:=Position_Top,
-                                 width:=(Largeur * Prc) \ 100,
-                                 height:=Hauteur)
-    Dim PBG_Rct_Txt As New Rectangle(x:=Position_Left, y:=Position_Top,
-                                     width:=Largeur,
-                                     height:=Hauteur)
-
-    Using g As Graphics = Frm_SDK.CreateGraphics
-      Using brsh_1 As New SolidBrush(Color_Frm_BackColor),
-                      brsh_2 As New SolidBrush(Couleur),
-                      brsh_3 As New SolidBrush(Color.Red),
-                      font_txt As New Font(Font_Name_ValCdd, 10, FontStyle.Regular)
-        g.FillRectangle(brsh_1, PBG_Rct_Txt) ' Rafraîchissement
-        g.FillRectangle(brsh_2, PBG_Rct)
-        g.DrawString($"{Prc} %",
-                     font_txt,
-                     brsh_3,
-                     Position_Left + Largeur \ 2, Position_Top + Hauteur \ 2, Format_Center)
-      End Using
-    End Using
-  End Sub
-#End Region
-End Class
-Friend Module Cell_Grid
-  Public Function Subst_Police(Source As String) As String
-    'Source est compris entre 1 et 9
-    'Donc Subst_Police(Cstr(0)) retourne vide et le bouton n'affiche rien
-    Dim Cible As String = String.Empty
-    If Source >= "1" And Source <= "9" Then
-      Dim V As Integer = CInt(Source)
-      Select Case Plcy_Fantasy_Name
-        Case "Arial" : Cible = Subst_Arial_____(V)
-        Case "Wingdings" : Cible = Subst_Wingding__(V)
-        Case "MS Outlook" : Cible = Subst_MS_Outlook(V)
-        Case "Webdings" : Cible = Subst_Webdings__(V)
-        Case Else : Cible = Subst_Arial_____(V)
-      End Select
-    End If
-    Return Cible
-  End Function
-End Module

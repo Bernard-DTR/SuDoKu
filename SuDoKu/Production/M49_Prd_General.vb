@@ -51,7 +51,7 @@ Friend Module M49_Prd_General
       If U_temp(i, 2) = " " Then U_temp(i, 3) = Cnddts ' Soit 123456789 
     Next i
     'Documentation de U_temp: seuls les candidats éligibles sont gardés
-    Grid_Cdd_Remove_Cell_Coll_IA(U_temp)
+    Grid_Cdd_Remove_Cell_Coll(U_temp)
     Return U_temp
   End Function
 
@@ -249,7 +249,7 @@ Friend Module M49_Prd_General
       Candidat_CdU = Strategy_Rslt(5, i)
       U_Chk(Cellule_CdU, 2) = Candidat_CdU
       U_Chk(Cellule_CdU, 3) = Cnddts_Blancs
-      Cdd_Remove_Cell_Coll_IA(U_Chk, Cellule_CdU)
+      Cdd_Remove_Cell_Coll(U_Chk, Cellule_CdU)
     Next i
 
     '2 Traitement temporaire des CdO_Ce traitement est fait UNE SEULE FOIS
@@ -261,7 +261,7 @@ Friend Module M49_Prd_General
       Candidat_CdO = Strategy_Rslt(5, i)
       U_Chk(Cellule_CdO, 2) = Candidat_CdO
       U_Chk(Cellule_CdO, 3) = Cnddts_Blancs
-      Cdd_Remove_Cell_Coll_IA(U_Chk, Cellule_CdO)
+      Cdd_Remove_Cell_Coll(U_Chk, Cellule_CdO)
     Next i
 
     With U_Checking

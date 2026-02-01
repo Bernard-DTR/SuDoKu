@@ -26,7 +26,7 @@ Friend Module M20_Game
       Case "Nrm" '---------------------------------------------------------------------------------------
         Strategy_Switch("   ")
         Game_Load(Nom, Prb, Jeu, Sol, Frc)
-        Grid_Cdd_Remove_Cell_Coll_IA(U)
+        Grid_Cdd_Remove_Cell_Coll(U)
 
         If Cdd729.Length = 729 And Cdd729 <> StrDup(729, " ") Then
           For i As Integer = 0 To 80

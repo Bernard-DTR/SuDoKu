@@ -213,9 +213,15 @@
 #566               - utilisation comprise de Onpaint
 #567 Me 27/01/2026 Cell_Val_Insert utilise correctement Invalidate
 #568 J  28/01/2026 Corrections diverses
+#569 J  28/01/2026 Suppression de la Sélection multiple et du formulaire d'insertion de candidats
+#570 J  28/01/2026 Suppression de l'aimantation
+#571 J  28/01/2026 Il reste 5 Frm_SDK.CreateGraphics dans des fonctions Gx_Cell_Paint_Fond/Valeur/Candidat(s)/Select 
+                   Ces fonctions sont dupliquées en Gx_Cell_Paint_Fond/Valeur/Candidat(s)/Select_g(g as graphics, ...) 
 
-
-
+#570 J  28/01/2026 MouseWheel_Valeur/Candidat utilise G4_Grid_Stratégie_Flt()
+#569 J  28/01/2026 Cell_Val_Insert est opérationnelle UNIQUEMENT en NRM sans stratégie 
+#569 J  28/01/2026 Suppression des menus de stratégies simples  
+#570 D  01/02/2026 Stratégie Cdd traitée comme les autres
 
 
 

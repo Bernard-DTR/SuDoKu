@@ -79,6 +79,7 @@ Friend Module P01_Strategy
   '
 
   Sub Sélection_Pbl_Cell_Standard()
+    Jrn_Add_Yellow(Procédure_Name_Get() & " Stratégie: " & Plcy_Strg)
     Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
     sc.Cellule_Refresh()
     sc.G7_Cellule_Paint_Select()
@@ -100,34 +101,41 @@ Friend Module P01_Strategy
     Frm_SDK.Invalidate()
     Sélection_Pbl_Cell_Standard()
   End Sub
-  Sub Strategy_Dsp_Cdd()
-    'Jrn_Add(, {Procédure_Name_Get() & " " & Plcy_Strg & " " & Plcy_Strg_Swt})
-    Strategy_Switch("Cdd")
-    U_Strg_Effacer()
 
-    ' 2 Affichage/Non Affichage des Candidats
-    Select Case Plcy_Strg_Swt
-      Case +1 ' Les Candidats sont affichés
-        For i As Integer = 0 To 80
-          If U(i, 2) = " " Then
-            Dim sc_a As New Cellule_Cls With {.Numéro = i}
-            sc_a.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-            U_Strg(i) = True
-          End If
-        Next i
-      Case -1 ' Les Candidats ne sont pas affichés
-        Plcy_Strg = "   "
-        For i As Integer = 0 To 80
-          If U(i, 2) = " " Then
-            Dim sc_b As New Cellule_Cls With {.Numéro = i}
-            sc_b.G2_Cellule_Paint_Fond()
-          End If
-        Next i
-    End Select
+  ' TODO à voir Comment fonctionne l'affichage d'une stratégie
+  ' TODO        comment fonctionne l'affichage d'une startégie la seconde fois
 
-    ' 3 Sélection
-    Sélection_Pbl_Cell_Standard()
-  End Sub
+  'Sub Strategy_Dsp_Cdd()
+  '  Jrn_Add_Red(Procédure_Name_Get() & " " & Plcy_Strg & " " & Plcy_Strg_Swt)
+  '  Strategy_Switch("Cdd")
+  '  'Event_OnPaint = "Global"
+  '  'Frm_SDK.Invalidate()
+  '  Exit Sub
+  '  U_Strg_Effacer()
+
+  '  ' 2 Affichage/Non Affichage des Candidats
+  '  Select Case Plcy_Strg_Swt
+  '    Case +1 ' Les Candidats sont affichés
+  '      For i As Integer = 0 To 80
+  '        If U(i, 2) = " " Then
+  '          Dim sc_a As New Cellule_Cls With {.Numéro = i}
+  '          sc_a.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+  '          U_Strg(i) = True
+  '        End If
+  '      Next i
+  '    Case -1 ' Les Candidats ne sont pas affichés
+  '      Plcy_Strg = "   "
+  '      For i As Integer = 0 To 80
+  '        If U(i, 2) = " " Then
+  '          Dim sc_b As New Cellule_Cls With {.Numéro = i}
+  '          sc_b.G2_Cellule_Paint_Fond()
+  '        End If
+  '      Next i
+  '  End Select
+
+  '  ' 3 Sélection
+  '  Sélection_Pbl_Cell_Standard()
+  'End Sub
 
   ' Procédure générique
   Sub Strategy_Dsp(strategyCode As String, action As Action)
@@ -140,11 +148,7 @@ Friend Module P01_Strategy
       Case -1 : Plcy_Strg = "   "
     End Select
 
-    ' Exécute la procédure passée en paramètre
-    'If action IsNot Nothing Then
-    '  action.Invoke()
-    'End If
-    action?.Invoke
+    action?.Invoke  ' Exécute la procédure passée en paramètre
 
   End Sub
 

@@ -399,7 +399,6 @@ Public Class Frm_Préférences
       For Each Page As TabPage In Onglet_TC.TabPages
         Page.BackColor = Color_Fond_Typ_I
       Next Page
-      Frm_Insérer_Candidats.BackColor = Color_Frm_BackColor
       Frm_SDK.Journal.BackColor = Color_Fond_Typ_I
     End If
   End Sub

@@ -409,7 +409,7 @@ Friend Module G000_Base
     ' Place le candidat dans la cellule et met à jour les autres cellules
     U_temp(Cellule, 2) = Candidat
     U_temp(Cellule, 3) = Cnddts_Blancs
-    Cdd_Remove_Cell_Coll_IA(U_temp, Cellule)
+    Cdd_Remove_Cell_Coll(U_temp, Cellule)
     Return True
   End Function
   Function Pzzl_Slv_O_LCR(U_temp(,) As String, Grp() As Integer, Cellule As Integer, Candidat As String) As Boolean

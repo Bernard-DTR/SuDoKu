@@ -143,105 +143,6 @@ Public NotInheritable Class Frm_SDK
     CType(Mnu04.DropDown, ContextMenuStrip).ShowImageMargin = True
     CType(Mnu04.DropDown, ContextMenuStrip).ShowCheckMargin = True
 
-    Dim Mnu04n_Cdd As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("Cdd").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_Cdd.Click, AddressOf Mnu04n_Cdd_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Cdd)
-
-    Dim Mnu04n_CdU As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("CdU").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_CdU.Click, AddressOf Mnu04n_CdU_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_CdU)
-
-    Dim Mnu04n_CdO As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("CdO").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_CdO.Click, AddressOf Mnu04n_CdO_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_CdO)
-
-    Dim Mnu04n_Sep01 As New ToolStripSeparator
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep01)
-
-    Dim Mnu04n_Cbl As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("Cbl").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_Cbl.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Cbl)
-
-    Dim Mnu04n_Tpl As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("Tpl").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_Tpl.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Tpl)
-
-    Dim Mnu04n_Xwg As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("Xwg").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_Xwg.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Xwg)
-
-    Dim Mnu04n_XYw As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("XYw").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_XYw.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_XYw)
-
-    Dim Mnu04n_Swf As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("Swf").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_Swf.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Swf)
-
-    Dim Mnu04n_Jly As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("Jly").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_Jly.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Jly)
-
-    Dim Mnu04n_XYZ As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("XYZ").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_XYZ.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_XYZ)
-
-    Dim Mnu04n_SKy As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("SKy").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_SKy.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_SKy)
-
-    Dim Mnu04n_Unq As New ToolStripMenuItem() With
-        {
-        .Text = Stg_Get("Unq").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_Unq.Click, AddressOf Mnu04n_Stratégie_BTXYSJZKQ
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Unq)
-
     Dim Mnu04n_AnnulerLaDerniereOption As New ToolStripMenuItem() With
         {
         .Text = "Annuler la dernière option",
@@ -355,15 +256,6 @@ Public NotInheritable Class Frm_SDK
     AddHandler Mnu04n_RésoudreUneCellule.Click, AddressOf Mnu04n_RésoudreUneCellule_Click
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_RésoudreUneCellule)
 
-    'Dim Mnu04n_Suggérer As New ToolStripMenuItem() With
-    '    {
-    '    .Text = "Suggérer",
-    '    .ForeColor = SystemColors.ControlText,
-    '    .ShortcutKeys = Keys.Shift Or Keys.F11
-    '    }
-    'AddHandler Mnu04n_Suggérer.Click, AddressOf Mnu04n_Suggérer_Click
-    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Suggérer)
-
     Dim Mnu04n_Sep04 As New ToolStripSeparator
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep04)
 
@@ -390,21 +282,6 @@ Public NotInheritable Class Frm_SDK
     AddHandler Mnu04n_MettreEnÉvidenceLeCandidatSaisi.Click, AddressOf Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_MettreEnÉvidenceLeCandidatSaisi)
 
-
-    'Dim Mnu04n_Sep05 As New ToolStripSeparator
-    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep05)
-
-    'Dim Mnu04n_ModeSuggestion As New ToolStripMenuItem() With
-    '    {
-    '    .Text = "Mode Suggestion",
-    '    .Checked = False,
-    '    .CheckOnClick = True,
-    '    .ForeColor = SystemColors.ControlText,
-    '    .CheckState = 0
-    '     }
-    ''C'est la propriété CheckOnClick qui gère automatiquement la coche
-    'AddHandler Mnu04n_ModeSuggestion.Click, AddressOf Mnu04n_ModeSuggestion_Click
-    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_ModeSuggestion)
 #End Region
 
 #Region "Mnu06_Divers Internet Explorer et Url diverses"
@@ -527,7 +404,7 @@ Public NotInheritable Class Frm_SDK
     e.Graphics.PixelOffsetMode = Drawing2D.PixelOffsetMode.HighQuality
     e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
     e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
-
+    'Jrn_Add_Yellow(Procédure_Name_Get() & " " & Event_OnPaint)
     Select Case Event_OnPaint
       Case "Global"
         Dim Gril As New Grille_Cls
@@ -548,7 +425,7 @@ Public NotInheritable Class Frm_SDK
         sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(e.Graphics)
 
       Case "Cell_Move"
-        If Plcy_AideGraphique Then G4_Grid_Stratégie_All_g(e.Graphics)
+        G4_Grid_Stratégie_All_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
         sc.Cellule_Refresh_g(e.Graphics)
         sc.G7_Cellule_Paint_Select_g(e.Graphics)
@@ -849,7 +726,7 @@ Public NotInheritable Class Frm_SDK
       Or Prv_Pbl_Cell_Select > Sqr_Cel.GetUpperBound(0) Then Prv_Rct_Cdd_Numéro = 0
 
       If Sqr_Cel(Prv_Pbl_Cell_Select).Contains(MM_Pt) Then Exit Sub
-
+      ' TODO il devrait y avoir TOUJOURS un Cell_Move_Prv ET un Cell_Move
       Event_OnPaint = "Cell_Move_Prv"
       Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
         Invalidate(reg, False)
@@ -869,32 +746,6 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
-  End Sub
-  Public Sub Aimantation(Cellule As Integer)
-    'Positionnement du Formulaire d'insertion de Candidats
-    Frm_Insérer_Candidats.Btn_Insérer.Text = Msg_Read_IA("SDK_10070", {U_Coord(Cellule)})
-    Dim Pos_L As Integer = Left + Sqr_Cel(Cellule).Left
-    Dim Pos_T As Integer = Top + Sqr_Cel(Cellule).Top
-    Select Case Plcy_FIC_Zone_Aimantée
-      Case "G"
-        Pos_L += WH
-        Pos_T += 0
-        Frm_Insérer_Candidats.SetDesktopLocation(Pos_L, Pos_T)
-      Case "BG"
-        Pos_L += -CInt(Frm_Insérer_Candidats.Width / 2) + CInt((3 * WH) / 2)
-        Pos_T += -Frm_Insérer_Candidats.Height + CInt((5 * WH) / 8)
-        Frm_Insérer_Candidats.SetDesktopLocation(Pos_L, Pos_T)
-      Case "BD"
-        Pos_L += -CInt(Frm_Insérer_Candidats.Width / 2) - WHhalf
-        Pos_T += -Frm_Insérer_Candidats.Height + CInt((5 * WH) / 8)
-        Frm_Insérer_Candidats.SetDesktopLocation(Pos_L, Pos_T)
-      Case "D"
-        Pos_L += -Frm_Insérer_Candidats.Width + CInt(WH / 4)
-        Pos_T += 0
-        Frm_Insérer_Candidats.SetDesktopLocation(Pos_L, Pos_T)
-      Case Else
-        'Annulation de l'aimantation
-    End Select
   End Sub
   Private Sub Frm_SDK_MouseClick(sender As Object, e As MouseEventArgs) Handles MyBase.MouseClick
     ' e as MouseEventArgs permet de localiser la souris
@@ -1055,7 +906,7 @@ Public NotInheritable Class Frm_SDK
     TTT_Timer.Start()
   End Sub
 
-  Private Sub Frm_SDK_MouseWheel_IA(sender As Object, e As MouseEventArgs) Handles MyBase.MouseWheel
+  Private Sub Frm_SDK_MouseWheel(sender As Object, e As MouseEventArgs) Handles MyBase.MouseWheel
     ' Stratégie des Filtres "FV1" To "FV9" et "FC1" to "FC9"
     ' Détermination du sens de défilement
     Dim ScrollDelta As Integer = e.Delta * SystemInformation.MouseWheelScrollLines \ SystemInformation.MouseWheelScrollDelta
@@ -1081,18 +932,16 @@ Public NotInheritable Class Frm_SDK
     Loop While NewMW <> StartVal
 
     Strategy_Switch("FV" & CStr(NewMW))
-    'TODO à Corriger
-    'G4_Grid_Stratégie_Flt()
-    Sélection_Pbl_Cell_Standard()
+    Event_OnPaint = "Global"
+    Invalidate()
   End Sub
   Public Sub MouseWheel_Candidat(ByVal Sens As Integer)
     Dim FiltreMW As Integer
     If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), FiltreMW) Then Exit Sub
     Dim NewMW As Integer = ((FiltreMW + Sens + 8) Mod 9) + 1
     Strategy_Switch("FC" & CStr(NewMW))
-    'TODO à Corriger
-    'G4_Grid_Stratégie_Flt()
-    Sélection_Pbl_Cell_Standard()
+    Event_OnPaint = "Global"
+    Invalidate()
   End Sub
 #End Region
 
@@ -1105,9 +954,16 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu01_Ouvrir_Click(sender As Object, e As EventArgs) Handles Mnu01_Ouvrir.Click
     'Chargement d'une nouvelle partie en mode normal ou Sas
     Frm_LoadParties.Show()
+    Event_OnPaint = "Global"
+    Invalidate()
+    Application.DoEvents()   'Affiche la grille avec solutions
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc)
+
+    Event_OnPaint = "Global"
+    Invalidate()
+    Application.DoEvents()   'Affiche la grille avec solutions
   End Sub
   Private Sub Mnu01_Saisir_Click(sender As Object, e As EventArgs) Handles Mnu01_Saisir.Click
     Dim Nom As String = "Pzzl_" & "_" & Format(Now, "yyyy_MM_dd_HH_mm_ss")
@@ -1292,19 +1148,23 @@ Public NotInheritable Class Frm_SDK
     Transf_Région_V()
   End Sub
   '--------------04n--------------------------------------------------------------
-  Private Sub Mnu04n_Cdd_Click(sender As Object, e As EventArgs) Handles Btn_Cdd.Click
-    Strategy_Dsp_Cdd()
-  End Sub
-  Private Sub Mnu04n_CdU_Click(sender As Object, e As EventArgs) Handles Btn_CdU.Click
-    Strategy_Dsp("CdU", AddressOf Sélection_Pbl_Cell_Standard)
-  End Sub
-  Private Sub Mnu04n_CdO_Click(sender As Object, e As EventArgs) Handles Btn_CdO.Click
-    Strategy_Dsp("CdO", AddressOf Sélection_Pbl_Cell_Standard)
-  End Sub
-  Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click, Btn_Unq.Click, Btn_Tpl.Click, Btn_Swf.Click, Btn_SKy.Click, Btn_Jly.Click, Btn_Cbl.Click
+  ' Private Sub Mnu04n_Cdd_Click(sender As Object, e As EventArgs) Handles Btn_Cdd.Click
+  '   'Strategy_Dsp_Cdd()
+  '  Strategy_Dsp("Cdd", AddressOf Sélection_Pbl_Cell_Standard)
+  ' End Sub
+  'Private Sub Mnu04n_CdU_Click(sender As Object, e As EventArgs) Handles Btn_CdU.Click
+  ' Strategy_Dsp("CdU", AddressOf Sélection_Pbl_Cell_Standard)
+  'End Sub
+  'Private Sub Mnu04n_CdO_Click(sender As Object, e As EventArgs) Handles Btn_CdO.Click
+  '  Strategy_Dsp("CdO", AddressOf Sélection_Pbl_Cell_Standard)
+  'End Sub
+  Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click,
+                                        Btn_Unq.Click, Btn_Tpl.Click, Btn_Swf.Click,
+                                        Btn_SKy.Click, Btn_Jly.Click, Btn_Cbl.Click,
+                                        Btn_CdO.Click, Btn_CdU.Click, Btn_Cdd.Click
     'Le Sender provient soit du texte de l'option du menu, le texte du menu est explicite
     '                   soit de la barre d'Outils, le texte d'un bouton est une simple lettre
-    Dim stgs() As String = {"Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq"}
+    Dim stgs() As String = {"Cdd", "CdU", "CdO", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq"}
 
     For Each stg As String In stgs
       If Sender.ToString() = Stg_Get(stg).Texte OrElse Sender.ToString() = Stg_Get(stg).Lettre Then
@@ -1347,42 +1207,12 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu04n_RésoudreUneCellule_Click(sender As Object, e As EventArgs)
     Cell_Slv_Interactif("S", "Résoudre une Cellule")
   End Sub
-  'Private Sub Mnu04n_Suggérer_Click(sender As Object, e As EventArgs)
-  '  Cell_Slv_Interactif("S", "Suggérer une Cellule")
-  'End Sub
   Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
     Strategy_Dsp("DCd", AddressOf Sélection_Pbl_Cell_Standard)
   End Sub
   Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
     Strategy_Dsp("CdS", AddressOf Sélection_Pbl_Cell_Standard)
   End Sub
-
-  'Private Sub Mnu04n_ModeSuggestion_Click(sender As Object, e As EventArgs)
-  '  Strategy_Dsp_Standard()
-  '  'U_Suggest comporte 0/1 pour afficher un disque jaune dans les cellules à documenter
-  '  Swt_Mode_Suggestion *= -1
-  '  For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
-
-  '  Select Case Swt_Mode_Suggestion
-  '    Case -1 'Mode Suggestion Hors Fonction
-  '      For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
-  '      Event_OnPaint = "Global"
-  '      Invalidate()
-  '    Case +1 'Mode Suggestion En Fonction
-  '      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-  '        'Affiche du coup dans la zone Info l'explication de la suggestion
-  '        Cell_Slv_Interactif("S", "Mode Suggestion")
-  '        ' Un tableau U_Suggest(i) stocke les cellules suggérées
-  '        ' Le mode suggestion propose toutes les cellules d'une stratégie de type Cbl, Tpl à Unq
-  '        ' Il n'est pas prévu d'explications (à placer ou à enlever)
-  '        ' Il est lancé dans Mnu04n_ModeSuggestion_Click
-  '        '              et ensuite après chaque insertion de valeurs ou de candidats
-  '        '              dans Cell_Cdd_Insert
-  '        '                   Cell_Val_Insert
-
-  '      End If
-  '  End Select
-  'End Sub
   '--------------04---------------------------------------------------------------
 
   Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown
@@ -1924,7 +1754,8 @@ Public NotInheritable Class Frm_SDK
         ContextMenuStrip = Mnu_EDI
         B_Info.Text = Msg_Read_IA("SDK_00320")
         B_Info.BackColor = Color.Gray
-        Strategy_Dsp_Cdd()
+        ' TODO à voir comment afficher les candidats
+        'Strategy_Dsp_Cdd()
       Case -1
         Plcy_Gnrl = "Nrm"
         Mnu08_EditionDuProblème.Checked = False
@@ -2002,7 +1833,6 @@ Public NotInheritable Class Frm_SDK
   ' Mnu_Cel_Cdd_Exe_A              Exclure tous les candidats
   ' Mnu_Cel_Cdd_Ins_Separator      
   ' Mnu_Cel_Cdd_Ins_1 à 9          Insérer le candidat 1 à 9 
-  ' Mnu_Cel_Cdd_Int_N              Insérer les candidats ...
   ' Mnu_Cel_Val_Eff_Separator      
   ' Mnu_Cel_Val_Eff_x              Effacer la valeur saisie
   '
@@ -2037,9 +1867,6 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
-  End Sub
-  Private Sub Mnu_Cel_Cdd_InsérerN(Sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Int_N.Click
-    Frm_Insérer_Candidats.Show()
   End Sub
   Private Sub Mnu_Cel_Cdd_Exclure(sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Exc_9.Click, Mnu_Cel_Cdd_Exc_8.Click, Mnu_Cel_Cdd_Exc_7.Click, Mnu_Cel_Cdd_Exc_6.Click, Mnu_Cel_Cdd_Exc_5.Click, Mnu_Cel_Cdd_Exc_4.Click, Mnu_Cel_Cdd_Exc_3.Click, Mnu_Cel_Cdd_Exc_2.Click, Mnu_Cel_Cdd_Exc_1.Click
     'Exclure le candidat, x se trouve en sender.ToString().Substring(20, 1) dans une cellule

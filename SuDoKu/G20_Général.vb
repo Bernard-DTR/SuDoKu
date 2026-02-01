@@ -434,4 +434,23 @@ Module G20_Général
     End Try
   End Sub
 
+  Public Function Subst_Police(Source As String) As String
+    'Source est compris entre 1 et 9
+    'Donc Subst_Police(Cstr(0)) retourne vide et le bouton n'affiche rien
+    Dim Cible As String = String.Empty
+    If Source >= "1" And Source <= "9" Then
+      Dim V As Integer = CInt(Source)
+      Select Case Plcy_Fantasy_Name
+        Case "Arial" : Cible = Subst_Arial_____(V)
+        Case "Wingdings" : Cible = Subst_Wingding__(V)
+        Case "MS Outlook" : Cible = Subst_MS_Outlook(V)
+        Case "Webdings" : Cible = Subst_Webdings__(V)
+        Case Else : Cible = Subst_Arial_____(V)
+      End Select
+    End If
+    Return Cible
+  End Function
+
+
+
 End Module
