@@ -222,8 +222,10 @@
 #569 J  28/01/2026 Cell_Val_Insert est opérationnelle UNIQUEMENT en NRM sans stratégie 
 #569 J  28/01/2026 Suppression des menus de stratégies simples  
 #570 D  01/02/2026 Stratégie Cdd traitée comme les autres
+#571 D  01/02/2026 Reprise de Cell_Val_Insert pour terminer la procédure
 
-
+                   Frm_SDK_MouseMove avec 1 seul passage dans OnPaint (il faut réduire les valeurs de Event_OnPaint)
+                   Frm_SDK_MouseClick
 
 
 ##############################################################################################################################

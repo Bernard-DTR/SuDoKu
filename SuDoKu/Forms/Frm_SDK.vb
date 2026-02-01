@@ -409,8 +409,6 @@ Public NotInheritable Class Frm_SDK
       Case "Global"
         Dim Gril As New Grille_Cls
         Gril.Grille_Refresh_g(e.Graphics)
-        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
       Case "Cell_Val_Insert"
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
