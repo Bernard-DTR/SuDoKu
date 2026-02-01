@@ -416,14 +416,12 @@ Public NotInheritable Class Frm_SDK
         sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
         sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
-      Case "Cell_Move_Prv"
+      Case "Cell_Move"
+        Jrn_Add_Yellow(Event_OnPaint & " " & U_Coord(Prv_Pbl_Cell_Select) & " --> " & U_Coord(Pbl_Cell_Select))
         Dim sc_Prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
         sc_Prv.G2_Cellule_Paint_Fond_g(e.Graphics)
         sc_Prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
         sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(e.Graphics)
-
-      Case "Cell_Move"
-        G4_Grid_Stratégie_All_g(e.Graphics)
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
         sc.Cellule_Refresh_g(e.Graphics)
         sc.G7_Cellule_Paint_Select_g(e.Graphics)
@@ -444,7 +442,6 @@ Public NotInheritable Class Frm_SDK
 
     Event_OnPaint = "#"
   End Sub
-
 
   Private Sub Frm_SDK_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
     Event_OnPaint = "Global"
@@ -724,18 +721,12 @@ Public NotInheritable Class Frm_SDK
       Or Prv_Pbl_Cell_Select > Sqr_Cel.GetUpperBound(0) Then Prv_Rct_Cdd_Numéro = 0
 
       If Sqr_Cel(Prv_Pbl_Cell_Select).Contains(MM_Pt) Then Exit Sub
-      ' TODO il devrait y avoir TOUJOURS un Cell_Move_Prv ET un Cell_Move
-      Event_OnPaint = "Cell_Move_Prv"
-      Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
-        Invalidate(reg, False)
-      End Using
-      Application.DoEvents()   'Affiche la grille avec solutions
-
       Event_OnPaint = "Cell_Move"
-      Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+      Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
+        reg.Union(Sqr_Pth(Pbl_Cell_Select))
         Invalidate(reg, False)
       End Using
-      Application.DoEvents()   'Affiche la grille avec solutions
+      Application.DoEvents()
 
       Prv_Pbl_Cell_Select = Pbl_Cell_Select
       Prv_Pbl_Cell_Candidat_Select = Pbl_Cell_Candidat_Select
