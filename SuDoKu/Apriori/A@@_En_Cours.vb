@@ -39,9 +39,6 @@ Friend Module En_Cours
   End Sub
   Public Sub TestH()
     Jrn_Add(, {Procédure_Name_Get()})
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Jrn_Add_Red(Pzzl_Slv_UO(U_temp).ToString)
   End Sub
   Public Sub TestI()
     Jrn_Add(, {Procédure_Name_Get()})

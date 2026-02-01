@@ -11,7 +11,6 @@ Module G050_Strategy_bi_locaux
   Public Sub Strategy_Gbl(U_temp(,) As String)
     ' Cette procédure affiche les liens forts pour supprimer Les Candidats Bloqués
     Plcy_Strg = "Gbl"
-    Jrn_Add_Red(Stg_Get(Plcy_Strg).Code & " " & Stg_Get(Plcy_Strg).Texte)
     If Xap Then Jrn_Add(, {Procédure_Name_Get() & " Xap = True "})
 
     GRslt_Init()

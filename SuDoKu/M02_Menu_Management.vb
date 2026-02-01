@@ -316,25 +316,6 @@ Module M02_Menu_Management
               End If
             End If
 
-          Case "Cdd_Int_" 'Insérer les Candidats ....
-            If Plcy_Sas And Plcy_Typ_V_sans_Cdd Then
-              If Plcy_Mnu_Item And Plcy_Slm Then
-                Ligne.Font = New Font(Ligne.Font.Name, Ligne.Font.Size, FontStyle.Italic)
-              Else
-                Ligne.Font = New Font(Ligne.Font.Name, Ligne.Font.Size, FontStyle.Regular)
-              End If
-              If Plcy_Mnu_Item Then
-                Ligne.Visible = True : Plcy_Mnu_Groupe = True
-              End If
-              If Plcy_Fantasy Then Ligne.Visible = False
-            End If
-            If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
-              If Plcy_Mnu_Item Then
-                Ligne.Visible = True : Plcy_Mnu_Groupe = True
-              End If
-              If Plcy_Fantasy Then Ligne.Visible = False
-            End If
-
           Case "Val_Eff_"
             If Plcy_Typ_R Then
               If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True

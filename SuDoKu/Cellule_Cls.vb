@@ -168,61 +168,63 @@ Public Class Cellule_Cls
   ' Pzzl       désigne une grille correcte, c'est à dire un Puzzle SuDoKu
   '
 
+  'Public Sub G2_Cellule_Paint_Fond()
+  '  'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
+  '  'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
+  '  '                 0 est le "Fond Standard", ie une couleur et non une photo
+
+  '  Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
+  '        brsh As New SolidBrush(Color_Frm_BackColor)
+
+  '    If Plcy_Fond_Grille = 0 Then
+  '      ' Un fond standard est affiché
+  '      If Cellule_Arrondie Then
+  '        g.FillPath(brsh_0, Sqr_Pth(Numéro))
+  '      Else
+  '        g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
+  '      End If
+  '    Else
+  '      ' L'image de fond est affichée
+  '      If Cellule_Arrondie Then
+  '        g.ResetClip()
+  '        g.SetClip(Sqr_Pth(Numéro), CombineMode.Replace)
+  '        g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
+  '      Else
+  '        g.FillRectangle(brsh, Sqr_Cel(Numéro))
+  '        g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
+  '      End If
+  '    End If
+  '  End Using
+  '  g.Dispose()
+
+  '  ''Traite les Cas particuliers et la propriété Text_ToolTip
+  '  'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+  '  '  Select Case Typologie
+  '  '    Case "I"
+  '  '    Case "R"
+  '  '      ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
+  '  '      If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
+  '  '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Green))
+  '  '        Text_ToolTip = "Valeur non conforme à la solution."
+  '  '      End If
+  '  '    Case "V"
+  '  '      ' 2 Indication d'une cellule sans candidat
+  '  '      If Nombre_Candidats = -1 Then
+  '  '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Red))
+  '  '        Text_ToolTip = "La cellule n'a plus de candidat."
+  '  '      End If
+  '  '      ' 3 Mode Suggestion
+  '  '      If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
+  '  '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
+  '  '        Text_ToolTip = "... Cellule à jouer."
+  '  '      End If
+  '  '  End Select
+  '  'End If
+  'End Sub
+  ' TODO il reste à regarder si la solution est différente
+  ' TODO il reste à regarder si la cellule n'a plus de candidats
+
   ''' <summary>Peint le Fond de la Cellule .</summary>
-  Public Sub G2_Cellule_Paint_Fond()
-    'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
-    'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
-    '                 0 est le "Fond Standard", ie une couleur et non une photo
-
-    Dim g As Graphics = Frm_SDK.CreateGraphics
-    Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
-          brsh As New SolidBrush(Color_Frm_BackColor)
-
-      If Plcy_Fond_Grille = 0 Then
-        ' Un fond standard est affiché
-        If Cellule_Arrondie Then
-          g.FillPath(brsh_0, Sqr_Pth(Numéro))
-        Else
-          g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
-        End If
-      Else
-        ' L'image de fond est affichée
-        If Cellule_Arrondie Then
-          g.ResetClip()
-          g.SetClip(Sqr_Pth(Numéro), CombineMode.Replace)
-          g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
-        Else
-          g.FillRectangle(brsh, Sqr_Cel(Numéro))
-          g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
-        End If
-      End If
-    End Using
-    g.Dispose()
-
-    ''Traite les Cas particuliers et la propriété Text_ToolTip
-    'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-    '  Select Case Typologie
-    '    Case "I"
-    '    Case "R"
-    '      ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
-    '      If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
-    '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Green))
-    '        Text_ToolTip = "Valeur non conforme à la solution."
-    '      End If
-    '    Case "V"
-    '      ' 2 Indication d'une cellule sans candidat
-    '      If Nombre_Candidats = -1 Then
-    '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Red))
-    '        Text_ToolTip = "La cellule n'a plus de candidat."
-    '      End If
-    '      ' 3 Mode Suggestion
-    '      If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
-    '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
-    '        Text_ToolTip = "... Cellule à jouer."
-    '      End If
-    '  End Select
-    'End If
-  End Sub
   Public Sub G2_Cellule_Paint_Fond_g(g As Graphics)
     'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
     'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
@@ -250,19 +252,6 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Peint la valeur d'une cellule IR.</summary>
-  Public Sub G5_Cellule_Paint_Valeur()
-    'Concerne l'ensemble des Cellules Initiales et Remplies
-    'Les valeurs sont peintes dans une couleur différentes suivant leur typologie I/R
-    Dim g As Graphics = Frm_SDK.CreateGraphics
-    Using brsh As New SolidBrush(U_Clr_Cell_Val(Numéro)),
-          fnt As New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular)
-      g.DrawString(Subst_Police(U(Numéro, 2)),
-                 fnt,
-                 brsh,
-                 Position_Center.X, Position_Center.Y, Format_Center)
-    End Using
-    g.Dispose()
-  End Sub
   Public Sub G5_Cellule_Paint_Valeur_g(g As Graphics)
     'Concerne l'ensemble des Cellules Initiales et Remplies
     'Les valeurs sont peintes dans une couleur différentes suivant leur typologie I/R
@@ -276,23 +265,6 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Dessine UN Candidat de la Cellule.</summary>
-  Public Sub G6_Cellule_Paint_Candidat(Candidat As String, Couleur As Color)
-    'Dessine UN Candidat d'une cellule dans un cercle de couleur
-    'Un candidat a toujours la même couleur, puisqu'il ne peut être affiché que dans la typologie V
-    Dim Coté_6 As Integer = (WH \ 6)
-    If Not Candidats.Contains(Candidat) Then Exit Sub
-    Dim Cdd_n As Integer = (Numéro * 10) + CInt(Candidat)
-    Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd(Cdd_n)
-    Sqr_Cdd_n.Inflate(-1, -1)    'Diminution du cercle du candidat  
-    Using g As Graphics = Frm_SDK.CreateGraphics
-      g.FillPie(New SolidBrush(Color.FromArgb(128, Couleur)), Sqr_Cdd_n, 0.0F, 360.0F)
-      g.DrawString(Subst_Police(Candidat),
-                       New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-                       New SolidBrush(Color_VCdd),
-                       Sqr_Cdd(Cdd_n).X + Coté_6, Sqr_Cdd(Cdd_n).Y + Coté_6, Format_Center)
-    End Using
-  End Sub
-
   Public Sub G6_Cellule_Paint_Candidat_g(g As Graphics, Candidat As String, Couleur As Color)
     'Dessine UN Candidat d'une cellule dans un cercle de couleur
     'Un candidat a toujours la même couleur, puisqu'il ne peut être affiché que dans la typologie V
@@ -313,25 +285,6 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Dessine les Candidats de la Cellule.</summary>
-  Public Sub G6_Cellule_Paint_Candidats(ByVal typeCdd As String)
-    'Procédure utilisée pour dessiner le fond de sélection d'une cellule
-    If Typologie = "I" Or Typologie = "R" Then Exit Sub
-    Dim Coté_6 As Integer = Coté \ 6
-    Dim cdd_n As Integer
-    Using g As Graphics = Frm_SDK.CreateGraphics
-      For cdd As Integer = 1 To 9
-        If (typeCdd = "Les9Candidats") _
-        Or (typeCdd = "LesCandidatsEligibles" And Candidats.Contains(cdd.ToString())) Then
-          cdd_n = (Numéro * 10) + cdd
-          g.DrawString(Subst_Police(CStr(cdd)),
-                       New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-                       New SolidBrush(Color_VCdd),
-                       Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
-        End If
-      Next cdd
-    End Using
-  End Sub
-
   Public Sub G6_Cellule_Paint_Candidats_g(g As Graphics, ByVal typeCdd As String)
     'Procédure utilisée pour dessiner le fond de sélection d'une cellule
     If Typologie = "I" Or Typologie = "R" Then Exit Sub
@@ -353,15 +306,6 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Dessine les Candidats de la Cellule sous conditions habituelles.</summary>
-  Public Sub G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-    '10 occurences
-    'Concerne UNIQUEMENT les cellules Vides avec des Candidats et dans les conditions précisées
-    If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
-    Or (Plcy_Gnrl = "Edi") _
-    Or (Plcy_Gnrl = "Sas") Then
-      G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
-    End If
-  End Sub
   Public Sub G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(g As Graphics)
     '10 occurences
     'Concerne UNIQUEMENT les cellules Vides avec des Candidats et dans les conditions précisées
@@ -373,47 +317,6 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Peint la sélection de la Cellule.</summary>
-  Public Sub G7_Cellule_Paint_Select()
-    ' C'est l'affichage des candidats qui constitue l'affichage de la sélection
-    Dim g As Graphics = Frm_SDK.CreateGraphics
-    Using brsh As New SolidBrush(Color_Cell_Select)
-      If Cellule_Arrondie Then
-        g.FillPath(brsh, Sqr_Pth(Numéro))
-      Else
-        g.FillRectangle(brsh, Sqr_Cel(Numéro))
-      End If
-    End Using
-    g.Dispose()
-
-    If Typologie = "V" Then
-      If (Plcy_Gnrl = "Sas" And U(Numéro, 3) = Cnddts_Blancs) _
-      Or (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I" And Not Plcy_AideGraphique) _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E" And Not Plcy_AideGraphique) _
-      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" And Not Plcy_AideGraphique) Then
-        Select Case Plcy_Saisir_Commencer
-          Case True : G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
-          Case False : G6_Cellule_Paint_Candidats("Les9Candidats")
-        End Select
-      End If
-
-      If (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I" And Plcy_AideGraphique) _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E" And Plcy_AideGraphique) _
-      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" And Plcy_AideGraphique) Then
-        G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
-      End If
-    End If
-
-    Select Case Plcy_Gnrl
-      Case "Nrm", "Sas" : Mnu_Mngt(Numéro)
-      Case Else
-    End Select
-
-    Select Case Plcy_Gbl_Etendue
-      Case True : Frm_SDK.B_Position.Text = U_cr(Numéro) & " (" & Numéro & ")"
-      Case False : Frm_SDK.B_Position.Text = U_cr(Numéro)
-    End Select
-  End Sub
   Public Sub G7_Cellule_Paint_Select_g(g As Graphics)
     Using brsh As New SolidBrush(Color_Cell_Select)
       If Cellule_Arrondie Then
@@ -430,15 +333,15 @@ Public Class Cellule_Cls
       Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E" And Not Plcy_AideGraphique) _
       Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" And Not Plcy_AideGraphique) Then
         Select Case Plcy_Saisir_Commencer
-          Case True : G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
-          Case False : G6_Cellule_Paint_Candidats("Les9Candidats")
+          Case True : G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
+          Case False : G6_Cellule_Paint_Candidats_g(g, "Les9Candidats")
         End Select
       End If
 
       If (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I" And Plcy_AideGraphique) _
       Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E" And Plcy_AideGraphique) _
       Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" And Plcy_AideGraphique) Then
-        G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+        G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
       End If
     End If
 
@@ -452,13 +355,6 @@ Public Class Cellule_Cls
       Case False : Frm_SDK.B_Position.Text = U_cr(Numéro)
     End Select
   End Sub
-  Public Sub Cellule_Refresh()
-    'La Cellule est rafraîchie, la Cellule n'est pas sélectionnée 
-    G2_Cellule_Paint_Fond()
-    G4_Grid_Stratégie_All()
-    G5_Cellule_Paint_Valeur()
-    G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-  End Sub
   Public Sub Cellule_Refresh_g(g As Graphics)
     'La Cellule est rafraîchie, la Cellule n'est pas sélectionnée 
     G2_Cellule_Paint_Fond_g(g)
@@ -468,25 +364,26 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Rafraîchit la Cellule et les Cellules Collatérales</summary>
-  Public Sub Cellule_Refresh_Cell_Coll()
+  Public Sub Cellule_Refresh_Cell_Coll_old()
+    'TODO traitement à revoir certainement
     'La cellule et les cellules collatérales sont rafraîchies, la Cellule n'est pas sélectionnée
     'Traitement identique à Cellule_Refresh pour la Cellule Originelle 
     'Il y a 20 cellules collatérales pour une Cellule
     'A1 Début de Traitement de la Cellule Originale
-    G2_Cellule_Paint_Fond()
+    'G2_Cellule_Paint_Fond()
     'B  Traitement des Cellules Collatérales
     Dim Grp() As Integer = U_20Cell_Coll(Numéro)
     Dim sc_Grp As New Cellule_Cls
     For g As Integer = 0 To UBound(Grp)
       sc_Grp.Numéro = Grp(g)
-      sc_Grp.G2_Cellule_Paint_Fond()
-      sc_Grp.G5_Cellule_Paint_Valeur()
-      sc_Grp.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+      'sc_Grp.G2_Cellule_Paint_Fond()
+      'sc_Grp.G5_Cellule_Paint_Valeur()
+      'sc_Grp.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
     Next g
     'A2 Fin de Traitement de la Cellule Originale
-    G4_Grid_Stratégie_All()
-    G5_Cellule_Paint_Valeur()
-    G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+    'G4_Grid_Stratégie_All()
+    'G5_Cellule_Paint_Valeur()
+    'G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
   End Sub
 #End Region
 End Class

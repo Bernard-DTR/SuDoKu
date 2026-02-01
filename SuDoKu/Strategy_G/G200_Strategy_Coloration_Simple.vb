@@ -11,8 +11,6 @@ Module G200_Strategy_Coloration_Simple
   Public Sub Strategy_GCs(U_Temp(,) As String)
     ' 1 Initialisation de GRslt avec Plcy_Strg = "GCs"
     Plcy_Strg = "GCs"
-    Jrn_Add_Red(Stg_Get(Plcy_Strg).Code & " " & Stg_Get(Plcy_Strg).Texte)
-
     GRslt_Init()
 
     For Cdd As Integer = 1 To 9   ' Les candidats sont traités au fur et à mesure de 1 à 9

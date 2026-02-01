@@ -7,7 +7,6 @@ Friend Module M03_Sélection
   '-------------------------------------------------------------------------------
 
   Sub Cell_Val_Insert(V As String, Cellule As Integer, Origine As String)
-    Jrn_Add_Red(Procédure_Name_Get() & " " & U_Coord(Cellule))
     ' 01  Les Conditions d'Insertion
     If Cellule < 0 Or Cellule > 80 Then Exit Sub
     If U(Cellule, 2) <> " " Then Exit Sub
@@ -153,9 +152,10 @@ Friend Module M03_Sélection
       Pbl_Cell_Select = Cellule
       Dim sc As New Cellule_Cls With {.Numéro = Cellule}
       Dim Gril As New Grille_Cls
+      ' TODO à refaire
       'G3_Grille_Paint_Indirecte()
       'Gril.G3_Grille_Paint_Indirecte()
-      sc.Cellule_Refresh()
+      'sc.Cellule_Refresh()
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
@@ -198,8 +198,9 @@ Friend Module M03_Sélection
       Pbl_Cell_Select = Cellule
       Dim sc As New Cellule_Cls With {.Numéro = Cellule}
       Dim Gril As New Grille_Cls
+      'TODO à refaire aussi
       'Gril.G3_Grille_Paint_Indirecte()
-      sc.Cellule_Refresh()
+      'sc.Cellule_Refresh()
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")

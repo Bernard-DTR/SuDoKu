@@ -79,10 +79,10 @@ Friend Module P01_Strategy
   '
 
   Sub Sélection_Pbl_Cell_Standard()
-    Jrn_Add_Yellow(Procédure_Name_Get() & " Stratégie: " & Plcy_Strg)
+    'TODO ? 
     Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-    sc.Cellule_Refresh()
-    sc.G7_Cellule_Paint_Select()
+    'sc.Cellule_Refresh()
+    'sc.G7_Cellule_Paint_Select()
   End Sub
   Sub Strategy_Dsp_Standard()
     'Procédure appelée par: Mnu04n_AnnulerLaDerniereOption_Click
@@ -96,7 +96,7 @@ Friend Module P01_Strategy
 
     Frm_SDK.B_Info.Text = Procédure_Name_Get()
     Dsp_AideGraphique("Non")
-    U_Strg_Effacer()
+    'U_Strg_Effacer()
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Sélection_Pbl_Cell_Standard()
@@ -141,7 +141,7 @@ Friend Module P01_Strategy
   Sub Strategy_Dsp(strategyCode As String, action As Action)
     ' Active/désactive la stratégie passée en paramètre
     Strategy_Switch(strategyCode)
-    U_Strg_Effacer()
+    'U_Strg_Effacer()
 
     Select Case Plcy_Strg_Swt
       Case +1 : Plcy_Strg = strategyCode

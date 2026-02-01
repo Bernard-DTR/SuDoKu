@@ -10,7 +10,6 @@ Module G050_Affichage_Liens
 
   Sub Strategy_GLk(U_temp(,) As String)
     Plcy_Strg = "GLk"
-    Jrn_Add_Red(Stg_Get(Plcy_Strg).Code & " " & Stg_Get(Plcy_Strg).Texte)
 
     Dim Titre As String = "Stratégie GLk"
     Dim Texte As String = "Entrez le candidat à traiter pour afficher les liens (ou 0 pour les traiter tous) :"

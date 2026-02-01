@@ -142,7 +142,7 @@ Module A00_Public
   End Structure
 
   Public U_MdC(0 To 80) As MdC_Struct
-  Public U_Slm(0 To 80) As Boolean                       '  Tableau des cellules en Sélection multiple
+  'Public U_Slm(0 To 80) As Boolean                       '  Tableau des cellules en Sélection multiple
 
 #End Region
 
@@ -241,8 +241,8 @@ Module A00_Public
   Public Plcy_Generate_Batch As Boolean = False
   Public Batch_en_Cours As Boolean = False
   Public Batch_Thread As Thread
-  Public Plcy_Slm As Boolean = False 'Slm Sélection multiple
-  Public Prv_Plcy_Slm As Boolean = False
+  'Public Plcy_Slm As Boolean = False 'Slm Sélection multiple
+  'Public Prv_Plcy_Slm As Boolean = False
   Public Plcy_Nrm, Plcy_Sas As Boolean
   Public Plcy_Typ_I, Plcy_Typ_R, Plcy_Typ_V_sans_Cdd, Plcy_Typ_V_avec_Cdd As Boolean
   Public Plcy_Mnu_Item, Plcy_Mnu_Sep As Boolean

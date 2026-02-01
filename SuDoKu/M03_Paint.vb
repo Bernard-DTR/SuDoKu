@@ -20,19 +20,6 @@ Friend Module M03_Paint
   '
   '-------------------------------------------------------------------------------   
 
-  Public Sub U_Strg_Effacer()
-    'Toutes les cellules concernées par une stratégie ont un rafraîchissement du fond et de la Valeur/Candidat
-    Dim sc As New Cellule_Cls
-    For i As Integer = 0 To 80
-      If U_Strg(i) Then
-        sc.Numéro = i
-        sc.G2_Cellule_Paint_Fond()
-        sc.G5_Cellule_Paint_Valeur()
-        sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd() ' dans le cas où seul un candidat a été exclu
-      End If
-      U_Strg(i) = False
-    Next i
-  End Sub
   Public Sub U_Strg_Effacer_g(g As Graphics)
     'Toutes les cellules concernées par une stratégie ont un rafraîchissement du fond et de la Valeur/Candidat
     Dim sc As New Cellule_Cls
@@ -80,45 +67,6 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_Gbv_g(g)
       G4_Grid_Stratégie_GCs_g(g)
     End If
-  End Sub
-  Public Sub G4_Grid_Stratégie_All()
-
-    ' TODO EXCEPTIONNEL
-
-    Using g As Graphics = Frm_SDK.CreateGraphics
-
-      G4_Grid_Stratégie_All_g(g)
-    End Using
-
-
-    'If Plcy_Gnrl = "Nrm" And Plcy_Strg <> "   " Then
-    'For i As Integer = 0 To 80
-    'U_Strg_Val_Ins(i) = ""
-    'U_Strg_Cdd_Exc(i) = Cnddts_Blancs
-    'N'ext i
-    'G4_Grid_Stratégie_CdU()
-    'G4_Grid_Stratégie_CdO()
-    'G4_Grid_Stratégie_Flt()
-    'G4_Grid_Stratégie_CdS()
-    'G4_Grid_Stratégie_DCd()
-    'G4_Grid_Stratégie_Cbl()
-    'G4_Grid_Stratégie_Tpl()
-    'G4_Grid_Stratégie_Xwg()
-    'G4_Grid_Stratégie_XYw()
-    'G4_Grid_Stratégie_Swf()
-    'G4_Grid_Stratégie_Jly()
-    'G4_Grid_Stratégie_XYZ()
-    'G4_Grid_Stratégie_SKy()
-    'G4_Grid_Stratégie_Unq()
-    'G4_Grid_Stratégie_Obj()
-    'G4_Grid_Stratégie_XCx_XCy_XNl()
-    'G4_Grid_Stratégie_XRp()
-    'G4_Grid_Stratégie_WgX_WgY_WgZ_WgW()
-    'G4_Grid_Stratégie_GLk()
-    'G4_Grid_Stratégie_Gbl()
-    'G4_Grid_Stratégie_Gbv()
-    'G4_Grid_Stratégie_GCs()
-    'End If
   End Sub
 
   '-------------------------------------------------------------------------------
@@ -217,7 +165,7 @@ Friend Module M03_Paint
         G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
         'Re-dessine le candidat à placer dans un cercle plein Jaune
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Insérer)
+        sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
         U_Strg(Cellule) = True
         Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " jaune à placer."
       End If
@@ -291,7 +239,7 @@ Friend Module M03_Paint
 
         'Re-dessine le candidat à placer dans un cercle plein Jaune
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Insérer)
+        sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
         U_Strg(Cellule) = True
 
         Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " jaune à placer."
@@ -376,7 +324,7 @@ Friend Module M03_Paint
           Next i
           If n = 1 Then
             Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-            sc.G6_Cellule_Paint_Candidat(Valeur_Filtrée, Color_Cdd_Insérer)
+            sc.G6_Cellule_Paint_Candidat_g(g, Valeur_Filtrée, Color_Cdd_Insérer)
             U_Strg_Val_Ins(Cellule) = Valeur_Filtrée
             U_Strg(Cellule) = True
           End If
@@ -397,9 +345,9 @@ Friend Module M03_Paint
         Dim sc As New Cellule_Cls
         For i As Integer = 0 To 80
           sc.Numéro = i
-          sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+          sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
           U_Strg(i) = True
-          If U(i, 3).Contains(Candidat) Then sc.G6_Cellule_Paint_Candidat(Candidat, Color)
+          If U(i, 3).Contains(Candidat) Then sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color)
         Next i
       Catch ex As Exception
         Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
@@ -461,7 +409,7 @@ Friend Module M03_Paint
 
         '  'Re-dessine le candidat à placer dans un cercle plein Jaune
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G6_Cellule_Paint_Candidat(DCdd2.Candidat, Color_Cdd_Insérer)
+        sc.G6_Cellule_Paint_Candidat_g(g, DCdd2.Candidat, Color_Cdd_Insérer)
         U_Strg(Cellule) = True
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & DCdd2.Sous_Stratégie & " " & DCdd2.Candidat & " jaune à placer."
       End If
@@ -547,7 +495,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, Ligne) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, Ligne))
           Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+          sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
           U_Strg(Cellule) = True
         Next k
         Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ":  " & Candidat & " rouge à enlever."
@@ -596,7 +544,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, Ligne) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, Ligne))
           Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+          sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
           U_Strg(Cellule) = True
         Next k
         Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
@@ -649,7 +597,7 @@ Friend Module M03_Paint
           If U_temp(i, 3).Contains(Candidat) Then
             U_Strg(i) = True
             Dim sc_a As New Cellule_Cls With {.Numéro = i}
-            sc_a.G6_Cellule_Paint_Candidat(Candidat, Color_Stratégique)
+            sc_a.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Stratégique)
           End If
         Next i
 
@@ -695,7 +643,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, Ligne) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, Ligne))
           Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+          sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
           U_Strg(Cellule) = True
         Next k
         Select Case Sous_Stratégie
@@ -757,7 +705,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, Ligne) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, Ligne))
           Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+          sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
           U_Strg(Cellule) = True
         Next k
         Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
@@ -807,7 +755,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, Ligne) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, Ligne))
           Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+          sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
           U_Strg(Cellule) = True
         Next k
         Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
@@ -857,7 +805,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, Ligne) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, Ligne))
           Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+          sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
           U_Strg(Cellule) = True
         Next k
         Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
@@ -901,7 +849,7 @@ Friend Module M03_Paint
           If Strategy_Rslt(k, Ligne) = "__" Then Exit For
           Cellule = CInt(Strategy_Rslt(k, Ligne))
           Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+          sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
           U_Strg(Cellule) = True
         Next k
         Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
@@ -952,7 +900,7 @@ Friend Module M03_Paint
               If Strategy_Rslt(k, Ligne) = "__" Then Exit For
               Cellule = CInt(Strategy_Rslt(k, Ligne))
               Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-              sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+              sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
               U_Strg(Cellule) = True
             Next k
             Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " " & Sous_stratégie & ": " & Candidat & "  rouge à exclure."
@@ -972,7 +920,7 @@ Friend Module M03_Paint
               If Strategy_Rslt(k, Ligne) = "__" Then Exit For
               Cellule = CInt(Strategy_Rslt(k, Ligne))
               Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-              sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+              sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
               U_Strg(Cellule) = True
             Next k
             Frm_SDK.B_Info.Text = " Stratégie Sky " & Sous_stratégie & ": " & Candidat & "  rouge à exclure."
@@ -986,7 +934,7 @@ Friend Module M03_Paint
               If Strategy_Rslt(k, Ligne) = "__" Then Exit For
               Cellule = CInt(Strategy_Rslt(k, Ligne))
               Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-              sc_Cdd.G6_Cellule_Paint_Candidat(Candidat, Color_Cdd_Exclure)
+              sc_Cdd.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Exclure)
               U_Strg(Cellule) = True
             Next k
             Frm_SDK.B_Info.Text = " Stratégie Sky " & Sous_stratégie & ": " & Candidat & "  rouge à exclure."
@@ -1049,7 +997,7 @@ Friend Module M03_Paint
           Candidats_Txt = ""
           For c As Integer = 1 To 9
             If Mid$(Candidats, c, 1) = CStr(c) Then
-              sc_Cdd.G6_Cellule_Paint_Candidat(CStr(c), Color_Cdd_Exclure)
+              sc_Cdd.G6_Cellule_Paint_Candidat_g(g, CStr(c), Color_Cdd_Exclure)
               Candidats_Txt &= CStr(c) & ","
             End If
           Next c
@@ -1081,7 +1029,7 @@ Friend Module M03_Paint
       ' 1 Affichage des Candidats
       For i As Integer = 0 To 80
         sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+        sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(XRslt.Candidat(0)) Then
           G0_Cdd_Figure_g(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
         End If
@@ -1122,7 +1070,7 @@ Friend Module M03_Paint
         With XCelExcl
           sc.Numéro = .Cel
           If U(.Cel, 3).Contains(.Cdd) Then
-            sc.G6_Cellule_Paint_Candidat(.Cdd, Color_Cdd_Exclure)
+            sc.G6_Cellule_Paint_Candidat_g(g, .Cdd, Color_Cdd_Exclure)
             ' Coloration du menu contextuel avec les 2 candidats
             Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
             U_Strg_Cdd_Exc(.Cel) = Candidats
@@ -1152,7 +1100,7 @@ Friend Module M03_Paint
       ' 1 Affichage des Candidats
       For i As Integer = 0 To 80
         sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+        sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(XRslt.Candidat(0)) And U(i, 3).Contains(XRslt.Candidat(1)) Then
           G0_Cdd_Figure_g(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
           G0_Cdd_Figure_g(g, i, CInt(XRslt.Candidat(1)), "Cercle", Color.White)
@@ -1188,8 +1136,8 @@ Friend Module M03_Paint
         With XCelExcl
           sc.Numéro = .Cel
           If U(.Cel, 3).Contains(.Cdd) Then
-            sc.G6_Cellule_Paint_Candidat(.Cdd, Color_Cdd_Exclure)
-            sc.G6_Cellule_Paint_Candidat(.Cdd, Color_Cdd_Exclure)
+            sc.G6_Cellule_Paint_Candidat_g(g, .Cdd, Color_Cdd_Exclure)
+            sc.G6_Cellule_Paint_Candidat_g(g, .Cdd, Color_Cdd_Exclure)
             ' Coloration du menu contextuel avec les 2 candidats
             Mid$(Candidats, CInt(.Cdd), 1) = .Cdd           ' le candidat est ajouté
             U_Strg_Cdd_Exc(.Cel) = Candidats
@@ -1220,7 +1168,7 @@ Friend Module M03_Paint
       ' 1 Affichage des Candidats
       For i As Integer = 0 To 80
         sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+        sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(XRslt.Candidat(0)) Then
           G0_Cdd_Figure_g(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
         End If
@@ -1267,7 +1215,7 @@ Friend Module M03_Paint
         With XCelExcl
           sc.Numéro = .Cel
           If U(.Cel, 3).Contains(.Cdd) Then
-            sc.G6_Cellule_Paint_Candidat(.Cdd, Color_Cdd_Exclure)
+            sc.G6_Cellule_Paint_Candidat_g(g, .Cdd, Color_Cdd_Exclure)
             ' Coloration du menu contextuel avec les 2 candidats
             Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
             U_Strg_Cdd_Exc(.Cel) = Candidats
@@ -1295,7 +1243,7 @@ Friend Module M03_Paint
       Dim sc As New Cellule_Cls
       For i As Integer = 0 To 80
         sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+        sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(GRslt.Candidat(0)) Then
           G0_Cdd_Figure_g(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
         End If
@@ -1308,11 +1256,11 @@ Friend Module M03_Paint
         G0_Cdd_Bézier_g(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
         Dim sc_gLink As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
         If U(gLink.Cel(0), 3).Contains(gLink.Cdd(0)) Then
-          sc_gLink.G6_Cellule_Paint_Candidat(gLink.Cdd(0), Color_Link_S)
+          sc_gLink.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(0), Color_Link_S)
         End If
         sc_gLink.Numéro = gLink.Cel(1)
         If U(gLink.Cel(1), 3).Contains(gLink.Cdd(2)) Then
-          sc_gLink.G6_Cellule_Paint_Candidat(gLink.Cdd(2), Color_Link_S)
+          sc_gLink.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(2), Color_Link_S)
         End If
       Next gLink
       Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " " & GRslt.Nb_Liens & " Liens Forts."
@@ -1339,7 +1287,7 @@ Friend Module M03_Paint
       ' 1 Affichage des Candidats
       For i As Integer = 0 To 80
         sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+        sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(GRslt.Candidat(0)) Then
           G0_Cdd_Figure_g(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
         End If
@@ -1352,11 +1300,11 @@ Friend Module M03_Paint
         G0_Cdd_Bézier_g(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
         Dim sc_gLink As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
         If U(gLink.Cel(0), 3).Contains(gLink.Cdd(0)) Then
-          sc_gLink.G6_Cellule_Paint_Candidat(gLink.Cdd(0), Color_Link_S)
+          sc_gLink.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(0), Color_Link_S)
         End If
         sc_gLink.Numéro = gLink.Cel(1)
         If U(gLink.Cel(1), 3).Contains(gLink.Cdd(2)) Then
-          sc_gLink.G6_Cellule_Paint_Candidat(gLink.Cdd(2), Color_Link_S)
+          sc_gLink.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(2), Color_Link_S)
         End If
       Next gLink
 
@@ -1366,7 +1314,7 @@ Friend Module M03_Paint
         With gCel
           sc.Numéro = .Cel
           If U(.Cel, 3).Contains(.Cdd) Then
-            sc.G6_Cellule_Paint_Candidat(.Cdd, Color_Cdd_Exclure)
+            sc.G6_Cellule_Paint_Candidat_g(g, .Cdd, Color_Cdd_Exclure)
             If Pbl_Cell_Select = .Cel Then
               Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
               U_Strg_Cdd_Exc(.Cel) = Candidats
@@ -1397,7 +1345,7 @@ Friend Module M03_Paint
       ' 1 Affichage des Candidats
       For i As Integer = 0 To 80
         sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+        sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
       Next i
 
       ' 2 Affichage de toutes les Courbes de Bézier
@@ -1408,21 +1356,21 @@ Friend Module M03_Paint
         G0_Cdd_Bézier_g(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
         Dim sc_gLink1 As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
         If U(gLink.Cel(0), 3).Contains(gLink.Cdd(0)) Then
-          sc_gLink1.G6_Cellule_Paint_Candidat(gLink.Cdd(0), Color_Link_S)
+          sc_gLink1.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(0), Color_Link_S)
         End If
         sc_gLink1.Numéro = gLink.Cel(1)
         If U(gLink.Cel(1), 3).Contains(gLink.Cdd(2)) Then
-          sc_gLink1.G6_Cellule_Paint_Candidat(gLink.Cdd(2), Color_Link_S)
+          sc_gLink1.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(2), Color_Link_S)
         End If
         ' Second lien
         G0_Cdd_Bézier_g(g, gLink.Cel(0), CInt(gLink.Cdd(1)), gLink.Cel(1), CInt(gLink.Cdd(3)), gLink.Type, 0)
         Dim sc_gLink2 As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
         If U(gLink.Cel(0), 3).Contains(gLink.Cdd(1)) Then
-          sc_gLink2.G6_Cellule_Paint_Candidat(gLink.Cdd(1), Color_Link_S)
+          sc_gLink2.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(1), Color_Link_S)
         End If
         sc_gLink2.Numéro = gLink.Cel(1)
         If U(gLink.Cel(1), 3).Contains(gLink.Cdd(3)) Then
-          sc_gLink2.G6_Cellule_Paint_Candidat(gLink.Cdd(3), Color_Link_S)
+          sc_gLink2.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(3), Color_Link_S)
         End If
       Next gLink
 
@@ -1432,7 +1380,7 @@ Friend Module M03_Paint
         With XCelExcl
           sc.Numéro = .Cel
           If U(.Cel, 3).Contains(.Cdd) Then
-            sc.G6_Cellule_Paint_Candidat(.Cdd, Color_Cdd_Exclure)
+            sc.G6_Cellule_Paint_Candidat_g(g, .Cdd, Color_Cdd_Exclure)
             If Pbl_Cell_Select = .Cel Then
               Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
               U_Strg_Cdd_Exc(.Cel) = Candidats
@@ -1463,7 +1411,7 @@ Friend Module M03_Paint
       ' 1 Affichage des Candidats
       For i As Integer = 0 To 80
         sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+        sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(GRslt.Candidat(0)) Then
           G0_Cdd_Figure_g(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
         End If
@@ -1478,10 +1426,10 @@ Friend Module M03_Paint
           Select Case Nb Mod 2
             Case 0
               Dim sc_Cdd As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
-              sc_Cdd.G6_Cellule_Paint_Candidat(gLink.Cdd(0), Color.Green)
+              sc_Cdd.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(0), Color.Green)
             Case Else
               Dim sc_cdd As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
-              sc_cdd.G6_Cellule_Paint_Candidat(gLink.Cdd(0), Color.Blue)
+              sc_cdd.G6_Cellule_Paint_Candidat_g(g, gLink.Cdd(0), Color.Blue)
           End Select
         End With
       Next gLink
@@ -1492,8 +1440,8 @@ Friend Module M03_Paint
       Dim sc_LCdd As New Cellule_Cls With {.Numéro = lastLien.Cel(1)}
       Dim lastIndex As Integer = GRslt.RoadRight.Count - 1
       Select Case lastIndex Mod 2
-        Case 0 : sc_LCdd.G6_Cellule_Paint_Candidat(lastLien.Cdd(0), Color.Green)
-        Case 1 : sc_LCdd.G6_Cellule_Paint_Candidat(lastLien.Cdd(0), Color.Blue)
+        Case 0 : sc_LCdd.G6_Cellule_Paint_Candidat_g(g, lastLien.Cdd(0), Color.Green)
+        Case 1 : sc_LCdd.G6_Cellule_Paint_Candidat_g(g, lastLien.Cdd(0), Color.Blue)
       End Select
       G0_Cell_Icône_g(g, firstLien.Cel(0), "Start")
       G0_Cell_Icône_g(g, lastLien.Cel(1), "End")
@@ -1504,7 +1452,7 @@ Friend Module M03_Paint
         With gCelExcl
           sc.Numéro = .Cel
           If U(.Cel, 3).Contains(.Cdd) Then
-            sc.G6_Cellule_Paint_Candidat(.Cdd, Color_Cdd_Exclure)
+            sc.G6_Cellule_Paint_Candidat_g(g, .Cdd, Color_Cdd_Exclure)
             ' Coloration du menu contextuel avec les 2 candidats
             Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
             U_Strg_Cdd_Exc(.Cel) = Candidats
@@ -1525,7 +1473,7 @@ Friend Module M03_Paint
     If Not Plcy_Strg = "Obj" Then Exit Sub
     For i As Integer = 0 To 80
       sc.Numéro = i
-      sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")
+      sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
     Next i
 
     For Each Obj As Objet_Cls In Objet_List
@@ -1726,10 +1674,10 @@ Friend Module M03_Paint
         Select Case Link_Numéro Mod 2
           Case 0
             Dim sc As New Cellule_Cls With {.Numéro = To_Cellule}
-            sc.G6_Cellule_Paint_Candidat(CStr(To_Candidat), Color.Green)
+            sc.G6_Cellule_Paint_Candidat_g(g, CStr(To_Candidat), Color.Green)
           Case Else
             Dim sc As New Cellule_Cls With {.Numéro = To_Cellule}
-            sc.G6_Cellule_Paint_Candidat(CStr(To_Candidat), Color.Blue)
+            sc.G6_Cellule_Paint_Candidat_g(g, CStr(To_Candidat), Color.Blue)
         End Select
         'Case "X b l"
         '  'Les candidats sont dessinés s'ils existent
@@ -1746,11 +1694,11 @@ Friend Module M03_Paint
         Dim sc As New Cellule_Cls With {.Numéro = From_Cellule}
         'Les candidats sont dessinés s'ils existent
         If U(From_Cellule, 3).Contains(CStr(From_Candidat)) Then
-          sc.G6_Cellule_Paint_Candidat(CStr(From_Candidat), Color_Link_W)
+          sc.G6_Cellule_Paint_Candidat_g(g, CStr(From_Candidat), Color_Link_W)
         End If
         sc.Numéro = To_Cellule
         If U(To_Cellule, 3).Contains(CStr(To_Candidat)) Then
-          sc.G6_Cellule_Paint_Candidat(CStr(To_Candidat), Color_Link_W)
+          sc.G6_Cellule_Paint_Candidat_g(g, CStr(To_Candidat), Color_Link_W)
         End If
     End Select
 
@@ -1993,8 +1941,8 @@ Friend Module M03_Paint
         End Using
         ' L'Aide Graphique comporte également l'affichage des candidats 
         Dim sc As New Cellule_Cls With {.Numéro = i}
-        If sc.Valeur <> 0 Then sc.G5_Cellule_Paint_Valeur()                            ' G5
-        If sc.Valeur = 0 Then sc.G6_Cellule_Paint_Candidats("LesCandidatsEligibles")   ' G6
+        If sc.Valeur <> 0 Then sc.G5_Cellule_Paint_Valeur_g(g)                            ' G5
+        If sc.Valeur = 0 Then sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")   ' G6
       End If
       MdC_Région.Dispose()
     Next i

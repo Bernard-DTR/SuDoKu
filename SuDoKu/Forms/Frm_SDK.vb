@@ -417,7 +417,6 @@ Public NotInheritable Class Frm_SDK
         sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
       Case "Cell_Move"
-        Jrn_Add_Yellow(Event_OnPaint & " " & U_Coord(Prv_Pbl_Cell_Select) & " --> " & U_Coord(Pbl_Cell_Select))
         Dim sc_Prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
         sc_Prv.G2_Cellule_Paint_Fond_g(e.Graphics)
         sc_Prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
@@ -647,49 +646,58 @@ Public NotInheritable Class Frm_SDK
   Private Sub Frm_SDK_KeyDown_Selected(Cellule_KDS As Integer)
     ' Test des sélections multiples
     '     La sélection multiple est indifférente à Ctrl ou à Shift
-    With My.Computer.Keyboard
-      If Plcy_Gnrl = "Sas" Then
-        If .CtrlKeyDown Or .ShiftKeyDown Then Plcy_Slm = True
-      End If
-      If Not .CtrlKeyDown And Not .ShiftKeyDown Then Plcy_Slm = False
-    End With
+    'With My.Computer.Keyboard
+    'I'f Plcy_Gnrl = "Sas" Then
+    'If .CtrlKeyDown Or .ShiftKeyDown Then Plcy_Slm = True
+    'End If
+    'If Not .CtrlKeyDown And Not .ShiftKeyDown Then Plcy_Slm = False
+    'End With
 
     'La cellule sur laquelle passe la souris devient la Pbl_Cell_Select
     Pbl_Cell_Select = Cellule_KDS
 
-    Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-    Select Case Plcy_Slm
-      Case True
-        '1 On sélectionne la cellule  
-        U_Slm(Pbl_Cell_Select) = True
-        sc.Cellule_Refresh()
-        sc.G7_Cellule_Paint_Select()
-      Case False
-        '0 Si slm, on remet les cellules précédentes en état
-        If Prv_Plcy_Slm Then
-          Dim sc_Slm As New Cellule_Cls
-          For i As Integer = 0 To 80
-            If U_Slm(i) Then
-              sc_Slm.Numéro = i
-              sc_Slm.G2_Cellule_Paint_Fond()
-              sc_Slm.G5_Cellule_Paint_Valeur()
-              sc_Slm.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-              U_Slm(i) = False
-            End If
-          Next i
-        End If
-        '1 On remet la cellule précédente en état
-        Dim sc_Prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
-        sc_Prv.G2_Cellule_Paint_Fond()
-        sc_Prv.G5_Cellule_Paint_Valeur()
-        sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-        '2 On sélectionne la cellule  
-        sc.Cellule_Refresh()
-        sc.G7_Cellule_Paint_Select()
-        '3 
-        Prv_Pbl_Cell_Select = Pbl_Cell_Select
-    End Select
-    Prv_Plcy_Slm = Plcy_Slm
+    'Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+    'Select Case Plcy_Slm
+    '  Case True
+    '    '1 On sélectionne la cellule  
+    '    U_Slm(Pbl_Cell_Select) = True
+    '    sc.Cellule_Refresh()
+    '    sc.G7_Cellule_Paint_Select()
+    '  Case False
+    '    '0 Si slm, on remet les cellules précédentes en état
+    '    If Prv_Plcy_Slm Then
+    '      Dim sc_Slm As New Cellule_Cls
+    '      For i As Integer = 0 To 80
+    '        If U_Slm(i) Then
+    '          sc_Slm.Numéro = i
+    '          sc_Slm.G2_Cellule_Paint_Fond()
+    '          sc_Slm.G5_Cellule_Paint_Valeur()
+    '          sc_Slm.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+    '          U_Slm(i) = False
+    '        End If
+    '      Next i
+    '    End If
+    '    '1 On remet la cellule précédente en état
+    '    Dim sc_Prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
+    '    sc_Prv.G2_Cellule_Paint_Fond()
+    '    sc_Prv.G5_Cellule_Paint_Valeur()
+    '    sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+    '    '2 On sélectionne la cellule  
+    '    sc.Cellule_Refresh()
+    '    sc.G7_Cellule_Paint_Select()
+    '    '3 
+    '    Prv_Pbl_Cell_Select = Pbl_Cell_Select
+    'End Select
+
+    Event_OnPaint = "Cell_Move"
+    Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
+      reg.Union(Sqr_Pth(Pbl_Cell_Select))
+      Invalidate(reg, False)
+    End Using
+    Application.DoEvents()
+    Prv_Pbl_Cell_Select = Pbl_Cell_Select
+
+    'Prv_Plcy_Slm = Plcy_Slm
   End Sub
 
   Private Sub Frm_SDK_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
@@ -808,8 +816,8 @@ Public NotInheritable Class Frm_SDK
         End If
     End Select
     'le Cellule_Refresh permet de ne pas trop griser la cellule
-    sc.Cellule_Refresh()
-    sc.G7_Cellule_Paint_Select()
+    'sc.Cellule_Refresh()
+    'sc.G7_Cellule_Paint_Select()
   End Sub
   Private Sub Frm_SDK_MouseClick_Middle_Mistral(sender As Object, Candidat As Integer)
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
@@ -1137,16 +1145,6 @@ Public NotInheritable Class Frm_SDK
     Transf_Région_V()
   End Sub
   '--------------04n--------------------------------------------------------------
-  ' Private Sub Mnu04n_Cdd_Click(sender As Object, e As EventArgs) Handles Btn_Cdd.Click
-  '   'Strategy_Dsp_Cdd()
-  '  Strategy_Dsp("Cdd", AddressOf Sélection_Pbl_Cell_Standard)
-  ' End Sub
-  'Private Sub Mnu04n_CdU_Click(sender As Object, e As EventArgs) Handles Btn_CdU.Click
-  ' Strategy_Dsp("CdU", AddressOf Sélection_Pbl_Cell_Standard)
-  'End Sub
-  'Private Sub Mnu04n_CdO_Click(sender As Object, e As EventArgs) Handles Btn_CdO.Click
-  '  Strategy_Dsp("CdO", AddressOf Sélection_Pbl_Cell_Standard)
-  'End Sub
   Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click,
                                         Btn_Unq.Click, Btn_Tpl.Click, Btn_Swf.Click,
                                         Btn_SKy.Click, Btn_Jly.Click, Btn_Cbl.Click,
@@ -2138,7 +2136,7 @@ Public NotInheritable Class Frm_SDK
     Strategy_Switch("   ")
     B_Info.Text = Procédure_Name_Get()
     Dsp_AideGraphique("Non")
-    U_Strg_Effacer()
+    'U_Strg_Effacer()
     Event_OnPaint = "Global"
     Invalidate()
     Dim U_temp(80, 3) As String
