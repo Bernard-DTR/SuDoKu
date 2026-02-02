@@ -168,59 +168,6 @@ Public Class Cellule_Cls
   ' Pzzl       désigne une grille correcte, c'est à dire un Puzzle SuDoKu
   '
 
-  'Public Sub G2_Cellule_Paint_Fond()
-  '  'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
-  '  'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
-  '  '                 0 est le "Fond Standard", ie une couleur et non une photo
-
-  '  Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
-  '        brsh As New SolidBrush(Color_Frm_BackColor)
-
-  '    If Plcy_Fond_Grille = 0 Then
-  '      ' Un fond standard est affiché
-  '      If Cellule_Arrondie Then
-  '        g.FillPath(brsh_0, Sqr_Pth(Numéro))
-  '      Else
-  '        g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
-  '      End If
-  '    Else
-  '      ' L'image de fond est affichée
-  '      If Cellule_Arrondie Then
-  '        g.ResetClip()
-  '        g.SetClip(Sqr_Pth(Numéro), CombineMode.Replace)
-  '        g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
-  '      Else
-  '        g.FillRectangle(brsh, Sqr_Cel(Numéro))
-  '        g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
-  '      End If
-  '    End If
-  '  End Using
-  '  g.Dispose()
-
-  '  ''Traite les Cas particuliers et la propriété Text_ToolTip
-  '  'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-  '  '  Select Case Typologie
-  '  '    Case "I"
-  '  '    Case "R"
-  '  '      ' 1 Indication d'une valeur non conforme à la solution (la solution existe et il y a une erreur)
-  '  '      If Plcy_Solution_Existante And U(Numéro, 2) <> U_Sol(Numéro) Then
-  '  '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Green))
-  '  '        Text_ToolTip = "Valeur non conforme à la solution."
-  '  '      End If
-  '  '    Case "V"
-  '  '      ' 2 Indication d'une cellule sans candidat
-  '  '      If Nombre_Candidats = -1 Then
-  '  '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(128, Color.Red))
-  '  '        Text_ToolTip = "La cellule n'a plus de candidat."
-  '  '      End If
-  '  '      ' 3 Mode Suggestion
-  '  '      If Swt_Mode_Suggestion = 1 And U_Suggest(Numéro) <> "0" Then
-  '  '        G0_Cell_Figure(Numéro, "Disque", Color.FromArgb(64, Color.Yellow))
-  '  '        Text_ToolTip = "... Cellule à jouer."
-  '  '      End If
-  '  '  End Select
-  '  'End If
-  'End Sub
   ' TODO il reste à regarder si la solution est différente
   ' TODO il reste à regarder si la cellule n'a plus de candidats
 

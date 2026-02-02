@@ -166,21 +166,35 @@ Public Class ColorCombobox
       End If
     Next i
   End Sub
-  Private Sub Cbb_Color_Item(ItemGraphics As Graphics, ItemRectangle As Rectangle, ItemIndex As Integer)
-    ' draw the color entries
-    Dim ItemText As String = ""
-    Dim Brush_Text As New SolidBrush(Color.FromKnownColor(System.Drawing.KnownColor.MenuText))
-    ItemText = Cbb_Color.Items.Item(ItemIndex).ToString()
-    Dim BrushSld_Color As New SolidBrush(Color.FromName(ItemText))
-    Dim Pen As New Pen(Color.Black, 1)
-    With ItemGraphics
-      .FillRectangle(BrushSld_Color, ItemRectangle.Left + 2, ItemRectangle.Top + 2, 20, ItemRectangle.Height - 4)
-      .DrawRectangle(Pen, New Rectangle(ItemRectangle.Left + 1, ItemRectangle.Top + 1, 21, ItemRectangle.Height - 3))
-      .DrawString(Cbb_Color_Name_fr(ItemText), Cbb_Color.Font, BrushSld_Color, ItemRectangle.Left + 28, ItemRectangle.Top + ((ItemRectangle.Height - Cbb_Color.Font.GetHeight()) / 2))
-    End With
-    Brush_Text.Dispose()
-    BrushSld_Color.Dispose()
-    Pen.Dispose()
+  Private Sub Cbb_Color_Item(g As Graphics, ItemRectangle As Rectangle, ItemIndex As Integer)
+
+    Dim itemText As String = Cbb_Color.Items.Item(ItemIndex).ToString()
+    Dim colorName As String = Cbb_Color_Name_fr(itemText)
+
+    Using brushText As New SolidBrush(Color.FromKnownColor(KnownColor.MenuText)),
+          brushColor As New SolidBrush(Color.FromName(itemText)),
+          penBorder As New Pen(Color.Black, 1)
+
+      g.FillRectangle(brushColor,
+                    ItemRectangle.Left + 2,
+                    ItemRectangle.Top + 2,
+                    20,
+                    ItemRectangle.Height - 4)
+
+      g.DrawRectangle(penBorder,
+                           New Rectangle(ItemRectangle.Left + 1,
+                                         ItemRectangle.Top + 1,
+                                         21,
+                                         ItemRectangle.Height - 3))
+
+        g.DrawString(colorName,
+                        Cbb_Color.Font,
+                        brushText,
+                        ItemRectangle.Left + 28,
+                        ItemRectangle.Top + ((ItemRectangle.Height - Cbb_Color.Font.GetHeight()) / 2))
+
+    End Using
+
   End Sub
   Public Function Cbb_Color_Name_fr(Clr_Name_en As String) As String
     'Retourne le nom fr de la couleur en

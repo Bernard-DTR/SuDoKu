@@ -631,19 +631,16 @@ Friend Module A02_Occasionally
 
     ' Construction des 10 images correspondantes aux polices substituées
     ' Ils sont calculés quelque soit Plcy_Fantasy et indépendamment de WH
-    For i As Integer = 0 To 9
-      Dim Bm_MnuBO As New Bitmap(22, 22)
-      Using g As Graphics = Graphics.FromImage(image:=Bm_MnuBO)
-        'La couleur Color.Black pour les menus contextuels et les filtres de la BO
-        g.DrawString(Subst_Police(CStr(i)),
-                     New Font(Font_Name_ValCdd, 12),
-                     New SolidBrush(Color.Black),
-                     10, 10, Format_Center)
-        Sqr_Fantasy(i) = Bm_MnuBO
-        g.Dispose()
-      End Using
-    Next i
-
+    Using font As New Font(Font_Name_ValCdd, 12),
+          brsh As New SolidBrush(Color.Black)          'La couleur Color.Black pour les menus contextuels et les filtres de la BO
+      For i As Integer = 0 To 9
+        Dim Bm_MnuBO As New Bitmap(22, 22)
+        Using g As Graphics = Graphics.FromImage(image:=bm_MnuBO)
+          g.DrawString(Subst_Police(CStr(i)), font, brsh, 10, 10, Format_Center)
+          Sqr_Fantasy(i) = Bm_MnuBO
+        End Using
+      Next i
+    End Using
     Obj_Colors_Load()
   End Sub
   Public Sub OC_U_Pt20_Init()
@@ -748,8 +745,8 @@ Friend Module A02_Occasionally
     Dim size As Single
     Using g As Graphics = Graphics.FromHwnd(IntPtr.Zero)
       For p As Integer = 5 To 100
-        Using temp_font As New Font(fontName, p, fontStyle, GraphicsUnit.Pixel)
-          If g.MeasureString(text, temp_font).Height < maxHeight Then
+        Using font As New Font(fontName, p, fontStyle, GraphicsUnit.Pixel)
+          If g.MeasureString(text, font).Height < maxHeight Then
             size = CSng(p / 2)
           Else
             Exit For
@@ -759,62 +756,146 @@ Friend Module A02_Occasionally
     End Using
     Return size
   End Function
+
   Public Sub OC_Grid_Cutting_Image()
-    'Découpage de l'image en 81 morceaux 
-    If Plcy_Fond_Grille = 0 Then Exit Sub 'Il n'y a pas d'affichage de fond
+    If Plcy_Fond_Grille = 0 Then Exit Sub
 
-    'Traitement dupliqué dans Frm/Préférences/Préférences_Load
-    Dim Répertoire As String = Path_SDK & "S10_Icônes\Fonds\"
-    Dim Fond_Files As IEnumerable(Of String) = From File In IO.Directory.GetFiles(Répertoire)
-                                               Where File.Contains("JPG") Or File.Contains("jpg")
-                                               Order By File Descending
+    Dim répertoire As String = Path_SDK & "S10_Icônes\Fonds\"
+    Dim fond_Files As IEnumerable(Of String) =
+        From file In IO.Directory.GetFiles(répertoire)
+        Where file.EndsWith("jpg", StringComparison.OrdinalIgnoreCase)
+        Order By file Descending
 
-    'Fond_BM est rectangulaire (Portrait ou paysage) ou carrée
-    Dim Fond_BM As New Bitmap(filename:=Fond_Files(Plcy_Fond_Grille - 1))
-    'ou         As Image = Image.FromFile(filename:=Fond_Files(Plcy_Fond_Grille - 1))
+    ' --- 1) Charger l'image source ---
+    Using fond_BM As New Bitmap(fond_Files(Plcy_Fond_Grille - 1))
 
-    'La photo est mise au format carré, à/p du Top-Left. Elle peut donc être mal cadrée.
-    'Il n'est pas tenu compte du format paysage/portrait. Toujours en paysage
-    Dim Côté As Integer = Math.Min(Fond_BM.Height, Fond_BM.Width)
-    Dim Fond_BM_Carré As New Bitmap(Côté, Côté)
-    Using g_Carré As Graphics = Graphics.FromImage(image:=Fond_BM_Carré)
-      Dim Rct_Carré As New Rectangle(0, 0, Côté, Côté)
-      g_Carré.DrawImage(image:=Fond_BM,
-                        destRect:=Rct_Carré,
-                        srcX:=0, srcY:=0, srcWidth:=Côté, srcHeight:=Côté, srcUnit:=GraphicsUnit.Pixel)
-    End Using
-    'Création d'une image dimensionnée à la grille
-    Dim Fond_BM_WH_Grid As New Bitmap(Bld_WH_Grid, Bld_WH_Grid)
-    Using gI As Graphics = Graphics.FromImage(image:=Fond_BM_WH_Grid)
-      gI.DrawImage(image:=Fond_BM_Carré,
-                   x:=0, y:=0, width:=Bld_WH_Grid, height:=Bld_WH_Grid)
-    End Using
+      ' --- 2) Créer une version carrée ---
+      Dim côté As Integer = Math.Min(fond_BM.Height, fond_BM.Width)
+      Using fond_BM_Carré As New Bitmap(côté, côté)
+        Using g_Carré As Graphics = Graphics.FromImage(fond_BM_Carré)
+          Dim rct_Carré As New Rectangle(0, 0, côté, côté)
+          g_Carré.DrawImage(fond_BM, rct_Carré, 0, 0, côté, côté, GraphicsUnit.Pixel)
+        End Using
 
-    ' Boucle de transparence sur le pixel A
-    ' Comme la photo est transparente, il est plus facile de voir les chiffres et les stratégies
-    '                                  AVANT le paint, le fond d'effacement est paint
-    Dim Pxl_before, Pxl_after As Color
-    For x As Integer = 0 To Fond_BM_WH_Grid.Width - 1
-      For y As Integer = 0 To Fond_BM_WH_Grid.Height - 1
-        Pxl_before = Fond_BM_WH_Grid.GetPixel(x, y)
-        Pxl_after = Color.FromArgb(128, Pxl_before.R, Pxl_before.G, Pxl_before.B)
-        Fond_BM_WH_Grid.SetPixel(x, y, Pxl_after)
-      Next y
-    Next x
+        ' --- 3) Redimensionner à la taille de la grille ---
+        Using fond_BM_WH_Grid As New Bitmap(Bld_WH_Grid, Bld_WH_Grid)
+          Using gI As Graphics = Graphics.FromImage(fond_BM_WH_Grid)
+            gI.DrawImage(fond_BM_Carré, 0, 0, Bld_WH_Grid, Bld_WH_Grid)
+          End Using
 
-    For i As Integer = 0 To 80
-      'Découpage de l'image dimensionnée en 81 images BM_wh
-      Dim BM_wh As New Bitmap(WH, WH)
-      Using gI_wh As Graphics = Graphics.FromImage(image:=BM_wh)
-        Dim Rct_81 As New Rectangle(0, 0, WH, WH)
-        gI_wh.DrawImage(image:=Fond_BM_WH_Grid,
-                        destRect:=Rct_81,
-                        srcX:=Sqr_Cel(i).X - Sqr_Cel(0).X, srcY:=Sqr_Cel(i).Y - Sqr_Cel(0).Y,
-                        srcWidth:=WH, srcHeight:=WH,
-                        srcUnit:=GraphicsUnit.Pixel)
-        Sqr_Img(i) = BM_wh
-      End Using
-    Next i
+          ' --- 4) Appliquer la transparence pixel par pixel ---
+          'For x As Integer = 0 To fond_BM_WH_Grid.Width - 1
+          '  For y As Integer = 0 To fond_BM_WH_Grid.Height - 1
+          '    Dim px As Color = fond_BM_WH_Grid.GetPixel(x, y)
+          '    Dim pxA As Color = Color.FromArgb(128, px.R, px.G, px.B)
+          '    fond_BM_WH_Grid.SetPixel(x, y, pxA)
+          '  Next
+          'Next
+          ApplyTransparencyFast(fond_BM_WH_Grid, 128)
+
+          ' --- 5) Découper en 81 morceaux ---
+          For i As Integer = 0 To 80
+            Dim bm_wh As New Bitmap(WH, WH) ' NE PAS mettre dans un Using
+            Using gI_wh As Graphics = Graphics.FromImage(bm_wh)
+              Dim rct_81 As New Rectangle(0, 0, WH, WH)
+              gI_wh.DrawImage(fond_BM_WH_Grid,
+                              rct_81,
+                              Sqr_Cel(i).X - Sqr_Cel(0).X,
+                              Sqr_Cel(i).Y - Sqr_Cel(0).Y,
+                              WH, WH,
+                              GraphicsUnit.Pixel)
+            End Using
+
+            ' On stocke l'image → elle sera disposée plus tard
+            Sqr_Img(i) = bm_wh
+          Next
+
+        End Using ' fond_BM_WH_Grid
+      End Using ' fond_BM_Carré
+    End Using ' fond_BM
   End Sub
+
+  Private Sub ApplyTransparencyFast(bmp As Bitmap, alpha As Byte)
+
+    Dim rect As New Rectangle(0, 0, bmp.Width, bmp.Height)
+    Dim data As Imaging.BitmapData =
+        bmp.LockBits(rect, Imaging.ImageLockMode.ReadWrite, Imaging.PixelFormat.Format32bppArgb)
+
+    Dim ptr As IntPtr = data.Scan0
+    Dim bytes As Integer = Math.Abs(data.Stride) * bmp.Height
+    Dim rgbValues(bytes - 1) As Byte
+
+    ' Copier la mémoire dans le tableau
+    Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes)
+
+    ' Boucle rapide : 4 octets par pixel (B, G, R, A)
+    For i As Integer = 0 To rgbValues.Length - 1 Step 4
+      rgbValues(i + 3) = alpha   ' canal A
+    Next
+
+    ' Recopier dans le bitmap
+    Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes)
+
+    bmp.UnlockBits(data)
+
+  End Sub
+
+  'Public Sub OC_Grid_Cutting_Image()
+  '  'Découpage de l'image en 81 morceaux 
+  '  If Plcy_Fond_Grille = 0 Then Exit Sub 'Il n'y a pas d'affichage de fond
+
+  '  'Traitement dupliqué dans Frm/Préférences/Préférences_Load
+  '  Dim Répertoire As String = Path_SDK & "S10_Icônes\Fonds\"
+  '  Dim Fond_Files As IEnumerable(Of String) = From File In IO.Directory.GetFiles(Répertoire)
+  '                                             Where File.Contains("JPG") Or File.Contains("jpg")
+  '                                             Order By File Descending
+
+  '  'Fond_BM est rectangulaire (Portrait ou paysage) ou carrée
+  '  Dim Fond_BM As New Bitmap(filename:=Fond_Files(Plcy_Fond_Grille - 1))
+  '  'ou         As Image = Image.FromFile(filename:=Fond_Files(Plcy_Fond_Grille - 1))
+
+  '  'La photo est mise au format carré, à/p du Top-Left. Elle peut donc être mal cadrée.
+  '  'Il n'est pas tenu compte du format paysage/portrait. Toujours en paysage
+  '  Dim Côté As Integer = Math.Min(Fond_BM.Height, Fond_BM.Width)
+  '  Dim Fond_BM_Carré As New Bitmap(Côté, Côté)
+  '  Using g_Carré As Graphics = Graphics.FromImage(image:=Fond_BM_Carré)
+  '    Dim Rct_Carré As New Rectangle(0, 0, Côté, Côté)
+  '    g_Carré.DrawImage(image:=Fond_BM,
+  '                      destRect:=Rct_Carré,
+  '                      srcX:=0, srcY:=0, srcWidth:=Côté, srcHeight:=Côté, srcUnit:=GraphicsUnit.Pixel)
+  '  End Using
+  '  'Création d'une image dimensionnée à la grille
+  '  Dim Fond_BM_WH_Grid As New Bitmap(Bld_WH_Grid, Bld_WH_Grid)
+  '  Using gI As Graphics = Graphics.FromImage(image:=Fond_BM_WH_Grid)
+  '    gI.DrawImage(image:=Fond_BM_Carré,
+  '                 x:=0, y:=0, width:=Bld_WH_Grid, height:=Bld_WH_Grid)
+  '  End Using
+
+  '  ' Boucle de transparence sur le pixel A
+  '  ' Comme la photo est transparente, il est plus facile de voir les chiffres et les stratégies
+  '  '                                  AVANT le paint, le fond d'effacement est paint
+  '  Dim Pxl_before, Pxl_after As Color
+  '  For x As Integer = 0 To Fond_BM_WH_Grid.Width - 1
+  '    For y As Integer = 0 To Fond_BM_WH_Grid.Height - 1
+  '      Pxl_before = Fond_BM_WH_Grid.GetPixel(x, y)
+  '      Pxl_after = Color.FromArgb(128, Pxl_before.R, Pxl_before.G, Pxl_before.B)
+  '      Fond_BM_WH_Grid.SetPixel(x, y, Pxl_after)
+  '    Next y
+  '  Next x
+
+  '  For i As Integer = 0 To 80
+  '    'Découpage de l'image dimensionnée en 81 images BM_wh
+  '    Dim BM_wh As New Bitmap(WH, WH)
+  '    Using gI_wh As Graphics = Graphics.FromImage(image:=BM_wh)
+  '      Dim Rct_81 As New Rectangle(0, 0, WH, WH)
+  '      gI_wh.DrawImage(image:=Fond_BM_WH_Grid,
+  '                      destRect:=Rct_81,
+  '                      srcX:=Sqr_Cel(i).X - Sqr_Cel(0).X, srcY:=Sqr_Cel(i).Y - Sqr_Cel(0).Y,
+  '                      srcWidth:=WH, srcHeight:=WH,
+  '                      srcUnit:=GraphicsUnit.Pixel)
+  '      Sqr_Img(i) = BM_wh
+  '    End Using
+  '  Next i
+  'End Sub
 #End Region
 End Module

@@ -1659,16 +1659,6 @@ Friend Module M03_Paint
       Case "Gbl" ' Exécuter dans G4_Grid_Stratégie_Gbl
       Case "Gbv" ' Exécuter dans G4_Grid_Stratégie_Gbl
       Case "GCs" ' Exécuter dans G4_Grid_Stratégie_Gbl
-      'Case "XCs"
-      '  ' Ce sont des liens forts avec alternance de couleur des extrémités
-      '  Select Case Link_Numéro Mod 2
-      '    Case 0
-      '      Dim sc As New Cellule_Cls With {.Numéro = To_Cellule}
-      '      sc.G6_Cellule_Paint_Candidat(CStr(To_Candidat), Color.Green)
-      '    Case Else
-      '      Dim sc As New Cellule_Cls With {.Numéro = To_Cellule}
-      '      sc.G6_Cellule_Paint_Candidat(CStr(To_Candidat), Color.Blue)
-      '  End Select
       Case "XNl"
         ' C'est une alternance lien-fort lien-faible 
         Select Case Link_Numéro Mod 2
@@ -1679,17 +1669,6 @@ Friend Module M03_Paint
             Dim sc As New Cellule_Cls With {.Numéro = To_Cellule}
             sc.G6_Cellule_Paint_Candidat_g(g, CStr(To_Candidat), Color.Blue)
         End Select
-        'Case "X b l"
-        '  'Les candidats sont dessinés s'ils existent
-        '  'Pour pouvoir les supprimer
-        '  Dim sc As New Cellule_Cls With {.Numéro = From_Cellule}
-        '  If U(From_Cellule, 3).Contains(CStr(From_Candidat)) Then
-        '    sc.G6_Cellule_Paint_Candidat(CStr(From_Candidat), Color_Link_W)
-        '  End If
-        '  sc.Numéro = To_Cellule
-        '  If U(To_Cellule, 3).Contains(CStr(To_Candidat)) Then
-        '    sc.G6_Cellule_Paint_Candidat(CStr(To_Candidat), Color_Link_W)
-        '  End If
       Case Else
         Dim sc As New Cellule_Cls With {.Numéro = From_Cellule}
         'Les candidats sont dessinés s'ils existent
@@ -2114,20 +2093,22 @@ Friend Module M03_Paint
     ' Ces modèles sont construits à/p des Modèles Primaires à une lettre avec RotateAt
     ' Les modèles Elémentaires ont 2 ou 3 lettres.
     Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-    Dim Pth_Modèle As New GraphicsPath
-    Dim Pth_Modèle1 As New GraphicsPath
-    Dim Pth_Modèle2 As New GraphicsPath
+    Dim Pth_Modèle As GraphicsPath = Nothing
 
     Select Case Modèle
       Case "RV" 'Rectangle Vertical
         Pth_Modèle = G0_MdP_Build(Cellule, "R")
+
       Case "RH" 'Rectangle Horizontal
         Pth_Modèle = G0_MdP_Build(Cellule, "R")
-        Dim MatrixRotateAt As New Matrix
-        MatrixRotateAt.RotateAt(90, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
-        Pth_Modèle.Transform(MatrixRotateAt)
+        Using mat As New Matrix
+          mat.RotateAt(90, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
+          Pth_Modèle.Transform(mat)
+        End Using
+
       Case "SQ" 'Carré central
         Pth_Modèle = G0_MdP_Build(Cellule, "S")
+
       Case "CHG", "CHD", "CBD", "CBG" 'Coin Haut/Bas Gauche/Droit
         Dim Angle As Integer = 0
         If Modèle = "CHG" Then Angle = 0
@@ -2135,9 +2116,11 @@ Friend Module M03_Paint
         If Modèle = "CBD" Then Angle = 180
         If Modèle = "CBG" Then Angle = 270
         Pth_Modèle = G0_MdP_Build(Cellule, "C")
-        Dim MatrixRotateAt As New Matrix
-        MatrixRotateAt.RotateAt(Angle, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
-        Pth_Modèle.Transform(MatrixRotateAt)
+        Using mat As New Matrix
+          mat.RotateAt(Angle, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
+          Pth_Modèle.Transform(mat)
+        End Using
+
       Case "PB", "PG", "PH", "PD" 'Pouce Haut/Bas Gauche/Droit
         Dim Angle As Integer = 0
         If Modèle = "PB" Then Angle = 0
@@ -2145,9 +2128,10 @@ Friend Module M03_Paint
         If Modèle = "PH" Then Angle = 180
         If Modèle = "PD" Then Angle = 270
         Pth_Modèle = G0_MdP_Build(Cellule, "P")
-        Dim MatrixRotateAt As New Matrix
-        MatrixRotateAt.RotateAt(Angle, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
-        Pth_Modèle.Transform(MatrixRotateAt)
+        Using mat As New Matrix
+          mat.RotateAt(Angle, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
+          Pth_Modèle.Transform(mat)
+        End Using
       Case Else
     End Select
     Return Pth_Modèle

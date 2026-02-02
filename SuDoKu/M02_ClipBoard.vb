@@ -75,19 +75,19 @@ Friend Module M02_ClipBoard
       H_Grid = CInt(Bld_WH_Grid * Get_Scale_IA(Device_Number).Y)
       ' Le format est de 32 bits par pixel. Les composants ARGB ont 8 bits chacun
       Try
-        Dim Bmp As New Bitmap(W_Grid, H_Grid, PixelFormat.Format32bppArgb)
-        ' Utilisez Graphics pour effectuer la capture d'écran
-        Using g As Graphics = Graphics.FromImage(Bmp)
-          ' The source area is copied directly to the destination area.
-          g.CopyFromScreen(Screen_TopLeft.X, Screen_TopLeft.Y, 0, 0, New Size(W_Grid, H_Grid), CopyPixelOperation.SourceCopy)
+        Using bmp As New Bitmap(W_Grid, H_Grid, PixelFormat.Format32bppArgb)
+          ' Utilisez Graphics pour effectuer la capture d'écran
+          Using g As Graphics = Graphics.FromImage(bmp)
+            ' The source area is copied directly to the destination area.
+            g.CopyFromScreen(Screen_TopLeft.X, Screen_TopLeft.Y, 0, 0, New Size(W_Grid, H_Grid), CopyPixelOperation.SourceCopy)
+          End Using
+          Clipboard.SetImage(bmp) ' Copiez le Bitmap dans le presse-papier
+          'Remplace la sélection active de la zone de texte par le contenu du Presse-papiers.
+          Frm_SDK.Journal.SelectionStart = Frm_SDK.Journal.Text.Length
+          Frm_SDK.Journal.ReadOnly = False
+          Frm_SDK.Journal.Paste()
+          Frm_SDK.Journal.ReadOnly = True
         End Using
-        ' Copiez le Bitmap dans le presse-papier
-        Clipboard.SetImage(Bmp)
-        'Remplace la sélection active de la zone de texte par le contenu du Presse-papiers.
-        Frm_SDK.Journal.SelectionStart = Frm_SDK.Journal.Text.Length
-        Frm_SDK.Journal.ReadOnly = False
-        Frm_SDK.Journal.Paste()
-        Frm_SDK.Journal.ReadOnly = True
       Catch ex As Exception
         Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       End Try
@@ -97,8 +97,6 @@ Friend Module M02_ClipBoard
       Nsd_i = MsgBox("Presse-Papier inaccessible. Please try again.",, MsgTit)
     End Try
   End Sub
-
-
   Public Function ClipBoard_Copier_New(Cel_Type As String) As String
     '-----------------------------------------------------------------------
     ' OK    Coller dans Angus Johnson 

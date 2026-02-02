@@ -232,6 +232,14 @@
 #578 D  01/02/2026 G6_Cellule_Paint_Candidats 17 utilisations
 #579 D  01/02/2026 G7_Cellule_Paint_Select     2 utilisations
 #580 D  01/02/2026 Frm_SDK.CreateGraphics n'est plus utilisé, OnPaint n'est pas surchargé !
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+                   Version 2026_O2 #600
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+                   30195 Lignes de code pour 87 fichiers. dont 5225 Lignes de commentaires (soit):  17%
+                   29087 Lignes de code pour 84 fichiers. dont 5121 Lignes de commentaires (soit):  18%
+                       7 cahiers de 192 pages de 22 lignes.
+#600 L  02/02/2026 Dispose de Pen, Brush et dérivés, Font, Bitmap / Image, GraphicsPath, Region,Matrix, StringFormat,
+                   ImageAttributes, Graphics créé manuellement (CreateGraphics, FromImage, FromHwnd)
                     
 
 
@@ -241,8 +249,7 @@
 	               Lors de la saisie, est-ce que DL est calculé
 	               Comment traiter les écarts entre ma solution et celle de DL ?
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
-	               Ajouter un rafraîchissement de la grille à chaque évènement de Frm_SDK
-                       Revoir le traitement en arrière-plan si on est en mode de maintenance
+                   Revoir le traitement en arrière-plan si on est en mode de maintenance
                    Je ne peux plus ajouter un candidat après l'avoir supprimé
 
 ##############################################################################################################################
