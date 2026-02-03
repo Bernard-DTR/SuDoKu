@@ -4,11 +4,11 @@ Option Explicit On
 Friend Module En_Cours
 #Region "Menus Test A à J"
   Public Sub TestA()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Pzzl_Crt_Interactif_81("P")
   End Sub
   Public Sub TestB()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     If Batch_en_Cours Then Exit Sub
     If Plcy_Generate_Batch Then
       Jrn_Add(, {"Lancement du traitement de création de grille en arrière-plan"})
@@ -23,28 +23,28 @@ Friend Module En_Cours
     End If
   End Sub
   Public Sub TestC()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
   End Sub
   Public Sub TestD()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
   End Sub
   Public Sub TestE()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
   End Sub
   Public Sub TestF()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
   End Sub
   Public Sub TestG()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
   End Sub
   Public Sub TestH()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
   End Sub
   Public Sub TestI()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
   End Sub
   Public Sub TestJ()
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
   End Sub
 #End Region
 End Module

@@ -102,7 +102,7 @@ Public Class Frm_Police
 
   Private Sub Police_Display()
     DGV.Font = Police_Font
-    Jrn_Add(, {Procédure_Name_Get() & " " & DGV.Font.ToString()})
+    Jrn_Add(, {Proc_Name_Get() & " " & DGV.Font.ToString()})
     Jrn_Add(, {"Index  : " & " " & Police_Index})
     Jrn_Add(, {"Nom    : " & " " & Police_Name})
     Jrn_Add(, {"Size   : " & " " & Police_Size})

@@ -13,8 +13,6 @@ Friend Module P10_Strategy_CdU
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Function Strategy_CdU(U_temp(,) As String) As String(,)
-    'Jrn_Add_Yellow(Procédure_Name_Get() & " " & Origine)
-
     Dim Stratégie As String = "CdU"
     Dim Sous_Stratégie As String = "CdU"
 
@@ -34,7 +32,7 @@ Friend Module P10_Strategy_CdU
         Strategy_Rslt_Add(Strategy_Rslt, Stratégie, Sous_Stratégie, Code_LCR, "0", Candidat, Cel45, Exc45)
       End If
     Next Cellule
-    'Jrn_Add_Yellow("/" & Procédure_Name_Get() & " " & Origine & " " & Strategy_Rslt.GetLength(1))
+    'Jrn_Add_Yellow("/" & Proc_Name_Get() & " " & Origine & " " & Strategy_Rslt.GetLength(1))
     Return Strategy_Rslt
   End Function
 

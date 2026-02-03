@@ -140,7 +140,7 @@ Namespace DancingLink
         End Select
       Catch ex As Exception
         '28/05/2024 le message permet de comprendre l'arrêt anormal du traitement
-        Dim MsgTit As String = $"{Procédure_Name_Get()} {Application.ProductName} {SDK_Version}"
+        Dim MsgTit As String = $"{Proc_Name_Get()} {Application.ProductName} {SDK_Version}"
         MsgBox(ex.ToString(),, MsgTit)
       End Try
 

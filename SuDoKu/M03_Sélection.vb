@@ -148,7 +148,7 @@ Friend Module M03_Sélection
       U(Cellule, 3) = Candidats
       U_CddExc(Cellule) = Candidats_Exclus
       ' Evite le message pour les cellules déjà remplies
-      If U(Cellule, 1) <> " " Then Act_Add(Cellule, "Replacer" & Origine, V, Candidats_Exclus, Procédure_Name_Get(), Av_Jeu, Av_AllCdd)
+      If U(Cellule, 1) <> " " Then Act_Add(Cellule, "Replacer" & Origine, V, Candidats_Exclus, Proc_Name_Get(), Av_Jeu, Av_AllCdd)
       Pbl_Cell_Select = Cellule
       Dim sc As New Cellule_Cls With {.Numéro = Cellule}
       Dim Gril As New Grille_Cls

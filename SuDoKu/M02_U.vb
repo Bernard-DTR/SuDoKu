@@ -67,7 +67,7 @@ Module M02_U
 
   Public Sub U_Display2()
     ' à utiliser pour transmettre le jeu à une IA
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Jrn_Add(, {"Liste des Valeurs et des Candidats"})
     Dim Val As String = ""
     Dim Cdd As String = ""

@@ -222,7 +222,7 @@ Friend Module G000_Base
     GLinks = New List(Of GLink_Cls)(GLinks_ToKeep)
   End Sub
   Public Sub GLinks_Exclude_Doubles()
-    Jrn_Add(, {Procédure_Name_Get() & " Affichage de GLinks : " & GLinks.Count & " Lignes."})
+    Jrn_Add(, {Proc_Name_Get() & " Affichage de GLinks : " & GLinks.Count & " Lignes."})
     'la procédure élimine les liens en double
     GLinks = GLinks.GroupBy(Function(gl) (gl.Cel(0), gl.Cel(1))) _
                    .Select(Function(g) g.First()) _
@@ -240,7 +240,7 @@ Friend Module G000_Base
   Public Sub GLinks_Display()
     ' Affichage de La liste GLinks 
     If GLinks.Count <> 0 Then
-      Jrn_Add(, {Procédure_Name_Get() & " Affichage de GLinks : " & GLinks.Count & " Lignes."})
+      Jrn_Add(, {Proc_Name_Get() & " Affichage de GLinks : " & GLinks.Count & " Lignes."})
       Dim Nb As Integer = 0
       For Each gLink As GLink_Cls In GLinks
         With gLink
@@ -400,7 +400,7 @@ Friend Module G000_Base
     End While
 
     'Dim Sb As String = String.Join("", Enumerable.Range(0, 81).Select(Function(i) If(U_temp(i, 2) = " ", ".", U_temp(i, 2))))
-    'Jrn_Add(, {"/" & Procédure_Name_Get() & " " & CStr(slv_U) & "-" & CStr(slv_O) & " passage(s)."})
+    'Jrn_Add(, {"/" & Proc_Name_Get() & " " & CStr(slv_U) & "-" & CStr(slv_O) & " passage(s)."})
     'Jrn_Add(, {"Av: " & Sa})
     'Jrn_Add(, {"Ap: " & Sb})
     If Wh_Grid_Nb_Cellules_Remplies(U_temp) = 81 Then Return True Else Return False

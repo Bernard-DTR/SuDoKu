@@ -141,7 +141,7 @@ Module M01_Enregistrement_Partie
     Catch ex As Exception
       ' Une erreur se produit lors de la création du fichier
       '28/05/2024 le message permet de comprendre l'arrêt anormal du traitement
-      Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+      Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       MsgBox(ex.ToString(),, MsgTit)
     End Try
     Return File_Save_Name
@@ -167,7 +167,7 @@ Module M01_Enregistrement_Partie
     Dim Stg As String = ""
     Dim Cdd As String = ""
 
-    Jrn_Add(, {Procédure_Name_Get() & " Modfification de PR_Stg"})
+    Jrn_Add(, {Proc_Name_Get() & " Modfification de PR_Stg"})
     Jrn_Add("SDK_00130", {File_Name})
 
     'Chargement de la partie dans U(i,123)
@@ -195,7 +195,7 @@ Module M01_Enregistrement_Partie
           'Le tableau LL est affiché, chaque partie réunie par le delimiter =
           Jrn_Add(, {Join(LL, "=")})
         Catch ex As Microsoft.VisualBasic.FileIO.MalformedLineException
-          Jrn_Add("ERR_00000", {Procédure_Name_Get()}, "Erreur")
+          Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
           Jrn_Add("ERR_00000", {ex.Message})
           Jrn_Add("ERR_00000", {ex.ToString()})
         End Try
@@ -269,7 +269,7 @@ Module M01_Enregistrement_Partie
   Sub Pzzl_Load_Partie_Test()
     Dim s, l As Integer
     Dim File_Name As String = ""
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
 
     Dim Last_Paramètre As String = My.Settings.SDK_Partie_Test
     s = InStrRev(Last_Paramètre, "\")
@@ -324,7 +324,7 @@ Module M01_Enregistrement_Partie
 
     ' Delete the file if it exists. 
     If IO.File.Exists(File_Save_Name) Then
-      Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+      Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
 
       If MsgBox("Il existe déjà un fichier " & File_Save_Name & vbCrLf &
                 "Voulez-vous le remplacer ? " & vbCrLf & "(Les anciens commentaires seront effacés.)",

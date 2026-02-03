@@ -23,19 +23,9 @@ Public NotInheritable Class Frm_SDK
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
 
-  Dim Key_Numlock As Boolean = False
-  Dim Prv_Key_Numlock As Boolean = False
-  Dim Key_CapsLock As Boolean = False
-  Dim Prv_Key_CapsLock As Boolean = False
-
-  Dim Key_CtrlDown As Boolean = False
-  Dim Prv_Key_CtrlDown As Boolean = False
-  Private ReadOnly PBG_Prc As Integer
-
   Public Sub New()
     ' Cet appel est requis par le concepteur.
     InitializeComponent()
-    'Me.DoubleBuffered = True
   End Sub
 
   Private Sub Frm_SDK_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -344,7 +334,7 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add(, {"          Moyennes                       M : " & CStr(File_Nb_IA("SDK_M"))})
     Jrn_Add(, {"          Difficiles                     D : " & CStr(File_Nb_IA("SDK_D"))})
     Jrn_Add(, {"          Expertes                       E : " & CStr(File_Nb_IA("SDK_E"))})
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Jrn_Add("SDK_00010", JourDateHeure())
     Jrn_Add("SDK_00101")
     Plcy_Gnrl = My.Settings.LP_Plcy_Gnrl
@@ -362,7 +352,7 @@ Public NotInheritable Class Frm_SDK
         LP_CddExc = My.Settings.LP_CddExc.Replace("0", " ")
     End Select
     Jrn_Add("SDK_00100", {LP_Nom})
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc)
 #End Region
 
@@ -404,11 +394,25 @@ Public NotInheritable Class Frm_SDK
     e.Graphics.PixelOffsetMode = Drawing2D.PixelOffsetMode.HighQuality
     e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
     e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
-    'Jrn_Add_Yellow(Procédure_Name_Get() & " " & Event_OnPaint)
+    'Jrn_Add_Yellow(Proc_Name_Get() & " " & Event_OnPaint)
     Select Case Event_OnPaint
       Case "Global"
         Dim Gril As New Grille_Cls
-        Gril.Grille_Refresh_g(e.Graphics)
+        'Gril.Grille_Refresh_g(e.Graphics)
+        G1_Grid_Paint_g(e.Graphics)
+        Gril.G2_Grille_Paint_Fond_g(e.Graphics)
+        G4_Grid_Stratégie_All_g(e.Graphics)
+        Dim sc As New Cellule_Cls
+        For i As Integer = 0 To 80
+          sc.Numéro = i
+          sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
+          Or (Plcy_Gnrl = "Edi") _
+          Or (Plcy_Gnrl = "Sas") Then
+            sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
+          End If
+          'sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(e.Graphics)
+        Next i
 
       Case "Cell_Val_Insert"
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
@@ -530,34 +534,6 @@ Public NotInheritable Class Frm_SDK
     ' Le contrôle a le focus
     ' La touche est enfoncée pour la première fois
     ' Il faut que la cellule précisée par la souris soit correcte
-    Dim ToolTipText As String = Nothing
-    'Test du Clavier Numérique
-    'Le clavier numérique permet soit de saisir des valeurs, soit de se positionner sur une cellule et de se déplacer
-    If My.Computer.Keyboard.NumLock Then
-      Key_Numlock = True
-    Else
-      Key_Numlock = False
-    End If
-    Prv_Key_Numlock = Key_Numlock
-
-    'Test du Clavier Majuscule
-    'Bien que le mode Clavier Majuscule ne serve à rien, je le conserve
-    'Sur le Clavier (Ligne 2) la séquence Maj+9 donne 9, la touche "ç" donne 9
-    If My.Computer.Keyboard.CapsLock Then
-      Key_CapsLock = True
-    Else
-      Key_CapsLock = False
-    End If
-    If Key_CapsLock <> Prv_Key_CapsLock Then    'Le message n'est donné qu'en cas de changement
-      If My.Computer.Keyboard.CapsLock Then
-        Jrn_Add("SDK_00170")        'SDK_00170 = Le clavier est en Mode Majuscule
-      Else
-        Jrn_Add("SDK_00171")        'SDK_00171 = Le clavier est en Mode Minuscule
-      End If
-    End If
-    Prv_Key_CapsLock = Key_CapsLock
-
-    'La sélection multiple est faite indifféremment avec Shift ou Ctrl .
     Dim Cellule_KD As Integer = Pbl_Cell_Select
     Try
       Select Case e.KeyCode.ToString()
@@ -639,19 +615,11 @@ Public NotInheritable Class Frm_SDK
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {"Cellule_KD :  " & CStr(Cellule_KD)})
-      Jrn_Add("ERR_00000", {Procédure_Name_Get() & " hors square "})
+      Jrn_Add("ERR_00000", {Proc_Name_Get() & " hors square "})
     End Try
 
   End Sub
   Private Sub Frm_SDK_KeyDown_Selected(Cellule_KDS As Integer)
-    ' Test des sélections multiples
-    '     La sélection multiple est indifférente à Ctrl ou à Shift
-    'With My.Computer.Keyboard
-    'I'f Plcy_Gnrl = "Sas" Then
-    'If .CtrlKeyDown Or .ShiftKeyDown Then Plcy_Slm = True
-    'End If
-    'If Not .CtrlKeyDown And Not .ShiftKeyDown Then Plcy_Slm = False
-    'End With
 
     'La cellule sur laquelle passe la souris devient la Pbl_Cell_Select
     Pbl_Cell_Select = Cellule_KDS
@@ -892,6 +860,7 @@ Public NotInheritable Class Frm_SDK
     Dim TTT_Font As New Font("Consolas", 14, FontStyle.Italic)
     ' Créer une instance de CustomToolTip
     MouseClick_Middle_ToolTip = New CustomToolTip(TTT_ToolTipText, TTT_Font)
+
     Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X, Top + Get_Centre(Cellule, Candidat).Y)
 
     MouseClick_Middle_ToolTip.ShowTooltip(Position)
@@ -953,7 +922,7 @@ Public NotInheritable Class Frm_SDK
     Frm_LoadParties.Show()
     Event_OnPaint = "Global"
     Invalidate()
-    Application.DoEvents()   'Affiche la grille avec solutions
+    'Application.DoEvents()   'Affiche la grille avec solutions
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc)
@@ -1002,7 +971,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu01_OuvrirLaBibliothèqueTestDeHodoku_Click(sender As Object, e As EventArgs) Handles Mnu01_OuvrirLaBibliothèqueTestDeHodoku.Click
     Jrn_Add("SDK_Space")
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Frm_LoadPartiesHodoku.Show()
   End Sub
   Private Sub Mnu01_OuvrirLeRépertoire_Click(sender As Object, e As EventArgs) Handles Mnu01_OuvrirLeRépertoire.Click
@@ -1145,6 +1114,21 @@ Public NotInheritable Class Frm_SDK
     Transf_Région_V()
   End Sub
   '--------------04n--------------------------------------------------------------
+  Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
+    Strategy_Code("DCd")
+  End Sub
+  Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
+    Strategy_Code("CdS")
+  End Sub
+  Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown
+    Select Case e.Button
+      Case MouseButtons.Left
+        Strategy_Code("FV" & sender.ToString())
+      Case MouseButtons.Right
+        Strategy_Code("FC" & sender.ToString())
+    End Select
+  End Sub
+
   Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click,
                                         Btn_Unq.Click, Btn_Tpl.Click, Btn_Swf.Click,
                                         Btn_SKy.Click, Btn_Jly.Click, Btn_Cbl.Click,
@@ -1152,16 +1136,14 @@ Public NotInheritable Class Frm_SDK
     'Le Sender provient soit du texte de l'option du menu, le texte du menu est explicite
     '                   soit de la barre d'Outils, le texte d'un bouton est une simple lettre
     Dim stgs() As String = {"Cdd", "CdU", "CdO", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq"}
-
     For Each stg As String In stgs
       If Sender.ToString() = Stg_Get(stg).Texte OrElse Sender.ToString() = Stg_Get(stg).Lettre Then
-        Strategy_Dsp(stg, AddressOf Sélection_Pbl_Cell_Standard)
+        Strategy_Code(stg)
         Exit Sub
       End If
     Next
-
     ' Si aucune correspondance trouvée
-    Jrn_Add(, {Procédure_Name_Get() & " Sender inconnu : " & Sender.ToString()}, "Erreur")
+    Jrn_Add(, {Proc_Name_Get() & " Sender inconnu : " & Sender.ToString()}, "Erreur")
   End Sub
   Public Sub Mnu04n_Stratégie_XW_Click(Sender As Object, e As EventArgs)
     If TypeOf Sender Is ToolStripMenuItem Then
@@ -1194,22 +1176,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu04n_RésoudreUneCellule_Click(sender As Object, e As EventArgs)
     Cell_Slv_Interactif("S", "Résoudre une Cellule")
   End Sub
-  Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
-    Strategy_Dsp("DCd", AddressOf Sélection_Pbl_Cell_Standard)
-  End Sub
-  Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
-    Strategy_Dsp("CdS", AddressOf Sélection_Pbl_Cell_Standard)
-  End Sub
   '--------------04---------------------------------------------------------------
-
-  Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown
-    Select Case e.Button
-      Case MouseButtons.Left
-        Strategy_Dsp("FV" & sender.ToString(), AddressOf Sélection_Pbl_Cell_Standard)
-      Case MouseButtons.Right
-        Strategy_Dsp("FC" & sender.ToString(), AddressOf Sélection_Pbl_Cell_Standard)
-    End Select
-  End Sub
   '--------------05---------------------------------------------------------------
   Private Sub Mnu05_AideSudokuGraphique_Click(sender As Object, e As EventArgs) Handles Mnu05_AideSudokuGraphique.Click
     Dsp_AideGraphique("Alt")
@@ -1516,7 +1483,7 @@ Public NotInheritable Class Frm_SDK
       End Select
 
     Catch ex As Exception
-      MsgBox(ex.Message,, Procédure_Name_Get())
+      MsgBox(ex.Message,, Proc_Name_Get())
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
@@ -1609,7 +1576,7 @@ Public NotInheritable Class Frm_SDK
     Mnu08J_Click("E")
   End Sub
   Private Sub Mnu08J_Click(Difficulté As String)
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     'Extension / Jouer un Sudoku FMDE
     Dim s, l As Integer
     ' l'absence de Order By File Ascending/Descending renvoie les fichiers dans un ordre non garanti,
@@ -1646,20 +1613,20 @@ Public NotInheritable Class Frm_SDK
         Exit For
       Next File
     Else
-      Dim MsgTit As String = Procédure_Name_Get() & " " & Difficulté & " " & Application.ProductName & " " & SDK_Version
+      Dim MsgTit As String = Proc_Name_Get() & " " & Difficulté & " " & Application.ProductName & " " & SDK_Version
       Nsd_i = MsgBox("Il n'a pas été trouvé de parties à jouer.",, MsgTit)
     End If
   End Sub
   Private Sub Mnu08_JouerAutrement_Click(sender As Object, e As EventArgs) Handles Mnu08_JouerAutrement.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Pzzl_Prd_DL()
   End Sub
   Private Sub Mnu08_Création_Click(sender As Object, e As EventArgs) Handles Mnu08_Création.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Pzzl_Prd_Interactif("P")
   End Sub
   Private Sub Mnu08_Résolution_Click(sender As Object, e As EventArgs) Handles Mnu08_Résolution.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Dim Stat As String() = {"#", "#", "#", "#", "#"} '  VI, Val av, Val ap, Cdd av, Cdd ap
     Stat(0) = CStr(Wh_Grid_Nb_Cellules_Initiales(U))
     Stat(1) = CStr(Wh_Grid_Nb_Cellules_Remplies(U))
@@ -1679,7 +1646,7 @@ Public NotInheritable Class Frm_SDK
     U_Checking_Display(U_Check, True)
   End Sub
   Private Sub Mnu08_RésoudreEnForceBrute_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreEnForceBrute.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     'La stratégie en force brute ne fonctionne que si le grille est correcte
     Dim U_Chk(80, 3) As String
     Array.Copy(U, U_Chk, UNbCopy)
@@ -1699,7 +1666,7 @@ Public NotInheritable Class Frm_SDK
     End If
   End Sub
   Private Sub Mnu08_RésoudreDancingLink_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreDancingLink.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     'La stratégie DancingLink ne fonctionne que si le grille est correcte
     Dim Durée_Déb As Integer = CInt(NativeMethods.GetTickCount64)
     Cursor.Current = Cursors.WaitCursor
@@ -1730,7 +1697,7 @@ Public NotInheritable Class Frm_SDK
     Cursor.Current = Cursors.Default
   End Sub
   Private Sub Mnu08_EditionDuProblème_Click(sender As Object, e As EventArgs) Handles Mnu08_EditionDuProblème.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     'Public Swt_ModeEdition As Integer = -1 Position Initiale
     Swt_ModeEdition *= -1
     Select Case Swt_ModeEdition
@@ -1755,7 +1722,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Private Sub Mnu08_DessinerSurLaGrille_Click(sender As Object, e As EventArgs) Handles Mnu08_DessinerSurLaGrille.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     'Public Swt_Mode_Dessin As Integer = -1 Position Initiale
     Swt_Mode_Dessin *= -1
     Select Case Swt_Mode_Dessin
@@ -1787,7 +1754,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Private Sub Mnu08_InsérerTouteLaSolution_Click(sender As Object, e As EventArgs) Handles Mnu08_InsérerTouteLaSolution.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     If Plcy_Solution_Existante = False Then Exit Sub
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
@@ -2132,9 +2099,9 @@ Public NotInheritable Class Frm_SDK
 
 #Region "Menu Graphe"
   Private Sub Mnu0901_Click(sender As Object, e As EventArgs) Handles Mnu0901.Click
-    Jrn_Add(, {Procédure_Name_Get() & " Lancement des Stratégies G "})
+    Jrn_Add(, {Proc_Name_Get() & " Lancement des Stratégies G "})
     Strategy_Switch("   ")
-    B_Info.Text = Procédure_Name_Get()
+    B_Info.Text = Proc_Name_Get()
     Dsp_AideGraphique("Non")
     'U_Strg_Effacer()
     Event_OnPaint = "Global"
@@ -2165,7 +2132,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu0902_Click(sender As Object, e As EventArgs) Handles Mnu0902.Click
     ' Cette option permet de supprimer les candidats et rétablit l'affichage standard
-    Jrn_Add(, {Procédure_Name_Get() & " Suppression des Candidats Exclues "})
+    Jrn_Add(, {Proc_Name_Get() & " Suppression des Candidats Exclues "})
     Jrn_Add(, {"Stratégie en cours: " & Plcy_Strg})
     Select Case Plcy_Strg
       Case "Gbl", "Gbv", "GCs"

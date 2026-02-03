@@ -16,7 +16,7 @@ Friend Module V01_CodeAnalyse
   Public Sub Sql_SuDoKu()
     Dim Durée_Déb As Integer = CInt(NativeMethods.GetTickCount64)
     Jrn_Add("SDK_Space")
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
 
     Sql_Truncate_IA()
     Sql_Insert_CodT()
@@ -35,7 +35,7 @@ Friend Module V01_CodeAnalyse
     Jrn_Add(, {"Durée : " & CStr(Durée).PadLeft(5) & " ms."})
     Dim S As String = String.Format("{0:00}:{1:00}:{2:00}", Ts.Hours, Ts.Minutes, Ts.Seconds)
     Jrn_Add(, {"Soit  : " & S})
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
   Public Sub Sql_Truncate_IA()
     Jrn_Add("SDK_Space")
@@ -58,7 +58,7 @@ Friend Module V01_CodeAnalyse
     Dim Application_SDK As String = Path_SDK & "SuDoKu\SuDoKu"
 
     Jrn_Add("SDK_Space")
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
 
     Dim Sql_Str As String = ""
     Dim Sql_Con As New SqlConnection(My.Settings.Connect)
@@ -177,7 +177,7 @@ Friend Module V01_CodeAnalyse
     Jrn_Add(, {"Durée : " & CStr(Durée).PadLeft(5) & " ms."})
     Dim S As String = String.Format("{0:00}:{1:00}:{2:00}", Ts.Hours, Ts.Minutes, Ts.Seconds)
     Jrn_Add(, {"Soit  : " & S})
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
   Public Sub Sql_Insert_MotT_IA()
     '     la PS InsertMot_IA ajoute le mot ou incrémente le compteur 
@@ -187,7 +187,7 @@ Friend Module V01_CodeAnalyse
     'Durée: 19984 ms.
     'Soit: 00:00:19
     Jrn_Add("SDK_Space")
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
 
     Dim Con_Strg As String = My.Settings.Connect
     Dim Sql_Str As String = ""
@@ -249,7 +249,7 @@ Friend Module V01_CodeAnalyse
     Jrn_Add(, {"Durée : " & CStr(Durée).PadLeft(5) & " ms."})
     Dim S As String = String.Format("{0:00}:{1:00}:{2:00}", Ts.Hours, Ts.Minutes, Ts.Seconds)
     Jrn_Add(, {"Soit  : " & S})
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
   Public Sub Sql_Insert_PrcT()
     '     Insère en une seule fois l'ensemble des procédures de CodT
@@ -257,7 +257,7 @@ Friend Module V01_CodeAnalyse
     '     Select Distinct Module, Procédure From CodT Where Procédure <> '' and Procédure <> 'New'
     'Sql: Select Case Count(*) From PrcT Count : 641
     Jrn_Add("SDK_Space")
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
 
     Dim Sql_Str As String = ""
     Dim Con_Strg As String = My.Settings.Connect
@@ -280,7 +280,7 @@ Friend Module V01_CodeAnalyse
     Jrn_Add(, {"Durée : " & CStr(Durée).PadLeft(5) & " ms."})
     Dim S As String = String.Format("{0:00}:{1:00}:{2:00}", Ts.Hours, Ts.Minutes, Ts.Seconds)
     Jrn_Add(, {"Soit  : " & S})
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
   Public Sub Sql_CountParallel_PrcT_IA()
     ' Connexion avec un Max Pool Size=200
@@ -290,7 +290,7 @@ Friend Module V01_CodeAnalyse
     'Sql:  Select Case Count(*) From PrcT Where Nombre <> -1  Count : 639
 
     Jrn_Add("SDK_Space")
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Dim Durée_Déb As Integer = CInt(NativeMethods.GetTickCount64)
     Dim Sql_Str As String
     Dim Con_Strg As String = My.Settings.Connect & ";Max Pool Size=200"
@@ -346,11 +346,11 @@ Sql_CountParallel_PrcT_IA_End:
     Jrn_Add(, {"Durée : " & CStr(Durée).PadLeft(5) & " ms."})
     Dim S As String = String.Format("{0:00}:{1:00}:{2:00}", Ts.Hours, Ts.Minutes, Ts.Seconds)
     Jrn_Add(, {"Soit  : " & S})
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
   Public Sub Sql_CountParallel_MsgT_IA()
     Jrn_Add("SDK_Space")
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Dim Durée_Déb As Integer = CInt(NativeMethods.GetTickCount64)
     Dim Sql_Str As String
     Dim Con_Strg As String = My.Settings.Connect & ";Max Pool Size=200"
@@ -423,7 +423,7 @@ Sql_CountParallel_PrcT_IA_End:
     Jrn_Add(, {"Durée : " & CStr(Durée).PadLeft(5) & " ms."})
     Dim S As String = String.Format("{0:00}:{1:00}:{2:00}", Ts.Hours, Ts.Minutes, Ts.Seconds)
     Jrn_Add(, {"Soit  : " & S})
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
   Public Sub Sql_CountSequentiel_PrmT_IA()
     'Sql: Select Case Count(*) From PrmT Count : 53
@@ -432,7 +432,7 @@ Sql_CountParallel_PrcT_IA_End:
 
     ' Nom de la fonction pour le journal
     Jrn_Add("SDK_Space")
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
 
     ' Temps de début pour mesurer la durée
     Dim Durée_Déb As Integer = CInt(NativeMethods.GetTickCount64)
@@ -480,7 +480,7 @@ Sql_CountParallel_PrcT_IA_End:
     Jrn_Add(, {"Durée : " & CStr(Durée).PadLeft(5) & " ms."})
     Dim S As String = String.Format("{0:00}:{1:00}:{2:00}", Ts.Hours, Ts.Minutes, Ts.Seconds)
     Jrn_Add(, {"Soit  : " & S})
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
   Public Function Sql_Value_Int_IA(Sql_Str As String) As Integer
     ' Retourne la valeur integer d'une requête

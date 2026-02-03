@@ -784,13 +784,6 @@ Friend Module A02_Occasionally
           End Using
 
           ' --- 4) Appliquer la transparence pixel par pixel ---
-          'For x As Integer = 0 To fond_BM_WH_Grid.Width - 1
-          '  For y As Integer = 0 To fond_BM_WH_Grid.Height - 1
-          '    Dim px As Color = fond_BM_WH_Grid.GetPixel(x, y)
-          '    Dim pxA As Color = Color.FromArgb(128, px.R, px.G, px.B)
-          '    fond_BM_WH_Grid.SetPixel(x, y, pxA)
-          '  Next
-          'Next
           ApplyTransparencyFast(fond_BM_WH_Grid, 128)
 
           ' --- 5) Découper en 81 morceaux ---

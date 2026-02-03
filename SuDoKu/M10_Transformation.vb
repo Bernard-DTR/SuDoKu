@@ -48,11 +48,11 @@ Module M10_Transformation
     Array.Copy(U_temp, U_Chk, UNbCopy)
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
     If Not U_Check.Check Then
-      Jrn_Add(, {Procédure_Name_Get() & " La grille est incorrecte."})
+      Jrn_Add(, {Proc_Name_Get() & " La grille est incorrecte."})
       Exit Sub
     End If
     If U_Check.Nb_Remplies <> 81 Then
-      Jrn_Add(, {Procédure_Name_Get() & " La grille n'est pas complète."})
+      Jrn_Add(, {Proc_Name_Get() & " La grille n'est pas complète."})
       Exit Sub
     End If
 
@@ -346,7 +346,7 @@ Module M10_Transformation
   End Sub
   Sub Transf_FindeTraitement(Origine As String)
     'Fin de la transformation
-    Dim Procédure As String = Procédure_Name_Get() & " " & Origine
+    Dim Procédure As String = Proc_Name_Get() & " " & Origine
     Dim Nom As String = Procédure
     Dim Prb As String = ""
     Dim Jeu As String = StrDup(81, " ")

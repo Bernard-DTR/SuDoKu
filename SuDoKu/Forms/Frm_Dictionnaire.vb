@@ -244,7 +244,7 @@ Public Class Frm_Dictionnaire
       Nsd_i = SQL_DataAdaptateur.Fill(Table)
       BDS.DataSource = Table
     Catch ex As SqlException
-      Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+      Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       Nsd_i = MsgBox("Chaîne de connection incorrecte" & vbCrLf & SQL_Connect & vbCrLf & Cmd_Select,, MsgTit)
     End Try
   End Sub
@@ -386,7 +386,7 @@ Public Class Frm_Dictionnaire
     Frm_Police.Show()
   End Sub
   Private Sub Mnu_0204_Click(sender As Object, e As EventArgs) Handles Mnu_0204.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Dim Nb As Integer = 0
     Dim processes() As Process = Process.GetProcesses()
     For Each proc As Process In processes
@@ -404,13 +404,13 @@ Public Class Frm_Dictionnaire
     Next proc
   End Sub
   Private Sub Mnu_0205_Click(sender As Object, e As EventArgs) Handles Mnu_0205.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Stg_List_Display()
   End Sub
   Private Sub Mnu_0206_Click(sender As Object, e As EventArgs) Handles Mnu_0206.Click
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Sql_SuDoKu()
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
 #End Region
 End Class

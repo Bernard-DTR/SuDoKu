@@ -200,7 +200,6 @@ Module M10_Message
       End Select
     End With
   End Sub
-
   Public Sub Jrn_Add_Yellow(V As String)
     'Affichage rapide d'une information en jaune
     Jrn_Add(, {V}, "Yellow")
@@ -241,7 +240,7 @@ Module M10_Message
       Next i
       File.Close()
     Catch ex As Exception
-      Jrn_Add("ERR_00000", {Procédure_Name_Get()}, "Erreur")
+      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
       Jrn_Add("ERR_00000", {ex.Message})
       Jrn_Add("ERR_00000", {ex.ToString()})
     End Try
@@ -264,7 +263,7 @@ Module M10_Message
       aWord.Quit(True)
       Clipboard.Clear()
     Catch ex As Exception
-      Jrn_Add("ERR_00000", {Procédure_Name_Get()}, "Erreur")
+      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
       Jrn_Add("ERR_00000", {ex.Message})
       Jrn_Add("ERR_00000", {ex.ToString()})
     End Try

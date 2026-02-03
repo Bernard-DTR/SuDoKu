@@ -14,7 +14,7 @@ Option Explicit On
 Friend Module Q060_Strategy_Nice_Loop
 
   Public Sub Strategy_XNl(U_temp(,) As String)
-    If Xap Then Jrn_Add(, {Procédure_Name_Get()})
+    If Xap Then Jrn_Add(, {Proc_Name_Get()})
 
     ' 1 Initialisation de XRslt avec Plcy_Strg = "XNl"
     XRslt_Init()

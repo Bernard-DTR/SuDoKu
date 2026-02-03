@@ -39,6 +39,7 @@ Friend Module M03_Paint
   '   G4_Grid_Stratégie_Flt est également appelé dans Frm_SDK_MouseWheel
   Public Sub G4_Grid_Stratégie_All_g(g As Graphics)
     If Plcy_Gnrl = "Nrm" And Plcy_Strg <> "   " Then
+
       For i As Integer = 0 To 80
         U_Strg_Val_Ins(i) = ""
         U_Strg_Cdd_Exc(i) = Cnddts_Blancs
@@ -93,36 +94,53 @@ Friend Module M03_Paint
       End If
     Next i
 
-    '' 2 Affichage/Non Affichage des Candidats
-    'Select Case Plcy_Strg_Swt
-    '  Case +1 ' Les Candidats sont affichés
-    '    For i As Integer = 0 To 80
-    '      If U(i, 2) = " " Then
-    '        Dim sc_a As New Cellule_Cls With {.Numéro = i}
-    '        sc_a.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
-    '        'sc_a.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-    '        U_Strg(i) = True
-    '      End If
-    '    Next i
-    '  Case -1 ' Les Candidats ne sont pas affichés
-    '    Plcy_Strg = "   "
-    '    For i As Integer = 0 To 80
-    '      If U(i, 2) = " " Then
-    '        Dim sc_b As New Cellule_Cls With {.Numéro = i}
-    '        sc_b.G2_Cellule_Paint_Fond_g(g)
-    '      End If
-    '    Next i
-    'End Select
-
-
-
-
-
-
-
   End Sub
 
   Public Sub G4_Grid_Stratégie_CdU_g(g As Graphics)
+    ' La stratégie CdU calcule TOUS les CdU
+    ' UN SEUL CdU au hasard est présenté avec ou sans Aide Graphique
+    Dim U_temp(80, 3) As String
+    Dim Strategy_Rslt(,) As String
+    Dim Cellule As Integer
+    Dim Candidat As String
+    If Not Plcy_Strg = "CdU" Then Exit Sub
+
+    Try
+      Array.Copy(U, U_temp, UNbCopy)
+      Strategy_Rslt = Strategy_CdU(U_temp)
+      If UBound(Strategy_Rslt, 2) <= 0 Then
+        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+        Exit Sub
+      End If
+      Dim rnd As New Random()
+      Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1))   ' Tire un nombre entre 1 et 99 inclus
+      Cellule = CInt(Strategy_Rslt(10, Index))
+      Candidat = Strategy_Rslt(5, Index)
+      U_Strg_Val_Ins(Cellule) = Strategy_Rslt(5, Index)
+      G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
+
+      ' 2 Aide Graphique
+      If Plcy_AideGraphique Then
+        U_MdC_Init()
+        G4_MdC_Row_Col_Box("Row", U_Row(Cellule))
+        G4_MdC_Row_Col_Box("Col", U_Col(Cellule))
+        G4_MdC_Row_Col_Box("Box", U_Reg(Cellule))
+        G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
+        'Re-dessine le candidat à placer dans un cercle plein Jaune
+        Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+        sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
+        U_Strg(Cellule) = True
+        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
+      End If
+    Catch ex As Exception
+      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+      MsgBox(ex.Message)
+    End Try
+  End Sub
+
+  Public Sub G4_Grid_Stratégie_CdU_g_Save(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String
@@ -1564,7 +1582,7 @@ Friend Module M03_Paint
           g.DrawPolygon(pen, {U_Pt20(Cellule, 4), U_Pt20(Cellule, 5), U_Pt20(Cellule, 6), U_Pt20(Cellule, 7)})
           g.DrawPolygon(pen, {U_Pt20(Cellule, 12), U_Pt20(Cellule, 13), U_Pt20(Cellule, 14), U_Pt20(Cellule, 15)})
         Case Else
-          Jrn_Add(, {Procédure_Name_Get() & " Figure Inconnue : " & Figure}, "Erreur")
+          Jrn_Add(, {Proc_Name_Get() & " Figure Inconnue : " & Figure}, "Erreur")
       End Select
     End Using
   End Sub
@@ -1603,7 +1621,7 @@ Friend Module M03_Paint
         Case "Disque"
           g.FillPie(brsh, Sqr_Cdd_n, 0.0F, 360.0F)
         Case Else
-          Jrn_Add(, {Procédure_Name_Get() & " Figure Inconnue : " & Figure}, "Erreur")
+          Jrn_Add(, {Proc_Name_Get() & " Figure Inconnue : " & Figure}, "Erreur")
       End Select
     End Using
   End Sub

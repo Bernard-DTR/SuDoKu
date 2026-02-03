@@ -240,8 +240,9 @@
                        7 cahiers de 192 pages de 22 lignes.
 #600 L  02/02/2026 Dispose de Pen, Brush et dérivés, Font, Bitmap / Image, GraphicsPath, Region,Matrix, StringFormat,
                    ImageAttributes, Graphics créé manuellement (CreateGraphics, FromImage, FromHwnd)
-                    
-
+#601 Ma 03/02/2026 Mise en place de l'affichage des Candidats
+                   Mise en place de la stratégie CdU 
+                   ? batch génère une erreur si le nombre plafond du stock est atteint ? 
 
 ##############################################################################################################################
 

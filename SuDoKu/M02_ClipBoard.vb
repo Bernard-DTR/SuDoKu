@@ -37,10 +37,10 @@ Friend Module M02_ClipBoard
       End If
 
       Prb = Prb.Substring(0, 81)
-      Game_New_Game(Gnrl:="Nrm", Nom:=Procédure_Name_Get(), Prb:=Prb, Jeu:=Prb, Sol:=StrDup(81, " "), Cdd729:=StrDup(729, " "), Frc:="5")
+      Game_New_Game(Gnrl:="Nrm", Nom:=Proc_Name_Get(), Prb:=Prb, Jeu:=Prb, Sol:=StrDup(81, " "), Cdd729:=StrDup(729, " "), Frc:="5")
     Catch Ex As Exception
       Dim Msg As String = "Le ClipBoard Coller n'est pas exploitable." & vbCrLf & Ex.ToString() & vbCrLf & Len(Ex.ToString())
-      Nsd_i = MsgBox(Msg & vbCrLf & Prb,, Procédure_Name_Get())
+      Nsd_i = MsgBox(Msg & vbCrLf & Prb,, Proc_Name_Get())
       Exit Sub
     End Try
   End Sub
@@ -53,7 +53,7 @@ Friend Module M02_ClipBoard
     '           or la résolution indiquée est de   1707 x 960
     ' et une mise à l'échelle de 150% également recommandée
     'BENQ Les résolutions physiques et trouvées sont les mêmes
-    Jrn_Add(, {Procédure_Name_Get() & " " & LP_Nom})
+    Jrn_Add(, {Proc_Name_Get() & " " & LP_Nom})
     'Question N° 1 Sur quel écran suis-je ?
     Dim Screens As Screen() = Screen.AllScreens
     Dim Device_Number As Integer = 1 ' Concerne le BENQ
@@ -93,7 +93,7 @@ Friend Module M02_ClipBoard
       End Try
       Jrn_Add("SDK_Space")
     Catch ex As System.Runtime.InteropServices.ExternalException
-      Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+      Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       Nsd_i = MsgBox("Presse-Papier inaccessible. Please try again.",, MsgTit)
     End Try
   End Sub

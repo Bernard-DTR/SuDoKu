@@ -105,7 +105,7 @@ Module G20_Général
     Next i
     'La partie indiquée n'a pas été trouvée, peu probable sauf en cas de MàJ du fichier
     If LP_Nom = "" Then
-      Jrn_Add("SDK_00111", {Procédure_Name_Get(), Nom_Pzzl})
+      Jrn_Add("SDK_00111", {Proc_Name_Get(), Nom_Pzzl})
       Exit Sub
     End If
   End Sub
@@ -411,7 +411,7 @@ Module G20_Général
     Return Résolution_Physique
   End Function
 
-  Public Function Procédure_Name_Get() As String
+  Public Function Proc_Name_Get() As String
     Dim stackFrame As New StackFrame(1)
     Dim methodBase As MethodBase = stackFrame.GetMethod()
     Dim declaringType As Type = methodBase.DeclaringType

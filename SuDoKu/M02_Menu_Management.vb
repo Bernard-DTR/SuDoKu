@@ -325,11 +325,11 @@ Module M02_Menu_Management
             End If
 
           Case Else
-            Jrn_Add(, {"A " & Procédure_Name_Get() & " " & Ligne.Name}, "Erreur")
+            Jrn_Add(, {"A " & Proc_Name_Get() & " " & Ligne.Name}, "Erreur")
         End Select
 
       Catch ex As Exception
-        Jrn_Add("ERR_00000", {"B " & Procédure_Name_Get()})
+        Jrn_Add("ERR_00000", {"B " & Proc_Name_Get()})
         Jrn_Add("ERR_00000", {Ligne.Name}, "Erreur")
         Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
         Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")

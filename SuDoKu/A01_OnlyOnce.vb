@@ -267,7 +267,7 @@ Friend Module A01_OnlyOnce
           Next i
           Pzzl_List.Add(New Pzzl_Cls(Nom, Force, Problème, Solution, Nb_CI))
         Catch ex As Microsoft.VisualBasic.FileIO.MalformedLineException
-          Jrn_Add("SDK_00051", {Procédure_Name_Get(), ex.Message})
+          Jrn_Add("SDK_00051", {Proc_Name_Get(), ex.Message})
         End Try
       End While
       Jrn_Add("SDK_00050", {File_Puzzle, CStr(Pzzl_List.Count + 1)})

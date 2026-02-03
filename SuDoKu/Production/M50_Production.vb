@@ -114,7 +114,7 @@ Friend Module M50_Production
 
     Dim Alter As Integer = 1
     Prd.Prd_Phase = "Crt"
-    If Prd.Prd_Chat Then Jrn_Add(, {Procédure_Name_Get()})
+    If Prd.Prd_Chat Then Jrn_Add(, {Proc_Name_Get()})
 
     ' Il semble que le fait de choisir une cellule au hasard par région (au hasard) disperse mieux
     '  les valeurs initiales plutôt que de choisir une cellule au hasard dans la grille.
@@ -705,7 +705,7 @@ Pzzl_Crt_Exit:
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
 
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Cursor.Current = Cursors.WaitCursor
     Frm_SDK.B_Info.Visible = False
 
@@ -721,7 +721,7 @@ Pzzl_Prd_Boucle:
         Case True
           Jrn_Add(, {Message})
         Case False
-          Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+          Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
           Nsd_i = MsgBox(Message,, MsgTit)
       End Select
       GoTo Pzzl_Prd_End
@@ -784,11 +784,11 @@ Pzzl_Prd_Boucle:
 Pzzl_Prd_End:
     Select Case Prd.Prd_Code_Retour
       Case 0
-        Jrn_Add(, {Procédure_Name_Get() & " /Fin Création d'un SuDoKu"})
+        Jrn_Add(, {Proc_Name_Get() & " /Fin Création d'un SuDoKu"})
         Dim File As String = Pzzl_Save(Prd)
         Pzzl_Open(File)
       Case Else
-        Jrn_Add(, {Procédure_Name_Get() & " /Fin sans réussite"})
+        Jrn_Add(, {Proc_Name_Get() & " /Fin sans réussite"})
     End Select
 
     Jrn_Add(, {"Tentatives            : " & CStr(Tentative) & "/" & Create_Nb_Tentatives})
@@ -822,7 +822,7 @@ Pzzl_Prd_End:
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
 
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Cursor.Current = Cursors.WaitCursor
     Frm_SDK.B_Info.Visible = False
 
@@ -836,7 +836,7 @@ Pzzl_Prd_Boucle:
         Case True
           Jrn_Add(, {Message})
         Case False
-          Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+          Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
           Nsd_i = MsgBox(Message,, MsgTit)
       End Select
       GoTo Pzzl_Prd_End
@@ -876,7 +876,7 @@ Pzzl_Prd_Boucle:
       Grille_Sol &= " "
       Grille_Candidats &= Prd.Prd_Candidats(i)
     Next i
-    Game_Load(Procédure_Name_Get(), Grille_Ini, Grille_Val, Grille_Sol, "1")
+    Game_Load(Proc_Name_Get(), Grille_Ini, Grille_Val, Grille_Sol, "1")
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then
         U(i, 3) = Grille_Candidats.Substring(i * 9, 9).Replace("0", " ")
@@ -892,7 +892,7 @@ Pzzl_Prd_End:
     Select Case Prd.Prd_Code_Retour
       Case 0
       Case Else
-        Jrn_Add(, {Procédure_Name_Get() & " /Fin sans réussite"})
+        Jrn_Add(, {Proc_Name_Get() & " /Fin sans réussite"})
     End Select
     Jrn_Add(, {"Tentatives            : " & CStr(Tentative) & "/" & Create_Nb_Tentatives})
     Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
@@ -938,7 +938,7 @@ Pzzl_Prd_End:
 
       ' Si la grille incomplète n'est pas solutionnée
       If Prd.Prd_Val.Contains(" ") Then
-        Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+        Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
         Dim MsgTxt As String = "Le Puzzle n'est pas résolu par SDK ! Abandon "
         Jrn_Add(, {"Résolution                   : " & MsgTxt}, "Orange")
         If Not Plcy_Gbl_Etendue Then Nsd_i = MsgBox(MsgTxt,, MsgTit)
@@ -1102,7 +1102,7 @@ Phase_End:
 
       ' Si la grille incomplète n'est pas solutionnée
       If Prd.Prd_Val.Contains(" ") Then
-        Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+        Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
         Dim MsgTxt As String = "Le Puzzle n'est pas résolu par SDK ! Abandon "
         Jrn_Add(, {"Résolution                   : " & MsgTxt}, "Orange")
         If Not Plcy_Gbl_Etendue Then Nsd_i = MsgBox(MsgTxt,, MsgTit)
@@ -1260,7 +1260,7 @@ Phase_End:
 
 
   Public Sub Pzzl_Slv_Interactif(ByVal Production_Type As String)
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     ' Production_Type est positionné "S"
     Dim Prd As Prd_Struct = Nothing
     Prd_Init(Prd, U, "I")
@@ -1714,7 +1714,7 @@ Pzzl_Prd_Batch_End:
       'Enregistrement du Puzzle
       Dim File As String = Pzzl_Save(Prd)
     Catch ex As Exception
-      Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+      Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       MsgBox(ex.ToString(),, MsgTit)
     End Try
 Pzzl_Prd_Batch_Exit:

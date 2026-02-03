@@ -26,8 +26,8 @@ Friend Module M59_Prd_Batch
     'Je lance SDK avec Visual Studio 2022 OUI
 
     If ProcessStarted("devenv") Then
-      Event_OnPaint_MAP = Procédure_Name_Get()
-      Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+      Event_OnPaint_MAP = Proc_Name_Get()
+      Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       Dim reponse As MsgBoxResult
       reponse = MsgBox("Vous êtes en maintenance d'application " & vbCrLf &
                    "devenv est démarré " & vbCrLf &
@@ -108,7 +108,7 @@ Friend Module M59_Prd_Batch
 
     Catch ex As Exception
       '28/05/2024 le message permet de comprendre l'arrêt anormal du traitement
-      Dim MsgTit As String = Procédure_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+      Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       MsgBox(ex.ToString(),, MsgTit)
     End Try
 

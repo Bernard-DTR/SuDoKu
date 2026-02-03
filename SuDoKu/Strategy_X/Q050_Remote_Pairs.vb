@@ -12,7 +12,7 @@ Option Explicit On
 Friend Module Q050_Remote_Pairs
   Public Sub Strategy_XRp(U_temp(,) As String)
     ' Stratégie Remote_Pairs
-    If Xap Then Jrn_Add(, {Procédure_Name_Get()})
+    If Xap Then Jrn_Add(, {Proc_Name_Get()})
 
     ' 1 Initialisation de XRslt avec Plcy_Strg = "XRp"
     XRslt_Init()
@@ -120,7 +120,7 @@ Friend Module Q050_Remote_Pairs
   Public Sub XCels_List_Get_XRp(U_temp(,) As String)
     'Détection des Cellules bi_value et de leurs 2 candidats
     ' Les 2 candidats sont placés dans cdd(0) et Cdd(1) et ensuite triés
-    'Jrn_Add(, {Procédure_Name_Get()})
+    'Jrn_Add(, {Proc_Name_Get()})
     For i As Integer = 0 To 80
       If Wh_Cell_Nb_Candidats(U_temp, i) = 2 Then
         Dim cdd As String() = U_temp(i, 3).Where(Function(ch As Char) ch >= "1"c AndAlso ch <= "9"c).Select(Function(ch As Char) ch.ToString()).ToArray()

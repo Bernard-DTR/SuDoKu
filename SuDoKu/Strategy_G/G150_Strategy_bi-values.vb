@@ -14,7 +14,7 @@ Module G100_Strategy_bi_values
     ' 2 cellules de 2 candidats identiques dans la même unité
     '8..21...7.4..891......4........98..5.9..3......7..14.9...........3...2542.......8
     Plcy_Strg = "Gbv"
-    If Xap Then Jrn_Add(, {Procédure_Name_Get() & " Xap = True "})
+    If Xap Then Jrn_Add(, {Proc_Name_Get() & " Xap = True "})
 
     GRslt_Init()
 

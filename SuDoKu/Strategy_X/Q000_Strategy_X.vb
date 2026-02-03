@@ -142,7 +142,7 @@ Friend Module Q000_Strategy_X
 
   Public Sub XLinks_List_Display(Type As String)
     ' Affichage de La liste XLinks_List
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     If XLinks_List.Count <> 0 Then
       Jrn_Add(, {"Affichage de XLinks_List : " & XLinks_List.Count & " Lignes, Type : " & Type})
       Dim Nb As Integer = 0
@@ -161,7 +161,7 @@ Friend Module Q000_Strategy_X
   Public Sub XLinks_List_Display_New()
     ' Affichage de La liste XLinks_List
     If XLinks_List.Count <> 0 Then
-      Jrn_Add(, {Procédure_Name_Get() & " Affichage de XLinks_List : " & XLinks_List.Count & " Lignes."})
+      Jrn_Add(, {Proc_Name_Get() & " Affichage de XLinks_List : " & XLinks_List.Count & " Lignes."})
       Dim Nb As Integer = 0
       For Each Link As XLink_Cls In XLinks_List
         Nb += 1 : Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & XLink_Str_New(Link)})
@@ -189,7 +189,7 @@ Friend Module Q000_Strategy_X
 
   Public Sub XCdds_List_Display()
     ' Affichage de La liste XCdds_List
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     If XCdds_List.Count <> 0 Then
       Jrn_Add(, {"Affichage de XCdds_List : " & XCdds_List.Count & " Lignes."})
       Dim Nb As Integer = 0
@@ -360,7 +360,7 @@ Friend Module Q000_Strategy_X
 
   Public Sub XAllRoads_List_Display(Optional Id_Road As Integer = -1)
     ' Affichage de La liste XAllRoads_List
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Dim Road_Numéro As Integer = 0
     If XAllRoads_List.Count <> 0 Then
       Jrn_Add(, {"Affichage de XAllRoads_List : " & XAllRoads_List.Count & " Chemins."})
@@ -371,12 +371,12 @@ Friend Module Q000_Strategy_X
         End If
       Next Road
     End If
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
 
   Public Sub XAllRoads_List_Display_New(Optional Id_Road As Integer = -1)
     ' Affichage de La liste XAllRoads_List
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     Dim Road_Numéro As Integer = 0
     If XAllRoads_List.Count <> 0 Then
       Jrn_Add(, {"Affichage de XAllRoads_List : " & XAllRoads_List.Count & " Chemins."})
@@ -387,7 +387,7 @@ Friend Module Q000_Strategy_X
         End If
       Next Road
     End If
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
 
 

@@ -132,7 +132,7 @@ Friend Module M49_Prd_General
     Next i
   End Sub
   Public Sub Prd_Display(Prd As Prd_Struct)
-    Jrn_Add(, {Procédure_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get()})
     With Prd
       Jrn_Add(, {"Mode Bavard                  : " & .Prd_Chat})
       Jrn_Add(, {"Phase                        : " & .Prd_Phase})
@@ -178,7 +178,7 @@ Friend Module M49_Prd_General
       Jrn_Add(, {"Origine Batch_Interactive    : " & .Prd_BI})
       Jrn_Add(, {"Prd_Code_Retour              : " & .Prd_Code_Retour})
     End With
-    Jrn_Add(, {"/" & Procédure_Name_Get()})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
 #End Region
 

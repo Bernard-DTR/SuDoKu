@@ -77,16 +77,10 @@ Friend Module P01_Strategy
   '
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   '
-
-  Sub Sélection_Pbl_Cell_Standard()
-    'TODO ? 
-    Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-    'sc.Cellule_Refresh()
-    'sc.G7_Cellule_Paint_Select()
-  End Sub
   Sub Strategy_Dsp_Standard()
     'Procédure appelée par: Mnu04n_AnnulerLaDerniereOption_Click
     'La Grille est rafraîchie et l'Aide Graphique abandonnée
+
     Strategy_Switch("   ")
 
     Dim item_DCd As ToolStripMenuItem = DirectCast(Frm_SDK.Mnu04.DropDown.Items("Mnu04n_DCd"), ToolStripMenuItem)
@@ -94,19 +88,18 @@ Friend Module P01_Strategy
     Dim item_CdS As ToolStripMenuItem = DirectCast(Frm_SDK.Mnu04.DropDown.Items("Mnu04n_CdS"), ToolStripMenuItem)
     item_CdS.Checked = False
 
-    Frm_SDK.B_Info.Text = Procédure_Name_Get()
+    Frm_SDK.B_Info.Text = Proc_Name_Get()
     Dsp_AideGraphique("Non")
     'U_Strg_Effacer()
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
-    Sélection_Pbl_Cell_Standard()
   End Sub
 
   ' TODO à voir Comment fonctionne l'affichage d'une stratégie
   ' TODO        comment fonctionne l'affichage d'une startégie la seconde fois
 
   'Sub Strategy_Dsp_Cdd()
-  '  Jrn_Add_Red(Procédure_Name_Get() & " " & Plcy_Strg & " " & Plcy_Strg_Swt)
+  '  Jrn_Add_Red(Proc_Name_Get() & " " & Plcy_Strg & " " & Plcy_Strg_Swt)
   '  Strategy_Switch("Cdd")
   '  'Event_OnPaint = "Global"
   '  'Frm_SDK.Invalidate()
@@ -134,23 +127,22 @@ Friend Module P01_Strategy
   '  End Select
 
   '  ' 3 Sélection
-  '  Sélection_Pbl_Cell_Standard()
+  '  Afficher_Stratégie()
   'End Sub
 
   ' Procédure générique
-  Sub Strategy_Dsp(strategyCode As String, action As Action)
+  Sub Strategy_Code(strg_Code As String)
     ' Active/désactive la stratégie passée en paramètre
-    Strategy_Switch(strategyCode)
-    'U_Strg_Effacer()
+    Strategy_Switch(strg_Code)
 
     Select Case Plcy_Strg_Swt
-      Case +1 : Plcy_Strg = strategyCode
+      Case +1 : Plcy_Strg = strg_Code
       Case -1 : Plcy_Strg = "   "
     End Select
-
-    action?.Invoke  ' Exécute la procédure passée en paramètre
-
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
   End Sub
+
 
   Sub Dsp_AideGraphique(Dsp As String)
     'Afficher / Ne pas afficher l'AideGraphique
@@ -231,23 +223,42 @@ Friend Module P01_Strategy
     ' Permet d'alterner la stratégie On/Off/On/Off Etc
     ' Strategy_Dsp_Standard() positionne en Off la stratégie précédente
 
-    Select Case Strg
-      Case "   "
-        Plcy_Strg = "   "
-      Case "Cdd", "CdU", "CdO", "DCd", "CdS", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq"
-        Plcy_Strg = Strg
+    'Select Case Strg
+    '  Case "   "
+    '    Plcy_Strg = "   "
+    '  Case "Cdd", "CdU", "CdO", "DCd", "CdS", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq"
+    '    Plcy_Strg = Strg
 
-      Case "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9",
-           "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"
-        Plcy_Strg = Strg
-      Case Else
-        Strg = "#" & Strg & "#"
-        Jrn_Add("ERR_00000", {Procédure_Name_Get()}, "Erreur")
-        Jrn_Add("ERR_00140", {Strg}, "Erreur")
-    End Select
-    If Plcy_Strg <> Prv_Plcy_Strg Then Plcy_Strg_Swt = 1
-    If Plcy_Strg = Prv_Plcy_Strg Then Plcy_Strg_Swt *= -1
+    '  Case "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9",
+    '       "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"
+    '    Plcy_Strg = Strg
+    '  Case Else
+    '    Strg = "#" & Strg & "#"
+    '    Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
+    '    Jrn_Add("ERR_00140", {Strg}, "Erreur")
+    'End Select
+    'If Plcy_Strg <> Prv_Plcy_Strg Then Plcy_Strg_Swt = 1
+    'If Plcy_Strg = Prv_Plcy_Strg Then Plcy_Strg_Swt *= -1
+    'Prv_Plcy_Strg = Plcy_Strg
+
+    Dim AllStrategies As New HashSet(Of String)(
+    {"   ",
+     "Cdd", "CdU", "CdO", "DCd", "CdS", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq",
+     "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9",
+     "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"}
+)
+
+    If Not AllStrategies.Contains(Strg) Then
+      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
+      Jrn_Add("ERR_00140", {"#" & Strg & "#"}, "Erreur")
+      Exit Sub
+    End If
+
+    Plcy_Strg = Strg
+    Plcy_Strg_Swt = If(Plcy_Strg <> Prv_Plcy_Strg, 1, -Plcy_Strg_Swt)
     Prv_Plcy_Strg = Plcy_Strg
+
+
   End Sub
 
   Function Strategy_Click(Cellule As Integer, ByRef Strategy_Rslt(,) As String) As Integer
@@ -371,7 +382,7 @@ Friend Module P01_Strategy
 
     Catch ex As Exception 'Strategy_Rslt peut être vide si la stratégie n'a rien donné 
       ' Il doit y avoir l'enregistrement 0 néanmoins
-      Jrn_Add("ERR_00000", {Procédure_Name_Get()}, "Erreur")
+      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
       Jrn_Add("ERR_00000", {ex.Message})
       Jrn_Add("ERR_00000", {ex.ToString()})
       Jrn_Add(, {"Anomalie_la stratégie est vide"})
