@@ -1575,7 +1575,7 @@ Xwing_Boucle_End:
     Dim Virgule As Integer = 0
     'For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
     If Strategy_Rslt.GetUpperBound(1) = 0 Then
-      Strategy_Rslt_Display_Ligne(Strategy_Rslt, -1)
+      Strategy_Rslt_Display(Strategy_Rslt, -1)
       Exit Sub
     End If
     Dim n As Integer = Rd8.Next(1, UBound(Strategy_Rslt, 2) + 1) 'la plage des valeurs de retour inclut minValue mais pas maxValue.

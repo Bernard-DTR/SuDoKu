@@ -1479,7 +1479,7 @@ Public NotInheritable Class Frm_SDK
         Case "D"
           DCdd_List_Display()
         Case Else
-          Strategy_Rslt_Display_Ligne(Strategy_Rslt, -1)
+          Strategy_Rslt_Display(Strategy_Rslt, -1)
       End Select
 
     Catch ex As Exception

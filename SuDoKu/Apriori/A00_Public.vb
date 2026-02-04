@@ -142,7 +142,6 @@ Module A00_Public
   End Structure
 
   Public U_MdC(0 To 80) As MdC_Struct
-  'Public U_Slm(0 To 80) As Boolean                       '  Tableau des cellules en Sélection multiple
 
 #End Region
 
@@ -257,7 +256,6 @@ Module A00_Public
   Public Plcy_FIC_Frm_Insérer_Candidats As Boolean
   Public Plcy_FIC_TTT As String
   Public Plcy_FIC_Zone_Aimantée As String
-  'Public Plcy_Zoom As Boolean = False
   Public Plcy_Dancing_Link As Boolean = False
   Public Plcy_Open_Display As Boolean = False
   Public Const Dl_Nb_VI_minimal As Integer = 17                'https://fr.wikipedia.org/wiki/Math%C3%A9matiques_du_sudoku
@@ -564,6 +562,18 @@ Module A00_Public
     Public Property Cdd As String = "0"          ' Le Candidat
     Public Property Exc As Integer() = {-1, -1}  ' Les Cellules Origines de l'exclusion
   End Class
+  Public Structure RRslt_Struct
+    Public Code_Strg As String                  ' Code Stratégie: CdU
+    Public Code_Sous_Strg As String             ' Sous-Stratégie
+    Public Code_LCR As String
+    Public LCR As Integer
+    Public Candidat As String                   ' Le candidat de la stratégie
+    Public Candidats As String                   ' Les candidats de la stratégie (Unq)
+    Public Cellule() As Integer                 ' Les cellules de la stratégie
+    Public CelExcl() As Integer                 ' Les cellules concernées par l'exclusion
+    Public Productivité As Boolean              ' False/ True
+  End Structure
+  Public RRslt As New RRslt_Struct
 
   Public Class DCdd_Cls 'Classe structurant la stratégie du Dernier Candidat
     Public Property Cellule As Integer

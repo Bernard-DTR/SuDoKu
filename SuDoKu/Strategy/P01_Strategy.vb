@@ -95,53 +95,7 @@ Friend Module P01_Strategy
     Frm_SDK.Invalidate()
   End Sub
 
-  ' TODO à voir Comment fonctionne l'affichage d'une stratégie
-  ' TODO        comment fonctionne l'affichage d'une startégie la seconde fois
-
-  'Sub Strategy_Dsp_Cdd()
-  '  Jrn_Add_Red(Proc_Name_Get() & " " & Plcy_Strg & " " & Plcy_Strg_Swt)
-  '  Strategy_Switch("Cdd")
-  '  'Event_OnPaint = "Global"
-  '  'Frm_SDK.Invalidate()
-  '  Exit Sub
-  '  U_Strg_Effacer()
-
-  '  ' 2 Affichage/Non Affichage des Candidats
-  '  Select Case Plcy_Strg_Swt
-  '    Case +1 ' Les Candidats sont affichés
-  '      For i As Integer = 0 To 80
-  '        If U(i, 2) = " " Then
-  '          Dim sc_a As New Cellule_Cls With {.Numéro = i}
-  '          sc_a.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-  '          U_Strg(i) = True
-  '        End If
-  '      Next i
-  '    Case -1 ' Les Candidats ne sont pas affichés
-  '      Plcy_Strg = "   "
-  '      For i As Integer = 0 To 80
-  '        If U(i, 2) = " " Then
-  '          Dim sc_b As New Cellule_Cls With {.Numéro = i}
-  '          sc_b.G2_Cellule_Paint_Fond()
-  '        End If
-  '      Next i
-  '  End Select
-
-  '  ' 3 Sélection
-  '  Afficher_Stratégie()
-  'End Sub
-
   ' Procédure générique
-  Sub Strategy_Code(strg_Code As String)
-    ' Active/désactive la stratégie passée en paramètre
-    Strategy_Switch(strg_Code)
-
-    Select Case Plcy_Strg_Swt
-      Case +1 : Plcy_Strg = strg_Code
-      Case -1 : Plcy_Strg = "   "
-    End Select
-    Event_OnPaint = "Global"
-    Frm_SDK.Invalidate()
-  End Sub
 
 
   Sub Dsp_AideGraphique(Dsp As String)
@@ -223,30 +177,11 @@ Friend Module P01_Strategy
     ' Permet d'alterner la stratégie On/Off/On/Off Etc
     ' Strategy_Dsp_Standard() positionne en Off la stratégie précédente
 
-    'Select Case Strg
-    '  Case "   "
-    '    Plcy_Strg = "   "
-    '  Case "Cdd", "CdU", "CdO", "DCd", "CdS", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq"
-    '    Plcy_Strg = Strg
-
-    '  Case "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9",
-    '       "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"
-    '    Plcy_Strg = Strg
-    '  Case Else
-    '    Strg = "#" & Strg & "#"
-    '    Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
-    '    Jrn_Add("ERR_00140", {Strg}, "Erreur")
-    'End Select
-    'If Plcy_Strg <> Prv_Plcy_Strg Then Plcy_Strg_Swt = 1
-    'If Plcy_Strg = Prv_Plcy_Strg Then Plcy_Strg_Swt *= -1
-    'Prv_Plcy_Strg = Plcy_Strg
-
     Dim AllStrategies As New HashSet(Of String)(
     {"   ",
      "Cdd", "CdU", "CdO", "DCd", "CdS", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq",
      "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9",
-     "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"}
-)
+     "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"})
 
     If Not AllStrategies.Contains(Strg) Then
       Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
@@ -257,8 +192,6 @@ Friend Module P01_Strategy
     Plcy_Strg = Strg
     Plcy_Strg_Swt = If(Plcy_Strg <> Prv_Plcy_Strg, 1, -Plcy_Strg_Swt)
     Prv_Plcy_Strg = Plcy_Strg
-
-
   End Sub
 
   Function Strategy_Click(Cellule As Integer, ByRef Strategy_Rslt(,) As String) As Integer
@@ -317,7 +250,7 @@ Friend Module P01_Strategy
     ' Lors de l'initialisation, cette valeur   vaut -1
     Strategy_Rslt(0, 0) = CStr(n)
   End Sub
-  Public Sub Strategy_Rslt_Display_Ligne(ByRef Strategy_Rslt(,) As String, Ligne As Integer)
+  Public Sub Strategy_Rslt_Display(ByRef Strategy_Rslt(,) As String, Ligne As Integer)
     'Cette routine liste une seule ligne de Strategy_Rslt  ou toutes les lignes si ligne = -1
     Dim Strategy_Name As String = "Strategy_Rslt"
     Jrn_Add(, {Stg_Get(Strategy_Rslt(1, 0)).Texte})
@@ -475,4 +408,6 @@ Friend Module P01_Strategy
     Next Stg
     Return New Stg_Cls(Code, "#", "#", "#", "#", "#")
   End Function
+
+
 End Module

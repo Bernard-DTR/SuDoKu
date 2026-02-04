@@ -241,7 +241,9 @@
 #600 L  02/02/2026 Dispose de Pen, Brush et dérivés, Font, Bitmap / Image, GraphicsPath, Region,Matrix, StringFormat,
                    ImageAttributes, Graphics créé manuellement (CreateGraphics, FromImage, FromHwnd)
 #601 Ma 03/02/2026 Mise en place de l'affichage des Candidats
-                   Mise en place de la stratégie CdU 
+#602 Me 04/02/2026 Mise en place de la stratégie CdU Séparation Calcul-Affichage
+#603 Me 04/02/2026 Mise en place d'une structure RRslt pour les résultats des stratégies
+
                    ? batch génère une erreur si le nombre plafond du stock est atteint ? 
 
 ##############################################################################################################################
