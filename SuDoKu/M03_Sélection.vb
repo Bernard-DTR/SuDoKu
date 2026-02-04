@@ -122,7 +122,7 @@ Friend Module M03_Sélection
         U(Cellule, 3) = Cnddts_Blancs
     End Select
     Act_Add(Cellule, "Effacer", VE, Cnddts_Blancs, Origine, Av_Jeu, Av_AllCdd)
-    Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00113", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
     Event_OnPaint = "Global"

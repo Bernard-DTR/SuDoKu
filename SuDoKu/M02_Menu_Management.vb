@@ -98,29 +98,54 @@ Module M02_Menu_Management
     If (U(Cellule, 1) <> " ") Then Plcy_Typ_I = True
     If (U(Cellule, 1) = " " And U(Cellule, 2) <> " ") Then Plcy_Typ_R = True
 
+    'If (U(Cellule, 1) = " " And U(Cellule, 2) = " ") Then
+    '  If Plcy_Nrm = True Then
+    '    If (Plcy_Strg = "   ") _
+    '    Or (Stg_Get(Plcy_Strg).Type = "I" And Not Plcy_AideGraphique) _
+    '    Or (Stg_Get(Plcy_Strg).Type = "E" And Not Plcy_AideGraphique) _
+    '    Or (Mid$(Plcy_Strg, 1, 1) = "F" And Not Plcy_AideGraphique) Then
+    '      Plcy_Typ_V_sans_Cdd = True
+    '    End If
+
+    '    'Le menu contextuel est replacé pour les filtres
+    '    If (Plcy_Strg = "Cdd") _
+    '    Or (Stg_Get(Plcy_Strg).Type = "I" And Plcy_AideGraphique) _
+    '    Or (Stg_Get(Plcy_Strg).Type = "E" And Plcy_AideGraphique) _
+    '    Or (Mid$(Plcy_Strg, 1, 1) = "F" And Plcy_AideGraphique) Then
+    '      Plcy_Typ_V_avec_Cdd = True
+    '    End If
+    '  End If
+    '  If Plcy_Sas Then
+    '    If (U(Cellule, 3) = Cnddts_Blancs) Then Plcy_Typ_V_sans_Cdd = True
+    '    If (U(Cellule, 3) <> Cnddts_Blancs) Then Plcy_Typ_V_avec_Cdd = True
+    '  End If
+    'End If
+
+    ' TODO Voir la pertinence en l'abscence de Plcy_AideGraphique
+
     If (U(Cellule, 1) = " " And U(Cellule, 2) = " ") Then
       If Plcy_Nrm = True Then
         If (Plcy_Strg = "   ") _
-        Or (Stg_Get(Plcy_Strg).Type = "I" And Not Plcy_AideGraphique) _
-        Or (Stg_Get(Plcy_Strg).Type = "E" And Not Plcy_AideGraphique) _
-        Or (Mid$(Plcy_Strg, 1, 1) = "F" And Not Plcy_AideGraphique) Then
+        Or (Stg_Get(Plcy_Strg).Type = "I") _
+        Or (Stg_Get(Plcy_Strg).Type = "E") _
+        Or (Mid$(Plcy_Strg, 1, 1) = "F") Then
           Plcy_Typ_V_sans_Cdd = True
         End If
 
         'Le menu contextuel est replacé pour les filtres
         If (Plcy_Strg = "Cdd") _
-        Or (Stg_Get(Plcy_Strg).Type = "I" And Plcy_AideGraphique) _
-        Or (Stg_Get(Plcy_Strg).Type = "E" And Plcy_AideGraphique) _
-        Or (Mid$(Plcy_Strg, 1, 1) = "F" And Plcy_AideGraphique) Then
+        Or (Stg_Get(Plcy_Strg).Type = "I") _
+        Or (Stg_Get(Plcy_Strg).Type = "E") _
+        Or (Mid$(Plcy_Strg, 1, 1) = "F") Then
           Plcy_Typ_V_avec_Cdd = True
         End If
-
       End If
       If Plcy_Sas Then
         If (U(Cellule, 3) = Cnddts_Blancs) Then Plcy_Typ_V_sans_Cdd = True
         If (U(Cellule, 3) <> Cnddts_Blancs) Then Plcy_Typ_V_avec_Cdd = True
       End If
     End If
+
   End Sub
 
   Sub Mnu_Mngt_Barre_de_Menu()
@@ -229,12 +254,18 @@ Module M02_Menu_Management
                 If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
                   Ligne.BackColor = Control.DefaultBackColor
                   'Menu contextuel présenté lors d'une stratégie CdU ou CdO en Aide Graphique
+                  'If Plcy_Gnrl = "Nrm" AndAlso
+                  '    Stg_Get(Plcy_Strg).Type = "I" AndAlso
+                  '   Plcy_AideGraphique AndAlso
+                  '   U_Strg_Val_Ins(Cellule) = Opt Then
+                  '  Ligne.BackColor = Color_Cdd_Insérer
+                  'End If
                   If Plcy_Gnrl = "Nrm" AndAlso
                       Stg_Get(Plcy_Strg).Type = "I" AndAlso
-                     Plcy_AideGraphique AndAlso
                      U_Strg_Val_Ins(Cellule) = Opt Then
                     Ligne.BackColor = Color_Cdd_Insérer
                   End If
+
                   If Plcy_Fantasy Then
                     Ligne.Text = "Insérer la Valeur " & Mnu_Ctxt_Fantaisy(Opt)
                   Else

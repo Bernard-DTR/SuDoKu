@@ -83,108 +83,67 @@ Friend Module M03_Paint
   '-------------------------------------------------------------------------------   
   Public Sub G4_Grid_Stratégie_Cdd_g(g As Graphics)
     If Not Plcy_Strg = "Cdd" Then Exit Sub
-
-    'U_Strg_Effacer_g(g)
-    ' 1 Aide Simple uniquement
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then
         Dim sc_a As New Cellule_Cls With {.Numéro = i}
         sc_a.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
-        'U_Strg(i) = True
       End If
     Next i
-
   End Sub
-
-  'Public Sub G4_Grid_Stratégie_CdU_g(g As Graphics)
-  '  ' La stratégie CdU calcule TOUS les CdU
-  '  ' UN SEUL CdU au hasard est présenté avec ou sans Aide Graphique
-  '  Dim U_temp(80, 3) As String
-  '  Dim Strategy_Rslt(,) As String
-  '  Dim Cellule As Integer
-  '  Dim Candidat As String
-  '  If Not Plcy_Strg = "CdU" Then Exit Sub
-
-  '  Try
-  '    Array.Copy(U, U_temp, UNbCopy)
-  '    Strategy_Rslt = Strategy_CdU(U_temp)
-  '    If UBound(Strategy_Rslt, 2) <= 0 Then
-  '      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
-  '      Exit Sub
-  '    End If
-  '    Dim rnd As New Random()
-  '    Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1))   ' Tire un nombre entre 1 et 99 inclus
-  '    Cellule = CInt(Strategy_Rslt(10, Index))
-  '    Candidat = Strategy_Rslt(5, Index)
-  '    U_Strg_Val_Ins(Cellule) = Strategy_Rslt(5, Index)
-  '    G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
-
-  '    ' 2 Aide Graphique
-  '    U_MdC_Init()
-  '    G4_MdC_Row_Col_Box("Row", U_Row(Cellule))
-  '    G4_MdC_Row_Col_Box("Col", U_Col(Cellule))
-  '    G4_MdC_Row_Col_Box("Box", U_Reg(Cellule))
-  '    G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
-  '    U_MdC_Display()
-  '    'Re-dessine le candidat à placer dans un cercle plein Jaune
-  '    Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-  '    sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
-  '    U_Strg(Cellule) = True
-  '    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
-  '  Catch ex As Exception
-  '    Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-  '    Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-  '    MsgBox(ex.Message)
-  '  End Try
-  'End Sub
-
-  Public Sub G4_Grid_Stratégie_CdU_g_Save(g As Graphics)
-    Dim U_temp(80, 3) As String
-    Dim Ligne As Integer
-    Dim Strategy_Rslt(,) As String
+  Public Sub G4_Grid_Stratégie_CdU_g(g As Graphics)
+    ' La stratégie CdU calcule TOUS les CdU, UN SEUL CdU au hasard est présenté 
     Dim Cellule As Integer
     Dim Candidat As String
     If Not Plcy_Strg = "CdU" Then Exit Sub
 
+    If RRslt.Productivité = False Then
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+      Exit Sub
+    End If
+
+    Cellule = RRslt.Cellule(0)
+    Candidat = RRslt.Candidat
+    U_Strg_Val_Ins(Cellule) = Candidat
+    G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
+
+    U_MdC_Init()
+    G4_MdC_Row_Col_Box("Row", U_Row(Cellule))
+    G4_MdC_Row_Col_Box("Col", U_Col(Cellule))
+    G4_MdC_Row_Col_Box("Box", U_Reg(Cellule))
+    G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
+    'Re-dessine le candidat à placer dans un cercle plein Jaune
+    Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+    sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
+  End Sub
+  Public Sub G4_Grid_Stratégie_CdO_g(g As Graphics)
+    Dim Cellule As Integer
+    Dim Candidat As String
+    If Not Plcy_Strg = "CdO" Then Exit Sub
     Try
-      U_Strg_Effacer_g(g)
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_Rslt = Strategy_CdU(U_temp)
-      If UBound(Strategy_Rslt, 2) <= 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " sans résultat."
+      If RRslt.Productivité = False Then
+        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
         Exit Sub
       End If
+      Cellule = RRslt.Cellule(0)
+      Candidat = RRslt.Candidat
+      U_Strg_Val_Ins(Cellule) = Candidat
+      G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
 
-      ' Public U_Strg_Val_Ins(80) As String comporte pour chaque poste U la valeur à insérer 
-      ' 1 Aide Simple
-      For i As Integer = 1 To UBound(Strategy_Rslt, 2)
-        For k As Integer = 10 To 54
-          If Strategy_Rslt(k, i) = "__" Then Exit For
-          Cellule = CInt(Strategy_Rslt(k, i))
-          U_Strg_Val_Ins(Cellule) = Strategy_Rslt(5, i)
-          G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
-          U_Strg(Cellule) = True
-        Next k
-      Next i
-      Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
+      Dim Code_LCR As String = RRslt.Code_LCR
+      Dim LCR As Integer = RRslt.LCR
+      U_MdC_Init()
+        Select Case Code_LCR
+          Case "L" : G4_MdC_Row_Col_Box("Row", LCR)
+          Case "C" : G4_MdC_Row_Col_Box("Col", LCR)
+          Case "R" : G4_MdC_Row_Col_Box("Box", LCR)
+        End Select
+      G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
+      'Re-dessine le candidat à placer dans un cercle plein Jaune
+      Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+      sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
 
-      ' 2 Aide Graphique
-      '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-      Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
-        Candidat = Strategy_Rslt(5, Ligne)
-        U_MdC_Init()
-        G4_MdC_Row_Col_Box("Row", U_Row(Pbl_Cell_Select))
-        G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
-        G4_MdC_Row_Col_Box("Box", U_Reg(Pbl_Cell_Select))
-        'U_Strg est documenté dans G4_MdC_Row_Col_Box 
-        G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
-        'Re-dessine le candidat à placer dans un cercle plein Jaune
-        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
-        U_Strg(Cellule) = True
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " jaune à placer."
-      End If
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
@@ -208,7 +167,7 @@ Friend Module M03_Paint
     Next i
   End Sub
 
-  Public Sub G4_Grid_Stratégie_CdO_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_CdO_g_Save(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
     Dim Strategy_Rslt(,) As String

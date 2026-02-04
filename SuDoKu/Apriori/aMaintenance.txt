@@ -243,6 +243,11 @@
 #601 Ma 03/02/2026 Mise en place de l'affichage des Candidats
 #602 Me 04/02/2026 Mise en place de la stratégie CdU Séparation Calcul-Affichage
 #603 Me 04/02/2026 Mise en place d'une structure RRslt pour les résultats des stratégies
+#604 Me 04/02/2026 Mise en place de la stratégie CdO Séparation Calcul-Affichage
+
+
+
+
 
                    ? batch génère une erreur si le nombre plafond du stock est atteint ? 
 

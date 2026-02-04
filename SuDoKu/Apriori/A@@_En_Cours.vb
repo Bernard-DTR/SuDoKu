@@ -1,5 +1,6 @@
 ﻿Option Strict On
 Option Explicit On
+Imports System.Security
 
 Friend Module En_Cours
 #Region "Menus Test A à J"
@@ -78,6 +79,14 @@ Friend Module En_Cours
   End Sub
 
   Public Function RRslt_Copy_Rnd(Strategy_Rslt(,) As String) As Integer
+    If Strategy_Rslt Is Nothing Then
+      RRslt.Productivité = False
+      Return -1
+    End If
+    If UBound(Strategy_Rslt, 2) <= 0 Then
+      RRslt.Productivité = False
+      Return -1
+    End If
     Dim rnd As New Random()
     Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1))   ' Tire un nombre entre 1 et 99 inclus
     With RRslt
@@ -88,7 +97,7 @@ Friend Module En_Cours
       .Candidats = Strategy_Rslt(6, Index)
       ReDim .Cellule(0)
       .Cellule(0) = CInt(Strategy_Rslt(10, Index))
-      .Productivité = False
+      .Productivité = True
     End With
     Return Index
   End Function
@@ -96,60 +105,46 @@ Friend Module En_Cours
   Sub Strategy_Code(strg_Code As String)
     ' Active/désactive la stratégie passée en paramètre
     Strategy_Switch(strg_Code)
-
     Select Case Plcy_Strg_Swt
       Case +1 : Plcy_Strg = strg_Code
       Case -1 : Plcy_Strg = "   "
     End Select
-    Select Case strg_Code
-      Case "CdU"
-        Dim U_temp(80, 3) As String
-        Dim Strategy_Rslt(,) As String
-        Array.Copy(U, U_temp, UNbCopy)
-        Strategy_Rslt = Strategy_CdU(U_temp)
-        'Strategy_Rslt_Display(Strategy_Rslt, -1)
-        Dim index As Integer = RRslt_Copy_Rnd(Strategy_Rslt)
-        'Strategy_Rslt_Display(Strategy_Rslt, index)
-        'RRslt_Display()
+
+    If Plcy_Strg <> "   " Then Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
+    If Plcy_Strg = "   " Then Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+
+    Dim U_temp(80, 3) As String
+    Dim Strategy_Rslt(,) As String = Nothing
+    Array.Copy(U, U_temp, UNbCopy)
+    Select Case Plcy_Strg
+      Case "Cdd"
+      Case "CdU" : Strategy_Rslt = Strategy_CdU(U_temp)
+      Case "CdO" : Strategy_Rslt = Strategy_CdO(U_temp)
+
       Case Else
     End Select
+
+    Dim index As Integer = RRslt_Copy_Rnd(Strategy_Rslt)
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
 
 
-  Public Sub G4_Grid_Stratégie_CdU_g(g As Graphics)
-    ' La stratégie CdU calcule TOUS les CdU, UN SEUL CdU au hasard est présenté 
-    Dim Cellule As Integer
-    Dim Candidat As String
-    If Not Plcy_Strg = "CdU" Then Exit Sub
 
-    Try
-      'Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
-      Cellule = RRslt.Cellule(0)
-      Candidat = RRslt.Candidat
-      U_Strg_Val_Ins(Cellule) = Candidat
-      G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
+  Sub Strategy_CdS()
+    'If Plcy_Strg <> "CdS" Then Exit Sub
+    'For i As Integer = 0 To 80 : U_CdS(i) = False : Next
+    'If Pbl_Cell_Candidat_CdS = " " Then Exit Sub
+    'Dim nb As Integer
+    'For i As Integer = 0 To 80
+    '  If U(i, 2) = Pbl_Cell_Candidat_CdS Then
+    '    U_CdS(i) = True
+    '    nb += 1
+    '  End If
+    'Next
+    'Jrn_Add_Yellow("je calcule candidat" & Pbl_Cell_Candidat_CdS & " qte : " & nb & " " & U_CdS.Count(Function(b) b))
 
-      ' 2 Aide Graphique
-      U_MdC_Init()
-      G4_MdC_Row_Col_Box("Row", U_Row(Cellule))
-      G4_MdC_Row_Col_Box("Col", U_Col(Cellule))
-      G4_MdC_Row_Col_Box("Box", U_Reg(Cellule))
-      G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
-      'Re-dessine le candidat à placer dans un cercle plein Jaune
-      Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-      sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
-      'U_Strg(Cellule) = True
-      'Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-      MsgBox(ex.Message)
-    End Try
   End Sub
-
-
 
 
 
