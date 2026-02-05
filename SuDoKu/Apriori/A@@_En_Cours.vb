@@ -103,7 +103,13 @@ Friend Module En_Cours
   End Function
 #End Region
   Sub Strategy_Code(strg_Code As String)
-    ' Active/désactive la stratégie passée en paramètre
+    ' TOUTES les stratégies de la barre d'outils et les 2 stratégies DCd et CdS passent ici
+    ' 1 Active/désactive la stratégie passée en paramètre
+    ' 2 Documente Plcy_Strg ou la remet à blanc
+    ' 3 Affiche dans B_Info soit le texte de la stratégie, soit les infos de la grille
+    ' 4 Lance éventuellement les calculs de la stratégie et en récupère un seul résultat au hasard
+    ' 5 Invalide le formulaire pour déclencher un repaint et l'affichage du résultat
+
     Strategy_Switch(strg_Code)
     Select Case Plcy_Strg_Swt
       Case +1 : Plcy_Strg = strg_Code
@@ -128,37 +134,5 @@ Friend Module En_Cours
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
-
-
-
-  Sub Strategy_CdS()
-    'If Plcy_Strg <> "CdS" Then Exit Sub
-    'For i As Integer = 0 To 80 : U_CdS(i) = False : Next
-    'If Pbl_Cell_Candidat_CdS = " " Then Exit Sub
-    'Dim nb As Integer
-    'For i As Integer = 0 To 80
-    '  If U(i, 2) = Pbl_Cell_Candidat_CdS Then
-    '    U_CdS(i) = True
-    '    nb += 1
-    '  End If
-    'Next
-    'Jrn_Add_Yellow("je calcule candidat" & Pbl_Cell_Candidat_CdS & " qte : " & nb & " " & U_CdS.Count(Function(b) b))
-
-  End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 End Module

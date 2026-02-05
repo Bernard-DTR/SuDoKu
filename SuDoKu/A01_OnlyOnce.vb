@@ -105,7 +105,6 @@ Friend Module A01_OnlyOnce
 
     Bld_Journal_Affiché_Width = Bld_Journal_Width
     Plcy_AideGraphique = False
-    'Swt_Mode_Suggestion = -1
 
   End Sub
   ''' <summary>Charge le fichier des messages dans un dictionnaire.</summary>

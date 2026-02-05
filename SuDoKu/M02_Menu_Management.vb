@@ -87,10 +87,10 @@ Module M02_Menu_Management
 
   Sub Mnu_Mngt_Conditions_Générales(Cellule As Integer)
     ' Afin de faciliter les traitements suivants, mise en place de Plcy_* spécifiques
-    Plcy_Nrm = False
-    Plcy_Sas = False
-    If Plcy_Gnrl = "Nrm" Then Plcy_Nrm = True
-    If Plcy_Gnrl = "Sas" Then Plcy_Sas = True
+    'Plcy_Nrm = False
+    'Plcy_Sas = False
+    'If Plcy_Gnrl = "Nrm" Then Plcy_Nrm = True
+    'If Plcy_Gnrl = "Sas" Then Plcy_Sas = True
     Plcy_Typ_I = False
     Plcy_Typ_R = False
     Plcy_Typ_V_sans_Cdd = False
@@ -124,7 +124,7 @@ Module M02_Menu_Management
     ' TODO Voir la pertinence en l'abscence de Plcy_AideGraphique
 
     If (U(Cellule, 1) = " " And U(Cellule, 2) = " ") Then
-      If Plcy_Nrm = True Then
+      If Plcy_Gnrl = "Nrm" Then
         If (Plcy_Strg = "   ") _
         Or (Stg_Get(Plcy_Strg).Type = "I") _
         Or (Stg_Get(Plcy_Strg).Type = "E") _
@@ -140,7 +140,7 @@ Module M02_Menu_Management
           Plcy_Typ_V_avec_Cdd = True
         End If
       End If
-      If Plcy_Sas Then
+      If Plcy_Gnrl = "Sas" Then
         If (U(Cellule, 3) = Cnddts_Blancs) Then Plcy_Typ_V_sans_Cdd = True
         If (U(Cellule, 3) <> Cnddts_Blancs) Then Plcy_Typ_V_avec_Cdd = True
       End If
@@ -151,7 +151,7 @@ Module M02_Menu_Management
   Sub Mnu_Mngt_Barre_de_Menu()
     'Menu Effacer de la barre de Menu
     Frm_SDK.Mnu02_Effacer.Enabled = False
-    If Plcy_Nrm And Plcy_Typ_R Then
+    If Plcy_Gnrl = "Nrm" And Plcy_Typ_R Then
       Frm_SDK.Mnu02_Effacer.Enabled = True
     End If
   End Sub
@@ -162,7 +162,7 @@ Module M02_Menu_Management
     Dim Btn As System.Windows.Forms.ToolStripItem
     'Les ToolStripSeparator sont correctement placés
     'Les Btn Filtre n'ont pas de texte, uniquement une Image
-    If Not Plcy_Nrm Then Exit Sub
+    If Plcy_Gnrl <> "Nrm" Then Exit Sub
     For Each Btn In Frm_SDK.BarreOutils.Items
       If Btn.GetType().ToString() <> "System.Windows.Forms.ToolStripButton" Then Continue For
       Btn.Visible = True
@@ -280,8 +280,8 @@ Module M02_Menu_Management
           Case "Cdd_Exc_" 'Exclure le candidat 1 à 9
             If Plcy_Typ_V_avec_Cdd Then
               Dim Candidats As String = U(Cellule, 3)
-              If (Plcy_Sas) _
-              Or (Plcy_Nrm And Wh_Cell_Nb_Candidats(U, Cellule) > 1) Then
+              If (Plcy_Gnrl = "Sas") _
+              Or (Plcy_Gnrl = "Nrm" And Wh_Cell_Nb_Candidats(U, Cellule) > 1) Then
                 Opt = Ligne.Name.Substring(16, 1)
                 If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
                 'les stratégies proposent d'exclure un candidat.
@@ -320,7 +320,7 @@ Module M02_Menu_Management
             End If
 
           Case "Cdd_Ins_" 'Insérer les Candidats ....
-            If Plcy_Sas And Plcy_Typ_V_sans_Cdd Then
+            If Plcy_Gnrl = "Sas" And Plcy_Typ_V_sans_Cdd Then
               If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
               If Plcy_Mnu_Item Then
                 Opt = Ligne.Name.Substring(16, 1)
@@ -334,7 +334,7 @@ Module M02_Menu_Management
                 If Not Plcy_Fantasy Then Ligne.Image = Nothing
               End If
             End If
-            If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
+            If Plcy_Gnrl = "Sas" And Plcy_Typ_V_avec_Cdd Then
               Dim Candidats As String = U(Cellule, 3)
               Opt = Ligne.Name.Substring(16, 1)
               If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True

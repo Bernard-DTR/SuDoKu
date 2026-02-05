@@ -111,7 +111,6 @@ Module A00_Public
   Public U_Row(0 To 80) As Integer                   '        dans quelle Ligne   se trouve une cellule (de 0 à 8)
   Public U_cr(0 To 80) As String                     '        les coordonnées Lx_Cy de chaque cellule
   Public U_Reg(0 To 80) As Integer                   '        dans quelle Région  se trouve une cellule (de 0 à 8)
-  'Public U_Suggest(0 To 80) As String                '        Précise les cellules suggérées en mode suggestion
 
   'Le terme Rectangle est remplacé par le terme Bande 
   Public U_Bh(0 To 80) As Integer                    '        N° de la bande horizontale
@@ -240,9 +239,6 @@ Module A00_Public
   Public Plcy_Generate_Batch As Boolean = False
   Public Batch_en_Cours As Boolean = False
   Public Batch_Thread As Thread
-  'Public Plcy_Slm As Boolean = False 'Slm Sélection multiple
-  'Public Prv_Plcy_Slm As Boolean = False
-  Public Plcy_Nrm, Plcy_Sas As Boolean
   Public Plcy_Typ_I, Plcy_Typ_R, Plcy_Typ_V_sans_Cdd, Plcy_Typ_V_avec_Cdd As Boolean
   Public Plcy_Mnu_Item, Plcy_Mnu_Sep As Boolean
 

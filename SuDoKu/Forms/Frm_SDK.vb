@@ -127,6 +127,9 @@ Public NotInheritable Class Frm_SDK
       End If
     Next
 
+
+
+
     'Le menu 04 diffère des autres menus dans la mesure où il est capable d'afficher une image ET le symbole checked/non checked
     'https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-enable-check-margins-and-image-margins-in-contextmenustrip-controls?view=netframeworkdesktop-4.8
     Mnu04.DropDown = New ContextMenuStrip()
@@ -359,6 +362,8 @@ Public NotInheritable Class Frm_SDK
     'Reprise de la logique de présentation du formulaire, les contrôles sont mis en place
     Phase_Démarrage_Terminée = True
     ResumeLayout()
+
+    Mnu_Mngt_Barre_Outils_Filtres()
 
     'Plcy_Generate_Batch autorise la création de grilles par lot en arrière-plan
     If Plcy_Generate_Batch Then
@@ -1114,21 +1119,7 @@ Public NotInheritable Class Frm_SDK
     Transf_Région_V()
   End Sub
   '--------------04n--------------------------------------------------------------
-  Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
-    Strategy_Code("DCd")
-  End Sub
-  Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
-    Strategy_Code("CdS")
-  End Sub
-  Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown
-    Select Case e.Button
-      Case MouseButtons.Left
-        Strategy_Code("FV" & sender.ToString())
-      Case MouseButtons.Right
-        Strategy_Code("FC" & sender.ToString())
-    End Select
-  End Sub
-
+  ' TOUTES les stratégies de la barre d'outils et les 2 stratégies DCd et CdS sont lancées ici
   Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click,
                                         Btn_Unq.Click, Btn_Tpl.Click, Btn_Swf.Click,
                                         Btn_SKy.Click, Btn_Jly.Click, Btn_Cbl.Click,
@@ -1145,6 +1136,21 @@ Public NotInheritable Class Frm_SDK
     ' Si aucune correspondance trouvée
     Jrn_Add(, {Proc_Name_Get() & " Sender inconnu : " & Sender.ToString()}, "Erreur")
   End Sub
+  Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown
+    Select Case e.Button
+      Case MouseButtons.Left
+        Strategy_Code("FV" & sender.ToString())
+      Case MouseButtons.Right
+        Strategy_Code("FC" & sender.ToString())
+    End Select
+  End Sub
+  Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
+    Strategy_Code("DCd")
+  End Sub
+  Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
+    Strategy_Code("CdS")
+  End Sub
+
   Public Sub Mnu04n_Stratégie_XW_Click(Sender As Object, e As EventArgs)
     If TypeOf Sender Is ToolStripMenuItem Then
       Dim Mnu As ToolStripMenuItem = CType(Sender, ToolStripMenuItem)

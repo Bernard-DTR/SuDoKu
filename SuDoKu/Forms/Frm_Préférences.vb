@@ -425,6 +425,7 @@ Public Class Frm_Préférences
 
       End Select
       OC_Présentation()
+      Mnu_Mngt_Barre_Outils_Filtres()
       Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
     End If
