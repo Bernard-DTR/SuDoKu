@@ -322,7 +322,6 @@ Public NotInheritable Class Frm_SDK
     Icon = My.Resources.SuDoKu
     Top = 10
     Left = 10
-
 #End Region
 
     OO_999_SDK_Load_End()
@@ -363,6 +362,7 @@ Public NotInheritable Class Frm_SDK
     Phase_Démarrage_Terminée = True
     ResumeLayout()
 
+    ' Pour afficher la barre d'outils avec les valaurs 0 à 1 de Arial
     Mnu_Mngt_Barre_Outils_Filtres()
 
     'Plcy_Generate_Batch autorise la création de grilles par lot en arrière-plan
@@ -1150,6 +1150,9 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
     Strategy_Code("CdS")
   End Sub
+  Private Sub Mnu04n_AnnulerLaDerniereOption_Click(sender As Object, e As EventArgs) Handles Btn0.Click
+    Strategy_Dsp_Standard()
+  End Sub
 
   Public Sub Mnu04n_Stratégie_XW_Click(Sender As Object, e As EventArgs)
     If TypeOf Sender Is ToolStripMenuItem Then
@@ -1175,9 +1178,6 @@ Public NotInheritable Class Frm_SDK
     Else
       Jrn_Add(, {"Sender inconnu : " & Sender.ToString(), "Erreur"})
     End If
-  End Sub
-  Private Sub Mnu04n_AnnulerLaDerniereOption_Click(sender As Object, e As EventArgs) Handles Btn0.Click
-    Strategy_Dsp_Standard()
   End Sub
   Private Sub Mnu04n_RésoudreUneCellule_Click(sender As Object, e As EventArgs)
     Cell_Slv_Interactif("S", "Résoudre une Cellule")

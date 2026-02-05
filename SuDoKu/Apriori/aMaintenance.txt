@@ -252,16 +252,15 @@
                    Les boutons 1 à 9 affichent les valeurs ou dessins des candidats
                    Les boutons 1 à 9 sont grisés si tous les candidats correspondant au filtre sont placés
                    je trouve l'erreur et corrige 
+#606 J  05/02/2026 Fonctionnement de Btn0 Annuler la dernière option avec Strategy_Dsp_Standard()
 
 
-
-#605 J  05/02/2026 Fonctionnement de Btn0 Annuler la dernière option
 #605 J  05/02/2026 Mise en place de la stratégie FVx  
 #605 J  05/02/2026 Mise en place de la stratégie FCx  
 #605 J  05/02/2026 Mise en place de la stratégie CdS  
 #605 J  05/02/2026 Mise en place de la stratégie des Candidats bloques Séparation Calcul-Affichage
 
-
+                   Suppression de l'AideGraphique
 
 
 

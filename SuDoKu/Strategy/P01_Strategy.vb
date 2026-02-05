@@ -79,18 +79,16 @@ Friend Module P01_Strategy
   '
   Sub Strategy_Dsp_Standard()
     'Procédure appelée par: Mnu04n_AnnulerLaDerniereOption_Click
-    'La Grille est rafraîchie et l'Aide Graphique abandonnée
 
     Strategy_Switch("   ")
-
+    ' Plcy_Strg est positionnée à "   "  
     Dim item_DCd As ToolStripMenuItem = DirectCast(Frm_SDK.Mnu04.DropDown.Items("Mnu04n_DCd"), ToolStripMenuItem)
     item_DCd.Checked = False
     Dim item_CdS As ToolStripMenuItem = DirectCast(Frm_SDK.Mnu04.DropDown.Items("Mnu04n_CdS"), ToolStripMenuItem)
     item_CdS.Checked = False
 
-    Frm_SDK.B_Info.Text = Proc_Name_Get()
-    Dsp_AideGraphique("Non")
-    'U_Strg_Effacer()
+    Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
@@ -98,19 +96,19 @@ Friend Module P01_Strategy
   ' Procédure générique
 
 
-  Sub Dsp_AideGraphique(Dsp As String)
-    'Afficher / Ne pas afficher l'AideGraphique
-    'Dsp permet de forcer l'affichage de l'AideGraphique ou non, ou bien de l'alterner
-    'Les options Aide Graphique et F1 Aide ne sont pas enregistrées dans SDK.ini
-    Select Case Dsp
-      Case "Non" : Plcy_AideGraphique = False
-      Case "Alt" : If Plcy_AideGraphique Then Plcy_AideGraphique = False Else Plcy_AideGraphique = True
-      Case "Oui" : Plcy_AideGraphique = True
-      Case "PdC" ' Pas de changement
-    End Select
-    If Plcy_AideGraphique Then Frm_SDK.Mnu05_AideSudokuGraphique.Checked = True
-    If Not Plcy_AideGraphique Then Frm_SDK.Mnu05_AideSudokuGraphique.Checked = False
-  End Sub
+  'Sub Dsp_AideGraphique(Dsp As String)
+  '  'Afficher / Ne pas afficher l'AideGraphique
+  '  'Dsp permet de forcer l'affichage de l'AideGraphique ou non, ou bien de l'alterner
+  '  'Les options Aide Graphique et F1 Aide ne sont pas enregistrées dans SDK.ini
+  '  Select Case Dsp
+  '    Case "Non" : Plcy_AideGraphique = False
+  '    Case "Alt" : If Plcy_AideGraphique Then Plcy_AideGraphique = False Else Plcy_AideGraphique = True
+  '    Case "Oui" : Plcy_AideGraphique = True
+  '    Case "PdC" ' Pas de changement
+  '  End Select
+  '  If Plcy_AideGraphique Then Frm_SDK.Mnu05_AideSudokuGraphique.Checked = True
+  '  If Not Plcy_AideGraphique Then Frm_SDK.Mnu05_AideSudokuGraphique.Checked = False
+  'End Sub
   Sub Undo_Redo(Action As String)
     Dim UR_Sym As String = "<>"
     Game_Undo_Redo = Action
