@@ -104,7 +104,6 @@ Friend Module A01_OnlyOnce
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
 
     Bld_Journal_Affiché_Width = Bld_Journal_Width
-    Plcy_AideGraphique = False
 
   End Sub
   ''' <summary>Charge le fichier des messages dans un dictionnaire.</summary>

@@ -67,8 +67,8 @@ Friend Module M20_Game
 
     'Fin commune à toute nouvelle partie
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
-    Plcy_AideGraphique = False
-    Dsp_AideGraphique("Non")           '(Non)
+    ' Plcy_AideGraphique = False
+    ' Dsp_AideGraphique("Non")           '(Non)
     'Swt_Mode_Suggestion = -1           '(Non)
 
     Dim ToolTipText As String = Nothing

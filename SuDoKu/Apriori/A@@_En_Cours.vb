@@ -126,6 +126,11 @@ Friend Module En_Cours
       Case "Cdd"
       Case "CdU" : Strategy_Rslt = Strategy_CdU(U_temp)
       Case "CdO" : Strategy_Rslt = Strategy_CdO(U_temp)
+      Case "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"
+      Case "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9"
+        'Case "CdS"
+        'Case "DCd"
+
 
       Case Else
     End Select

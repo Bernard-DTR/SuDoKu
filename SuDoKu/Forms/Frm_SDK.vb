@@ -910,6 +910,7 @@ Public NotInheritable Class Frm_SDK
     Dim FiltreMW As Integer
     If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), FiltreMW) Then Exit Sub
     Dim NewMW As Integer = ((FiltreMW + Sens + 8) Mod 9) + 1
+
     Strategy_Switch("FC" & CStr(NewMW))
     Event_OnPaint = "Global"
     Invalidate()
@@ -934,7 +935,7 @@ Public NotInheritable Class Frm_SDK
 
     Event_OnPaint = "Global"
     Invalidate()
-    Application.DoEvents()   'Affiche la grille avec solutions
+    'Application.DoEvents()   'Affiche la grille avec solutions
   End Sub
   Private Sub Mnu01_Saisir_Click(sender As Object, e As EventArgs) Handles Mnu01_Saisir.Click
     Dim Nom As String = "Pzzl_" & "_" & Format(Now, "yyyy_MM_dd_HH_mm_ss")
@@ -1137,11 +1138,13 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add(, {Proc_Name_Get() & " Sender inconnu : " & Sender.ToString()}, "Erreur")
   End Sub
   Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown
+    Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
+    Dim flt As String = btn.Name.Substring(3, 1)
     Select Case e.Button
       Case MouseButtons.Left
-        Strategy_Code("FV" & sender.ToString())
+        Strategy_Code("FV" & flt)
       Case MouseButtons.Right
-        Strategy_Code("FC" & sender.ToString())
+        Strategy_Code("FC" & flt)
     End Select
   End Sub
   Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
@@ -1184,8 +1187,8 @@ Public NotInheritable Class Frm_SDK
   End Sub
   '--------------04---------------------------------------------------------------
   '--------------05---------------------------------------------------------------
-  Private Sub Mnu05_AideSudokuGraphique_Click(sender As Object, e As EventArgs) Handles Mnu05_AideSudokuGraphique.Click
-    Dsp_AideGraphique("Alt")
+  Private Sub Mnu05_AideSudokuGraphique_Click(sender As Object, e As EventArgs)
+    'Dsp_AideGraphique("Alt")
   End Sub
   Private Sub Mnu05_APropos_Click(sender As Object, e As EventArgs) Handles Mnu05_APropos.Click
     Frm_About.Show()
@@ -2108,7 +2111,7 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add(, {Proc_Name_Get() & " Lancement des Stratégies G "})
     Strategy_Switch("   ")
     B_Info.Text = Proc_Name_Get()
-    Dsp_AideGraphique("Non")
+    'Dsp_AideGraphique("Non")
     'U_Strg_Effacer()
     Event_OnPaint = "Global"
     Invalidate()

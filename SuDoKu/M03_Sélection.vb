@@ -34,7 +34,7 @@ Friend Module M03_Sélection
           Insertion_Exclusion_Nb_Erreurs += 1
           Act_Add(Cellule, "? Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
         End If
-        Pbl_Cell_Candidat_CdS = V
+        Pbl_Valeur_CdS = V
       Case "Sas"
         U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
     End Select
@@ -44,38 +44,18 @@ Friend Module M03_Sélection
     '     L'insertion ne concerne qu'une cellule à la fois
     Dim sc As New Cellule_Cls With {.Numéro = Cellule}
     Dim Gril As New Grille_Cls
-    Select Case Plcy_Gnrl
-      Case "Nrm"
-        Select Case Plcy_Strg
-          Case "   "
-            Event_OnPaint = "Cell_Val_Insert"
-            Using reg As New Region(Sqr_Pth(Cellule)) ' le Sqr_Cel est un rectangle, alors que le Sqr_Pth comporte les arrondis
-              Frm_SDK.Invalidate(reg, False)
-            End Using
-            Application.DoEvents()   'Affiche la grille avec solutions
-          Case Else
-            If Plcy_AideGraphique Then
-              Event_OnPaint = "Global"
-              Application.DoEvents()
-            End If
-            If Not Plcy_AideGraphique Then
-              ' Todo à voir plus tard
-              'sc.Cellule_Refresh_Cell_Coll()
-              Event_OnPaint = "Global"
-              Application.DoEvents()
-            End If
-        End Select
-      Case "Sas"
-        Event_OnPaint = "Cell_Val_Insert"
-        Using reg As New Region(Sqr_Pth(Cellule)) ' le Sqr_Cel est un rectangle, alors que le Sqr_Pth comporte les arrondis
-          Frm_SDK.Invalidate(reg, False)
-        End Using
-        Application.DoEvents()
-    End Select
+    If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
+    Or (Plcy_Gnrl = "Sas") Then
+      Event_OnPaint = "Cell_Val_Insert"
+      Using reg As New Region(Sqr_Pth(Cellule)) ' le Sqr_Cel est un rectangle, alors que le Sqr_Pth comporte les arrondis
+        Frm_SDK.Invalidate(reg, False)
+      End Using
+    Else
+      Event_OnPaint = "Global"
+      Frm_SDK.Invalidate()
+    End If
 
-    ' Traitements communs
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-
     Insert_Nb_Cell += 1
 
     ' 05 Fin de partie

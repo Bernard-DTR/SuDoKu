@@ -292,7 +292,6 @@ Module M02_Menu_Management
                     Ligne.BackColor = Control.DefaultBackColor
                     If Plcy_Gnrl = "Nrm" AndAlso
                       Stg_Get(Plcy_Strg).Type = "E" AndAlso
-                     Plcy_AideGraphique AndAlso
                      U_Strg_Cdd_Exc(Cellule).Contains(Opt) Then
                       'Le menu est colorisé rouge pour toutes les stratégies
                       Ligne.BackColor = Color_Cdd_Exclure

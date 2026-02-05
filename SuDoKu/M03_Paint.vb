@@ -149,187 +149,44 @@ Friend Module M03_Paint
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-
-  Public Sub G4_Grid_Stratégie_CdS_g(g As Graphics)
-    ' La stratégie du Candidat Saisi CdS est activée dans Cell_Val_Insert
-    '              qui documente Pbl_Cell_Candidat_CdS = V
-    '              qui exécute un Invalidate, donc un OnPaint
-    If Not Plcy_Strg = "CdS" Then Exit Sub
-    If Pbl_Cell_Candidat_CdS = " " Then Exit Sub
-
-    U_Strg_Effacer_g(g)
-    ' 1 Aide Simple uniquement
-    For i As Integer = 0 To 80
-      If U(i, 2) = Pbl_Cell_Candidat_CdS Then
-        G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
-        U_Strg(i) = True
-      End If
-    Next i
-  End Sub
-
-  Public Sub G4_Grid_Stratégie_CdO_g_Save(g As Graphics)
-    Dim U_temp(80, 3) As String
-    Dim Ligne As Integer
-    Dim Strategy_Rslt(,) As String
-    Dim Cellule As Integer
-    Dim Candidat As String
-    If Not Plcy_Strg = "CdO" Then Exit Sub
-    Try
-      U_Strg_Effacer_g(g) ' Efface la précédente, y compris la dernière
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_Rslt = Strategy_CdO(U_temp)
-      If UBound(Strategy_Rslt, 2) <= 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " sans résultat."
-        Exit Sub
-      End If
-
-      ' Public U_Strg_Val_Ins(80) As String comporte pour chaque poste U la valeur à insérer 
-      ' 1 Aide Simple
-      For i As Integer = 1 To UBound(Strategy_Rslt, 2)
-        For k As Integer = 10 To 54
-          If Strategy_Rslt(k, i) = "__" Then Exit For
-          Cellule = CInt(Strategy_Rslt(k, i))
-          U_Strg_Val_Ins(Cellule) = Strategy_Rslt(5, i)
-          G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
-          U_Strg(Cellule) = True
-        Next k
-      Next i
-      Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
-
-      ' 2 Aide Graphique
-      '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-      Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
-        Candidat = Strategy_Rslt(5, Ligne)
-        Dim Code_LCR As String = Strategy_Rslt(3, Ligne)
-        Dim LCR As Integer = CInt(Strategy_Rslt(4, Ligne))
-        U_MdC_Init()
-        Select Case Code_LCR
-          Case "L" : G4_MdC_Row_Col_Box("Row", LCR)
-          Case "C" : G4_MdC_Row_Col_Box("Col", LCR)
-          Case "R" : G4_MdC_Row_Col_Box("Box", LCR)
-        End Select
-        'U_Strg est documenté dans G4_MdC_Row_Col_Box 
-        G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
-
-        'Re-dessine le candidat à placer dans un cercle plein Jaune
-        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color_Cdd_Insérer)
-        U_Strg(Cellule) = True
-
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " jaune à placer."
-      End If
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-  End Sub
   Public Sub G4_Grid_Stratégie_Flt_g(g As Graphics)
 
+    ' Affichage des Valeurs Filtrés
     If Mid$(Plcy_Strg, 1, 2) = "FV" Then
-      Dim Cellule As Integer
-      Dim Région As Integer
-      Dim Région_Collatérale As Integer
-      Dim Cellule_Région_Collatérale As Integer
       Dim Valeur_Filtrée As String = Mid$(Plcy_Strg, 3, 1)
-      Try
-        U_Strg_Effacer_g(g)
-        ' 1 Aide Simple
-        For i As Integer = 0 To 80
-          If U(i, 2) = Valeur_Filtrée Then
-            G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
-            U_Strg(i) = True 'Dans TOUS les cas
-          End If
-        Next i
-        'Plcy_AideSimple ne concerne pas cette stratégie de filtrage
-
-        'Frm_SDK.B_Info.Text = "Filtrage de la valeur : " & Valeur_Filtrée
-
-        ' 2 Aide Graphique
-
-        ' La région choisie ne doit pas comporter la valeur filtrée, 
-        ' la cellule sélectionnée doit être dans une région où il n'y  pas de valeur
-        ' Pbl_Cell_Select peut être = -1
-        Région = U_Reg(Pbl_Cell_Select)
-        Dim Valeur_Existante_dans_la_Région As Boolean = False
-        Dim Grp_1 As Integer() = U_9CelReg(Région)
-        For i As Integer = 0 To 8
-          If U(Grp_1(i), 2) = Valeur_Filtrée Then
-            Valeur_Existante_dans_la_Région = True : Exit For
-          End If
-        Next i
-        If Plcy_AideGraphique And Valeur_Existante_dans_la_Région = False Then
-          Dim Grp_Région_Collatérales(4) As Integer           'Détermination des Régions Collatérales
-          Select Case Région
-            Case 0 : Grp_Région_Collatérales = {1, 2, 3, 6} 'Les 2 premières sont à l'horizontale et les 2 dernières à la verticale
-            Case 1 : Grp_Région_Collatérales = {0, 2, 4, 7}
-            Case 2 : Grp_Région_Collatérales = {0, 1, 5, 8}
-            Case 3 : Grp_Région_Collatérales = {4, 5, 0, 6}
-            Case 4 : Grp_Région_Collatérales = {3, 5, 1, 7}
-            Case 5 : Grp_Région_Collatérales = {3, 4, 2, 8}
-            Case 6 : Grp_Région_Collatérales = {7, 8, 0, 3}
-            Case 7 : Grp_Région_Collatérales = {6, 8, 1, 4}
-            Case 8 : Grp_Région_Collatérales = {6, 7, 2, 5}
-          End Select
-
-          U_MdC_Init()
-          For g3 As Integer = 0 To 3                                        ' Traitement des 4 régions collatérales
-            Région_Collatérale = Grp_Région_Collatérales(g3)
-            Dim Grp_2 As Integer() = U_9CelReg(Région_Collatérale)
-            For i As Integer = 0 To 8
-              If U(Grp_2(i), 2) = Valeur_Filtrée Then     ' La cellule de la région collatérale comporte la valeur
-                Cellule_Région_Collatérale = Grp_2(i)     ' Cellule filtrée dans la région collatérale
-                Select Case g3
-                  Case 0, 1 : G4_MdC_Row_Col_Box("Row", U_Row(Cellule_Région_Collatérale))    ' Traitement Horizontal
-                  Case 2, 3 : G4_MdC_Row_Col_Box("Col", U_Col(Cellule_Région_Collatérale))    ' Traitement Vertical
-                End Select
-                'U_Strg est documenté dans G4_MdC_Row_Col_Box 
-              End If
-            Next i
-          Next g3
-          G4_MdC_Paint_g(g)
-
-          ' Affichage de la valeur à placer s'il ne reste qu'une cellule dans la Région
-          Dim n As Integer
-          Dim Grp_3 As Integer() = U_9CelReg(Région)
-          For i As Integer = 0 To 8
-            If U(Grp_3(i), 2) = " " And U_MdC(Grp_3(i)).MdE_Exist = False Then
-              n += 1 : Cellule = Grp_3(i)
-            End If
-          Next i
-          If n = 1 Then
-            Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-            sc.G6_Cellule_Paint_Candidat_g(g, Valeur_Filtrée, Color_Cdd_Insérer)
-            U_Strg_Val_Ins(Cellule) = Valeur_Filtrée
-            U_Strg(Cellule) = True
-          End If
+      For i As Integer = 0 To 80
+        If U(i, 2) = Valeur_Filtrée Then
+          G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
         End If
-      Catch ex As Exception
-        Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-        Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-      End Try
+      Next i
     End If
 
     ' Affichage des Candidats Filtrés
     If Mid$(Plcy_Strg, 1, 2) = "FC" Then
-      Try
-        U_Strg_Effacer_g(g)
-        Dim Candidat As String = Mid$(Plcy_Strg, 3, 1)
-        Dim Color As Color = Color_BySymbol(Obj_Symbol)
+      Dim Candidat As String = Mid$(Plcy_Strg, 3, 1)
+      Dim Color As Color = Color_BySymbol(Obj_Symbol)
 
-        Dim sc As New Cellule_Cls
-        For i As Integer = 0 To 80
-          sc.Numéro = i
-          sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
-          U_Strg(i) = True
-          If U(i, 3).Contains(Candidat) Then sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color)
-        Next i
-      Catch ex As Exception
-        Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-        Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-      End Try
+      Dim sc As New Cellule_Cls
+      For i As Integer = 0 To 80
+        sc.Numéro = i
+        sc.G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
+        If U(i, 3).Contains(Candidat) Then sc.G6_Cellule_Paint_Candidat_g(g, Candidat, Color)
+      Next i
     End If
+  End Sub
+  Public Sub G4_Grid_Stratégie_CdS_g(g As Graphics)
+    ' La stratégie du Candidat Saisi CdS est activée dans Cell_Val_Insert
+    '              qui documente Pbl_Valeur_CdS = V
+    '              qui exécute un Invalidate, donc un OnPaint
+    If Not Plcy_Strg = "CdS" Then Exit Sub
+    If Pbl_Valeur_CdS = "" Then Exit Sub
 
+    ' 1 Aide Simple uniquement
+    For i As Integer = 0 To 80
+      If U(i, 2) = Pbl_Valeur_CdS Then
+        G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
+      End If
+    Next i
   End Sub
   Public Sub G4_Grid_Stratégie_DCd_g(g As Graphics)
     Dim U_temp(80, 3) As String
@@ -357,7 +214,69 @@ Friend Module M03_Paint
 
       ' 2 Aide Graphique
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-      If DCdd_List_Exists(Pbl_Cell_Select) And Plcy_AideGraphique Then
+      If DCdd_List_Exists(Pbl_Cell_Select) Then
+        Dim DCdd2 As DCdd_Cls = DCdd_Get(Pbl_Cell_Select)
+        U_MdC_Init()
+        Select Case DCdd2.Sous_Stratégie
+          Case "Bh0" : G4_MdC_Trait_ou_Rectangle(0, 26)
+          Case "Bh1" : G4_MdC_Trait_ou_Rectangle(27, 53)
+          Case "Bh2" : G4_MdC_Trait_ou_Rectangle(54, 80)
+          Case "Bv0" : G4_MdC_Trait_ou_Rectangle(0, 74)
+          Case "Bv1" : G4_MdC_Trait_ou_Rectangle(3, 77)
+          Case "Bv2" : G4_MdC_Trait_ou_Rectangle(6, 80)
+          Case "CdU"
+            G4_MdC_Row_Col_Box("Row", U_Row(Pbl_Cell_Select))
+            G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
+            G4_MdC_Row_Col_Box("Box", U_Reg(Pbl_Cell_Select))
+
+          Case "CdO_L" : G4_MdC_Row_Col_Box("Row", U_Row(Pbl_Cell_Select))
+          Case "CdO_C" : G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
+          Case "CdO_R" : G4_MdC_Row_Col_Box("Box", U_Reg(Pbl_Cell_Select))
+
+          Case Else
+            Jrn_Add(, {"DCd Sous_Stratégie inconnue : " & DCdd2.Sous_Stratégie})
+        End Select
+        'U_Strg est documenté dans G4_MdC_Row_Col_Box 
+        G4_MdC_Paint_g(g) ' Les figures sont dessinées et les candidats affichés
+
+        '  'Re-dessine le candidat à placer dans un cercle plein Jaune
+        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+        sc.G6_Cellule_Paint_Candidat_g(g, DCdd2.Candidat, Color_Cdd_Insérer)
+        U_Strg(Cellule) = True
+        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & DCdd2.Sous_Stratégie & " " & DCdd2.Candidat & " jaune à placer."
+      End If
+    Catch ex As Exception
+      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+    End Try
+  End Sub
+  Public Sub G4_Grid_Stratégie_DCd_g_save(g As Graphics)
+    Dim U_temp(80, 3) As String
+    Dim Cellule As Integer
+    If Not Plcy_Strg = "DCd" Then Exit Sub
+    Try
+      U_Strg_Effacer_g(g)
+      Array.Copy(U, U_temp, UNbCopy)
+      Strategy_DCd(U_temp)
+
+      If DCdd_List.Count = 0 Then
+        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+        Exit Sub
+      End If
+
+      'Public U_Strg_Val_Ins(80) As String comporte pour chaque poste U la valeur à insérer 
+      ' 1 Aide Simple
+      For Each DCdd As DCdd_Cls In DCdd_List
+        Cellule = DCdd.Cellule
+        U_Strg_Val_Ins(Cellule) = DCdd.Candidat
+        G0_Cell_Figure_g(g, Cellule, "Double_Carré", Color_Stratégique)
+        U_Strg(Cellule) = True
+      Next DCdd
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
+
+      ' 2 Aide Graphique
+      '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
+      If DCdd_List_Exists(Pbl_Cell_Select) Then
         Dim DCdd2 As DCdd_Cls = DCdd_Get(Pbl_Cell_Select)
         U_MdC_Init()
         Select Case DCdd2.Sous_Stratégie
@@ -456,7 +375,7 @@ Friend Module M03_Paint
       ' 2 Aide Graphique
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Candidat = Strategy_Rslt(5, Ligne)
         U_MdC_Init()
         Select Case Strategy_Rslt(2, Ligne).Substring(3, 1)
@@ -506,7 +425,7 @@ Friend Module M03_Paint
       ' 2 Aide Graphique
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Candidat = Strategy_Rslt(5, Ligne)
         U_MdC_Init()
         If Strategy_Rslt(3, Ligne) = "C" Then G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
@@ -564,7 +483,7 @@ Friend Module M03_Paint
       ' 2 Aide Graphique
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Candidat = Strategy_Rslt(5, Ligne)
         U_MdC_Init()
         ' Affichage exceptionnel d'un disque dans les cellules avec le SEUL candidat concerné
@@ -660,7 +579,7 @@ Friend Module M03_Paint
       ' 2 Aide Graphique
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Candidat = Strategy_Rslt(5, Ligne)
         U_MdC_Init()
         Select Case Mid$(Strategy_Rslt(2, Ligne), 1, 1)
@@ -714,7 +633,7 @@ Friend Module M03_Paint
       ' 2 Aide Graphique
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Candidat = Strategy_Rslt(5, Ligne)
         U_MdC_Init()
         For k As Integer = 10 To 54
@@ -764,7 +683,7 @@ Friend Module M03_Paint
       ' 2 Aide Graphique
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Candidat = Strategy_Rslt(5, Ligne)
         U_MdC_Init()
         For k As Integer = 10 To 54
@@ -814,7 +733,7 @@ Friend Module M03_Paint
       ' 2 Aide Graphique
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Candidat = Strategy_Rslt(5, Ligne)
         U_MdC_Init()
         G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(10, Ligne))))
@@ -861,7 +780,7 @@ Friend Module M03_Paint
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Dim Sous_stratégie As String = Strategy_Rslt(2, Ligne)
         Candidat = Strategy_Rslt(5, Ligne)
         Select Case Mid$(Sous_stratégie, 1, 3)
@@ -952,7 +871,7 @@ Friend Module M03_Paint
       Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
 
       Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 And Plcy_AideGraphique Then
+      If Ligne <> -1 Then
         Dim Sous_stratégie As String = Strategy_Rslt(2, Ligne)
         'Strategy_Unq_Rectangle_1 candidats comporte 2 candidats (placés dans un string 9)
         '                         la typologie est R11, R12, R13, R14 suivant le sens du rectangle
@@ -993,10 +912,10 @@ Friend Module M03_Paint
   Public Sub G4_Grid_Stratégie_XCx_XCy_XNl_g(g As Graphics)
     If Not (Plcy_Strg = "XCx" Or Plcy_Strg = "XCy" Or Plcy_Strg = "XNl") Then Exit Sub
     Try
-      Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
+      'Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
       If XRslt.Productivité = False Then
-        Dsp_AideGraphique("Non")
+        'Dsp_AideGraphique("Non")
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
         Exit Sub
       End If
@@ -1064,10 +983,10 @@ Friend Module M03_Paint
   Public Sub G4_Grid_Stratégie_XRp_g(g As Graphics)
     If Not Plcy_Strg = "XRp" Then Exit Sub
     Try
-      Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
+      'Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
       If XRslt.Productivité = False Then
-        Dsp_AideGraphique("Non")
+        ' Dsp_AideGraphique("Non")
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
         Exit Sub
       End If
@@ -1132,10 +1051,10 @@ Friend Module M03_Paint
     If Not (Plcy_Strg = "WgX" Or Plcy_Strg = "WgY" Or Plcy_Strg = "WgZ" Or Plcy_Strg = "WgW") Then Exit Sub
 
     Try
-      Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
+      'Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
       If XRslt.Productivité = False Then
-        Dsp_AideGraphique("Non")
+        'Dsp_AideGraphique("Non")
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
         Exit Sub
       End If
@@ -1251,10 +1170,10 @@ Friend Module M03_Paint
     If Not Plcy_Strg = "Gbl" Then Exit Sub
 
     Try
-      Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
+      'Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
       If GRslt.Productivité = False Then
-        Dsp_AideGraphique("Non")
+        'Dsp_AideGraphique("Non")
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
         Exit Sub
       End If
@@ -1309,10 +1228,10 @@ Friend Module M03_Paint
     If Not Plcy_Strg = "Gbv" Then Exit Sub
 
     Try
-      Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
+      'Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
       If GRslt.Productivité = False Then
-        Dsp_AideGraphique("Non")
+        'Dsp_AideGraphique("Non")
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
         Exit Sub
       End If
@@ -1375,10 +1294,10 @@ Friend Module M03_Paint
   Public Sub G4_Grid_Stratégie_GCs_g(g As Graphics)
     If Not (Plcy_Strg = "GCs") Then Exit Sub
     Try
-      Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
+      'Dsp_AideGraphique("Oui") 'Nécessaire pour afficher et colorier le menu contextuel
       Dim sc As New Cellule_Cls
       If GRslt.Productivité = False Then
-        Dsp_AideGraphique("Non")
+        ' Dsp_AideGraphique("Non")
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
         Exit Sub
       End If

@@ -161,7 +161,6 @@ Friend Module A02_Occasionally
 
     ' Colorisation de 4 options de menu
     With Frm_SDK
-      .Mnu05_AideSudokuGraphique.BackColor = Color_Stratégique
       .Mnu_EDI_Saisir_Valeur.BackColor = Color_Fond_Typ_RV
       .Mnu_EDI_Val_Normale.BackColor = Color_Fond_Typ_RV
       .Mnu_EDI_Val_Initiale.BackColor = Color_Fond_Typ_I
@@ -251,7 +250,6 @@ Friend Module A02_Occasionally
         .Mnu08_TestJ.Text = Msg_Read_IA("MNU_0800J")
         'Mnu05 Aide
         .Mnu05.Visible = True
-        .Mnu05_AideSudokuGraphique.Visible = True
         .Mnu05_Préférences.Visible = True
         .Mnu05_FichierDesMessages.Visible = True
         .Mnu05_APropos.Visible = True
@@ -365,7 +363,6 @@ Friend Module A02_Occasionally
         .Mnu08_TestJ.Visible = False
         'Mnu05 Aide
         .Mnu05.Visible = True
-        .Mnu05_AideSudokuGraphique.Visible = True
         .Mnu05_Préférences.Visible = True
         .Mnu05_FichierDesMessages.Visible = False
         .Mnu05_APropos.Visible = True

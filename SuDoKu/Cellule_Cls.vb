@@ -276,18 +276,18 @@ Public Class Cellule_Cls
     If Typologie = "V" Then
       If (Plcy_Gnrl = "Sas" And U(Numéro, 3) = Cnddts_Blancs) _
       Or (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I" And Not Plcy_AideGraphique) _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E" And Not Plcy_AideGraphique) _
-      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" And Not Plcy_AideGraphique) Then
+      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I") _
+      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E") _
+      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV") Then
         Select Case Plcy_Saisir_Commencer
           Case True : G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
           Case False : G6_Cellule_Paint_Candidats_g(g, "Les9Candidats")
         End Select
       End If
 
-      If (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I" And Plcy_AideGraphique) _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E" And Plcy_AideGraphique) _
-      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV" And Plcy_AideGraphique) Then
+      If (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I") _
+      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E") _
+      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV") Then
         G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
       End If
     End If

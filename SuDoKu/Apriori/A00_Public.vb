@@ -90,7 +90,6 @@ Module A00_Public
   Public U_Sol(0 To 80) As String
   Public U_Clr_Cell_Fond(0 To 80) As Color      ' Couleur de fond de chaque cellule
   Public U_Clr_Cell_Val(0 To 80) As Color       ' Couleur de la valeur de chaque cellule
-  Public U_CdS(0 To 80) As Boolean
   'Ce tableau concerne les stratégies Cdd, CdU, CdO, Flt et Cbl à Unq
   'Il stocke les cellules concernées par la stratégie (Niveau de base Simple et Aide Graphique) pour n'effacer que celles-là
   Public U_Strg(0 To 80) As Boolean
@@ -245,7 +244,7 @@ Module A00_Public
   'Policies particulières 
   Public Plcy_Saisir_Commencer As Boolean = False              ' Affichage de la grille de saisie avec les candidats éligibles
   Public Plcy_Solution_Existante As Boolean = False
-  Public Plcy_AideGraphique As Boolean = False
+  'Public Plcy_AideGraphique As Boolean = False
   Public Plcy_AfficherDCdd_Bande As Boolean = True
   Public Plcy_Fond_Grille As Integer = 0                       ' (Numéro de la grille de fond)
   Public Plcy_MouseClick_Middle As Boolean = False
@@ -308,8 +307,7 @@ Module A00_Public
 #Region "99 Dans le désordre"
   ''' <summary>Indication de la Cellule Clickée.</summary>
   Public Pbl_Cell_Select As Integer
-  Public Pbl_Cell_Candidat_CdS As String
-  ' Public Prv_Pbl_Cell_Candidat_CdS As String
+  Public Pbl_Valeur_CdS As String
   Public Pbl_Cell_Candidat_Select As Integer
   ''' <summary>Indication de la Cellule Clickée Précédente.</summary>
   Public Prv_Pbl_Cell_Select As Integer

@@ -253,15 +253,18 @@
                    Les boutons 1 à 9 sont grisés si tous les candidats correspondant au filtre sont placés
                    je trouve l'erreur et corrige 
 #606 J  05/02/2026 Fonctionnement de Btn0 Annuler la dernière option avec Strategy_Dsp_Standard()
+#607 J  05/02/2026 Mise en place de la stratégie FVx  
+#608 J  05/02/2026 Mise en place de la stratégie FCx  
+#609 J  05/02/2026 Frm_SDK_MouseWheel, MouseWheel_Valeur, MouseWheel_Candidat 
+#610 J  05/02/2026 Suppression de l'AideGraphique
+#611 J  05/02/2026 Insertion d'une valeur
 
 
-#605 J  05/02/2026 Mise en place de la stratégie FVx  
-#605 J  05/02/2026 Mise en place de la stratégie FCx  
-#605 J  05/02/2026 Mise en place de la stratégie CdS  
-#605 J  05/02/2026 Mise en place de la stratégie des Candidats bloques Séparation Calcul-Affichage
+#612 J  05/02/2026 Mise en place de la stratégie CdS  
+#613 J  05/02/2026 Mise en place de la stratégie des Candidats Bloqués Séparation Calcul-Affichage
 
-                   Suppression de l'AideGraphique
-
+                   Persistance de la couleur dans le menu contextuel
+                   Quand faut-il utiliser DOEvents après un invalidate ?
 
 
                    ? batch génère une erreur si le nombre plafond du stock est atteint ? 
