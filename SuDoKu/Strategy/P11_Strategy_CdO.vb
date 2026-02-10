@@ -16,7 +16,6 @@ Friend Module P11_Strategy_CdO
     '17/02/2023 Déport de l'initialisation de Cel45 et Exc45
     Dim Stratégie As String = "CdO"
     Dim Sous_Stratégie As String = "CdO"
-    'Jrn_Add_Yellow(Proc_Name_Get() & " " & Origine)
     Dim Strategy_Rslt(99, 0) As String 'initialisé  
 
     'Le tableau Strategy_Rslt est passé en Byref pour pouvoir être augmenté et documenté des CdO
@@ -67,7 +66,6 @@ Friend Module P11_Strategy_CdO
         Next v
       End If
     Next Cellule
-    'Jrn_Add_Yellow("/" & Proc_Name_Get() & " " & Origine & " " & Strategy_Rslt.GetLength(1))
     Return Strategy_Rslt
   End Function
 

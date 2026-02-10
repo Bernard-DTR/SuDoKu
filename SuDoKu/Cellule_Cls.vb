@@ -292,15 +292,6 @@ Public Class Cellule_Cls
       End If
     End If
 
-    Select Case Plcy_Gnrl
-      Case "Nrm", "Sas" : Mnu_Mngt(Numéro)
-      Case Else
-    End Select
-
-    Select Case Plcy_Gbl_Etendue
-      Case True : Frm_SDK.B_Position.Text = U_cr(Numéro) & " (" & Numéro & ")"
-      Case False : Frm_SDK.B_Position.Text = U_cr(Numéro)
-    End Select
   End Sub
   Public Sub Cellule_Refresh_g(g As Graphics)
     'La Cellule est rafraîchie, la Cellule n'est pas sélectionnée 

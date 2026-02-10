@@ -136,7 +136,8 @@ Friend Module En_Cours
     End Select
 
     Dim index As Integer = RRslt_Copy_Rnd(Strategy_Rslt)
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
   End Sub
 

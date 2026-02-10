@@ -46,12 +46,15 @@ Friend Module M03_Sélection
     Dim Gril As New Grille_Cls
     If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
     Or (Plcy_Gnrl = "Sas") Then
-      Event_OnPaint = "Cell_Val_Insert"
+      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+      Event_OnPaint = "Cellule_Valeur_Insertion"
       Using reg As New Region(Sqr_Pth(Cellule)) ' le Sqr_Cel est un rectangle, alors que le Sqr_Pth comporte les arrondis
         Frm_SDK.Invalidate(reg, False)
+        Application.DoEvents()
       End Using
     Else
-      Event_OnPaint = "Global"
+      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
     End If
 
@@ -61,13 +64,16 @@ Friend Module M03_Sélection
     ' 05 Fin de partie
     If Wh_Nb_Cell(U).Remplies = 81 Then
       'L'animation est faite en 2 temps d'abord l'animation 
+      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
       Event_OnPaint = "Animation"
       Frm_SDK.Invalidate()
+
       Application.DoEvents()
-      'puis un Gril.Grille_Refresh_g(e.Graphics)
-      Event_OnPaint = "Global"
+      'puis un affichage de la grille complète
+      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
-      Application.DoEvents()   'Affiche la grille avec solutions
+      Application.DoEvents()
     End If
   End Sub
 

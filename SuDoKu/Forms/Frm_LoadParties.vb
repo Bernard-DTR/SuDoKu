@@ -53,8 +53,8 @@ Public Class Frm_LoadParties
     ' Chargement d'une partie
     Dim LV_Selected As ListView.SelectedListViewItemCollection = Me.LV_Parties.SelectedItems
     My.Settings.LP_Numéro = LV_Selected.Item(0).Index
-    Me.Close()
     Pzzl_Load(LV_Selected.Item(0).SubItems(0).Text)
+    Me.Close()
   End Sub
   Private Sub Btn_Fermer_Click(sender As Object, e As EventArgs) Handles Btn_Fermer.Click
     Close()

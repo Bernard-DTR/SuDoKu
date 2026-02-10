@@ -355,6 +355,7 @@ Public NotInheritable Class Frm_SDK
     End Select
     Jrn_Add("SDK_00100", {LP_Nom})
     Jrn_Add(, {"/" & Proc_Name_Get()})
+    OC_Présentation()
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc)
 #End Region
 
@@ -374,6 +375,7 @@ Public NotInheritable Class Frm_SDK
       Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
       Batch_Initial()
     End If
+    ' ONPaint est appelé à la fin de Frm_SDK_Load par Frm_SDK_Activated
   End Sub
 
   Private Sub Batch_Timer_Tick(sender As Object, e As EventArgs) Handles Batch_Timer.Tick
@@ -392,18 +394,17 @@ Public NotInheritable Class Frm_SDK
     MyBase.OnPaint(e)
     If Not Phase_Démarrage_Terminée Then Exit Sub
 
-    'SourceOver signifie que les pixels de la source (ce qui est dessiné) sont composés au-dessus des pixels de la destination (le formulaire)
-    e.Graphics.CompositingMode = Drawing2D.CompositingMode.SourceOver
-    e.Graphics.CompositingQuality = Drawing2D.CompositingQuality.HighQuality
-    e.Graphics.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
-    e.Graphics.PixelOffsetMode = Drawing2D.PixelOffsetMode.HighQuality
-    e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
-    e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
-    'Jrn_Add_Yellow(Proc_Name_Get() & " " & Event_OnPaint)
+    ''SourceOver signifie que les pixels de la source (ce qui est dessiné) sont composés au-dessus des pixels de la destination (le formulaire)
+    'e.Graphics.CompositingMode = Drawing2D.CompositingMode.SourceOver
+    'e.Graphics.CompositingQuality = Drawing2D.CompositingQuality.HighQuality
+    'e.Graphics.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+    'e.Graphics.PixelOffsetMode = Drawing2D.PixelOffsetMode.HighQuality
+    'e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
+    'e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
     Select Case Event_OnPaint
-      Case "Global"
+      Case "Total"
+        ' la grille est ré-affichée entièrement sur 6 couches 
         Dim Gril As New Grille_Cls
-        'Gril.Grille_Refresh_g(e.Graphics)
         G1_Grid_Paint_g(e.Graphics)
         Gril.G2_Grille_Paint_Fond_g(e.Graphics)
         G4_Grid_Stratégie_All_g(e.Graphics)
@@ -411,48 +412,55 @@ Public NotInheritable Class Frm_SDK
         For i As Integer = 0 To 80
           sc.Numéro = i
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
-          Or (Plcy_Gnrl = "Edi") _
-          Or (Plcy_Gnrl = "Sas") Then
+          If (Plcy_Gnrl = "Edi" Or Plcy_Gnrl = "Sas") Then
             sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
           End If
-          'sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(e.Graphics)
         Next i
+        ' Il n'y a pas de selection de cellule
 
-      Case "Cell_Val_Insert"
+      Case "Cellule_Move"
+        ' La cellule précédemment sélectionnée est rafraîchie sur les couches 2, 5 et 6
+        ' La cellule sélectionnée comporte la grille de sélection
+        Dim sc_prv As New Cellule_Cls
+        sc_prv.Numéro = Prv_Pbl_Cell_Select
+        sc_prv.G2_Cellule_Paint_Fond_g(e.Graphics)
+        sc_prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
+
+        Dim sc As New Cellule_Cls
+        sc.Numéro = Pbl_Cell_Select
+        sc.G2_Cellule_Paint_Fond_g(e.Graphics)
+        sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+        If (Plcy_Gnrl = "Edi" Or Plcy_Gnrl = "Sas") Then
+          sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
+        End If
+        sc.G7_Cellule_Paint_Select_g(e.Graphics)
+
+      Case "Cellule_Valeur_Insertion"
         Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
         sc.G2_Cellule_Paint_Fond_g(e.Graphics)
         sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
         sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
-      Case "Cell_Move"
-        Dim sc_Prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
-        sc_Prv.G2_Cellule_Paint_Fond_g(e.Graphics)
-        sc_Prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
-        sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(e.Graphics)
-        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.Cellule_Refresh_g(e.Graphics)
-        sc.G7_Cellule_Paint_Select_g(e.Graphics)
-
       Case "Animation"
+        ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
+        '            qui lance ensuite "Total" pour rafraîchir la grille
         Dim Gril As New Grille_Cls
         Gril.Grille_Refresh_g(e.Graphics)
         Gril.G8_Grille_Partie_Terminée_g(e.Graphics)
 
       Case Else
         Jrn_Add("SDK_00000", {"Protected Overrides Sub OnPaint(e As PaintEventArgs) est activée: "})
-        Jrn_Add("SDK_00000", {"e As PaintEventArgs      : " & e.ToString})
         Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
         Jrn_Add("SDK_00000", {"Valeur Event_OnPaint_MAP : " & Event_OnPaint_MAP})
-        Jrn_Add("SDK_00000", {"La grille n'est pas rafraîchie, La cellule " & U_Coord(Pbl_Cell_Select) & " n'est pas sélectionnée."})
-        Jrn_Add("SDK_00010", JourDateHeure())
     End Select
 
+    Event_OnPaint_MAP = "#"
     Event_OnPaint = "#"
   End Sub
 
   Private Sub Frm_SDK_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint = "Total"
   End Sub
 
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -501,6 +509,7 @@ Public NotInheritable Class Frm_SDK
       Cursor = Cursors.WaitCursor
 
       ' Attendre la fin du thread
+      Event_OnPaint_MAP = Proc_Name_Get()
       Event_OnPaint = "Global"
 
       Invalidate()
@@ -515,22 +524,27 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Frm_SDK_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
     'Se produit quand le contrôle est redimensionné par exemple après une Réduction 
+    Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_MinimumSizeChanged(sender As Object, e As EventArgs) Handles MyBase.MinimumSizeChanged
+    Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint = "Total"
   End Sub
   Private Sub Frm_SDK_Move(sender As Object, e As EventArgs) Handles MyBase.Move
-    'Génére OnPaint, lorsque le Move est hors écran
+    Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint = "Total"
   End Sub
   Private Sub Frm_SDK_VisibleChanged(sender As Object, e As EventArgs) Handles MyBase.VisibleChanged
+    Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
 
@@ -625,98 +639,44 @@ Public NotInheritable Class Frm_SDK
 
   End Sub
   Private Sub Frm_SDK_KeyDown_Selected(Cellule_KDS As Integer)
-
     'La cellule sur laquelle passe la souris devient la Pbl_Cell_Select
+    'Le traitement est identique à celui de Frm_SDK_MouseMove
     Pbl_Cell_Select = Cellule_KDS
-
-    'Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-    'Select Case Plcy_Slm
-    '  Case True
-    '    '1 On sélectionne la cellule  
-    '    U_Slm(Pbl_Cell_Select) = True
-    '    sc.Cellule_Refresh()
-    '    sc.G7_Cellule_Paint_Select()
-    '  Case False
-    '    '0 Si slm, on remet les cellules précédentes en état
-    '    If Prv_Plcy_Slm Then
-    '      Dim sc_Slm As New Cellule_Cls
-    '      For i As Integer = 0 To 80
-    '        If U_Slm(i) Then
-    '          sc_Slm.Numéro = i
-    '          sc_Slm.G2_Cellule_Paint_Fond()
-    '          sc_Slm.G5_Cellule_Paint_Valeur()
-    '          sc_Slm.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-    '          U_Slm(i) = False
-    '        End If
-    '      Next i
-    '    End If
-    '    '1 On remet la cellule précédente en état
-    '    Dim sc_Prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
-    '    sc_Prv.G2_Cellule_Paint_Fond()
-    '    sc_Prv.G5_Cellule_Paint_Valeur()
-    '    sc_Prv.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
-    '    '2 On sélectionne la cellule  
-    '    sc.Cellule_Refresh()
-    '    sc.G7_Cellule_Paint_Select()
-    '    '3 
-    '    Prv_Pbl_Cell_Select = Pbl_Cell_Select
-    'End Select
-
-    Event_OnPaint = "Cell_Move"
-    Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
-      reg.Union(Sqr_Pth(Pbl_Cell_Select))
-      Invalidate(reg, False)
-    End Using
-    Application.DoEvents()
+    If Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
+      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+        Event_OnPaint = "Cellule_Move"
+        Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
+          reg.Union(Sqr_Pth(Pbl_Cell_Select))
+          Invalidate(reg, False)
+          Application.DoEvents()
+        End Using
+      End If
+    End If
+    B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+    Mnu_Mngt(Pbl_Cell_Select)
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
-
-    'Prv_Plcy_Slm = Plcy_Slm
   End Sub
-
   Private Sub Frm_SDK_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-    'Le pointeur de la souris est passé sur le composant
-    Dim Cntl As Windows.Forms.Form = DirectCast(sender, Windows.Forms.Form)
-    Dim MM_Pt As New Point(x:=e.X, y:=e.Y)
-    Dim Cellule_MM As Integer      ' Il s'agit de la Cellule où se trouve la souris
-    Dim Candidat_MM_Pt As Integer  ' Il s'agit du Candidat dans la Cellule où se trouve la souris
-    ' Test des sélections multiples
-    Try
-      'Se produit après l'effacement d'une valeur
-      If Prv_MM_Pt = MM_Pt Then Exit Sub
-      Prv_MM_Pt = MM_Pt
-
-      Cellule_MM = Wh_Cellule_Pt_IA(MM_Pt)
-      If Cellule_MM = -1 Then Exit Sub
-      Candidat_MM_Pt = Wh_Cellule_Candidat_Pt_IA(Cellule_MM, MM_Pt)
-      If Candidat_MM_Pt = -1 Then Exit Sub
-      'Le traitement est effectué quelque soit la typologie de la cellule
-      '0 La cellule sur laquelle passe la souris devient la Pbl_Cell_Select
-      Pbl_Cell_Select = Cellule_MM
-      Dim Rct_Cdd_Numéro As Integer = (Pbl_Cell_Select * 10) + Candidat_MM_Pt
-      Pbl_Cell_Candidat_Select = Candidat_MM_Pt
-
-      ' On doit avoir changé de Rectangle de Cellule
-
-      If Prv_Pbl_Cell_Select < 0 Then Prv_Pbl_Cell_Select = 0
-      If Prv_Pbl_Cell_Select < 0 _
-      Or Prv_Pbl_Cell_Select > Sqr_Cel.GetUpperBound(0) Then Prv_Rct_Cdd_Numéro = 0
-
-      If Sqr_Cel(Prv_Pbl_Cell_Select).Contains(MM_Pt) Then Exit Sub
-      Event_OnPaint = "Cell_Move"
-      Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
-        reg.Union(Sqr_Pth(Pbl_Cell_Select))
-        Invalidate(reg, False)
-      End Using
-      Application.DoEvents()
-
-      Prv_Pbl_Cell_Select = Pbl_Cell_Select
-      Prv_Pbl_Cell_Candidat_Select = Pbl_Cell_Candidat_Select
-
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    Dim Cellule_MM As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(e.X, e.Y))
+    If Cellule_MM = -1 Then Exit Sub
+    Pbl_Cell_Select = Cellule_MM
+    If Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
+      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+        Event_OnPaint = "Cellule_Move"
+        Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
+          reg.Union(Sqr_Pth(Pbl_Cell_Select))
+          Invalidate(reg, False)
+          Application.DoEvents()
+        End Using
+      End If
+    End If
+    B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+    Mnu_Mngt(Pbl_Cell_Select)
+    Prv_Pbl_Cell_Select = Pbl_Cell_Select
   End Sub
+
   Private Sub Frm_SDK_MouseClick(sender As Object, e As MouseEventArgs) Handles MyBase.MouseClick
     ' e as MouseEventArgs permet de localiser la souris
     ' seuls les clics gauche et milieu sont détectés, le clic droit affiche le menu contextuel
@@ -796,21 +756,6 @@ Public NotInheritable Class Frm_SDK
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
     Dim TTT_Message As String = Cnddts_Blancs
     Dim Cellule As Integer = Pbl_Cell_Select
-    '  True                          
-    '-----------+        
-    '  1  2  3  |        
-    '           |        
-    '  4  5  6  |        
-    '           |        
-    '  7  8  9  |        
-    '-----------+        
-    ' Pour les régions,  il faut cliquer-milieu dans les centres des régions
-    ' Pour les colonnes, il faut cliquer-milieu dans les cellules du haut ou du bas des colonnes 
-    '                                           et pour les colonnes de gauche et de droite, il faut cliquer-milieu dans le haut droit  ou haut gauche
-    '                                                                                                               ou      bas  droit  ou haut gauche
-    '                                           afin de faire la distinction avec les lignes
-    ' Pour les lignes, même raisonnement
-    ' Pour les cellules des 4 angles, on précise la position pour l'affichage de la ligne ou de la colonne
     If Plcy_Fantasy Then Exit Sub    'Le TTT_Message ne fonctionne pas avec une police fantaisie.
 
     Select Case Cellule
@@ -869,7 +814,7 @@ Public NotInheritable Class Frm_SDK
     Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X, Top + Get_Centre(Cellule, Candidat).Y)
 
     MouseClick_Middle_ToolTip.ShowTooltip(Position)
-    TTT_Timer.Interval = 2000 ' 5 secondes
+    TTT_Timer.Interval = 2000
     AddHandler TTT_Timer.Tick, Sub(senderObj As Object, eventArgs As EventArgs)
                                  MouseClick_Middle_ToolTip.HideTooltip()
                                  TTT_Timer.Stop()
@@ -903,7 +848,8 @@ Public NotInheritable Class Frm_SDK
     Loop While NewMW <> StartVal
 
     Strategy_Switch("FV" & CStr(NewMW))
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get() & " FV" & CStr(NewMW)
+    Event_OnPaint = "Total"
     Invalidate()
   End Sub
   Public Sub MouseWheel_Candidat(ByVal Sens As Integer)
@@ -912,7 +858,8 @@ Public NotInheritable Class Frm_SDK
     Dim NewMW As Integer = ((FiltreMW + Sens + 8) Mod 9) + 1
 
     Strategy_Switch("FC" & CStr(NewMW))
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get() & " FC" & CStr(NewMW)
+    Event_OnPaint = "Total"
     Invalidate()
   End Sub
 #End Region
@@ -926,16 +873,17 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu01_Ouvrir_Click(sender As Object, e As EventArgs) Handles Mnu01_Ouvrir.Click
     'Chargement d'une nouvelle partie en mode normal ou Sas
     Frm_LoadParties.Show()
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint = "Total"
     Invalidate()
-    'Application.DoEvents()   'Affiche la grille avec solutions
+    Application.DoEvents()
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc)
-
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint = "Total"
     Invalidate()
-    'Application.DoEvents()   'Affiche la grille avec solutions
+    Application.DoEvents()
   End Sub
   Private Sub Mnu01_Saisir_Click(sender As Object, e As EventArgs) Handles Mnu01_Saisir.Click
     Dim Nom As String = "Pzzl_" & "_" & Format(Now, "yyyy_MM_dd_HH_mm_ss")
@@ -1062,33 +1010,35 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu03_CopierLeJournalEnModeRTB_Click_1(sender As Object, e As EventArgs) Handles Mnu01_CopierLeJournalEnModeRTF.Click
     Dim File_SDK As String = Jrn_RcdRTF()
-    Processing_Start_IA(File_SDK)
+    Processing_Start(File_SDK)
   End Sub
   Private Sub Mnu03_AfficherLaSolution_Click(sender As Object, e As EventArgs) Handles Mnu03_AfficherLaSolution.Click
     If Plcy_Solution_Existante = False Then Exit Sub
     'Sauvegarde du jeu en cours
-    LP_Jeu = ""
-    For i As Integer = 0 To 80 : LP_Jeu &= U(i, 2) : Next i
+    Dim jeu_Save As String = ""
+    For i As Integer = 0 To 80 : jeu_Save &= U(i, 2) : Next i
     For i As Integer = 0 To 80
       If U(i, 1) = " " And U_Sol(i) <> " " Then U(i, 2) = U_Sol(i)
     Next i
 
     B_Info.Text = "Affichage de la Solution"
-    Event_OnPaint = "Global"
-    Me.Invalidate()
-    Application.DoEvents()   'Affiche la grille avec solutions
+    Event_OnPaint_MAP = Proc_Name_Get() & " 1"
+    Event_OnPaint = "Total"
+    Invalidate()
+    Application.DoEvents()    'Affiche la grille sans solutions immédiatement
 
     Thread.Sleep(2000) 'Le temps de lire quelques valeurs
 
-    For i As Integer = 0 To 80 : U(i, 2) = LP_Jeu.Substring(i, 1) : Next i
+    For i As Integer = 0 To 80 : U(i, 2) = jeu_Save.Substring(i, 1) : Next i
     B_Info.Text = " _ "
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get() & " 2"
+    Event_OnPaint = "Total"
     Invalidate()
-    Application.DoEvents()   'Affiche la grille sans solutions immédiatement
-
+    Application.DoEvents()
   End Sub
   Private Sub Mnu03_Rafraîchir_Click(sender As Object, e As EventArgs) Handles Mnu03_Rafraîchir.Click
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint = "Total"
     Invalidate()
   End Sub
   '--------------Transformation---------------------------------------------------
@@ -1197,11 +1147,11 @@ Public NotInheritable Class Frm_SDK
     Frm_Préférences.Show()
   End Sub
   Private Sub Mnu05_FichierDesMessages_Click(sender As Object, e As EventArgs) Handles Mnu05_FichierDesMessages.Click
-    Processing_Start_IA(File_SDKMsg)
+    Processing_Start(File_SDKMsg)
   End Sub
   Private Sub Mnu05_Documentation_Click(sender As Object, e As EventArgs) Handles Mnu05_Documentation.Click
     'Fichier de Documentation
-    Processing_Start_IA(File_SDKDoc)
+    Processing_Start(File_SDKDoc)
   End Sub
   Private Sub Mnu05_Maintenance_Click(sender As Object, e As EventArgs) Handles Mnu05_Maintenance.Click
     Nsd_i = Shell($"Notepad {Path_SDK}SuDoKu\SuDoKu\Apriori\aMaintenance.txt", AppWinStyle.MaximizedFocus)
@@ -1209,15 +1159,14 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu05_ModeEtendu_Click(sender As Object, e As EventArgs) Handles Mnu05_ModeEtendu.Click
     'L'option n'est pas visible
-    'le raccourci Ctrl+Maj+E
-    'permet de passer en mode étendu sans passer par Préférences / Divers / Mode Etendu
+    'le raccourci Ctrl+Maj+E permet de passer en mode étendu sans passer par Préférences / Divers / Mode Etendu
     Select Case Plcy_Gbl_Etendue
       Case True : Plcy_Gbl_Etendue = False
       Case False : Plcy_Gbl_Etendue = True
     End Select
     My.Settings.Prf_05D_Plcy_Globale = Plcy_Gbl_Etendue
     OC_Présentation()
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Invalidate()
   End Sub
   Private Sub Mnu05_Dictionnaire_Click(sender As Object, e As EventArgs) Handles Mnu05_Dictionnaire.Click
@@ -1238,7 +1187,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_Manuel_des_Stratégies_Click(sender As Object, e As EventArgs) Handles Mnu06_Manuel_des_Stratégies.Click
     'Fichier Manuel_des_Stratégies.docx
     Dim File As String = Path_SDK & "S01_Documentation\Manuel_Complet_SDK.docx"
-    Processing_Start_IA(File)
+    Processing_Start(File)
   End Sub
   Private Sub Mnu063_VérificationDeLaGrille_Click(sender As Object, e As EventArgs) Handles Mnu063_VérificationDeLaGrille.Click
     Dim U_Chk(80, 3) As String
@@ -1296,7 +1245,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_SudokuNKH_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuNKH.Click
     'L'application NKH a été installé, ainsi qu'un raccourci pour l'appeler
     Dim Shell_St As String = "C:\Users\Public\Desktop\Sudoku1.lnk"
-    Processing_Start_IA(Shell_St)
+    Processing_Start(Shell_St)
   End Sub
   Private Sub Mnu06_Hodoku220_Click(sender As Object, e As EventArgs) Handles Mnu06_Hodoku220.Click
     ' L'application est lancée et
@@ -1501,67 +1450,67 @@ Public NotInheritable Class Frm_SDK
 
   Private Sub Mnu07_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu07n_Gbl.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07001")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu07n_Gbv.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07002")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_GCs_Click(sender As Object, e As EventArgs) Handles Mnu07n_GCs.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07010")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_XCx_Click(sender As Object, e As EventArgs) Handles Mnu07n_XCx.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07020")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_XCy_Click(sender As Object, e As EventArgs) Handles Mnu07n_XCy.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07030")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_XRp_Click(sender As Object, e As EventArgs) Handles Mnu07n_XRp.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07040")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_XNl_Click(sender As Object, e As EventArgs) Handles Mnu07n_XNl.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07050")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_WgX_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgX.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07110")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_WgY_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgY.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07120")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_WgZ_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgZ.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07130")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_WgW_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgW.Click
     Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07140")
-    If Plcy_Open_Display Then Processing_Start_IA(File_Name)
+    If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
@@ -1585,24 +1534,16 @@ Public NotInheritable Class Frm_SDK
     Mnu08J_Click("E")
   End Sub
   Private Sub Mnu08J_Click(Difficulté As String)
-    Jrn_Add(, {Proc_Name_Get()})
+    Jrn_Add(, {Proc_Name_Get() & " Difficulté: " & Difficulté})
     'Extension / Jouer un Sudoku FMDE
     Dim s, l As Integer
-    ' l'absence de Order By File Ascending/Descending renvoie les fichiers dans un ordre non garanti,
-    ' dépendant du système de fichiers. Donc: désordre assuré.
-    'Dim Files As IEnumerable(Of String) = From File In IO.Directory.GetFiles(Path_Batch)
-    '                                      Where File.Contains("SDK_" & Difficulté)
-    '                                      Order By File Ascending
     ' Classique "shuffle LINQ" (mélange)
     Dim rnd As New Random()
     Dim Files As IEnumerable(Of String) =
-    IO.Directory.GetFiles(Path_Batch).
-        Where(Function(f) f.Contains("SDK_" & Difficulté)).
-        OrderBy(Function(f) rnd.Next())
+        IO.Directory.GetFiles(Path_Batch).Where(Function(f) f.Contains("SDK_" & Difficulté)).OrderBy(Function(f) rnd.Next())
     If Files.Count > 0 Then
       For Each File As String In Files
-        'Ouverture et lecture du premier fichier
-        Pzzl_Open(File)
+        Pzzl_Open(File)        'Ouverture et lecture du premier fichier
         s = InStrRev(File.ToString(), "\")
         l = File.ToString().Length
         Dim Nom_Physique As String = Mid$(File.ToString(), s + 1, l - s)         ' Extension comprise
@@ -1618,7 +1559,7 @@ Public NotInheritable Class Frm_SDK
            Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently)
         'Affichage du fichier si Plcy_Open_Display
         'L'affichage permet de lire les commentaires et d'en ajouter  
-        If Plcy_Open_Display Then Processing_Start_IA(Destination)
+        If Plcy_Open_Display Then Processing_Start(Destination)
         Exit For
       Next File
     Else
@@ -1899,7 +1840,7 @@ Public NotInheritable Class Frm_SDK
 
   Private Sub Mnu_Obj_Click(sender As Object, e As EventArgs) Handles Origine.Click, Lister.Click, Flèche_Supprimer.Click, Flèche.Click, Enlever_Tout.Click, Enlever.Click, Disque.Click, Destination.Click, D.Click, Croix.Click, Cercle.Click, Cel_Cdd.Click, Carré.Click, Cadre.Click, C.Click, B.Click, A.Click
     Dim ClickedMenuItem As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
-    Dim ToRefresh As Boolean
+    Dim Afficher As Boolean
 
     Select Case ClickedMenuItem.Name
 
@@ -1908,13 +1849,13 @@ Public NotInheritable Class Frm_SDK
         Obj_Color = Color_BySymbol(Obj_Symbol)
         Couleurs_ResetAndColorizsation(C1Items, Color_List)
         Couleurs_Ckeck(C1Items, Obj_Symbol)
-        ToRefresh = False
+        Afficher = False
 
       Case "Cadre", "Carré", "Cercle", "Disque", "Croix"
         Obj_Forme = ClickedMenuItem.Name
         Objets_Reset(O1Items)
         Objets_CheckAndColor(O1Items, Obj_Forme, Color_BySymbol(Obj_Symbol))
-        ToRefresh = False
+        Afficher = False
 
       Case "Cel_Cdd"
         Dim Cellule As Integer = Pbl_Cell_Select
@@ -1924,7 +1865,7 @@ Public NotInheritable Class Frm_SDK
         ' Pour une candidat Cellule est compris entre 0 et 80 et Cdd est compris entre 1 et 9
         If U(Cellule, 3).Contains(CStr(Candidat)) Then Cdd = Candidat
         Objet_List.Add(New Objet_Cls With {.Symbol = Obj_Symbol, .Forme = Obj_Forme, .Cel_From = Cellule, .Cdd_From = Cdd, .Cel_To = -1, .Cdd_To = 0})
-        ToRefresh = True
+        Afficher = True
 
       Case "Flèche"
         ' Pour dessiner une flèche, il faut 2 candidats
@@ -1933,14 +1874,14 @@ Public NotInheritable Class Frm_SDK
         Obj_Forme = sender.ToString()
         Objets_Reset(O1Items)
         Objets_CheckAndColor(O1Items, Obj_Forme, Color_BySymbol(Obj_Symbol))
-        ToRefresh = False
+        Afficher = False
 
       Case "Origine"
         Flè_Cel_From = Pbl_Cell_Select
         Flè_Cdd_From = Pbl_Cell_Candidat_Select
         Flè_From = 0
         If U(Flè_Cel_From, 3).Contains(CStr(Flè_Cdd_From)) Then Flè_From = Flè_Cdd_From
-        ToRefresh = False
+        Afficher = False
 
       Case "Destination"
         Flè_Cel_To = Pbl_Cell_Select
@@ -1956,7 +1897,7 @@ Public NotInheritable Class Frm_SDK
         Flè_Cel_From = Flè_Cel_To
         Flè_Cdd_From = Flè_Cdd_To
         Flè_From = Flè_To
-        ToRefresh = True
+        Afficher = True
 
       Case "Flèche_Supprimer"
         ' Pour supprimer la flèche, il faut connaître les 2 points de la flèche.
@@ -1967,7 +1908,7 @@ Public NotInheritable Class Frm_SDK
         If ligneàSupprimer IsNot Nothing Then
           Objet_List.Remove(ligneàSupprimer) ' Supprimer l'objet trouvé
         End If
-        ToRefresh = True
+        Afficher = True
 
       Case "Enlever"
         Dim Cellule As Integer = Pbl_Cell_Select
@@ -1977,11 +1918,11 @@ Public NotInheritable Class Frm_SDK
         ' Pour une candidat Cellule est compris entre 0 et 80 et Cdd est compris entre 1 et 9
         If U(Cellule, 3).Contains(CStr(Candidat)) Then Cdd = Candidat
         Objet_List.RemoveAll(Function(Obj) Obj.Cel_From = Cellule And Obj.Cdd_From = Cdd And Obj.Cel_To = -1 And Obj.Cdd_To = 0)
-        ToRefresh = True
+        Afficher = True
 
       Case "Enlever_Tout"
         Objet_List.Clear()                   ' Vider Objet_List
-        ToRefresh = True
+        Afficher = True
 
       Case "Lister"
         Objet_List_Display()
@@ -1994,7 +1935,7 @@ Public NotInheritable Class Frm_SDK
     My.Settings.Obj_Forme = Obj_Forme
     My.Settings.Save()
 
-    If ToRefresh Then
+    If Afficher Then
       Event_OnPaint = "Global"
       Invalidate()
     End If

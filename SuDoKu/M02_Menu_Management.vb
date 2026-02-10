@@ -212,6 +212,9 @@ Module M02_Menu_Management
     Dim Lig As String = ""
     Dim Opt As String = ""
 
+    'If Not (Plcy_Gnrl = "Nrm" Or Plcy_Gnrl = "Sas") Then Exit Sub
+    If Plcy_Gnrl <> "Nrm" And Plcy_Gnrl <> "Sas" Then Exit Sub
+
     Mnu_Mngt_Conditions_Générales(Cellule)
     Mnu_Mngt_Barre_de_Menu()
     Mnu_Mngt_Barre_Outils_Filtres()

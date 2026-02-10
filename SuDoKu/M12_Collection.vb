@@ -102,7 +102,7 @@ Module M12_Collection
         Case Else : S = " "
       End Select
       n += 1
-      'Jrn_Add_Orange(CStr(n).PadLeft(2) & "/" & CStr(Cellules.Count) & " " & CStr(Cellule).PadLeft(2) & " " & CStr(U_cr(Cellule)) & " " & S)
+      Jrn_Add("SDK_00000", {CStr(n).PadLeft(2) & "/" & CStr(Cellules.Count) & " " & CStr(Cellule).PadLeft(2) & " " & U_cr(Cellule) & " " & S})
     Next Cellule
   End Sub
 End Module

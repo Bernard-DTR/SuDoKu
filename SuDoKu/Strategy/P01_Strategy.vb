@@ -88,8 +88,8 @@ Friend Module P01_Strategy
     item_CdS.Checked = False
 
     Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
   End Sub
 

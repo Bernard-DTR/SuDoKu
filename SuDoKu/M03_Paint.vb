@@ -1620,7 +1620,7 @@ Friend Module M03_Paint
     Dim y As Integer = Pt_From.Y
 
     While True
-      Dim Cellule As Integer = Wh_Cellule_Pt_IA(New Point(x, y))
+      Dim Cellule As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(New Point(x, y)))
       If Cellule <> -1 Then U_Strg(Cellule) = True
       If x = Pt_To.X And y = Pt_To.Y Then Exit While
       Dim e2 As Integer = 2 * err

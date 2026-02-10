@@ -11,7 +11,8 @@ Friend Module M20_Game
                            Sol As String,
                            Cdd729 As String,
                            Frc As String)
-    'Jrn_Add("SDK_Space")
+    Jrn_Add("SDK_Space")
+    Jrn_Add("SDK_00000", {Proc_Name_Get() & " Name: " & Nom & " Jeu: " & Prb.Substring(0, 9)})
     Plcy_Gnrl = Gnrl
 
     'Début commun à toute nouvelle partie, quoique seul Nrm utilise Annuler/Refaire
@@ -63,16 +64,12 @@ Friend Module M20_Game
         Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00300")
     End Select
 
-    OC_Présentation()
+    'OC_Présentation()
 
     'Fin commune à toute nouvelle partie
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
-    ' Plcy_AideGraphique = False
-    ' Dsp_AideGraphique("Non")           '(Non)
-    'Swt_Mode_Suggestion = -1           '(Non)
 
     Dim ToolTipText As String = Nothing
-    'For i As Integer = 0 To 80 : U_Suggest(i) = "0" : Next i
 
     Select Case Frm_SDK.B_Solution.Text
       Case " " : ToolTipText = "Puzzle sans solution"
@@ -86,8 +83,12 @@ Friend Module M20_Game
     Pbl_Cell_Select = Wh_RandomCelluleVide()
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-    Event_OnPaint = "Global"
+
+    Event_OnPaint = "Total"
+    Event_OnPaint_MAP = Proc_Name_Get()
     Frm_SDK.Invalidate()
+
+
   End Sub
 
   Public Sub Game_Load(Nom As String,

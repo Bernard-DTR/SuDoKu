@@ -157,7 +157,7 @@ Module G20_Général
   Sub Get_AllForms()
     Dim FormTypes As List(Of Type) = Get_FormTypes()
     For Each FormType As Type In FormTypes
-      'Jrn_Add_Orange(FormType.Name)
+      Jrn_Add(, {FormType.Name})
     Next FormType
   End Sub
   Function Get_FormTypes() As List(Of Type)
@@ -173,7 +173,7 @@ Module G20_Général
   Sub Get_AllFormMenus(Frm As Form)
     For Each Ctl As Control In Frm.Controls
       If Ctl.GetType.ToString() = "System.Windows.Forms.MenuStrip" Then
-        'Jrn_Add_White(Ctl.ToString())
+        Jrn_Add(, {Ctl.ToString()})
       End If
     Next Ctl
   End Sub
@@ -212,12 +212,7 @@ Module G20_Général
     Dim Valeur_def As String = ""
     Try
       Dim Ch As New System.Text.StringBuilder(NativeMethods.MAX_ENTRY)
-      Dim l As Long = NativeMethods.GetPrivateProfileString(Section,
-                                                                              Poste,
-                                                                              Valeur_def,
-                                                                              Ch,
-                                                                              NativeMethods.MAX_ENTRY,
-                                                                              File_ValUsi)
+      Dim l As Long = NativeMethods.GetPrivateProfileString(Section, Poste, Valeur_def, Ch, NativeMethods.MAX_ENTRY, File_ValUsi)
       Return Ch.ToString()
     Catch
       Return Valeur_def
@@ -417,7 +412,7 @@ Module G20_Général
     Dim declaringType As Type = methodBase.DeclaringType
     Return methodBase.Name
   End Function
-  Public Sub Processing_Start_IA(File As String)
+  Public Sub Processing_Start(File As String)
     Try
       If Not System.IO.File.Exists(File) Then      ' Vérifie si le fichier existe
         MsgBox("Le fichier suivant n'existe pas : " & vbCrLf & File)

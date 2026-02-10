@@ -507,7 +507,7 @@ Partial Class Frm_SDK
         'Mnu01_Ouvrir
         '
         Me.Mnu01_Ouvrir.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Mnu01_Ouvrir.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Mnu01_Ouvrir.ForeColor = System.Drawing.Color.Red
         Me.Mnu01_Ouvrir.Image = Global.SuDoKu.My.Resources.Resources.OpenFile_16x
         Me.Mnu01_Ouvrir.Name = "Mnu01_Ouvrir"
         Me.Mnu01_Ouvrir.Size = New System.Drawing.Size(410, 34)
@@ -515,8 +515,9 @@ Partial Class Frm_SDK
         '
         'Mnu01_RejouerLaPartie
         '
-        Me.Mnu01_RejouerLaPartie.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Mnu01_RejouerLaPartie.ForeColor = System.Drawing.Color.Red
         Me.Mnu01_RejouerLaPartie.Name = "Mnu01_RejouerLaPartie"
+        Me.Mnu01_RejouerLaPartie.ShortcutKeys = System.Windows.Forms.Keys.F2
         Me.Mnu01_RejouerLaPartie.ShowShortcutKeys = False
         Me.Mnu01_RejouerLaPartie.Size = New System.Drawing.Size(410, 34)
         Me.Mnu01_RejouerLaPartie.Text = "&Recommencer la Partie"
@@ -832,7 +833,7 @@ Partial Class Frm_SDK
         'Mnu03_AfficherLaSolution
         '
         Me.Mnu03_AfficherLaSolution.Enabled = False
-        Me.Mnu03_AfficherLaSolution.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Mnu03_AfficherLaSolution.ForeColor = System.Drawing.Color.Red
         Me.Mnu03_AfficherLaSolution.Name = "Mnu03_AfficherLaSolution"
         Me.Mnu03_AfficherLaSolution.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.Insert), System.Windows.Forms.Keys)
         Me.Mnu03_AfficherLaSolution.Size = New System.Drawing.Size(315, 34)
@@ -840,6 +841,7 @@ Partial Class Frm_SDK
         '
         'Mnu03_Rafraîchir
         '
+        Me.Mnu03_Rafraîchir.ForeColor = System.Drawing.Color.Red
         Me.Mnu03_Rafraîchir.Name = "Mnu03_Rafraîchir"
         Me.Mnu03_Rafraîchir.ShortcutKeys = System.Windows.Forms.Keys.F5
         Me.Mnu03_Rafraîchir.Size = New System.Drawing.Size(315, 34)
@@ -864,6 +866,7 @@ Partial Class Frm_SDK
         'Mnu08_Jouer
         '
         Me.Mnu08_Jouer.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu08J_F, Me.Mnu08J_M, Me.Mnu08J_D, Me.Mnu08J_E})
+        Me.Mnu08_Jouer.ForeColor = System.Drawing.Color.Red
         Me.Mnu08_Jouer.Name = "Mnu08_Jouer"
         Me.Mnu08_Jouer.Size = New System.Drawing.Size(392, 34)
         Me.Mnu08_Jouer.Text = "Jouer un SuDoKu"

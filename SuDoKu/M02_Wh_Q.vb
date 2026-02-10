@@ -245,18 +245,18 @@ Module M02_Wh_Q
   End Function
 
 #Region "Fonctions diverses"
-  Public Function Wh_Cellule_Pt_IA(Pt As Point) As Integer
-    'Retourne le numéro de la cellule en fonction du point clické
-    'En fonction de e, le point peut être un Point (MouseDown, MouseClick)
-    '                           ou        un PointToClient (Drag And Drop)
-    'Il faut que le point clické soit dans un des 81 squares
-    ' -1 est retourné si le point n'est pas dans la grille 
-    '                             ou sur un séparateur de cellule
-    '                             ou sur un séparateur de région
-    '                             ou sur l'entourage de la grille
+  'Public Function Wh_Cellule_Pt_IA(Pt As Point) As Integer
+  '  'Retourne le numéro de la cellule en fonction du point clické
+  '  'En fonction de e, le point peut être un Point (MouseDown, MouseClick)
+  '  '                           ou        un PointToClient (Drag And Drop)
+  '  'Il faut que le point clické soit dans un des 81 squares
+  '  ' -1 est retourné si le point n'est pas dans la grille 
+  '  '                             ou sur un séparateur de cellule
+  '  '                             ou sur un séparateur de région
+  '  '                             ou sur l'entourage de la grille
 
-    Return Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(Pt))
-  End Function
+  '  Return Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(Pt))
+  'End Function
 
   Public Function Wh_Cellule_Candidat_Pt_IA(Cellule As Integer, Pt As Point) As Integer
     'Donne la zone du Candidat clické en fonction du point ou retourne -1

@@ -43,7 +43,6 @@ Friend Module P09_Strategy_DCdd
     ' La stratégie du dernier candidat concerne uniquement une et une seule cellule  
     Plcy_Strg = "DCd"
     Dim Stratégie As String = "DCd"
-    'Jrn_Add_Orange(Proc_Name_Get())
     DCdd_List.Clear()
 
     If Plcy_AfficherDCdd_Bande Then
