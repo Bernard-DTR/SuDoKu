@@ -118,7 +118,8 @@ Friend Module M59_Prd_Batch
     Stock_Excédent("SDK_E")
 
     Batch_en_Cours = False
-    Event_OnPaint = "Global"
+    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
 
     'Fin du Thread Batch_Thread

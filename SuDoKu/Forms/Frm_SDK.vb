@@ -375,7 +375,7 @@ Public NotInheritable Class Frm_SDK
       Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
       Batch_Initial()
     End If
-    ' ONPaint est appelé à la fin de Frm_SDK_Load par Frm_SDK_Activated
+    ' OnPaint est appelé à la fin de Frm_SDK_Load par Frm_SDK_Activated
   End Sub
 
   Private Sub Batch_Timer_Tick(sender As Object, e As EventArgs) Handles Batch_Timer.Tick
@@ -391,68 +391,78 @@ Public NotInheritable Class Frm_SDK
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
     ' Cela garantit que la logique de peinture de la classe de base (le cas échéant) est exécutée.
     ' Par exemple, elle peut gérer la peinture de l'arrière-plan ou d'autres comportements par défaut
-    MyBase.OnPaint(e)
-    If Not Phase_Démarrage_Terminée Then Exit Sub
+    Try
+      MyBase.OnPaint(e)
+      If Not Phase_Démarrage_Terminée Then Exit Sub
 
-    ''SourceOver signifie que les pixels de la source (ce qui est dessiné) sont composés au-dessus des pixels de la destination (le formulaire)
-    'e.Graphics.CompositingMode = Drawing2D.CompositingMode.SourceOver
-    'e.Graphics.CompositingQuality = Drawing2D.CompositingQuality.HighQuality
-    'e.Graphics.InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
-    'e.Graphics.PixelOffsetMode = Drawing2D.PixelOffsetMode.HighQuality
-    'e.Graphics.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
-    'e.Graphics.TextRenderingHint = Drawing.Text.TextRenderingHint.ClearTypeGridFit
-    Select Case Event_OnPaint
-      Case "Total"
-        ' la grille est ré-affichée entièrement sur 6 couches 
-        Dim Gril As New Grille_Cls
-        G1_Grid_Paint_g(e.Graphics)
-        Gril.G2_Grille_Paint_Fond_g(e.Graphics)
-        G4_Grid_Stratégie_All_g(e.Graphics)
-        Dim sc As New Cellule_Cls
-        For i As Integer = 0 To 80
-          sc.Numéro = i
+      Select Case Event_OnPaint
+
+        Case "Total"
+          ' la grille est ré-affichée entièrement sur 6 couches 
+          Dim Gril As New Grille_Cls
+          G1_Grid_Paint_g(e.Graphics)
+          Gril.G2_Grille_Paint_Fond_g(e.Graphics)
+          G4_Grid_Stratégie_All_g(e.Graphics)
+          Dim sc As New Cellule_Cls
+          For i As Integer = 0 To 80
+            sc.Numéro = i
+            sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+            If (Plcy_Gnrl = "Edi" Or Plcy_Gnrl = "Sas") Then
+              sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
+            End If
+          Next i
+        ' Il n'y a pas de selection de cellule
+
+        Case "Cellules_Collatérales"
+          ' 1 Les cellules collatérales concernées sont rafraîchies sur les couches 2 et 6
+          For Each cell As Integer In Cell_Coll_Modifiées_List
+            Dim sc_cell_coll As New Cellule_Cls With {.Numéro = cell}
+            sc_cell_coll.G2_Cellule_Paint_Fond_g(e.Graphics)
+            sc_cell_coll.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
+          Next cell
+          ' 2 La cellule sélectionnée comporte la grille de sélection
+          Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+          sc.G2_Cellule_Paint_Fond_g(e.Graphics)
+          sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          sc.G7_Cellule_Paint_Select_g(e.Graphics)
+
+        Case "Cellule_Move"
+          ' 1 La cellule précédemment sélectionnée est rafraîchie sur les couches 2, 5 et 6
+          If Prv_Pbl_Cell_Select >= 0 And Prv_Pbl_Cell_Select <= 80 Then
+            Dim sc_prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
+            sc_prv.G2_Cellule_Paint_Fond_g(e.Graphics)
+            sc_prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          End If
+          ' 2 La cellule sélectionnée comporte la grille de sélection
+          Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+          sc.G2_Cellule_Paint_Fond_g(e.Graphics)
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
           If (Plcy_Gnrl = "Edi" Or Plcy_Gnrl = "Sas") Then
             sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
           End If
-        Next i
-        ' Il n'y a pas de selection de cellule
+          sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
-      Case "Cellule_Move"
-        ' La cellule précédemment sélectionnée est rafraîchie sur les couches 2, 5 et 6
-        ' La cellule sélectionnée comporte la grille de sélection
-        Dim sc_prv As New Cellule_Cls
-        sc_prv.Numéro = Prv_Pbl_Cell_Select
-        sc_prv.G2_Cellule_Paint_Fond_g(e.Graphics)
-        sc_prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
+        Case "Cellule_Valeur_Insertion"
+          Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+          sc.G2_Cellule_Paint_Fond_g(e.Graphics)
+          sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
-        Dim sc As New Cellule_Cls
-        sc.Numéro = Pbl_Cell_Select
-        sc.G2_Cellule_Paint_Fond_g(e.Graphics)
-        sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-        If (Plcy_Gnrl = "Edi" Or Plcy_Gnrl = "Sas") Then
-          sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
-        End If
-        sc.G7_Cellule_Paint_Select_g(e.Graphics)
+        Case "Animation"
+          ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
+          '            qui lance ensuite "Total" pour rafraîchir la grille
+          Dim Gril As New Grille_Cls
+          Gril.Grille_Refresh_g(e.Graphics)
+          Gril.G8_Grille_Partie_Terminée_g(e.Graphics)
 
-      Case "Cellule_Valeur_Insertion"
-        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G2_Cellule_Paint_Fond_g(e.Graphics)
-        sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-        sc.G7_Cellule_Paint_Select_g(e.Graphics)
-
-      Case "Animation"
-        ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
-        '            qui lance ensuite "Total" pour rafraîchir la grille
-        Dim Gril As New Grille_Cls
-        Gril.Grille_Refresh_g(e.Graphics)
-        Gril.G8_Grille_Partie_Terminée_g(e.Graphics)
-
-      Case Else
-        Jrn_Add("SDK_00000", {"Protected Overrides Sub OnPaint(e As PaintEventArgs) est activée: "})
-        Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
-        Jrn_Add("SDK_00000", {"Valeur Event_OnPaint_MAP : " & Event_OnPaint_MAP})
-    End Select
+        Case Else
+          Jrn_Add("SDK_00000", {"Protected Overrides Sub OnPaint(e As PaintEventArgs) est activée: "})
+          Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
+          Jrn_Add("SDK_00000", {"Valeur Event_OnPaint_MAP : " & Event_OnPaint_MAP})
+      End Select
+    Catch ex As Exception
+      MsgBox(Proc_Name_Get() & vbCrLf & ex.Message)
+    End Try
 
     Event_OnPaint_MAP = "#"
     Event_OnPaint = "#"
@@ -510,8 +520,7 @@ Public NotInheritable Class Frm_SDK
 
       ' Attendre la fin du thread
       Event_OnPaint_MAP = Proc_Name_Get()
-      Event_OnPaint = "Global"
-
+      Event_OnPaint = "Total"
       Invalidate()
       MsgBox("SuDoKu est en train de calculer des grilles " & vbCrLf & "Merci de patienter ! ",
       MsgBoxStyle.Information, "SuDoKu")
@@ -643,6 +652,8 @@ Public NotInheritable Class Frm_SDK
     'Le traitement est identique à celui de Frm_SDK_MouseMove
     Pbl_Cell_Select = Cellule_KDS
     If Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
+      B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+      Mnu_Mngt(Pbl_Cell_Select)
       If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
         Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
         Event_OnPaint = "Cellule_Move"
@@ -661,7 +672,10 @@ Public NotInheritable Class Frm_SDK
     Dim Cellule_MM As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(e.X, e.Y))
     If Cellule_MM = -1 Then Exit Sub
     Pbl_Cell_Select = Cellule_MM
-    If Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
+    If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
+      B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+      Mnu_Mngt(Pbl_Cell_Select)
+
       If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
         Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
         Event_OnPaint = "Cellule_Move"
@@ -672,8 +686,8 @@ Public NotInheritable Class Frm_SDK
         End Using
       End If
     End If
-    B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
-    Mnu_Mngt(Pbl_Cell_Select)
+    'B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+    'Mnu_Mngt(Pbl_Cell_Select)
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
   End Sub
 

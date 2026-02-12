@@ -150,7 +150,7 @@ Friend Module M03_Paint
     End Try
   End Sub
   Public Sub G4_Grid_Stratégie_Flt_g(g As Graphics)
-
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
     ' Affichage des Valeurs Filtrés
     If Mid$(Plcy_Strg, 1, 2) = "FV" Then
       Dim Valeur_Filtrée As String = Mid$(Plcy_Strg, 3, 1)
@@ -165,7 +165,6 @@ Friend Module M03_Paint
     If Mid$(Plcy_Strg, 1, 2) = "FC" Then
       Dim Candidat As String = Mid$(Plcy_Strg, 3, 1)
       Dim Color As Color = Color_BySymbol(Obj_Symbol)
-
       Dim sc As New Cellule_Cls
       For i As Integer = 0 To 80
         sc.Numéro = i

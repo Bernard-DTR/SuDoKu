@@ -13,9 +13,11 @@ Public Class Cellule_Cls
         0, 2, 3, 5, 6, 8, 18, 26, 27, 35, 45, 53, 54, 62, 72, 74, 75, 77, 78, 80}
   Private Shared ReadOnly Format56_Extra As New HashSet(Of Integer) From {
         20, 21, 23, 24, 29, 30, 32, 33, 47, 48, 50, 51, 56, 57, 59, 60}
+  ' TODO création d'une propriété isvalid qui sera ensuite utilisée pour dessiner les fonds, valeurs, candidats, etc
 
   ' --- Propriété ---
   Private _numéro As Integer
+  Private _isvalid As Boolean                    ' Nouveau : True compris entre 0 et 80, sinon False
   Private _coté As Integer
   Private _candidat_unique As Boolean
   Private _typologie As String
@@ -24,11 +26,7 @@ Public Class Cellule_Cls
   Private _valeur As Integer                     ' Nouveau : INTEGER 0 si rien ou 1 à 9
   Private _valeur_initiale As Boolean            ' Nouveau : True ou False
   Private _candidats As String                   ' Nouveau : 123456789 ou 9blancs ou 1b3bb6b89
-  Private ReadOnly _nombre_candidats As Integer  ' Nouveau : -1     la cellule est vide et il n'y a plus de candidat, ie #Erreur
-  '                                                           0     la cellule est remplie
-  '                                                           1 à 9 nombre de candidat
-  '                                                           <>  Wh_Cell_Nb_Candidats() = 0  :  cellule vide sans candidat 
-  Private _cellule_arrondie As Boolean
+  Private ReadOnly _cellule_arrondie As Boolean
 
   ''' <summary>Numéro de la Cellule, compris entre 0 et 80, sinon 0.</summary>
   Public Property Numéro As Integer
@@ -45,15 +43,14 @@ Public Class Cellule_Cls
       _numéro = value
     End Set
   End Property
-  '''' <summary>Text_ToolTip de la cellule.</summary>
-  'Public Property Text_ToolTip As String
-  '  Get
-  '    Return _text_tooltip
-  '  End Get
-  '  Set(value As String)
-  '    _text_tooltip = value
-  '  End Set
-  'End Property
+  ''' <summary>Le numéro de la cellule est-il valide ? </summary>
+  Public ReadOnly Property IsValid As Boolean
+    Get
+      If Numéro < 0 OrElse Numéro > 80 Then Return False
+      Return True
+    End Get
+  End Property
+
   ''' <summary>le Candidat est-il Unique ? </summary>
   Public ReadOnly Property Candidat_Unique As Boolean
     'Propriété dépendante de U
@@ -176,6 +173,7 @@ Public Class Cellule_Cls
     'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
     'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
     '                 0 est le "Fond Standard", ie une couleur et non une photo
+    If Not IsValid Then Exit Sub
     Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
           brsh As New SolidBrush(Color_Frm_BackColor)
       If Plcy_Fond_Grille = 0 Then    ' Un fond standard est affiché
@@ -202,6 +200,7 @@ Public Class Cellule_Cls
   Public Sub G5_Cellule_Paint_Valeur_g(g As Graphics)
     'Concerne l'ensemble des Cellules Initiales et Remplies
     'Les valeurs sont peintes dans une couleur différentes suivant leur typologie I/R
+    If Not IsValid Then Exit Sub
     Using brsh As New SolidBrush(U_Clr_Cell_Val(Numéro)),
           fnt As New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular)
       g.DrawString(Subst_Police(U(Numéro, 2)),
@@ -216,6 +215,7 @@ Public Class Cellule_Cls
     'Dessine UN Candidat d'une cellule dans un cercle de couleur
     'Un candidat a toujours la même couleur, puisqu'il ne peut être affiché que dans la typologie V
     Dim Coté_6 As Integer = (WH \ 6)
+    If Not IsValid Then Exit Sub
     If Not Candidats.Contains(Candidat) Then Exit Sub
     Dim Cdd_n As Integer = (Numéro * 10) + CInt(Candidat)
     Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd(Cdd_n)
@@ -234,6 +234,7 @@ Public Class Cellule_Cls
   ''' <summary>Dessine les Candidats de la Cellule.</summary>
   Public Sub G6_Cellule_Paint_Candidats_g(g As Graphics, ByVal typeCdd As String)
     'Procédure utilisée pour dessiner le fond de sélection d'une cellule
+    If Not IsValid Then Exit Sub
     If Typologie = "I" Or Typologie = "R" Then Exit Sub
     Dim Coté_6 As Integer = Coté \ 6
     Dim cdd_n As Integer
@@ -265,6 +266,7 @@ Public Class Cellule_Cls
 
   ''' <summary>Peint la sélection de la Cellule.</summary>
   Public Sub G7_Cellule_Paint_Select_g(g As Graphics)
+    If Not IsValid Then Exit Sub
     Using brsh As New SolidBrush(Color_Cell_Select)
       If Cellule_Arrondie Then
         g.FillPath(brsh, Sqr_Pth(Numéro))

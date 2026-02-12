@@ -518,9 +518,9 @@ Partial Class Frm_SDK
         Me.Mnu01_RejouerLaPartie.ForeColor = System.Drawing.Color.Red
         Me.Mnu01_RejouerLaPartie.Name = "Mnu01_RejouerLaPartie"
         Me.Mnu01_RejouerLaPartie.ShortcutKeys = System.Windows.Forms.Keys.F2
-        Me.Mnu01_RejouerLaPartie.ShowShortcutKeys = False
         Me.Mnu01_RejouerLaPartie.Size = New System.Drawing.Size(410, 34)
         Me.Mnu01_RejouerLaPartie.Text = "&Recommencer la Partie"
+        Me.Mnu01_RejouerLaPartie.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Mnu01_Sep01
         '
@@ -846,6 +846,7 @@ Partial Class Frm_SDK
         Me.Mnu03_Rafraîchir.ShortcutKeys = System.Windows.Forms.Keys.F5
         Me.Mnu03_Rafraîchir.Size = New System.Drawing.Size(315, 34)
         Me.Mnu03_Rafraîchir.Text = "Rafraîchir"
+        Me.Mnu03_Rafraîchir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Mnu04
         '

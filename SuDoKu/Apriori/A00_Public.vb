@@ -244,7 +244,6 @@ Module A00_Public
   'Policies particulières 
   Public Plcy_Saisir_Commencer As Boolean = False              ' Affichage de la grille de saisie avec les candidats éligibles
   Public Plcy_Solution_Existante As Boolean = False
-  'Public Plcy_AideGraphique As Boolean = False
   Public Plcy_AfficherDCdd_Bande As Boolean = True
   Public Plcy_Fond_Grille As Integer = 0                       ' (Numéro de la grille de fond)
   Public Plcy_MouseClick_Middle As Boolean = False
@@ -508,7 +507,7 @@ Module A00_Public
   Public XCdds_List As New List(Of XCdd_Cls)
   Public XLinks_List As New List(Of XLink_Cls)         ' List des liens 
 
-
+  Public Cell_Coll_Modifiées_List As New List(Of Integer)
 
   Public XAllRoads_List As New List(Of List(Of XLink_Cls))
   Public Const XRoads_Max As Integer = 645120          ' Nombre de chemins pour 7 liens
