@@ -14,6 +14,15 @@ Imports System.Threading
 
 Friend Module M59_Prd_Batch
   Public Sub Batch_Initial()
+    '///////////////////////////////////////////////////////////////////////////////////////
+    '#616 Samedi 14/02/2026
+    'Je bloque temporairement la génération de grilles en arrière-plan 
+    ' Pour des problèmes de stabilisation de l'application
+    ' je soupçonne ce traitement de grilles en arrière-plan d'être à l'origine de certains arrêts anormaux de l'application
+    '///////////////////////////////////////////////////////////////////////////////////////
+    Jrn_Add_Red(Proc_Name_Get() & " #616 La génération de grilles en arrière-plan est temporairement désactivée.")
+    Exit Sub
+
     'Une fois l'application lancée, id dès que la grille est affichée,
     'la procédure est lancée If Plcy_Generate_Batch
     'Un thread en arrière-plan est automatiquement tué quand l'application se ferme.
@@ -47,10 +56,10 @@ Friend Module M59_Prd_Batch
     'et à la fin le Thread est terminé
     'Ce thread dépend du thread principal, lorsque celui-ci est arrêté,
     '          alors Batch_Thread est également arrêté
-    Dim Nb_F As Integer = File_Nb_IA("SDK_F")
-    Dim Nb_M As Integer = File_Nb_IA("SDK_M")
-    Dim Nb_D As Integer = File_Nb_IA("SDK_D")
-    Dim Nb_E As Integer = File_Nb_IA("SDK_E")
+    Dim Nb_F As Integer = File_Nb("SDK_F")
+    Dim Nb_M As Integer = File_Nb("SDK_M")
+    Dim Nb_D As Integer = File_Nb("SDK_D")
+    Dim Nb_E As Integer = File_Nb("SDK_E")
     Try
       Batch_en_Cours = True
       'Stock de grilles
@@ -67,6 +76,7 @@ Friend Module M59_Prd_Batch
       Dim U_temp(0 To 80, 0 To 3) As String
       Prd_Init(Prd, U_temp, "B")
       Nb = 0
+      Jrn_Add_Red(Proc_Name_Get() & " Phase F.")
       For i As Integer = 1 To Nb_Max - Nb_F
         Nb += 1
         If Nb > Nb_Limite Then Exit For
@@ -77,6 +87,7 @@ Friend Module M59_Prd_Batch
       Next i
 
       Nb = 0
+      Jrn_Add_Red(Proc_Name_Get() & " Phase M.")
       For i As Integer = 1 To Nb_Max - Nb_M
         Nb += 1
         If Nb > Nb_Limite Then Exit For
@@ -87,6 +98,7 @@ Friend Module M59_Prd_Batch
       Next i
 
       Nb = 0
+      Jrn_Add_Red(Proc_Name_Get() & " Phase D.")
       For i As Integer = 1 To Nb_Max - Nb_D
         Nb += 1
         If Nb > Nb_Limite Then Exit For
@@ -97,6 +109,7 @@ Friend Module M59_Prd_Batch
       Next i
 
       Nb = 0
+      Jrn_Add_Red(Proc_Name_Get() & " Phase E.")
       For i As Integer = 1 To Nb_Max - Nb_E
         Nb += 1
         If Nb > Nb_Limite Then Exit For
@@ -112,10 +125,12 @@ Friend Module M59_Prd_Batch
       MsgBox(ex.ToString(),, MsgTit)
     End Try
 
-    Stock_Excédent("SDK_F")
-    Stock_Excédent("SDK_M")
-    Stock_Excédent("SDK_D")
-    Stock_Excédent("SDK_E")
+    '#616 Samedi 14/02/2026
+    ' il me semble que le stock ne peut pas dépasser Nb_LImite
+    'Stock_Excédent_Delete("SDK_F")
+    'Stock_Excédent_Delete("SDK_M")
+    'Stock_Excédent_Delete("SDK_D")
+    'Stock_Excédent_Delete("SDK_E")
 
     Batch_en_Cours = False
     Event_OnPaint_MAP = Proc_Name_Get()
@@ -125,7 +140,7 @@ Friend Module M59_Prd_Batch
     'Fin du Thread Batch_Thread
   End Sub
 
-  Public Sub Stock_Excédent(Code_FMDE As String)
+  Public Sub Stock_Excédent_Delete(Code_FMDE As String)
     Dim Extension As String = ".Txt"
     Dim Répertoire As String = Path_Save & "Batch\"
 

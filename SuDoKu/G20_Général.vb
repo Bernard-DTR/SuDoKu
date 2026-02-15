@@ -68,7 +68,7 @@ Module G20_Général
     End With
   End Sub
 
-  Function File_Nb_IA(Racine As String) As Integer
+  Function File_Nb(Racine As String) As Integer
     'Retourne le nombre de parties existantes
     Return (From File In IO.Directory.GetFiles(Path_Batch) Where File.Contains(Racine)).Count
   End Function

@@ -988,6 +988,7 @@ Partial Class Frm_SDK
         '
         'Mnu08_TestC
         '
+        Me.Mnu08_TestC.ForeColor = System.Drawing.Color.Red
         Me.Mnu08_TestC.Name = "Mnu08_TestC"
         Me.Mnu08_TestC.ShowShortcutKeys = False
         Me.Mnu08_TestC.Size = New System.Drawing.Size(392, 34)

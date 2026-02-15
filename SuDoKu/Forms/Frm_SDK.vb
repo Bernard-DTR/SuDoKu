@@ -332,10 +332,10 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add(, {"Traitement de création de grilles en Batch : " & CStr(Plcy_Generate_Batch)})
     Jrn_Add(, {"Nombre de grilles à créer en Batch         : " & CStr(My.Settings.Prf_02C_Nb_Batch_Generate)})
     Jrn_Add(, {"Nombre de grilles existantes dans " & Path_Batch})
-    Jrn_Add(, {"          Faciles                        F : " & CStr(File_Nb_IA("SDK_F"))})
-    Jrn_Add(, {"          Moyennes                       M : " & CStr(File_Nb_IA("SDK_M"))})
-    Jrn_Add(, {"          Difficiles                     D : " & CStr(File_Nb_IA("SDK_D"))})
-    Jrn_Add(, {"          Expertes                       E : " & CStr(File_Nb_IA("SDK_E"))})
+    Jrn_Add(, {"          Faciles                        F : " & CStr(File_Nb("SDK_F"))})
+    Jrn_Add(, {"          Moyennes                       M : " & CStr(File_Nb("SDK_M"))})
+    Jrn_Add(, {"          Difficiles                     D : " & CStr(File_Nb("SDK_D"))})
+    Jrn_Add(, {"          Expertes                       E : " & CStr(File_Nb("SDK_E"))})
     Jrn_Add(, {Proc_Name_Get()})
     Jrn_Add("SDK_00010", JourDateHeure())
     Jrn_Add("SDK_00101")
@@ -368,12 +368,20 @@ Public NotInheritable Class Frm_SDK
 
     'Plcy_Generate_Batch autorise la création de grilles par lot en arrière-plan
     If Plcy_Generate_Batch Then
-      Batch_Timer.Interval = 5000
-      'Process_16x est un png 16x16 32 bits
-      'Me.Mnu08.Size = New System.Drawing.Size(98, 32)
-      Mnu08.Image = SuDoKu.My.Resources.Resources.Process_16x
-      Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
-      Batch_Initial()
+      '///////////////////////////////////////////////////////////////////////////////////////
+      '#616 Samedi 14/02/2026
+      'Je bloque temporairement la génération de grilles en arrière-plan 
+      ' Pour des problèmes de stabilisation de l'application
+      ' je soupçonne ce traitement de grilles en arrière-plan d'être à l'origine de certains arrêts anormaux de l'application
+      '///////////////////////////////////////////////////////////////////////////////////////
+      Jrn_Add_Red(Proc_Name_Get() & " #616 La génération de grilles en arrière-plan est temporairement désactivée.")
+      ' Traitement mis en commentaire
+      'Batch_Timer.Interval = 5000
+      ''Process_16x est un png 16x16 32 bits
+      ''Me.Mnu08.Size = New System.Drawing.Size(98, 32)
+      'Mnu08.Image = SuDoKu.My.Resources.Resources.Process_16x
+      'Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
+      'Batch_Initial()
     End If
     ' OnPaint est appelé à la fin de Frm_SDK_Load par Frm_SDK_Activated
   End Sub
@@ -424,7 +432,7 @@ Public NotInheritable Class Frm_SDK
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
           sc.G2_Cellule_Paint_Fond_g(e.Graphics)
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          sc.G7_Cellule_Paint_Select_g(e.Graphics)
+          'sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
         Case "Cellule_Move"
           ' 1 La cellule précédemment sélectionnée est rafraîchie sur les couches 2, 5 et 6
@@ -1530,10 +1538,10 @@ Public NotInheritable Class Frm_SDK
   End Sub
   '--------------08---------------------------------------------------------------
   Private Sub Mnu08_Jouer_Click(sender As Object, e As EventArgs) Handles Mnu08_Jouer.Click
-    Mnu08J_F.Text = "Facile" & " (" & CStr(File_Nb_IA("SDK_F")) & ") "
-    Mnu08J_M.Text = "Moyen" & " (" & CStr(File_Nb_IA("SDK_M")) & ") "
-    Mnu08J_D.Text = "Difficile" & " (" & CStr(File_Nb_IA("SDK_D")) & ") "
-    Mnu08J_E.Text = "Expert" & " (" & CStr(File_Nb_IA("SDK_E")) & ") "
+    Mnu08J_F.Text = "Facile" & " (" & CStr(File_Nb("SDK_F")) & ") "
+    Mnu08J_M.Text = "Moyen" & " (" & CStr(File_Nb("SDK_M")) & ") "
+    Mnu08J_D.Text = "Difficile" & " (" & CStr(File_Nb("SDK_D")) & ") "
+    Mnu08J_E.Text = "Expert" & " (" & CStr(File_Nb("SDK_E")) & ") "
   End Sub
   Private Sub Mnu08J_F_Click(sender As Object, e As EventArgs) Handles Mnu08J_F.Click
     Mnu08J_Click("F")
