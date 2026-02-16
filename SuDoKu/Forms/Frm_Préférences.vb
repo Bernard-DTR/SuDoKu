@@ -161,11 +161,11 @@ Public Class Frm_Préférences
     Onglet_05.Text = Msg_Read_IA("PRF_05000")
     Onglet_05.BackColor = Color_Fond_Typ_I
     Btn05_90.Text = "Reset " & Msg_Read_IA("PRF_05000")
-    CB05_08.Text = Msg_Read_IA("PRF_05080")
-    Select Case Plcy_Gbl_Etendue
-      Case True : CB05_08.Checked = True
-      Case False : CB05_08.Checked = False
-    End Select
+    'CB05_08.Text = Msg_Read_IA("PRF_05080")
+    'Select Case Plcy_Gbl_Etendue
+    '  Case True : CB05_08.Checked = True
+    '  Case False : CB05_08.Checked = False
+    'End Select
     CB05_10.Text = Msg_Read_IA("PRF_05100")
     Select Case Plcy_Dancing_Link
       Case True : CB05_10.Checked = True
@@ -482,22 +482,22 @@ Public Class Frm_Préférences
   Private Sub TB02_07_TextChanged(sender As Object, e As EventArgs) Handles TB02_07.TextChanged
     My.Settings.Prf_02C_Nb_Max_Dl = CInt(TB02_07.Text)
   End Sub
-  Private Sub CB05_08_CheckedChanged(sender As Object, e As EventArgs) Handles CB05_08.CheckedChanged
-    'Mode Etendu (Menu Divers et Outils)
-    Select Case CB05_08.CheckState
-      Case CheckState.Unchecked '0  'Non
-        Plcy_Gbl_Etendue = False
-        My.Settings.Prf_05D_Plcy_Globale = False
-      Case CheckState.Checked '1  'Oui
-        Plcy_Gbl_Etendue = True
-        My.Settings.Prf_05D_Plcy_Globale = True
-    End Select
-    If Not Mode_Load Then
-      OC_Présentation()
-      Event_OnPaint = "Total_Frm_Préférences"
-      Frm_SDK.Invalidate()
-    End If
-  End Sub
+  'Private Sub CB05_08_CheckedChanged(sender As Object, e As EventArgs)
+  '  'Mode Etendu (Menu Divers et Outils)
+  '  Select Case CB05_08.CheckState
+  '    Case CheckState.Unchecked '0  'Non
+  '      Plcy_Gbl_Etendue = False
+  '      My.Settings.Prf_05D_Plcy_Globale = False
+  '    Case CheckState.Checked '1  'Oui
+  '      Plcy_Gbl_Etendue = True
+  '      My.Settings.Prf_05D_Plcy_Globale = True
+  '  End Select
+  '  If Not Mode_Load Then
+  '    OC_Présentation()
+  '    Event_OnPaint = "Total_Frm_Préférences"
+  '    Frm_SDK.Invalidate()
+  '  End If
+  'End Sub
 
   Private Sub CB05_10_CheckedChanged(sender As Object, e As EventArgs) Handles CB05_10.CheckedChanged
     'Exécution systématiqhe de la Vérification Dancing_Link

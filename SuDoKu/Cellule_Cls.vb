@@ -267,13 +267,13 @@ Public Class Cellule_Cls
   ''' <summary>Peint la sélection de la Cellule.</summary>
   Public Sub G7_Cellule_Paint_Select_g(g As Graphics)
     If Not IsValid Then Exit Sub
-    Using brsh As New SolidBrush(Color_Cell_Select)
-      If Cellule_Arrondie Then
-        g.FillPath(brsh, Sqr_Pth(Numéro))
-      Else
-        g.FillRectangle(brsh, Sqr_Cel(Numéro))
-      End If
-    End Using
+    'Using brsh As New SolidBrush(Color_Cell_Select)
+    '  If Cellule_Arrondie Then
+    '    g.FillPath(brsh, Sqr_Pth(Numéro))
+    '  Else
+    '    g.FillRectangle(brsh, Sqr_Cel(Numéro))
+    '  End If
+    'End Using
 
     If Typologie = "V" Then
       If (Plcy_Gnrl = "Sas" And U(Numéro, 3) = Cnddts_Blancs) _

@@ -51,17 +51,17 @@ Friend Module M20_Game
         End If
 
       Case "Sas" '---------------------------------------------------------------------------------------
-        Strategy_Switch("   ")
-        Game_Load(Nom, Prb, Jeu, Sol, Frc)
-        '   Si le jeu a été fermé en mode Sas, alors il est ouvert en mode Sas et les Candidats sont replacés
-        '   Dans une partie "Sas", SDK ignore et ne calcule pas les candidats 
-        For i As Integer = 0 To 80
-          If U(i, 2) = " " Then
-            U(i, 3) = Cdd729.Substring(i * 9, 9).Replace("0", " ")
-          End If
-        Next i
-        Frm_SDK.B_Solution.Text = "*"
-        Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00300")
+        'Strategy_Switch("   ")
+        'Game_Load(Nom, Prb, Jeu, Sol, Frc)
+        ''   Si le jeu a été fermé en mode Sas, alors il est ouvert en mode Sas et les Candidats sont replacés
+        ''   Dans une partie "Sas", SDK ignore et ne calcule pas les candidats 
+        'For i As Integer = 0 To 80
+        '  If U(i, 2) = " " Then
+        '    U(i, 3) = Cdd729.Substring(i * 9, 9).Replace("0", " ")
+        '  End If
+        'Next i
+        'Frm_SDK.B_Solution.Text = "*"
+        'Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00300")
     End Select
 
     'OC_Présentation()
@@ -80,15 +80,13 @@ Friend Module M20_Game
 
     Paint_Partie_Terminée_Nb = 0
     'Lors d'une nouvelle partie, une cellule vide est sélectionnée au hasard comme Cellule Sélectionnée 
-    Pbl_Cell_Select = Wh_RandomCelluleVide()
+    Pbl_Cell_Select = 0
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     Event_OnPaint = "Total"
     Event_OnPaint_MAP = Proc_Name_Get()
     Frm_SDK.Invalidate()
-
-
   End Sub
 
   Public Sub Game_Load(Nom As String,

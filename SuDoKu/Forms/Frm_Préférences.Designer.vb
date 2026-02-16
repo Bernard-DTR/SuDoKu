@@ -27,7 +27,6 @@ Partial Class Frm_Préférences
         Me.CB05_12 = New System.Windows.Forms.CheckBox()
         Me.CB05_11 = New System.Windows.Forms.CheckBox()
         Me.CB05_10 = New System.Windows.Forms.CheckBox()
-        Me.CB05_08 = New System.Windows.Forms.CheckBox()
         Me.Btn05_90 = New System.Windows.Forms.Button()
         Me.Onglet_03 = New System.Windows.Forms.TabPage()
         Me.Btn03_93 = New System.Windows.Forms.Button()
@@ -103,7 +102,6 @@ Partial Class Frm_Préférences
         Me.Onglet_05.Controls.Add(Me.CB05_12)
         Me.Onglet_05.Controls.Add(Me.CB05_11)
         Me.Onglet_05.Controls.Add(Me.CB05_10)
-        Me.Onglet_05.Controls.Add(Me.CB05_08)
         Me.Onglet_05.Controls.Add(Me.Btn05_90)
         Me.Onglet_05.Location = New System.Drawing.Point(4, 22)
         Me.Onglet_05.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -148,18 +146,6 @@ Partial Class Frm_Préférences
         Me.CB05_10.TabIndex = 32
         Me.CB05_10.Text = "S"
         Me.CB05_10.UseVisualStyleBackColor = True
-        '
-        'CB05_08
-        '
-        Me.CB05_08.AutoSize = True
-        Me.CB05_08.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.CB05_08.Location = New System.Drawing.Point(15, 23)
-        Me.CB05_08.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.CB05_08.Name = "CB05_08"
-        Me.CB05_08.Size = New System.Drawing.Size(46, 24)
-        Me.CB05_08.TabIndex = 30
-        Me.CB05_08.Text = "S"
-        Me.CB05_08.UseVisualStyleBackColor = True
         '
         'Btn05_90
         '
@@ -844,7 +830,6 @@ Partial Class Frm_Préférences
     End Sub
 
     Friend WithEvents Onglet_05 As TabPage
-    Friend WithEvents CB05_08 As CheckBox
     Friend WithEvents Btn05_90 As Button
     Friend WithEvents Onglet_03 As TabPage
     Friend WithEvents Btn03_93 As Button

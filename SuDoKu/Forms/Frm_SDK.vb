@@ -954,15 +954,15 @@ Public NotInheritable Class Frm_SDK
     Dim Pgm As String = "Explorer /e, /n, " & File_SDK
     Nsd_i = Shell(Pgm, AppWinStyle.NormalFocus)
   End Sub
-  Private Sub Mnu01_JeuSansAssistance_Click(sender As Object, e As EventArgs) Handles Mnu01_JeuSansAssistance.Click
-    Dim J As String = ""
-    For i As Integer = 0 To 80 : J &= U(i, 2) : Next i 'L'ensemble des valeurs est le Jeu
-    Select Case Plcy_Gnrl
-      Case "Nrm" : Plcy_Gnrl = "Sas"
-      Case "Sas" : Plcy_Gnrl = "Nrm"
-    End Select
-    Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, J, LP_Sol, StrDup(729, "0"), LP_Frc)
-  End Sub
+  'Private Sub Mnu01_JeuSansAssistance_Click(sender As Object, e As EventArgs)
+  '  Dim J As String = ""
+  '  For i As Integer = 0 To 80 : J &= U(i, 2) : Next i 'L'ensemble des valeurs est le Jeu
+  '  Select Case Plcy_Gnrl
+  '    Case "Nrm" : Plcy_Gnrl = "Sas"
+  '    Case "Sas" : Plcy_Gnrl = "Nrm"
+  '  End Select
+  '  Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, J, LP_Sol, StrDup(729, "0"), LP_Frc)
+  'End Sub
   Private Sub Mnu01_Quitter_Click(sender As Object, e As EventArgs) Handles Mnu01_Quitter.Click
     Close()
   End Sub
@@ -1179,18 +1179,18 @@ Public NotInheritable Class Frm_SDK
     Nsd_i = Shell($"Notepad {Path_SDK}SuDoKu\SuDoKu\Apriori\aMaintenance.txt", AppWinStyle.MaximizedFocus)
     SendKeys.Send("^{END}")
   End Sub
-  Private Sub Mnu05_ModeEtendu_Click(sender As Object, e As EventArgs) Handles Mnu05_ModeEtendu.Click
-    'L'option n'est pas visible
-    'le raccourci Ctrl+Maj+E permet de passer en mode étendu sans passer par Préférences / Divers / Mode Etendu
-    Select Case Plcy_Gbl_Etendue
-      Case True : Plcy_Gbl_Etendue = False
-      Case False : Plcy_Gbl_Etendue = True
-    End Select
-    My.Settings.Prf_05D_Plcy_Globale = Plcy_Gbl_Etendue
-    OC_Présentation()
-    Event_OnPaint = "Total"
-    Invalidate()
-  End Sub
+  'Private Sub Mnu05_ModeEtendu_Click(sender As Object, e As EventArgs) Handles Mnu05_ModeEtendu.Click
+  '  'L'option n'est pas visible
+  '  'le raccourci Ctrl+Maj+E permet de passer en mode étendu sans passer par Préférences / Divers / Mode Etendu
+  '  Select Case Plcy_Gbl_Etendue
+  '    Case True : Plcy_Gbl_Etendue = False
+  '    Case False : Plcy_Gbl_Etendue = True
+  '  End Select
+  '  My.Settings.Prf_05D_Plcy_Globale = Plcy_Gbl_Etendue
+  '  OC_Présentation()
+  '  Event_OnPaint = "Total"
+  '  Invalidate()
+  'End Sub
   Private Sub Mnu05_Dictionnaire_Click(sender As Object, e As EventArgs) Handles Mnu05_Dictionnaire.Click
     Frm_Dictionnaire.Show()
   End Sub
