@@ -702,8 +702,9 @@ Pzzl_Crt_Exit:
       U(i, 2) = " "
       U(i, 3) = Cnddts
     Next i
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
 
     Jrn_Add(, {Proc_Name_Get()})
     Cursor.Current = Cursors.WaitCursor
@@ -819,8 +820,9 @@ Pzzl_Prd_End:
       U(i, 2) = " "
       U(i, 3) = Cnddts
     Next i
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
 
     Jrn_Add(, {Proc_Name_Get()})
     Cursor.Current = Cursors.WaitCursor
@@ -885,8 +887,9 @@ Pzzl_Prd_Boucle:
     Jrn_Add(, {"Les candidats ne sont pas recalculés."}, "Info")
     Dim Wh_Nb As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
     Wh_Nb_Cell_Display(Wh_Nb)
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
 
 Pzzl_Prd_End:
     Select Case Prd.Prd_Code_Retour
@@ -1274,8 +1277,9 @@ Phase_End:
       U(i, 3) = Prd.Prd_Candidats(i)
     Next i
 
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
   End Sub
 
   Public Sub Pzzl_Crt_Triplet(ByRef Prd As Prd_Struct)
@@ -1609,8 +1613,9 @@ Xwing_Boucle_End:
       Case "Mode Suggestion"
         Frm_SDK.B_Info.Text = "Mode Suggestion. " & Stratégie_Explicite & " en " & Plage
     End Select
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
   End Sub
 
 

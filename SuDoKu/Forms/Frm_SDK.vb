@@ -404,7 +404,6 @@ Public NotInheritable Class Frm_SDK
       If Not Phase_Démarrage_Terminée Then Exit Sub
 
       Select Case Event_OnPaint
-
         Case "Total"
           ' la grille est ré-affichée entièrement sur 6 couches 
           Dim Gril As New Grille_Cls
@@ -415,9 +414,7 @@ Public NotInheritable Class Frm_SDK
           For i As Integer = 0 To 80
             sc.Numéro = i
             sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-            If (Plcy_Gnrl = "Edi" Or Plcy_Gnrl = "Sas") Then
-              sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
-            End If
+            If Plcy_Gnrl = "Edi" Then sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
           Next i
         ' Il n'y a pas de selection de cellule
 
@@ -445,9 +442,7 @@ Public NotInheritable Class Frm_SDK
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
           sc.G2_Cellule_Paint_Fond_g(e.Graphics)
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          If (Plcy_Gnrl = "Edi" Or Plcy_Gnrl = "Sas") Then
-            sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
-          End If
+          If Plcy_Gnrl = "Edi" Then sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
           sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
         Case "Cellule_Valeur_Insertion"
@@ -460,13 +455,20 @@ Public NotInheritable Class Frm_SDK
           ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
           '            qui lance ensuite "Total" pour rafraîchir la grille
           Dim Gril As New Grille_Cls
-          Gril.Grille_Refresh_g(e.Graphics)
+          'La grille est rafraîchie entièrement, aucune cellule n'est sélectée
+          G1_Grid_Paint_g(e.Graphics)
+          Gril.G2_Grille_Paint_Fond_g(e.Graphics)
+          Dim sc As New Cellule_Cls
+          For i As Integer = 0 To 80
+            sc.Numéro = i
+            sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          Next i
           Gril.G8_Grille_Partie_Terminée_g(e.Graphics)
 
         Case Else
           Jrn_Add("SDK_00000", {"Protected Overrides Sub OnPaint(e As PaintEventArgs) est activée: "})
-          Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
           Jrn_Add("SDK_00000", {"Valeur Event_OnPaint_MAP : " & Event_OnPaint_MAP})
+          Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
       End Select
     Catch ex As Exception
       MsgBox(Proc_Name_Get() & vbCrLf & ex.Message)
@@ -499,19 +501,20 @@ Public NotInheritable Class Frm_SDK
     My.Settings.LP_Sol = S.Replace(" ", "0")
     'Projet / Propriété de SuDoKu ... / Paramètres pour créer les nouveaux paramètres
     'SuDoKu est ouvert soit en Mode Nrm, soit en mode Sas
-    Select Case Plcy_Gnrl
-      Case "Sas" : My.Settings.LP_Plcy_Gnrl = "Sas"
-      Case Else : My.Settings.LP_Plcy_Gnrl = "Nrm"
-    End Select
+    My.Settings.LP_Plcy_Gnrl = "Nrm"
+    'Select Case Plcy_Gnrl
+    '  Case "Sas" : My.Settings.LP_Plcy_Gnrl = "Sas"
+    '  Case Else : My.Settings.LP_Plcy_Gnrl = "Nrm"
+    'End Select
 
     ' En Mode Sas seulement, les candidats sont enregistrés, LP_Cdd ne sera utilisé que dans le cadre Sas        
     LP_Cdd = ""                ' Les candidats  
     LP_CddExc = ""             ' Les candidats exclus
     For i As Integer = 0 To 80
       Select Case Plcy_Gnrl
-        Case "Sas"
-          LP_Cdd &= U(i, 3)
-          LP_CddExc &= U_CddExc(i)
+        'Case "Sas"
+        '  LP_Cdd &= U(i, 3)
+        '  LP_CddExc &= U_CddExc(i)
         Case Else 'Cas Nrm
           LP_Cdd &= Cnddts_Blancs
           LP_CddExc &= Cnddts_Blancs
@@ -542,11 +545,11 @@ Public NotInheritable Class Frm_SDK
   Private Sub Frm_SDK_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
     'Se produit quand le contrôle est redimensionné par exemple après une Réduction 
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
   End Sub
   Private Sub Frm_SDK_MinimumSizeChanged(sender As Object, e As EventArgs) Handles MyBase.MinimumSizeChanged
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
   End Sub
   Private Sub Frm_SDK_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
     Event_OnPaint_MAP = Proc_Name_Get()
@@ -554,7 +557,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Frm_SDK_Move(sender As Object, e As EventArgs) Handles MyBase.Move
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
   End Sub
   Private Sub Frm_SDK_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
     Event_OnPaint_MAP = Proc_Name_Get()
@@ -562,120 +565,120 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Frm_SDK_VisibleChanged(sender As Object, e As EventArgs) Handles MyBase.VisibleChanged
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
   End Sub
 
 #Region "Clavier et Mouse Clic"
-  Private Sub Frm_SDK_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-    ' Le contrôle a le focus
-    ' La touche est enfoncée pour la première fois
-    ' Il faut que la cellule précisée par la souris soit correcte
-    Dim Cellule_KD As Integer = Pbl_Cell_Select
-    Try
-      Select Case e.KeyCode.ToString()
-        Case "Escape"                ' Rien
-        Case "Capital"               ' Rien
-        Case "NumLock"               ' Rien
-        Case "CapsLock"              ' Rien
-        Case "ShiftKey"              ' Rien
-        Case "ControlKey"            ' Rien
+  '  Private Sub Frm_SDK_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+  '    ' Le contrôle a le focus
+  '    ' La touche est enfoncée pour la première fois
+  '    ' Il faut que la cellule précisée par la souris soit correcte
+  '    Dim Cellule_KD As Integer = Pbl_Cell_Select
+  '    Try
+  '      Select Case e.KeyCode.ToString()
+  '        Case "Escape"                ' Rien
+  '        Case "Capital"               ' Rien
+  '        Case "NumLock"               ' Rien
+  '        Case "CapsLock"              ' Rien
+  '        Case "ShiftKey"              ' Rien
+  '        Case "ControlKey"            ' Rien
 
-                                             ' Ces 2 actions sont effectuées par les raccourcis des menus.
-        Case "Insert"                ' ACTION Il faut activer FN + INS ou INS   Keyboard Numérique (Mode déplacement)
-        Case "Delete"                ' ACTION Il faut activer SUPPR    ou SUPPR Keyboard Numérique (Mode déplacement)
-'               --------------------------------------------------------------------------------------
+  '                                             ' Ces 2 actions sont effectuées par les raccourcis des menus.
+  '        Case "Insert"                ' ACTION Il faut activer FN + INS ou INS   Keyboard Numérique (Mode déplacement)
+  '        Case "Delete"                ' ACTION Il faut activer SUPPR    ou SUPPR Keyboard Numérique (Mode déplacement)
+  ''               --------------------------------------------------------------------------------------
 
-        Case "Home"                  ' POSITION en haut à gauche
-          Cellule_KD = 0
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
-        Case "End"                   ' POSITION en bas  à gauche
-          Cellule_KD = 72
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
-        Case "PageUp"                ' POSITION en haut à droite
-          Cellule_KD = 8
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
-        Case "Next"                  ' POSITION en bas  à droite
-          Cellule_KD = 80
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
-        Case "Clear"                 ' POSITION au centre
-          Cellule_KD = 40
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "Home"                  ' POSITION en haut à gauche
+  '          Cellule_KD = 0
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "End"                   ' POSITION en bas  à gauche
+  '          Cellule_KD = 72
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "PageUp"                ' POSITION en haut à droite
+  '          Cellule_KD = 8
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "Next"                  ' POSITION en bas  à droite
+  '          Cellule_KD = 80
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "Clear"                 ' POSITION au centre
+  '          Cellule_KD = 40
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
 
-        Case "Left", "Back"          ' POSITION Déplacement à gauche
-          Cellule_KD -= 1 : If Cellule_KD < 0 Then Cellule_KD = 80
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
-        Case "Right"                 ' POSITION Déplacement à droite
-          Cellule_KD += 1 : If Cellule_KD > 80 Then Cellule_KD = 0
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
-        Case "Up"                    ' POSITION Déplacement vers le haut
-          Dim Row As Integer = U_Row(Cellule_KD)
-          Dim Col As Integer = U_Col(Cellule_KD)
-          Select Case Row
-            Case 0
-              If Col = 0 Then Cellule_KD = Wh_Cellule_ColRow(8, 8)
-              If Col <> 0 Then Cellule_KD = Wh_Cellule_ColRow(Col - 1, 8)
-            Case Else
-              Cellule_KD -= 9
-          End Select
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
-        Case "Down"                  ' POSITION Déplacement vers le bas
-          Dim Row As Integer = U_Row(Cellule_KD)
-          Dim Col As Integer = U_Col(Cellule_KD)
-          Select Case Row
-            Case 8
-              If Col = 8 Then Cellule_KD = Wh_Cellule_ColRow(0, 0)
-              If Col <> 8 Then Cellule_KD = Wh_Cellule_ColRow(Col + 1, 0)
-            Case Else
-              Cellule_KD += 9
-          End Select
-          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "Left", "Back"          ' POSITION Déplacement à gauche
+  '          Cellule_KD -= 1 : If Cellule_KD < 0 Then Cellule_KD = 80
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "Right"                 ' POSITION Déplacement à droite
+  '          Cellule_KD += 1 : If Cellule_KD > 80 Then Cellule_KD = 0
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "Up"                    ' POSITION Déplacement vers le haut
+  '          Dim Row As Integer = U_Row(Cellule_KD)
+  '          Dim Col As Integer = U_Col(Cellule_KD)
+  '          Select Case Row
+  '            Case 0
+  '              If Col = 0 Then Cellule_KD = Wh_Cellule_ColRow(8, 8)
+  '              If Col <> 0 Then Cellule_KD = Wh_Cellule_ColRow(Col - 1, 8)
+  '            Case Else
+  '              Cellule_KD -= 9
+  '          End Select
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
+  '        Case "Down"                  ' POSITION Déplacement vers le bas
+  '          Dim Row As Integer = U_Row(Cellule_KD)
+  '          Dim Col As Integer = U_Col(Cellule_KD)
+  '          Select Case Row
+  '            Case 8
+  '              If Col = 8 Then Cellule_KD = Wh_Cellule_ColRow(0, 0)
+  '              If Col <> 8 Then Cellule_KD = Wh_Cellule_ColRow(Col + 1, 0)
+  '            Case Else
+  '              Cellule_KD += 9
+  '          End Select
+  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
 
-'               --------------------------------------------------------------------------------------
+  ''               --------------------------------------------------------------------------------------
 
-        Case "NumPad1" To "Numpad9"  ' INSERTION
-          Dim Valeur As Integer = e.KeyCode - 96     ' Touches du clavier numérique de 1 à 9
-          Cell_Val_Insert(CStr(Valeur), Cellule_KD, "Kbd_Num")
-        Case "D1" To "D9"            ' INSERTION
-          Dim Valeur As Integer = e.KeyCode - 48      ' Touches du clavier alphanumérique de 1 à 9 (MAJ OFF ou ON)
-          Cell_Val_Insert(CStr(Valeur), Cellule_KD, "Kbd_Alp")
+  '        Case "NumPad1" To "Numpad9"  ' INSERTION
+  '          Dim Valeur As Integer = e.KeyCode - 96     ' Touches du clavier numérique de 1 à 9
+  '          Cell_Val_Insert(CStr(Valeur), Cellule_KD, "Kbd_Num")
+  '        Case "D1" To "D9"            ' INSERTION
+  '          Dim Valeur As Integer = e.KeyCode - 48      ' Touches du clavier alphanumérique de 1 à 9 (MAJ OFF ou ON)
+  '          Cell_Val_Insert(CStr(Valeur), Cellule_KD, "Kbd_Alp")
 
-        Case Else
-          'HPOmen16 la touche e.KeyCode.ToString() = LaunchApplication2
-          '                   e.KeyData = 183 lance l'application Calc
-      End Select
+  '        Case Else
+  '          'HPOmen16 la touche e.KeyCode.ToString() = LaunchApplication2
+  '          '                   e.KeyData = 183 lance l'application Calc
+  '      End Select
 
-      'Ce n'est pas la touche qui entre la valeur, mais son effet true
-      'il y a donc un son d'erreur qu'il faut enlever
-      e.SuppressKeyPress = True            'Pour supprimer le son, car il n'y a AUCUNE zone d'entrée
+  '      'Ce n'est pas la touche qui entre la valeur, mais son effet true
+  '      'il y a donc un son d'erreur qu'il faut enlever
+  '      e.SuppressKeyPress = True            'Pour supprimer le son, car il n'y a AUCUNE zone d'entrée
 
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {"Cellule_KD :  " & CStr(Cellule_KD)})
-      Jrn_Add("ERR_00000", {Proc_Name_Get() & " hors square "})
-    End Try
+  '    Catch ex As Exception
+  '      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+  '      Jrn_Add("ERR_00000", {"Cellule_KD :  " & CStr(Cellule_KD)})
+  '      Jrn_Add("ERR_00000", {Proc_Name_Get() & " hors square "})
+  '    End Try
 
-  End Sub
-  Private Sub Frm_SDK_KeyDown_Selected(Cellule_KDS As Integer)
-    'La cellule sur laquelle passe la souris devient la Pbl_Cell_Select
-    'Le traitement est identique à celui de Frm_SDK_MouseMove
-    Pbl_Cell_Select = Cellule_KDS
-    If Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
-      B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
-      Mnu_Mngt(Pbl_Cell_Select)
-      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-        Event_OnPaint = "Cellule_Move"
-        Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
-          reg.Union(Sqr_Pth(Pbl_Cell_Select))
-          Invalidate(reg, False)
-          Application.DoEvents()
-        End Using
-      End If
-    End If
-    B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
-    Mnu_Mngt(Pbl_Cell_Select)
-    Prv_Pbl_Cell_Select = Pbl_Cell_Select
-  End Sub
+  '  End Sub
+  '  Private Sub Frm_SDK_KeyDown_Selected(Cellule_KDS As Integer)
+  '    'La cellule sur laquelle passe la souris devient la Pbl_Cell_Select
+  '    'Le traitement est identique à celui de Frm_SDK_MouseMove
+  '    Pbl_Cell_Select = Cellule_KDS
+  '    If Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
+  '      B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+  '      Mnu_Mngt(Pbl_Cell_Select)
+  '      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+  '        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+  '        Event_OnPaint = "Cellule_Move"
+  '        Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
+  '          reg.Union(Sqr_Pth(Pbl_Cell_Select))
+  '          Invalidate(reg, False)
+  '          Application.DoEvents()
+  '        End Using
+  '      End If
+  '    End If
+  '    B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+  '    Mnu_Mngt(Pbl_Cell_Select)
+  '    Prv_Pbl_Cell_Select = Pbl_Cell_Select
+  '  End Sub
   Private Sub Frm_SDK_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
     Dim Cellule_MM As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(e.X, e.Y))
     If Cellule_MM = -1 Then Exit Sub
@@ -687,15 +690,13 @@ Public NotInheritable Class Frm_SDK
       If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
         Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
         Event_OnPaint = "Cellule_Move"
-        Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
-          reg.Union(Sqr_Pth(Pbl_Cell_Select))
+        Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+          reg.Union(Sqr_Pth(Prv_Pbl_Cell_Select))
           Invalidate(reg, False)
           Application.DoEvents()
         End Using
       End If
     End If
-    'B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
-    'Mnu_Mngt(Pbl_Cell_Select)
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
   End Sub
 
@@ -721,7 +722,7 @@ Public NotInheritable Class Frm_SDK
         Case MouseButtons.Middle
           ' Affiche les candidats de l'unité en fonction de la position du clic et de l'option Afficher les candidats en InfoBulle
           ' Affichage des candidats de la Ligne (Donc colonne 0 ou 8)
-          If Plcy_MouseClick_Middle Then Frm_SDK_MouseClick_Middle_Mistral(sender, Candidat_Pt)
+          If Plcy_MouseClick_Middle Then Frm_SDK_MouseClick_Middle(sender, Candidat_Pt)
 
         Case MouseButtons.Right
           'le clic droit n'est pas détecté sur les Cellules R et V, car il y a un ContextMenuStrip sur le formulaire
@@ -774,7 +775,7 @@ Public NotInheritable Class Frm_SDK
     'sc.Cellule_Refresh()
     'sc.G7_Cellule_Paint_Select()
   End Sub
-  Private Sub Frm_SDK_MouseClick_Middle_Mistral(sender As Object, Candidat As Integer)
+  Private Sub Frm_SDK_MouseClick_Middle(sender As Object, Candidat As Integer)
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
     Dim TTT_Message As String = Cnddts_Blancs
     Dim Cellule As Integer = Pbl_Cell_Select
@@ -1652,8 +1653,9 @@ Public NotInheritable Class Frm_SDK
         For i As Integer = 0 To 80
           U(i, 2) = DL.Solution(0).Substring(i, 1)
         Next i
-        Event_OnPaint = "Global"
+        Event_OnPaint = "Total"
         Invalidate()
+        Application.DoEvents()
       Case Else
         Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
         For i As Integer = 1 To DL.Solution.Length - 1
@@ -1731,8 +1733,9 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
     Next i
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Invalidate()
+    Application.DoEvents()
   End Sub
 
 #End Region
@@ -1958,8 +1961,9 @@ Public NotInheritable Class Frm_SDK
     My.Settings.Save()
 
     If Afficher Then
-      Event_OnPaint = "Global"
+      Event_OnPaint = "Total"
       Invalidate()
+      Application.DoEvents()
     End If
   End Sub
   '-------------------------------------------------------------------------------
@@ -2076,8 +2080,9 @@ Public NotInheritable Class Frm_SDK
     B_Info.Text = Proc_Name_Get()
     'Dsp_AideGraphique("Non")
     'U_Strg_Effacer()
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Invalidate()
+    Application.DoEvents()
     Dim U_temp(80, 3) As String
 
     For i As Integer = 0 To Stg_List_Link.Count - 1

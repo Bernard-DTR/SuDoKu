@@ -331,8 +331,9 @@ Public Class Frm_Préférences
     My.Settings.Prf_01C_Taille_Cellule = WH
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
   Private Sub CB01_ColorComboboxVI_SelectedColorChanged(SelectedColor As Color, sender As Object) Handles CB01_ColorComboboxVI.Cbb_Color_Changed_Selected
@@ -341,8 +342,9 @@ Public Class Frm_Préférences
     Color_VI = Color.FromName(CB01_ColorComboboxVI.Cbb_Color_Selected)
     If Not Mode_Load Then
       'Pour prendre en compte la nouvelle couleur
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
   Private Sub CB01_ColorComboboxVCdd_SelectedColorChanged(SelectedColor As Color, sender As Object) Handles CB01_ColorComboboxVCdd.Cbb_Color_Changed_Selected
@@ -351,8 +353,9 @@ Public Class Frm_Préférences
     Color_VCdd = Color.FromName(CB01_ColorComboboxVCdd.Cbb_Color_Selected)
     If Not Mode_Load Then
       'Pour prendre en compte la nouvelle couleur
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
   Private Sub CB01_ComboBoxFond_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB01_ComboBoxFond.SelectedIndexChanged
@@ -361,8 +364,9 @@ Public Class Frm_Préférences
     If Not Mode_Load Then
       ' Recalculer Sqr_Img et Font_Style
       OC_Présentation()
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
 
@@ -383,8 +387,9 @@ Public Class Frm_Préférences
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 7 Then Plcy_Format_DAB = Rdc.Next(0, 6)
       OC_Présentation()
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
 
@@ -426,8 +431,9 @@ Public Class Frm_Préférences
       End Select
       OC_Présentation()
       Mnu_Mngt_Barre_Outils_Filtres()
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
   Private Sub TB02_02_Validated(sender As Object, e As EventArgs) Handles TB02_02.Validated
@@ -511,8 +517,9 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
 
@@ -528,8 +535,9 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
 
@@ -545,8 +553,9 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
+      Application.DoEvents()
     End If
   End Sub
   Private Sub Btn03_91_Click(sender As Object, e As EventArgs) Handles Btn03_91.Click
@@ -613,8 +622,9 @@ Public Class Frm_Préférences
       Case Else
     End Select
     Préférences_Load(sender, e)
-    Event_OnPaint = "Total_Frm_Préférences"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
   End Sub
   'Saisie numérique dans les textBox
   Private Sub TB02_02_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TB02_02.KeyPress
@@ -816,8 +826,9 @@ Public Class Frm_Préférences
          " B " & Prf06_Clr(i).B.ToString().PadLeft(3)})
     Next i
     OC_Présentation()
-    Event_OnPaint = "Total_Frm_Préférences"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
   End Sub
 
   Private Sub Onglet_06_MouseClick(sender As Object, e As MouseEventArgs) Handles Onglet_06.MouseClick

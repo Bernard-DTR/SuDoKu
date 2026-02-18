@@ -37,9 +37,10 @@ Friend Module M03_Sélection
           Act_Add(Cellule, "? Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
         End If
         Pbl_Valeur_CdS = V
-      Case "Sas"
-        U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
+        '      Case "Sas"
+        '        U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
     End Select
+    Mnu_Mngt_Barre_Outils_Filtres()
     Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
@@ -350,12 +351,11 @@ OrElse (Plcy_Gnrl = "Sas") Then
 
     Return nb
   End Function
-  Public Function Cdd_Remove_Cell_Coll_List2(ByRef U_temp(,) As String, Cellule As Integer) As List(Of Integer)
+  Public Function Cdd_Remove_Cell_Coll_List(ByRef U_temp(,) As String, Cellule As Integer) As List(Of Integer)
     Dim list_Coll As New List(Of Integer)
     ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales
     ' Retourne la liste des cellules dans lesquelles un candidat a été enlevé
     Dim valeur As String = U_temp(Cellule, 2)
-
     Dim grp() As Integer = U_20Cell_Coll(Cellule)
     For Each cell_Coll As Integer In grp
       If U_temp(cell_Coll, 2) <> " " Then Continue For  ' Si la cellule collatérale a déjà une valeur, continuer
@@ -366,27 +366,7 @@ OrElse (Plcy_Gnrl = "Sas") Then
         list_Coll.Add(cell_Coll)
       End If
     Next cell_Coll
-
     Return list_Coll
-  End Function
-  Public Function Cdd_Remove_Cell_Coll_List(ByRef U_temp(,) As String, Cellule As Integer) As List(Of Integer)
-    Dim cellulesModifiées As New List(Of Integer)
-    ' Valeur placée dans la cellule
-    Dim valeur As Integer = CInt(U_temp(Cellule, 2))
-    Dim collaterales() As Integer = U_20Cell_Coll(Cellule)
-
-    For Each cellColl As Integer In collaterales
-      If U_temp(cellColl, 2).Trim() <> "" Then Continue For
-      Dim candidats As String = U_temp(cellColl, 3)
-      If candidats(valeur - 1) = ChrW(48 + valeur) Then
-        ' Remplacer par un espace
-        Dim sb As New System.Text.StringBuilder(candidats)
-        sb(valeur - 1) = " "c
-        U_temp(cellColl, 3) = sb.ToString()
-        cellulesModifiées.Add(cellColl)
-      End If
-    Next
-    Return cellulesModifiées
   End Function
   Public Sub Grid_Cdd_Remove_Cell_Coll(ByRef U_temp(,) As String)
     For i As Integer = 0 To 80

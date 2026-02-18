@@ -417,7 +417,8 @@ Friend Module Q000_Strategy_X
         End If
     End Select
     'Memory_Display()
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
   End Sub
 End Module

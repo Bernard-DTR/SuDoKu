@@ -24,8 +24,9 @@ Module G050_Affichage_Liens
     GLinks_OrderBy()
     GLinks_Display()
     GRslt_Display()
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
   End Sub
 
 End Module

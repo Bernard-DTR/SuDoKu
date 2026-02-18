@@ -81,8 +81,9 @@ Module M02_Menu_Management
         Jrn_Add("ERR_00000", {sender.ToString() & " Action : " & Action & " en: " & U_Coord(Cellule)}, "Erreur")
     End Select
 
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
   End Sub
 
   Sub Mnu_Mngt_Conditions_Générales(Cellule As Integer)
@@ -162,7 +163,7 @@ Module M02_Menu_Management
     Dim Btn As System.Windows.Forms.ToolStripItem
     'Les ToolStripSeparator sont correctement placés
     'Les Btn Filtre n'ont pas de texte, uniquement une Image
-    If Plcy_Gnrl <> "Nrm" Then Exit Sub
+    'If Plcy_Gnrl <> "Nrm" Then Exit Sub
     For Each Btn In Frm_SDK.BarreOutils.Items
       If Btn.GetType().ToString() <> "System.Windows.Forms.ToolStripButton" Then Continue For
       Btn.Visible = True
@@ -190,7 +191,7 @@ Module M02_Menu_Management
             End If
           Next i
         Case False
-          'Utilisation idifférente de "Arial" ou de "Segoe UI"
+          'Utilisation indifférente de "Arial" ou de "Segoe UI"
           Btn.DisplayStyle = ToolStripItemDisplayStyle.Text
           Btn.Text = Flt
           Btn.Font = New Font("Segoe UI", 8, FontStyle.Bold)

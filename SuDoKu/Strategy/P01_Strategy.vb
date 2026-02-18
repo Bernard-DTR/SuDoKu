@@ -165,8 +165,9 @@ Friend Module P01_Strategy
                       " | " & Action
     Jrn_Add(, {S}, Action)
 
-    Event_OnPaint = "Global"
+    Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
+    Application.DoEvents()
   End Sub
   Sub Strategy_Switch(Strg As String)
     ' Switch la Plcy_Strg_Swt entre 1 et -1

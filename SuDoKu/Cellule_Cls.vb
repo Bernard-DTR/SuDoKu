@@ -204,9 +204,9 @@ Public Class Cellule_Cls
     Using brsh As New SolidBrush(U_Clr_Cell_Val(Numéro)),
           fnt As New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular)
       g.DrawString(Subst_Police(U(Numéro, 2)),
-                 fnt,
-                 brsh,
-                 Position_Center.X, Position_Center.Y, Format_Center)
+                   fnt,
+                   brsh,
+                   Position_Center.X, Position_Center.Y, Format_Center)
     End Using
   End Sub
 
