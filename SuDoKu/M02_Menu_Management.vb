@@ -3,7 +3,7 @@ Option Explicit On
 
 Module M02_Menu_Management
   '-------------------------------------------------------------------------------
-  ' Gestion des menus contextuels pour les modes Nrm-Sas
+  ' Gestion des menus contextuels pour les modes Nrm
   '                                              Edi
   '-------------------------------------------------------------------------------
 
@@ -88,41 +88,12 @@ Module M02_Menu_Management
 
   Sub Mnu_Mngt_Conditions_Générales(Cellule As Integer)
     ' Afin de faciliter les traitements suivants, mise en place de Plcy_* spécifiques
-    'Plcy_Nrm = False
-    'Plcy_Sas = False
-    'If Plcy_Gnrl = "Nrm" Then Plcy_Nrm = True
-    'If Plcy_Gnrl = "Sas" Then Plcy_Sas = True
     Plcy_Typ_I = False
     Plcy_Typ_R = False
     Plcy_Typ_V_sans_Cdd = False
     Plcy_Typ_V_avec_Cdd = False
     If (U(Cellule, 1) <> " ") Then Plcy_Typ_I = True
     If (U(Cellule, 1) = " " And U(Cellule, 2) <> " ") Then Plcy_Typ_R = True
-
-    'If (U(Cellule, 1) = " " And U(Cellule, 2) = " ") Then
-    '  If Plcy_Nrm = True Then
-    '    If (Plcy_Strg = "   ") _
-    '    Or (Stg_Get(Plcy_Strg).Type = "I" And Not Plcy_AideGraphique) _
-    '    Or (Stg_Get(Plcy_Strg).Type = "E" And Not Plcy_AideGraphique) _
-    '    Or (Mid$(Plcy_Strg, 1, 1) = "F" And Not Plcy_AideGraphique) Then
-    '      Plcy_Typ_V_sans_Cdd = True
-    '    End If
-
-    '    'Le menu contextuel est replacé pour les filtres
-    '    If (Plcy_Strg = "Cdd") _
-    '    Or (Stg_Get(Plcy_Strg).Type = "I" And Plcy_AideGraphique) _
-    '    Or (Stg_Get(Plcy_Strg).Type = "E" And Plcy_AideGraphique) _
-    '    Or (Mid$(Plcy_Strg, 1, 1) = "F" And Plcy_AideGraphique) Then
-    '      Plcy_Typ_V_avec_Cdd = True
-    '    End If
-    '  End If
-    '  If Plcy_Sas Then
-    '    If (U(Cellule, 3) = Cnddts_Blancs) Then Plcy_Typ_V_sans_Cdd = True
-    '    If (U(Cellule, 3) <> Cnddts_Blancs) Then Plcy_Typ_V_avec_Cdd = True
-    '  End If
-    'End If
-
-    ' TODO Voir la pertinence en l'abscence de Plcy_AideGraphique
 
     If (U(Cellule, 1) = " " And U(Cellule, 2) = " ") Then
       If Plcy_Gnrl = "Nrm" Then
@@ -141,10 +112,7 @@ Module M02_Menu_Management
           Plcy_Typ_V_avec_Cdd = True
         End If
       End If
-      If Plcy_Gnrl = "Sas" Then
-        If (U(Cellule, 3) = Cnddts_Blancs) Then Plcy_Typ_V_sans_Cdd = True
-        If (U(Cellule, 3) <> Cnddts_Blancs) Then Plcy_Typ_V_avec_Cdd = True
-      End If
+
     End If
 
   End Sub
@@ -213,9 +181,6 @@ Module M02_Menu_Management
     Dim Lig As String = ""
     Dim Opt As String = ""
 
-    'If Not (Plcy_Gnrl = "Nrm" Or Plcy_Gnrl = "Sas") Then Exit Sub
-    If Plcy_Gnrl <> "Nrm" And Plcy_Gnrl <> "Sas" Then Exit Sub
-
     Mnu_Mngt_Conditions_Générales(Cellule)
     Mnu_Mngt_Barre_de_Menu()
     Mnu_Mngt_Barre_Outils_Filtres()
@@ -258,18 +223,11 @@ Module M02_Menu_Management
                 If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
                   Ligne.BackColor = Control.DefaultBackColor
                   'Menu contextuel présenté lors d'une stratégie CdU ou CdO en Aide Graphique
-                  'If Plcy_Gnrl = "Nrm" AndAlso
-                  '    Stg_Get(Plcy_Strg).Type = "I" AndAlso
-                  '   Plcy_AideGraphique AndAlso
-                  '   U_Strg_Val_Ins(Cellule) = Opt Then
-                  '  Ligne.BackColor = Color_Cdd_Insérer
-                  'End If
                   If Plcy_Gnrl = "Nrm" AndAlso
                       Stg_Get(Plcy_Strg).Type = "I" AndAlso
                      U_Strg_Val_Ins(Cellule) = Opt Then
                     Ligne.BackColor = Color_Cdd_Insérer
                   End If
-
                   If Plcy_Fantasy Then
                     Ligne.Text = "Insérer la Valeur " & Mnu_Ctxt_Fantaisy(Opt)
                   Else
@@ -284,8 +242,7 @@ Module M02_Menu_Management
           Case "Cdd_Exc_" 'Exclure le candidat 1 à 9
             If Plcy_Typ_V_avec_Cdd Then
               Dim Candidats As String = U(Cellule, 3)
-              If (Plcy_Gnrl = "Sas") _
-              Or (Plcy_Gnrl = "Nrm" And Wh_Cell_Nb_Candidats(U, Cellule) > 1) Then
+              If (Plcy_Gnrl = "Nrm" And Wh_Cell_Nb_Candidats(U, Cellule) > 1) Then
                 Opt = Ligne.Name.Substring(16, 1)
                 If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
                 'les stratégies proposent d'exclure un candidat.
@@ -313,42 +270,61 @@ Module M02_Menu_Management
               End If
             End If
 
-          Case "Cdd_Exd_", "Cdd_Exe_" 'Exclure les candidats..., tous les candidats
-            'If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
-            If Plcy_Typ_V_avec_Cdd Then
-              If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
-                Ligne.Visible = True
-                If Plcy_Fantasy Then Ligne.Visible = False
-              End If
-            End If
+          'Case "Cdd_Exd_", "Cdd_Exe_" 'Exclure les candidats..., tous les candidats
+          '  'If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
+          '  If Plcy_Typ_V_avec_Cdd Then
+          '    If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
+          '      Ligne.Visible = True
+          '      If Plcy_Fantasy Then Ligne.Visible = False
+          '    End If
+          '  End If
 
           Case "Cdd_Ins_" 'Insérer les Candidats ....
-            If Plcy_Gnrl = "Sas" And Plcy_Typ_V_sans_Cdd Then
-              If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
-              If Plcy_Mnu_Item Then
-                Opt = Ligne.Name.Substring(16, 1)
-                If Plcy_Fantasy Then
-                  Ligne.Text = "Insérer le candidat " & Mnu_Ctxt_Fantaisy(Opt)
-                Else
-                  Ligne.Text = "Insérer le candidat " & Opt
-                End If
-                Ligne.Visible = True : Plcy_Mnu_Groupe = True
-                If Plcy_Fantasy Then Ligne.Image = Sqr_Fantasy(CInt(Opt))
-                If Not Plcy_Fantasy Then Ligne.Image = Nothing
-              End If
-            End If
-            If Plcy_Gnrl = "Sas" And Plcy_Typ_V_avec_Cdd Then
-              Dim Candidats As String = U(Cellule, 3)
-              Opt = Ligne.Name.Substring(16, 1)
-              If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
-              If Plcy_Mnu_Item Then
-                If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
-                  Ligne.Visible = False
-                Else
-                  Ligne.Visible = True : Plcy_Mnu_Groupe = True
-                End If
-              End If
-            End If
+            'If Plcy_Sas And Plcy_Typ_V_sans_Cdd Then
+            '  If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
+            '  If Plcy_Mnu_Item Then
+            '    Opt = Ligne.Name.Substring(16, 1)
+            '    If Plcy_Fantasy Then
+            '      Ligne.Text = "Insérer le candidat " & Mnu_Ctxt_Fantaisy(Opt)
+            '    Else
+            '      Ligne.Text = "Insérer le candidat " & Opt
+            '    End If
+            '    Ligne.Visible = True : Plcy_Mnu_Groupe = True
+            '    If Plcy_Fantasy Then Ligne.Image = Sqr_Fantasy(CInt(Opt))
+            '    If Not Plcy_Fantasy Then Ligne.Image = Nothing
+            '  End If
+            'End If
+            'If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
+            '  Dim Candidats As String = U(Cellule, 3)
+            '  Opt = Ligne.Name.Substring(16, 1)
+            '  If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
+            '  If Plcy_Mnu_Item Then
+            '    If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
+            '      Ligne.Visible = False
+            '    Else
+            '      Ligne.Visible = True : Plcy_Mnu_Groupe = True
+            '    End If
+            '  End If
+            'End If
+
+          Case "Cdd_Int_" 'Insérer les Candidats ....
+            'If Plcy_Sas And Plcy_Typ_V_sans_Cdd Then
+            '  If Plcy_Mnu_Item And Plcy_Slm Then
+            '    Ligne.Font = New Font(Ligne.Font.Name, Ligne.Font.Size, FontStyle.Italic)
+            '  Else
+            '    Ligne.Font = New Font(Ligne.Font.Name, Ligne.Font.Size, FontStyle.Regular)
+            '  End If
+            '  If Plcy_Mnu_Item Then
+            '    Ligne.Visible = True : Plcy_Mnu_Groupe = True
+            '  End If
+            '  If Plcy_Fantasy Then Ligne.Visible = False
+            'End If
+            'If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
+            '  If Plcy_Mnu_Item Then
+            '    Ligne.Visible = True : Plcy_Mnu_Groupe = True
+            '  End If
+            '  If Plcy_Fantasy Then Ligne.Visible = False
+            'End If
 
           Case "Val_Eff_"
             If Plcy_Typ_R Then
@@ -374,6 +350,7 @@ Module M02_Menu_Management
       End Try
     Next Ligne
   End Sub
+
 
   Public Function Mnu_Ctxt_Fantaisy(Valeur As String) As String
     Dim Txt As String = ""

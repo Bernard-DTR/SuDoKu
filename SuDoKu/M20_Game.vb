@@ -20,8 +20,6 @@ Friend Module M20_Game
     UR_A_Index = -1
     Insert_Nb_Cell = 0
     Insertion_Exclusion_Nb_Erreurs = 0
-    'En mode Sas, il ne reste que le menu Fichier
-    '   TOUTES les options disposant d'un raccourci sont .Enabled = False
 
     Select Case Plcy_Gnrl
       Case "Nrm" '---------------------------------------------------------------------------------------
@@ -112,13 +110,8 @@ Friend Module M20_Game
     For i As Integer = 0 To 80
       U(i, 1) = " "                         ' Valeur Initiale
       U(i, 2) = " "                         ' Valeur
-      If Plcy_Gnrl = "Sas" Then
-        U(i, 3) = Cnddts_Blancs
-        U_CddExc(i) = Cnddts
-      Else
-        U(i, 3) = Cnddts
-        U_CddExc(i) = Cnddts_Blancs
-      End If
+      U(i, 3) = Cnddts
+      U_CddExc(i) = Cnddts_Blancs
       U_Sol(i) = " "                        ' Solution
 
       ' 08/02/2025 Copilot LP_Prb(i) au lieu de LP_Prb.substring(i,1)  

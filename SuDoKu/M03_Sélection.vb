@@ -37,57 +37,24 @@ Friend Module M03_Sélection
           Act_Add(Cellule, "? Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
         End If
         Pbl_Valeur_CdS = V
-        '      Case "Sas"
-        '        U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
     End Select
     Mnu_Mngt_Barre_Outils_Filtres()
     Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     ' 03  L'affichage du résultat
-    '     Traitements communs
-    '     L'insertion ne concerne qu'une cellule à la fois
-    'Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-    ' Dim Gril As New Grille_Cls
-    'If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
-    'Or (Plcy_Gnrl = "Sas") Then
-    '  Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-    '  Event_OnPaint = "Cellule_Valeur_Insertion"
-    '  Using reg As New Region(Sqr_Pth(Cellule)) ' le Sqr_Cel est un rectangle, alors que le Sqr_Pth comporte les arrondis
-    '    Frm_SDK.Invalidate(reg, False)
-    '    Application.DoEvents()
-    '  End Using
-    'ElseIf (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") Then
-    '  Event_OnPaint = "Cellules_Collatérales"
-    '  Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-    '    For Each cell As Integer In Cell_Coll_Modifiées_List
-    '      reg.Union(Sqr_Pth(cell))
-    '    Next cell
-    '    Frm_SDK.Invalidate(reg, False)
-    '    Application.DoEvents()
-    '  End Using
 
-    'Else
-    '  Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-    '  Event_OnPaint = "Total"
-    '  Frm_SDK.Invalidate()
-    'End If
-
-    If (Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg = "   ") _
-OrElse (Plcy_Gnrl = "Sas") Then
+    If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg = "   " Then
 
       Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
       Event_OnPaint = "Cellule_Valeur_Insertion"
-
       Using reg As New Region(Sqr_Pth(Cellule))
         Frm_SDK.Invalidate(reg, False)
         Application.DoEvents()
       End Using
 
     ElseIf (Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg = "Cdd") Then
-
       Event_OnPaint = "Cellules_Collatérales"
-
       ' Test recommandé : la liste contient-elle des éléments ?
       If Cell_Coll_Modifiées_List.Count > 0 Then
         Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
@@ -106,7 +73,6 @@ OrElse (Plcy_Gnrl = "Sas") Then
       End If
 
     Else
-
       Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
       Event_OnPaint = "Total"
       Frm_SDK.Invalidate()
@@ -115,9 +81,6 @@ OrElse (Plcy_Gnrl = "Sas") Then
     End If
 
 
-
-
-
     Insert_Nb_Cell += 1
 
     ' 05 Fin de partie
@@ -135,79 +98,6 @@ OrElse (Plcy_Gnrl = "Sas") Then
       Application.DoEvents()
     End If
   End Sub
-
-  Sub Cell_Val_Insert_Save(V As String, Cellule As Integer, Origine As String)
-    ' 01  Les Conditions d'Insertion
-    If Cellule < 0 Or Cellule > 80 Then Exit Sub
-    If U(Cellule, 2) <> " " Then Exit Sub
-    If (V < "1") Or (V > "9") Then Exit Sub
-    If Plcy_Gnrl = "Edi" Then Exit Sub
-    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
-
-    Game_Undo_Redo = "Normal"
-    Dim Av_Jeu As String = Act_Jeu()
-    Dim Av_AllCdd As String = Act_Candidats()
-    Dim Candidats_Avant As String = U(Cellule, 3)
-    Pbl_Cell_Select = Cellule
-
-    ' 02  L'insertion dans les ressources
-    Select Case Plcy_Gnrl
-      Case "Nrm"
-        If Plcy_Solution_Existante = True And V = U_Sol(Cellule) _
-        Or Plcy_Solution_Existante = False Then
-          U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
-          U_CddExc(Cellule) = Cnddts_Blancs
-          Cdd_Remove_Cell_Coll(U, Cellule)
-          Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
-        End If
-        If Plcy_Solution_Existante = True And V <> U_Sol(Cellule) Then
-          Insertion_Exclusion_Nb_Erreurs += 1
-          Act_Add(Cellule, "? Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
-        End If
-        Pbl_Valeur_CdS = V
-      Case "Sas"
-        U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
-    End Select
-    Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-
-    ' 03  L'affichage du résultat
-    '     Traitements communs
-    '     L'insertion ne concerne qu'une cellule à la fois
-    Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-    Dim Gril As New Grille_Cls
-    If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
-    Or (Plcy_Gnrl = "Sas") Then
-      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Cellule_Valeur_Insertion"
-      Using reg As New Region(Sqr_Pth(Cellule)) ' le Sqr_Cel est un rectangle, alors que le Sqr_Pth comporte les arrondis
-        Frm_SDK.Invalidate(reg, False)
-        Application.DoEvents()
-      End Using
-    Else
-      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Total"
-      Frm_SDK.Invalidate()
-    End If
-
-    Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-    Insert_Nb_Cell += 1
-
-    ' 05 Fin de partie
-    If Wh_Nb_Cell(U).Remplies = 81 Then
-      'L'animation est faite en 2 temps d'abord l'animation 
-      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Animation"
-      Frm_SDK.Invalidate()
-
-      Application.DoEvents()
-      'puis un affichage de la grille complète
-      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Total"
-      Frm_SDK.Invalidate()
-      Application.DoEvents()
-    End If
-  End Sub
-
 
   Sub Cell_Val_Delete(Cellule As Integer, Origine As String)
     'Avant toute modification
@@ -235,9 +125,6 @@ OrElse (Plcy_Gnrl = "Sas") Then
           End If
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
-      Case "Sas"
-        U(Cellule, 2) = " "
-        U(Cellule, 3) = Cnddts_Blancs
     End Select
     Act_Add(Cellule, "Effacer", VE, Cnddts_Blancs, Origine, Av_Jeu, Av_AllCdd)
     Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})

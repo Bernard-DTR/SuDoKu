@@ -138,7 +138,6 @@ Public Class Cellule_Cls
       If U(Numéro, 1) <> " " Then _typologie = "I"
       If U(Numéro, 1) = " " And U(Numéro, 2) <> " " Then _typologie = "R"
       'La Typologie V n'implique pas que la cellules ait des candidats.
-      'En mode Sas, une cellule vide n'a de candidats que s'ils ont été insérés.
       If U(Numéro, 1) = " " And U(Numéro, 2) = " " Then _typologie = "V"
       Return _typologie
     End Get
@@ -254,12 +253,11 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Dessine les Candidats de la Cellule sous conditions habituelles.</summary>
-  Public Sub G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(g As Graphics)
+  Public Sub G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd_g(g As Graphics)
     '10 occurences
     'Concerne UNIQUEMENT les cellules Vides avec des Candidats et dans les conditions précisées
     If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
-    Or (Plcy_Gnrl = "Edi") _
-    Or (Plcy_Gnrl = "Sas") Then
+    Or (Plcy_Gnrl = "Edi") Then
       G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
     End If
   End Sub
@@ -276,8 +274,8 @@ Public Class Cellule_Cls
     'End Using
 
     If Typologie = "V" Then
-      If (Plcy_Gnrl = "Sas" And U(Numéro, 3) = Cnddts_Blancs) _
-      Or (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
+
+      If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
       Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I") _
       Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E") _
       Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV") Then
@@ -300,7 +298,7 @@ Public Class Cellule_Cls
     G2_Cellule_Paint_Fond_g(g)
     G4_Grid_Stratégie_All_g(g)
     G5_Cellule_Paint_Valeur_g(g)
-    G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(g)
+    G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd_g(g)
   End Sub
 
   ''' <summary>Rafraîchit la Cellule et les Cellules Collatérales</summary>
@@ -318,12 +316,12 @@ Public Class Cellule_Cls
       sc_Grp.Numéro = Grp(g)
       'sc_Grp.G2_Cellule_Paint_Fond()
       'sc_Grp.G5_Cellule_Paint_Valeur()
-      'sc_Grp.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+      'sc_Grp.G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd()
     Next g
     'A2 Fin de Traitement de la Cellule Originale
     'G4_Grid_Stratégie_All()
     'G5_Cellule_Paint_Valeur()
-    'G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd()
+    'G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd()
   End Sub
 #End Region
 End Class
@@ -375,14 +373,13 @@ Public Class Grille_Cls
     For i As Integer = 0 To 80
       sc.Numéro = i
       sc.G5_Cellule_Paint_Valeur_g(g)
-      sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(g)
+      sc.G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd_g(g)
     Next i
   End Sub
 
   Public Sub G8_Grille_Partie_Terminée_g(g As Graphics)
     Dim Cellule_Clct As New Collection
-    ' Ne se fait que si Plcy_Gnrl = "Nrm" ou "Sas"
-    If Plcy_Gnrl <> "Nrm" And Plcy_Gnrl <> "Sas" Then Exit Sub
+    If Plcy_Gnrl <> "Nrm" Then Exit Sub
     ' Il faut que les 81 cellules soient remplies et que la grille soit correcte
     ' Il faut que la partie ait été jouée (Act_Index > 1)
     Strategy_Dsp_Standard()
@@ -396,15 +393,10 @@ Public Class Grille_Cls
       If Paint_Partie_Terminée_Nb > 2 Then Exit Sub
       Cursor.Current = Cursors.WaitCursor
       Paint_Partie_Terminée_Nb += 1
-      Select Case Plcy_Gnrl
-        Case "Nrm"
-          Select Case Insertion_Exclusion_Nb_Erreurs
-            Case 0 : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50030")
-            Case 1 : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50031")
-            Case Else : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50032", {CStr(Insertion_Exclusion_Nb_Erreurs)})
-          End Select
-        Case "Sas"
-          Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50029")
+      Select Case Insertion_Exclusion_Nb_Erreurs
+        Case 0 : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50030")
+        Case 1 : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50031")
+        Case Else : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50032", {CStr(Insertion_Exclusion_Nb_Erreurs)})
       End Select
 
       Dim sc As New Cellule_Cls

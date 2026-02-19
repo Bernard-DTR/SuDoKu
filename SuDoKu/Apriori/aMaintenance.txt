@@ -266,18 +266,28 @@
                    Je soupçonne une erreur générant un arrêt de SDK.
                    Je dois tester également le nombre de grilles en cours de création pour éviter d'atteindre la limite du stock
 #617 L  16/02/2026 Blocage de l'option jeu sans assistance
-#618 L  16/02/2026 Blocage de l'option SDK est mode étendue 
+#618 L  16/02/2026 Blocage de l'option "SDK est mode étendue"
 #619               8 Sélection                   Color_Cell_Select              A 128 R 255 G 255 B   0
 #620 Ma 17/02/2026 Mnu_Mngt_Barre_Outils_Filtres() placé dans Cell_Val_Insert
-#621 Ma 17/02/2026 Le déplacement avec le clavier est abandonné.
+#621 Ma 17/02/2026 Le déplacement au clavier est abandonné.
+#622 J  19/02/2026 Création de Stg_List.Family  
+                   Nrm  "   "  Stg_List.Family = 0 Aucune stratégie, jeu standard
+                   Nrm   Cdd   Stg_List.Family = 1 Stratégie des Candidats
+                   Nrm   FCx   Stg_List.Family = 2 Filtre des valeurs
+                   Nrm   xxx   Stg_List.Family = 3 La plupart des autres stratégies sauf DCd, CdS, Obj, Edi, Glk 
+                   La stratégie "   " Aucune stratégie est ajoutée à la liste des stratégies, mais ne fait rien et n'affiche rien
+                   Edi et Obj  ont déjà une Plcy_Gnrl
+#623 J  19/02/2026 Nettoyer "Sas"
 
-
+                   Plcy_Gbl_Etendue
 
 ?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 
 #    J  05/02/2026 Mise en place de la stratégie CdS  
 #    J  05/02/2026 Mise en place de la stratégie des Candidats Bloqués Séparation Calcul-Affichage
-                   Création de Plcy_Jeu = 0 Aucune stratégie,  
+
+
+
                    Persistance de la couleur dans le menu contextuel
                    Quand faut-il utiliser DOEvents après un invalidate ?
                    On a abandonné l'effacement des cellules 

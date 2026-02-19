@@ -44,36 +44,34 @@ Partial Class Frm_SDK
     Me.Mnu_Cel_Cdd_Exc_7 = New System.Windows.Forms.ToolStripMenuItem()
     Me.Mnu_Cel_Cdd_Exc_8 = New System.Windows.Forms.ToolStripMenuItem()
     Me.Mnu_Cel_Cdd_Exc_9 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exd_N = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exe_A = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_Separator = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu_Cel_Cdd_Ins_1 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_2 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_3 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_4 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_5 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_6 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_7 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_8 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_9 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Eff_Separator = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu_Cel_Val_Eff_x = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu = New System.Windows.Forms.MenuStrip()
-    Me.Mnu_Ctxt_Vide = New System.Windows.Forms.ContextMenuStrip(Me.components)
-    Me.Mnu01 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Ouvrir = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_RejouerLaPartie = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep01 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_Saisir = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Commencer = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep03 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_EnregistrerUnePartieTest = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_ChargerUnePartieTest = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_OuvrirLaBibliothèqueTestDeHodoku = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep04 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_OuvrirLeRépertoire = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep05 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_CopierLeJournalEnModeRTF = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_Separator = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu_Cel_Cdd_Ins_1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_5 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_6 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_7 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_8 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_9 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Eff_Separator = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu_Cel_Val_Eff_x = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu = New System.Windows.Forms.MenuStrip()
+        Me.Mnu_Ctxt_Vide = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Mnu01 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Ouvrir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_RejouerLaPartie = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep01 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_Saisir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Commencer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep03 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_EnregistrerUnePartieTest = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_ChargerUnePartieTest = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_OuvrirLaBibliothèqueTestDeHodoku = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep04 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_OuvrirLeRépertoire = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep05 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_CopierLeJournalEnModeRTF = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu01_Sep07 = New System.Windows.Forms.ToolStripSeparator()
         Me.Mnu01_Quitter = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu02 = New System.Windows.Forms.ToolStripMenuItem()
@@ -274,203 +272,191 @@ Partial Class Frm_SDK
         '
         Me.Mnu_Cel.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.Mnu_Cel.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me.Mnu_Cel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu_Cel_Val_Ins_1, Me.Mnu_Cel_Val_Ins_2, Me.Mnu_Cel_Val_Ins_3, Me.Mnu_Cel_Val_Ins_4, Me.Mnu_Cel_Val_Ins_5, Me.Mnu_Cel_Val_Ins_6, Me.Mnu_Cel_Val_Ins_7, Me.Mnu_Cel_Val_Ins_8, Me.Mnu_Cel_Val_Ins_9, Me.Mnu_Cel_Cdd_Exc_Separator, Me.Mnu_Cel_Cdd_Exc_1, Me.Mnu_Cel_Cdd_Exc_2, Me.Mnu_Cel_Cdd_Exc_3, Me.Mnu_Cel_Cdd_Exc_4, Me.Mnu_Cel_Cdd_Exc_5, Me.Mnu_Cel_Cdd_Exc_6, Me.Mnu_Cel_Cdd_Exc_7, Me.Mnu_Cel_Cdd_Exc_8, Me.Mnu_Cel_Cdd_Exc_9, Me.Mnu_Cel_Cdd_Exd_N, Me.Mnu_Cel_Cdd_Exe_A, Me.Mnu_Cel_Cdd_Ins_Separator, Me.Mnu_Cel_Cdd_Ins_1, Me.Mnu_Cel_Cdd_Ins_2, Me.Mnu_Cel_Cdd_Ins_3, Me.Mnu_Cel_Cdd_Ins_4, Me.Mnu_Cel_Cdd_Ins_5, Me.Mnu_Cel_Cdd_Ins_6, Me.Mnu_Cel_Cdd_Ins_7, Me.Mnu_Cel_Cdd_Ins_8, Me.Mnu_Cel_Cdd_Ins_9, Me.Mnu_Cel_Val_Eff_Separator, Me.Mnu_Cel_Val_Eff_x})
+        Me.Mnu_Cel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu_Cel_Val_Ins_1, Me.Mnu_Cel_Val_Ins_2, Me.Mnu_Cel_Val_Ins_3, Me.Mnu_Cel_Val_Ins_4, Me.Mnu_Cel_Val_Ins_5, Me.Mnu_Cel_Val_Ins_6, Me.Mnu_Cel_Val_Ins_7, Me.Mnu_Cel_Val_Ins_8, Me.Mnu_Cel_Val_Ins_9, Me.Mnu_Cel_Cdd_Exc_Separator, Me.Mnu_Cel_Cdd_Exc_1, Me.Mnu_Cel_Cdd_Exc_2, Me.Mnu_Cel_Cdd_Exc_3, Me.Mnu_Cel_Cdd_Exc_4, Me.Mnu_Cel_Cdd_Exc_5, Me.Mnu_Cel_Cdd_Exc_6, Me.Mnu_Cel_Cdd_Exc_7, Me.Mnu_Cel_Cdd_Exc_8, Me.Mnu_Cel_Cdd_Exc_9, Me.Mnu_Cel_Cdd_Ins_Separator, Me.Mnu_Cel_Cdd_Ins_1, Me.Mnu_Cel_Cdd_Ins_2, Me.Mnu_Cel_Cdd_Ins_3, Me.Mnu_Cel_Cdd_Ins_4, Me.Mnu_Cel_Cdd_Ins_5, Me.Mnu_Cel_Cdd_Ins_6, Me.Mnu_Cel_Cdd_Ins_7, Me.Mnu_Cel_Cdd_Ins_8, Me.Mnu_Cel_Cdd_Ins_9, Me.Mnu_Cel_Val_Eff_Separator, Me.Mnu_Cel_Val_Eff_x})
         Me.Mnu_Cel.Name = "ContextMenuStrip1"
-        Me.Mnu_Cel.Size = New System.Drawing.Size(286, 982)
+        Me.Mnu_Cel.Size = New System.Drawing.Size(255, 951)
         '
         'Mnu_Cel_Val_Ins_1
         '
         Me.Mnu_Cel_Val_Ins_1.Name = "Mnu_Cel_Val_Ins_1"
-        Me.Mnu_Cel_Val_Ins_1.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_1.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_1.Text = "Insérer la valeur 1"
         '
         'Mnu_Cel_Val_Ins_2
         '
         Me.Mnu_Cel_Val_Ins_2.Name = "Mnu_Cel_Val_Ins_2"
-        Me.Mnu_Cel_Val_Ins_2.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_2.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_2.Text = "Insérer la valeur 2"
         '
         'Mnu_Cel_Val_Ins_3
         '
         Me.Mnu_Cel_Val_Ins_3.Name = "Mnu_Cel_Val_Ins_3"
-        Me.Mnu_Cel_Val_Ins_3.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_3.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_3.Text = "Insérer la valeur 3"
         '
         'Mnu_Cel_Val_Ins_4
         '
         Me.Mnu_Cel_Val_Ins_4.Name = "Mnu_Cel_Val_Ins_4"
-        Me.Mnu_Cel_Val_Ins_4.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_4.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_4.Text = "Insérer la valeur 4"
         '
         'Mnu_Cel_Val_Ins_5
         '
         Me.Mnu_Cel_Val_Ins_5.Name = "Mnu_Cel_Val_Ins_5"
-        Me.Mnu_Cel_Val_Ins_5.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_5.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_5.Text = "Insérer la valeur 5"
         '
         'Mnu_Cel_Val_Ins_6
         '
         Me.Mnu_Cel_Val_Ins_6.Name = "Mnu_Cel_Val_Ins_6"
-        Me.Mnu_Cel_Val_Ins_6.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_6.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_6.Text = "Insérer la valeur 6"
         '
         'Mnu_Cel_Val_Ins_7
         '
         Me.Mnu_Cel_Val_Ins_7.Name = "Mnu_Cel_Val_Ins_7"
-        Me.Mnu_Cel_Val_Ins_7.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_7.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_7.Text = "Insérer la valeur 7"
         '
         'Mnu_Cel_Val_Ins_8
         '
         Me.Mnu_Cel_Val_Ins_8.Name = "Mnu_Cel_Val_Ins_8"
-        Me.Mnu_Cel_Val_Ins_8.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_8.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_8.Text = "Insérer la valeur 8"
         '
         'Mnu_Cel_Val_Ins_9
         '
         Me.Mnu_Cel_Val_Ins_9.Name = "Mnu_Cel_Val_Ins_9"
-        Me.Mnu_Cel_Val_Ins_9.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Ins_9.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Ins_9.Text = "Insérer la valeur 9"
         '
         'Mnu_Cel_Cdd_Exc_Separator
         '
         Me.Mnu_Cel_Cdd_Exc_Separator.Name = "Mnu_Cel_Cdd_Exc_Separator"
-        Me.Mnu_Cel_Cdd_Exc_Separator.Size = New System.Drawing.Size(282, 6)
+        Me.Mnu_Cel_Cdd_Exc_Separator.Size = New System.Drawing.Size(259, 6)
         '
         'Mnu_Cel_Cdd_Exc_1
         '
         Me.Mnu_Cel_Cdd_Exc_1.Name = "Mnu_Cel_Cdd_Exc_1"
-        Me.Mnu_Cel_Cdd_Exc_1.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_1.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_1.Text = "Exclure le candidat 1"
         '
         'Mnu_Cel_Cdd_Exc_2
         '
         Me.Mnu_Cel_Cdd_Exc_2.Name = "Mnu_Cel_Cdd_Exc_2"
-        Me.Mnu_Cel_Cdd_Exc_2.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_2.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_2.Text = "Exclure le candidat 2"
         '
         'Mnu_Cel_Cdd_Exc_3
         '
         Me.Mnu_Cel_Cdd_Exc_3.Name = "Mnu_Cel_Cdd_Exc_3"
-        Me.Mnu_Cel_Cdd_Exc_3.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_3.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_3.Text = "Exclure le candidat 3"
         '
         'Mnu_Cel_Cdd_Exc_4
         '
         Me.Mnu_Cel_Cdd_Exc_4.Name = "Mnu_Cel_Cdd_Exc_4"
-        Me.Mnu_Cel_Cdd_Exc_4.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_4.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_4.Text = "Exclure le candidat 4"
         '
         'Mnu_Cel_Cdd_Exc_5
         '
         Me.Mnu_Cel_Cdd_Exc_5.Name = "Mnu_Cel_Cdd_Exc_5"
-        Me.Mnu_Cel_Cdd_Exc_5.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_5.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_5.Text = "Exclure le candidat 5"
         '
         'Mnu_Cel_Cdd_Exc_6
         '
         Me.Mnu_Cel_Cdd_Exc_6.Name = "Mnu_Cel_Cdd_Exc_6"
-        Me.Mnu_Cel_Cdd_Exc_6.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_6.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_6.Text = "Exclure le candidat 6"
         '
         'Mnu_Cel_Cdd_Exc_7
         '
         Me.Mnu_Cel_Cdd_Exc_7.Name = "Mnu_Cel_Cdd_Exc_7"
-        Me.Mnu_Cel_Cdd_Exc_7.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_7.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_7.Text = "Exclure le candidat 7"
         '
         'Mnu_Cel_Cdd_Exc_8
         '
         Me.Mnu_Cel_Cdd_Exc_8.Name = "Mnu_Cel_Cdd_Exc_8"
-        Me.Mnu_Cel_Cdd_Exc_8.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_8.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_8.Text = "Exclure le candidat 8"
         '
         'Mnu_Cel_Cdd_Exc_9
         '
         Me.Mnu_Cel_Cdd_Exc_9.Name = "Mnu_Cel_Cdd_Exc_9"
-        Me.Mnu_Cel_Cdd_Exc_9.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Exc_9.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Exc_9.Text = "Exclure le candidat 9"
-        '
-        'Mnu_Cel_Cdd_Exd_N
-        '
-        Me.Mnu_Cel_Cdd_Exd_N.Name = "Mnu_Cel_Cdd_Exd_N"
-        Me.Mnu_Cel_Cdd_Exd_N.Size = New System.Drawing.Size(285, 32)
-        Me.Mnu_Cel_Cdd_Exd_N.Text = "Exclure les candidats ..."
-        '
-        'Mnu_Cel_Cdd_Exe_A
-        '
-        Me.Mnu_Cel_Cdd_Exe_A.Name = "Mnu_Cel_Cdd_Exe_A"
-        Me.Mnu_Cel_Cdd_Exe_A.Size = New System.Drawing.Size(285, 32)
-        Me.Mnu_Cel_Cdd_Exe_A.Text = "Exclure tous les candidats"
         '
         'Mnu_Cel_Cdd_Ins_Separator
         '
         Me.Mnu_Cel_Cdd_Ins_Separator.Name = "Mnu_Cel_Cdd_Ins_Separator"
-        Me.Mnu_Cel_Cdd_Ins_Separator.Size = New System.Drawing.Size(282, 6)
+        Me.Mnu_Cel_Cdd_Ins_Separator.Size = New System.Drawing.Size(259, 6)
         '
         'Mnu_Cel_Cdd_Ins_1
         '
         Me.Mnu_Cel_Cdd_Ins_1.Name = "Mnu_Cel_Cdd_Ins_1"
-        Me.Mnu_Cel_Cdd_Ins_1.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_1.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_1.Text = "Insérer le candidat 1"
         '
         'Mnu_Cel_Cdd_Ins_2
         '
         Me.Mnu_Cel_Cdd_Ins_2.Name = "Mnu_Cel_Cdd_Ins_2"
-        Me.Mnu_Cel_Cdd_Ins_2.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_2.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_2.Text = "Insérer le candidat 2"
         '
         'Mnu_Cel_Cdd_Ins_3
         '
         Me.Mnu_Cel_Cdd_Ins_3.Name = "Mnu_Cel_Cdd_Ins_3"
-        Me.Mnu_Cel_Cdd_Ins_3.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_3.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_3.Text = "Insérer le candidat 3"
         '
         'Mnu_Cel_Cdd_Ins_4
         '
         Me.Mnu_Cel_Cdd_Ins_4.Name = "Mnu_Cel_Cdd_Ins_4"
-        Me.Mnu_Cel_Cdd_Ins_4.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_4.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_4.Text = "Insérer le candidat 4"
         '
         'Mnu_Cel_Cdd_Ins_5
         '
         Me.Mnu_Cel_Cdd_Ins_5.Name = "Mnu_Cel_Cdd_Ins_5"
-        Me.Mnu_Cel_Cdd_Ins_5.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_5.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_5.Text = "Insérer le candidat 5"
         '
         'Mnu_Cel_Cdd_Ins_6
         '
         Me.Mnu_Cel_Cdd_Ins_6.Name = "Mnu_Cel_Cdd_Ins_6"
-        Me.Mnu_Cel_Cdd_Ins_6.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_6.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_6.Text = "Insérer le candidat 6"
         '
         'Mnu_Cel_Cdd_Ins_7
         '
         Me.Mnu_Cel_Cdd_Ins_7.Name = "Mnu_Cel_Cdd_Ins_7"
-        Me.Mnu_Cel_Cdd_Ins_7.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_7.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_7.Text = "Insérer le candidat 7"
         '
         'Mnu_Cel_Cdd_Ins_8
         '
         Me.Mnu_Cel_Cdd_Ins_8.Name = "Mnu_Cel_Cdd_Ins_8"
-        Me.Mnu_Cel_Cdd_Ins_8.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_8.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_8.Text = "Insérer le candidat 8"
         '
         'Mnu_Cel_Cdd_Ins_9
         '
         Me.Mnu_Cel_Cdd_Ins_9.Name = "Mnu_Cel_Cdd_Ins_9"
-        Me.Mnu_Cel_Cdd_Ins_9.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Cdd_Ins_9.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Cdd_Ins_9.Text = "Insérer le candidat 9"
         '
         'Mnu_Cel_Val_Eff_Separator
         '
         Me.Mnu_Cel_Val_Eff_Separator.Name = "Mnu_Cel_Val_Eff_Separator"
-        Me.Mnu_Cel_Val_Eff_Separator.Size = New System.Drawing.Size(282, 6)
+        Me.Mnu_Cel_Val_Eff_Separator.Size = New System.Drawing.Size(259, 6)
         '
         'Mnu_Cel_Val_Eff_x
         '
         Me.Mnu_Cel_Val_Eff_x.Name = "Mnu_Cel_Val_Eff_x"
-        Me.Mnu_Cel_Val_Eff_x.Size = New System.Drawing.Size(285, 32)
+        Me.Mnu_Cel_Val_Eff_x.Size = New System.Drawing.Size(262, 32)
         Me.Mnu_Cel_Val_Eff_x.Text = "Effacer la valeur saisie"
         '
         'Mnu
@@ -483,7 +469,7 @@ Partial Class Frm_SDK
         Me.Mnu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.Mnu.Location = New System.Drawing.Point(0, 0)
         Me.Mnu.Name = "Mnu"
-        Me.Mnu.Size = New System.Drawing.Size(1869, 32)
+        Me.Mnu.Size = New System.Drawing.Size(1869, 29)
         Me.Mnu.TabIndex = 18
         Me.Mnu.Text = "MenuStrip1"
         '
@@ -499,7 +485,7 @@ Partial Class Frm_SDK
         Me.Mnu01.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu01.Name = "Mnu01"
         Me.Mnu01.ShowShortcutKeys = False
-        Me.Mnu01.Size = New System.Drawing.Size(75, 28)
+        Me.Mnu01.Size = New System.Drawing.Size(75, 25)
         Me.Mnu01.Text = "&Fichier"
         '
         'Mnu01_Ouvrir
@@ -614,7 +600,7 @@ Partial Class Frm_SDK
         Me.Mnu02.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu02_Annuler, Me.Mnu02_Refaire, Me.Mnu02_Sep01, Me.Mnu02_Effacer, Me.Mnu02_InsérerLaSolution, Me.Mnu02_Sep03, Me.Mnu02_Copier, Me.Mnu02_Copier2, Me.Mnu02_Copie3, Me.Mnu02_Coller, Me.Mnu02_CopierlaGrilleDansLeJournal})
         Me.Mnu02.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu02.Name = "Mnu02"
-        Me.Mnu02.Size = New System.Drawing.Size(78, 28)
+        Me.Mnu02.Size = New System.Drawing.Size(78, 25)
         Me.Mnu02.Text = "Copier "
         '
         'Mnu02_Annuler
@@ -712,7 +698,7 @@ Partial Class Frm_SDK
         Me.Mnu03.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu03_EffacerLeJournal, Me.Mnu03_Sep01, Me.Mnu03_Transformation, Me.Mnu03_AfficherLaSolution, Me.Mnu03_Rafraîchir})
         Me.Mnu03.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu03.Name = "Mnu03"
-        Me.Mnu03.Size = New System.Drawing.Size(95, 28)
+        Me.Mnu03.Size = New System.Drawing.Size(95, 25)
         Me.Mnu03.Text = "&Affichage"
         '
         'Mnu03_EffacerLeJournal
@@ -836,7 +822,7 @@ Partial Class Frm_SDK
         '
         Me.Mnu04.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu04.Name = "Mnu04"
-        Me.Mnu04.Size = New System.Drawing.Size(101, 28)
+        Me.Mnu04.Size = New System.Drawing.Size(101, 25)
         Me.Mnu04.Text = "&Stratégies"
         '
         'Mnu08
@@ -845,7 +831,7 @@ Partial Class Frm_SDK
         Me.Mnu08.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu08.ForeColor = System.Drawing.Color.Black
         Me.Mnu08.Name = "Mnu08"
-        Me.Mnu08.Size = New System.Drawing.Size(98, 28)
+        Me.Mnu08.Size = New System.Drawing.Size(98, 25)
         Me.Mnu08.Text = "E&xtension"
         '
         'Mnu08_Jouer
@@ -1027,7 +1013,7 @@ Partial Class Frm_SDK
         Me.Mnu05.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu05_Préférences, Me.Mnu05_FichierDesMessages, Me.Mnu05_APropos, Me.Mnu05_Documentation, Me.Mnu05_Maintenance, Me.Mnu05_Dictionnaire, Me.Mnu05_ModeEtendu})
         Me.Mnu05.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu05.Name = "Mnu05"
-        Me.Mnu05.Size = New System.Drawing.Size(59, 28)
+        Me.Mnu05.Size = New System.Drawing.Size(59, 25)
         Me.Mnu05.Text = "A&ide"
         '
         'Mnu05_Préférences
@@ -1083,7 +1069,7 @@ Partial Class Frm_SDK
         Me.Mnu06.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu06_ListerU, Me.Mnu06_ListerA, Me.Mnu06_Manuel_des_Stratégies, Me.Mnu063_VérificationDeLaGrille, Me.Mnu06_Sep01, Me.Mnu06_EffacerLaGrille, Me.Mnu06_Sep02, Me.Mnu06_SudokuPCA, Me.Mnu06_SudokuAngusJohnson, Me.Mnu06_SudokuDarrenColes, Me.Mnu06_SudokuPatriceHenrion, Me.Mnu06_SudokuNKH, Me.Mnu06_Hodoku220, Me.Mnu06_SudokuFedynaK, Me.Mnu06_SudoCue, Me.Mnu06_DiufSudokuJava, Me.Mnu06_Sep03, Me.Mnu06_ClassicSudoku, Me.Mnu06_SudokuSolver, Me.Mnu06_MicrosoftSudoku, Me.Mnu06_HHSudokuGame, Me.Mnu06_MUDancingLink, Me.Mnu06_Sep04, Me.Mnu06_CB})
         Me.Mnu06.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu06.Name = "Mnu06"
-        Me.Mnu06.Size = New System.Drawing.Size(73, 28)
+        Me.Mnu06.Size = New System.Drawing.Size(73, 25)
         Me.Mnu06.Text = "&Divers"
         '
         'Mnu06_ListerU
@@ -1247,7 +1233,7 @@ Partial Class Frm_SDK
         Me.Mnu07.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu07_Strategy_CdU, Me.Mnu07_Strategy_CdO, Me.Mnu07_Strategy_DCd, Me.Mnu07_Strategy_Cbl, Me.Mnu07_Strategy_Tpl, Me.Mnu07_Strategy_Xwg, Me.Mnu07_Strategy_XYw, Me.Mnu07_Strategy_Swf, Me.Mnu07_Strategy_Jly, Me.Mnu07_Strategy_XYZ, Me.Mnu07_Strategy_SKy, Me.Mnu07_Strategy_Unq, Me.ToolStripSeparator3, Me.Mnu07n_Gbl, Me.Mnu07n_Gbv, Me.Mnu07n_GCs, Me.Mnu07n_XCx, Me.Mnu07n_XCy, Me.Mnu07n_XRp, Me.Mnu07n_XNl, Me.Mnu07n_WgX, Me.Mnu07n_WgY, Me.Mnu07n_WgZ, Me.Mnu07n_WgW})
         Me.Mnu07.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu07.Name = "Mnu07"
-        Me.Mnu07.Size = New System.Drawing.Size(69, 28)
+        Me.Mnu07.Size = New System.Drawing.Size(69, 25)
         Me.Mnu07.Text = "O&utils"
         '
         'Mnu07_Strategy_CdU
@@ -1408,7 +1394,7 @@ Partial Class Frm_SDK
         Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0910_GLk, Me.Mnu0930_Gbl, Me.Mnu0950_Gbv, Me.Mnu0970_GCs})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
-        Me.Mnu09.Size = New System.Drawing.Size(79, 28)
+        Me.Mnu09.Size = New System.Drawing.Size(79, 25)
         Me.Mnu09.Text = "Graphe"
         '
         'Mnu0901
@@ -1458,7 +1444,7 @@ Partial Class Frm_SDK
         Me.BarreOutils.ContextMenuStrip = Me.Mnu_Ctxt_Vide
         Me.BarreOutils.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.BarreOutils.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Btn_Cdd, Me.Btn_CdU, Me.Btn_CdO, Me.ToolStripSeparator13, Me.Btn1, Me.Btn2, Me.Btn3, Me.Btn4, Me.Btn5, Me.Btn6, Me.Btn7, Me.Btn8, Me.Btn9, Me.ToolStripSeparator14, Me.Btn_Cbl, Me.Btn_Tpl, Me.Btn_Xwg, Me.Btn_XYw, Me.Btn_Swf, Me.Btn_Jly, Me.Btn_XYZ, Me.Btn_SKy, Me.Btn_Unq, Me.ToolStripSeparator15, Me.Btn0, Me.ToolStripSeparator16})
-        Me.BarreOutils.Location = New System.Drawing.Point(0, 32)
+        Me.BarreOutils.Location = New System.Drawing.Point(0, 29)
         Me.BarreOutils.Name = "BarreOutils"
         Me.BarreOutils.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.BarreOutils.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -2074,9 +2060,8 @@ Partial Class Frm_SDK
   Friend WithEvents Mnu08_Sep03 As ToolStripSeparator
   Friend WithEvents Mnu08_InsérerTouteLaSolution As ToolStripMenuItem
   Friend WithEvents Btn_XYZ As ToolStripButton
-  Friend WithEvents Mnu_Cel_Cdd_Exe_A As ToolStripMenuItem
-  Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Eff_x As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Eff_x As ToolStripMenuItem
   Friend WithEvents Mnu06_Hodoku220 As ToolStripMenuItem
   Friend WithEvents Mnu01_OuvrirLaBibliothèqueTestDeHodoku As ToolStripMenuItem
   Friend WithEvents Btn_Unq As ToolStripButton
@@ -2089,9 +2074,8 @@ Partial Class Frm_SDK
   Friend WithEvents Mnu06_EffacerLaGrille As ToolStripMenuItem
   Friend WithEvents Mnu01_CopierLeJournalEnModeRTF As ToolStripMenuItem
   Friend WithEvents Mnu_Jrn_CopierLaSélectionDansLePresse_Papier_Texte As ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exd_N As ToolStripMenuItem
-  Friend WithEvents Mnu05_Dictionnaire As ToolStripMenuItem
-  Friend WithEvents Mnu06_SudokuFedynaK As ToolStripMenuItem
+    Friend WithEvents Mnu05_Dictionnaire As ToolStripMenuItem
+    Friend WithEvents Mnu06_SudokuFedynaK As ToolStripMenuItem
   Friend WithEvents Mnu08_Sep04 As ToolStripSeparator
   Friend WithEvents Mnu08_TestA As ToolStripMenuItem
   Friend WithEvents Mnu08_TestB As ToolStripMenuItem

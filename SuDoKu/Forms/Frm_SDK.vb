@@ -345,16 +345,10 @@ Public NotInheritable Class Frm_SDK
     LP_Jeu = My.Settings.LP_Jeu
     LP_Sol = My.Settings.LP_Sol
     LP_Frc = My.Settings.LP_Frc
-    Select Case Plcy_Gnrl
-      Case "Nrm"
-        LP_Cdd = ""
-        LP_CddExc = ""
-      Case "Sas"
-        LP_Cdd = My.Settings.LP_Cdd.Replace("0", " ")
-        LP_CddExc = My.Settings.LP_CddExc.Replace("0", " ")
-    End Select
-    Jrn_Add("SDK_00100", {LP_Nom})
-    Jrn_Add(, {"/" & Proc_Name_Get()})
+    LP_Cdd = ""
+    LP_CddExc = ""
+        Jrn_Add("SDK_00100", {LP_Nom})
+        Jrn_Add(, {"/" & Proc_Name_Get()})
     OC_Présentation()
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc)
 #End Region
@@ -471,7 +465,8 @@ Public NotInheritable Class Frm_SDK
           Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
       End Select
     Catch ex As Exception
-      MsgBox(Proc_Name_Get() & vbCrLf & ex.Message)
+      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
     End Try
 
     Event_OnPaint_MAP = "#"
@@ -500,28 +495,8 @@ Public NotInheritable Class Frm_SDK
     My.Settings.LP_Jeu = J.Replace(" ", "0")
     My.Settings.LP_Sol = S.Replace(" ", "0")
     'Projet / Propriété de SuDoKu ... / Paramètres pour créer les nouveaux paramètres
-    'SuDoKu est ouvert soit en Mode Nrm, soit en mode Sas
     My.Settings.LP_Plcy_Gnrl = "Nrm"
-    'Select Case Plcy_Gnrl
-    '  Case "Sas" : My.Settings.LP_Plcy_Gnrl = "Sas"
-    '  Case Else : My.Settings.LP_Plcy_Gnrl = "Nrm"
-    'End Select
 
-    ' En Mode Sas seulement, les candidats sont enregistrés, LP_Cdd ne sera utilisé que dans le cadre Sas        
-    LP_Cdd = ""                ' Les candidats  
-    LP_CddExc = ""             ' Les candidats exclus
-    For i As Integer = 0 To 80
-      Select Case Plcy_Gnrl
-        'Case "Sas"
-        '  LP_Cdd &= U(i, 3)
-        '  LP_CddExc &= U_CddExc(i)
-        Case Else 'Cas Nrm
-          LP_Cdd &= Cnddts_Blancs
-          LP_CddExc &= Cnddts_Blancs
-      End Select
-    Next i
-    My.Settings.LP_Cdd = LP_Cdd.Replace(" ", "0")
-    My.Settings.LP_CddExc = LP_CddExc.Replace(" ", "0")
     My.Settings.Save()
 
     If Batch_Thread IsNot Nothing AndAlso Batch_Thread.IsAlive Then
@@ -728,7 +703,7 @@ Public NotInheritable Class Frm_SDK
           'le clic droit n'est pas détecté sur les Cellules R et V, car il y a un ContextMenuStrip sur le formulaire
           'le clic droit est détecté sur les Cellules       I, car il n'y a pas de ContextMenuStrip
           'le Frm_SDK_MouseMove précédent lance G7_Cellule_Paint_Select
-          'et G7_Cellule_Paint_Select    lance Mnu_Mngt_Nrm ou Mnu_Mngt_Sas
+          'et G7_Cellule_Paint_Select    lance Mnu_Mngt_Nrm 
       End Select
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
@@ -745,10 +720,8 @@ Public NotInheritable Class Frm_SDK
     Select Case sc.Typologie
       Case "I", "R" 'Il s'agit d'un clic de Sélection, puisque la cellule est remplie
       Case "V"
-        'En Mode Sas, on peut saisir n'importe quel candidat
         'En Mode Nrm, sans stratégie, la saisie sera vérifiée avec la solution
-        If (Plcy_Gnrl = "Sas" And U(Cellule_MCL, 3) = Cnddts_Blancs) _
-        Or (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") Then
+        If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") Then
           Cell_Val_Insert(CStr(Candidat_Pt), Cellule_MCL, "Mse_Clk_PCA")
         End If
         'Comme des candidats sont affichés,
@@ -757,8 +730,7 @@ Public NotInheritable Class Frm_SDK
         '      IL FAUT TOUJOURS CLIQUER sur LE CANDIDAT
         If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
         Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I") _
-        Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E") _
-        Or (Plcy_Gnrl = "Sas" And U(Cellule_MCL, 3) <> Cnddts_Blancs) Then
+        Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E") Then
           If U(Cellule_MCL, 3).Contains(CStr(Candidat_Pt)) = True Then
             Cell_Val_Insert(CStr(Candidat_Pt), Cellule_MCL, "Mse_Clk_Cdd")
           End If
@@ -894,7 +866,7 @@ Public NotInheritable Class Frm_SDK
   '
   '--------------01---------------------------------------------------------------
   Private Sub Mnu01_Ouvrir_Click(sender As Object, e As EventArgs) Handles Mnu01_Ouvrir.Click
-    'Chargement d'une nouvelle partie en mode normal ou Sas
+    'Chargement d'une nouvelle partie en mode normal 
     Frm_LoadParties.Show()
     Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Total"
@@ -955,15 +927,6 @@ Public NotInheritable Class Frm_SDK
     Dim Pgm As String = "Explorer /e, /n, " & File_SDK
     Nsd_i = Shell(Pgm, AppWinStyle.NormalFocus)
   End Sub
-  'Private Sub Mnu01_JeuSansAssistance_Click(sender As Object, e As EventArgs)
-  '  Dim J As String = ""
-  '  For i As Integer = 0 To 80 : J &= U(i, 2) : Next i 'L'ensemble des valeurs est le Jeu
-  '  Select Case Plcy_Gnrl
-  '    Case "Nrm" : Plcy_Gnrl = "Sas"
-  '    Case "Sas" : Plcy_Gnrl = "Nrm"
-  '  End Select
-  '  Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, J, LP_Sol, StrDup(729, "0"), LP_Frc)
-  'End Sub
   Private Sub Mnu01_Quitter_Click(sender As Object, e As EventArgs) Handles Mnu01_Quitter.Click
     Close()
   End Sub
@@ -1808,23 +1771,23 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-  Private Sub Mnu_Cel_Cdd_ExclureAll(sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Exe_A.Click
-    'Exclusion de tous les candidats pour une cellule
-    Try
-      Dim Cellule_Cdd_Exc As Integer = Pbl_Cell_Select
-      Dim Candidats As String = U(Cellule_Cdd_Exc, 3)
-      For j As Integer = 0 To 8
-        Dim Cdd As String = Candidats.Substring(j, 1)
-        If Cdd <> " " Then
-          Cell_Cdd_Exclude(Cdd, Cellule_Cdd_Exc)
-        End If
-      Next j
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-  End Sub
-  Private Sub Mnu_Cel_Cdd_ExclureN(sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Exd_N.Click
+    Private Sub Mnu_Cel_Cdd_ExclureAll(sender As Object, e As EventArgs)
+        'Exclusion de tous les candidats pour une cellule
+        Try
+            Dim Cellule_Cdd_Exc As Integer = Pbl_Cell_Select
+            Dim Candidats As String = U(Cellule_Cdd_Exc, 3)
+            For j As Integer = 0 To 8
+                Dim Cdd As String = Candidats.Substring(j, 1)
+                If Cdd <> " " Then
+                    Cell_Cdd_Exclude(Cdd, Cellule_Cdd_Exc)
+                End If
+            Next j
+        Catch ex As Exception
+            Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+            Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+        End Try
+    End Sub
+    Private Sub Mnu_Cel_Cdd_ExclureN(sender As Object, e As EventArgs) 
     ' Exclure n candidats avec InputBox dans une cellule
     ' La valeur par défaut comporte l'ensemble des candidats à exclure stockés dans U_Strg_Cdd_Exc
     Try

@@ -28,7 +28,7 @@ Friend Module M03_Paint
         sc.Numéro = i
         sc.G2_Cellule_Paint_Fond_g(g)
         sc.G5_Cellule_Paint_Valeur_g(g)
-        sc.G6_Cellule_Paint_Candidats_Conditions_Sas_Nrm_Cdd_g(g) ' dans le cas où seul un candidat a été exclu
+        sc.G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd_g(g) ' dans le cas où seul un candidat a été exclu
       End If
       U_Strg(i) = False
     Next i

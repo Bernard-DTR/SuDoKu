@@ -96,7 +96,6 @@ Module G20_Général
   End Sub
   Sub Pzzl_Load(ByRef Nom_Pzzl As String)
     'Chargement d'une grille 
-    'si le jeu est en Sas, la partie est chargée en Sas
     For i As Integer = 0 To Pzzl_List.Count - 1
       If Pzzl_List.Item(i).Nom = Nom_Pzzl Then
         Game_New_Game(Gnrl:=Plcy_Gnrl, Nom:=Pzzl_List.Item(i).Nom, Prb:=Pzzl_List.Item(i).Problème, Jeu:=Pzzl_List.Item(i).Problème, Sol:=Pzzl_List.Item(i).Solution, Cdd729:=StrDup(729, " "), Frc:=Pzzl_List.Item(i).Force)

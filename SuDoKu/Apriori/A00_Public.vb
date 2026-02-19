@@ -226,7 +226,7 @@ Module A00_Public
 #Region "30 Policies générales"
   '      SDK est en Mode ETENDU (Journal + toutes les options) ou non 
   Public Plcy_Gbl_Etendue As Boolean
-  '      Mode Nrm Normal ou Sas Sans assistance
+  '      Mode Nrm Normal 
   Public Plcy_Gnrl As String = "Nrm"
   'Policies de stratégie lorsque Plcy_Gnrl = "Nrm" 
   '      Peut prendre TOUTES les valeurs de Strg_Insertion_List, Strg_Exclusion_List, Plcy_Strg_FiltreVal_List
@@ -435,19 +435,22 @@ Module A00_Public
     Public Property Dsp_BO As String       ' 2 Afficher dans la barre d'outils ("O"/"N" ou "L" pour les stratégies de Liens)
     Public Property Type As String         ' 3 Type: Insertion, Exclusion, Non 
     Public Property Prd As String          ' 4 Prd: O/N, utilisé dans les calculs de Production/Résolution  
-    Public Property Texte As String        ' 5 Texte                            
+    Public Property Family As String       ' 5 0, de 1 à x pour gérer les affichages  
+    Public Property Texte As String        ' 6 Texte                            
     'Constructeur paramétré
     Sub New(New_Code As String,
             New_Lettre As String,
             New_Dsp_BO As String,
             New_Type As String,
             New_Prd As String,
+            New_Family As String,
             New_Texte As String)
       Code = New_Code
       Lettre = New_Lettre
       Dsp_BO = New_Dsp_BO
       Type = New_Type
       Prd = New_Prd
+      Family = New_Family
       Texte = New_Texte
     End Sub
     ' Constructeur sans paramètres (IA)

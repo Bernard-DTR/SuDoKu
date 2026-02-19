@@ -104,9 +104,8 @@ Friend Module A02_Occasionally
     Dim B_Width As Integer = Bld_Marge_LT
     Dim B_Top As Integer
     Dim B_Height As Integer = 20 'Hauteur des zones B_*
+    Frm_SDK.BarreOutils.Visible = True
 
-    If Plcy_Gnrl = "Nrm" Then Frm_SDK.BarreOutils.Visible = True
-    If Plcy_Gnrl = "Sas" Then Frm_SDK.BarreOutils.Visible = False
     If Plcy_Gbl_Etendue Then Frm_SDK.Journal.Visible = True Else Frm_SDK.Journal.Visible = False
 
 
@@ -120,7 +119,7 @@ Friend Module A02_Occasionally
       .Height = SI_CaptionHeight + Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT + Bld_WH_Grid _
               + Bld_Marge_LT + B_Height + Bld_Marge_LT + Int_Seize
     End With
-    If Not Plcy_Gbl_Etendue And (Plcy_Gnrl = "Nrm" Or Plcy_Gnrl = "Sas") Then
+    If Not Plcy_Gbl_Etendue And Plcy_Gnrl = "Nrm" Then
       Frm_SDK.Width = Bld_Marge_LT + Bld_WH_Grid + Bld_Marge_LT + Int_Seize
     End If
 
@@ -169,66 +168,66 @@ Friend Module A02_Occasionally
     ' Options disponibles ou non
     '    If Plcy_Gbl_Etendue And Plcy_Gnrl = "Nrm" Then
     With Frm_SDK
-        'Mnu01 Fichier
-        .Mnu01_Ouvrir.Visible = True
-        .Mnu01_RejouerLaPartie.Visible = True
-        .Mnu01_Sep01.Visible = True
-        .Mnu01_Saisir.Visible = True
-        .Mnu01_Commencer.Visible = True
-        .Mnu01_Sep03.Visible = True
-        .Mnu01_EnregistrerUnePartieTest.Visible = True
-        .Mnu01_ChargerUnePartieTest.Visible = True
-        .Mnu01_OuvrirLaBibliothèqueTestDeHodoku.Visible = True
-        .Mnu01_Sep04.Visible = True
-        .Mnu01_OuvrirLeRépertoire.Visible = True
-        .Mnu01_Sep05.Visible = True
-        .Mnu01_CopierLeJournalEnModeRTF.Visible = True
-        .Mnu01_Sep07.Visible = True
-        .Mnu01_Quitter.Visible = True
-        'Mnu02 Edition
-        .Mnu02.Visible = True
-        .Mnu02_Annuler.Visible = True
-        .Mnu02_Refaire.Visible = True
-        .Mnu02_Sep01.Visible = True
-        .Mnu02_Effacer.Visible = True
-        .Mnu02_InsérerLaSolution.Visible = True
-        .Mnu02_Sep03.Visible = True
-        .Mnu02_Copier.Visible = True
-        .Mnu02_Copier2.Visible = True
-        .Mnu02_Coller.Visible = True
-        .Mnu02_CopierlaGrilleDansLeJournal.Visible = True
-        'Mnu03 Affichage
-        .Mnu03.Visible = True
-        .Mnu03_EffacerLeJournal.Visible = True
-        .Mnu03_Sep01.Visible = True
-        .Mnu03_Transformation.Visible = True
-        .Mnu03_AfficherLaSolution.Visible = True
-        .Mnu03_Rafraîchir.Visible = True
-        'Mnu04_Stratégies
-        .Mnu04.Visible = True
-        'Mnu08 Extension
-        .Mnu08.Visible = True
-        .Mnu08_Création.Visible = True
-        .Mnu08_Résolution.Visible = True
-        .Mnu08_RésoudreEnForceBrute.Visible = True
-        .Mnu08_RésoudreDancingLink.Visible = True
-        .Mnu08_Sep01.Visible = True
-        .Mnu08_EditionDuProblème.Visible = True
-        .Mnu08_DessinerSurLaGrille.Visible = True
-        .Mnu08_Sep03.Visible = True
-        .Mnu08_InsérerTouteLaSolution.Visible = True
-        .Mnu08_Sep04.Visible = True
-        .Mnu08_TestA.Visible = True
-        .Mnu08_TestB.Visible = True
-        .Mnu08_TestC.Visible = True
-        .Mnu08_TestD.Visible = True
-        .Mnu08_TestE.Visible = True
-        .Mnu08_TestF.Visible = True
-        .Mnu08_TestG.Visible = True
-        .Mnu08_TestH.Visible = True
-        .Mnu08_TestI.Visible = True
-        .Mnu08_TestJ.Visible = True
-        .Mnu08_TestA.Text = Msg_Read_IA("MNU_0800A")
+      ''Mnu01 Fichier
+      '.Mnu01_Ouvrir.Visible = True
+      '.Mnu01_RejouerLaPartie.Visible = True
+      '.Mnu01_Sep01.Visible = True
+      '.Mnu01_Saisir.Visible = True
+      '.Mnu01_Commencer.Visible = True
+      '.Mnu01_Sep03.Visible = True
+      '.Mnu01_EnregistrerUnePartieTest.Visible = True
+      '.Mnu01_ChargerUnePartieTest.Visible = True
+      '.Mnu01_OuvrirLaBibliothèqueTestDeHodoku.Visible = True
+      '.Mnu01_Sep04.Visible = True
+      '.Mnu01_OuvrirLeRépertoire.Visible = True
+      '.Mnu01_Sep05.Visible = True
+      '.Mnu01_CopierLeJournalEnModeRTF.Visible = True
+      '.Mnu01_Sep07.Visible = True
+      '.Mnu01_Quitter.Visible = True
+      ''Mnu02 Edition
+      '.Mnu02.Visible = True
+      '.Mnu02_Annuler.Visible = True
+      '.Mnu02_Refaire.Visible = True
+      '.Mnu02_Sep01.Visible = True
+      '.Mnu02_Effacer.Visible = True
+      '.Mnu02_InsérerLaSolution.Visible = True
+      '.Mnu02_Sep03.Visible = True
+      '.Mnu02_Copier.Visible = True
+      '.Mnu02_Copier2.Visible = True
+      '.Mnu02_Coller.Visible = True
+      '.Mnu02_CopierlaGrilleDansLeJournal.Visible = True
+      ''Mnu03 Affichage
+      '.Mnu03.Visible = True
+      '.Mnu03_EffacerLeJournal.Visible = True
+      '.Mnu03_Sep01.Visible = True
+      '.Mnu03_Transformation.Visible = True
+      '.Mnu03_AfficherLaSolution.Visible = True
+      '.Mnu03_Rafraîchir.Visible = True
+      ''Mnu04_Stratégies
+      '.Mnu04.Visible = True
+      ''Mnu08 Extension
+      '.Mnu08.Visible = True
+      '.Mnu08_Création.Visible = True
+      '.Mnu08_Résolution.Visible = True
+      '.Mnu08_RésoudreEnForceBrute.Visible = True
+      '.Mnu08_RésoudreDancingLink.Visible = True
+      '.Mnu08_Sep01.Visible = True
+      '.Mnu08_EditionDuProblème.Visible = True
+      '.Mnu08_DessinerSurLaGrille.Visible = True
+      '.Mnu08_Sep03.Visible = True
+      '.Mnu08_InsérerTouteLaSolution.Visible = True
+      '.Mnu08_Sep04.Visible = True
+      '.Mnu08_TestA.Visible = True
+      '.Mnu08_TestB.Visible = True
+      '.Mnu08_TestC.Visible = True
+      '.Mnu08_TestD.Visible = True
+      '.Mnu08_TestE.Visible = True
+      '.Mnu08_TestF.Visible = True
+      '.Mnu08_TestG.Visible = True
+      '.Mnu08_TestH.Visible = True
+      '.Mnu08_TestI.Visible = True
+      '.Mnu08_TestJ.Visible = True
+      .Mnu08_TestA.Text = Msg_Read_IA("MNU_0800A")
         .Mnu08_TestB.Text = Msg_Read_IA("MNU_0800B")
         .Mnu08_TestC.Text = Msg_Read_IA("MNU_0800C")
         .Mnu08_TestD.Text = Msg_Read_IA("MNU_0800D")
@@ -238,163 +237,19 @@ Friend Module A02_Occasionally
         .Mnu08_TestH.Text = Msg_Read_IA("MNU_0800H")
         .Mnu08_TestI.Text = Msg_Read_IA("MNU_0800I")
         .Mnu08_TestJ.Text = Msg_Read_IA("MNU_0800J")
-        'Mnu05 Aide
-        .Mnu05.Visible = True
-        .Mnu05_Préférences.Visible = True
-        .Mnu05_FichierDesMessages.Visible = True
-        .Mnu05_APropos.Visible = True
-        .Mnu05_Documentation.Visible = True
-        .Mnu05_Maintenance.Visible = True
-        .Mnu05_Dictionnaire.Visible = True
-        'Mnu06 Divers
-        .Mnu06.Visible = True
-        'Mnu07 Outils
-        .Mnu07.Visible = True
-      End With
-    'End If
-    'If Plcy_Gbl_Etendue And Plcy_Gnrl = "Sas" Then
-    '  With Frm_SDK
-    '    'Mnu01 Fichier
-    '    .Mnu01_Ouvrir.Visible = True
-    '    .Mnu01_RejouerLaPartie.Visible = True
-    '    .Mnu01_Sep01.Visible = True
-    '    .Mnu01_Saisir.Visible = True
-    '    .Mnu01_Commencer.Visible = True
-    '    .Mnu01_Sep03.Visible = False
-    '    .Mnu01_EnregistrerUnePartieTest.Visible = False
-    '    .Mnu01_ChargerUnePartieTest.Visible = False
-    '    .Mnu01_OuvrirLaBibliothèqueTestDeHodoku.Visible = False
-    '    .Mnu01_Sep04.Visible = False
-    '    .Mnu01_OuvrirLeRépertoire.Visible = False
-    '    .Mnu01_Sep05.Visible = False
-    '    .Mnu01_CopierLeJournalEnModeRTF.Visible = False
-    '    .Mnu01_Sep07.Visible = True
-    '    .Mnu01_Quitter.Visible = True
-    '    'Mnu02 Edition
-    '    .Mnu02.Visible = False
-    '    'Mnu03 Affichage
-    '    .Mnu03.Visible = False
-    '    'Mnu04_Stratégies
-    '    .Mnu04.Visible = False
-    '    'Mnu08 Extension
-    '    .Mnu08.Visible = False
-    '    'Mnu05 Aide
-    '    .Mnu05.Visible = False
-    '    'Mnu06 Divers
-    '    .Mnu06.Visible = False
-    '    'Mnu07 Outils
-    '    .Mnu07.Visible = False
-    '  End With
-    'End If
-    'If Not Plcy_Gbl_Etendue And Plcy_Gnrl = "Nrm" Then
-    '  With Frm_SDK
-    '    'Mnu01 Fichier
-    '    .Mnu01_Ouvrir.Visible = True
-    '    .Mnu01_RejouerLaPartie.Visible = True
-    '    .Mnu01_Sep01.Visible = True
-    '    .Mnu01_Saisir.Visible = True
-    '    .Mnu01_Commencer.Visible = True
-    '    .Mnu01_Sep03.Visible = False
-    '    .Mnu01_EnregistrerUnePartieTest.Visible = False
-    '    .Mnu01_ChargerUnePartieTest.Visible = False
-    '    .Mnu01_OuvrirLaBibliothèqueTestDeHodoku.Visible = False
-    '    .Mnu01_Sep04.Visible = False
-    '    .Mnu01_OuvrirLeRépertoire.Visible = False
-    '    .Mnu01_Sep05.Visible = False
-    '    .Mnu01_CopierLeJournalEnModeRTF.Visible = False
-    '    .Mnu01_Sep07.Visible = True
-    '    .Mnu01_Quitter.Visible = True
-    '    'Mnu02 Edition
-    '    .Mnu02.Visible = True
-    '    .Mnu02_Annuler.Visible = True
-    '    .Mnu02_Refaire.Visible = True
-    '    .Mnu02_Sep01.Visible = True
-    '    .Mnu02_Effacer.Visible = True
-    '    .Mnu02_InsérerLaSolution.Visible = True
-    '    .Mnu02_Sep03.Visible = False
-    '    .Mnu02_Copier.Visible = False
-    '    .Mnu02_Copier2.Visible = False
-    '    .Mnu02_Coller.Visible = False
-    '    .Mnu02_CopierlaGrilleDansLeJournal.Visible = False
-    '    'Mnu03 Affichage
-    '    .Mnu03.Visible = True
-    '    .Mnu03_EffacerLeJournal.Visible = False
-    '    .Mnu03_Sep01.Visible = True
-    '    .Mnu03_Transformation.Visible = True
-    '    .Mnu03_AfficherLaSolution.Visible = True
-    '    .Mnu03_Rafraîchir.Visible = True
-    '    'Mnu04 Stratégies
-    '    .Mnu04.Visible = True
-    '    'Mnu08 Extension
-    '    .Mnu08.Visible = True
-    '    .Mnu08_Création.Visible = True
-    '    .Mnu08_Résolution.Visible = True
-    '    .Mnu08_RésoudreEnForceBrute.Visible = True
-    '    .Mnu08_RésoudreDancingLink.Visible = True
-    '    .Mnu08_Sep01.Visible = False
-    '    .Mnu08_EditionDuProblème.Visible = False
-    '    .Mnu08_DessinerSurLaGrille.Visible = False
-    '    .Mnu08_Sep03.Visible = True
-    '    .Mnu08_InsérerTouteLaSolution.Visible = True
-    '    .Mnu08_Sep04.Visible = False
-    '    .Mnu08_TestA.Visible = False
-    '    .Mnu08_TestB.Visible = False
-    '    .Mnu08_TestC.Visible = False
-    '    .Mnu08_TestD.Visible = False
-    '    .Mnu08_TestE.Visible = False
-    '    .Mnu08_TestF.Visible = False
-    '    .Mnu08_TestG.Visible = False
-    '    .Mnu08_TestH.Visible = False
-    '    .Mnu08_TestI.Visible = False
-    '    .Mnu08_TestJ.Visible = False
-    '    'Mnu05 Aide
-    '    .Mnu05.Visible = True
-    '    .Mnu05_Préférences.Visible = True
-    '    .Mnu05_FichierDesMessages.Visible = False
-    '    .Mnu05_APropos.Visible = True
-    '    .Mnu05_Documentation.Visible = False
-    '    .Mnu05_Maintenance.Visible = False
-    '    .Mnu05_Dictionnaire.Visible = False
-    '    'Mnu06 Divers
-    '    .Mnu06.Visible = False
-    '    'Mnu07 Outils
-    '    .Mnu07.Visible = False
-    '  End With
-    'End If
-    'If Not Plcy_Gbl_Etendue And Plcy_Gnrl = "Sas" Then
-    '  With Frm_SDK
-    '    'Mnu01 Fichier
-    '    .Mnu01_Ouvrir.Visible = True
-    '    .Mnu01_RejouerLaPartie.Visible = True
-    '    .Mnu01_Sep01.Visible = True
-    '    .Mnu01_Saisir.Visible = True
-    '    .Mnu01_Commencer.Visible = True
-    '    .Mnu01_Sep03.Visible = False
-    '    .Mnu01_EnregistrerUnePartieTest.Visible = False
-    '    .Mnu01_ChargerUnePartieTest.Visible = False
-    '    .Mnu01_OuvrirLaBibliothèqueTestDeHodoku.Visible = False
-    '    .Mnu01_Sep04.Visible = False
-    '    .Mnu01_OuvrirLeRépertoire.Visible = False
-    '    .Mnu01_Sep05.Visible = False
-    '    .Mnu01_CopierLeJournalEnModeRTF.Visible = False
-    '    .Mnu01_Sep07.Visible = True
-    '    .Mnu01_Quitter.Visible = True
-    '    'Mnu02 Edition
-    '    .Mnu02.Visible = False
-    '    'Mnu03 Affichage
-    '    .Mnu03.Visible = False
-    '    'Mnu04_Stratégies
-    '    .Mnu04.Visible = False
-    '    'Mnu08 Extension
-    '    .Mnu08.Visible = False
-    '    'Mnu05 Aide
-    '    .Mnu05.Visible = False
-    '    'Mnu06 Divers
-    '    .Mnu06.Visible = False
-    '    'Mnu07 Outils
-    '    .Mnu07.Visible = False
-    '  End With
-    'End If
+      ''Mnu05 Aide
+      '.Mnu05.Visible = True
+      '.Mnu05_Préférences.Visible = True
+      '.Mnu05_FichierDesMessages.Visible = True
+      '.Mnu05_APropos.Visible = True
+      '.Mnu05_Documentation.Visible = True
+      '.Mnu05_Maintenance.Visible = True
+      '.Mnu05_Dictionnaire.Visible = True
+      ''Mnu06 Divers
+      '.Mnu06.Visible = True
+      ''Mnu07 Outils
+      '.Mnu07.Visible = True
+    End With
 
     ' Libellé des Menus en fonction de la taille de WH
     Dim l As Integer
@@ -443,8 +298,7 @@ Friend Module A02_Occasionally
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
 
     ' La hauteur de la Barre_Outils est soit standard (25) et affichée, soit 0 et dans ce cas non affichée
-    If Plcy_Gnrl = "Nrm" Then Barre_Outils_Hauteur = Barre_Outils_Standard
-    If Plcy_Gnrl = "Sas" Then Barre_Outils_Hauteur = 0
+    Barre_Outils_Hauteur = Barre_Outils_Standard
     If Plcy_Gbl_Etendue Then Bld_Journal_Affiché_Width = Bld_Journal_Width Else Bld_Journal_Affiché_Width = 0
 
     ' Calcul de Gz_Pt_TopLeft As Point   
