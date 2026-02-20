@@ -224,8 +224,6 @@ Module A00_Public
 #End Region
 
 #Region "30 Policies générales"
-  '      SDK est en Mode ETENDU (Journal + toutes les options) ou non 
-  Public Plcy_Gbl_Etendue As Boolean
   '      Mode Nrm Normal 
   Public Plcy_Gnrl As String = "Nrm"
   'Policies de stratégie lorsque Plcy_Gnrl = "Nrm" 

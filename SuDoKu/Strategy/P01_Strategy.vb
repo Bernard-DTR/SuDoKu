@@ -391,7 +391,6 @@ Friend Module P01_Strategy
       End If
     Next i
   End Sub
-
   Sub Stg_List_Display()
     'Liste les Stratégies et les Listes des Codes, Lettres et Liens
     Jrn_Add("SDK_Space")
@@ -426,6 +425,4 @@ Friend Module P01_Strategy
     Next Stg
     Return New Stg_Cls(Code, "#", "#", "#", "#", "#", "#")
   End Function
-
-
 End Module

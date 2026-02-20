@@ -43,44 +43,43 @@ Friend Module M03_Sélection
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     ' 03  L'affichage du résultat
+    Select Case Stg_Get(Plcy_Strg).Family
+      Case "0"
+        Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
+        Event_OnPaint = "Cellule"
+        Using reg As New Region(Sqr_Pth(Cellule))
+          Frm_SDK.Invalidate(reg, False)
+          Application.DoEvents()
+        End Using
 
-    If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg = "   " Then
+      Case "1"
+        Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
+        Event_OnPaint = "Cellules_Collatérales"
+        If Cell_Coll_Modifiées_List.Count > 0 Then
+          Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+            For Each cell As Integer In Cell_Coll_Modifiées_List
+              reg.Union(Sqr_Pth(cell))
+            Next
+            Frm_SDK.Invalidate(reg, False)
+            Application.DoEvents()
+          End Using
+        Else
+          ' Si la liste est vide, on peut invalider uniquement la cellule principale
+          Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+            Frm_SDK.Invalidate(reg, False)
+            Application.DoEvents()
+          End Using
+        End If
 
-      Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
-      Event_OnPaint = "Cellule_Valeur_Insertion"
-      Using reg As New Region(Sqr_Pth(Cellule))
-        Frm_SDK.Invalidate(reg, False)
+      Case "3"
+        Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
+        Event_OnPaint = "Total"
+        Frm_SDK.Invalidate()
         Application.DoEvents()
-      End Using
 
-    ElseIf (Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg = "Cdd") Then
-      Event_OnPaint = "Cellules_Collatérales"
-      ' Test recommandé : la liste contient-elle des éléments ?
-      If Cell_Coll_Modifiées_List.Count > 0 Then
-        Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-          For Each cell As Integer In Cell_Coll_Modifiées_List
-            reg.Union(Sqr_Pth(cell))
-          Next
-          Frm_SDK.Invalidate(reg, False)
-          Application.DoEvents()
-        End Using
-      Else
-        ' Si la liste est vide, on peut invalider uniquement la cellule principale
-        Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-          Frm_SDK.Invalidate(reg, False)
-          Application.DoEvents()
-        End Using
-      End If
-
-    Else
-      Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
-      Event_OnPaint = "Total"
-      Frm_SDK.Invalidate()
-      Application.DoEvents()
-
-    End If
-
-
+      Case Else
+        Jrn_Add_Yellow("Stg_Get(Plcy_Strg).Family " & Stg_Get(Plcy_Strg).Family)
+    End Select
     Insert_Nb_Cell += 1
 
     ' 05 Fin de partie
@@ -130,9 +129,11 @@ Friend Module M03_Sélection
     Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+    Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
     Event_OnPaint = "Total"
     Frm_SDK.Invalidate()
     Application.DoEvents()
+
   End Sub
 
   Sub Cell_Cdd_Insert(V As String, Cellule As Integer, Origine As String)
@@ -156,24 +157,26 @@ Friend Module M03_Sélection
       ' Evite le message pour les cellules déjà remplies
       If U(Cellule, 1) <> " " Then Act_Add(Cellule, "Replacer" & Origine, V, Candidats_Exclus, Proc_Name_Get(), Av_Jeu, Av_AllCdd)
       Pbl_Cell_Select = Cellule
-      Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-      Dim Gril As New Grille_Cls
-      ' TODO à refaire
-      'G3_Grille_Paint_Indirecte()
-      'Gril.G3_Grille_Paint_Indirecte()
-      'sc.Cellule_Refresh()
+      'Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+      'Dim Gril As New Grille_Cls
+      '' TODO à refaire
+      ''G3_Grille_Paint_Indirecte()
+      ''Gril.G3_Grille_Paint_Indirecte()
+      ''sc.Cellule_Refresh()
+
+      Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+
+      Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+      Event_OnPaint = "Total"
+      Frm_SDK.Invalidate()
+      Application.DoEvents()
+
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
 
-    ''Lors de chaque insertion, si la mode Suggestion est actif, alors Pzzl_Suggest est lancé
-    '' Insertion d'une valeur   Cell_Val_Insert
-    '' Insertion d'un  candidat Cell_Cdd_Insert
-    'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " And Swt_Mode_Suggestion = 1 Then
-    '  'Affiche du coup dans la zone Info l'explication de la suggestion
-    '  Cell_Slv_Interactif("S", "Mode Suggestion")
-    'End If
   End Sub
 
 
@@ -202,11 +205,19 @@ Friend Module M03_Sélection
         Act_Add(Cellule, "? Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
       End If
       Pbl_Cell_Select = Cellule
-      Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-      Dim Gril As New Grille_Cls
-      'TODO à refaire aussi
-      'Gril.G3_Grille_Paint_Indirecte()
-      'sc.Cellule_Refresh()
+      Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+
+      Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+      Event_OnPaint = "Total"
+      Frm_SDK.Invalidate()
+      Application.DoEvents()
+
+      'Dim sc As New Cellule_Cls With {.Numéro = Cellule}
+      'Dim Gril As New Grille_Cls
+      ''TODO à refaire aussi
+      ''Gril.G3_Grille_Paint_Indirecte()
+      ''sc.Cellule_Refresh()
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
@@ -239,6 +250,7 @@ Friend Module M03_Sélection
     Return nb
   End Function
   Public Function Cdd_Remove_Cell_Coll_List(ByRef U_temp(,) As String, Cellule As Integer) As List(Of Integer)
+    ' Le tableau U_temp des cellules est passé en ByRef, car il sort modifié de la fonction 
     Dim list_Coll As New List(Of Integer)
     ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales
     ' Retourne la liste des cellules dans lesquelles un candidat a été enlevé

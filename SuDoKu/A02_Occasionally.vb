@@ -105,9 +105,7 @@ Friend Module A02_Occasionally
     Dim B_Top As Integer
     Dim B_Height As Integer = 20 'Hauteur des zones B_*
     Frm_SDK.BarreOutils.Visible = True
-
-    If Plcy_Gbl_Etendue Then Frm_SDK.Journal.Visible = True Else Frm_SDK.Journal.Visible = False
-
+    Frm_SDK.Journal.Visible = True
 
     Frm_SDK.BackColor = Color_Frm_BackColor
 
@@ -119,9 +117,9 @@ Friend Module A02_Occasionally
       .Height = SI_CaptionHeight + Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT + Bld_WH_Grid _
               + Bld_Marge_LT + B_Height + Bld_Marge_LT + Int_Seize
     End With
-    If Not Plcy_Gbl_Etendue And Plcy_Gnrl = "Nrm" Then
-      Frm_SDK.Width = Bld_Marge_LT + Bld_WH_Grid + Bld_Marge_LT + Int_Seize
-    End If
+    'If Not Plcy_Gbl_Etendue And Plcy_Gnrl = "Nrm" Then
+    'Frm_SDK.Width = Bld_Marge_LT + Bld_WH_Grid + Bld_Marge_LT + Int_Seize
+    'End If
 
     ' L'emplacement du journal dépend de l'affichage ou non de la barre d'outils
     With Frm_SDK.Journal
@@ -299,7 +297,7 @@ Friend Module A02_Occasionally
 
     ' La hauteur de la Barre_Outils est soit standard (25) et affichée, soit 0 et dans ce cas non affichée
     Barre_Outils_Hauteur = Barre_Outils_Standard
-    If Plcy_Gbl_Etendue Then Bld_Journal_Affiché_Width = Bld_Journal_Width Else Bld_Journal_Affiché_Width = 0
+    Bld_Journal_Affiché_Width = Bld_Journal_Width
 
     ' Calcul de Gz_Pt_TopLeft As Point   
     ' Définition du Point Top-Left, Représente une paire ordonnée de coordonnées x et y entiers

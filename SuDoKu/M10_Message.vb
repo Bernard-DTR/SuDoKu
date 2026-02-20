@@ -107,7 +107,7 @@ Module M10_Message
     '-------------------------------------------'
     ' La procédure NE DOIT PAS comporter Jrn_Add '
     '-------------------------------------------'
-    If Not Plcy_Gbl_Etendue Then Exit Sub
+    'If Not Plcy_Gbl_Etendue Then Exit Sub
     If Thread.CurrentThread.IsBackground Then
       ' La fonction est exécutée dans un traitement d'arrière-plan
       Exit Sub

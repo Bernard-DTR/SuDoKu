@@ -293,13 +293,6 @@ Public Class Cellule_Cls
     End If
 
   End Sub
-  Public Sub Cellule_Refresh_g(g As Graphics)
-    'La Cellule est rafraîchie, la Cellule n'est pas sélectionnée 
-    G2_Cellule_Paint_Fond_g(g)
-    G4_Grid_Stratégie_All_g(g)
-    G5_Cellule_Paint_Valeur_g(g)
-    G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd_g(g)
-  End Sub
 
   ''' <summary>Rafraîchit la Cellule et les Cellules Collatérales</summary>
   Public Sub Cellule_Refresh_Cell_Coll_old()
@@ -360,20 +353,6 @@ Public Class Grille_Cls
     For i As Integer = 0 To 80
       sc.Numéro = i
       sc.G2_Cellule_Paint_Fond_g(g)
-    Next i
-  End Sub
-
-  Public Sub Grille_Refresh_g(g As Graphics)
-    'La grille est rafraîchie entièrement, aucune cellule n'est sélectée
-    G1_Grid_Paint_g(g)
-    Dim Gril As New Grille_Cls
-    Gril.G2_Grille_Paint_Fond_g(g)
-    G4_Grid_Stratégie_All_g(g)
-    Dim sc As New Cellule_Cls
-    For i As Integer = 0 To 80
-      sc.Numéro = i
-      sc.G5_Cellule_Paint_Valeur_g(g)
-      sc.G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd_g(g)
     Next i
   End Sub
 

@@ -408,9 +408,14 @@ Public NotInheritable Class Frm_SDK
           For i As Integer = 0 To 80
             sc.Numéro = i
             sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-            If Plcy_Gnrl = "Edi" Then sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
           Next i
         ' Il n'y a pas de selection de cellule
+
+        Case "Cellule"
+          Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+          sc.G2_Cellule_Paint_Fond_g(e.Graphics)
+          sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          ' Il n'y a pas de selection de cellule
 
         Case "Cellules_Collatérales"
           ' 1 Les cellules collatérales concernées sont rafraîchies sur les couches 2 et 6
@@ -423,27 +428,22 @@ Public NotInheritable Class Frm_SDK
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
           sc.G2_Cellule_Paint_Fond_g(e.Graphics)
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          'sc.G7_Cellule_Paint_Select_g(e.Graphics)
+           ' Il n'y a pas de selection de cellule
 
-        Case "Cellule_Move"
-          ' 1 La cellule précédemment sélectionnée est rafraîchie sur les couches 2, 5 et 6
-          If Prv_Pbl_Cell_Select >= 0 And Prv_Pbl_Cell_Select <= 80 Then
-            Dim sc_prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
-            sc_prv.G2_Cellule_Paint_Fond_g(e.Graphics)
-            sc_prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          End If
-          ' 2 La cellule sélectionnée comporte la grille de sélection
-          Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-          sc.G2_Cellule_Paint_Fond_g(e.Graphics)
-          sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          If Plcy_Gnrl = "Edi" Then sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
-          sc.G7_Cellule_Paint_Select_g(e.Graphics)
+        'Case "Cellule_Move"
+        '  ' 1 La cellule précédemment sélectionnée est rafraîchie sur les couches 2, 5 et 6
+        '  If Prv_Pbl_Cell_Select >= 0 And Prv_Pbl_Cell_Select <= 80 Then
+        '    Dim sc_prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
+        '    sc_prv.G2_Cellule_Paint_Fond_g(e.Graphics)
+        '    sc_prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
+        '  End If
+        '  ' 2 La cellule sélectionnée comporte la grille de sélection
+        '  Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
+        '  sc.G2_Cellule_Paint_Fond_g(e.Graphics)
+        '  sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+        '  If Plcy_Gnrl = "Edi" Then sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
+        '  ' Il n'y a pas de selection de cellule
 
-        Case "Cellule_Valeur_Insertion"
-          Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-          sc.G2_Cellule_Paint_Fond_g(e.Graphics)
-          sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          sc.G7_Cellule_Paint_Select_g(e.Graphics)
 
         Case "Animation"
           ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
@@ -662,15 +662,15 @@ Public NotInheritable Class Frm_SDK
       B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
       Mnu_Mngt(Pbl_Cell_Select)
 
-      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-        Event_OnPaint = "Cellule_Move"
-        Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-          reg.Union(Sqr_Pth(Prv_Pbl_Cell_Select))
-          Invalidate(reg, False)
-          Application.DoEvents()
-        End Using
-      End If
+      'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
+      '  Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+      '  Event_OnPaint = "Cellule_Move"
+      '  Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+      '    reg.Union(Sqr_Pth(Prv_Pbl_Cell_Select))
+      '    Invalidate(reg, False)
+      '    Application.DoEvents()
+      '  End Using
+      'End If
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
   End Sub
@@ -1787,7 +1787,7 @@ Public NotInheritable Class Frm_SDK
             Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
         End Try
     End Sub
-    Private Sub Mnu_Cel_Cdd_ExclureN(sender As Object, e As EventArgs) 
+  Private Sub Mnu_Cel_Cdd_ExclureN(sender As Object, e As EventArgs)
     ' Exclure n candidats avec InputBox dans une cellule
     ' La valeur par défaut comporte l'ensemble des candidats à exclure stockés dans U_Strg_Cdd_Exc
     Try

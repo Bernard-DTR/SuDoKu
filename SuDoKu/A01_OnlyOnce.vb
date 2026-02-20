@@ -63,7 +63,6 @@ Friend Module A01_OnlyOnce
       Obj_Forme = .Obj_Forme
 
       If WH = 0 Then WH = 80
-      Plcy_Gbl_Etendue = .Prf_05D_Plcy_Globale
       Plcy_Dancing_Link = .Prf_05D_Plcy_Dancing_Link
       Plcy_Open_Display = .Prf_05D_Plcy_Open_Display
       Plcy_AfficherDCdd_Bande = .Prf_05D_Plcy_AfficherDCdd_Bande

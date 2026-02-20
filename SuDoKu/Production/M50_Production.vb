@@ -718,13 +718,7 @@ Pzzl_Prd_Boucle:
 
     If Tentative = CInt(Create_Nb_Tentatives) Then
       Dim Message As String = "Désolé.. " & vbCrLf & "Il n'a pas été possible de créer un SuDoKu..."
-      Select Case Plcy_Gbl_Etendue
-        Case True
-          Jrn_Add(, {Message})
-        Case False
-          Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
-          Nsd_i = MsgBox(Message,, MsgTit)
-      End Select
+      Jrn_Add(, {Message})
       GoTo Pzzl_Prd_End
     End If
     Tentative += 1
@@ -834,13 +828,7 @@ Pzzl_Prd_End:
 Pzzl_Prd_Boucle:
     If Tentative = CInt(Create_Nb_Tentatives) Then
       Dim Message As String = "Désolé.. " & vbCrLf & "Il n'a pas été possible de créer un SuDoKu..."
-      Select Case Plcy_Gbl_Etendue
-        Case True
-          Jrn_Add(, {Message})
-        Case False
-          Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
-          Nsd_i = MsgBox(Message,, MsgTit)
-      End Select
+      Jrn_Add(, {Message})
       GoTo Pzzl_Prd_End
     End If
 
@@ -944,7 +932,7 @@ Pzzl_Prd_End:
         Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
         Dim MsgTxt As String = "Le Puzzle n'est pas résolu par SDK ! Abandon "
         Jrn_Add(, {"Résolution                   : " & MsgTxt}, "Orange")
-        If Not Plcy_Gbl_Etendue Then Nsd_i = MsgBox(MsgTxt,, MsgTit)
+        Nsd_i = MsgBox(MsgTxt,, MsgTit)
         Exit Sub
       End If
 
@@ -1108,7 +1096,7 @@ Phase_End:
         Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
         Dim MsgTxt As String = "Le Puzzle n'est pas résolu par SDK ! Abandon "
         Jrn_Add(, {"Résolution                   : " & MsgTxt}, "Orange")
-        If Not Plcy_Gbl_Etendue Then Nsd_i = MsgBox(MsgTxt,, MsgTit)
+        Nsd_i = MsgBox(MsgTxt,, MsgTit)
         Exit Sub
       End If
 

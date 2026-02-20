@@ -615,8 +615,6 @@ Public Class Frm_Préférences
       Case 2 ' Résolution
       Case 3 ' Simulation
       Case 4 ' Divers
-        Plcy_Gbl_Etendue = True
-        My.Settings.Prf_05D_Plcy_Globale = True
         My.Settings.Prf_05D_Plcy_Dancing_Link = True
 
       Case Else
