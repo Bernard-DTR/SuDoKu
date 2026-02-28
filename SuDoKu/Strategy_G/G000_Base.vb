@@ -315,7 +315,7 @@ Friend Module G000_Base
       Next XCel
 
       'XSolution est calculé dans Game_Load (Game_New_Game)
-      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U)
+      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
       Jrn_Add(, {"Dancing Link        : " & CStr(DL.Nb_Solution)})
       Select Case DL.Nb_Solution
         Case -1, 0

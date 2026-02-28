@@ -4,15 +4,14 @@ Option Explicit On
 Imports System.Drawing.Text ' Nécessaire pour InstalledFontCollection() et PrivateFontCollection()
 Imports System.Threading    ' Nécessaire pour Thread
 
-'------------------------------------------------------------------------------------------
 'Date de création: Samedi 16/07/2022
 'Ce Module regroupe pratiquement toutes les variables globales de SDK
-'------------------------------------------------------------------------------------------
+
 Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_02_10 #612"
+  Public SDK_Version As String = "V2026_03_00 #630"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -21,27 +20,22 @@ Module A00_Public
   Public WHhalf As Integer = (WH \ 2)
   Public WHthird As Integer = (WH \ 3)
   Public WHquart As Integer = (WH \ 4)
-  Public SI_CaptionHeight As Integer = SystemInformation.CaptionHeight   ' Hauteur de la Barre de Titre d'un formulaire
   Public Barre_Menu_Hauteur As Integer = 32
-  Public Barre_Outils_Standard As Integer = SystemInformation.ToolWindowCaptionHeight ' Hauteur de la Barre d'outils d'un formulaire
   Public Barre_Outils_Hauteur As Integer = 23 ' 25
 
   Public Bld_Marge_LT As Integer = 5       ' Séparation entre le trait du formulaire et le trait de l'entourage de la grille
   Public Bld_Trait_1 As Integer = 1
-  Public Bld_Trait_2 As Integer = 2
   Public Bld_Trait_3 As Integer = 3
   Public Bld_WH_Grid As Integer = (WH * 9) + Bld_Trait_3 + Bld_Trait_1 + Bld_Trait_1 +
                                              Bld_Trait_3 + Bld_Trait_1 + Bld_Trait_1 +
                                              Bld_Trait_3 + Bld_Trait_1 + Bld_Trait_1 +
                                              Bld_Trait_3
   Public Bld_Journal_Width As Integer = 750 ' quelque soit la taille de WH
-  Public Bld_Journal_Affiché_Width As Integer
 #End Region
 
 #Region "02 Les Paths"
   'Voir G10_Présentation_SDK.vb Main_Variables_Init() pour les valeurs
   'Il est possible d'installer le répertoire SuDoKu_2026 dans n'importe quel autre répertoire
-
   Public Base_Folder As String = "SuDoKu_2026"
 
   Public Path_SDK As String
@@ -56,10 +50,9 @@ Module A00_Public
   Public Path_Batch As String
   Public Path_Batch_Poubelle As String
   Public Path_Save As String
-  Public Path_SDKAJ As String
+  Public Path_SDK_Autres_Jeux As String
   Public File_SDKDoc As String
   Public File_ValUsi As String
-  Public File_Journal As String
 #End Region
 
 #Region "03 LP Last Puzzle"
@@ -233,25 +226,21 @@ Module A00_Public
   Public Prv_Plcy_Strg As String = "###"
   Public Plcy_Strg_Swt As Integer = -1
   Public Plcy_Stg_Clb As String            ' CkeckedListBox
-
+  Public Plcy_MouseWheel As Integer = 0
+  Public Plcy_Prv_MouseWheel As Integer = 0
   Public Plcy_Generate_Batch As Boolean = False
   Public Batch_en_Cours As Boolean = False
   Public Batch_Thread As Thread
-  Public Plcy_Typ_I, Plcy_Typ_R, Plcy_Typ_V_sans_Cdd, Plcy_Typ_V_avec_Cdd As Boolean
-  Public Plcy_Mnu_Item, Plcy_Mnu_Sep As Boolean
 
   'Policies particulières 
-  Public Plcy_Saisir_Commencer As Boolean = False              ' Affichage de la grille de saisie avec les candidats éligibles
+  Public Plcy_Saisir_Commencer As Boolean = False
   Public Plcy_Solution_Existante As Boolean = False
   Public Plcy_AfficherDCdd_Bande As Boolean = True
-  Public Plcy_Fond_Grille As Integer = 0                       ' (Numéro de la grille de fond)
+  Public Plcy_Fond_Grille As Integer = 0                       ' Numéro de la grille de fond
   Public Plcy_MouseClick_Middle As Boolean = False
-  Public Plcy_FIC_Frm_Insérer_Candidats As Boolean
-  Public Plcy_FIC_TTT As String
-  Public Plcy_FIC_Zone_Aimantée As String
   Public Plcy_Dancing_Link As Boolean = False
   Public Plcy_Open_Display As Boolean = False
-  Public Const Dl_Nb_VI_minimal As Integer = 17                'https://fr.wikipedia.org/wiki/Math%C3%A9matiques_du_sudoku
+  Public Const Dl_Nb_VI_minimal As Integer = 17
   Public Plcy_Format_DAB As Integer
 #End Region
 
@@ -279,11 +268,7 @@ Module A00_Public
   Public Rd0 As New Random
   Public Rd1 As New Random
   Public Rd2 As New Random
-  Public Rd3 As New Random
-  Public Rd4 As New Random
-  Public Rd5 As New Random
   Public Rd6 As New Random
-  Public Rd7 As New Random
   Public Rd8 As New Random
   Public Rd9 As New Random
   Public Rda As New Random
@@ -291,15 +276,6 @@ Module A00_Public
   Public Rdc As New Random
   Public Rde As New Random
   Public Rdf As New Random
-  Public RdX As New Random
-#End Region
-
-#Region "90 Divers"
-  Public T_Excel(80, 40) As String                           'Comporte les Cellules Excel
-  Public Insertion_Exclusion_Nb_Erreurs As Integer = 0       'Comptage des insertions et exclusions non conformes
-  Public Insert_Nb_Cell As Integer = 0
-  Public Me_AutoScaleMode_Standard As AutoScaleMode = AutoScaleMode.Font ' Placés dans les Load de chaque formulaire.
-
 #End Region
 
 #Region "99 Dans le désordre"
@@ -309,9 +285,7 @@ Module A00_Public
   Public Pbl_Cell_Candidat_Select As Integer
   ''' <summary>Indication de la Cellule Clickée Précédente.</summary>
   Public Prv_Pbl_Cell_Select As Integer
-  Public Prv_Pbl_Cell_Candidat_Select As Integer
   Public Msg_Dcty As New Dictionary(Of String, String)()
-
   'uNuSeD
   Public Nsd_i As Integer
   Public Nsd_s As String
@@ -320,7 +294,6 @@ Module A00_Public
   Public Nsd_LV As ListViewItem.ListViewSubItem
   Public Nsd_P As Process
   'Préférences_Grille
-  'Public Swt_Mode_Suggestion As Integer = -1                 '(Non)
   Public Swt_Mode_Dessin As Integer = -1                     '(Non)
   Public Swt_DéroulerJournal As Integer = 1                  '(Oui)
   Public Journal_Emp_Blocage As Integer = 0
@@ -359,6 +332,8 @@ Module A00_Public
   End Class
   Public Objet_List As New List(Of Objet_Cls)
   Public Pbl_PtF As PointF
+  Public Cell_MouseWheel_List As New List(Of Integer)
+  Public Cell_Prv_MouseWheel_List As New List(Of Integer)
 
   Public Structure Points_Struct
     Public Pt_From As PointF
@@ -433,7 +408,7 @@ Module A00_Public
     Public Property Dsp_BO As String       ' 2 Afficher dans la barre d'outils ("O"/"N" ou "L" pour les stratégies de Liens)
     Public Property Type As String         ' 3 Type: Insertion, Exclusion, Non 
     Public Property Prd As String          ' 4 Prd: O/N, utilisé dans les calculs de Production/Résolution  
-    Public Property Family As String       ' 5 0, de 1 à x pour gérer les affichages  
+    Public Property Family As Integer       ' 5 0, de 1 à x pour gérer les affichages  
     Public Property Texte As String        ' 6 Texte                            
     'Constructeur paramétré
     Sub New(New_Code As String,
@@ -441,7 +416,7 @@ Module A00_Public
             New_Dsp_BO As String,
             New_Type As String,
             New_Prd As String,
-            New_Family As String,
+            New_Family As Integer,
             New_Texte As String)
       Code = New_Code
       Lettre = New_Lettre

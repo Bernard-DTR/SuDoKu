@@ -13,7 +13,7 @@ Public Class Frm_Police
   Private Police_Style As FontStyle = FontStyle.Regular
 
   Private Sub Frm_Police_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    Me.AutoScaleMode = Me_AutoScaleMode_Standard
+    AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     DGV.Width = 62 * 16
     DGV.Height = 62 * 8
 

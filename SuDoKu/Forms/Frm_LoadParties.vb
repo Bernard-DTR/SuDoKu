@@ -5,12 +5,10 @@ Public Class Frm_LoadParties
   '-------------------------------------------------------------------------------
   '
   '  Formulaire de Gestion des Parties.
-  '    Ce module permet de choisir une grille à jouer à partir
-  '       d'une liste des noms.
-  '    La liste des parties a été chargée dès le lancement du jeu.
+  '    Ce module permet de choisir une grille à jouer à partir d'une liste des noms.
   '-------------------------------------------------------------------------------
   Private Sub SDK_Frm_Load_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
-    Me.AutoScaleMode = Me_AutoScaleMode_Standard
+    AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     With LV_Parties
       .View = View.Details
       .GridLines = True

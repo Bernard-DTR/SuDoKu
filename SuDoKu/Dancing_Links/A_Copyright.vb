@@ -4,24 +4,6 @@ Namespace DancingLink
   Module A_Copyright
 
 #Region "Copyright" ' Copyright (c) 2006 Miran Uhan
-    ' 
-    ' This program is free software; you can redistribute it and/or modify
-    ' it under the terms of the GNU General Friend License as published by
-    ' the Free Software Foundation; either version 2 of the License, or
-    ' (at your option) any later version.
-    ' 
-    ' This program is distributed in the hope that it will be useful,
-    ' but WITHOUT ANY WARRANTY; without even the implied warranty of
-    ' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    ' GNU General Friend License for more details.
-    '
-    ' You should have received a copy of the GNU General Friend License
-    ' along with this program; if not, write to the
-    '    Free Software Foundation, Inc.
-    '    51 Franklin Street, Fifth Floor
-    '    Boston, MA 02110-1301 USA
-    ' 
-    ' Resources
     ' - Donald E. Knuth "Dancing Links" (see
     '   http://www-cs-faculty.stanford.edu/~knuth/preprints.html).
 #End Region
@@ -45,7 +27,7 @@ Namespace DancingLink
       Public Solution() As String    ' Les Solutions
     End Structure
 
-    Public Function DL_Solve_IA(U_temp(,) As String) As DL_Solve_Struct
+    Public Function DL_Solve(U_temp(,) As String) As DL_Solve_Struct
       ' Private _store As SudokuStore est modifié, il passe de = SudokuStore.First
       '                                                     à  = SudokuStore.All 
       ' seules les 9 premières solutions sont enregistrées et listées If _solutionList.Count < 9  Then _solutionList.Add(_solution)

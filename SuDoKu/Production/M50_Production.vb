@@ -8,25 +8,6 @@ Imports SuDoKu.DancingLink.A_Copyright
 ' Prd Module de Production de Puzzle
 '     Crt Création d'une Grille + Slv Solution d'une grille = Prd d'un Puzzle
 '     Pzzl_Prd_Interactive | Pzzl_Prd_Batch = Pzzl_Crt + Pzzl_Slv
-'     
-'
-' Le mode bavard permet de comprendre POURQUOI la création d'un Puzzle peut être LONGUE
-' Les différents modules utilisent U_temp afin de pouvoir performer en mode interactif ou en arrière-plan
-' Les valeurs de U_temp sont passées avec la structure PRD passée en BYREF
-'04/02/2024
-' Le module M50_Production comporte l'ensemble des codes pour créer et résoudre un SuDoKu
-'27/05/2024
-' Mise en place d'un paramètre permettant de déterminer si on est dans un traitement de production (Création ET Résolution)
-'               ou uniquement de solutionnement (Résolution Uniquement)
-' Dim Production_Type as String = "P" ou "S"
-' Pzzl_Prd_Batch          P      
-' Pzzl_Prd_Interactif     P
-' Pzzl_Crt_Interactif_81  P
-' Pzzl_Slv_Interactif     S
-' Cell_Slv_Interactif     S
-' Les programmes exécutant ces 5 lancements comportent P ou S
-' Pzzl_Crt et Pzzl_Slv récupère cette valeur
-'-------------------------------------------------------------------------------------------
 
 Friend Module M50_Production
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,22 +15,6 @@ Friend Module M50_Production
   'Production d'une grille de Sudoku
   'La production d'une grille de Sudoku est faite soit en arrière-plan
   '                                               soit interactivement
-  'Cette production est incertaine.
-  'Il est possible que plusieurs tentatives soient nécessaires pour produire un puzzle.
-  'Production Interactive     : les paramètres utilisés sont ceux de Préférences/Création
-  'Production en arrière-plan : les paramètres sont définis dans le programme de lancement
-  '                             La limite de production est la limite du stock à atteindre
-
-  ' Les stratégies gérées dépendent bien des choix effectués dans Préférences/Stratégies
-  ' Lorsque Pzzl_Prd est exécuté en arrière-plan, le JOURNAL est inaccessible.
-  ' Une erreur dans Pzzl_Crt peut entraîner une panne de l'application si un traitement batch est en cours
-  ' Production_Type = "P" ou "S" permet de distinguer la production d'une grille (Pzzl_Crt + Pzzl_Slv)
-  '                                                de la résolution d'une grille (           Pzzl_slv uniquement)
-  '                   de ce paramètre dépendent 2 dispositif: l'utilisation de Unq
-  '                                                           le calcul des candidats
-  '24/09/2024
-  ' L'enregistrement d'un Puzzle necessite de savoir si l'on est en mode Interactif ou en arrière-plan
-  ' afin de définir le répertoire ad-hoc Prd_Origine devient Prd_BI
 
   Public Prv_U_temp(80, 3) As String             ' Usage exclusif de Jrn_Add_Pzzl_Slv
   Public Prv_Col3 As String                      ' Usage exclusif de Jrn_Add_Pzzl_Slv    
@@ -251,6 +216,7 @@ Pzzl_Choix_Candidat:
     U_temp(Cellule, 3) = Cnddts_Blancs
     ' Cette valeur est enlevée des 20 cellules collatérales
     Dim Cell_Coll_Nb As Integer = Cdd_Remove_Cell_Coll(U_temp, Cellule)
+
     ' La cellule choisie et le candidat sélectionné sont listés
     '   avec le n° de la cellule, le nombre de candidats enlevés des cell_coll,
     '   et le nombre total de candidats restants de la grille 
@@ -702,7 +668,7 @@ Pzzl_Crt_Exit:
       U(i, 2) = " "
       U(i, 3) = Cnddts
     Next i
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
 
@@ -760,7 +726,7 @@ Pzzl_Prd_Boucle:
     If Prd.Prd_Code_Retour = 0 Then
       ' Il ne reste plus de cellules vides, Il FAUDRA que DLCode soit Dlu
       Dim U_temp(,) As String = Prd_To_U_temp(Prd)
-      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
+      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U_temp)
       Prd.Prd_DlCode = DL.DLCode
       Prd.Prd_DlSolution = DL.Solution(0)
     End If
@@ -768,7 +734,7 @@ Pzzl_Prd_Boucle:
     If Prd.Prd_Code_Retour = 1 Then
       ' Il reste des cellules vides (Si DLCode = Dlu, alors les stratégies sont insuffisantes)
       Dim U_temp(,) As String = Prd_To_U_temp(Prd)
-      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
+      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U_temp)
       Prd.Prd_DlCode = DL.DLCode
       Prd.Prd_DlSolution = DL.Solution(0)
       If DL.DLCode = "Dlu" Then Prd.Prd_Code_Retour = 0
@@ -814,7 +780,7 @@ Pzzl_Prd_End:
       U(i, 2) = " "
       U(i, 3) = Cnddts
     Next i
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
 
@@ -875,7 +841,7 @@ Pzzl_Prd_Boucle:
     Jrn_Add(, {"Les candidats ne sont pas recalculés."}, "Info")
     Dim Wh_Nb As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
     Wh_Nb_Cell_Display(Wh_Nb)
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
 
@@ -974,7 +940,7 @@ Phase_B:
     U_temp(Cellule, 2) = " "
     U_temp(Cellule, 3) = Cnddts
     Grid_Cdd_Remove_Cell_Coll(U_temp)
-    Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
+    Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U_temp)
     Prd.Prd_DlCode = DL.DLCode
     Prd.Prd_DlSolution = DL.Solution(0)
     If Create_Chat Then Jrn_Add(, {CStr(Limite).PadLeft(3) & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "  " & CStr(DL.Nb_Solution).PadLeft(6) & "  " & Wh_Grid_Nb_Cellules_Initiales(U_temp)})
@@ -1031,7 +997,7 @@ Phase_End:
     ReDim Strategy_Rslt(99, 0)
 
     Pzzl_Slv("S", "*All", Prd, Strategy_Rslt)
-    Dim DL_Nom As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U)
+    Dim DL_Nom As DL_Solve_Struct = A_Copyright.DL_Solve(U)
     Prd.Prd_DlCode = DL_Nom.DLCode
     Prd.Prd_DlSolution = DL_Nom.Solution(0)
 
@@ -1137,7 +1103,7 @@ Phase_B:
     U_temp(Cellule, 2) = " "
     U_temp(Cellule, 3) = Cnddts
     Grid_Cdd_Remove_Cell_Coll(U_temp)
-    Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
+    Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U_temp)
     If Create_Chat Then Jrn_Add(, {CStr(Limite).PadLeft(3) & "  " & U_Coord(Cellule) & "  " & Valeur & "  " & U_temp(Cellule, 3) & "  " & CStr(DL.Nb_Solution).PadLeft(6) & "  " & Wh_Grid_Nb_Cellules_Initiales(U_temp)})
     If DL.Nb_Solution = 1 Then
       'Limite_Successive_DL = 0
@@ -1221,7 +1187,7 @@ Phase_End:
       End If
     Next i
     Nom &= "_" & Difficulté & CStr(Nb_VI) & "~" & Difficulté_Strg_Slv
-    Dim DL_Nom As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U)
+    Dim DL_Nom As DL_Solve_Struct = A_Copyright.DL_Solve(U)
     Nom &= "_" & DL_Nom.DLCode
     Nom &= "_" & Format(Now, "yyyy_MM_dd") & "_" & Format(Now, "HH_mm_ss")
 
@@ -1265,7 +1231,7 @@ Phase_End:
       U(i, 3) = Prd.Prd_Candidats(i)
     Next i
 
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
   End Sub
@@ -1594,14 +1560,14 @@ Xwing_Boucle_End:
         Else
           Frm_SDK.B_Info.Text = "Résolution de la Cellule. " & Stratégie_Explicite & " en " & Plage
         End If
-      Case "Suggérer une Cellule"
-        If Strategy_Index < 2 Then 'CdU et CdO
-          Frm_SDK.B_Info.Text = "Suggestion de la Cellule. " & Stratégie_Explicite & " en " & Plage
-        End If
-      Case "Mode Suggestion"
-        Frm_SDK.B_Info.Text = "Mode Suggestion. " & Stratégie_Explicite & " en " & Plage
+        'Case "Suggérer une Cellule"
+        '  If Strategy_Index < 2 Then 'CdU et CdO
+        '    Frm_SDK.B_Info.Text = "Suggestion de la Cellule. " & Stratégie_Explicite & " en " & Plage
+        '  End If
+        'Case "Mode Suggestion"
+        '  Frm_SDK.B_Info.Text = "Mode Suggestion. " & Stratégie_Explicite & " en " & Plage
     End Select
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
   End Sub
@@ -1667,7 +1633,7 @@ Pzzl_Prd_Batch_Boucle:
       If Prd.Prd_Code_Retour = 0 Then
         ' Il ne reste plus de cellules vides, Il FAUDRA que DLCode soit Dlu
         Dim U_temp(,) As String = Prd_To_U_temp(Prd)
-        Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
+        Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U_temp)
         Prd.Prd_DlCode = DL.DLCode
         Prd.Prd_DlSolution = DL.Solution(0)
       End If
@@ -1675,7 +1641,7 @@ Pzzl_Prd_Batch_Boucle:
       If Prd.Prd_Code_Retour = 1 Then
         ' Il reste des cellules vides (Si DLCode = Dlu, alors les stratégies sont insuffisantes)
         Dim U_temp(,) As String = Prd_To_U_temp(Prd)
-        Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
+        Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U_temp)
         Prd.Prd_DlCode = DL.DLCode
         Prd.Prd_DlSolution = DL.Solution(0)
         If DL.DLCode = "Dlu" Then Prd.Prd_Code_Retour = 0

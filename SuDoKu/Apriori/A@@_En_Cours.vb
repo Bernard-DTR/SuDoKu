@@ -169,7 +169,7 @@ Friend Module En_Cours
 
     Dim index As Integer = RRslt_Copy_Rnd(Strategy_Rslt)
     Event_OnPaint_MAP = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
 

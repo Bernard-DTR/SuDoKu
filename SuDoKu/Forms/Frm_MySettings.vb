@@ -12,9 +12,9 @@ Option Explicit On
 
 Public Class Frm_MySettings
   Private Sub Frm_MySettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    Me.AutoScaleMode = Me_AutoScaleMode_Standard
+    AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     PG.SelectedObject = My.Settings
-    Me.BackColor = Color_Frm_BackColor
+    BackColor = Color_Frm_BackColor
     PG.CommandsBackColor = Color_Fond_Typ_I
     PG.ViewBackColor = Color_Fond_Typ_RV
   End Sub

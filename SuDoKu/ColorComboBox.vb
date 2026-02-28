@@ -1,30 +1,5 @@
-﻿'=====================================================================================
-'  mkc_ColorCombobox
-'  combobox color picker control
-'=====================================================================================
-'  Created By: Marc Cramer
-'  Published Date: 1/28/2003
+﻿'  Created By: Marc Cramer
 '  Legal Copyright: Marc Cramer © 1/28/2003
-'=====================================================================================
-' Notes: GetIDEBackgroundColor is based on the function CalculateColor found in ColorUtil.cs written by Carlos H. Perez
-'=====================================================================================
-'  Intégré le 15/05/2020  
-'  x     ColourComboBox devient ColorComboBox 
-'  x     Présenter la dernière couleur choisie
-'  x     Enlever Couleur exclue
-'  x     Enlever #Region #EndRegion
-'  x     Suppression de mkc_ColorPicker_FontChanged
-'  x     Option Strict Off passé en On
-'  x     Il existe une propriété ColorType soit KnownColor, soit System_Color, je ne garde que Known_Color
-'  x     Il existe une propriété FocusStyle soit IDE, Soit Normal. Je ne garde pas cette propriété
-'        Le mode IDE permet de gérer la couleur lors de l'Edition du Code !
-'         <Description est utilisé dans le mode IDE 
-'  x     Couleur: je ne garde que quelques couleurs
-'  x     Couleur francisée à l'affichage
-'  x     La couleur affichée est en français
-'        et la couleur Cbb_Color_Selected est la couleur anglais de Known_Couleur
-'  X     la couleur des VI ne peut être choisie comme couleur des VCdd et ViceVersa
-'  x     Généralisation de l'utilisation de la List Cbb_Color_List
 
 Option Strict On
 Option Explicit On

@@ -2,11 +2,9 @@
 Option Explicit On
 Imports System.Drawing.Drawing2D
 
-'-------------------------------------------------------------------------------------------
 ' Dimanche 27/04/2025 Colorisation
 ' Préfixe  
 ' Le module reprend pour l'instant tout ce qui a trait à la colorisation
-'-------------------------------------------------------------------------------------------
 
 Friend Module A__Colorisation
 
@@ -171,11 +169,11 @@ Friend Module A__Colorisation
     Dim To_Centre As PointF = Get_CentreF(To_Cellule, To_Candidat)
     Dim Pts As Points_Struct = Get_AdjustedPoints(From_Centre, To_Centre)
 
-    Using LinePen As New Pen(Color, Bld_Trait_2) With {.DashStyle = DashStyle.Solid}
+    Using LinePen As New Pen(Color, 2) With {.DashStyle = DashStyle.Solid}
       g.DrawLine(LinePen, Pts.Pt_From, Pts.Pt_To)
     End Using
 
-    DrawCustomArrow_IA(g, Pts.Pt_From, Pts.Pt_To, Color, Bld_Trait_2)
+    DrawCustomArrow_IA(g, Pts.Pt_From, Pts.Pt_To, Color, 2)
     G0_Cdd_Figure_g(g, From_Cellule, From_Candidat, "Cercle", Color)
     G0_Cdd_Figure_g(g, To_Cellule, To_Candidat, "Cercle", Color)
   End Sub

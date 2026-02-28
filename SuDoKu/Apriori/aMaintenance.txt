@@ -281,22 +281,34 @@
 #624 V  20/02/2026 Plcy_Gbl_Etendue est abandonné 
 #625 V  20/02/2026 J'abandonne également Frm_SDK_MouseMove qui remet en état la cellule précédente et affiche la grille de sélection.
 #626 V  20/02/2026 Mise au point de Cell_Val_Insert-Delete, Cell_Cdd_Insert_Exclude
-
+#627 D  22/02/2026 28908 Lignes de code pour 84 fichiers. dont 5348 Lignes de commentaires (soit):  19%
+#628 S  28/02/2026 Version 2026_03 #630 
+                   
+                   
+                   
+                   Stg_Get(Plcy_Strg).Family = 0 Invalider le menu contextuel d'insertion des valeurs de 1 à 9
+                   Stg_Get(Plcy_Strg).Family = 1 Le menu contextuel doit proposer l'inclusion d'un candidat après exclusion.
+                   
+                   lors d'uns insertion avec filtre ajouter double carre et ne pas afficher le menu contextuel
+                   
+                   
                    Il manque ajouter un candidat quand il a été supprimé
+                   Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
+
 
 ?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 
 #    J  05/02/2026 Mise en place de la stratégie CdS  
 #    J  05/02/2026 Mise en place de la stratégie des Candidats Bloqués Séparation Calcul-Affichage
 
-
-
+                   Plcy_Solution_Existante abandon
+                   Insertion_Exclusion_Nb_Erreurs += 1 abandon
                    Persistance de la couleur dans le menu contextuel
                    Quand faut-il utiliser DOEvents après un invalidate ?
                    On a abandonné l'effacement des cellules 
-
+                   ? comment effacer les old, save et procédures en commentaires
                    ? batch génère une erreur si le nombre plafond du stock est atteint ? 
-
+                   ? U_Strg_Effacer_g
 ##############################################################################################################################
 
 	               Il y a une nouvelle erreur dans le calcul de résolution d’une partie E

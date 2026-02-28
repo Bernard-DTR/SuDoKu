@@ -14,18 +14,6 @@ Option Explicit On
 ' Strategy_Rslt_Add(Strategy_Rslt, "XYw", "Eb" & CStr(Exc45_n), "L", "-1", Candidat, Cel45, Exc45)
 ' Strategy_Rslt_Add(Strategy_Rslt, "XYw", "Fb" & CStr(Exc45_n), "C", "-1", Candidat, Cel45, Exc45)
 '
-' S/ Stratégie, premier caractère  
-' Select Case Mid$(Strategy_Rslt(2, Ligne), 1, 1)
-'   Case "C"
-'     G4_MdC_Row_Col_Box("Row", U_Row(CInt(Strategy_Rslt(10, Ligne))))
-'     G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(10, Ligne))))
-'   Case "F"
-'     G4_MdC_Row_Col_Box("Col", U_Col(CInt(Strategy_Rslt(10, Ligne))))
-'     G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(10, Ligne))))
-'   Case Else
-'     G4_MdC_Row_Col_Box("Row", U_Row(CInt(Strategy_Rslt(55, Ligne))))
-'     G4_MdC_Row_Col_Box("Col", U_Col(CInt(Strategy_Rslt(55, Ligne))))
-' End Select
 '-------------------------------------------------------------------------------
 
 Friend Module P15_Strategy_XYw

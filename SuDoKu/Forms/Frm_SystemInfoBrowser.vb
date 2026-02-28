@@ -15,9 +15,9 @@ Public Class Frm_SystemInfoBrowser
   Private l As Integer
   Public Sub New()
     InitializeComponent()
-    Me.AutoScaleMode = Me_AutoScaleMode_Standard
-    Me.SuspendLayout()
-    Me.LB1 = New System.Windows.Forms.ListBox With {
+    AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+    SuspendLayout()
+    LB1 = New System.Windows.Forms.ListBox With {
         .Anchor = CType(System.Windows.Forms.AnchorStyles.Top _
                      Or System.Windows.Forms.AnchorStyles.Bottom _
                      Or System.Windows.Forms.AnchorStyles.Left _

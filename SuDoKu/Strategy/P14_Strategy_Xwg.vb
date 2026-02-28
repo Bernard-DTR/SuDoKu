@@ -6,9 +6,6 @@ Option Explicit On
 ' Stratégie des XWing
 ' - dans 2 colonnes, en supprimant les candidats dans 2 lignes
 ' - dans 2 lignes,   en supprimant les candidats dans 2 colonnes
-'    ' http://sudokuvariante.forumactif.com/t387-inutilite-de-x-wing-et-swordfish-avec-regions
-'    ' http://www.sudokuwiki.org/Main_Page
-' Le XWing doit être testé avec les Xwing de mots-croisés.ch et les problèmes Xwing de AJ
 '
 ' La stratégie XWing  est notée Xwg 
 ' La stratégie XYWing est notée XYw

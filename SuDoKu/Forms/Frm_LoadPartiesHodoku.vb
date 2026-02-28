@@ -15,10 +15,10 @@ Public Class Frm_LoadPartiesHodoku
 
   Private Sub Frm_LoadPartiesHodoku_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     'La fenêtre apparaît dans l'ordre de plan le plus haut.
-    Me.AutoScaleMode = Me_AutoScaleMode_Standard
+    AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     TopMost = True
-    Me.Left = Frm_SDK.Left + 20
-    Me.Top = Frm_SDK.Top + 20
+    Left = Frm_SDK.Left + 20
+    Top = Frm_SDK.Top + 20
     'Chargement de LV_Parties et positionnement sur le dernier choisi
     With LV_Parties
       .View = View.Details
@@ -72,7 +72,7 @@ Public Class Frm_LoadPartiesHodoku
       Next i
 
       Dim DL_Solution As String = StrDup(81, " ")
-      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U_temp)
+      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U_temp)
       If DL.DLCode = "Dlu" Then
         DL_Solution = DL.Solution(0)
         Jrn_Add(, {"Puzzle Hodoku 220 sans solution, une solution a été calculée."})

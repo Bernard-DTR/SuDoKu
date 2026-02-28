@@ -4,12 +4,10 @@ Option Explicit On
 Imports System.Drawing.Drawing2D
 Imports System.Text
 
-'------------------------------------------------------------------------------------------
 ' Date de création: 28/07/2024
 ' Ce Module regroupe les traitements effectués lors des changements de présentation
 '   Couleur, WH, ...etc
 '            Color_Frm_BackColor = Color.FromArgb(255, n'est plus transparent
-'------------------------------------------------------------------------------------------
 
 Friend Module A02_Occasionally
   Public Sub OC_Thèmes_Couleurs(Thème As Integer)
@@ -110,16 +108,11 @@ Friend Module A02_Occasionally
     Frm_SDK.BackColor = Color_Frm_BackColor
 
     ' Dimensions du Formulaire Frm_SDK
-    '   La largeur de Frm_SDK comprend le journal
-    '   La hauteur            comprend la Barre d'Outils
     With Frm_SDK
-      .Width = Bld_Marge_LT + Bld_WH_Grid + Bld_Marge_LT + Bld_Journal_Affiché_Width + Bld_Marge_LT + Int_Seize
-      .Height = SI_CaptionHeight + Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT + Bld_WH_Grid _
+      .Width = Bld_Marge_LT + Bld_WH_Grid + Bld_Marge_LT + Bld_Journal_Width + Bld_Marge_LT + Int_Seize
+      .Height = SystemInformation.CaptionHeight + Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT + Bld_WH_Grid _
               + Bld_Marge_LT + B_Height + Bld_Marge_LT + Int_Seize
     End With
-    'If Not Plcy_Gbl_Etendue And Plcy_Gnrl = "Nrm" Then
-    'Frm_SDK.Width = Bld_Marge_LT + Bld_WH_Grid + Bld_Marge_LT + Int_Seize
-    'End If
 
     ' L'emplacement du journal dépend de l'affichage ou non de la barre d'outils
     With Frm_SDK.Journal
@@ -163,90 +156,17 @@ Friend Module A02_Occasionally
       .Mnu_EDI_Val_Initiale.BackColor = Color_Fond_Typ_I
     End With
 
-    ' Options disponibles ou non
-    '    If Plcy_Gbl_Etendue And Plcy_Gnrl = "Nrm" Then
     With Frm_SDK
-      ''Mnu01 Fichier
-      '.Mnu01_Ouvrir.Visible = True
-      '.Mnu01_RejouerLaPartie.Visible = True
-      '.Mnu01_Sep01.Visible = True
-      '.Mnu01_Saisir.Visible = True
-      '.Mnu01_Commencer.Visible = True
-      '.Mnu01_Sep03.Visible = True
-      '.Mnu01_EnregistrerUnePartieTest.Visible = True
-      '.Mnu01_ChargerUnePartieTest.Visible = True
-      '.Mnu01_OuvrirLaBibliothèqueTestDeHodoku.Visible = True
-      '.Mnu01_Sep04.Visible = True
-      '.Mnu01_OuvrirLeRépertoire.Visible = True
-      '.Mnu01_Sep05.Visible = True
-      '.Mnu01_CopierLeJournalEnModeRTF.Visible = True
-      '.Mnu01_Sep07.Visible = True
-      '.Mnu01_Quitter.Visible = True
-      ''Mnu02 Edition
-      '.Mnu02.Visible = True
-      '.Mnu02_Annuler.Visible = True
-      '.Mnu02_Refaire.Visible = True
-      '.Mnu02_Sep01.Visible = True
-      '.Mnu02_Effacer.Visible = True
-      '.Mnu02_InsérerLaSolution.Visible = True
-      '.Mnu02_Sep03.Visible = True
-      '.Mnu02_Copier.Visible = True
-      '.Mnu02_Copier2.Visible = True
-      '.Mnu02_Coller.Visible = True
-      '.Mnu02_CopierlaGrilleDansLeJournal.Visible = True
-      ''Mnu03 Affichage
-      '.Mnu03.Visible = True
-      '.Mnu03_EffacerLeJournal.Visible = True
-      '.Mnu03_Sep01.Visible = True
-      '.Mnu03_Transformation.Visible = True
-      '.Mnu03_AfficherLaSolution.Visible = True
-      '.Mnu03_Rafraîchir.Visible = True
-      ''Mnu04_Stratégies
-      '.Mnu04.Visible = True
-      ''Mnu08 Extension
-      '.Mnu08.Visible = True
-      '.Mnu08_Création.Visible = True
-      '.Mnu08_Résolution.Visible = True
-      '.Mnu08_RésoudreEnForceBrute.Visible = True
-      '.Mnu08_RésoudreDancingLink.Visible = True
-      '.Mnu08_Sep01.Visible = True
-      '.Mnu08_EditionDuProblème.Visible = True
-      '.Mnu08_DessinerSurLaGrille.Visible = True
-      '.Mnu08_Sep03.Visible = True
-      '.Mnu08_InsérerTouteLaSolution.Visible = True
-      '.Mnu08_Sep04.Visible = True
-      '.Mnu08_TestA.Visible = True
-      '.Mnu08_TestB.Visible = True
-      '.Mnu08_TestC.Visible = True
-      '.Mnu08_TestD.Visible = True
-      '.Mnu08_TestE.Visible = True
-      '.Mnu08_TestF.Visible = True
-      '.Mnu08_TestG.Visible = True
-      '.Mnu08_TestH.Visible = True
-      '.Mnu08_TestI.Visible = True
-      '.Mnu08_TestJ.Visible = True
       .Mnu08_TestA.Text = Msg_Read_IA("MNU_0800A")
-        .Mnu08_TestB.Text = Msg_Read_IA("MNU_0800B")
-        .Mnu08_TestC.Text = Msg_Read_IA("MNU_0800C")
-        .Mnu08_TestD.Text = Msg_Read_IA("MNU_0800D")
-        .Mnu08_TestE.Text = Msg_Read_IA("MNU_0800E")
-        .Mnu08_TestF.Text = Msg_Read_IA("MNU_0800F")
-        .Mnu08_TestG.Text = Msg_Read_IA("MNU_0800G")
-        .Mnu08_TestH.Text = Msg_Read_IA("MNU_0800H")
-        .Mnu08_TestI.Text = Msg_Read_IA("MNU_0800I")
-        .Mnu08_TestJ.Text = Msg_Read_IA("MNU_0800J")
-      ''Mnu05 Aide
-      '.Mnu05.Visible = True
-      '.Mnu05_Préférences.Visible = True
-      '.Mnu05_FichierDesMessages.Visible = True
-      '.Mnu05_APropos.Visible = True
-      '.Mnu05_Documentation.Visible = True
-      '.Mnu05_Maintenance.Visible = True
-      '.Mnu05_Dictionnaire.Visible = True
-      ''Mnu06 Divers
-      '.Mnu06.Visible = True
-      ''Mnu07 Outils
-      '.Mnu07.Visible = True
+      .Mnu08_TestB.Text = Msg_Read_IA("MNU_0800B")
+      .Mnu08_TestC.Text = Msg_Read_IA("MNU_0800C")
+      .Mnu08_TestD.Text = Msg_Read_IA("MNU_0800D")
+      .Mnu08_TestE.Text = Msg_Read_IA("MNU_0800E")
+      .Mnu08_TestF.Text = Msg_Read_IA("MNU_0800F")
+      .Mnu08_TestG.Text = Msg_Read_IA("MNU_0800G")
+      .Mnu08_TestH.Text = Msg_Read_IA("MNU_0800H")
+      .Mnu08_TestI.Text = Msg_Read_IA("MNU_0800I")
+      .Mnu08_TestJ.Text = Msg_Read_IA("MNU_0800J")
     End With
 
     ' Libellé des Menus en fonction de la taille de WH
@@ -269,9 +189,9 @@ Friend Module A02_Occasionally
     End With
 
     ' Changement de la police dans Mnu de Frm_Sdk et Mnu04
-    '                        dans Mnu_Cel
-    '                        dans Mnu_EDI
-    '                        dans Mnu_Journal
+    '                         dans Mnu_Cel
+    '                         dans Mnu_EDI
+    '                         dans Mnu_Journal
     Dim Item As ToolStripItem
     'Les menus, options et sous-options sont passées dans la font souhaitée
     'La font par défaut des menus est New System.Drawing.Font("Tahoma", 8.25!)
@@ -295,9 +215,8 @@ Friend Module A02_Occasionally
     WHquart = (WH \ 4)
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
 
-    ' La hauteur de la Barre_Outils est soit standard (25) et affichée, soit 0 et dans ce cas non affichée
-    Barre_Outils_Hauteur = Barre_Outils_Standard
-    Bld_Journal_Affiché_Width = Bld_Journal_Width
+    ' La hauteur de la Barre_Outils est standard (25)  
+    Barre_Outils_Hauteur = SystemInformation.ToolWindowCaptionHeight ' Hauteur de la Barre d'outils d'un formulaire
 
     ' Calcul de Gz_Pt_TopLeft As Point   
     ' Définition du Point Top-Left, Représente une paire ordonnée de coordonnées x et y entiers
@@ -602,7 +521,7 @@ Friend Module A02_Occasionally
     ' --- 1) Charger l'image source ---
     Using fond_BM As New Bitmap(fond_Files(Plcy_Fond_Grille - 1))
 
-      ' --- 2) Créer une version carrée ---
+      ' --- 2) Créer une version carrée de l'image ---
       Dim côté As Integer = Math.Min(fond_BM.Height, fond_BM.Width)
       Using fond_BM_Carré As New Bitmap(côté, côté)
         Using g_Carré As Graphics = Graphics.FromImage(fond_BM_Carré)
@@ -642,7 +561,7 @@ Friend Module A02_Occasionally
   End Sub
 
   Private Sub ApplyTransparencyFast(bmp As Bitmap, alpha As Byte)
-
+    ' Appliquer la transparence à tous les pixels d'une image de manière rapide
     Dim rect As New Rectangle(0, 0, bmp.Width, bmp.Height)
     Dim data As Imaging.BitmapData =
         bmp.LockBits(rect, Imaging.ImageLockMode.ReadWrite, Imaging.PixelFormat.Format32bppArgb)
@@ -650,78 +569,16 @@ Friend Module A02_Occasionally
     Dim ptr As IntPtr = data.Scan0
     Dim bytes As Integer = Math.Abs(data.Stride) * bmp.Height
     Dim rgbValues(bytes - 1) As Byte
-
     ' Copier la mémoire dans le tableau
     Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes)
-
     ' Boucle rapide : 4 octets par pixel (B, G, R, A)
     For i As Integer = 0 To rgbValues.Length - 1 Step 4
       rgbValues(i + 3) = alpha   ' canal A
     Next
-
     ' Recopier dans le bitmap
     Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes)
-
     bmp.UnlockBits(data)
-
   End Sub
 
-  'Public Sub OC_Grid_Cutting_Image()
-  '  'Découpage de l'image en 81 morceaux 
-  '  If Plcy_Fond_Grille = 0 Then Exit Sub 'Il n'y a pas d'affichage de fond
-
-  '  'Traitement dupliqué dans Frm/Préférences/Préférences_Load
-  '  Dim Répertoire As String = Path_SDK & "S10_Icônes\Fonds\"
-  '  Dim Fond_Files As IEnumerable(Of String) = From File In IO.Directory.GetFiles(Répertoire)
-  '                                             Where File.Contains("JPG") Or File.Contains("jpg")
-  '                                             Order By File Descending
-
-  '  'Fond_BM est rectangulaire (Portrait ou paysage) ou carrée
-  '  Dim Fond_BM As New Bitmap(filename:=Fond_Files(Plcy_Fond_Grille - 1))
-  '  'ou         As Image = Image.FromFile(filename:=Fond_Files(Plcy_Fond_Grille - 1))
-
-  '  'La photo est mise au format carré, à/p du Top-Left. Elle peut donc être mal cadrée.
-  '  'Il n'est pas tenu compte du format paysage/portrait. Toujours en paysage
-  '  Dim Côté As Integer = Math.Min(Fond_BM.Height, Fond_BM.Width)
-  '  Dim Fond_BM_Carré As New Bitmap(Côté, Côté)
-  '  Using g_Carré As Graphics = Graphics.FromImage(image:=Fond_BM_Carré)
-  '    Dim Rct_Carré As New Rectangle(0, 0, Côté, Côté)
-  '    g_Carré.DrawImage(image:=Fond_BM,
-  '                      destRect:=Rct_Carré,
-  '                      srcX:=0, srcY:=0, srcWidth:=Côté, srcHeight:=Côté, srcUnit:=GraphicsUnit.Pixel)
-  '  End Using
-  '  'Création d'une image dimensionnée à la grille
-  '  Dim Fond_BM_WH_Grid As New Bitmap(Bld_WH_Grid, Bld_WH_Grid)
-  '  Using gI As Graphics = Graphics.FromImage(image:=Fond_BM_WH_Grid)
-  '    gI.DrawImage(image:=Fond_BM_Carré,
-  '                 x:=0, y:=0, width:=Bld_WH_Grid, height:=Bld_WH_Grid)
-  '  End Using
-
-  '  ' Boucle de transparence sur le pixel A
-  '  ' Comme la photo est transparente, il est plus facile de voir les chiffres et les stratégies
-  '  '                                  AVANT le paint, le fond d'effacement est paint
-  '  Dim Pxl_before, Pxl_after As Color
-  '  For x As Integer = 0 To Fond_BM_WH_Grid.Width - 1
-  '    For y As Integer = 0 To Fond_BM_WH_Grid.Height - 1
-  '      Pxl_before = Fond_BM_WH_Grid.GetPixel(x, y)
-  '      Pxl_after = Color.FromArgb(128, Pxl_before.R, Pxl_before.G, Pxl_before.B)
-  '      Fond_BM_WH_Grid.SetPixel(x, y, Pxl_after)
-  '    Next y
-  '  Next x
-
-  '  For i As Integer = 0 To 80
-  '    'Découpage de l'image dimensionnée en 81 images BM_wh
-  '    Dim BM_wh As New Bitmap(WH, WH)
-  '    Using gI_wh As Graphics = Graphics.FromImage(image:=BM_wh)
-  '      Dim Rct_81 As New Rectangle(0, 0, WH, WH)
-  '      gI_wh.DrawImage(image:=Fond_BM_WH_Grid,
-  '                      destRect:=Rct_81,
-  '                      srcX:=Sqr_Cel(i).X - Sqr_Cel(0).X, srcY:=Sqr_Cel(i).Y - Sqr_Cel(0).Y,
-  '                      srcWidth:=WH, srcHeight:=WH,
-  '                      srcUnit:=GraphicsUnit.Pixel)
-  '      Sqr_Img(i) = BM_wh
-  '    End Using
-  '  Next i
-  'End Sub
 #End Region
 End Module

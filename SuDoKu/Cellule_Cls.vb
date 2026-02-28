@@ -13,7 +13,6 @@ Public Class Cellule_Cls
         0, 2, 3, 5, 6, 8, 18, 26, 27, 35, 45, 53, 54, 62, 72, 74, 75, 77, 78, 80}
   Private Shared ReadOnly Format56_Extra As New HashSet(Of Integer) From {
         20, 21, 23, 24, 29, 30, 32, 33, 47, 48, 50, 51, 56, 57, 59, 60}
-  ' TODO création d'une propriété isvalid qui sera ensuite utilisée pour dessiner les fonds, valeurs, candidats, etc
 
   ' --- Propriété ---
   Private _numéro As Integer
@@ -158,12 +157,6 @@ Public Class Cellule_Cls
 #End Region
 
 #Region "Méthodes"
-  ' Définition
-  ' Cell_Cls   désigne une cellule, il y en a 81
-  ' Grid       désigne les 81 cellules
-  ' Pzzl       désigne une grille correcte, c'est à dire un Puzzle SuDoKu
-  '
-
   ' TODO il reste à regarder si la solution est différente
   ' TODO il reste à regarder si la cellule n'a plus de candidats
 
@@ -181,6 +174,42 @@ Public Class Cellule_Cls
         Else
           g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
         End If
+        If Typologie = "V" And (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) Then
+          ' Définition des points et du style de trait
+          Dim dashPattern As Single() = {1, 5}
+          Dim startX As Integer = Sqr_Cel(Numéro).X
+          Dim startY As Integer = Sqr_Cel(Numéro).Y
+
+          ' Création du stylo avec trait discontinu
+          Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
+            pen.DashPattern = dashPattern
+
+            ' Lignes verticales
+            Dim x1 As Integer = startX + WHthird
+            Dim x2 As Integer = startX + (2 * WHthird)
+            g.DrawLine(pen, x1, startY, x1, startY + WH)
+            g.DrawLine(pen, x2, startY, x2, startY + WH)
+
+            ' Lignes horizontales
+            Dim y1 As Integer = startY + WHthird
+            Dim y2 As Integer = startY + (2 * WHthird)
+            g.DrawLine(pen, startX, y1, startX + WH, y1)
+            g.DrawLine(pen, startX, y2, startX + WH, y2)
+          End Using
+
+          Dim Coté_6 As Integer = Coté \ 6
+          Dim cdd_n As Integer
+          Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
+                brsh9 As New SolidBrush(Color.FromArgb(128, Color_VCdd))
+            For cdd As Integer = 1 To 9
+              cdd_n = (Numéro * 10) + cdd
+              g.DrawString(Subst_Police(CStr(cdd)), font9, brsh9,
+                          Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
+            Next cdd
+          End Using
+
+        End If
+
       Else                            ' L'image de fond est affichée
         If Cellule_Arrondie Then
           g.ResetClip()
@@ -192,7 +221,6 @@ Public Class Cellule_Cls
         End If
       End If
     End Using
-
   End Sub
 
   ''' <summary>Peint la valeur d'une cellule IR.</summary>
@@ -262,60 +290,7 @@ Public Class Cellule_Cls
     End If
   End Sub
 
-  ''' <summary>Peint la sélection de la Cellule.</summary>
-  Public Sub G7_Cellule_Paint_Select_g(g As Graphics)
-    If Not IsValid Then Exit Sub
-    'Using brsh As New SolidBrush(Color_Cell_Select)
-    '  If Cellule_Arrondie Then
-    '    g.FillPath(brsh, Sqr_Pth(Numéro))
-    '  Else
-    '    g.FillRectangle(brsh, Sqr_Cel(Numéro))
-    '  End If
-    'End Using
 
-    If Typologie = "V" Then
-
-      If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I") _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E") _
-      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV") Then
-        Select Case Plcy_Saisir_Commencer
-          Case True : G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
-          Case False : G6_Cellule_Paint_Candidats_g(g, "Les9Candidats")
-        End Select
-      End If
-
-      If (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I") _
-      Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E") _
-      Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV") Then
-        G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
-      End If
-    End If
-
-  End Sub
-
-  ''' <summary>Rafraîchit la Cellule et les Cellules Collatérales</summary>
-  Public Sub Cellule_Refresh_Cell_Coll_old()
-    'TODO traitement à revoir certainement
-    'La cellule et les cellules collatérales sont rafraîchies, la Cellule n'est pas sélectionnée
-    'Traitement identique à Cellule_Refresh pour la Cellule Originelle 
-    'Il y a 20 cellules collatérales pour une Cellule
-    'A1 Début de Traitement de la Cellule Originale
-    'G2_Cellule_Paint_Fond()
-    'B  Traitement des Cellules Collatérales
-    Dim Grp() As Integer = U_20Cell_Coll(Numéro)
-    Dim sc_Grp As New Cellule_Cls
-    For g As Integer = 0 To UBound(Grp)
-      sc_Grp.Numéro = Grp(g)
-      'sc_Grp.G2_Cellule_Paint_Fond()
-      'sc_Grp.G5_Cellule_Paint_Valeur()
-      'sc_Grp.G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd()
-    Next g
-    'A2 Fin de Traitement de la Cellule Originale
-    'G4_Grid_Stratégie_All()
-    'G5_Cellule_Paint_Valeur()
-    'G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd()
-  End Sub
 #End Region
 End Class
 
@@ -361,7 +336,7 @@ Public Class Grille_Cls
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
     ' Il faut que les 81 cellules soient remplies et que la grille soit correcte
     ' Il faut que la partie ait été jouée (Act_Index > 1)
-    Strategy_Dsp_Standard()
+    Strategy_Switch("   ")
     Dim U_Chk(80, 3) As String
     Array.Copy(U, U_Chk, UNbCopy)
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
@@ -372,11 +347,7 @@ Public Class Grille_Cls
       If Paint_Partie_Terminée_Nb > 2 Then Exit Sub
       Cursor.Current = Cursors.WaitCursor
       Paint_Partie_Terminée_Nb += 1
-      Select Case Insertion_Exclusion_Nb_Erreurs
-        Case 0 : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50030")
-        Case 1 : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50031")
-        Case Else : Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50032", {CStr(Insertion_Exclusion_Nb_Erreurs)})
-      End Select
+      Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50029")
 
       Dim sc As New Cellule_Cls
       'Collection des valeurs initiales

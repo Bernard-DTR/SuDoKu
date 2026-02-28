@@ -7,27 +7,12 @@ Option Explicit On
 ' Préfixe       Swf
 '
 ' U_temp doit être utilisé en lieu et place de U qui ne peut pas être utilisé
-' Exemple:      http://glaforge.free.fr/weblog/index.php?itemid=165 Partie test: Nom de la Partie : Swordfish_glaforge_01
 ' Méthodologie: Traitement par Colonne et ensuite traitement par Ligne
 '               Il faut qu'il y ait pour un candidat cdd 2 présences dans 3 colonnes
 '               ou                                       2 présences dans 3 lignes
 '
-' Coordonnées: une cellule comporte un numéro de 0 à 80 calculé avec (Row, Col) ou (Col, Row)
-'              un point est défini par x et par y, c'est à dire par Col et par Row
-'                                      x est l'axe horizontal des abscisses 
-'                                      y est l'axe vertical   des ordonnées
-'
-'     ^ Axe des y Ordonnées
-'     |    
-'     |
-'     |
-'     |
-'   --+-------------------- Axe des x Abscisses
-'     |
-'
 '  La stratégie est complétée pour prendre en compte les groupes de 3 lignes ou de 3 colonnes
 '     et résoudre ainsi les puzzles de HODOKU
-'
 '-------------------------------------------------------------------------------
 
 

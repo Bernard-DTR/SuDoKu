@@ -86,10 +86,9 @@ Friend Module P01_Strategy
     item_DCd.Checked = False
     Dim item_CdS As ToolStripMenuItem = DirectCast(Frm_SDK.Mnu04.DropDown.Items("Mnu04n_CdS"), ToolStripMenuItem)
     item_CdS.Checked = False
-
     Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Event_OnPaint_MAP = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
 
@@ -165,7 +164,7 @@ Friend Module P01_Strategy
                       " | " & Action
     Jrn_Add(, {S}, Action)
 
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
   End Sub
@@ -191,6 +190,7 @@ Friend Module P01_Strategy
     Plcy_Strg = Strg
     Plcy_Strg_Swt = If(Plcy_Strg <> Prv_Plcy_Strg, 1, -Plcy_Strg_Swt)
     Prv_Plcy_Strg = Plcy_Strg
+    Frm_SDK.B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
   Function Strategy_Click(Cellule As Integer, ByRef Strategy_Rslt(,) As String) As Integer
@@ -325,60 +325,60 @@ Friend Module P01_Strategy
     'Initialisation de la Liste des Stratégies
     ' 12/10/2025 Toutes les Plcy_Strg sont dans la liste
     '                               Lettre pour la barre d'Outils ou N
-    Stg_List.Add(New Stg_Cls("   ", "N", "N", "N", "N", "0", "Aucune Stratégie"))
-    Stg_List.Add(New Stg_Cls("Cdd", "C", "O", "N", "N", "1", "Stratégie des Candidats"))
+    Stg_List.Add(New Stg_Cls("   ", "N", "N", "N", "N", 0, "Aucune Stratégie"))
+    Stg_List.Add(New Stg_Cls("Cdd", "C", "O", "N", "N", 1, "Stratégie des Candidats"))
     '                                     O Pour afficher la lettre dans le bouton et le Tooltiptext
     '                                         Pour afficher Insérer ou Exclure avec les candidats des stratégies
-    Stg_List.Add(New Stg_Cls("CdU", "U", "O", "I", "O", "3", "Stratégie des Candidats Uniques"))
-    Stg_List.Add(New Stg_Cls("CdO", "O", "O", "I", "O", "3", "Stratégie des Candidats Obligatoires"))
-    Stg_List.Add(New Stg_Cls("DCd", "N", "N", "I", "N", "4", "Stratégie des Derniers Candidats"))
-    Stg_List.Add(New Stg_Cls("CdS", "N", "N", "I", "N", "4", "Stratégie du Candidat Saisi"))
-    Stg_List.Add(New Stg_Cls("Flt", "N", "N", "N", "N", "3", "Stratégie des Filtres"))
-    Stg_List.Add(New Stg_Cls("FV1", "N", "N", "N", "N", "2", "Filtre des Valeurs 1"))
-    Stg_List.Add(New Stg_Cls("FV2", "N", "N", "N", "N", "2", "Filtre des Valeurs 2"))
-    Stg_List.Add(New Stg_Cls("FV3", "N", "N", "N", "N", "2", "Filtre des Valeurs 3"))
-    Stg_List.Add(New Stg_Cls("FV4", "N", "N", "N", "N", "2", "Filtre des Valeurs 4"))
-    Stg_List.Add(New Stg_Cls("FV5", "N", "N", "N", "N", "2", "Filtre des Valeurs 5"))
-    Stg_List.Add(New Stg_Cls("FV6", "N", "N", "N", "N", "2", "Filtre des Valeurs 6"))
-    Stg_List.Add(New Stg_Cls("FV7", "N", "N", "N", "N", "2", "Filtre des Valeurs 7"))
-    Stg_List.Add(New Stg_Cls("FV8", "N", "N", "N", "N", "2", "Filtre des Valeurs 8"))
-    Stg_List.Add(New Stg_Cls("FV9", "N", "N", "N", "N", "2", "Filtre des Valeurs 9"))
-    Stg_List.Add(New Stg_Cls("FC1", "N", "N", "N", "N", "3", "Filtre des Candidats 1"))
-    Stg_List.Add(New Stg_Cls("FC2", "N", "N", "N", "N", "3", "Filtre des Candidats 2"))
-    Stg_List.Add(New Stg_Cls("FC3", "N", "N", "N", "N", "3", "Filtre des Candidats 3"))
-    Stg_List.Add(New Stg_Cls("FC4", "N", "N", "N", "N", "3", "Filtre des Candidats 4"))
-    Stg_List.Add(New Stg_Cls("FC5", "N", "N", "N", "N", "3", "Filtre des Candidats 5"))
-    Stg_List.Add(New Stg_Cls("FC6", "N", "N", "N", "N", "3", "Filtre des Candidats 6"))
-    Stg_List.Add(New Stg_Cls("FC7", "N", "N", "N", "N", "3", "Filtre des Candidats 7"))
-    Stg_List.Add(New Stg_Cls("FC8", "N", "N", "N", "N", "3", "Filtre des Candidats 8"))
-    Stg_List.Add(New Stg_Cls("FC9", "N", "N", "N", "N", "3", "Filtre des Candidats 9"))
+    Stg_List.Add(New Stg_Cls("CdU", "U", "O", "I", "O", 3, "Stratégie des Candidats Uniques"))
+    Stg_List.Add(New Stg_Cls("CdO", "O", "O", "I", "O", 3, "Stratégie des Candidats Obligatoires"))
+    Stg_List.Add(New Stg_Cls("DCd", "N", "N", "I", "N", 4, "Stratégie des Derniers Candidats"))
+    Stg_List.Add(New Stg_Cls("CdS", "N", "N", "I", "N", 4, "Stratégie du Candidat Saisi"))
+    Stg_List.Add(New Stg_Cls("Flt", "N", "N", "N", "N", 3, "Stratégie des Filtres"))
+    Stg_List.Add(New Stg_Cls("FV1", "N", "N", "N", "N", 2, "Filtre des Valeurs 1"))
+    Stg_List.Add(New Stg_Cls("FV2", "N", "N", "N", "N", 2, "Filtre des Valeurs 2"))
+    Stg_List.Add(New Stg_Cls("FV3", "N", "N", "N", "N", 2, "Filtre des Valeurs 3"))
+    Stg_List.Add(New Stg_Cls("FV4", "N", "N", "N", "N", 2, "Filtre des Valeurs 4"))
+    Stg_List.Add(New Stg_Cls("FV5", "N", "N", "N", "N", 2, "Filtre des Valeurs 5"))
+    Stg_List.Add(New Stg_Cls("FV6", "N", "N", "N", "N", 2, "Filtre des Valeurs 6"))
+    Stg_List.Add(New Stg_Cls("FV7", "N", "N", "N", "N", 2, "Filtre des Valeurs 7"))
+    Stg_List.Add(New Stg_Cls("FV8", "N", "N", "N", "N", 2, "Filtre des Valeurs 8"))
+    Stg_List.Add(New Stg_Cls("FV9", "N", "N", "N", "N", 2, "Filtre des Valeurs 9"))
+    Stg_List.Add(New Stg_Cls("FC1", "N", "N", "N", "N", 3, "Filtre des Candidats 1"))
+    Stg_List.Add(New Stg_Cls("FC2", "N", "N", "N", "N", 3, "Filtre des Candidats 2"))
+    Stg_List.Add(New Stg_Cls("FC3", "N", "N", "N", "N", 3, "Filtre des Candidats 3"))
+    Stg_List.Add(New Stg_Cls("FC4", "N", "N", "N", "N", 3, "Filtre des Candidats 4"))
+    Stg_List.Add(New Stg_Cls("FC5", "N", "N", "N", "N", 3, "Filtre des Candidats 5"))
+    Stg_List.Add(New Stg_Cls("FC6", "N", "N", "N", "N", 3, "Filtre des Candidats 6"))
+    Stg_List.Add(New Stg_Cls("FC7", "N", "N", "N", "N", 3, "Filtre des Candidats 7"))
+    Stg_List.Add(New Stg_Cls("FC8", "N", "N", "N", "N", 3, "Filtre des Candidats 8"))
+    Stg_List.Add(New Stg_Cls("FC9", "N", "N", "N", "N", 3, "Filtre des Candidats 9"))
     '                                N pas de lettre
-    Stg_List.Add(New Stg_Cls("Obj", "N", "N", "N", "N", "4", "Dessiner sur la Grille"))
-    Stg_List.Add(New Stg_Cls("Edi", "N", "N", "N", "N", "4", "Edition de la Grille"))
-    Stg_List.Add(New Stg_Cls("Cbl", "B", "O", "E", "O", "3", "Stratégie des Candidats bloqués"))
-    Stg_List.Add(New Stg_Cls("Tpl", "T", "O", "E", "O", "3", "Stratégie des Candidats doubles, triples, quadruples"))
-    Stg_List.Add(New Stg_Cls("Xwg", "X", "O", "E", "O", "3", "Stratégie X-Wing, Finned, Sashimi"))
-    Stg_List.Add(New Stg_Cls("XYw", "Y", "O", "E", "O", "3", "Stratégie XY-Wing"))
-    Stg_List.Add(New Stg_Cls("Swf", "S", "O", "E", "O", "3", "Stratégie Swordfish"))
-    Stg_List.Add(New Stg_Cls("Jly", "J", "O", "E", "O", "3", "Stratégie Jellyfish"))
-    Stg_List.Add(New Stg_Cls("XYZ", "Z", "O", "E", "O", "3", "Stratégie XYZ-Wing"))
-    Stg_List.Add(New Stg_Cls("SKy", "K", "O", "E", "O", "3", "Stratégie SKyscraper, Kyte, Empty Rectangle"))
-    Stg_List.Add(New Stg_Cls("Unq", "Q", "O", "E", "O", "3", "Stratégie Uniqueness"))
+    Stg_List.Add(New Stg_Cls("Obj", "N", "N", "N", "N", 4, "Dessiner sur la Grille"))
+    Stg_List.Add(New Stg_Cls("Edi", "N", "N", "N", "N", 4, "Edition de la Grille"))
+    Stg_List.Add(New Stg_Cls("Cbl", "B", "O", "E", "O", 3, "Stratégie des Candidats bloqués"))
+    Stg_List.Add(New Stg_Cls("Tpl", "T", "O", "E", "O", 3, "Stratégie des Candidats doubles, triples, quadruples"))
+    Stg_List.Add(New Stg_Cls("Xwg", "X", "O", "E", "O", 3, "Stratégie X-Wing, Finned, Sashimi"))
+    Stg_List.Add(New Stg_Cls("XYw", "Y", "O", "E", "O", 3, "Stratégie XY-Wing"))
+    Stg_List.Add(New Stg_Cls("Swf", "S", "O", "E", "O", 3, "Stratégie Swordfish"))
+    Stg_List.Add(New Stg_Cls("Jly", "J", "O", "E", "O", 3, "Stratégie Jellyfish"))
+    Stg_List.Add(New Stg_Cls("XYZ", "Z", "O", "E", "O", 3, "Stratégie XYZ-Wing"))
+    Stg_List.Add(New Stg_Cls("SKy", "K", "O", "E", "O", 3, "Stratégie SKyscraper, Kyte, Empty Rectangle"))
+    Stg_List.Add(New Stg_Cls("Unq", "Q", "O", "E", "O", 3, "Stratégie Uniqueness"))
 
     ' Les codes des nouvelles stratégies des Liens commencent par X ou W
     '                                la lettre est L Link
-    Stg_List.Add(New Stg_Cls("GLk", "N", "N", "E", "N", "4", "Affichage des Liens forts"))
-    Stg_List.Add(New Stg_Cls("Gbl", "L", "N", "E", "N", "3", "Stratégie bi-locaux (Candidats bloqués)"))
-    Stg_List.Add(New Stg_Cls("Gbv", "L", "N", "E", "N", "3", "Stratégie bi-values"))
-    Stg_List.Add(New Stg_Cls("GCs", "L", "N", "E", "N", "3", "Stratégie DFS Coloration Simple"))
-    Stg_List.Add(New Stg_Cls("XCx", "L", "N", "E", "N", "3", "Stratégie X-Chain"))
-    Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", "3", "Stratégie XY-Chain"))
-    Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", "3", "Stratégie Remote Pairs"))
-    Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", "3", "Stratégie Nice_Loop"))
-    Stg_List.Add(New Stg_Cls("WgX", "L", "N", "E", "N", "3", "Stratégie X-Wing"))
-    Stg_List.Add(New Stg_Cls("WgY", "L", "N", "E", "N", "3", "Stratégie XY-Wing"))
-    Stg_List.Add(New Stg_Cls("WgZ", "L", "N", "E", "N", "3", "Stratégie XYZ-Wing"))
-    Stg_List.Add(New Stg_Cls("WgW", "L", "N", "E", "N", "3", "Stratégie W-Wing"))
+    Stg_List.Add(New Stg_Cls("GLk", "N", "N", "E", "N", 4, "Affichage des Liens forts"))
+    Stg_List.Add(New Stg_Cls("Gbl", "L", "N", "E", "N", 3, "Stratégie bi-locaux (Candidats bloqués)"))
+    Stg_List.Add(New Stg_Cls("Gbv", "L", "N", "E", "N", 3, "Stratégie bi-values"))
+    Stg_List.Add(New Stg_Cls("GCs", "L", "N", "E", "N", 3, "Stratégie DFS Coloration Simple"))
+    Stg_List.Add(New Stg_Cls("XCx", "L", "N", "E", "N", 3, "Stratégie X-Chain"))
+    Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 3, "Stratégie XY-Chain"))
+    Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 3, "Stratégie Remote Pairs"))
+    Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 3, "Stratégie Nice_Loop"))
+    Stg_List.Add(New Stg_Cls("WgX", "L", "N", "E", "N", 3, "Stratégie X-Wing"))
+    Stg_List.Add(New Stg_Cls("WgY", "L", "N", "E", "N", 3, "Stratégie XY-Wing"))
+    Stg_List.Add(New Stg_Cls("WgZ", "L", "N", "E", "N", 3, "Stratégie XYZ-Wing"))
+    Stg_List.Add(New Stg_Cls("WgW", "L", "N", "E", "N", 3, "Stratégie W-Wing"))
 
     'Création de Stg_List_Code, Stg_List_Lettre et Stg_List_Link
     For i As Integer = 0 To Stg_List.Count - 1
@@ -423,6 +423,6 @@ Friend Module P01_Strategy
     For Each Stg As Stg_Cls In Stg_List
       If Stg.Code = Code Then Return Stg
     Next Stg
-    Return New Stg_Cls(Code, "#", "#", "#", "#", "#", "#")
+    Return New Stg_Cls(Code, "#", "#", "#", "#", -1, "#")
   End Function
 End Module

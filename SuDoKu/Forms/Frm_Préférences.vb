@@ -37,7 +37,7 @@ Public Class Frm_Préférences
   Private Prf06_Sqr_Cdd(89) As Rectangle   ' 90 rectangles des candidats
 
   Private Sub Préférences_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    Me.AutoScaleMode = Me_AutoScaleMode_Standard
+    AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     Mode_Load = True
     TrackBar01_02_Minimum = 40
     TrackBar01_02_Maximum = 100
@@ -331,7 +331,7 @@ Public Class Frm_Préférences
     My.Settings.Prf_01C_Taille_Cellule = WH
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -342,7 +342,7 @@ Public Class Frm_Préférences
     Color_VI = Color.FromName(CB01_ColorComboboxVI.Cbb_Color_Selected)
     If Not Mode_Load Then
       'Pour prendre en compte la nouvelle couleur
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -353,7 +353,7 @@ Public Class Frm_Préférences
     Color_VCdd = Color.FromName(CB01_ColorComboboxVCdd.Cbb_Color_Selected)
     If Not Mode_Load Then
       'Pour prendre en compte la nouvelle couleur
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -364,7 +364,7 @@ Public Class Frm_Préférences
     If Not Mode_Load Then
       ' Recalculer Sqr_Img et Font_Style
       OC_Présentation()
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -387,7 +387,7 @@ Public Class Frm_Préférences
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 7 Then Plcy_Format_DAB = Rdc.Next(0, 6)
       OC_Présentation()
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -431,7 +431,7 @@ Public Class Frm_Préférences
       End Select
       OC_Présentation()
       Mnu_Mngt_Barre_Outils_Filtres()
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -488,22 +488,6 @@ Public Class Frm_Préférences
   Private Sub TB02_07_TextChanged(sender As Object, e As EventArgs) Handles TB02_07.TextChanged
     My.Settings.Prf_02C_Nb_Max_Dl = CInt(TB02_07.Text)
   End Sub
-  'Private Sub CB05_08_CheckedChanged(sender As Object, e As EventArgs)
-  '  'Mode Etendu (Menu Divers et Outils)
-  '  Select Case CB05_08.CheckState
-  '    Case CheckState.Unchecked '0  'Non
-  '      Plcy_Gbl_Etendue = False
-  '      My.Settings.Prf_05D_Plcy_Globale = False
-  '    Case CheckState.Checked '1  'Oui
-  '      Plcy_Gbl_Etendue = True
-  '      My.Settings.Prf_05D_Plcy_Globale = True
-  '  End Select
-  '  If Not Mode_Load Then
-  '    OC_Présentation()
-  '    Event_OnPaint = "Total_Frm_Préférences"
-  '    Frm_SDK.Invalidate()
-  '  End If
-  'End Sub
 
   Private Sub CB05_10_CheckedChanged(sender As Object, e As EventArgs) Handles CB05_10.CheckedChanged
     'Exécution systématiqhe de la Vérification Dancing_Link
@@ -517,7 +501,7 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -535,7 +519,7 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -553,7 +537,7 @@ Public Class Frm_Préférences
     End Select
     If Not Mode_Load Then
       OC_Présentation()
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
@@ -620,7 +604,7 @@ Public Class Frm_Préférences
       Case Else
     End Select
     Préférences_Load(sender, e)
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
   End Sub
@@ -824,7 +808,7 @@ Public Class Frm_Préférences
          " B " & Prf06_Clr(i).B.ToString().PadLeft(3)})
     Next i
     OC_Présentation()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
   End Sub

@@ -10,9 +10,9 @@ Friend Module M03_Sélection
     ' 01  Les Conditions d'Insertion
     If Cellule < 0 Or Cellule > 80 Then Exit Sub
     If U(Cellule, 2) <> " " Then Exit Sub
-    If (V < "1") Or (V > "9") Then Exit Sub
-    If Plcy_Gnrl = "Edi" Then Exit Sub
-    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
+    If V < "1" Or V > "9" Then Exit Sub
+    If Plcy_Gnrl <> "Nrm" Then Exit Sub
+    If Not (Plcy_Gnrl = "Nrm" And V = XSolution(Cellule)) Then Exit Sub
 
     Game_Undo_Redo = "Normal"
     Dim Av_Jeu As String = Act_Jeu()
@@ -22,39 +22,30 @@ Friend Module M03_Sélection
     Pbl_Cell_Select = Cellule
 
     ' 02  L'insertion dans les ressources
-    Select Case Plcy_Gnrl
-      Case "Nrm"
-        If Plcy_Solution_Existante = True And V = U_Sol(Cellule) _
-        Or Plcy_Solution_Existante = False Then
-          U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
-          U_CddExc(Cellule) = Cnddts_Blancs
-          Cell_Coll_Modifiées_List.Clear()
-          Cell_Coll_Modifiées_List = Cdd_Remove_Cell_Coll_List(U, Cellule)
-          Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
-        End If
-        If Plcy_Solution_Existante = True And V <> U_Sol(Cellule) Then
-          Insertion_Exclusion_Nb_Erreurs += 1
-          Act_Add(Cellule, "? Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
-        End If
-        Pbl_Valeur_CdS = V
-    End Select
+    U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
+    U_CddExc(Cellule) = Cnddts_Blancs
+    Cell_Coll_Modifiées_List.Clear()
+    Cell_Coll_Modifiées_List = Cdd_Remove_Cell_Coll_List(U, Cellule)
+    Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
+    Pbl_Valeur_CdS = V
+
     Mnu_Mngt_Barre_Outils_Filtres()
     Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     ' 03  L'affichage du résultat
     Select Case Stg_Get(Plcy_Strg).Family
-      Case "0"
-        Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
+      Case 0, 2
+        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
         Event_OnPaint = "Cellule"
-        Using reg As New Region(Sqr_Pth(Cellule))
+        Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
           Frm_SDK.Invalidate(reg, False)
-          Application.DoEvents()
         End Using
+        Application.DoEvents()
 
-      Case "1"
-        Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
-        Event_OnPaint = "Cellules_Collatérales"
+      Case 1
+        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+        Event_OnPaint = "Cell_Coll"
         If Cell_Coll_Modifiées_List.Count > 0 Then
           Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
             For Each cell As Integer In Cell_Coll_Modifiées_List
@@ -71,33 +62,37 @@ Friend Module M03_Sélection
           End Using
         End If
 
-      Case "3"
-        Event_OnPaint_MAP = $"{Proc_Name_Get()} {Plcy_Gnrl} Plcy_Strg: '{Plcy_Strg}'"
-        Event_OnPaint = "Total"
-        Frm_SDK.Invalidate()
+      Case 2
+        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+        Event_OnPaint = "Cell_Flt"
+        Using reg As New Region(Sqr_Pth(Plcy_MouseWheel))
+          Frm_SDK.Invalidate(reg, False)
+        End Using
         Application.DoEvents()
 
+      Case 3
+        Event_OnPaint = "Global"
+        Frm_SDK.Invalidate()
+        Application.DoEvents()
       Case Else
-        Jrn_Add_Yellow("Stg_Get(Plcy_Strg).Family " & Stg_Get(Plcy_Strg).Family)
     End Select
-    Insert_Nb_Cell += 1
 
-    ' 05 Fin de partie
+    ' 04 Fin de partie
     If Wh_Nb_Cell(U).Remplies = 81 Then
       'L'animation est faite en 2 temps d'abord l'animation 
-      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+      Event_OnPaint_MAP = Proc_Name_Get() & "A " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
       Event_OnPaint = "Animation"
       Frm_SDK.Invalidate()
-
       Application.DoEvents()
+
       'puis un affichage de la grille complète
-      Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Total"
+
+      Event_OnPaint_MAP = Proc_Name_Get() & "B " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
     End If
   End Sub
-
   Sub Cell_Val_Delete(Cellule As Integer, Origine As String)
     'Avant toute modification
     Dim Av_Jeu As String = Act_Jeu()
@@ -130,7 +125,7 @@ Friend Module M03_Sélection
 
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
     Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
 
@@ -139,9 +134,6 @@ Friend Module M03_Sélection
   Sub Cell_Cdd_Insert(V As String, Cellule As Integer, Origine As String)
     'Le candidat est enlevé des candidats U(Cellule,3)
     '   ET       est ajouté dans les candidats Exclus U_CddExc(Cellule)
-    If Plcy_Gnrl = "Edi" Then Exit Sub
-    If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
-
     Try
       'Avant toute modification
       Game_Undo_Redo = "Normal"
@@ -157,18 +149,12 @@ Friend Module M03_Sélection
       ' Evite le message pour les cellules déjà remplies
       If U(Cellule, 1) <> " " Then Act_Add(Cellule, "Replacer" & Origine, V, Candidats_Exclus, Proc_Name_Get(), Av_Jeu, Av_AllCdd)
       Pbl_Cell_Select = Cellule
-      'Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-      'Dim Gril As New Grille_Cls
-      '' TODO à refaire
-      ''G3_Grille_Paint_Indirecte()
-      ''Gril.G3_Grille_Paint_Indirecte()
-      ''sc.Cellule_Refresh()
 
       Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
       Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
       Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
 
@@ -184,6 +170,8 @@ Friend Module M03_Sélection
     If Plcy_Gnrl = "Edi" Then Exit Sub
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
     Try
+      If V = XSolution(Cellule) Then Exit Sub
+
       If U(Cellule, 3).Contains(V) = False Then Exit Sub
       Game_Undo_Redo = "Normal"
       'Avant toute modification
@@ -191,33 +179,21 @@ Friend Module M03_Sélection
       Dim Av_AllCdd As String = Act_Candidats()
 
       Dim Candidats As String = U(Cellule, 3)
-      If Plcy_Solution_Existante = True And V <> U_Sol(Cellule) _
-      Or Plcy_Solution_Existante = False Then
-        Dim Candidats_Exclus As String = U_CddExc(Cellule)
-        Mid$(Candidats, CInt(V), 1) = " "
+      Dim Candidats_Exclus As String = U_CddExc(Cellule)
+      Mid$(Candidats, CInt(V), 1) = " "
         Mid$(Candidats_Exclus, CInt(V), 1) = V
         U(Cellule, 3) = Candidats
         U_CddExc(Cellule) = Candidats_Exclus
         Act_Add(Cellule, "Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
-      End If
-      If Plcy_Solution_Existante = True And V = U_Sol(Cellule) Then
-        Insertion_Exclusion_Nb_Erreurs += 1
-        Act_Add(Cellule, "? Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
-      End If
       Pbl_Cell_Select = Cellule
       Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
       Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
       Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
 
-      'Dim sc As New Cellule_Cls With {.Numéro = Cellule}
-      'Dim Gril As New Grille_Cls
-      ''TODO à refaire aussi
-      ''Gril.G3_Grille_Paint_Indirecte()
-      ''sc.Cellule_Refresh()
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
@@ -250,6 +226,7 @@ Friend Module M03_Sélection
     Return nb
   End Function
   Public Function Cdd_Remove_Cell_Coll_List(ByRef U_temp(,) As String, Cellule As Integer) As List(Of Integer)
+    ' TODO à terme cette fonction devrait remplacer Cdd_Remove_Cell_Coll
     ' Le tableau U_temp des cellules est passé en ByRef, car il sort modifié de la fonction 
     Dim list_Coll As New List(Of Integer)
     ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales

@@ -1,16 +1,11 @@
 ﻿Option Strict On
 Option Explicit On
 
-'------------------------------------------------------------------------------------------
 'Date de création: Dimanche 28/07/2024
 'Ce Module regroupe l'ensemble des traitements qui ne sont faits qu'une seule fois
-'------------------------------------------------------------------------------------------
 
 Friend Module A01_OnlyOnce
   Public Sub OO_000_SDK_Load()
-    'Procédure lancée une seule fois
-    '  lors du lancement de SDK
-    '  dans l'évènement Frm_SDK_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     OO_100_Paths()
     OO_110_Variables_My_Settings()
     OO_120_Variables_Autres()
@@ -49,7 +44,7 @@ Friend Module A01_OnlyOnce
     Path_Batch = Path_SDK & "S50_SDK\Batch\"
     Path_Batch_Poubelle = Path_SDK & "S50_SDK\Batch_Poubelle\"
     Path_Save = Path_SDK & "S50_SDK\"
-    Path_SDKAJ = Path2 & Base_Folder & "_S95\"
+    Path_SDK_Autres_Jeux = Path2 & Base_Folder & "_S95\"
     File_SDKDoc = Path_SDK & "S01_Documentation\Rapport.docx"
     File_ValUsi = Path_SDK & "S20_Initial\Valeurs_Initiales.ini"
 
@@ -101,9 +96,6 @@ Friend Module A01_OnlyOnce
     WHthird = (WH \ 3)
     WHquart = (WH \ 4)
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
-
-    Bld_Journal_Affiché_Width = Bld_Journal_Width
-
   End Sub
   ''' <summary>Charge le fichier des messages dans un dictionnaire.</summary>
   Public Sub OO_200_Msg_Load()
@@ -267,7 +259,7 @@ Friend Module A01_OnlyOnce
           Jrn_Add("SDK_00051", {Proc_Name_Get(), ex.Message})
         End Try
       End While
-      Jrn_Add("SDK_00050", {File_Puzzle, CStr(Pzzl_List.Count + 1)})
+      'Jrn_Add("SDK_00050", {File_Puzzle, CStr(Pzzl_List.Count + 1)})
     End Using
   End Sub
   Sub OO_410_Pzzl_Hodoku_Load_Txt()
@@ -295,7 +287,7 @@ Friend Module A01_OnlyOnce
       Ligne = Rcd.ReadLine()
     Loop
     Rcd.Close()
-    Jrn_Add("SDK_00052", {File_Hodoku, CStr(Pzzl_Hodoku_List.Count + 1)})
+    'Jrn_Add("SDK_00052", {File_Hodoku, CStr(Pzzl_Hodoku_List.Count + 1)})
   End Sub
 
   Sub OO_460_File_Delete()

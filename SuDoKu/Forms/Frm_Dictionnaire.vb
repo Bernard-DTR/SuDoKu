@@ -8,14 +8,6 @@ Imports System.Data.SqlClient
 ' DGV           DataGridView
 ' BDS           BindingSource
 '               Composant conçu pour simplifier la liaison du DGV à une source de données 
-'   Dictionnaire: il est possible de Mettre à jour, d'Insérer et de Supprimer des enregistrements
-'   MotTRéservés: idem
-'Insert Into MotTRéservés (MotR) select Mot from MotT Where Nombre > 70
-'SELECT IdMotR, MotR FROM MotTRéservés Order by MotR Asc
-'Create View MotV As Select * From MotT Where Mot Not In (Select MotR from MotTRéservés)
-'
-'04/02/2024 Dictionnaire comporte désormais les options Outils placés auparavant dans A Propos
-'
 '-------------------------------------------------------------------------------------------------------
 Public Class Frm_Dictionnaire
   Private ReadOnly SQL_Connect As String = My.Settings.Connect
@@ -28,8 +20,7 @@ Public Class Frm_Dictionnaire
     P1_Click(sender, e)
     TB_CodT_Input.Text = My.Settings.Sql_TB_CodT_Input
     TB_Information.BackColor = System.Drawing.Color.FromArgb(192, 255, 192)
-    Me.AutoScaleMode = Me_AutoScaleMode_Standard
-    'AutoScaleMode.ToString = Font
+    AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     ' La taille précisée dans le Design de Frm_Dictionnaire est 1716; 1167
     ' c'est-à-dire 1144 + 1144/2 = 1716
     '               778 +  778/2 = 1167

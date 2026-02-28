@@ -18,8 +18,6 @@ Friend Module M20_Game
     'Début commun à toute nouvelle partie, quoique seul Nrm utilise Annuler/Refaire
     ReDim Act(11, 100) : Act_Index = -1 ' Ré-initialise les mouvements
     UR_A_Index = -1
-    Insert_Nb_Cell = 0
-    Insertion_Exclusion_Nb_Erreurs = 0
 
     Select Case Plcy_Gnrl
       Case "Nrm" '---------------------------------------------------------------------------------------
@@ -36,30 +34,9 @@ Friend Module M20_Game
         End If
         Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
-        If Plcy_Solution_Existante = True Then
-          Frm_SDK.B_Solution.Text = "S"
-          Frm_SDK.Mnu02_InsérerLaSolution.Enabled = True
-          Frm_SDK.Mnu03_AfficherLaSolution.Enabled = True
-          Frm_SDK.Mnu08_InsérerTouteLaSolution.Enabled = True
-        Else
-          Frm_SDK.B_Solution.Text = " "
-          Frm_SDK.Mnu02_InsérerLaSolution.Enabled = False
-          Frm_SDK.Mnu03_AfficherLaSolution.Enabled = False
-          Frm_SDK.Mnu08_InsérerTouteLaSolution.Enabled = False
-        End If
+        'Frm_SDK.Mnu03_AfficherLaSolution.Enabled = True
+        'Frm_SDK.Mnu08_InsérerTouteLaSolution.Enabled = True
 
-      Case "Sas" '---------------------------------------------------------------------------------------
-        'Strategy_Switch("   ")
-        'Game_Load(Nom, Prb, Jeu, Sol, Frc)
-        ''   Si le jeu a été fermé en mode Sas, alors il est ouvert en mode Sas et les Candidats sont replacés
-        ''   Dans une partie "Sas", SDK ignore et ne calcule pas les candidats 
-        'For i As Integer = 0 To 80
-        '  If U(i, 2) = " " Then
-        '    U(i, 3) = Cdd729.Substring(i * 9, 9).Replace("0", " ")
-        '  End If
-        'Next i
-        'Frm_SDK.B_Solution.Text = "*"
-        'Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00300")
     End Select
 
     'OC_Présentation()
@@ -67,22 +44,37 @@ Friend Module M20_Game
     'Fin commune à toute nouvelle partie
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
 
-    Dim ToolTipText As String = Nothing
+    'Dim ToolTipText As String = Nothing
 
-    Select Case Frm_SDK.B_Solution.Text
-      Case " " : ToolTipText = "Puzzle sans solution"
-      Case "*" : ToolTipText = "Mode Sans Assistance"
-      Case "S" : ToolTipText = "Le Puzzle a une solution"
-    End Select
-    Frm_SDK.ToolTip_B.SetToolTip(Frm_SDK.B_Solution, ToolTipText)
+    'Select Case Frm_SDK.B_Solution.Text
+    '  Case " " : ToolTipText = "Puzzle sans solution"
+    '  Case "*" : ToolTipText = "Mode Sans Assistance"
+    '  Case "S" : ToolTipText = "Le Puzzle a une solution"
+    'End Select
+    'Frm_SDK.ToolTip_B.SetToolTip(Frm_SDK.B_Solution, ToolTipText)
 
     Paint_Partie_Terminée_Nb = 0
     'Lors d'une nouvelle partie, une cellule vide est sélectionnée au hasard comme Cellule Sélectionnée 
     Pbl_Cell_Select = 0
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+    ' TODO : à revoir, faire une fonction
+    If Plcy_Dancing_Link Then
+      ' Vérification d'une solution unique
+      '29/07/2025 Dans le cadre des tests XChains, il peut être possible de vérifier la solution! 
+      XSolution = StrDup(81, "0")
+      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
+      Select Case DL.Nb_Solution
+        Case -1, 0
+        Case 1
+          XSolution = DL.Solution(0)
+        Case Else
+          Dim MsgTit As String = Application.ProductName & " " & SDK_Version
+          Nsd_i = MsgBox("Dancing Link : " & DL.DLCode & "  Solutions multiples.",, MsgTit)
+      End Select
+    End If
 
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Event_OnPaint_MAP = Proc_Name_Get()
     Frm_SDK.Invalidate()
   End Sub
@@ -138,7 +130,7 @@ Friend Module M20_Game
       ' Vérification d'une solution unique
       '29/07/2025 Dans le cadre des tests XChains, il peut être possible de vérifier la solution! 
       XSolution = StrDup(81, "0")
-      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U)
+      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
       Select Case DL.Nb_Solution
         Case -1, 0
         Case 1

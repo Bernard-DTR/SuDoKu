@@ -134,7 +134,7 @@ Friend Module M59_Prd_Batch
 
     Batch_en_Cours = False
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
 
     'Fin du Thread Batch_Thread

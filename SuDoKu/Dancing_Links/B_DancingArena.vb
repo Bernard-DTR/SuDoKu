@@ -1,10 +1,7 @@
 ﻿Option Strict On
 Option Explicit On
 
-' Class implementing exact cover algorithm.
 ' Copyright (c) 2006 Miran Uhan
-'Namespace permet d'utiliser un même nom d'objet pour un espace de nom différent
-'          Tous les noms utilisés le sont dans cadre des DancingLink
 Namespace DancingLink
 
   Friend MustInherit Class B_DancingArena

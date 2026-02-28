@@ -92,7 +92,7 @@ Friend Module P30_Strategy_ForceBrute
     Else
       Jrn_Add(, {"Stratégie de Force Brute : ECHEC!"})
     End If
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
   End Sub

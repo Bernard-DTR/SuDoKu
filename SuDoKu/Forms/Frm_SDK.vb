@@ -1,5 +1,6 @@
 ﻿Option Strict On
 Option Explicit On
+Imports System.Runtime.InteropServices
 Imports System.Threading
 Imports SuDoKu.DancingLink
 
@@ -33,7 +34,8 @@ Public NotInheritable Class Frm_SDK
     SuspendLayout()
     Phase_Démarrage_Terminée = False
     OO_000_SDK_Load()
-    AutoScaleMode = Me_AutoScaleMode_Standard
+    'AutoScaleMode = Me_AutoScaleMode_Standard
+    AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     Size = New Size(1692, 1036) 'Taille maximale :SDK   
     SetStyle(ControlStyles.UserPaint Or ControlStyles.AllPaintingInWmPaint, True)
     '        ControlStyles.OptimizedDoubleBuffer, True empêche l'affichage de la grille
@@ -328,7 +330,6 @@ Public NotInheritable Class Frm_SDK
 
 #Region "Lancement de la partie précédente"
     Jrn_Add(, {"Application " & Application.ProductName & " " & SDK_Version})
-    Jrn_Add(, {"Chemin      " & Path_SDK})
     Jrn_Add(, {"Traitement de création de grilles en Batch : " & CStr(Plcy_Generate_Batch)})
     Jrn_Add(, {"Nombre de grilles à créer en Batch         : " & CStr(My.Settings.Prf_02C_Nb_Batch_Generate)})
     Jrn_Add(, {"Nombre de grilles existantes dans " & Path_Batch})
@@ -347,8 +348,8 @@ Public NotInheritable Class Frm_SDK
     LP_Frc = My.Settings.LP_Frc
     LP_Cdd = ""
     LP_CddExc = ""
-        Jrn_Add("SDK_00100", {LP_Nom})
-        Jrn_Add(, {"/" & Proc_Name_Get()})
+    'Jrn_Add("SDK_00100", {LP_Nom})
+    Jrn_Add(, {"/" & Proc_Name_Get()})
     OC_Présentation()
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc)
 #End Region
@@ -357,7 +358,7 @@ Public NotInheritable Class Frm_SDK
     Phase_Démarrage_Terminée = True
     ResumeLayout()
 
-    ' Pour afficher la barre d'outils avec les valaurs 0 à 1 de Arial
+    ' Pour afficher la barre d'outils avec les valeurs 0 à 1 de Arial
     Mnu_Mngt_Barre_Outils_Filtres()
 
     'Plcy_Generate_Batch autorise la création de grilles par lot en arrière-plan
@@ -391,15 +392,14 @@ Public NotInheritable Class Frm_SDK
     End Select
   End Sub
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
-    ' Cela garantit que la logique de peinture de la classe de base (le cas échéant) est exécutée.
-    ' Par exemple, elle peut gérer la peinture de l'arrière-plan ou d'autres comportements par défaut
     Try
       MyBase.OnPaint(e)
       If Not Phase_Démarrage_Terminée Then Exit Sub
+      'Jrn_Add_White(Proc_Name_Get() & " " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint)
 
       Select Case Event_OnPaint
-        Case "Total"
-          ' la grille est ré-affichée entièrement sur 6 couches 
+        Case "Global"
+          ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
           Dim Gril As New Grille_Cls
           G1_Grid_Paint_g(e.Graphics)
           Gril.G2_Grille_Paint_Fond_g(e.Graphics)
@@ -409,47 +409,49 @@ Public NotInheritable Class Frm_SDK
             sc.Numéro = i
             sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
           Next i
-        ' Il n'y a pas de selection de cellule
 
         Case "Cellule"
+          ' La cellule est redessinée sur la couche Fond et Valeur
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
           sc.G2_Cellule_Paint_Fond_g(e.Graphics)
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          ' Il n'y a pas de selection de cellule
+          If Stg_Get(Plcy_Strg).Family = 2 Then
+            G0_Cell_Figure_g(e.Graphics, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
+          End If
 
-        Case "Cellules_Collatérales"
-          ' 1 Les cellules collatérales concernées sont rafraîchies sur les couches 2 et 6
+        Case "Cell_Coll"
+          ' 1 Les cellules collatérales concernées sont rafraîchies sur les couches Fond et Candidats
           For Each cell As Integer In Cell_Coll_Modifiées_List
             Dim sc_cell_coll As New Cellule_Cls With {.Numéro = cell}
             sc_cell_coll.G2_Cellule_Paint_Fond_g(e.Graphics)
             sc_cell_coll.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
           Next cell
-          ' 2 La cellule sélectionnée comporte la grille de sélection
+          ' 2 La cellule est redessinée sur la couche Fond et Valeur
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
           sc.G2_Cellule_Paint_Fond_g(e.Graphics)
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-           ' Il n'y a pas de selection de cellule
 
-        'Case "Cellule_Move"
-        '  ' 1 La cellule précédemment sélectionnée est rafraîchie sur les couches 2, 5 et 6
-        '  If Prv_Pbl_Cell_Select >= 0 And Prv_Pbl_Cell_Select <= 80 Then
-        '    Dim sc_prv As New Cellule_Cls With {.Numéro = Prv_Pbl_Cell_Select}
-        '    sc_prv.G2_Cellule_Paint_Fond_g(e.Graphics)
-        '    sc_prv.G5_Cellule_Paint_Valeur_g(e.Graphics)
-        '  End If
-        '  ' 2 La cellule sélectionnée comporte la grille de sélection
-        '  Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        '  sc.G2_Cellule_Paint_Fond_g(e.Graphics)
-        '  sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-        '  If Plcy_Gnrl = "Edi" Then sc.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
-        '  ' Il n'y a pas de selection de cellule
+        Case "Mouse_Wheel"
+          For Each cell As Integer In Cell_Prv_MouseWheel_List
+            Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
+            sc_cell.G2_Cellule_Paint_Fond_g(e.Graphics)
+            sc_cell.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          Next cell
+          Cell_Prv_MouseWheel_List.Clear()
 
+          For Each cell As Integer In Cell_MouseWheel_List
+            Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
+            sc_cell.G2_Cellule_Paint_Fond_g(e.Graphics)
+            sc_cell.G5_Cellule_Paint_Valeur_g(e.Graphics)
+            G0_Cell_Figure_g(e.Graphics, cell, "Double_Carré", Color_Stratégique)
+          Next cell
+          Cell_MouseWheel_List.Clear()
 
         Case "Animation"
           ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
-          '            qui lance ensuite "Total" pour rafraîchir la grille
+          '            qui lancera ensuite "Total" pour rafraîchir la grille
           Dim Gril As New Grille_Cls
-          'La grille est rafraîchie entièrement, aucune cellule n'est sélectée
+          'La grille est rafraîchie entièrement 
           G1_Grid_Paint_g(e.Graphics)
           Gril.G2_Grille_Paint_Fond_g(e.Graphics)
           Dim sc As New Cellule_Cls
@@ -460,24 +462,18 @@ Public NotInheritable Class Frm_SDK
           Gril.G8_Grille_Partie_Terminée_g(e.Graphics)
 
         Case Else
-          Jrn_Add("SDK_00000", {"Protected Overrides Sub OnPaint(e As PaintEventArgs) est activée: "})
-          Jrn_Add("SDK_00000", {"Valeur Event_OnPaint_MAP : " & Event_OnPaint_MAP})
-          Jrn_Add("SDK_00000", {"Valeur Event_OnPaint     : " & Event_OnPaint})
+          Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint}, "Erreur")
+
       End Select
     Catch ex As Exception
       Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+
     End Try
 
-    Event_OnPaint_MAP = "#"
     Event_OnPaint = "#"
   End Sub
-
-  Private Sub Frm_SDK_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
-    Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
-  End Sub
-
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
     'En plaçant à cet endroit l'enregistrement des LP_*, 
     'Ceux-ci sont enregistrés correctement pour les 12 ouvertures de jeux de SDK.
@@ -506,7 +502,7 @@ Public NotInheritable Class Frm_SDK
 
       ' Attendre la fin du thread
       Event_OnPaint_MAP = Proc_Name_Get()
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Invalidate()
       MsgBox("SuDoKu est en train de calculer des grilles " & vbCrLf & "Merci de patienter ! ",
       MsgBoxStyle.Information, "SuDoKu")
@@ -520,140 +516,30 @@ Public NotInheritable Class Frm_SDK
   Private Sub Frm_SDK_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
     'Se produit quand le contrôle est redimensionné par exemple après une Réduction 
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_MinimumSizeChanged(sender As Object, e As EventArgs) Handles MyBase.MinimumSizeChanged
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_Move(sender As Object, e As EventArgs) Handles MyBase.Move
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_VisibleChanged(sender As Object, e As EventArgs) Handles MyBase.VisibleChanged
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
   End Sub
 
-#Region "Clavier et Mouse Clic"
-  '  Private Sub Frm_SDK_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
-  '    ' Le contrôle a le focus
-  '    ' La touche est enfoncée pour la première fois
-  '    ' Il faut que la cellule précisée par la souris soit correcte
-  '    Dim Cellule_KD As Integer = Pbl_Cell_Select
-  '    Try
-  '      Select Case e.KeyCode.ToString()
-  '        Case "Escape"                ' Rien
-  '        Case "Capital"               ' Rien
-  '        Case "NumLock"               ' Rien
-  '        Case "CapsLock"              ' Rien
-  '        Case "ShiftKey"              ' Rien
-  '        Case "ControlKey"            ' Rien
-
-  '                                             ' Ces 2 actions sont effectuées par les raccourcis des menus.
-  '        Case "Insert"                ' ACTION Il faut activer FN + INS ou INS   Keyboard Numérique (Mode déplacement)
-  '        Case "Delete"                ' ACTION Il faut activer SUPPR    ou SUPPR Keyboard Numérique (Mode déplacement)
-  ''               --------------------------------------------------------------------------------------
-
-  '        Case "Home"                  ' POSITION en haut à gauche
-  '          Cellule_KD = 0
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-  '        Case "End"                   ' POSITION en bas  à gauche
-  '          Cellule_KD = 72
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-  '        Case "PageUp"                ' POSITION en haut à droite
-  '          Cellule_KD = 8
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-  '        Case "Next"                  ' POSITION en bas  à droite
-  '          Cellule_KD = 80
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-  '        Case "Clear"                 ' POSITION au centre
-  '          Cellule_KD = 40
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-
-  '        Case "Left", "Back"          ' POSITION Déplacement à gauche
-  '          Cellule_KD -= 1 : If Cellule_KD < 0 Then Cellule_KD = 80
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-  '        Case "Right"                 ' POSITION Déplacement à droite
-  '          Cellule_KD += 1 : If Cellule_KD > 80 Then Cellule_KD = 0
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-  '        Case "Up"                    ' POSITION Déplacement vers le haut
-  '          Dim Row As Integer = U_Row(Cellule_KD)
-  '          Dim Col As Integer = U_Col(Cellule_KD)
-  '          Select Case Row
-  '            Case 0
-  '              If Col = 0 Then Cellule_KD = Wh_Cellule_ColRow(8, 8)
-  '              If Col <> 0 Then Cellule_KD = Wh_Cellule_ColRow(Col - 1, 8)
-  '            Case Else
-  '              Cellule_KD -= 9
-  '          End Select
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-  '        Case "Down"                  ' POSITION Déplacement vers le bas
-  '          Dim Row As Integer = U_Row(Cellule_KD)
-  '          Dim Col As Integer = U_Col(Cellule_KD)
-  '          Select Case Row
-  '            Case 8
-  '              If Col = 8 Then Cellule_KD = Wh_Cellule_ColRow(0, 0)
-  '              If Col <> 8 Then Cellule_KD = Wh_Cellule_ColRow(Col + 1, 0)
-  '            Case Else
-  '              Cellule_KD += 9
-  '          End Select
-  '          Frm_SDK_KeyDown_Selected(Cellule_KD)
-
-  ''               --------------------------------------------------------------------------------------
-
-  '        Case "NumPad1" To "Numpad9"  ' INSERTION
-  '          Dim Valeur As Integer = e.KeyCode - 96     ' Touches du clavier numérique de 1 à 9
-  '          Cell_Val_Insert(CStr(Valeur), Cellule_KD, "Kbd_Num")
-  '        Case "D1" To "D9"            ' INSERTION
-  '          Dim Valeur As Integer = e.KeyCode - 48      ' Touches du clavier alphanumérique de 1 à 9 (MAJ OFF ou ON)
-  '          Cell_Val_Insert(CStr(Valeur), Cellule_KD, "Kbd_Alp")
-
-  '        Case Else
-  '          'HPOmen16 la touche e.KeyCode.ToString() = LaunchApplication2
-  '          '                   e.KeyData = 183 lance l'application Calc
-  '      End Select
-
-  '      'Ce n'est pas la touche qui entre la valeur, mais son effet true
-  '      'il y a donc un son d'erreur qu'il faut enlever
-  '      e.SuppressKeyPress = True            'Pour supprimer le son, car il n'y a AUCUNE zone d'entrée
-
-  '    Catch ex As Exception
-  '      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-  '      Jrn_Add("ERR_00000", {"Cellule_KD :  " & CStr(Cellule_KD)})
-  '      Jrn_Add("ERR_00000", {Proc_Name_Get() & " hors square "})
-  '    End Try
-
-  '  End Sub
-  '  Private Sub Frm_SDK_KeyDown_Selected(Cellule_KDS As Integer)
-  '    'La cellule sur laquelle passe la souris devient la Pbl_Cell_Select
-  '    'Le traitement est identique à celui de Frm_SDK_MouseMove
-  '    Pbl_Cell_Select = Cellule_KDS
-  '    If Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
-  '      B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
-  '      Mnu_Mngt(Pbl_Cell_Select)
-  '      If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-  '        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-  '        Event_OnPaint = "Cellule_Move"
-  '        Using reg As New Region(Sqr_Pth(Prv_Pbl_Cell_Select))
-  '          reg.Union(Sqr_Pth(Pbl_Cell_Select))
-  '          Invalidate(reg, False)
-  '          Application.DoEvents()
-  '        End Using
-  '      End If
-  '    End If
-  '    B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
-  '    Mnu_Mngt(Pbl_Cell_Select)
-  '    Prv_Pbl_Cell_Select = Pbl_Cell_Select
-  '  End Sub
+#Region "Mouse Clic"
   Private Sub Frm_SDK_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
     Dim Cellule_MM As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(e.X, e.Y))
     If Cellule_MM = -1 Then Exit Sub
@@ -661,16 +547,6 @@ Public NotInheritable Class Frm_SDK
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
       B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
       Mnu_Mngt(Pbl_Cell_Select)
-
-      'If Plcy_Gnrl = "Nrm" And Plcy_Strg = "   " Then
-      '  Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      '  Event_OnPaint = "Cellule_Move"
-      '  Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-      '    reg.Union(Sqr_Pth(Prv_Pbl_Cell_Select))
-      '    Invalidate(reg, False)
-      '    Application.DoEvents()
-      '  End Using
-      'End If
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
   End Sub
@@ -702,8 +578,6 @@ Public NotInheritable Class Frm_SDK
         Case MouseButtons.Right
           'le clic droit n'est pas détecté sur les Cellules R et V, car il y a un ContextMenuStrip sur le formulaire
           'le clic droit est détecté sur les Cellules       I, car il n'y a pas de ContextMenuStrip
-          'le Frm_SDK_MouseMove précédent lance G7_Cellule_Paint_Select
-          'et G7_Cellule_Paint_Select    lance Mnu_Mngt_Nrm 
       End Select
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
@@ -712,41 +586,11 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Frm_SDK_MouseClick_Left(Candidat_Pt As Integer)
     ' Provient UNIQUEMENT de Frm_SDK_MouseClick
-    'Procédure de Saisie par simple clic gauche
-    '             sur un candidat affiché ou sur la grille PCA de saisie
-    'Utilisation de Cellule pour simplifier la lecture du code
-    Dim Cellule_MCL As Integer = Pbl_Cell_Select
-    Dim sc As New Cellule_Cls With {.Numéro = Cellule_MCL}
-    Select Case sc.Typologie
-      Case "I", "R" 'Il s'agit d'un clic de Sélection, puisque la cellule est remplie
-      Case "V"
-        'En Mode Nrm, sans stratégie, la saisie sera vérifiée avec la solution
-        If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "   ") Then
-          Cell_Val_Insert(CStr(Candidat_Pt), Cellule_MCL, "Mse_Clk_PCA")
-        End If
-        'Comme des candidats sont affichés,
-        '      seuls ces derniers sont saisisables
-        '      ou s'il n'y en a qu'un, celui-ci est saisi
-        '      IL FAUT TOUJOURS CLIQUER sur LE CANDIDAT
-        If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
-        Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "I") _
-        Or (Plcy_Gnrl = "Nrm" And Stg_Get(Plcy_Strg).Type = "E") Then
-          If U(Cellule_MCL, 3).Contains(CStr(Candidat_Pt)) = True Then
-            Cell_Val_Insert(CStr(Candidat_Pt), Cellule_MCL, "Mse_Clk_Cdd")
-          End If
-        End If
-        'Les candidats dans ce cas ne sont pas affichés, mais la grille de saisie
-        If (Plcy_Gnrl = "Nrm" And Plcy_Strg <> "   ") _
-        Or (Plcy_Gnrl = "Nrm" And Mid$(Plcy_Strg, 1, 2) = "FV") Then
-          If U(Cellule_MCL, 3).Contains(CStr(Candidat_Pt)) = True Then
-            Cell_Val_Insert(CStr(Candidat_Pt), Cellule_MCL, "Mse_Clk_Cdd")
-          End If
-        End If
-    End Select
-    'le Cellule_Refresh permet de ne pas trop griser la cellule
-    'sc.Cellule_Refresh()
-    'sc.G7_Cellule_Paint_Select()
+    If U(Pbl_Cell_Select, 3).Contains(CStr(Candidat_Pt)) = True Then
+      Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
+    End If
   End Sub
+
   Private Sub Frm_SDK_MouseClick_Middle(sender As Object, Candidat As Integer)
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
     Dim TTT_Message As String = Cnddts_Blancs
@@ -794,7 +638,6 @@ Public NotInheritable Class Frm_SDK
         End Select
       Case Else
     End Select
-    Plcy_FIC_TTT = TTT_Message
 
     Dim TTT_ToolTipText As String
     If TTT_Message <> Cnddts_Blancs Then
@@ -826,8 +669,8 @@ Public NotInheritable Class Frm_SDK
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg.StartsWith("FC") Then MouseWheel_Candidat(Sens)
   End Sub
   Public Sub MouseWheel_Valeur(Sens As Integer)
-    Dim NewMW As Integer
-    If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), NewMW) Then Exit Sub
+    'Dim NewMW As Integer
+    If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), Plcy_MouseWheel) Then Exit Sub
     ' Compter les occurrences de chaque valeur sur la grille
     Dim Result As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
     Dim Val_Nb(9) As Integer
@@ -835,17 +678,41 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 9
       Val_Nb(i) = Result.Val_Nb(i)
     Next i
-    Dim StartVal As Integer = NewMW
+    Dim StartVal As Integer = Plcy_MouseWheel
     Do
-      NewMW = ((NewMW + Sens + 8) Mod 9) + 1
+      Plcy_MouseWheel = ((Plcy_MouseWheel + Sens + 8) Mod 9) + 1
       ' Si la valeur n'est pas présente 9 fois, on la présente
-      If Val_Nb(NewMW) < 9 Then Exit Do
-    Loop While NewMW <> StartVal
+      If Val_Nb(Plcy_MouseWheel) < 9 Then Exit Do
+    Loop While Plcy_MouseWheel <> StartVal
 
-    Strategy_Switch("FV" & CStr(NewMW))
-    Event_OnPaint_MAP = Proc_Name_Get() & " FV" & CStr(NewMW)
-    Event_OnPaint = "Total"
-    Invalidate()
+    Strategy_Switch("FV" & CStr(Plcy_MouseWheel))
+    Dim Last_Cell_MouseWheel As Integer
+
+    Cell_MouseWheel_List.Clear()
+    Cell_Prv_MouseWheel_List.Clear()
+    For i As Integer = 0 To 80
+      If U(i, 2) = CStr(Plcy_MouseWheel) Then
+        Cell_MouseWheel_List.Add(i)
+        Last_Cell_MouseWheel = i
+      End If
+      If U(i, 2) = CStr(Plcy_Prv_MouseWheel) Then
+        Cell_Prv_MouseWheel_List.Add(i)
+      End If
+    Next i
+
+    Using reg As New Region(Sqr_Pth(Last_Cell_MouseWheel))
+      For Each cell As Integer In Cell_MouseWheel_List
+        reg.Union(Sqr_Pth(cell))
+      Next
+      For Each cell As Integer In Cell_Prv_MouseWheel_List
+        reg.Union(Sqr_Pth(cell))
+      Next
+      Event_OnPaint_MAP = Proc_Name_Get() & " FV" & CStr(Plcy_MouseWheel & " /Prv " & Plcy_Prv_MouseWheel)
+      Event_OnPaint = "Mouse_Wheel"
+      Invalidate(reg, False)
+      Application.DoEvents()
+    End Using
+    Plcy_Prv_MouseWheel = Plcy_MouseWheel
   End Sub
   Public Sub MouseWheel_Candidat(ByVal Sens As Integer)
     Dim FiltreMW As Integer
@@ -854,7 +721,7 @@ Public NotInheritable Class Frm_SDK
 
     Strategy_Switch("FC" & CStr(NewMW))
     Event_OnPaint_MAP = Proc_Name_Get() & " FC" & CStr(NewMW)
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Invalidate()
   End Sub
 #End Region
@@ -869,14 +736,14 @@ Public NotInheritable Class Frm_SDK
     'Chargement d'une nouvelle partie en mode normal 
     Frm_LoadParties.Show()
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc)
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
   End Sub
@@ -945,7 +812,7 @@ Public NotInheritable Class Frm_SDK
       Case Else
     End Select
   End Sub
-  Private Sub Mnu02_Effacer_Click(sender As Object, e As EventArgs) Handles Mnu02_Effacer.Click
+  Private Sub Mnu02_Effacer_Click(sender As Object, e As EventArgs)
     'Effacer remet à blanc une case et replace tous les candidats.
     'Cette option n'est accessible que si la case a été saisie
     'En réalité cette option NE PEUT PAS ETRE UTILISéE par le menu, puisqu'il faut que la cellule soit sélectionnée
@@ -953,19 +820,6 @@ Public NotInheritable Class Frm_SDK
     '     ou la touche SUPPR du clavier numérique en mode déplacement
     Try
       Cell_Val_Delete(Pbl_Cell_Select, "Mnu_Eff")
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-  End Sub
-  Private Sub Mnu02_InsérerLaSolution_Click(sender As Object, e As EventArgs) Handles Mnu02_InsérerLaSolution.Click
-    'En réalité cette option NE PEUT PAS ETRE UTILISéE par le menu, puisqu'il faut que la cellule soit sélectionnée
-    'SEUL Le raccourci FN + INS exécute cette option
-    '     ou la touche INS du clavier numérique en mode déplacement  
-    If Plcy_Solution_Existante = False Then Exit Sub
-    Try
-      Dim Solution As String = U_Sol(Pbl_Cell_Select)
-      Cell_Val_Insert(Solution, Pbl_Cell_Select, "Mnu_Ins_Sol")
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
@@ -1009,7 +863,7 @@ Public NotInheritable Class Frm_SDK
 
     B_Info.Text = "Affichage de la Solution"
     Event_OnPaint_MAP = Proc_Name_Get() & " 1"
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()    'Affiche la grille sans solutions immédiatement
 
@@ -1018,13 +872,13 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80 : U(i, 2) = jeu_Save.Substring(i, 1) : Next i
     B_Info.Text = " _ "
     Event_OnPaint_MAP = Proc_Name_Get() & " 2"
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
   End Sub
   Private Sub Mnu03_Rafraîchir_Click(sender As Object, e As EventArgs) Handles Mnu03_Rafraîchir.Click
     Event_OnPaint_MAP = Proc_Name_Get()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Invalidate()
   End Sub
   '--------------Transformation---------------------------------------------------
@@ -1143,18 +997,6 @@ Public NotInheritable Class Frm_SDK
     Nsd_i = Shell($"Notepad {Path_SDK}SuDoKu\SuDoKu\Apriori\aMaintenance.txt", AppWinStyle.MaximizedFocus)
     SendKeys.Send("^{END}")
   End Sub
-  'Private Sub Mnu05_ModeEtendu_Click(sender As Object, e As EventArgs) Handles Mnu05_ModeEtendu.Click
-  '  'L'option n'est pas visible
-  '  'le raccourci Ctrl+Maj+E permet de passer en mode étendu sans passer par Préférences / Divers / Mode Etendu
-  '  Select Case Plcy_Gbl_Etendue
-  '    Case True : Plcy_Gbl_Etendue = False
-  '    Case False : Plcy_Gbl_Etendue = True
-  '  End Select
-  '  My.Settings.Prf_05D_Plcy_Globale = Plcy_Gbl_Etendue
-  '  OC_Présentation()
-  '  Event_OnPaint = "Total"
-  '  Invalidate()
-  'End Sub
   Private Sub Mnu05_Dictionnaire_Click(sender As Object, e As EventArgs) Handles Mnu05_Dictionnaire.Click
     Frm_Dictionnaire.Show()
   End Sub
@@ -1192,7 +1034,7 @@ Public NotInheritable Class Frm_SDK
     Mnu01_Commencer.Enabled = True
   End Sub
   Private Sub Mnu06_SudokuPCA_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuPCA.Click
-    Dim Shell_St As String = Path_SDKAJ & "PCA_Sudoku\Sudoku.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "PCA_Sudoku\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1201,7 +1043,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_SudokuAngusJohnson_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuAngusJohnson.Click
-    Dim Shell_St As String = Path_SDKAJ & "SimpleSudoku\simplesudoku.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "SimpleSudoku\simplesudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1210,7 +1052,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_SudokuDarrenColes_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuDarrenColes.Click
-    Dim Shell_St As String = Path_SDKAJ & "WinSudoku\Sudoku.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "WinSudoku\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1220,7 +1062,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu06_SudokuPatriceHenrion_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuPatriceHenrion.Click
     'Ligne de commande /p lance le jeu en petite taille
-    Dim Shell_St As String = Path_SDKAJ & "SudokuPH\Sudoku.exe /p"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "SudokuPH\Sudoku.exe /p"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1255,7 +1097,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_SudokuFedynaK_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuFedynaK.Click
     'Lancement Grille Python + Escape + Entrée
     Dim Grille As String = LP_Prb.Replace(" ", "0")
-    Dim Shell_St As String = "C:\Users\berna\AppData\Local\Programs\Python\Python313\pythonw.exe " & Path_SDKAJ & "Python\FedynaK\Sudoku_FedynaK\Sudoku_FedynaK.py " & Grille
+    Dim Shell_St As String = "C:\Users\berna\AppData\Local\Programs\Python\Python313\pythonw.exe " & Path_SDK_Autres_Jeux & "Python\FedynaK\Sudoku_FedynaK\Sudoku_FedynaK.py " & Grille
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
@@ -1279,7 +1121,7 @@ Public NotInheritable Class Frm_SDK
     End If
   End Sub
   Private Sub Mnu06_SudoCue_Click(sender As Object, e As EventArgs) Handles Mnu06_SudoCue.Click
-    Dim Shell_St As String = Path_SDKAJ & "SudoCue\SudoCue.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "SudoCue\SudoCue.exe"
 
     Jrn_Add(, {Shell_St})
     Try
@@ -1293,9 +1135,9 @@ Public NotInheritable Class Frm_SDK
     ClipBoard_Copier_New("1") ' Copier les valeurs initiales de SDK
     Dim Processing As New Process()
     Processing.StartInfo.FileName = "cmd.exe"
-    Processing.StartInfo.Arguments = "/c """ & Path_SDKAJ & "DiufSudoku\gui.bat"""
+    Processing.StartInfo.Arguments = "/c """ & Path_SDK_Autres_Jeux & "DiufSudoku\gui.bat"""
     'gui.bat comporte java -Xms512m -Xmx2G -jar dist\DiufSudoku.jar SudokuExplainer.log
-    Processing.StartInfo.WorkingDirectory = Path_SDKAJ & "DiufSudoku"
+    Processing.StartInfo.WorkingDirectory = Path_SDK_Autres_Jeux & "DiufSudoku"
     Processing.StartInfo.CreateNoWindow = False ' True = cacher la fenêtre noire
     Processing.StartInfo.UseShellExecute = False
     Processing.Start()
@@ -1304,7 +1146,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_MUDancingLink_Click(sender As Object, e As EventArgs) Handles Mnu06_MUDancingLink.Click
     ClipBoard_Copier_New("1") ' Copier les valeurs initiales de SDK
 
-    Dim Shell_St As String = Path_SDKAJ & "Dancing_Link\Dancing_Links_Library_100\Dancing_Links_Library\Dancing_Links_Library\bin\Debug\Dancing_Links_Library.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "Dancing_Link\Dancing_Links_Library_100\Dancing_Links_Library\Dancing_Links_Library\bin\Debug\Dancing_Links_Library.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1327,7 +1169,7 @@ Public NotInheritable Class Frm_SDK
     End Using
   End Sub
   Private Sub Mnu06_ClassicSudoku_Click(sender As Object, e As EventArgs) Handles Mnu06_ClassicSudoku.Click
-    Dim Shell_St As String = Path_SDKAJ & "CP_Sudoku\SudokuSolver_src\SudokuSolver src\bin\Debug\SudokuSolver.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "CP_Sudoku\SudokuSolver_src\SudokuSolver src\bin\Debug\SudokuSolver.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1336,7 +1178,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_SudokuSolver_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuSolver.Click
-    Dim Shell_St As String = Path_SDKAJ & "Planete\VB_Net_Sud1916447222005\Sudoku\bin\Sudoku.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "Planete\VB_Net_Sud1916447222005\Sudoku\bin\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1345,7 +1187,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_MicrosoftSudoku_Click(sender As Object, e As EventArgs) Handles Mnu06_MicrosoftSudoku.Click
-    Dim Shell_St As String = Path_SDKAJ & "Sudoku_VisualBasic\bin\Debug\Sudoku.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "Sudoku_VisualBasic\bin\Debug\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1354,7 +1196,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_HHSudokuGame_Click(sender As Object, e As EventArgs) Handles Mnu06_HHSudokuGame.Click
-    Dim Shell_St As String = Path_SDKAJ & "SudokuGame\SudokuGame\bin\Debug\SudokuPuzzle.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "SudokuGame\SudokuGame\bin\Debug\SudokuPuzzle.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1606,7 +1448,7 @@ Public NotInheritable Class Frm_SDK
     'La stratégie DancingLink ne fonctionne que si le grille est correcte
     Dim Durée_Déb As Integer = CInt(NativeMethods.GetTickCount64)
     Cursor.Current = Cursors.WaitCursor
-    Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve_IA(U)
+    Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
     Jrn_Add(, {"Dancing Link        : " & CStr(DL.Nb_Solution)})
     Select Case DL.Nb_Solution
       Case -1 : Jrn_Add(, {"U_temp(,) est contrôlé Not U_Check.Check."})
@@ -1616,7 +1458,7 @@ Public NotInheritable Class Frm_SDK
         For i As Integer = 0 To 80
           U(i, 2) = DL.Solution(0).Substring(i, 1)
         Next i
-        Event_OnPaint = "Total"
+        Event_OnPaint = "Global"
         Invalidate()
         Application.DoEvents()
       Case Else
@@ -1696,7 +1538,7 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
     Next i
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
   End Sub
@@ -1704,116 +1546,21 @@ Public NotInheritable Class Frm_SDK
 #End Region
 
 #Region "Menus Contextuels"
-  '-------------------------------------------------------------------------------
-  '
-  ' Menus Contextuels Cellule
-  '
-  ' Ces options différent des options du menu contextuel d'édition, 
-  '     car elles gèrent les valeurs ou les candidats ainsi que les tableau U et U_CddExc
-  ' Mnu_Cel_Val_Insérer
-  ' Mnu_Cel_Val_Effacer
-  ' Mnu_Cel_Cdd_Insérer
-  ' Mnu_Cel_Cdd_InsérerN
-  ' Mnu_Cel_Cdd_Exclure
-  ' Mnu_Cel_Cdd_ExclureAll
-  ' Mnu_Cel_Color
-  '
-  ' Mnu_Cel_Val_Ins_1 à 9          Insérer la valeur 1 à 9 
-  ' Mnu_Cel_Cdd_Exc_Separator      
-  ' Mnu_Cel_Cdd_Exc_1 à 9          Exclure le candidat 1 à 9 
-  ' Mnu_Cel_Cdd_Exd_N              Exclure les candidats ...
-  ' Mnu_Cel_Cdd_Exe_A              Exclure tous les candidats
-  ' Mnu_Cel_Cdd_Ins_Separator      
-  ' Mnu_Cel_Cdd_Ins_1 à 9          Insérer le candidat 1 à 9 
-  ' Mnu_Cel_Val_Eff_Separator      
-  ' Mnu_Cel_Val_Eff_x              Effacer la valeur saisie
-  '
-  '-------------------------------------------------------------------------------
   Private Sub Mnu_Cel_Val_Insérer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Ins_9.Click, Mnu_Cel_Val_Ins_8.Click, Mnu_Cel_Val_Ins_7.Click, Mnu_Cel_Val_Ins_6.Click, Mnu_Cel_Val_Ins_5.Click, Mnu_Cel_Val_Ins_4.Click, Mnu_Cel_Val_Ins_3.Click, Mnu_Cel_Val_Ins_2.Click, Mnu_Cel_Val_Ins_1.Click
-    'Insérer la Valeur, x se trouve en sender.ToString().Substring(18, 1)
-    Try
-      Dim Cellule_Ins As Integer = Pbl_Cell_Select
-      Dim VP As String = sender.ToString().Substring(18, 1)
-      Cell_Val_Insert(VP, Cellule_Ins, "Mnu_Ctx_Ins")
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    'Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(18) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx_Ins")
+    Cell_Val_Insert(sender.ToString(18), Pbl_Cell_Select, "Mnu_Ctx_Ins")
   End Sub
   Private Sub Mnu_Cel_Val_Effacer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Eff_x.Click
-    Try
-      Dim Cellule_Eff As Integer = Pbl_Cell_Select
-      Cell_Val_Delete(Cellule_Eff, "Mnu_Ctx_Eff")
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    'Jrn_Add_Yellow(Proc_Name_Get() & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx_Eff")
+    Cell_Val_Delete(Pbl_Cell_Select, "Mnu_Ctx_Eff")
   End Sub
   Private Sub Mnu_Cel_Cdd_Insérer(Sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Ins_9.Click, Mnu_Cel_Cdd_Ins_8.Click, Mnu_Cel_Cdd_Ins_7.Click, Mnu_Cel_Cdd_Ins_6.Click, Mnu_Cel_Cdd_Ins_5.Click, Mnu_Cel_Cdd_Ins_4.Click, Mnu_Cel_Cdd_Ins_3.Click, Mnu_Cel_Cdd_Ins_2.Click, Mnu_Cel_Cdd_Ins_1.Click
-    'Insérer le candidat x se trouve en sender.ToString().Substring(20, 1) dans une cellule
-    Try
-      Dim Cellule_Ins As Integer = Pbl_Cell_Select
-      Dim Candidat As String = Sender.ToString().Substring(20, 1)
-      Cell_Cdd_Insert(Candidat, Cellule_Ins, "Mnu_Ctx")
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    Jrn_Add_Yellow(Proc_Name_Get() & " V " & Sender.ToString(20) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx")
+    Cell_Cdd_Insert(Sender.ToString(20), Pbl_Cell_Select, "Mnu_Ctx")
   End Sub
   Private Sub Mnu_Cel_Cdd_Exclure(sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Exc_9.Click, Mnu_Cel_Cdd_Exc_8.Click, Mnu_Cel_Cdd_Exc_7.Click, Mnu_Cel_Cdd_Exc_6.Click, Mnu_Cel_Cdd_Exc_5.Click, Mnu_Cel_Cdd_Exc_4.Click, Mnu_Cel_Cdd_Exc_3.Click, Mnu_Cel_Cdd_Exc_2.Click, Mnu_Cel_Cdd_Exc_1.Click
-    'Exclure le candidat, x se trouve en sender.ToString().Substring(20, 1) dans une cellule
-    Try
-      Dim Cellule_Cdd_Exc As Integer = Pbl_Cell_Select
-      Dim Candidat As String = sender.ToString().Substring(20, 1)
-      Cell_Cdd_Exclude(Candidat, Cellule_Cdd_Exc)
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-  End Sub
-    Private Sub Mnu_Cel_Cdd_ExclureAll(sender As Object, e As EventArgs)
-        'Exclusion de tous les candidats pour une cellule
-        Try
-            Dim Cellule_Cdd_Exc As Integer = Pbl_Cell_Select
-            Dim Candidats As String = U(Cellule_Cdd_Exc, 3)
-            For j As Integer = 0 To 8
-                Dim Cdd As String = Candidats.Substring(j, 1)
-                If Cdd <> " " Then
-                    Cell_Cdd_Exclude(Cdd, Cellule_Cdd_Exc)
-                End If
-            Next j
-        Catch ex As Exception
-            Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-            Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-        End Try
-    End Sub
-  Private Sub Mnu_Cel_Cdd_ExclureN(sender As Object, e As EventArgs)
-    ' Exclure n candidats avec InputBox dans une cellule
-    ' La valeur par défaut comporte l'ensemble des candidats à exclure stockés dans U_Strg_Cdd_Exc
-    Try
-      Dim Cellule_Exc As Integer = Pbl_Cell_Select
-      Dim Titre As String = "Exclure un ou plusieurs candidats"
-      Dim Texte As String = "Candidat(s) souhaité(s) en " & U_Coord(Cellule_Exc) & " :" & vbCrLf
-      Texte &= "La chaîne de caractères ne doit pas dépasser 9."
-      Texte &= "Les candidats peuvent être présentés dans le désordre, et comporter des blancs ."
-      Dim Dftvalue As String = U_Strg_Cdd_Exc(Cellule_Exc)
-      ' Permet de positionner InputBox près du clic de la souris
-      Dim Position As New Point(Me.Left + Get_Centre(Pbl_Cell_Select, 1).X + WH, Me.Top + Get_Centre(Pbl_Cell_Select, 1).Y + WH)
-      Dim Candidats As String = InputBox(Texte, Titre, Dftvalue, Position.X, Position.Y)
-
-      If Candidats Is "" Then Exit Sub 'Cancel enfoncé
-      Dim l As Integer = Candidats.Length
-      If l > 9 Then l = 9
-      For j As Integer = 0 To l - 1
-        Dim Cdd As String = Candidats.Substring(j, 1)
-        If Cdd >= "1" And Cdd <= "9" Then
-          Cell_Cdd_Exclude(Cdd, Cellule_Exc)
-        End If
-      Next j
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(20) & " " & U_Coord(Pbl_Cell_Select))
+    Cell_Cdd_Exclude(sender.ToString(20), Pbl_Cell_Select)
   End Sub
   '-------------------------------------------------------------------------------
   '
@@ -1924,7 +1671,7 @@ Public NotInheritable Class Frm_SDK
     My.Settings.Save()
 
     If Afficher Then
-      Event_OnPaint = "Total"
+      Event_OnPaint = "Global"
       Invalidate()
       Application.DoEvents()
     End If
@@ -2043,7 +1790,7 @@ Public NotInheritable Class Frm_SDK
     B_Info.Text = Proc_Name_Get()
     'Dsp_AideGraphique("Non")
     'U_Strg_Effacer()
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
     Dim U_temp(80, 3) As String

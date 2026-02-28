@@ -36,7 +36,6 @@ Friend Module M03_Paint
 
 #Region "G4 Couche Stratégie"
   '   La couche G4 stratégies n'est appelée que dans G4_Grid_Stratégie_All,
-  '   G4_Grid_Stratégie_Flt est également appelé dans Frm_SDK_MouseWheel
   Public Sub G4_Grid_Stratégie_All_g(g As Graphics)
     If Plcy_Gnrl = "Nrm" And Plcy_Strg <> "   " Then
 
@@ -159,6 +158,7 @@ Friend Module M03_Paint
           G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
         End If
       Next i
+      Plcy_Prv_MouseWheel = CInt(Valeur_Filtrée)
     End If
 
     ' Affichage des Candidats Filtrés
@@ -1578,9 +1578,7 @@ Friend Module M03_Paint
     Dim PointMid As PointF = DeCasteljau(0.5, Pts.Pt_From, From_Ctrl, To_Ctrl, Pts.Pt_To)
     Using font As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Italic),
           brsh As New SolidBrush(Color.Black)
-      g.DrawString(ChrW(Link_Numéro + Lettre_Flèche_ChrW), font,
-                       brsh, PointMid.X, PointMid.Y)
-
+      g.DrawString(ChrW(Link_Numéro + Lettre_Flèche_ChrW), font, brsh, PointMid.X, PointMid.Y)
     End Using
   End Sub
 
@@ -1593,9 +1591,7 @@ Friend Module M03_Paint
     Dim sc_To As New Cellule_Cls With {.Numéro = To_Cellule}
     Pt_To_Cellule = New Point(sc_To.Position_Center.X, sc_To.Position_Center.Y)
     Cells_Bresenham_Get(U_Strg, From_Cellule, To_Cellule)
-    Using Pen As New Pen(Color_Stratégique, 5) With {
-                                                     .DashStyle = DashStyle.DashDotDot,
-                                                     .EndCap = LineCap.ArrowAnchor}
+    Using Pen As New Pen(Color_Stratégique, 5) With {.DashStyle = DashStyle.DashDotDot, .EndCap = LineCap.ArrowAnchor}
       g.DrawLine(Pen, Pt_From_Cellule, Pt_To_Cellule)
     End Using
   End Sub

@@ -81,48 +81,9 @@ Module M02_Menu_Management
         Jrn_Add("ERR_00000", {sender.ToString() & " Action : " & Action & " en: " & U_Coord(Cellule)}, "Erreur")
     End Select
 
-    Event_OnPaint = "Total"
+    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
-  End Sub
-
-  Sub Mnu_Mngt_Conditions_Générales(Cellule As Integer)
-    ' Afin de faciliter les traitements suivants, mise en place de Plcy_* spécifiques
-    Plcy_Typ_I = False
-    Plcy_Typ_R = False
-    Plcy_Typ_V_sans_Cdd = False
-    Plcy_Typ_V_avec_Cdd = False
-    If (U(Cellule, 1) <> " ") Then Plcy_Typ_I = True
-    If (U(Cellule, 1) = " " And U(Cellule, 2) <> " ") Then Plcy_Typ_R = True
-
-    If (U(Cellule, 1) = " " And U(Cellule, 2) = " ") Then
-      If Plcy_Gnrl = "Nrm" Then
-        If (Plcy_Strg = "   ") _
-        Or (Stg_Get(Plcy_Strg).Type = "I") _
-        Or (Stg_Get(Plcy_Strg).Type = "E") _
-        Or (Mid$(Plcy_Strg, 1, 1) = "F") Then
-          Plcy_Typ_V_sans_Cdd = True
-        End If
-
-        'Le menu contextuel est replacé pour les filtres
-        If (Plcy_Strg = "Cdd") _
-        Or (Stg_Get(Plcy_Strg).Type = "I") _
-        Or (Stg_Get(Plcy_Strg).Type = "E") _
-        Or (Mid$(Plcy_Strg, 1, 1) = "F") Then
-          Plcy_Typ_V_avec_Cdd = True
-        End If
-      End If
-
-    End If
-
-  End Sub
-
-  Sub Mnu_Mngt_Barre_de_Menu()
-    'Menu Effacer de la barre de Menu
-    Frm_SDK.Mnu02_Effacer.Enabled = False
-    If Plcy_Gnrl = "Nrm" And Plcy_Typ_R Then
-      Frm_SDK.Mnu02_Effacer.Enabled = True
-    End If
   End Sub
 
   Sub Mnu_Mngt_Barre_Outils_Filtres()
@@ -131,7 +92,6 @@ Module M02_Menu_Management
     Dim Btn As System.Windows.Forms.ToolStripItem
     'Les ToolStripSeparator sont correctement placés
     'Les Btn Filtre n'ont pas de texte, uniquement une Image
-    'If Plcy_Gnrl <> "Nrm" Then Exit Sub
     For Each Btn In Frm_SDK.BarreOutils.Items
       If Btn.GetType().ToString() <> "System.Windows.Forms.ToolStripButton" Then Continue For
       Btn.Visible = True
@@ -176,162 +136,82 @@ Module M02_Menu_Management
   End Sub
 
   Sub Mnu_Mngt(Cellule As Integer)
+    Dim Mnu_Item As Boolean, Mnu_Sep As Boolean, Mnu_Grp As Boolean
     Dim Ligne As ToolStripItem
-    Dim Plcy_Mnu_Groupe As Boolean
-    Dim Lig As String = ""
     Dim Opt As String = ""
 
-    Mnu_Mngt_Conditions_Générales(Cellule)
-    Mnu_Mngt_Barre_de_Menu()
     Mnu_Mngt_Barre_Outils_Filtres()
 
-    Plcy_Mnu_Groupe = False
+    Mnu_Grp = False
     For Each Ligne In Frm_SDK.Mnu_Cel.Items
       Try
         'Le menu est systématiquement effacé, rendu invisible
         Ligne.Visible = False
-        Lig = Ligne.Name.Substring(8, 8)
-        Plcy_Mnu_Item = False : Plcy_Mnu_Sep = False
+        Mnu_Item = False : Mnu_Sep = False
         Select Case Ligne.GetType().ToString()
-          Case "System.Windows.Forms.ToolStripMenuItem" : Plcy_Mnu_Item = True
-          Case "System.Windows.Forms.ToolStripSeparator" : Plcy_Mnu_Sep = True
+          Case "System.Windows.Forms.ToolStripMenuItem" : Mnu_Item = True
+          Case "System.Windows.Forms.ToolStripSeparator" : Mnu_Sep = True
         End Select
+        Select Case Ligne.Name.Substring(0, 16)
 
-        Select Case Lig
-
-          Case "Val_Ins_" 'Insérer la valeur 1 à 9
-            If Plcy_Typ_V_sans_Cdd Then
-              If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
-              If Plcy_Mnu_Item Then
-                Opt = Ligne.Name.Substring(16, 1)
-                If Plcy_Fantasy Then
-                  Ligne.Text = "Insérer la valeur " & Mnu_Ctxt_Fantaisy(Opt)
-                Else
-                  Ligne.Text = "Insérer la valeur " & Opt
-                End If
-                Ligne.Visible = True : Plcy_Mnu_Groupe = True
-                If Plcy_Fantasy Then Ligne.Image = Sqr_Fantasy(CInt(Opt))
-                If Not Plcy_Fantasy Then Ligne.Image = Nothing
-              End If
-            End If
-            'Le candidat CdU ou les candidats CdO, Flt sont affichés
-            If Plcy_Typ_V_avec_Cdd Then
+          Case "Mnu_Cel_Val_Ins_" 'Insérer la valeur 1 à 9
+            If Mnu_Item And Stg_Get(Plcy_Strg).Family = 3 And Stg_Get(Plcy_Strg).Type = "I" And U(Cellule, 2) = " " Then
               Dim Candidats As String = U(Cellule, 3)
               Opt = Ligne.Name.Substring(16, 1)
-              If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
-              If Plcy_Mnu_Item Then
-                If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
-                  Ligne.BackColor = Control.DefaultBackColor
-                  'Menu contextuel présenté lors d'une stratégie CdU ou CdO en Aide Graphique
-                  If Plcy_Gnrl = "Nrm" AndAlso
-                      Stg_Get(Plcy_Strg).Type = "I" AndAlso
-                     U_Strg_Val_Ins(Cellule) = Opt Then
-                    Ligne.BackColor = Color_Cdd_Insérer
+              If Opt = Candidats.Substring(CInt(Opt) - 1, 1) And U_Strg_Val_Ins(Cellule) = Opt Then
+                Ligne.BackColor = Control.DefaultBackColor
+                Ligne.Visible = True
+                Ligne.BackColor = Color_Cdd_Insérer
+              End If
+            End If
+
+          Case "Mnu_Cel_Cdd_Exc_" 'Exclure le candidat 1 à 9
+            If U(Cellule, 2) = " " Then
+
+              If Stg_Get(Plcy_Strg).Family = 3 Then
+                If Stg_Get(Plcy_Strg).Type = "E" Then
+                  Dim Candidats As String = U(Cellule, 3)
+                  If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
+                    Opt = Ligne.Name.Substring(16, 1)
+                    If Mnu_Item Then
+                      If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
+                        Ligne.BackColor = Control.DefaultBackColor
+                        'Le menu est colorisé rouge pour toutes les stratégies
+                        Ligne.Visible = True
+                        Ligne.BackColor = Color_Cdd_Exclure
+                      End If
+                    End If
                   End If
-                  If Plcy_Fantasy Then
-                    Ligne.Text = "Insérer la Valeur " & Mnu_Ctxt_Fantaisy(Opt)
-                  Else
-                    Ligne.Text = "Insérer la Valeur " & Opt
-                  End If
-                  Ligne.Visible = True : Plcy_Mnu_Groupe = True
-                Else
-                  Ligne.Visible = False
                 End If
               End If
             End If
-          Case "Cdd_Exc_" 'Exclure le candidat 1 à 9
-            If Plcy_Typ_V_avec_Cdd Then
-              Dim Candidats As String = U(Cellule, 3)
-              If (Plcy_Gnrl = "Nrm" And Wh_Cell_Nb_Candidats(U, Cellule) > 1) Then
-                Opt = Ligne.Name.Substring(16, 1)
-                If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
-                'les stratégies proposent d'exclure un candidat.
-                If Plcy_Mnu_Item Then
-                  If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
-                    If Plcy_Fantasy Then Ligne.Image = Sqr_Fantasy(CInt(Opt))
-                    If Not Plcy_Fantasy Then Ligne.Image = Nothing
-                    Ligne.BackColor = Control.DefaultBackColor
-                    If Plcy_Gnrl = "Nrm" AndAlso
-                      Stg_Get(Plcy_Strg).Type = "E" AndAlso
-                     U_Strg_Cdd_Exc(Cellule).Contains(Opt) Then
-                      'Le menu est colorisé rouge pour toutes les stratégies
-                      Ligne.BackColor = Color_Cdd_Exclure
-                    End If
-                    If Plcy_Fantasy Then
-                      Ligne.Text = "Exclure le candidat " & Mnu_Ctxt_Fantaisy(Opt)
+
+          Case "Mnu_Cel_Cdd_Ins_" 'Insérer les Candidats ....
+            If U(Cellule, 2) = " " Then
+
+              If Stg_Get(Plcy_Strg).Family = 3 Then
+                Dim Candidats_Excl As String = U_CddExc(Cellule)
+                If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
+                  Opt = Ligne.Name.Substring(16, 1)
+                  If Mnu_Sep And Mnu_Grp Then Ligne.Visible = True
+                  'les stratégies proposent d'exclure un candidat.
+                  If Mnu_Item Then
+                    If Opt = Candidats_Excl.Substring(CInt(Opt) - 1, 1) Then
+                      Ligne.BackColor = Control.DefaultBackColor
+                      Ligne.Visible = True : Mnu_Grp = True
                     Else
-                      Ligne.Text = "Exclure le candidat " & Opt
+                      Ligne.Visible = False
                     End If
-                    Ligne.Visible = True : Plcy_Mnu_Groupe = True
-                  Else
-                    Ligne.Visible = False
                   End If
                 End If
               End If
             End If
 
-          'Case "Cdd_Exd_", "Cdd_Exe_" 'Exclure les candidats..., tous les candidats
-          '  'If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
-          '  If Plcy_Typ_V_avec_Cdd Then
-          '    If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
-          '      Ligne.Visible = True
-          '      If Plcy_Fantasy Then Ligne.Visible = False
-          '    End If
-          '  End If
-
-          Case "Cdd_Ins_" 'Insérer les Candidats ....
-            'If Plcy_Sas And Plcy_Typ_V_sans_Cdd Then
-            '  If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
-            '  If Plcy_Mnu_Item Then
-            '    Opt = Ligne.Name.Substring(16, 1)
-            '    If Plcy_Fantasy Then
-            '      Ligne.Text = "Insérer le candidat " & Mnu_Ctxt_Fantaisy(Opt)
-            '    Else
-            '      Ligne.Text = "Insérer le candidat " & Opt
-            '    End If
-            '    Ligne.Visible = True : Plcy_Mnu_Groupe = True
-            '    If Plcy_Fantasy Then Ligne.Image = Sqr_Fantasy(CInt(Opt))
-            '    If Not Plcy_Fantasy Then Ligne.Image = Nothing
-            '  End If
-            'End If
-            'If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
-            '  Dim Candidats As String = U(Cellule, 3)
-            '  Opt = Ligne.Name.Substring(16, 1)
-            '  If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
-            '  If Plcy_Mnu_Item Then
-            '    If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
-            '      Ligne.Visible = False
-            '    Else
-            '      Ligne.Visible = True : Plcy_Mnu_Groupe = True
-            '    End If
-            '  End If
-            'End If
-
-          Case "Cdd_Int_" 'Insérer les Candidats ....
-            'If Plcy_Sas And Plcy_Typ_V_sans_Cdd Then
-            '  If Plcy_Mnu_Item And Plcy_Slm Then
-            '    Ligne.Font = New Font(Ligne.Font.Name, Ligne.Font.Size, FontStyle.Italic)
-            '  Else
-            '    Ligne.Font = New Font(Ligne.Font.Name, Ligne.Font.Size, FontStyle.Regular)
-            '  End If
-            '  If Plcy_Mnu_Item Then
-            '    Ligne.Visible = True : Plcy_Mnu_Groupe = True
-            '  End If
-            '  If Plcy_Fantasy Then Ligne.Visible = False
-            'End If
-            'If Plcy_Sas And Plcy_Typ_V_avec_Cdd Then
-            '  If Plcy_Mnu_Item Then
-            '    Ligne.Visible = True : Plcy_Mnu_Groupe = True
-            '  End If
-            '  If Plcy_Fantasy Then Ligne.Visible = False
-            'End If
-
-          Case "Val_Eff_"
-            If Plcy_Typ_R Then
-              If Plcy_Mnu_Sep And Plcy_Mnu_Groupe Then Ligne.Visible = True
-              If Plcy_Mnu_Item Then
-                Ligne.Visible = True : Plcy_Mnu_Groupe = True
-              End If
+          Case "Mnu_Cel_Val_Eff_"
+            ' Option Effacer la valeur si la cellule est remplie
+            If (U(Cellule, 1) = " " And U(Cellule, 2) <> " ") Then
+              If Mnu_Sep And Mnu_Grp Then Ligne.Visible = True
+              If Mnu_Item Then Ligne.Visible = True : Mnu_Grp = True
             End If
 
           Case Else
@@ -344,27 +224,10 @@ Module M02_Menu_Management
         Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
         Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
         Jrn_Add("ERR_00000", {"Item    : " & Ligne.ToString()}, "Erreur")
-        Jrn_Add("ERR_00000", {"Lig      : " & Lig}, "Erreur")
         Jrn_Add("ERR_00000", {"Opt      : " & Opt}, "Erreur")
         Jrn_Add("ERR_00000", {"Cellule  : " & U_Coord(Cellule) & " V : " & U(Cellule, 2) & " Candidats :" & U(Cellule, 3) & "."}, "Erreur")
       End Try
     Next Ligne
   End Sub
 
-
-  Public Function Mnu_Ctxt_Fantaisy(Valeur As String) As String
-    Dim Txt As String = ""
-    Select Case Valeur
-      Case "1" : Txt = "du haut à gauche"
-      Case "2" : Txt = "du haut au centre"
-      Case "3" : Txt = "du haut à droite"
-      Case "4" : Txt = "du centre à gauche"
-      Case "5" : Txt = "du centre au centre"
-      Case "6" : Txt = "du centre à droite"
-      Case "7" : Txt = "du bas à gauche"
-      Case "8" : Txt = "du bas au centre"
-      Case "9" : Txt = "du bas à droite"
-    End Select
-    Return Txt
-  End Function
 End Module

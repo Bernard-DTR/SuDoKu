@@ -95,19 +95,9 @@ Module M10_Message
   Public Sub Jrn_Add(Optional MsgId As String = "SDK_00000", Optional V() As String = Nothing, Optional Style As String = "")
     '09/07/2023 MsgId est optionnel
     'Insère une information dans le journal RTF
-    'Style représente le mode d'insertion
-    ' "Insertion"   : Rouge italique (Insertion d'une valeur dans une cellule)
-    ' "Annuler"     : Vert Annuler   (UR)
-    ' "Refaire"     : Bleu Refaire  (UR)
-    ' "Info"        : Jaune  (Pour info en attendant d'être enlevé)
-    ' "Orange"      : Orange (Pour info en attendant d'être enlevé)
-    ' "Erreur"      : Surligné en rouge ### Erreur
-    '  Vide         : Info normale du journal (par défaut)
-    ' "Italique"    : Italique et couleur noire
     '-------------------------------------------'
     ' La procédure NE DOIT PAS comporter Jrn_Add '
     '-------------------------------------------'
-    'If Not Plcy_Gbl_Etendue Then Exit Sub
     If Thread.CurrentThread.IsBackground Then
       ' La fonction est exécutée dans un traitement d'arrière-plan
       Exit Sub
