@@ -3,16 +3,11 @@ Option Explicit On
 
 Imports System.Drawing.Drawing2D
 
-'-------------------------------------------------------------------------------
 ' Création le 16/01/2026  
-'        L'axe VERTICAL   est l'axe des y
-'        Le point O est situé en Top-Left
 ' Nommage:
 ' Paint
 '     N° de Couche
 '         Grid ou Cellule
-'            Texte plus explicite
-'-------------------------------------------------------------------------------   
 
 Module M03_Paint_g
 

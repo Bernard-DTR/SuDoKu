@@ -1,10 +1,6 @@
 ﻿Option Strict On
 Option Explicit On
-'-------------------------------------------------------------------------------
 'Création: 31/01/2023
-'https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.systeminformation.mousewheelscrolllines?view=windowsdesktop-7.0
-'
-'-------------------------------------------------------------------------------
 Imports System.Reflection ' Nécessaire pour Property Info
 
 Public Class Frm_SystemInfoBrowser

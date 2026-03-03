@@ -399,7 +399,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>  _
         Public Property DGV_PrmT_Width() As String
             Get
                 Return CType(Me("DGV_PrmT_Width"),String)

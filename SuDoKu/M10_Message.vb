@@ -6,15 +6,12 @@ Imports System.Threading
 Imports Word = Microsoft.Office.Interop.Word 'Pour enregistrer en RTF le Journal
 
 
-'-------------------------------------------------------------------------------
 ' Gestion des Messages
 ' V()  as string comporte les variables %0,%1,...,%9
 ' Ve() as string
 
 'Msg_01000 = Définition du message avec des variables %0, %1 à %9; éventuellement %vbcrlf permet d'aller à la ligne.%Sp-xy pour placer xy caractères blancs
 'Le message commence immédiatement à droite du signe égal
-'Utilisation d'un dictionnaire des messages pour ne plus utiliser MSInternalLibrary.NativeMethods.GetPrivateProfileString
-'-------------------------------------------------------------------------------
 
 Module M10_Message
 

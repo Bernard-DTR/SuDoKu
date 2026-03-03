@@ -36,6 +36,7 @@ Friend Module M03_Sélection
     ' 03  L'affichage du résultat
     Select Case Stg_Get(Plcy_Strg).Family
       Case 0, 2
+        ' Aucune stratégie, stratégie des filtres 
         Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
         Event_OnPaint = "Cellule"
         Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
@@ -44,6 +45,7 @@ Friend Module M03_Sélection
         Application.DoEvents()
 
       Case 1
+        ' Stratégie Cdd, les candidats sont affichés
         Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
         Event_OnPaint = "Cell_Coll"
         If Cell_Coll_Modifiées_List.Count > 0 Then
@@ -62,15 +64,8 @@ Friend Module M03_Sélection
           End Using
         End If
 
-      Case 2
-        Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-        Event_OnPaint = "Cell_Flt"
-        Using reg As New Region(Sqr_Pth(Plcy_MouseWheel))
-          Frm_SDK.Invalidate(reg, False)
-        End Using
-        Application.DoEvents()
-
       Case 3
+        ' Toutes les stratégies, et de nombreuses situations spéciales
         Event_OnPaint = "Global"
         Frm_SDK.Invalidate()
         Application.DoEvents()
@@ -79,14 +74,12 @@ Friend Module M03_Sélection
 
     ' 04 Fin de partie
     If Wh_Nb_Cell(U).Remplies = 81 Then
-      'L'animation est faite en 2 temps d'abord l'animation 
+      ' 041 L'animation est faite en 2 temps d'abord l'animation 
       Event_OnPaint_MAP = Proc_Name_Get() & "A " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
       Event_OnPaint = "Animation"
       Frm_SDK.Invalidate()
       Application.DoEvents()
-
-      'puis un affichage de la grille complète
-
+      ' 042 puis un affichage de la grille complète
       Event_OnPaint_MAP = Proc_Name_Get() & "B " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
       Event_OnPaint = "Global"
       Frm_SDK.Invalidate()

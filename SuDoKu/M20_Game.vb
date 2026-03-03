@@ -33,25 +33,11 @@ Friend Module M20_Game
           Next i
         End If
         Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-
-        'Frm_SDK.Mnu03_AfficherLaSolution.Enabled = True
-        'Frm_SDK.Mnu08_InsérerTouteLaSolution.Enabled = True
-
     End Select
 
-    'OC_Présentation()
 
     'Fin commune à toute nouvelle partie
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
-
-    'Dim ToolTipText As String = Nothing
-
-    'Select Case Frm_SDK.B_Solution.Text
-    '  Case " " : ToolTipText = "Puzzle sans solution"
-    '  Case "*" : ToolTipText = "Mode Sans Assistance"
-    '  Case "S" : ToolTipText = "Le Puzzle a une solution"
-    'End Select
-    'Frm_SDK.ToolTip_B.SetToolTip(Frm_SDK.B_Solution, ToolTipText)
 
     Paint_Partie_Terminée_Nb = 0
     'Lors d'une nouvelle partie, une cellule vide est sélectionnée au hasard comme Cellule Sélectionnée 

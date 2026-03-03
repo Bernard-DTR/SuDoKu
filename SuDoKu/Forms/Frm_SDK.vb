@@ -4,11 +4,7 @@ Imports System.Runtime.InteropServices
 Imports System.Threading
 Imports SuDoKu.DancingLink
 
-'-------------------------------------------------------------------------------
-'
 ' Formulaire SDK
-'
-'-------------------------------------------------------------------------------
 
 Public NotInheritable Class Frm_SDK
   Private MouseClick_Middle_ToolTip As CustomToolTip
@@ -400,8 +396,8 @@ Public NotInheritable Class Frm_SDK
       Select Case Event_OnPaint
         Case "Global"
           ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
-          Dim Gril As New Grille_Cls
           G1_Grid_Paint_g(e.Graphics)
+          Dim Gril As New Grille_Cls
           Gril.G2_Grille_Paint_Fond_g(e.Graphics)
           G4_Grid_Stratégie_All_g(e.Graphics)
           Dim sc As New Cellule_Cls
@@ -412,14 +408,17 @@ Public NotInheritable Class Frm_SDK
 
         Case "Cellule"
           ' La cellule est redessinée sur la couche Fond et Valeur
+          ' Stratégie Cdd et Flt (boutons)
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
           sc.G2_Cellule_Paint_Fond_g(e.Graphics)
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
-          If Stg_Get(Plcy_Strg).Family = 2 Then
+          If Stg_Get(Plcy_Strg).Family = 2 And U(Pbl_Cell_Select, 2) = Plcy_Strg(2) Then
+            ' Stratégie de filtre des valeurs, la valeur doit être présentée en Double-Carré 
             G0_Cell_Figure_g(e.Graphics, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
           End If
 
         Case "Cell_Coll"
+          ' Stratégie Cdd, seules les cellules collatérales sont reaffichées
           ' 1 Les cellules collatérales concernées sont rafraîchies sur les couches Fond et Candidats
           For Each cell As Integer In Cell_Coll_Modifiées_List
             Dim sc_cell_coll As New Cellule_Cls With {.Numéro = cell}
@@ -432,27 +431,32 @@ Public NotInheritable Class Frm_SDK
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
 
         Case "Mouse_Wheel"
-          For Each cell As Integer In Cell_Prv_MouseWheel_List
+          ' Se produit lors de l'affichage des valeurs filtrées avec le bouton MouseWheeel de la souris
+          For Each cell As Integer In Prv_MouseWheel_List
+            ' D'abord les valeurs précédemment filtrées
             Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
             sc_cell.G2_Cellule_Paint_Fond_g(e.Graphics)
             sc_cell.G5_Cellule_Paint_Valeur_g(e.Graphics)
           Next cell
-          Cell_Prv_MouseWheel_List.Clear()
-
-          For Each cell As Integer In Cell_MouseWheel_List
+          For Each cell As Integer In MouseWheel_List
+            ' Puis les valeurs en-cours filtrées
             Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
             sc_cell.G2_Cellule_Paint_Fond_g(e.Graphics)
             sc_cell.G5_Cellule_Paint_Valeur_g(e.Graphics)
+            ' le Double-Carré est ajouté
             G0_Cell_Figure_g(e.Graphics, cell, "Double_Carré", Color_Stratégique)
           Next cell
-          Cell_MouseWheel_List.Clear()
+          Prv_MouseWheel_List.Clear()
+          MouseWheel_List.Clear()
+          ' Il y a ensuite un Thread.Sleep(1000), Le temps de lire quelques valeurs
+
 
         Case "Animation"
           ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
-          '            qui lancera ensuite "Total" pour rafraîchir la grille
-          Dim Gril As New Grille_Cls
+          '            qui lancera ensuite "Global" pour rafraîchir la grille
           'La grille est rafraîchie entièrement 
           G1_Grid_Paint_g(e.Graphics)
+          Dim Gril As New Grille_Cls
           Gril.G2_Grille_Paint_Fond_g(e.Graphics)
           Dim sc As New Cellule_Cls
           For i As Integer = 0 To 80
@@ -669,8 +673,7 @@ Public NotInheritable Class Frm_SDK
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg.StartsWith("FC") Then MouseWheel_Candidat(Sens)
   End Sub
   Public Sub MouseWheel_Valeur(Sens As Integer)
-    'Dim NewMW As Integer
-    If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), Plcy_MouseWheel) Then Exit Sub
+    If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), MouseWheel_Cell) Then Exit Sub
     ' Compter les occurrences de chaque valeur sur la grille
     Dim Result As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
     Dim Val_Nb(9) As Integer
@@ -678,41 +681,44 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 9
       Val_Nb(i) = Result.Val_Nb(i)
     Next i
-    Dim StartVal As Integer = Plcy_MouseWheel
+
+    Dim StartVal As Integer = MouseWheel_Cell
     Do
-      Plcy_MouseWheel = ((Plcy_MouseWheel + Sens + 8) Mod 9) + 1
+      MouseWheel_Cell = ((MouseWheel_Cell + Sens + 8) Mod 9) + 1
       ' Si la valeur n'est pas présente 9 fois, on la présente
-      If Val_Nb(Plcy_MouseWheel) < 9 Then Exit Do
-    Loop While Plcy_MouseWheel <> StartVal
+      If Val_Nb(MouseWheel_Cell) < 9 Then Exit Do
+    Loop While MouseWheel_Cell <> StartVal
 
-    Strategy_Switch("FV" & CStr(Plcy_MouseWheel))
-    Dim Last_Cell_MouseWheel As Integer
+    Strategy_Switch("FV" & CStr(MouseWheel_Cell))
+    Dim Last_MouseWheel_Cell As Integer
 
-    Cell_MouseWheel_List.Clear()
-    Cell_Prv_MouseWheel_List.Clear()
+    MouseWheel_List.Clear()
+    Prv_MouseWheel_List.Clear()
     For i As Integer = 0 To 80
-      If U(i, 2) = CStr(Plcy_MouseWheel) Then
-        Cell_MouseWheel_List.Add(i)
-        Last_Cell_MouseWheel = i
+      If U(i, 2) = CStr(MouseWheel_Cell) Then
+        MouseWheel_List.Add(i)
+        Last_MouseWheel_Cell = i
       End If
-      If U(i, 2) = CStr(Plcy_Prv_MouseWheel) Then
-        Cell_Prv_MouseWheel_List.Add(i)
+      If U(i, 2) = CStr(Prv_MouseWheel_Cell) Then
+        Prv_MouseWheel_List.Add(i)
       End If
     Next i
 
-    Using reg As New Region(Sqr_Pth(Last_Cell_MouseWheel))
-      For Each cell As Integer In Cell_MouseWheel_List
+    Using reg As New Region(Sqr_Pth(Last_MouseWheel_Cell))
+      ' on invalide TOUTES les cellules filtrées précédentes et en cours  
+      For Each cell As Integer In MouseWheel_List
         reg.Union(Sqr_Pth(cell))
       Next
-      For Each cell As Integer In Cell_Prv_MouseWheel_List
+      For Each cell As Integer In Prv_MouseWheel_List
         reg.Union(Sqr_Pth(cell))
       Next
-      Event_OnPaint_MAP = Proc_Name_Get() & " FV" & CStr(Plcy_MouseWheel & " /Prv " & Plcy_Prv_MouseWheel)
+      Event_OnPaint_MAP = Proc_Name_Get() & " FV" & CStr(MouseWheel_Cell & " /Prv " & Prv_MouseWheel_Cell)
       Event_OnPaint = "Mouse_Wheel"
       Invalidate(reg, False)
       Application.DoEvents()
+      Thread.Sleep(1000) 'Le temps ... que ça se fasse
     End Using
-    Plcy_Prv_MouseWheel = Plcy_MouseWheel
+    Prv_MouseWheel_Cell = MouseWheel_Cell
   End Sub
   Public Sub MouseWheel_Candidat(ByVal Sens As Integer)
     Dim FiltreMW As Integer
@@ -742,6 +748,8 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc)
+    Mnu_Mngt_Barre_Outils_Filtres()
+
     Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
     Invalidate()

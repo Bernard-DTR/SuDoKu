@@ -21,6 +21,7 @@ Friend Module M03_Paint
   '-------------------------------------------------------------------------------   
 
   Public Sub U_Strg_Effacer_g(g As Graphics)
+    ' TODO Vraisemblablement, tous ces traitements seront supprimés
     'Toutes les cellules concernées par une stratégie ont un rafraîchissement du fond et de la Valeur/Candidat
     Dim sc As New Cellule_Cls
     For i As Integer = 0 To 80
@@ -158,7 +159,7 @@ Friend Module M03_Paint
           G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
         End If
       Next i
-      Plcy_Prv_MouseWheel = CInt(Valeur_Filtrée)
+      Prv_MouseWheel_Cell = CInt(Valeur_Filtrée)
     End If
 
     ' Affichage des Candidats Filtrés

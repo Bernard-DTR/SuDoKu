@@ -226,8 +226,6 @@ Module A00_Public
   Public Prv_Plcy_Strg As String = "###"
   Public Plcy_Strg_Swt As Integer = -1
   Public Plcy_Stg_Clb As String            ' CkeckedListBox
-  Public Plcy_MouseWheel As Integer = 0
-  Public Plcy_Prv_MouseWheel As Integer = 0
   Public Plcy_Generate_Batch As Boolean = False
   Public Batch_en_Cours As Boolean = False
   Public Batch_Thread As Thread
@@ -332,8 +330,12 @@ Module A00_Public
   End Class
   Public Objet_List As New List(Of Objet_Cls)
   Public Pbl_PtF As PointF
-  Public Cell_MouseWheel_List As New List(Of Integer)
-  Public Cell_Prv_MouseWheel_List As New List(Of Integer)
+
+  ' Utilisation du MouseWheel
+  Public MouseWheel_Cell As Integer = 0
+  Public Prv_MouseWheel_Cell As Integer = 0
+  Public MouseWheel_List As New List(Of Integer)
+  Public Prv_MouseWheel_List As New List(Of Integer)
 
   Public Structure Points_Struct
     Public Pt_From As PointF
@@ -539,7 +541,7 @@ Module A00_Public
     Public Code_LCR As String
     Public LCR As Integer
     Public Candidat As String                   ' Le candidat de la stratégie
-    Public Candidats As String                   ' Les candidats de la stratégie (Unq)
+    Public Candidats As String                  ' Les candidats de la stratégie (Unq)
     Public Cellule() As Integer                 ' Les cellules de la stratégie
     Public CelExcl() As Integer                 ' Les cellules concernées par l'exclusion
     Public Productivité As Boolean              ' False/ True

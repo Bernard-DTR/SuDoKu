@@ -5,10 +5,6 @@ Imports System.Drawing.Drawing2D
 Imports System.Text
 
 ' Date de création: 28/07/2024
-' Ce Module regroupe les traitements effectués lors des changements de présentation
-'   Couleur, WH, ...etc
-'            Color_Frm_BackColor = Color.FromArgb(255, n'est plus transparent
-
 Friend Module A02_Occasionally
   Public Sub OC_Thèmes_Couleurs(Thème As Integer)
     Obj_Symbol = My.Settings.Obj_Symbol
@@ -55,7 +51,7 @@ Friend Module A02_Occasionally
     Dim Stg_Nb As Integer = 0
     For Each Stg As Stg_Cls In Stg_List
       If Stg.Prd = "O" Then Stg_Nb += 1
-    Next stg
+    Next Stg
     ' 2  Dimensionnement 
     ReDim Stg_Bll(0 To Stg_Nb - 1)
     Stg_Profondeur = StrDup(Stg_Nb, "_")
@@ -387,7 +383,7 @@ Friend Module A02_Occasionally
           brsh As New SolidBrush(Color.Black)          'La couleur Color.Black pour les menus contextuels et les filtres de la BO
       For i As Integer = 0 To 9
         Dim Bm_MnuBO As New Bitmap(22, 22)
-        Using g As Graphics = Graphics.FromImage(image:=bm_MnuBO)
+        Using g As Graphics = Graphics.FromImage(image:=Bm_MnuBO)
           g.DrawString(Subst_Police(CStr(i)), font, brsh, 10, 10, Format_Center)
           Sqr_Fantasy(i) = Bm_MnuBO
         End Using

@@ -34,5 +34,4 @@ Friend Module P10_Strategy_CdU
     Next Cellule
     Return Strategy_Rslt
   End Function
-
 End Module

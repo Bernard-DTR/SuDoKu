@@ -120,7 +120,7 @@ Friend Module En_Cours
       Return -1
     End If
     Dim rnd As New Random()
-    Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1))   ' Tire un nombre entre 1 et 99 inclus
+    Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1))   ' Tire un nombre entre 1 et 99 max inclus
     With RRslt
       .Code_Sous_Strg = Strategy_Rslt(2, Index)
       .Code_LCR = Strategy_Rslt(3, Index)
