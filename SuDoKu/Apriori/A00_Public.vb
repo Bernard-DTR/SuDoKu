@@ -332,10 +332,13 @@ Module A00_Public
   Public Pbl_PtF As PointF
 
   ' Utilisation du MouseWheel
-  Public MouseWheel_Cell As Integer = 0
-  Public Prv_MouseWheel_Cell As Integer = 0
-  Public MouseWheel_List As New List(Of Integer)
-  Public Prv_MouseWheel_List As New List(Of Integer)
+  Public MW_Val As Integer = 0                          ' Valeur filtrée en cours
+  Public MW_Prv_Val As Integer = 0                      ' Valeur filtrée précédente
+  Public MW_Cell_List As New List(Of Integer)           ' Liste des cellules filtrées valeur précédente ET en_cours
+
+
+  Public MW_Val_Cell_List As New List(Of Integer)       ' Liste des cellules filtrées de la valeur en_cours
+  Public MW_Prv_Val_Cell_List As New List(Of Integer)   ' Liste des cellules filtrées de la valeur précédente
 
   Public Structure Points_Struct
     Public Pt_From As PointF

@@ -159,7 +159,7 @@ Friend Module M03_Paint
           G0_Cell_Figure_g(g, i, "Double_Carré", Color_Stratégique)
         End If
       Next i
-      Prv_MouseWheel_Cell = CInt(Valeur_Filtrée)
+      MW_Prv_Val = CInt(Valeur_Filtrée)
     End If
 
     ' Affichage des Candidats Filtrés

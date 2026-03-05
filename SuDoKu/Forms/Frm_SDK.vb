@@ -391,7 +391,7 @@ Public NotInheritable Class Frm_SDK
     Try
       MyBase.OnPaint(e)
       If Not Phase_Démarrage_Terminée Then Exit Sub
-      Jrn_Add_White(Proc_Name_Get() & " " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint)
+      'Jrn_Add_White(Proc_Name_Get() & " " & Plcy_Strg & " " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint)
 
       Select Case Event_OnPaint
         Case "Global"
@@ -432,24 +432,14 @@ Public NotInheritable Class Frm_SDK
 
         Case "Mouse_Wheel"
           ' Se produit lors de l'affichage des valeurs filtrées avec le bouton MouseWheeel de la souris
-          For Each cell As Integer In Prv_MouseWheel_List
-            ' D'abord les valeurs précédemment filtrées
+          For Each cell As Integer In MW_Cell_List
             Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
             sc_cell.G2_Cellule_Paint_Fond_g(e.Graphics)
             sc_cell.G5_Cellule_Paint_Valeur_g(e.Graphics)
+            If U(cell, 2) = Plcy_Strg(2) Then
+              G0_Cell_Figure_g(e.Graphics, cell, "Double_Carré", Color_Stratégique)
+            End If
           Next cell
-          For Each cell As Integer In MouseWheel_List
-            ' Puis les valeurs en-cours filtrées
-            Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
-            sc_cell.G2_Cellule_Paint_Fond_g(e.Graphics)
-            sc_cell.G5_Cellule_Paint_Valeur_g(e.Graphics)
-            ' le Double-Carré est ajouté
-            G0_Cell_Figure_g(e.Graphics, cell, "Double_Carré", Color_Stratégique)
-          Next cell
-          Prv_MouseWheel_List.Clear()
-          MouseWheel_List.Clear()
-          ' Il y a ensuite un Thread.Sleep(1000), Le temps de lire quelques valeurs
-
 
         Case "Animation"
           ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
@@ -672,55 +662,40 @@ Public NotInheritable Class Frm_SDK
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg.StartsWith("FC") Then MouseWheel_Candidat(Sens)
   End Sub
   Public Sub MouseWheel_Valeur(Sens As Integer)
-    If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), MouseWheel_Cell) Then Exit Sub
-    ' Compter les occurrences de chaque valeur sur la grille
-    Dim Result As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
-    Dim Val_Nb(9) As Integer
-    ' Copie des valeurs de Val_Nb dans Val_Nb
-    For i As Integer = 0 To 9
-      Val_Nb(i) = Result.Val_Nb(i)
-    Next i
+    If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), MW_Val) Then Exit Sub
+    Dim Result As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)    ' Compter les occurrences de chaque valeur sur la grille
 
-    Dim StartVal As Integer = MouseWheel_Cell
+    Dim StartVal As Integer = MW_Val
     Do
-      MouseWheel_Cell = ((MouseWheel_Cell + Sens + 8) Mod 9) + 1
+      MW_Val = ((MW_Val + Sens + 8) Mod 9) + 1
+      If Result.Val_Nb(MW_Val) < 9 Then Exit Do
       ' Si la valeur n'est pas présente 9 fois, on la présente
-      If Val_Nb(MouseWheel_Cell) < 9 Then Exit Do
-    Loop While MouseWheel_Cell <> StartVal
+    Loop While MW_Val <> StartVal
 
-    Strategy_Switch("FV" & CStr(MouseWheel_Cell))
-    Dim Last_MouseWheel_Cell As Integer
+    Strategy_Switch("FV" & CStr(MW_Val))
 
-    MouseWheel_List.Clear()
-    Prv_MouseWheel_List.Clear()
+    Dim MW_Cell_Last As Integer = -1
+    MW_Cell_List.Clear()
     For i As Integer = 0 To 80
-      If U(i, 2) = CStr(MouseWheel_Cell) Then
-        MouseWheel_List.Add(i)
-        Last_MouseWheel_Cell = i
+      If U(i, 2) = CStr(MW_Prv_Val) Or U(i, 2) = CStr(MW_Val) Then
+        MW_Cell_List.Add(i)
+        MW_Cell_Last = i
       End If
-      If U(i, 2) = CStr(Prv_MouseWheel_Cell) Then
-        Prv_MouseWheel_List.Add(i)
-      End If
-    Next i
+    Next
 
-    ' TODO Gérer le cas où il n'y a aucune valeur pour le filtre en cours
-    ' TODO Gérer le cas où il n'y a aucune valeur pour le filtre précédent
-
-    Using reg As New Region(Sqr_Pth(Last_MouseWheel_Cell))
-      ' on invalide TOUTES les cellules filtrées précédentes et en cours  
-      For Each cell As Integer In MouseWheel_List
-        reg.Union(Sqr_Pth(cell))
-      Next
-      For Each cell As Integer In Prv_MouseWheel_List
-        reg.Union(Sqr_Pth(cell))
-      Next
-      Event_OnPaint_MAP = Proc_Name_Get() & " FV" & CStr(MouseWheel_Cell & " /Prv " & Prv_MouseWheel_Cell)
-      Event_OnPaint = "Mouse_Wheel"
-      Invalidate(reg, False)
-      Application.DoEvents()
-      Thread.Sleep(1000) 'Le temps ... que ça se fasse
-    End Using
-    Prv_MouseWheel_Cell = MouseWheel_Cell
+    If MW_Cell_Last <> -1 Then
+      Using reg As New Region(Sqr_Pth(MW_Cell_Last))
+        ' On invalide TOUTES les cellules filtrées précédentes et en cours  
+        For Each cell As Integer In MW_Cell_List
+          reg.Union(Sqr_Pth(cell))
+        Next
+        Event_OnPaint_MAP = Proc_Name_Get() & " FV En cours " & CStr(MW_Val & " /Prv " & MW_Prv_Val)
+        Event_OnPaint = "Mouse_Wheel"
+        Invalidate(reg, False)
+        Application.DoEvents()
+      End Using
+    End If
+    MW_Prv_Val = MW_Val
   End Sub
   Public Sub MouseWheel_Candidat(ByVal Sens As Integer)
     Dim FiltreMW As Integer
