@@ -12,7 +12,7 @@ Friend Module A01_OnlyOnce
     OO_130_Stg_Init()
     OC_Plcy_Stg_UOBTXYSJZKQ()
     OO_200_Msg_Load()
-    OO_300_U_Init_IA()
+    OO_300_U_Init()
     OO_310_Hw_Init()
     OO_320_Hw_20Cell_Coll_Init()
     OO_330_Cell_FY_List_Build()
@@ -121,7 +121,7 @@ Friend Module A01_OnlyOnce
     Loop
     Rcd.Close()
   End Sub
-  Sub OO_300_U_Init_IA()
+  Sub OO_300_U_Init()
     For i As Integer = 0 To 80
       U(i, 0) = CStr(i)                                                     ' Numéro de la Cellule
       U(i, 1) = " "                                                         ' Valeur Initiale                
@@ -152,7 +152,7 @@ Friend Module A01_OnlyOnce
       End Select
     Next i
   End Sub
-  Sub OO_Wh_27CellulesBande_IA()
+  Sub OO_Wh_27CellulesBande()
     ' La fonction calcule les 27 cellules de chaque bande {"Bh1", "Bh2", "Bh3", "Bv1", "Bv2", "Bv3"}
     Dim Index As Integer = 0
     For Each kvp As KeyValuePair(Of String, Integer) In Bande_Dcty
@@ -174,7 +174,7 @@ Friend Module A01_OnlyOnce
       U_9CelReg(i) = Wh_9CellulesRégion_Rég(i)
     Next i
     'Composition des 6 bandes (3 horizontales et 3 verticales)
-    OO_Wh_27CellulesBande_IA()
+    OO_Wh_27CellulesBande()
   End Sub
   Sub OO_320_Hw_20Cell_Coll_Init()
     'Initialisation des 20 Cellules Collatérales des 81 Cellules de la grille

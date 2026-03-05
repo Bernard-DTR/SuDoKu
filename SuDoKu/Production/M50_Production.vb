@@ -956,13 +956,13 @@ Phase_B:
     Dim Limite_Atteinte As Boolean = False
     Dim Limite_Message As String = ""
     If Limite > Limite_Max Then
-      Limite_Atteinte = True : Limite_Message = Msg_Read_IA("PRD_30010")
+      Limite_Atteinte = True : Limite_Message = Msg_Read("PRD_30010")
     End If
     If Limite_Successive_Dl > Limite_Successive_Dl_Max Then
-      Limite_Atteinte = True : Limite_Message = Msg_Read_IA("PRD_30020")
+      Limite_Atteinte = True : Limite_Message = Msg_Read("PRD_30020")
     End If
     If Wh_Grid_Nb_Cellules_Initiales(U_temp) = CInt(Create_Nb_Cel_Demandées) Then
-      Limite_Atteinte = True : Limite_Message = Msg_Read_IA("PRD_30030")
+      Limite_Atteinte = True : Limite_Message = Msg_Read("PRD_30030")
     End If
 
     If Limite > Limite_Max _
@@ -1117,13 +1117,13 @@ Phase_B:
     Dim Limite_Atteinte As Boolean = False
     Dim Limite_Message As String = ""
     If Limite > Limite_Max Then
-      Limite_Atteinte = True : Limite_Message = Msg_Read_IA("PRD_30010")
+      Limite_Atteinte = True : Limite_Message = Msg_Read("PRD_30010")
     End If
     If Limite_Successive_Dl > Limite_Successive_Dl_Max Then
-      Limite_Atteinte = True : Limite_Message = Msg_Read_IA("PRD_30020")
+      Limite_Atteinte = True : Limite_Message = Msg_Read("PRD_30020")
     End If
     If Wh_Grid_Nb_Cellules_Initiales(U_temp) = CInt(Create_Nb_Cel_Demandées) Then
-      Limite_Atteinte = True : Limite_Message = Msg_Read_IA("PRD_30030")
+      Limite_Atteinte = True : Limite_Message = Msg_Read("PRD_30030")
     End If
 
     If Limite > Limite_Max _
@@ -1553,7 +1553,7 @@ Xwing_Boucle_End:
     Select Case Cellules_Type
       Case "Résoudre une Cellule"
         If Strategy_Index < 2 Then 'CdU et CdO
-          Cell_Val_Insert(Valeur, Cellule, Msg_Read_IA("SDK_40202"))
+          Cell_Val_Insert(Valeur, Cellule, Msg_Read("SDK_40202"))
           Frm_SDK.B_Info.Text = "Résolution de la Cellule. " & Stratégie_Explicite & " en " & Plage
         Else
           Frm_SDK.B_Info.Text = "Résolution de la Cellule. " & Stratégie_Explicite & " en " & Plage

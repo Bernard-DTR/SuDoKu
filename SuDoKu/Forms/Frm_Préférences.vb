@@ -47,27 +47,27 @@ Public Class Frm_Préférences
     Top = Frm_SDK.Top + Frm_SDK.Journal.Top
     Icon = My.Resources.SuDoKu
     TopMost = True
-    Text = Msg_Read_IA("PRF_00000")
+    Text = Msg_Read("PRF_00000")
 
     'Onglet 01 Grille
-    Onglet_01.Text = Msg_Read_IA("PRF_01000")
+    Onglet_01.Text = Msg_Read("PRF_01000")
     Onglet_01.ForeColor = Color.Red 'Sans effet
     Onglet_01.BackColor = Color_Fond_Typ_I
-    Btn01_90.Text = "Reset " & Msg_Read_IA("PRF_01000")
+    Btn01_90.Text = "Reset " & Msg_Read("PRF_01000")
     TrackBar01_02.Value = WH
-    Lbl01_01.Text = Msg_Read_IA("PRF_01011", {CStr(WH), CStr(TrackBar01_02_Minimum), CStr(TrackBar01_02_Maximum)})
+    Lbl01_01.Text = Msg_Read("PRF_01011", {CStr(WH), CStr(TrackBar01_02_Minimum), CStr(TrackBar01_02_Maximum)})
     TrackBar01_02.Minimum = TrackBar01_02_Minimum
     TrackBar01_02.Maximum = TrackBar01_02_Maximum
 
-    Lbl01_06VI.Text = Msg_Read_IA("PRF_01060")
+    Lbl01_06VI.Text = Msg_Read("PRF_01060")
     CB01_ColorComboboxVI.Cbb_Color_Selected = My.Settings.Prf_01C_Clr_ComboBoxVI
     CB01_ColorComboboxVCdd.Cbb_Color_Exclude = My.Settings.Prf_01C_Clr_ComboBoxVI
-    Lbl01_06VCdd.Text = Msg_Read_IA("PRF_01061")
+    Lbl01_06VCdd.Text = Msg_Read("PRF_01061")
     CB01_ColorComboboxVCdd.Cbb_Color_Selected = My.Settings.Prf_01C_Clr_ComboBoxVCdd
     CB01_ColorComboboxVI.Cbb_Color_Exclude = My.Settings.Prf_01C_Clr_ComboBoxVCdd
 
     ' CB01_ComboBoxFond.
-    Lbl01_Fond.Text = Msg_Read_IA("PRF_01070")
+    Lbl01_Fond.Text = Msg_Read("PRF_01070")
 
     Dim Répertoire As String = Path_SDK & "S10_Icônes\Fonds\"
     Dim Fond_Files As IEnumerable(Of String) = From File In IO.Directory.GetFiles(Répertoire)
@@ -79,7 +79,7 @@ Public Class Frm_Préférences
       Nsd_i = CB01_ComboBoxFond.Items.Add(File)
     Next File
     CB01_ComboBoxFond.SelectedIndex = Plcy_Fond_Grille
-    CB01_11.Text = Msg_Read_IA("PRF_01110")
+    CB01_11.Text = Msg_Read("PRF_01110")
     Select Case Plcy_MouseClick_Middle
       Case False : CB01_11.Checked = False
       Case True : CB01_11.Checked = True
@@ -105,45 +105,45 @@ Public Class Frm_Préférences
     CB01_Thèmes.SelectedIndex = My.Settings.Thème_Clr
 
     CB01_Police.Items.Clear()
-    CB01_Police.Items.Add(Msg_Read_IA("PRF_01201"))
-    CB01_Police.Items.Add(Msg_Read_IA("PRF_01202"))
-    CB01_Police.Items.Add(Msg_Read_IA("PRF_01203"))
-    CB01_Police.Items.Add(Msg_Read_IA("PRF_01204"))
+    CB01_Police.Items.Add(Msg_Read("PRF_01201"))
+    CB01_Police.Items.Add(Msg_Read("PRF_01202"))
+    CB01_Police.Items.Add(Msg_Read("PRF_01203"))
+    CB01_Police.Items.Add(Msg_Read("PRF_01204"))
 
     CB01_Police.SelectedIndex = 0
 
     'Onglet 02 Création
-    Onglet_02.Text = Msg_Read_IA("PRF_02000")
+    Onglet_02.Text = Msg_Read("PRF_02000")
     Onglet_02.BackColor = Color_Fond_Typ_I
 
-    Lbl02_01.Text = Msg_Read_IA("PRF_02010")
+    Lbl02_01.Text = Msg_Read("PRF_02010")
     TB02_02.Text = Create_Nb_Cel_Demandées
-    Btn02_90.Text = "Reset " & Msg_Read_IA("PRF_02000")
-    CB02_04.Text = Msg_Read_IA("PRF_02020")
+    Btn02_90.Text = "Reset " & Msg_Read("PRF_02000")
+    CB02_04.Text = Msg_Read("PRF_02020")
     Select Case Plcy_Generate_Batch
       Case False : CB02_04.Checked = False
       Case True : CB02_04.Checked = True
     End Select
-    Lbl02_05.Text = Msg_Read_IA("PRF_02030")
+    Lbl02_05.Text = Msg_Read("PRF_02030")
     TB02_06.Text = CStr(My.Settings.Prf_02C_Nb_Batch_Generate)
-    Lbl02_10.Text = Msg_Read_IA("PRF_02040")
+    Lbl02_10.Text = Msg_Read("PRF_02040")
     TB02_10.Text = Create_Nb_Tentatives
-    CB02_10.Text = Msg_Read_IA("PRF_02050")
+    CB02_10.Text = Msg_Read("PRF_02050")
     Select Case Create_Chat
       Case False : CB02_10.Checked = False
       Case True : CB02_10.Checked = True
     End Select
     CB02_Contraintes.Items.Clear()
-    CB02_Contraintes.Items.Add(Msg_Read_IA("PRF_02060"))
-    CB02_Contraintes.Items.Add(Msg_Read_IA("PRF_02061"))
-    CB02_Contraintes.Items.Add(Msg_Read_IA("PRF_02062"))
-    CB02_Contraintes.Items.Add(Msg_Read_IA("PRF_02063"))
+    CB02_Contraintes.Items.Add(Msg_Read("PRF_02060"))
+    CB02_Contraintes.Items.Add(Msg_Read("PRF_02061"))
+    CB02_Contraintes.Items.Add(Msg_Read("PRF_02062"))
+    CB02_Contraintes.Items.Add(Msg_Read("PRF_02063"))
     CB02_Contraintes.SelectedIndex = My.Settings.Prf_02C_Create_Contrainte
-    Lbl02_07.Text = Msg_Read_IA("PRF_02070")
+    Lbl02_07.Text = Msg_Read("PRF_02070")
     TB02_07.Text = CStr(My.Settings.Prf_02C_Nb_Max_Dl)
 
     'Onglet 03 Stratégie
-    Onglet_03.Text = Msg_Read_IA("PRF_03000")
+    Onglet_03.Text = Msg_Read("PRF_03000")
     Onglet_03.BackColor = Color_Fond_Typ_I
     CLB03_Stratégies.Items.Clear()
     ' Seules les stratégies de production sont chargées
@@ -158,32 +158,32 @@ Public Class Frm_Préférences
     Next i
 
     'Onglet 05 Divers
-    Onglet_05.Text = Msg_Read_IA("PRF_05000")
+    Onglet_05.Text = Msg_Read("PRF_05000")
     Onglet_05.BackColor = Color_Fond_Typ_I
-    Btn05_90.Text = "Reset " & Msg_Read_IA("PRF_05000")
-    'CB05_08.Text = Msg_Read_IA("PRF_05080")
+    Btn05_90.Text = "Reset " & Msg_Read("PRF_05000")
+    'CB05_08.Text = Msg_Read("PRF_05080")
     'Select Case Plcy_Gbl_Etendue
     '  Case True : CB05_08.Checked = True
     '  Case False : CB05_08.Checked = False
     'End Select
-    CB05_10.Text = Msg_Read_IA("PRF_05100")
+    CB05_10.Text = Msg_Read("PRF_05100")
     Select Case Plcy_Dancing_Link
       Case True : CB05_10.Checked = True
       Case False : CB05_10.Checked = False
     End Select
-    CB05_11.Text = Msg_Read_IA("PRF_05110")
+    CB05_11.Text = Msg_Read("PRF_05110")
     Select Case Plcy_Open_Display
       Case True : CB05_11.Checked = True
       Case False : CB05_11.Checked = False
     End Select
-    CB05_12.Text = Msg_Read_IA("PRF_05120")
+    CB05_12.Text = Msg_Read("PRF_05120")
     Select Case Plcy_AfficherDCdd_Bande
       Case True : CB05_12.Checked = True
       Case False : CB05_12.Checked = False
     End Select
 
     'Onglet 06 Couleurs
-    Onglet_06.Text = Msg_Read_IA("PRF_06000")
+    Onglet_06.Text = Msg_Read("PRF_06000")
     Onglet_06.BackColor = Color_Fond_Typ_I
     'Le traitement Paint de Préférences diffère du traitement OnPaint de SDK
     AddHandler Onglet_06.Paint, AddressOf Me.Onglet_06_Paint
@@ -225,7 +225,7 @@ Public Class Frm_Préférences
     End With
 
     Onglet_08.BackColor = Color_Fond_Typ_I
-    CB08_01.Text = Msg_Read_IA("PRF_08010")
+    CB08_01.Text = Msg_Read("PRF_08010")
     Select Case Xap
       Case True : CB08_01.Checked = True
       Case False : CB08_01.Checked = False
@@ -327,7 +327,7 @@ Public Class Frm_Préférences
     'Modification de la taille de la grille de TrackBar01_02_Minimum à TrackBar01_02_Maximum
     'Saisie numérique dans la TrackBar de la taille WH
     WH = TrackBar01_02.Value
-    Lbl01_01.Text = Msg_Read_IA("PRF_01011", {CStr(WH), CStr(TrackBar01_02_Minimum), CStr(TrackBar01_02_Maximum)})
+    Lbl01_01.Text = Msg_Read("PRF_01011", {CStr(WH), CStr(TrackBar01_02_Minimum), CStr(TrackBar01_02_Maximum)})
     My.Settings.Prf_01C_Taille_Cellule = WH
     If Not Mode_Load Then
       OC_Présentation()
@@ -703,14 +703,14 @@ Public Class Frm_Préférences
   End Sub
   Public Sub Prf06_Clr_Initialisation()
     'Le texte des boutons et des tooltiptext 
-    Prf06_Clr_Txt(1) = Msg_Read_IA("PRF_06011")
-    Prf06_Clr_Txt(2) = Msg_Read_IA("PRF_06012")
-    Prf06_Clr_Txt(3) = Msg_Read_IA("PRF_06013")
-    Prf06_Clr_Txt(4) = Msg_Read_IA("PRF_06014")
-    Prf06_Clr_Txt(5) = Msg_Read_IA("PRF_06015")
-    Prf06_Clr_Txt(6) = Msg_Read_IA("PRF_06016")
-    Prf06_Clr_Txt(7) = Msg_Read_IA("PRF_06017")
-    Prf06_Clr_Txt(8) = Msg_Read_IA("PRF_06018")
+    Prf06_Clr_Txt(1) = Msg_Read("PRF_06011")
+    Prf06_Clr_Txt(2) = Msg_Read("PRF_06012")
+    Prf06_Clr_Txt(3) = Msg_Read("PRF_06013")
+    Prf06_Clr_Txt(4) = Msg_Read("PRF_06014")
+    Prf06_Clr_Txt(5) = Msg_Read("PRF_06015")
+    Prf06_Clr_Txt(6) = Msg_Read("PRF_06016")
+    Prf06_Clr_Txt(7) = Msg_Read("PRF_06017")
+    Prf06_Clr_Txt(8) = Msg_Read("PRF_06018")
 
     Btn06_01.Text = Prf06_Clr_Txt(1)
     Btn06_02.Text = Prf06_Clr_Txt(2)

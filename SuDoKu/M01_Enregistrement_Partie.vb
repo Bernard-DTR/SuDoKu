@@ -72,41 +72,41 @@ Module M01_Enregistrement_Partie
       Dim Grille_Val As String = ""
       Dim Grille_Sol As String = ""
       ' 31 Enregistrement des lignes du Fichier
-      Ligne = Msg_Read_IA("PRD_20030", {File_Save_Name})
+      Ligne = Msg_Read("PRD_20030", {File_Save_Name})
       Pzzl_Record_Ligne(File, Ligne)
       Dim s As Integer = InStrRev(File_Save_Name, "\")
       Dim Name As String = Mid$(File_Save_Name, s + 1, File_Save_Name.Length - s - 4)
-      Ligne = Msg_Read_IA("PRD_20010", {Name})
+      Ligne = Msg_Read("PRD_20010", {Name})
       Pzzl_Record_Ligne(File, Ligne)
       For i As Integer = 0 To 80
         Grille_Ini &= Prd.Prd_Ini(i)
         Grille_Val &= Prd.Prd_Ini(i)
         Grille_Sol &= Prd.Prd_Val(i)
       Next i
-      Ligne = Msg_Read_IA("PRD_20020", {Grille_Ini.Replace(" ", ".")})
+      Ligne = Msg_Read("PRD_20020", {Grille_Ini.Replace(" ", ".")})
       Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read_IA("PRD_20021", {Grille_Val.Replace(" ", ".")})
+      Ligne = Msg_Read("PRD_20021", {Grille_Val.Replace(" ", ".")})
       Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read_IA("PRD_20023", {Grille_Sol.Replace(" ", ".")})
+      Ligne = Msg_Read("PRD_20023", {Grille_Sol.Replace(" ", ".")})
       Pzzl_Record_Ligne(File, Ligne)
 
       ' Affichage de DLCode et DLSolution 
-      Ligne = Msg_Read_IA("PRD_20025", {Prd.Prd_DlCode})
+      Ligne = Msg_Read("PRD_20025", {Prd.Prd_DlCode})
       Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read_IA("PRD_20026", {Prd.Prd_DlSolution})
+      Ligne = Msg_Read("PRD_20026", {Prd.Prd_DlSolution})
       Pzzl_Record_Ligne(File, Ligne)
 
-      Ligne = Msg_Read_IA("PRD_20030", {"Date_Heure de création       : " & Prd_DateTime})
+      Ligne = Msg_Read("PRD_20030", {"Date_Heure de création       : " & Prd_DateTime})
       Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read_IA("PRD_20030", {"Version                      : " & SDK_Version})
+      Ligne = Msg_Read("PRD_20030", {"Version                      : " & SDK_Version})
       Pzzl_Record_Ligne(File, Ligne)
 
       ' 32 Enregistrement des Informations de Prd
-      Ligne = Msg_Read_IA("PRD_20030", {"Plcy_Strg_Profondeur         : " & Prd.Prd_Plcy_Strg_Profondeur})
+      Ligne = Msg_Read("PRD_20030", {"Plcy_Strg_Profondeur         : " & Prd.Prd_Plcy_Strg_Profondeur})
       Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read_IA("PRD_20030", {"Contrainte                   : " & Prd.Prd_Cnt_Type & CStr(Prd.Prd_Cnt_Valeur)})
+      Ligne = Msg_Read("PRD_20030", {"Contrainte                   : " & Prd.Prd_Cnt_Type & CStr(Prd.Prd_Cnt_Valeur)})
       Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read_IA("PRD_20030", {"Nb_Cellules_Demandées        : " & CStr(Prd.Prd_Create_Nb_Cel_Demandées)})
+      Ligne = Msg_Read("PRD_20030", {"Nb_Cellules_Demandées        : " & CStr(Prd.Prd_Create_Nb_Cel_Demandées)})
       Pzzl_Record_Ligne(File, Ligne)
 
       Dim S1 As String = "Str: "
@@ -117,23 +117,23 @@ Module M01_Enregistrement_Partie
         S2 &= CStr(Prd.Crt_Strg_Nb(i)).PadLeft(5) & " "
         S3 &= CStr(Prd.Slv_Strg_Nb(i)).PadLeft(5) & " "
       Next i
-      Ligne = Msg_Read_IA("PRD_20030", {S1})
+      Ligne = Msg_Read("PRD_20030", {S1})
       Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read_IA("PRD_20030", {S2})
+      Ligne = Msg_Read("PRD_20030", {S2})
       Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read_IA("PRD_20030", {S3})
+      Ligne = Msg_Read("PRD_20030", {S3})
       Pzzl_Record_Ligne(File, Ligne)
 
       If Prd.Prd_Ext_Triplet <> "#" Then
-        Ligne = Msg_Read_IA("PRD_20030", {"Triplet                      : " & Prd.Prd_Ext_Triplet & " " & U_cr(Prd.Prd_Ext_Triplet_Cellule)})
+        Ligne = Msg_Read("PRD_20030", {"Triplet                      : " & Prd.Prd_Ext_Triplet & " " & U_cr(Prd.Prd_Ext_Triplet_Cellule)})
         Pzzl_Record_Ligne(File, Ligne)
       End If
       If Prd.Prd_Ext_XWing <> "#" Then
-        Ligne = Msg_Read_IA("PRD_20030", {"Xwing                        : " & Prd.Prd_Ext_XWing & " " & U_cr(Prd.Prd_Ext_XWing_Cellule)})
+        Ligne = Msg_Read("PRD_20030", {"Xwing                        : " & Prd.Prd_Ext_XWing & " " & U_cr(Prd.Prd_Ext_XWing_Cellule)})
         Pzzl_Record_Ligne(File, Ligne)
       End If
 
-      Ligne = Msg_Read_IA("PRD_20030", {"..."})
+      Ligne = Msg_Read("PRD_20030", {"..."})
       Pzzl_Record_Ligne(File, Ligne)
       ' 33 Fermeture du Fichier
       File.Close()
@@ -339,11 +339,11 @@ Module M01_Enregistrement_Partie
     Dim Grille_Sol As String = ""
     Dim Grille_Cdd As String = ""
 
-    Ligne = Msg_Read_IA("PRD_20030", {File_Save_Name})
+    Ligne = Msg_Read("PRD_20030", {File_Save_Name})
     Pzzl_Record_Ligne(File, Ligne)
     Dim s As Integer = InStrRev(File_Save_Name, "\")
     Dim Name As String = Mid$(File_Save_Name, s + 1, File_Save_Name.Length - s - 4)
-    Ligne = Msg_Read_IA("PRD_20010", {Name})
+    Ligne = Msg_Read("PRD_20010", {Name})
     Pzzl_Record_Ligne(File, Ligne)
 
     For i As Integer = 0 To 80
@@ -353,20 +353,20 @@ Module M01_Enregistrement_Partie
       Grille_Cdd &= U(i, 3).Replace(" ", "") & ";"
     Next i
 
-    Ligne = Msg_Read_IA("PRD_20020", {Grille_Ini.Replace(" ", ".")})
+    Ligne = Msg_Read("PRD_20020", {Grille_Ini.Replace(" ", ".")})
     Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read_IA("PRD_20021", {Grille_Val.Replace(" ", ".")})
+    Ligne = Msg_Read("PRD_20021", {Grille_Val.Replace(" ", ".")})
     Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read_IA("PRD_20023", {Grille_Sol.Replace(" ", ".")})
+    Ligne = Msg_Read("PRD_20023", {Grille_Sol.Replace(" ", ".")})
     Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read_IA("PRD_20027", {Grille_Cdd})
+    Ligne = Msg_Read("PRD_20027", {Grille_Cdd})
     Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read_IA("PRD_20024", {Stg_Profondeur})
+    Ligne = Msg_Read("PRD_20024", {Stg_Profondeur})
     Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read_IA("PRD_20030", {"Date_Heure d'enregistrement  : " & Prd_DateTime})
+    Ligne = Msg_Read("PRD_20030", {"Date_Heure d'enregistrement  : " & Prd_DateTime})
     Pzzl_Record_Ligne(File, Ligne)
 
-    Ligne = Msg_Read_IA("PRD_20030", {"..."})
+    Ligne = Msg_Read("PRD_20030", {"..."})
     Pzzl_Record_Ligne(File, Ligne)
 
     File.Close()

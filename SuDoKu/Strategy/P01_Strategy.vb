@@ -86,7 +86,7 @@ Friend Module P01_Strategy
     item_DCd.Checked = False
     Dim item_CdS As ToolStripMenuItem = DirectCast(Frm_SDK.Mnu04.DropDown.Items("Mnu04n_CdS"), ToolStripMenuItem)
     item_CdS.Checked = False
-    Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Event_OnPaint_MAP = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()

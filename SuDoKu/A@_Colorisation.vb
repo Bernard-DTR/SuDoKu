@@ -51,7 +51,7 @@ Friend Module A__Colorisation
     Next obj
   End Sub
 
-  Function FormatARGB_IA(a As Byte, r As Byte, g As Byte, b As Byte) As String
+  Function FormatARGB(a As Byte, r As Byte, g As Byte, b As Byte) As String
     Return a.ToString().PadLeft(3, "0"c) & " " &
            r.ToString().PadLeft(3, "0"c) & " " &
            g.ToString().PadLeft(3, "0"c) & " " &
@@ -65,7 +65,7 @@ Friend Module A__Colorisation
     End If
     For Each Clr As Color_Cls In Color_List
       With Clr
-        Jrn_Add(, {"Couleur " & .Symbol & " ; " & FormatARGB_IA(.Color.A, .Color.R, .Color.G, .Color.B)})
+        Jrn_Add(, {"Couleur " & .Symbol & " ; " & FormatARGB(.Color.A, .Color.R, .Color.G, .Color.B)})
       End With
     Next clr
   End Sub
@@ -111,7 +111,7 @@ Friend Module A__Colorisation
     Next item
   End Sub
 
-  Public Sub DrawCustomArrow_IA(g As Graphics, startPoint As PointF, endPoint As PointF, color As Color, width As Single)
+  Public Sub DrawCustomArrow(g As Graphics, startPoint As PointF, endPoint As PointF, color As Color, width As Single)
     ' Fonction auxiliaire pour dessiner une flèche personnalisée
     ' Calculer l'angle de la ligne
     Dim angle As Single = CSng(Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X))
@@ -131,7 +131,7 @@ Friend Module A__Colorisation
     End Using
   End Sub
 
-  Public Function Get_Distance_Point_Flèche_IA(p As PointF, a As PointF, b As PointF) As Double
+  Public Function Get_Distance_Point_Flèche(p As PointF, a As PointF, b As PointF) As Double
     Dim num As Double = Math.Abs((b.Y - a.Y) * p.X - (b.X - a.X) * p.Y + b.X * a.Y - b.Y * a.X)
     Dim den As Double = Math.Sqrt((b.Y - a.Y) ^ 2 + (b.X - a.X) ^ 2)
     Return num / den
@@ -173,7 +173,7 @@ Friend Module A__Colorisation
       g.DrawLine(LinePen, Pts.Pt_From, Pts.Pt_To)
     End Using
 
-    DrawCustomArrow_IA(g, Pts.Pt_From, Pts.Pt_To, Color, 2)
+    DrawCustomArrow(g, Pts.Pt_From, Pts.Pt_To, Color, 2)
     G0_Cdd_Figure_g(g, From_Cellule, From_Candidat, "Cercle", Color)
     G0_Cdd_Figure_g(g, To_Cellule, To_Candidat, "Cercle", Color)
   End Sub

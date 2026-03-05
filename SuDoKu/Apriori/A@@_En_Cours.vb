@@ -149,7 +149,7 @@ Friend Module En_Cours
     End Select
 
     If Plcy_Strg <> "   " Then Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
-    If Plcy_Strg = "   " Then Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    If Plcy_Strg = "   " Then Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
     Dim U_temp(80, 3) As String
     Dim Strategy_Rslt(,) As String = Nothing

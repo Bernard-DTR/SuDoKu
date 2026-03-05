@@ -30,7 +30,7 @@ Friend Module M03_Sélection
     Pbl_Valeur_CdS = V
 
     Mnu_Mngt_Barre_Outils_Filtres()
-    Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     ' 03  L'affichage du résultat
@@ -114,7 +114,7 @@ Friend Module M03_Sélection
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
     Act_Add(Cellule, "Effacer", VE, Cnddts_Blancs, Origine, Av_Jeu, Av_AllCdd)
-    Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
     Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
@@ -143,7 +143,7 @@ Friend Module M03_Sélection
       If U(Cellule, 1) <> " " Then Act_Add(Cellule, "Replacer" & Origine, V, Candidats_Exclus, Proc_Name_Get(), Av_Jeu, Av_AllCdd)
       Pbl_Cell_Select = Cellule
 
-      Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+      Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
       Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
       Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
@@ -179,7 +179,7 @@ Friend Module M03_Sélection
         U_CddExc(Cellule) = Candidats_Exclus
         Act_Add(Cellule, "Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
       Pbl_Cell_Select = Cellule
-      Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+      Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
       Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
       Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"

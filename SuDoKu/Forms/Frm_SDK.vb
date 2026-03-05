@@ -276,19 +276,19 @@ Public NotInheritable Class Frm_SDK
 #End Region
 
 #Region "Mnu06_Divers Internet Explorer et Url diverses"
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE1"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE2"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE3"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE4"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE5"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE6"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE7"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE8"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IE9"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IEa"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IEb"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IEc"))
-    Nsd_i = Mnu06_CB.Items.Add(Msg_Read_IA("MNU_06IEd"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE1"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE2"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE3"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE4"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE5"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE6"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE7"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE8"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IE9"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IEa"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IEb"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IEc"))
+    Nsd_i = Mnu06_CB.Items.Add(Msg_Read("MNU_06IEd"))
     Mnu06_CB.AllowDrop = False
     Mnu06_CB.AutoSize = True
     Mnu06_CB.Width = 450
@@ -391,7 +391,7 @@ Public NotInheritable Class Frm_SDK
     Try
       MyBase.OnPaint(e)
       If Not Phase_Démarrage_Terminée Then Exit Sub
-      'Jrn_Add_White(Proc_Name_Get() & " " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint)
+      Jrn_Add_White(Proc_Name_Get() & " " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint)
 
       Select Case Event_OnPaint
         Case "Global"
@@ -473,7 +473,6 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-
     End Try
 
     Event_OnPaint = "#"
@@ -564,7 +563,7 @@ Public NotInheritable Class Frm_SDK
     Try
       'Il n'est pas besoin de calculer la cellule, c'est Pbl_Cell_Select
       If Pbl_Cell_Select = -1 Then Exit Sub
-      Dim Candidat_Pt As Integer = Wh_Cellule_Candidat_Pt_IA(Pbl_Cell_Select, Pt)
+      Dim Candidat_Pt As Integer = Wh_Cellule_Candidat_Pt(Pbl_Cell_Select, Pt)
       'Le mouse-click se fait soit sur un square, soit ailleurs
       'Il est de 3 types: Gauche, Milieu, Droit
       'Gauche: Rien de particulier, le menu contextuel est préparé,
@@ -703,6 +702,9 @@ Public NotInheritable Class Frm_SDK
         Prv_MouseWheel_List.Add(i)
       End If
     Next i
+
+    ' TODO Gérer le cas où il n'y a aucune valeur pour le filtre en cours
+    ' TODO Gérer le cas où il n'y a aucune valeur pour le filtre précédent
 
     Using reg As New Region(Sqr_Pth(Last_MouseWheel_Cell))
       ' on invalide TOUTES les cellules filtrées précédentes et en cours  
@@ -1165,7 +1167,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_CB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Mnu06_CB.SelectedIndexChanged
     'Traitement des URL
     If Not Phase_Démarrage_Terminée Then Exit Sub
-    Dim Shell_St As String = Msg_Read_IA("MNU_06IE0")
+    Dim Shell_St As String = Msg_Read("MNU_06IE0")
     Dim Item As String = Mnu06_CB.SelectedItem.ToString()
     Dim Index02_03 As Integer = Mnu06_CB.FindString(Item)
     My.Settings.SDK_IE_Last_Url = Index02_03
@@ -1285,67 +1287,67 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Private Sub Mnu07_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu07n_Gbl.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07001")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07001")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu07n_Gbv.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07002")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07002")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_GCs_Click(sender As Object, e As EventArgs) Handles Mnu07n_GCs.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07010")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07010")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_XCx_Click(sender As Object, e As EventArgs) Handles Mnu07n_XCx.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07020")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07020")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_XCy_Click(sender As Object, e As EventArgs) Handles Mnu07n_XCy.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07030")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07030")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_XRp_Click(sender As Object, e As EventArgs) Handles Mnu07n_XRp.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07040")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07040")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_XNl_Click(sender As Object, e As EventArgs) Handles Mnu07n_XNl.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07050")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07050")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_WgX_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgX.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07110")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07110")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_WgY_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgY.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07120")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07120")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_WgZ_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgZ.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07130")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07130")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
   Private Sub Mnu07_WgW_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgW.Click
-    Dim File_Name As String = Path_SDK & Msg_Read_IA("MNU_07140")
+    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07140")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
@@ -1387,12 +1389,20 @@ Public NotInheritable Class Frm_SDK
         '05/06/2024 Une fois la partie lancée, elle est copiée dans Batch_Poubelle et pourra ainsi être contrôlée
         Dim Source As String = File
         Dim Destination As String = Path_Batch_Poubelle & Nom_Physique
-        My.Computer.FileSystem.CopyFile(Source, Destination)
-        ' et ensuite Suppression du fichier
-        ' Une fois la partie lancée, le fichier est supprimé
-        My.Computer.FileSystem.DeleteFile(File,
+        Try
+          ' Le fichier existe déjà
+          My.Computer.FileSystem.CopyFile(Source, Destination)
+          ' et ensuite Suppression du fichier
+          ' Une fois la partie lancée, le fichier est supprimé
+          My.Computer.FileSystem.DeleteFile(File,
            Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
            Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently)
+        Catch ex As Exception
+          Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
+          Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+          Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+        End Try
+
         'Affichage du fichier si Plcy_Open_Display
         'L'affichage permet de lire les commentaires et d'en ajouter  
         If Plcy_Open_Display Then Processing_Start(Destination)
@@ -1493,7 +1503,7 @@ Public NotInheritable Class Frm_SDK
         Mnu08_EditionDuProblème.Checked = True
         Jrn_Add("SDK_00321")
         ContextMenuStrip = Mnu_EDI
-        B_Info.Text = Msg_Read_IA("SDK_00320")
+        B_Info.Text = Msg_Read("SDK_00320")
         B_Info.BackColor = Color.Gray
         ' TODO à voir comment afficher les candidats
         'Strategy_Dsp_Cdd()
@@ -1526,7 +1536,7 @@ Public NotInheritable Class Frm_SDK
         Couleurs_Ckeck(C1Items, Obj_Symbol)
         Objets_Reset(O1Items)
         Objets_CheckAndColor(O1Items, Obj_Forme, Color_BySymbol(Obj_Symbol))
-        B_Info.Text = Msg_Read_IA("SDK_00330")
+        B_Info.Text = Msg_Read("SDK_00330")
         B_Info.BackColor = Color_BySymbol(Obj_Symbol)
       Case -1
         Plcy_Gnrl = "Nrm" : Plcy_Strg = "   "
@@ -1647,7 +1657,7 @@ Public NotInheritable Class Frm_SDK
         'Candidat_Pt = Me.PointToClient(MousePosition) a été documenté à l'ouverture du menu contextuel
         '👉 Mnu_Obj_Opening
         ' Trouver l'objet correspondant
-        Dim ligneàSupprimer As Objet_Cls = Objet_List.FirstOrDefault(Function(l) Get_Distance_Point_Flèche_IA(Pbl_PtF, l.Point_From, l.Point_To) < 5)
+        Dim ligneàSupprimer As Objet_Cls = Objet_List.FirstOrDefault(Function(l) Get_Distance_Point_Flèche(Pbl_PtF, l.Point_From, l.Point_To) < 5)
         If ligneàSupprimer IsNot Nothing Then
           Objet_List.Remove(ligneàSupprimer) ' Supprimer l'objet trouvé
         End If

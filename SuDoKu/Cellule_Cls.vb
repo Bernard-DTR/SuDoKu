@@ -362,7 +362,7 @@ Public Class Grille_Cls
       If Paint_Partie_Terminée_Nb > 2 Then Exit Sub
       Cursor.Current = Cursors.WaitCursor
       Paint_Partie_Terminée_Nb += 1
-      Frm_SDK.B_Info.Text = Msg_Read_IA("SDK_50029")
+      Frm_SDK.B_Info.Text = Msg_Read("SDK_50029")
 
       Dim sc As New Cellule_Cls
       'Collection des valeurs initiales

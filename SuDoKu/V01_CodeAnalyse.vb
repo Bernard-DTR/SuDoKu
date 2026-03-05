@@ -18,13 +18,13 @@ Friend Module V01_CodeAnalyse
     Jrn_Add("SDK_Space")
     Jrn_Add(, {Proc_Name_Get()})
 
-    Sql_Truncate_IA()
+    Sql_Truncate()
     Sql_Insert_CodT()
-    Sql_Insert_MotT_IA()
+    Sql_Insert_MotT()
     Sql_Insert_PrcT()
-    Sql_CountParallel_PrcT_IA()
-    Sql_CountParallel_MsgT_IA()
-    Sql_CountSequentiel_PrmT_IA()
+    Sql_CountParallel_PrcT()
+    Sql_CountParallel_MsgT()
+    Sql_CountSequentiel_PrmT()
     Dim DE As String = "Date d'extraction: " & Format(Now, "dddd d MMM yyyy") & " " & Format(Now, "H:mm:ss")
     My.Settings.Date_Extraction = DE
 
@@ -37,7 +37,7 @@ Friend Module V01_CodeAnalyse
     Jrn_Add(, {"Soit  : " & S})
     Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
-  Public Sub Sql_Truncate_IA()
+  Public Sub Sql_Truncate()
     Jrn_Add("SDK_Space")
     Dim Sql_Str As String = ""
     Dim Tables As String() = {"CodT", "MotT", "PrcT", "MsgT", "PrmT"}
@@ -169,7 +169,7 @@ Friend Module V01_CodeAnalyse
     Jrn_Add(, {" Insertion de " & CStr(File_Nb) & " fichiers *vb."})
 
     Sql_Str = "Select Count(*) From CodT"
-    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
 
     Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
     Dim Durée As Integer = Durée_Fin - Durée_Déb
@@ -179,8 +179,8 @@ Friend Module V01_CodeAnalyse
     Jrn_Add(, {"Soit  : " & S})
     Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
-  Public Sub Sql_Insert_MotT_IA()
-    '     la PS InsertMot_IA ajoute le mot ou incrémente le compteur 
+  Public Sub Sql_Insert_MotT()
+    '     la PS InsertMot ajoute le mot ou incrémente le compteur 
     'Sql: Select Case Count(*) From MotT Count : 5951
     'Sql:  Select Case Count(*) From MotT Where Nombre <> -1  Count : 5951
     'Sql:    Select Case Sum(Nombre) From MotT Where Nombre <> -1  Count : 87487
@@ -221,7 +221,7 @@ Friend Module V01_CodeAnalyse
             ' Il est nécessaire d'ouvrir une nouvelle connexion à cause du SqlDataReader
             Using Sql_Con_Mot As New SqlConnection(Con_Strg)
               Sql_Con_Mot.Open()
-              Dim Sql_Prc As String = "InsertMot_IA"
+              Dim Sql_Prc As String = "InsertMot"
               'La procédure insère un mot si le mot n'existe pas déjà
               'ou incrémente le compteur Nombre si le mot existe
               Using Cmd_Mot As New SqlCommand(Sql_Prc, Sql_Con_Mot)
@@ -237,11 +237,11 @@ Friend Module V01_CodeAnalyse
 
     'Nombre de Mots
     Sql_Str = "Select Count(*) From MotT"
-    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
     Sql_Str = "Select Count(*) From MotT Where Nombre <> -1 "
-    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
     Sql_Str = "Select Sum(Nombre) From MotT Where Nombre <> -1 "
-    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
 
     Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
     Dim Durée As Integer = Durée_Fin - Durée_Déb
@@ -273,7 +273,7 @@ Friend Module V01_CodeAnalyse
     End Using
 
     Sql_Str = "Select Count(*) From PrcT"
-    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
     Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
     Dim Durée As Integer = Durée_Fin - Durée_Déb
     Dim Ts As TimeSpan = TimeSpan.FromMilliseconds(Durée)
@@ -282,7 +282,7 @@ Friend Module V01_CodeAnalyse
     Jrn_Add(, {"Soit  : " & S})
     Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
-  Public Sub Sql_CountParallel_PrcT_IA()
+  Public Sub Sql_CountParallel_PrcT()
     ' Connexion avec un Max Pool Size=200
     ' Limite à 14 tâches parallèles et teste cette limite
     ' Utilise une procédure stockée
@@ -299,7 +299,7 @@ Friend Module V01_CodeAnalyse
     Using Sql_Con As New SqlConnection(Con_Strg)
       Sql_Con.Open()
       Sql_Str = "Select Count(*) From PrcT"
-      Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+      Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
 
       Dim Sql_Sel As String = "Select IdPrc, Procédure FROM PrcT Order by Procédure"
       Dim Sql_Cmd As New SqlCommand(Sql_Sel, Sql_Con)
@@ -318,7 +318,7 @@ Friend Module V01_CodeAnalyse
             Tasks.Add(Task.Run(Sub()
                                  Using Sql_Con_Prc As New SqlConnection(Con_Strg)
                                    Sql_Con_Prc.Open()
-                                   Dim Sql_Prc As String = "UpdatePrc_IA"
+                                   Dim Sql_Prc As String = "UpdatePrc"
                                    ' La procédure stockée exécute un Update avec le Select Count(*)
                                    Using Cmd_Mot As New SqlCommand(Sql_Prc, Sql_Con_Prc)
                                      Cmd_Mot.CommandType = CommandType.StoredProcedure
@@ -337,9 +337,9 @@ Friend Module V01_CodeAnalyse
       End Using
     End Using
 
-Sql_CountParallel_PrcT_IA_End:
+Sql_CountParallel_PrcT_End:
     Sql_Str = "Select Count(*) From PrcT Where Nombre <> -1 "
-    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
     Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
     Dim Durée As Integer = Durée_Fin - Durée_Déb
     Dim Ts As TimeSpan = TimeSpan.FromMilliseconds(Durée)
@@ -348,7 +348,7 @@ Sql_CountParallel_PrcT_IA_End:
     Jrn_Add(, {"Soit  : " & S})
     Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
-  Public Sub Sql_CountParallel_MsgT_IA()
+  Public Sub Sql_CountParallel_MsgT()
     Jrn_Add("SDK_Space")
     Jrn_Add(, {Proc_Name_Get()})
     Dim Durée_Déb As Integer = CInt(NativeMethods.GetTickCount64)
@@ -392,7 +392,7 @@ Sql_CountParallel_PrcT_IA_End:
 
           ' Capturer les valeurs dans les tâches
           Tasks.Add(Task.Run(Sub()
-                               Dim Sql_Prc As String = "InsertMsg_IA"
+                               Dim Sql_Prc As String = "InsertMsg"
                                Using Sql_Con As New System.Data.SqlClient.SqlConnection(Con_Strg)
                                  Sql_Con.Open()
                                  'La procédure insère un message et son count(*)
@@ -416,7 +416,7 @@ Sql_CountParallel_PrcT_IA_End:
     End Using
 
     Sql_Str = "Select Count(*) From MsgT"
-    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
     Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
     Dim Durée As Integer = Durée_Fin - Durée_Déb
     Dim Ts As TimeSpan = TimeSpan.FromMilliseconds(Durée)
@@ -425,7 +425,7 @@ Sql_CountParallel_PrcT_IA_End:
     Jrn_Add(, {"Soit  : " & S})
     Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
-  Public Sub Sql_CountSequentiel_PrmT_IA()
+  Public Sub Sql_CountSequentiel_PrmT()
     'Sql: Select Case Count(*) From PrmT Count : 53
     'Durée: 158312 ms.
     'Soit: 00:02:38
@@ -457,7 +457,7 @@ Sql_CountParallel_PrcT_IA_End:
           If P2 > P1 Then
             Dim Paramètre As String = Mid$(Ligne, P1 + 15, P2 - P1 - 15)
             ' Exécution de la procédure stockée
-            Dim Sql_Prc As String = "InsertPrm_IA"
+            Dim Sql_Prc As String = "InsertPrm"
             Using Cmd_Mot As New SqlCommand(Sql_Prc, Sql_Con)
               Cmd_Mot.CommandType = CommandType.StoredProcedure
               Cmd_Mot.Parameters.AddWithValue("@Paramètre", Paramètre)
@@ -471,7 +471,7 @@ Sql_CountParallel_PrcT_IA_End:
 
     ' Nombre de lignes de Paramètres
     Dim Sql_Str As String = "Select Count(*) From PrmT"
-    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int_IA(Sql_Str))})
+    Jrn_Add(, {"Sql : " & Sql_Str & " Count : " & (Sql_Value_Int(Sql_Str))})
 
     ' Temps de fin et calcul de la durée
     Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
@@ -482,7 +482,7 @@ Sql_CountParallel_PrcT_IA_End:
     Jrn_Add(, {"Soit  : " & S})
     Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
-  Public Function Sql_Value_Int_IA(Sql_Str As String) As Integer
+  Public Function Sql_Value_Int(Sql_Str As String) As Integer
     ' Retourne la valeur integer d'une requête
     Dim Value As Integer
     Using Sql_Con As New SqlConnection(My.Settings.Connect)
@@ -553,13 +553,13 @@ Sql_CountParallel_PrcT_IA_End:
     Jrn_Add(, {CStr(Nbl_T_Desi).PadLeft(5) & " Lignes Designer. "})
     Jrn_Add(, {CStr(CInt(Nbl_T / (192 * 22))).PadLeft(5) & " cahiers de 192 pages de 22 lignes."})
 
-    Jrn_Add(, {CStr(Sql_Value_Int_IA("Select Count(*) From CodT")).PadLeft(5) & " Lignes dans CodT."})
-    Jrn_Add(, {CStr(Sql_Value_Int_IA("Select Count(*) From DicTionnaire")).PadLeft(5) & " Lignes dans DicTionnaire."})
-    Jrn_Add(, {CStr(Sql_Value_Int_IA("Select Count(*) From MotT")).PadLeft(5) & " Lignes dans MotT."})
-    Jrn_Add(, {CStr(Sql_Value_Int_IA("Select Count(*) From MotTRéservés")).PadLeft(5) & " Lignes dans MotTRéservés."})
-    Jrn_Add(, {CStr(Sql_Value_Int_IA("Select Count(*) From MsgT")).PadLeft(5) & " Lignes dans MsgT."})
-    Jrn_Add(, {CStr(Sql_Value_Int_IA("Select Count(*) From PrcT")).PadLeft(5) & " Lignes dans PrcT."})
-    Jrn_Add(, {CStr(Sql_Value_Int_IA("Select Count(*) From PrmT")).PadLeft(5) & " Lignes dans PrmT."})
+    Jrn_Add(, {CStr(Sql_Value_Int("Select Count(*) From CodT")).PadLeft(5) & " Lignes dans CodT."})
+    Jrn_Add(, {CStr(Sql_Value_Int("Select Count(*) From DicTionnaire")).PadLeft(5) & " Lignes dans DicTionnaire."})
+    Jrn_Add(, {CStr(Sql_Value_Int("Select Count(*) From MotT")).PadLeft(5) & " Lignes dans MotT."})
+    Jrn_Add(, {CStr(Sql_Value_Int("Select Count(*) From MotTRéservés")).PadLeft(5) & " Lignes dans MotTRéservés."})
+    Jrn_Add(, {CStr(Sql_Value_Int("Select Count(*) From MsgT")).PadLeft(5) & " Lignes dans MsgT."})
+    Jrn_Add(, {CStr(Sql_Value_Int("Select Count(*) From PrcT")).PadLeft(5) & " Lignes dans PrcT."})
+    Jrn_Add(, {CStr(Sql_Value_Int("Select Count(*) From PrmT")).PadLeft(5) & " Lignes dans PrmT."})
     Jrn_Add(, {"/End"})
   End Sub
 End Module

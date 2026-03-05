@@ -16,7 +16,7 @@ Imports Word = Microsoft.Office.Interop.Word 'Pour enregistrer en RTF le Journal
 Module M10_Message
 
   ''' <summary>Retourne un message documenté des variables.</summary>
-  Public Function Msg_Read_IA(MsgId As String, Optional V() As String = Nothing) As String
+  Public Function Msg_Read(MsgId As String, Optional V() As String = Nothing) As String
     ' Cette fonction retourne un message avec des variables documentées
 
     Dim Ve(10) As String
@@ -102,9 +102,9 @@ Module M10_Message
 
     Dim Inf As String = "#Nothing"
     If Msg_Dsp_MsgId Then
-      Inf = MsgId & " " & Msg_Read_IA(MsgId, V)
+      Inf = MsgId & " " & Msg_Read(MsgId, V)
     Else
-      Inf = Msg_Read_IA(MsgId, V)
+      Inf = Msg_Read(MsgId, V)
     End If
 
     With Frm_SDK.Journal

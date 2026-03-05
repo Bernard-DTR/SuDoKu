@@ -87,7 +87,7 @@ Friend Module A02_Occasionally
   Public Sub OC_Présentation()
     OC_Grid_Compute()
     OC_U_Pt20_Init()
-    OC_Grid_Compute_Font_Size_IA()
+    OC_Grid_Compute_Font_Size()
     OC_Grid_Cutting_Image()
     OC_Présentation_SDK()
     OC_Présentation_Menu()
@@ -153,16 +153,16 @@ Friend Module A02_Occasionally
     End With
 
     With Frm_SDK
-      .Mnu08_TestA.Text = Msg_Read_IA("MNU_0800A")
-      .Mnu08_TestB.Text = Msg_Read_IA("MNU_0800B")
-      .Mnu08_TestC.Text = Msg_Read_IA("MNU_0800C")
-      .Mnu08_TestD.Text = Msg_Read_IA("MNU_0800D")
-      .Mnu08_TestE.Text = Msg_Read_IA("MNU_0800E")
-      .Mnu08_TestF.Text = Msg_Read_IA("MNU_0800F")
-      .Mnu08_TestG.Text = Msg_Read_IA("MNU_0800G")
-      .Mnu08_TestH.Text = Msg_Read_IA("MNU_0800H")
-      .Mnu08_TestI.Text = Msg_Read_IA("MNU_0800I")
-      .Mnu08_TestJ.Text = Msg_Read_IA("MNU_0800J")
+      .Mnu08_TestA.Text = Msg_Read("MNU_0800A")
+      .Mnu08_TestB.Text = Msg_Read("MNU_0800B")
+      .Mnu08_TestC.Text = Msg_Read("MNU_0800C")
+      .Mnu08_TestD.Text = Msg_Read("MNU_0800D")
+      .Mnu08_TestE.Text = Msg_Read("MNU_0800E")
+      .Mnu08_TestF.Text = Msg_Read("MNU_0800F")
+      .Mnu08_TestG.Text = Msg_Read("MNU_0800G")
+      .Mnu08_TestH.Text = Msg_Read("MNU_0800H")
+      .Mnu08_TestI.Text = Msg_Read("MNU_0800I")
+      .Mnu08_TestJ.Text = Msg_Read("MNU_0800J")
     End With
 
     ' Libellé des Menus en fonction de la taille de WH
@@ -174,14 +174,14 @@ Friend Module A02_Occasionally
       End Select
       'PadRight  permet d'avoir un libellé de menu inférieur à 10 caractères
       'Substring permet d'avoir un menu court et un menu long
-      .Mnu01.Text = Msg_Read_IA("MNU_01000").PadRight(l).Substring(0, l)
-      .Mnu02.Text = Msg_Read_IA("MNU_02000").PadRight(l).Substring(0, l)
-      .Mnu03.Text = Msg_Read_IA("MNU_03000").PadRight(l).Substring(0, l)
-      .Mnu04.Text = Msg_Read_IA("MNU_04000").PadRight(l).Substring(0, l)
-      .Mnu08.Text = Msg_Read_IA("MNU_08000").PadRight(l).Substring(0, l)
-      .Mnu05.Text = Msg_Read_IA("MNU_05000").PadRight(l).Substring(0, l)
-      .Mnu06.Text = Msg_Read_IA("MNU_06000").PadRight(l).Substring(0, l)
-      .Mnu07.Text = Msg_Read_IA("MNU_07000").PadRight(l).Substring(0, l)
+      .Mnu01.Text = Msg_Read("MNU_01000").PadRight(l).Substring(0, l)
+      .Mnu02.Text = Msg_Read("MNU_02000").PadRight(l).Substring(0, l)
+      .Mnu03.Text = Msg_Read("MNU_03000").PadRight(l).Substring(0, l)
+      .Mnu04.Text = Msg_Read("MNU_04000").PadRight(l).Substring(0, l)
+      .Mnu08.Text = Msg_Read("MNU_08000").PadRight(l).Substring(0, l)
+      .Mnu05.Text = Msg_Read("MNU_05000").PadRight(l).Substring(0, l)
+      .Mnu06.Text = Msg_Read("MNU_06000").PadRight(l).Substring(0, l)
+      .Mnu07.Text = Msg_Read("MNU_07000").PadRight(l).Substring(0, l)
     End With
 
     ' Changement de la police dans Mnu de Frm_Sdk et Mnu04
@@ -480,16 +480,16 @@ Friend Module A02_Occasionally
     Next Cellule
   End Sub
 
-  Public Sub OC_Grid_Compute_Font_Size_IA()
+  Public Sub OC_Grid_Compute_Font_Size()
     'Calcul de la taille des polices des Valeurs et des Candidats
-    Font_Val_Size = CalculateFontSize_IA(Font_Name_ValCdd, FontStyle.Regular, WH, "1")
+    Font_Val_Size = CalculateFontSize(Font_Name_ValCdd, FontStyle.Regular, WH, "1")
     Font_Cdd_Size_Zoom = (4 * Font_Val_Size) / 6
-    Font_Cdd_Size = CalculateFontSize_IA(Font_Name_ValCdd, FontStyle.Italic, CSng(WH / 3), "1")
+    Font_Cdd_Size = CalculateFontSize(Font_Name_ValCdd, FontStyle.Italic, CSng(WH / 3), "1")
   End Sub
-  Private Function CalculateFontSize_IA(fontName As String,
-                                      fontStyle As FontStyle,
-                                      maxHeight As Single,
-                                      text As String) As Single
+  Private Function CalculateFontSize(fontName As String,
+                                     fontStyle As FontStyle,
+                                     maxHeight As Single,
+                                     text As String) As Single
     Dim size As Single
     Using g As Graphics = Graphics.FromHwnd(IntPtr.Zero)
       For p As Integer = 5 To 100

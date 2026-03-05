@@ -350,7 +350,7 @@ Module G20_Général
   ' Résolutions
   '-------------------------------------------------------------------------------
 
-  Public Function Get_Scale_IA(Device_Number As Integer) As PointF
+  Public Function Get_Scale(Device_Number As Integer) As PointF
     ' Paire ordonnée x et y en virgule flottante pour définir l'échelle personnalisée
     Dim Scale_Personnalisée As New PointF(1.0, 1.0)
     Dim Screens As Screen() = Screen.AllScreens
@@ -361,14 +361,14 @@ Module G20_Général
     '                                2560 + 1440 = 4480 
     With Screens(Device_Number)
       '.Bounds.propose la dimension "agrandie"
-      ' Get_Résolution_Physique_IA(.DeviceName). propose le dimension physique réelle
-      Scale_Personnalisée.X = CSng(Get_Résolution_Physique_IA(.DeviceName).X / .Bounds.Width)
-      Scale_Personnalisée.Y = CSng(Get_Résolution_Physique_IA(.DeviceName).Y / .Bounds.Height)
+      ' Get_Résolution_Physique(.DeviceName). propose le dimension physique réelle
+      Scale_Personnalisée.X = CSng(Get_Résolution_Physique(.DeviceName).X / .Bounds.Width)
+      Scale_Personnalisée.Y = CSng(Get_Résolution_Physique(.DeviceName).Y / .Bounds.Height)
     End With
     Return Scale_Personnalisée
   End Function
 
-  Public Function Get_Résolution_Physique_IA(Device_Name As String) As PointF
+  Public Function Get_Résolution_Physique(Device_Name As String) As PointF
     ' Donne la Résolution Physique Réelle de l'écran
     Dim Résolution_Physique As New PointF(-1, -1)
     Dim DisplayDevice As New NativeMethods.DISPLAY_DEVICE()

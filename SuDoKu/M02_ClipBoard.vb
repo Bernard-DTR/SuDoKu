@@ -69,10 +69,10 @@ Friend Module M02_ClipBoard
       Dim W_Grid As Integer = Bld_WH_Grid
       Dim H_Grid As Integer = Bld_WH_Grid
 
-      Screen_TopLeft.X = CInt(Screen_TopLeft.X * Get_Scale_IA(Device_Number).X)
-      Screen_TopLeft.Y = CInt(Screen_TopLeft.Y * Get_Scale_IA(Device_Number).Y)
-      W_Grid = CInt(Bld_WH_Grid * Get_Scale_IA(Device_Number).X)
-      H_Grid = CInt(Bld_WH_Grid * Get_Scale_IA(Device_Number).Y)
+      Screen_TopLeft.X = CInt(Screen_TopLeft.X * Get_Scale(Device_Number).X)
+      Screen_TopLeft.Y = CInt(Screen_TopLeft.Y * Get_Scale(Device_Number).Y)
+      W_Grid = CInt(Bld_WH_Grid * Get_Scale(Device_Number).X)
+      H_Grid = CInt(Bld_WH_Grid * Get_Scale(Device_Number).Y)
       ' Le format est de 32 bits par pixel. Les composants ARGB ont 8 bits chacun
       Try
         Using bmp As New Bitmap(W_Grid, H_Grid, PixelFormat.Format32bppArgb)
