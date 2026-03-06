@@ -162,11 +162,11 @@ Public Class ColorCombobox
                                          21,
                                          ItemRectangle.Height - 3))
 
-        g.DrawString(colorName,
-                        Cbb_Color.Font,
-                        brushText,
-                        ItemRectangle.Left + 28,
-                        ItemRectangle.Top + ((ItemRectangle.Height - Cbb_Color.Font.GetHeight()) / 2))
+      g.DrawString(colorName,
+                      Cbb_Color.Font,
+                      brushText,
+                      ItemRectangle.Left + 28,
+                      ItemRectangle.Top + ((ItemRectangle.Height - Cbb_Color.Font.GetHeight()) / 2))
 
     End Using
 

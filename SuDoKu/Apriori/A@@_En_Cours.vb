@@ -1,7 +1,5 @@
 ﻿Option Strict On
 Option Explicit On
-Imports System.Security
-Imports System.Threading
 
 Friend Module En_Cours
 #Region "Menus Test A à J"
@@ -81,60 +79,24 @@ Friend Module En_Cours
   End Sub
 #End Region
 #Region "RRslt: Les Résultats d'une stratégie 'Classique'"
-  Public Sub RRslt_Init()
-    With RRslt
-      .Code_Strg = Plcy_Strg
-      .Code_Sous_Strg = ""
-      .Code_LCR = "#"
-      .LCR = -1
-      .Candidat = "0"
-      .Candidats = "000000000"
-      '.Cellule()
-      '.CelExcl()
-      .Productivité = False
-    End With
-  End Sub
   Public Sub RRslt_Display()
-
-    Jrn_Add(, {"Affichage des données RRslt"})
     With RRslt
+      Jrn_Add(, {"Affichage des données RRslt _ Occurence " & .Occurence & " / " & .Nb_Occurences})
+      Jrn_Add(, {"Occurence      " & .Occurence & " / " & .Nb_Occurences})
       Jrn_Add(, {"Code Stratégie " & .Code_Strg & ", " & Stg_Get(.Code_Strg).Texte})
-      Jrn_Add(, {"Sous_Stratégie " & String.Join(", ", .Candidat)})
-      Jrn_Add(, {"Code_LCR       " & .Code_LCR & (.LCR + 1)})
+
+      Jrn_Add(, {"Sous_Stratégie " & .Code_Sous_Strg})
+      Jrn_Add(, {"Code_LCR_LCR   " & .Code_LCR & (.LCR + 1)})
       Jrn_Add(, {"Candidat       " & .Candidat})
-      'Jrn_Add(, {"Candidats      " & .Candidat})
-      Jrn_Add(, {"Cellule        " & U_Coord(.Cellule(0))})
-      Jrn_Add(, {"Cellules       " & String.Join(", ", .Cellule.Select(Function(c) U_Coord(c)))})
+      If .Cellule IsNot Nothing Then Jrn_Add(, {"Cellule        " & String.Join(", ", .Cellule.Select(Function(c) U_Coord(c)))})
+      If .CelExcl IsNot Nothing Then Jrn_Add(, {"CelExcl        " & String.Join(", ", .CelExcl.Select(Function(c) U_Coord(c)))})
       Jrn_Add(, {"Productivité   " & .Productivité.ToString()})
     End With
 
   End Sub
 
-  Public Function RRslt_Copy_Rnd(Strategy_Rslt(,) As String) As Integer
-    If Strategy_Rslt Is Nothing Then
-      RRslt.Productivité = False
-      Return -1
-    End If
-    If UBound(Strategy_Rslt, 2) <= 0 Then
-      RRslt.Productivité = False
-      Return -1
-    End If
-    Dim rnd As New Random()
-    Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1))   ' Tire un nombre entre 1 et 99 max inclus
-    With RRslt
-      .Code_Sous_Strg = Strategy_Rslt(2, Index)
-      .Code_LCR = Strategy_Rslt(3, Index)
-      .LCR = CInt(Strategy_Rslt(4, Index))
-      .Candidat = Strategy_Rslt(5, Index)
-      .Candidats = Strategy_Rslt(6, Index)
-      ReDim .Cellule(0)
-      .Cellule(0) = CInt(Strategy_Rslt(10, Index))
-      .Productivité = True
-    End With
-    Return Index
-  End Function
 #End Region
-  Sub Strategy_Code(strg_Code As String)
+  Sub Strategy_Code(strg_Code As String, Origine As String)
     ' TOUTES les stratégies de la barre d'outils et les 2 stratégies DCd et CdS passent ici
     ' 1 Active/désactive la stratégie passée en paramètre
     ' 2 Documente Plcy_Strg ou la remet à blanc
@@ -150,7 +112,7 @@ Friend Module En_Cours
 
     If Plcy_Strg <> "   " Then Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
     If Plcy_Strg = "   " Then Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-
+    Jrn_Add(, {Proc_Name_Get() & " " & strg_Code & " " & Origine})
     Dim U_temp(80, 3) As String
     Dim Strategy_Rslt(,) As String = Nothing
     Array.Copy(U, U_temp, UNbCopy)
@@ -160,9 +122,7 @@ Friend Module En_Cours
       Case "CdO" : Strategy_Rslt = Strategy_CdO(U_temp)
       Case "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"
       Case "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9"
-        'Case "CdS"
-        'Case "DCd"
-
+      Case "Cbl" : Strategy_Rslt = Strategy_Cbl(U_temp)
 
       Case Else
     End Select
@@ -172,5 +132,46 @@ Friend Module En_Cours
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
+
+  Public Function RRslt_Copy_Rnd(Strategy_Rslt(,) As String) As Integer
+    ' La procédure documente RRSlt d'un résultat pris au hasard de Strategy_Rslt
+    If Strategy_Rslt Is Nothing OrElse UBound(Strategy_Rslt, 2) <= 0 Then     'Strategy_Rslt.GetLength(1) = 0
+      RRslt.Productivité = False
+      Return -1
+    End If
+
+    Dim rnd As New Random()
+    Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1))   ' Tire un nombre entre 1 et le max inclus
+    With RRslt
+      .Occurence = Index
+      .Nb_Occurences = Strategy_Rslt.GetUpperBound(1)
+      .Code_Strg = Strategy_Rslt(1, Index)
+      .Code_Sous_Strg = Strategy_Rslt(2, Index)
+      .Code_LCR = Strategy_Rslt(3, Index)
+      .LCR = CInt(Strategy_Rslt(4, Index))
+      .Candidat = Strategy_Rslt(5, Index)
+
+      Dim valeurs As New List(Of Integer)
+      For k As Integer = 0 To 44
+        Dim s As String = Strategy_Rslt(10 + k, Index)
+        If s = "__" Then Exit For
+        valeurs.Add(CInt(s))
+      Next
+      .Cellule = valeurs.ToArray()
+      valeurs.Clear()
+      For k As Integer = 0 To 44
+        Dim s As String = Strategy_Rslt(55 + k, Index)
+        If s = "__" Then Exit For
+        valeurs.Add(CInt(s))
+      Next
+      .CelExcl = valeurs.ToArray()
+
+      .Productivité = True
+    End With
+    Strategy_Rslt_Display(Strategy_Rslt, -1)
+    RRslt_Display()
+    Return Index
+
+  End Function
 
 End Module

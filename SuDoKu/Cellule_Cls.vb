@@ -253,7 +253,7 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Dessine UN Candidat de la Cellule.</summary>
-  Public Sub G6_Cellule_Paint_Candidat_g(g As Graphics, Candidat As String, Couleur As Color)
+  Public Sub G6_Cellule_Paint_Candidat(g As Graphics, Candidat As String, Couleur As Color)
     'Dessine UN Candidat d'une cellule dans un cercle de couleur
     'Un candidat a toujours la même couleur, puisqu'il ne peut être affiché que dans la typologie V
     Dim Coté_6 As Integer = (WH \ 6)
@@ -274,7 +274,7 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Dessine les Candidats de la Cellule.</summary>
-  Public Sub G6_Cellule_Paint_Candidats_g(g As Graphics, ByVal typeCdd As String)
+  Public Sub G6_Cellule_Paint_Candidats(g As Graphics, ByVal typeCdd As String)
     'Procédure utilisée pour dessiner le fond de sélection d'une cellule
     If Not IsValid Then Exit Sub
     If Typologie = "I" Or Typologie = "R" Then Exit Sub
@@ -301,11 +301,9 @@ Public Class Cellule_Cls
     'Concerne UNIQUEMENT les cellules Vides avec des Candidats et dans les conditions précisées
     If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
     Or (Plcy_Gnrl = "Edi") Then
-      G6_Cellule_Paint_Candidats_g(g, "LesCandidatsEligibles")
+      G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
     End If
   End Sub
-
-
 #End Region
 End Class
 

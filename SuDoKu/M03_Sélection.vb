@@ -1,6 +1,5 @@
 ﻿Option Strict On
 Option Explicit On
-Imports System.Drawing.Drawing2D
 Friend Module M03_Sélection
   '-------------------------------------------------------------------------------
   ' Traitement de la Sélection 
@@ -174,10 +173,10 @@ Friend Module M03_Sélection
       Dim Candidats As String = U(Cellule, 3)
       Dim Candidats_Exclus As String = U_CddExc(Cellule)
       Mid$(Candidats, CInt(V), 1) = " "
-        Mid$(Candidats_Exclus, CInt(V), 1) = V
-        U(Cellule, 3) = Candidats
-        U_CddExc(Cellule) = Candidats_Exclus
-        Act_Add(Cellule, "Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
+      Mid$(Candidats_Exclus, CInt(V), 1) = V
+      U(Cellule, 3) = Candidats
+      U_CddExc(Cellule) = Candidats_Exclus
+      Act_Add(Cellule, "Exclure_Cdd", V, Candidats, Plcy_Strg, Av_Jeu, Av_AllCdd)
       Pbl_Cell_Select = Cellule
       Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 

@@ -92,22 +92,6 @@ Friend Module P01_Strategy
     Frm_SDK.Invalidate()
   End Sub
 
-  ' Procédure générique
-
-
-  'Sub Dsp_AideGraphique(Dsp As String)
-  '  'Afficher / Ne pas afficher l'AideGraphique
-  '  'Dsp permet de forcer l'affichage de l'AideGraphique ou non, ou bien de l'alterner
-  '  'Les options Aide Graphique et F1 Aide ne sont pas enregistrées dans SDK.ini
-  '  Select Case Dsp
-  '    Case "Non" : Plcy_AideGraphique = False
-  '    Case "Alt" : If Plcy_AideGraphique Then Plcy_AideGraphique = False Else Plcy_AideGraphique = True
-  '    Case "Oui" : Plcy_AideGraphique = True
-  '    Case "PdC" ' Pas de changement
-  '  End Select
-  '  If Plcy_AideGraphique Then Frm_SDK.Mnu05_AideSudokuGraphique.Checked = True
-  '  If Not Plcy_AideGraphique Then Frm_SDK.Mnu05_AideSudokuGraphique.Checked = False
-  'End Sub
   Sub Undo_Redo(Action As String)
     Dim UR_Sym As String = "<>"
     Game_Undo_Redo = Action
@@ -251,6 +235,7 @@ Friend Module P01_Strategy
   End Sub
   Public Sub Strategy_Rslt_Display(ByRef Strategy_Rslt(,) As String, Ligne As Integer)
     'Cette routine liste une seule ligne de Strategy_Rslt  ou toutes les lignes si ligne = -1
+    If Strategy_Rslt Is Nothing Then Exit Sub
     Dim Strategy_Name As String = "Strategy_Rslt"
     Jrn_Add(, {Stg_Get(Strategy_Rslt(1, 0)).Texte})
     Jrn_Add("Prl_00070", {Strategy_Name})

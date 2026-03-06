@@ -166,25 +166,34 @@ Module M02_Menu_Management
             End If
 
           Case "Mnu_Cel_Cdd_Exc_" 'Exclure le candidat 1 à 9
-            If U(Cellule, 2) = " " Then
-
-              If Stg_Get(Plcy_Strg).Family = 3 Then
-                If Stg_Get(Plcy_Strg).Type = "E" Then
-                  Dim Candidats As String = U(Cellule, 3)
-                  If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
-                    Opt = Ligne.Name.Substring(16, 1)
-                    If Mnu_Item Then
-                      If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
-                        Ligne.BackColor = Control.DefaultBackColor
-                        'Le menu est colorisé rouge pour toutes les stratégies
-                        Ligne.Visible = True
-                        Ligne.BackColor = Color_Cdd_Exclure
-                      End If
-                    End If
-                  End If
-                End If
+            If Mnu_Item And Stg_Get(Plcy_Strg).Family = 3 And Stg_Get(Plcy_Strg).Type = "E" And U(Cellule, 2) = " " Then
+              Dim Candidats As String = U(Cellule, 3)
+              Opt = Ligne.Name.Substring(16, 1)
+              If Opt = Candidats.Substring(CInt(Opt) - 1, 1) And U_Strg_Cdd_Exc(Cellule) = Opt Then
+                Ligne.BackColor = Control.DefaultBackColor
+                Ligne.Visible = True
+                Ligne.BackColor = Color_Cdd_Exclure
               End If
             End If
+            'If U(Cellule, 2) = " " Then
+
+            '  If Stg_Get(Plcy_Strg).Family = 3 Then
+            '    If Stg_Get(Plcy_Strg).Type = "E" Then
+            '      Dim Candidats As String = U(Cellule, 3)
+            '      If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
+            '        Opt = Ligne.Name.Substring(16, 1)
+            '        If Mnu_Item Then
+            '          If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
+            '            Ligne.BackColor = Control.DefaultBackColor
+            '            'Le menu est colorisé rouge pour toutes les stratégies
+            '            Ligne.Visible = True
+            '            Ligne.BackColor = Color_Cdd_Exclure
+            '          End If
+            '        End If
+            '      End If
+            '    End If
+            '  End If
+            'End If
 
           Case "Mnu_Cel_Cdd_Ins_" 'Insérer les Candidats ....
             If U(Cellule, 2) = " " Then

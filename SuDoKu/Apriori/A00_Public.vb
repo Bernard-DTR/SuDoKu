@@ -11,7 +11,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_03_00 #635"
+  Public SDK_Version As String = "V2026_03_00 #637"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -539,12 +539,13 @@ Module A00_Public
     Public Property Exc As Integer() = {-1, -1}  ' Les Cellules Origines de l'exclusion
   End Class
   Public Structure RRslt_Struct
+    Public Occurence As Integer
+    Public Nb_Occurences As Integer
     Public Code_Strg As String                  ' Code Stratégie: CdU
     Public Code_Sous_Strg As String             ' Sous-Stratégie
     Public Code_LCR As String
     Public LCR As Integer
     Public Candidat As String                   ' Le candidat de la stratégie
-    Public Candidats As String                  ' Les candidats de la stratégie (Unq)
     Public Cellule() As Integer                 ' Les cellules de la stratégie
     Public CelExcl() As Integer                 ' Les cellules concernées par l'exclusion
     Public Productivité As Boolean              ' False/ True

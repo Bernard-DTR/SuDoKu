@@ -1,7 +1,5 @@
 ﻿Option Strict On
 Option Explicit On
-
-Imports System.IO
 Imports System.Threading
 Imports Word = Microsoft.Office.Interop.Word 'Pour enregistrer en RTF le Journal
 

@@ -1,6 +1,5 @@
 ﻿Option Strict On
 Option Explicit On
-Imports System.Runtime.InteropServices
 Imports System.Threading
 Imports SuDoKu.DancingLink
 
@@ -399,7 +398,7 @@ Public NotInheritable Class Frm_SDK
           G1_Grid_Paint_g(e.Graphics)
           Dim Gril As New Grille_Cls
           Gril.G2_Grille_Paint_Fond_g(e.Graphics)
-          G4_Grid_Stratégie_All_g(e.Graphics)
+          G4_Grid_Stratégie_All(e.Graphics)
           Dim sc As New Cellule_Cls
           For i As Integer = 0 To 80
             sc.Numéro = i
@@ -414,7 +413,7 @@ Public NotInheritable Class Frm_SDK
           sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
           If Stg_Get(Plcy_Strg).Family = 2 And U(Pbl_Cell_Select, 2) = Plcy_Strg(2) Then
             ' Stratégie de filtre des valeurs, la valeur doit être présentée en Double-Carré 
-            G0_Cell_Figure_g(e.Graphics, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
+            G0_Cell_Figure(e.Graphics, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
           End If
 
         Case "Cell_Coll"
@@ -423,7 +422,7 @@ Public NotInheritable Class Frm_SDK
           For Each cell As Integer In Cell_Coll_Modifiées_List
             Dim sc_cell_coll As New Cellule_Cls With {.Numéro = cell}
             sc_cell_coll.G2_Cellule_Paint_Fond_g(e.Graphics)
-            sc_cell_coll.G6_Cellule_Paint_Candidats_g(e.Graphics, "LesCandidatsEligibles")
+            sc_cell_coll.G6_Cellule_Paint_Candidats(e.Graphics, "LesCandidatsEligibles")
           Next cell
           ' 2 La cellule est redessinée sur la couche Fond et Valeur
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
@@ -437,7 +436,7 @@ Public NotInheritable Class Frm_SDK
             sc_cell.G2_Cellule_Paint_Fond_g(e.Graphics)
             sc_cell.G5_Cellule_Paint_Valeur_g(e.Graphics)
             If U(cell, 2) = Plcy_Strg(2) Then
-              G0_Cell_Figure_g(e.Graphics, cell, "Double_Carré", Color_Stratégique)
+              G0_Cell_Figure(e.Graphics, cell, "Double_Carré", Color_Stratégique)
             End If
           Next cell
 
@@ -896,7 +895,8 @@ Public NotInheritable Class Frm_SDK
   End Sub
   '--------------04n--------------------------------------------------------------
   ' TOUTES les stratégies de la barre d'outils et les 2 stratégies DCd et CdS sont lancées ici
-  Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click,
+  Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) _
+                                Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click,
                                         Btn_Unq.Click, Btn_Tpl.Click, Btn_Swf.Click,
                                         Btn_SKy.Click, Btn_Jly.Click, Btn_Cbl.Click,
                                         Btn_CdO.Click, Btn_CdU.Click, Btn_Cdd.Click
@@ -905,7 +905,7 @@ Public NotInheritable Class Frm_SDK
     Dim stgs() As String = {"Cdd", "CdU", "CdO", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq"}
     For Each stg As String In stgs
       If Sender.ToString() = Stg_Get(stg).Texte OrElse Sender.ToString() = Stg_Get(stg).Lettre Then
-        Strategy_Code(stg)
+        Strategy_Code(stg, Proc_Name_Get())
         Exit Sub
       End If
     Next
@@ -917,16 +917,16 @@ Public NotInheritable Class Frm_SDK
     Dim flt As String = btn.Name.Substring(3, 1)
     Select Case e.Button
       Case MouseButtons.Left
-        Strategy_Code("FV" & flt)
+        Strategy_Code("FV" & flt, Proc_Name_Get())
       Case MouseButtons.Right
-        Strategy_Code("FC" & flt)
+        Strategy_Code("FC" & flt, Proc_Name_Get())
     End Select
   End Sub
   Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
-    Strategy_Code("DCd")
+    Strategy_Code("DCd", Proc_Name_Get())
   End Sub
   Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
-    Strategy_Code("CdS")
+    Strategy_Code("CdS", Proc_Name_Get())
   End Sub
   Private Sub Mnu04n_AnnulerLaDerniereOption_Click(sender As Object, e As EventArgs) Handles Btn0.Click
     Strategy_Dsp_Standard()
