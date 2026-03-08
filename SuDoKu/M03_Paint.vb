@@ -51,7 +51,7 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_CdS_g(g)
       G4_Grid_Stratégie_DCd_g(g)
       G4_Grid_Stratégie_Cbl(g)
-      G4_Grid_Stratégie_Tpl_g(g)
+      G4_Grid_Stratégie_Tpl(g)
       G4_Grid_Stratégie_Xwg_g(g)
       G4_Grid_Stratégie_XYw_g(g)
       G4_Grid_Stratégie_Swf_g(g)
@@ -115,6 +115,7 @@ Friend Module M03_Paint
     sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Insérer)
     Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
 
+    Jrn_Add_Yellow(Proc_Name_Get() & " Liste des candidats à enlever")
     For i As Integer = 0 To 80
       If U_Strg_Val_Ins(i) <> "" Then Jrn_Add_Yellow(U_Coord(i) & " " & U(i, 3))
     Next
@@ -148,6 +149,8 @@ Friend Module M03_Paint
     Dim sc As New Cellule_Cls With {.Numéro = Cellule}
     sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Insérer)
     Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
+
+    Jrn_Add_Yellow(Proc_Name_Get() & " Liste des candidats à enlever")
     For i As Integer = 0 To 80
       If U_Strg_Val_Ins(i) <> "" Then Jrn_Add_Yellow(U_Coord(i) & " " & U(i, 3))
     Next
@@ -388,61 +391,52 @@ Friend Module M03_Paint
       U_Strg_Cdd_Exc(cellexcl) = Candidat
     Next
     Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " rouge à enlever."
-
+    Jrn_Add_Red(Proc_Name_Get() & " Liste des candidats à enlever")
     For i As Integer = 0 To 80
       If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then Jrn_Add_Red(U_Coord(i) & " " & U(i, 3))
     Next
 
   End Sub
-  Public Sub G4_Grid_Stratégie_Tpl_g(g As Graphics)
-    Dim U_temp(80, 3) As String
-    Dim Ligne As Integer
-    Dim Strategy_Rslt(,) As String
-    Dim Cellule As Integer
+  Public Sub G4_Grid_Stratégie_Tpl(g As Graphics)
+    If Not Plcy_Strg = "Tpl" Then Exit Sub
     Dim Candidat As String
 
-    If Not Plcy_Strg = "Tpl" Then Exit Sub
-    Try
-      U_Strg_Effacer_g(g)
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_Rslt = Strategy_Tpl(U_temp)
-      If UBound(Strategy_Rslt, 2) <= 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " sans résultat."
-        Exit Sub
-      End If
+    If RRslt.Productivité = False Then
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+      Exit Sub
+    End If
 
-      ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
-      Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
+    For Each cell As Integer In RRslt.Cellule
+      G0_Cell_Figure(g, cell, "Double_Carré", Color_Stratégique)
+    Next
 
-      ' 2 Aide Graphique
-      '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-      Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 Then
-        Candidat = Strategy_Rslt(5, Ligne)
-        U_MdC_Init()
-        If Strategy_Rslt(3, Ligne) = "C" Then G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
-        If Strategy_Rslt(3, Ligne) = "L" Then G4_MdC_Row_Col_Box("Row", U_Row(Pbl_Cell_Select))
-        If Strategy_Rslt(3, Ligne) = "R" Then G4_MdC_Row_Col_Box("Box", U_Reg(Pbl_Cell_Select))
-        'U_Strg est documenté dans G4_MdC_Row_Col_Box 
-        G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
+    Dim Code_LCR As String = RRslt.Code_LCR
+    Dim LCR As Integer = RRslt.LCR
+    U_MdC_Init()
+    Select Case Code_LCR
+      Case "L" : G4_MdC_Row_Col_Box("Row", LCR)
+      Case "C" : G4_MdC_Row_Col_Box("Col", LCR)
+      Case "R" : G4_MdC_Row_Col_Box("Box", LCR)
+    End Select
+    G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
 
-        For k As Integer = 55 To 99    ' Re-dessine le candidat à enlever dans un cercle plein rouge
-          If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-          Cellule = CInt(Strategy_Rslt(k, Ligne))
-          Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
-          U_Strg(Cellule) = True
-        Next k
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
-      End If
+    Candidat = RRslt.Candidat
+    For Each cellexcl As Integer In RRslt.CelExcl
+      Dim sc As New Cellule_Cls With {.Numéro = cellexcl}
+      sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+      'Re-dessine le candidat à placer dans un cercle plein rouge
+      sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
+      U_Strg_Cdd_Exc(cellexcl) = Candidat
+    Next
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " rouge à enlever."
 
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    Jrn_Add_Red(Proc_Name_Get() & " Liste des candidats à enlever")
+    For i As Integer = 0 To 80
+      If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then Jrn_Add_Red(U_Coord(i) & " " & U(i, 3))
+    Next
 
   End Sub
+
   Public Sub G4_Grid_Stratégie_Xwg_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer

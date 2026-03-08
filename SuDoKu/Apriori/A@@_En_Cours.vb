@@ -82,9 +82,7 @@ Friend Module En_Cours
   Public Sub RRslt_Display()
     With RRslt
       Jrn_Add(, {"Affichage des données RRslt _ Occurence " & .Occurence & " / " & .Nb_Occurences})
-      Jrn_Add(, {"Occurence      " & .Occurence & " / " & .Nb_Occurences})
       Jrn_Add(, {"Code Stratégie " & .Code_Strg & ", " & Stg_Get(.Code_Strg).Texte})
-
       Jrn_Add(, {"Sous_Stratégie " & .Code_Sous_Strg})
       Jrn_Add(, {"Code_LCR_LCR   " & .Code_LCR & (.LCR + 1)})
       Jrn_Add(, {"Candidat       " & .Candidat})
@@ -123,6 +121,7 @@ Friend Module En_Cours
       Case "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"
       Case "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9"
       Case "Cbl" : Strategy_Rslt = Strategy_Cbl(U_temp)
+      Case "Tpl" : Strategy_Rslt = Strategy_Tpl(U_temp)
 
       Case Else
     End Select

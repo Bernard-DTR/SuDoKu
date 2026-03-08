@@ -2,10 +2,6 @@
 Option Explicit On
 
 Module M02_Menu_Management
-  '-------------------------------------------------------------------------------
-  ' Gestion des menus contextuels pour les modes Nrm
-  '                                              Edi
-  '-------------------------------------------------------------------------------
 
   Sub Mnu_EDI(Action As String, sender As Object, e As EventArgs)
     'Alternance de Swt_ModeEdition permettant de Lancer puis d'Arrêter le Mode Edition
@@ -138,7 +134,9 @@ Module M02_Menu_Management
   Sub Mnu_Mngt(Cellule As Integer)
     Dim Mnu_Item As Boolean, Mnu_Sep As Boolean, Mnu_Grp As Boolean
     Dim Ligne As ToolStripItem
+    Dim Candidats As String
     Dim Opt As String = ""
+    Dim Opt_int As Integer
 
     Mnu_Mngt_Barre_Outils_Filtres()
 
@@ -155,86 +153,64 @@ Module M02_Menu_Management
         Select Case Ligne.Name.Substring(0, 16)
 
           Case "Mnu_Cel_Val_Ins_" 'Insérer la valeur 1 à 9
-            If Mnu_Item And Stg_Get(Plcy_Strg).Family = 3 And Stg_Get(Plcy_Strg).Type = "I" And U(Cellule, 2) = " " Then
-              Dim Candidats As String = U(Cellule, 3)
-              Opt = Ligne.Name.Substring(16, 1)
-              If Opt = Candidats.Substring(CInt(Opt) - 1, 1) And U_Strg_Val_Ins(Cellule) = Opt Then
-                Ligne.BackColor = Control.DefaultBackColor
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 3 AndAlso Stg_Get(Plcy_Strg).Type = "I" AndAlso U(Cellule, 2) = " " Then
+              Candidats = U(Cellule, 3)
+              Opt = Ligne.Name(16)
+              Opt_int = CInt(Opt) - 1
+              If Opt = Candidats(Opt_int) AndAlso U_Strg_Val_Ins(Cellule) = Opt Then
                 Ligne.Visible = True
                 Ligne.BackColor = Color_Cdd_Insérer
               End If
             End If
 
           Case "Mnu_Cel_Cdd_Exc_" 'Exclure le candidat 1 à 9
-            If Mnu_Item And Stg_Get(Plcy_Strg).Family = 3 And Stg_Get(Plcy_Strg).Type = "E" And U(Cellule, 2) = " " Then
-              Dim Candidats As String = U(Cellule, 3)
-              Opt = Ligne.Name.Substring(16, 1)
-              If Opt = Candidats.Substring(CInt(Opt) - 1, 1) And U_Strg_Cdd_Exc(Cellule) = Opt Then
-                Ligne.BackColor = Control.DefaultBackColor
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 3 AndAlso Stg_Get(Plcy_Strg).Type = "E" AndAlso U(Cellule, 2) = " " Then
+              Candidats = U(Cellule, 3)
+              Opt = Ligne.Name(16)
+              Opt_int = CInt(Opt) - 1
+              If Opt = Candidats(Opt_int) AndAlso U_Strg_Cdd_Exc(Cellule) = Opt Then
                 Ligne.Visible = True
                 Ligne.BackColor = Color_Cdd_Exclure
               End If
             End If
+
+          Case "Mnu_Cel_Cdd_Ins_" 'Insérer les Candidats ....
             'If U(Cellule, 2) = " " Then
 
             '  If Stg_Get(Plcy_Strg).Family = 3 Then
-            '    If Stg_Get(Plcy_Strg).Type = "E" Then
-            '      Dim Candidats As String = U(Cellule, 3)
-            '      If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
-            '        Opt = Ligne.Name.Substring(16, 1)
-            '        If Mnu_Item Then
-            '          If Opt = Candidats.Substring(CInt(Opt) - 1, 1) Then
-            '            Ligne.BackColor = Control.DefaultBackColor
-            '            'Le menu est colorisé rouge pour toutes les stratégies
-            '            Ligne.Visible = True
-            '            Ligne.BackColor = Color_Cdd_Exclure
-            '          End If
+            '    Dim Candidats_Excl As String = U_CddExc(Cellule)
+            '    If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
+            '      Opt = Ligne.Name.Substring(16, 1)
+            '      If Mnu_Sep And Mnu_Grp Then Ligne.Visible = True
+            '      'les stratégies proposent d'exclure un candidat.
+            '      If Mnu_Item Then
+            '        If Opt = Candidats_Excl.Substring(CInt(Opt) - 1, 1) Then
+            '          Ligne.BackColor = Control.DefaultBackColor
+            '          Ligne.Visible = True : Mnu_Grp = True
+            '        Else
+            '          Ligne.Visible = False
             '        End If
             '      End If
             '    End If
             '  End If
             'End If
 
-          Case "Mnu_Cel_Cdd_Ins_" 'Insérer les Candidats ....
-            If U(Cellule, 2) = " " Then
-
-              If Stg_Get(Plcy_Strg).Family = 3 Then
-                Dim Candidats_Excl As String = U_CddExc(Cellule)
-                If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
-                  Opt = Ligne.Name.Substring(16, 1)
-                  If Mnu_Sep And Mnu_Grp Then Ligne.Visible = True
-                  'les stratégies proposent d'exclure un candidat.
-                  If Mnu_Item Then
-                    If Opt = Candidats_Excl.Substring(CInt(Opt) - 1, 1) Then
-                      Ligne.BackColor = Control.DefaultBackColor
-                      Ligne.Visible = True : Mnu_Grp = True
-                    Else
-                      Ligne.Visible = False
-                    End If
-                  End If
-                End If
-              End If
-            End If
-
           Case "Mnu_Cel_Val_Eff_"
-            ' Option Effacer la valeur si la cellule est remplie
-            If (U(Cellule, 1) = " " And U(Cellule, 2) <> " ") Then
+            ' Option Effacer la valeur dans une cellule remplie
+            If (U(Cellule, 1) = " " AndAlso U(Cellule, 2) <> " ") Then
               If Mnu_Sep And Mnu_Grp Then Ligne.Visible = True
               If Mnu_Item Then Ligne.Visible = True : Mnu_Grp = True
             End If
 
           Case Else
-            Jrn_Add(, {"A " & Proc_Name_Get() & " " & Ligne.Name}, "Erreur")
+            Jrn_Add(, {"Case:  " & Proc_Name_Get() & " " & Ligne.Name}, "Erreur")
         End Select
 
       Catch ex As Exception
-        Jrn_Add("ERR_00000", {"B " & Proc_Name_Get()})
+        Jrn_Add("ERR_00000", {"Exception: " & Proc_Name_Get()})
         Jrn_Add("ERR_00000", {Ligne.Name}, "Erreur")
         Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
         Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-        Jrn_Add("ERR_00000", {"Item    : " & Ligne.ToString()}, "Erreur")
-        Jrn_Add("ERR_00000", {"Opt      : " & Opt}, "Erreur")
-        Jrn_Add("ERR_00000", {"Cellule  : " & U_Coord(Cellule) & " V : " & U(Cellule, 2) & " Candidats :" & U(Cellule, 3) & "."}, "Erreur")
       End Try
     Next Ligne
   End Sub
