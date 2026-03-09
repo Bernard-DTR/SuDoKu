@@ -724,8 +724,6 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
     Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc)
-    Mnu_Mngt_Barre_Outils_Filtres()
-
     Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
     Invalidate()

@@ -59,7 +59,7 @@ Friend Module M20_Game
           Nsd_i = MsgBox("Dancing Link : " & DL.DLCode & "  Solutions multiples.",, MsgTit)
       End Select
     End If
-
+    Mnu_Mngt_Barre_Outils_Filtres()
     Event_OnPaint = "Global"
     Event_OnPaint_MAP = Proc_Name_Get()
     Frm_SDK.Invalidate()

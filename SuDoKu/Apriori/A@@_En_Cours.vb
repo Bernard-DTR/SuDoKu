@@ -122,7 +122,7 @@ Friend Module En_Cours
       Case "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9"
       Case "Cbl" : Strategy_Rslt = Strategy_Cbl(U_temp)
       Case "Tpl" : Strategy_Rslt = Strategy_Tpl(U_temp)
-
+      Case "Xwg" : Strategy_Rslt = Strategy_Xwg(U_temp)
       Case Else
     End Select
 
@@ -140,7 +140,7 @@ Friend Module En_Cours
     End If
 
     Dim rnd As New Random()
-    Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1))   ' Tire un nombre entre 1 et le max inclus
+    Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1) + 1)   ' Tire un nombre entre min inclus et max non inclus
     With RRslt
       .Occurence = Index
       .Nb_Occurences = Strategy_Rslt.GetUpperBound(1)

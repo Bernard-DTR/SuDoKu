@@ -174,8 +174,8 @@ Friend Module A__Colorisation
     End Using
 
     DrawCustomArrow(g, Pts.Pt_From, Pts.Pt_To, Color, 2)
-    G0_Cdd_Figure_g(g, From_Cellule, From_Candidat, "Cercle", Color)
-    G0_Cdd_Figure_g(g, To_Cellule, To_Candidat, "Cercle", Color)
+    G0_Cdd_Figure(g, From_Cellule, From_Candidat, "Cercle", Color)
+    G0_Cdd_Figure(g, To_Cellule, To_Candidat, "Cercle", Color)
   End Sub
 
   Public Function Get_Pt_From_To_Flèche(From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer) As Points_Struct

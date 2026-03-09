@@ -52,7 +52,7 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_DCd_g(g)
       G4_Grid_Stratégie_Cbl(g)
       G4_Grid_Stratégie_Tpl(g)
-      G4_Grid_Stratégie_Xwg_g(g)
+      G4_Grid_Stratégie_Xwg(g)
       G4_Grid_Stratégie_XYw_g(g)
       G4_Grid_Stratégie_Swf_g(g)
       G4_Grid_Stratégie_Jly_g(g)
@@ -368,8 +368,10 @@ Friend Module M03_Paint
       Exit Sub
     End If
 
+    Candidat = RRslt.Candidat
     For Each cell As Integer In RRslt.Cellule
       G0_Cell_Figure(g, cell, "Double_Carré", Color_Stratégique)
+      G0_Cdd_Figure(g, cell, CInt(Candidat), "Disque", Color_Stratégique)
     Next
 
     Dim Code_LCR As String = RRslt.Code_LCR
@@ -390,7 +392,9 @@ Friend Module M03_Paint
       sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
       U_Strg_Cdd_Exc(cellexcl) = Candidat
     Next
-    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " rouge à enlever."
+    'Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " rouge à enlever."
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " (" & RRslt.Code_Sous_Strg & ") :   " & Candidat & " rouge à enlever."
+
     Jrn_Add_Red(Proc_Name_Get() & " Liste des candidats à enlever")
     For i As Integer = 0 To 80
       If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then Jrn_Add_Red(U_Coord(i) & " " & U(i, 3))
@@ -406,8 +410,10 @@ Friend Module M03_Paint
       Exit Sub
     End If
 
+    Candidat = RRslt.Candidat
     For Each cell As Integer In RRslt.Cellule
       G0_Cell_Figure(g, cell, "Double_Carré", Color_Stratégique)
+      G0_Cdd_Figure(g, cell, CInt(Candidat), "Disque", Color_Stratégique)
     Next
 
     Dim Code_LCR As String = RRslt.Code_LCR
@@ -420,7 +426,6 @@ Friend Module M03_Paint
     End Select
     G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
 
-    Candidat = RRslt.Candidat
     For Each cellexcl As Integer In RRslt.CelExcl
       Dim sc As New Cellule_Cls With {.Numéro = cellexcl}
       sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
@@ -428,7 +433,8 @@ Friend Module M03_Paint
       sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
       U_Strg_Cdd_Exc(cellexcl) = Candidat
     Next
-    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " rouge à enlever."
+    'Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " rouge à enlever."
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " (" & RRslt.Code_Sous_Strg & ") :   " & Candidat & " rouge à enlever."
 
     Jrn_Add_Red(Proc_Name_Get() & " Liste des candidats à enlever")
     For i As Integer = 0 To 80
@@ -437,111 +443,63 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_Xwg_g(g As Graphics)
-    Dim U_temp(80, 3) As String
-    Dim Ligne As Integer
-    Dim Strategy_Rslt(,) As String
-    Dim Cellule As Integer
-    Dim Candidat As String
-    ' G4_Grid_Strategy_Xwg diffère des autres G4_Grid_Strategy_abc sur les points suivants:
-    '   Elle gère les sous-stratégies Xwg, Fnd
-    '   Aide simple identique aux autres stratégies
-    '   Aide Graphique
-    '     Affichage de toutes les cellules avec le SEUL candidat concerné en disque
-    '     Utilisation de Cel(0 To 44) As Integer pour simplifier l'affichage des cellules
-    '     sous-stratégie Xwg_C Xwg_L affichage de trait et de rectangle
-    '     sous-stratégie Fnd_C Fnd_L affichage de trait et d'une diagonale 
-    '                    les candidats concernés sont en carré
-
+  Public Sub G4_Grid_Stratégie_Xwg(g As Graphics)
     If Not Plcy_Strg = "Xwg" Then Exit Sub
-    Try
-      U_Strg_Effacer_g(g)
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_Rslt = Strategy_Xwg(U_temp)
-      If UBound(Strategy_Rslt, 2) <= 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " sans résultat."
-        Exit Sub
-      End If
+    Dim Candidat As String
 
-      ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
-      Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
+    If RRslt.Productivité = False Then
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+      Exit Sub
+    End If
 
-      ' 2 Aide Graphique
-      '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-      Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 Then
-        Candidat = Strategy_Rslt(5, Ligne)
-        U_MdC_Init()
-        ' Affichage exceptionnel d'un disque dans les cellules avec le SEUL candidat concerné
-        For i As Integer = 0 To 80
-          If U_temp(i, 3).Contains(Candidat) Then
-            U_Strg(i) = True
-            Dim sc_a As New Cellule_Cls With {.Numéro = i}
-            sc_a.G6_Cellule_Paint_Candidat(g, Candidat, Color_Stratégique)
-          End If
-        Next i
+    Candidat = RRslt.Candidat
+    For Each cell As Integer In RRslt.Cellule
+      G0_Cell_Figure(g, cell, "Double_Carré", Color_Stratégique)
+      G0_Cdd_Figure(g, cell, CInt(Candidat), "Disque", Color_Stratégique)
+    Next
 
-        Dim Sous_Stratégie As String = Strategy_Rslt(2, Ligne)
-        Dim Cel(0 To 44) As Integer : For k As Integer = 0 To 44 : Cel(k) = -1 : Next k
-        For k As Integer = 10 To 54
-          If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-          Cel(k - 10) = CInt(Strategy_Rslt(k, Ligne))
-        Next k
-        Select Case Sous_Stratégie
-           'U_Strg est documenté dans G4_MdC_Row_Col_Box
-           '                          G0_Cell_Diagonale
-          Case "Xwg_C"
-            G4_MdC_Row_Col_Box("Row", U_Row(Cel(0)))
-            G4_MdC_Row_Col_Box("Row", U_Row(Cel(2)))
-            G4_MdC_Trait_ou_Rectangle(Cel(0), Cel(3))
-          Case "Xwg_L"
-            G4_MdC_Row_Col_Box("Col", U_Col(Cel(0)))
-            G4_MdC_Row_Col_Box("Col", U_Col(Cel(2)))
-            G4_MdC_Trait_ou_Rectangle(Cel(0), Cel(3))
-          Case "Fnd_La", "Fnd_LbL", "Fnd_LbR", "Fnd_Lc", "Fnd_Ca", "Fnd_CbT", "Fnd_CbB", "Fnd_Cc"
-            G4_MdC_Trait_ou_Rectangle(Cel(0), Cel(1))
-            G4_MdC_Trait_ou_Rectangle(Cel(2), Cel(4))
-            ' Un Disque est déjà affiché, il est complété pour les 2 branches par un Carré
-            G0_Cdd_Figure_g(g, Cel(0), CInt(Candidat), "Carré", Color_Stratégique)
-            G0_Cdd_Figure_g(g, Cel(1), CInt(Candidat), "Carré", Color_Stratégique)
-            G0_Cdd_Figure_g(g, Cel(2), CInt(Candidat), "Carré", Color_Stratégique)
-            G0_Cdd_Figure_g(g, Cel(3), CInt(Candidat), "Carré", Color_Stratégique)
-            G0_Cdd_Figure_g(g, Cel(4), CInt(Candidat), "Carré", Color_Stratégique)
-            'L'aileron est présenté par une diagonale de Bresenham
-            G0_Cell_Diagonale_g(g, Cel(5), Cel(6))
-          Case "Shm_L", "Shm_C"
-            G4_MdC_Trait_ou_Rectangle(Cel(0), Cel(1))
-            G4_MdC_Trait_ou_Rectangle(Cel(2), Cel(4))
-            G0_Cdd_Figure_g(g, Cel(0), CInt(Candidat), "Carré", Color_Stratégique)
-            G0_Cdd_Figure_g(g, Cel(1), CInt(Candidat), "Carré", Color_Stratégique)
-            G0_Cdd_Figure_g(g, Cel(2), CInt(Candidat), "Carré", Color_Stratégique)
-            G0_Cdd_Figure_g(g, Cel(3), CInt(Candidat), "Carré", Color_Stratégique)
-            G0_Cdd_Figure_g(g, Cel(4), CInt(Candidat), "Carré", Color_Stratégique)
-        End Select
-        G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
-        For k As Integer = 55 To 99    ' Re-dessine le candidat à enlever dans un cercle plein rouge
-          If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-          Cellule = CInt(Strategy_Rslt(k, Ligne))
-          Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
-          U_Strg(Cellule) = True
-        Next k
-        Select Case Sous_Stratégie
-          Case "Xwg_C", "Xwg_L"
-            Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
-          Case "Fnd_La", "Fnd_LbL", "Fnd_LbR", "Fnd_Lc", "Fnd_Ca", "Fnd_CbT", "Fnd_CbB", "Fnd_Cc"
-            Frm_SDK.B_Info.Text = "Stratégie Finned_X-Wing " & ": " & Candidat & " rouge à enlever."
-          Case "Shm_L", "Shm_C"
-            Frm_SDK.B_Info.Text = "Stratégie Sashimi Double " & ": " & Candidat & " rouge à enlever."
-        End Select
-      End If
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    With RRslt
+      U_MdC_Init()
+      Select Case .Code_Sous_Strg
+        Case "Xwg_C"
+          G4_MdC_Row_Col_Box("Row", U_Row(.Cellule(0)))
+          G4_MdC_Row_Col_Box("Row", U_Row(.Cellule(2)))
+          G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(3))
+        Case "Xwg_L"
+          G4_MdC_Row_Col_Box("Col", U_Col(.Cellule(0)))
+          G4_MdC_Row_Col_Box("Col", U_Col(.Cellule(2)))
+          G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(3))
+        Case "Shm_L", "Shm_C"
+          G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(1))
+          G4_MdC_Trait_ou_Rectangle(.Cellule(2), .Cellule(4))
+        Case "Fnd_La", "Fnd_LbL", "Fnd_LbR", "Fnd_Lc", "Fnd_Ca", "Fnd_CbT", "Fnd_CbB", "Fnd_Cc"
+          G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(1))
+          G4_MdC_Trait_ou_Rectangle(.Cellule(2), .Cellule(4))
+          'L'aileron est présenté par une diagonale de Bresenham
+          G0_Cell_Diagonale(g, .Cellule(5), .Cellule(6))
+
+        Case Else : Jrn_Add_Orange(Proc_Name_Get() & "Code_sous_stratégie ...en cours de traitement " & RRslt.Code_Sous_Strg)
+      End Select
+      G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
+    End With
+
+    For Each cellexcl As Integer In RRslt.CelExcl
+      Dim sc As New Cellule_Cls With {.Numéro = cellexcl}
+      sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+      'Re-dessine le candidat à placer dans un cercle plein rouge
+      sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
+      U_Strg_Cdd_Exc(cellexcl) = Candidat
+    Next
+
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " (" & RRslt.Code_Sous_Strg & ") :   " & Candidat & " rouge à enlever."
+
+    Jrn_Add_Red(Proc_Name_Get() & " Liste des candidats à enlever")
+    For i As Integer = 0 To 80
+      If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then Jrn_Add_Red(U_Coord(i) & " " & U(i, 3))
+    Next
 
   End Sub
+
   Public Sub G4_Grid_Stratégie_XYw_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
@@ -912,7 +870,7 @@ Friend Module M03_Paint
         sc.Numéro = i
         sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(XRslt.Candidat(0)) Then
-          G0_Cdd_Figure_g(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
+          G0_Cdd_Figure(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
         End If
       Next i
 
@@ -938,8 +896,8 @@ Friend Module M03_Paint
           G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
           Select Case Plcy_Strg
             Case "XCy"
-              G0_Cdd_Figure_g(g, PremierLien.Cel(0), CInt(PremierLien.Cdd(0)), "Disque", Color_Link_S)
-              G0_Cdd_Figure_g(g, DernierLien.Cel(1), CInt(DernierLien.Cdd(1)), "Disque", Color_Link_S)
+              G0_Cdd_Figure(g, PremierLien.Cel(0), CInt(PremierLien.Cdd(0)), "Disque", Color_Link_S)
+              G0_Cdd_Figure(g, DernierLien.Cel(1), CInt(DernierLien.Cdd(1)), "Disque", Color_Link_S)
           End Select
 
         End With
@@ -983,8 +941,8 @@ Friend Module M03_Paint
         sc.Numéro = i
         sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(XRslt.Candidat(0)) And U(i, 3).Contains(XRslt.Candidat(1)) Then
-          G0_Cdd_Figure_g(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
-          G0_Cdd_Figure_g(g, i, CInt(XRslt.Candidat(1)), "Cercle", Color.White)
+          G0_Cdd_Figure(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
+          G0_Cdd_Figure(g, i, CInt(XRslt.Candidat(1)), "Cercle", Color.White)
         End If
       Next i
 
@@ -1003,13 +961,13 @@ Friend Module M03_Paint
       ' 3 Affichage des Extrémités des liens  
       Dim PremierLien As XLink_Cls = XRslt.RoadRight.First()
       G0_Cell_Icône_g(g, PremierLien.Cel(0), "Start")
-      G0_Cdd_Figure_g(g, PremierLien.Cel(0), CInt(XRslt.Candidat(0)), "Disque", Color_Link_W)
-      G0_Cdd_Figure_g(g, PremierLien.Cel(0), CInt(XRslt.Candidat(1)), "Disque", Color_Link_W)
+      G0_Cdd_Figure(g, PremierLien.Cel(0), CInt(XRslt.Candidat(0)), "Disque", Color_Link_W)
+      G0_Cdd_Figure(g, PremierLien.Cel(0), CInt(XRslt.Candidat(1)), "Disque", Color_Link_W)
 
       Dim DernierLien As XLink_Cls = XRslt.RoadRight.Last()
       G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
-      G0_Cdd_Figure_g(g, DernierLien.Cel(1), CInt(XRslt.Candidat(0)), "Disque", Color_Link_W)
-      G0_Cdd_Figure_g(g, DernierLien.Cel(1), CInt(XRslt.Candidat(1)), "Disque", Color_Link_W)
+      G0_Cdd_Figure(g, DernierLien.Cel(1), CInt(XRslt.Candidat(0)), "Disque", Color_Link_W)
+      G0_Cdd_Figure(g, DernierLien.Cel(1), CInt(XRslt.Candidat(1)), "Disque", Color_Link_W)
 
       ' 4 Affichage des Candidats à exclure 
       Dim Candidats As String = Cnddts_Blancs
@@ -1051,7 +1009,7 @@ Friend Module M03_Paint
         sc.Numéro = i
         sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(XRslt.Candidat(0)) Then
-          G0_Cdd_Figure_g(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
+          G0_Cdd_Figure(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
         End If
       Next i
 
@@ -1064,15 +1022,15 @@ Friend Module M03_Paint
             G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(0)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
           Case "WgY"
             G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(2)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
-            G0_Cdd_Figure_g(g, Link.Cel(1), CInt(Link.Cdd(3)), "Disque", Color_Link_S) 'Mise en exergue du candidat Z
+            G0_Cdd_Figure(g, Link.Cel(1), CInt(Link.Cdd(3)), "Disque", Color_Link_S) 'Mise en exergue du candidat Z
           Case "WgZ"
             G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(3)), Link.Cel(1), CInt(Link.Cdd(3)), Link.Type, Nb)
             G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(4)), Link.Cel(1), CInt(Link.Cdd(4)), Link.Type, Nb)
-            G0_Cdd_Figure_g(g, Link.Cel(0), CInt(Link.Cdd(5)), "Disque", Color_Link_S) 'Mise en exergue du candidat du pivot
+            G0_Cdd_Figure(g, Link.Cel(0), CInt(Link.Cdd(5)), "Disque", Color_Link_S) 'Mise en exergue du candidat du pivot
           Case "WgW"
             G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(0)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
-            G0_Cdd_Figure_g(g, XRslt.Cellule(0), CInt(XRslt.Candidat(1)), "Disque", Color_Link_S) 'Mise en exergue du candidat  
-            G0_Cdd_Figure_g(g, XRslt.Cellule(1), CInt(XRslt.Candidat(1)), "Disque", Color_Link_S) 'Mise en exergue du candidat  
+            G0_Cdd_Figure(g, XRslt.Cellule(0), CInt(XRslt.Candidat(1)), "Disque", Color_Link_S) 'Mise en exergue du candidat  
+            G0_Cdd_Figure(g, XRslt.Cellule(1), CInt(XRslt.Candidat(1)), "Disque", Color_Link_S) 'Mise en exergue du candidat  
         End Select
       Next Link
 
@@ -1126,7 +1084,7 @@ Friend Module M03_Paint
         sc.Numéro = i
         sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(GRslt.Candidat(0)) Then
-          G0_Cdd_Figure_g(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
+          G0_Cdd_Figure(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
         End If
       Next i
 
@@ -1170,7 +1128,7 @@ Friend Module M03_Paint
         sc.Numéro = i
         sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(GRslt.Candidat(0)) Then
-          G0_Cdd_Figure_g(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
+          G0_Cdd_Figure(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
         End If
       Next i
 
@@ -1294,7 +1252,7 @@ Friend Module M03_Paint
         sc.Numéro = i
         sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
         If U(i, 3).Contains(GRslt.Candidat(0)) Then
-          G0_Cdd_Figure_g(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
+          G0_Cdd_Figure(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
         End If
       Next i
 
@@ -1366,7 +1324,7 @@ Friend Module M03_Paint
               Case 0    'Cellule
                 G0_Cell_Figure(g, .Cel_From, .Forme, Color_BySymbol(.Symbol))
               Case Else 'Candidat
-                G0_Cdd_Figure_g(g, .Cel_From, .Cdd_From, .Forme, Color_BySymbol(.Symbol))
+                G0_Cdd_Figure(g, .Cel_From, .Cdd_From, .Forme, Color_BySymbol(.Symbol))
             End Select
           Case "Flèche"
             G0_Cdd_Flèche_g(g, .Cel_From, .Cdd_From, .Cel_To, .Cdd_To, Color_BySymbol(.Symbol))
@@ -1450,7 +1408,7 @@ Friend Module M03_Paint
     End Using
   End Sub
 
-  Public Sub G0_Cdd_Figure_g(g As Graphics, Cellule As Integer, Candidat As Integer, Figure As String, Couleurp As Color)
+  Public Sub G0_Cdd_Figure(g As Graphics, Cellule As Integer, Candidat As Integer, Figure As String, Couleurp As Color)
     Dim Couleur As Color = Color.FromArgb(192, Couleurp) ' 128+64 = 192
     'Dessine des figures à partir de 4 points A0, B0, C0, D0 représentant les 4 points du square A0= Left_Top, C0= Right_Bottom
     '                             déclinés en A1, B1, C1, D1 décalé de 1/4 
@@ -1570,7 +1528,7 @@ Friend Module M03_Paint
     End Using
   End Sub
 
-  Public Sub G0_Cell_Diagonale_g(g As Graphics, From_Cellule As Integer, To_Cellule As Integer)
+  Public Sub G0_Cell_Diagonale(g As Graphics, From_Cellule As Integer, To_Cellule As Integer)
     'Dessine une Flèche
     If From_Cellule = -1 And To_Cellule = -1 Then Exit Sub
     Dim Pt_From_Cellule, Pt_To_Cellule As Point
@@ -1579,7 +1537,13 @@ Friend Module M03_Paint
     Dim sc_To As New Cellule_Cls With {.Numéro = To_Cellule}
     Pt_To_Cellule = New Point(sc_To.Position_Center.X, sc_To.Position_Center.Y)
     Cells_Bresenham_Get(U_Strg, From_Cellule, To_Cellule)
-    Using Pen As New Pen(Color_Stratégique, 5) With {.DashStyle = DashStyle.DashDotDot, .EndCap = LineCap.ArrowAnchor}
+    ' Using Pen As New Pen(Color_Stratégique, 5) With {.DashStyle = DashStyle.DashDotDot, .EndCap = LineCap.ArrowAnchor}
+    ' g.DrawLine(Pen, Pt_From_Cellule, Pt_To_Cellule)
+    'End Using
+    ' Using Pen As New Pen(Color_Stratégique, 5) With {.DashStyle = DashStyle.Dot, .EndCap = LineCap.ArrowAnchor}
+    ' g.DrawLine(Pen, Pt_From_Cellule, Pt_To_Cellule)
+    ' End Using
+    Using Pen As New Pen(Color_Stratégique, WH \ 2)
       g.DrawLine(Pen, Pt_From_Cellule, Pt_To_Cellule)
     End Using
   End Sub

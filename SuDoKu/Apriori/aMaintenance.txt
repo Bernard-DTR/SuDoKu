@@ -293,21 +293,21 @@
                    ....7.1....73.1..663....9...64....3..5..42...1....726...2..43.94..1...2.....5....
 #637 V  06/03/2026 Mise en place de la stratégie Cbl                 
 #638 S  07/03/2026 Mise en place de la stratégie Tpl                 
+#639 L  09/03/2026 Calculer la barre d'outils à chaque nouvelle partie : Mnu_Mngt_Barre_Outils_Filtres()
+#640 L  09/03/2026 Abandon progtressive des extensions de noms _IA et _g 
+#641 L  09/03/2026 Mise en place de la stratégie Xwg + Finned + Sashimi  
+
 
 
 ?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 Grandes étapes:
                    Mise en place des stratégies classiques
-                   Mise en place de la stratégie CdS, DCs  
-                   Mise en place de la stratégie des Candidats Bloqués Séparation Calcul-Affichage
-                   Reprise des stratégies liens avec DFS
-                   Stratégie Loop
+                   Stg_List_Code    :                          XYw ,Swf ,Jly ,XYZ ,SKy ,Unq
+                   Stg_List_Code    : CdU ,CdO ,Cbl ,Tpl ,Xwg ,XYw ,Swf ,Jly ,XYZ ,SKy ,Unq
 
-                   Plcy_Solution_Existante abandon
-                   Insertion_Exclusion_Nb_Erreurs += 1 abandon
-                   Persistance de la couleur dans le menu contextuel
-                   comment effacer les old, save et procédures en commentaires
-                   batch génère une erreur si le nombre plafond du stock est atteint ? 
+                   Mise en place de la stratégie CdS, DCs  
+                   Reprise des stratégies liens avec DFS
+                   Stratégie Loop discontinue
                    U_Strg_Effacer_g
 ##############################################################################################################################
 
@@ -317,5 +317,6 @@ Grandes étapes:
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
                    Revoir le traitement en arrière-plan si on est en mode de maintenance
                    Je ne peux plus ajouter un candidat après l'avoir supprimé
+                   Est-il possible en Strg Cdd de supprimer/insérer un candidat ? 
 
 ##############################################################################################################################
