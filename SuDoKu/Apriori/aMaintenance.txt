@@ -296,6 +296,9 @@
 #639 L  09/03/2026 Calculer la barre d'outils à chaque nouvelle partie : Mnu_Mngt_Barre_Outils_Filtres()
 #640 L  09/03/2026 Abandon progtressive des extensions de noms _IA et _g 
 #641 L  09/03/2026 Mise en place de la stratégie Xwg + Finned + Sashimi  
+#642 L  09/03/2026 Mise en place de la stratégie XYw  
+#643 L  09/03/2026 Les candidats à enlever sont contrôlés avec XSolution 
+
 
 
 

@@ -123,6 +123,7 @@ Friend Module En_Cours
       Case "Cbl" : Strategy_Rslt = Strategy_Cbl(U_temp)
       Case "Tpl" : Strategy_Rslt = Strategy_Tpl(U_temp)
       Case "Xwg" : Strategy_Rslt = Strategy_Xwg(U_temp)
+      Case "XYw" : Strategy_Rslt = Strategy_XYw(U_temp)
       Case Else
     End Select
 
@@ -172,5 +173,19 @@ Friend Module En_Cours
     Return Index
 
   End Function
+
+  Public Sub Strg_Control_Cdd_Exclure(Candidat As String)
+    Jrn_Add_Red(Proc_Name_Get())
+    Jrn_Add_Red(" Liste des cellules du candidat " & Candidat & " à enlever")
+    For i As Integer = 0 To 80
+      If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then
+        Jrn_Add_Red(U_Coord(i) & " " & U(i, 3))
+        If XSolution(i) = Candidat Then
+          Jrn_Add(, {"❗ La cellule " & U_Coord(i) & " doit prendre la valeur " & Candidat & " !"}, "Erreur")
+        End If
+      End If
+    Next
+
+  End Sub
 
 End Module
