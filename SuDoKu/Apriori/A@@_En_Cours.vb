@@ -124,6 +124,7 @@ Friend Module En_Cours
       Case "Tpl" : Strategy_Rslt = Strategy_Tpl(U_temp)
       Case "Xwg" : Strategy_Rslt = Strategy_Xwg(U_temp)
       Case "XYw" : Strategy_Rslt = Strategy_XYw(U_temp)
+      Case "Swf" : Strategy_Rslt = Strategy_Swf(U_temp)
       Case Else
     End Select
 

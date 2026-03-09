@@ -54,7 +54,7 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_Tpl(g)
       G4_Grid_Stratégie_Xwg(g)
       G4_Grid_Stratégie_XYw(g)
-      G4_Grid_Stratégie_Swf_g(g)
+      G4_Grid_Stratégie_Swf(g)
       G4_Grid_Stratégie_Jly_g(g)
       G4_Grid_Stratégie_XYZ_g(g)
       G4_Grid_Stratégie_SKy_g(g)
@@ -533,56 +533,49 @@ Friend Module M03_Paint
     Strg_Control_Cdd_Exclure(Candidat)
   End Sub
 
-  Public Sub G4_Grid_Stratégie_Swf_g(g As Graphics)
-    Dim U_temp(80, 3) As String
-    Dim Ligne As Integer
-    Dim Strategy_Rslt(,) As String
-    Dim Cellule As Integer
+  Public Sub G4_Grid_Stratégie_Swf(g As Graphics)
+    If Not Plcy_Strg = "Swf" Then Exit Sub
     Dim Candidat As String
 
-    If Not Plcy_Strg = "Swf" Then Exit Sub
-    Try
-      U_Strg_Effacer_g(g)
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_Rslt = Strategy_Swf(U_temp)
-      If UBound(Strategy_Rslt, 2) <= 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " sans résultat."
-        Exit Sub
-      End If
+    If RRslt.Productivité = False Then
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+      Exit Sub
+    End If
 
-      ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
-      Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
+    Candidat = RRslt.Candidat
+    For Each cell As Integer In RRslt.Cellule
+      Dim sc As New Cellule_Cls With {.Numéro = cell}
+      G0_Cell_Figure(g, cell, "Double_Carré", Color_Stratégique)
+      sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+      G0_Cdd_Figure(g, cell, CInt(Candidat), "Disque", Color_Stratégique)
+    Next
+    For Each cellexcl As Integer In RRslt.CelExcl
+      G0_Cell_Figure(g, cellexcl, "Double_Carré", Color_Stratégique)
+    Next
 
-      ' 2 Aide Graphique
-      '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-      Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 Then
-        Candidat = Strategy_Rslt(5, Ligne)
-        U_MdC_Init()
-        For k As Integer = 10 To 54
-          Dim Cell_s As String = Strategy_Rslt(k, Ligne)
-          If Cell_s = "__" Then Exit For
-          Dim Cell_i As Integer = CInt(Strategy_Rslt(k, Ligne))
-          G4_MdC_Row_Col_Box("Row", U_Row(Cell_i))
-          G4_MdC_Row_Col_Box("Col", U_Col(Cell_i))
-        Next k
-        'U_Strg est documenté dans G4_MdC_Row_Col_Box 
-        G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
-        For k As Integer = 55 To 99    ' Re-dessine le candidat à enlever dans un cercle plein rouge
-          If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-          Cellule = CInt(Strategy_Rslt(k, Ligne))
-          Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          sc_Cdd.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
-          U_Strg(Cellule) = True
-        Next k
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
-      End If
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    With RRslt
+      U_MdC_Init()
+      For Each cellule As Integer In RRslt.Cellule
+        G4_MdC_Row_Col_Box("Row", U_Row(cellule))
+        G4_MdC_Row_Col_Box("Col", U_Col(cellule))
+      Next
+      G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
+    End With
+
+    For Each cellexcl As Integer In RRslt.CelExcl
+      Dim sc As New Cellule_Cls With {.Numéro = cellexcl}
+      sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+      'Re-dessine le candidat à placer dans un cercle plein rouge
+      sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
+      U_Strg_Cdd_Exc(cellexcl) = Candidat
+    Next
+
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " (" & RRslt.Code_Sous_Strg & ") :   " & Candidat & " rouge à enlever."
+    Strg_Control_Cdd_Exclure(Candidat)
+
   End Sub
+
+
   Public Sub G4_Grid_Stratégie_Jly_g(g As Graphics)
     Dim U_temp(80, 3) As String
     Dim Ligne As Integer
