@@ -164,6 +164,7 @@ Module M02_Menu_Management
             End If
 
           Case "Mnu_Cel_Cdd_Exc_" 'Exclure le candidat 1 à 9
+            ' TODO Traitement insuffisant pour la stratégie Unq
             If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 3 AndAlso Stg_Get(Plcy_Strg).Type = "E" AndAlso U(Cellule, 2) = " " Then
               Candidats = U(Cellule, 3)
               Opt = Ligne.Name(16)

@@ -46,8 +46,8 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_Swf(g)
       G4_Grid_Stratégie_Jly(g)
       G4_Grid_Stratégie_XYZ(g)
-      G4_Grid_Stratégie_SKy_g(g)
-      G4_Grid_Stratégie_Unq_g(g)
+      G4_Grid_Stratégie_SKy(g)
+      G4_Grid_Stratégie_Unq(g)
       G4_Grid_Stratégie_Obj_g(g)
       G4_Grid_Stratégie_XCx_XCy_XNl_g(g)
       G4_Grid_Stratégie_XRp_g(g)
@@ -297,46 +297,6 @@ Friend Module M03_Paint
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
-  End Sub
-  Public Sub Strategy_BTXYSJZKQ_Aide_Simple_g(g As Graphics, Strategy_Rslt(,) As String, U_Strg() As Boolean)
-    ' TODO ne doit plus servir
-    Dim Cellule As Integer
-    Dim Candidat As String
-    Dim Candidats As String
-    ' 1 Aide Simple
-    'U_Strg_Effacer()
-
-    For i As Integer = 1 To UBound(Strategy_Rslt, 2)
-      For k As Integer = 10 To 54
-        If Strategy_Rslt(k, i) = "__" Then Exit For
-        Cellule = CInt(Strategy_Rslt(k, i))
-        U_Strg(Cellule) = True
-      Next k
-      For k As Integer = 55 To 99
-        If Strategy_Rslt(k, i) = "__" Then Exit For
-        Cellule = CInt(Strategy_Rslt(k, i))
-        Candidat = Strategy_Rslt(5, i)
-        Candidats = U_Strg_Cdd_Exc(Cellule)
-        Select Case Strategy_Rslt(1, i)
-          Case "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy"
-            Mid$(Candidats, CInt(Candidat), 1) = Candidat ' le candidat est ajouté
-          Case "Unq"
-            ' Unq est la seule stratégie qui propose plusieurs candidats à exclure
-            'On ajoute à U_Strg_Cdd_Exc(Cellule) le ou les candidats de la stratégie Unq
-            For c As Integer = 1 To 9
-              If Mid$(Candidat, c, 1) = CStr(c) Then
-                Mid$(Candidats, c, 1) = CStr(c) ' le candidat est ajouté
-              End If
-            Next c
-        End Select
-        U_Strg_Cdd_Exc(Cellule) = Candidats
-      Next k
-    Next i '/For i = 1 To UBound(Strategy_Rslt, 2)
-
-    For i As Integer = 0 To 80
-      If U_Strg(i) Then G0_Cell_Figure(g, i, "Double_Carré", Color_Stratégique)
-    Next i
-
   End Sub
   Public Sub G4_Grid_Stratégie_Cbl(g As Graphics)
     If Not Plcy_Strg = "Cbl" Then Exit Sub
@@ -613,11 +573,6 @@ Friend Module M03_Paint
     With RRslt
       U_MdC_Init()
       G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(0)))
-
-      'For Each cellule As Integer In RRslt.Cellule
-      'G4_MdC_Row_Col_Box("Row", U_Row(cellule))
-      'G4_MdC_Row_Col_Box("Col", U_Col(cellule))
-      'Next
       G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
     End With
 
@@ -631,202 +586,121 @@ Friend Module M03_Paint
 
     Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " (" & RRslt.Code_Sous_Strg & ") :   " & Candidat & " rouge à enlever."
     RRslt_Control_Cdd_Exclure(Candidat)
-    'Dim U_temp(80, 3) As String
-    'Dim Ligne As Integer
-    'Dim Strategy_Rslt(,) As String
-    'Dim Cellule As Integer
-    'Dim Candidat As String
-
-    'If Not Plcy_Strg = "XYZ" Then Exit Sub
-    'Try
-    '  U_Strg_Effacer_g(g)
-    '  Array.Copy(U, U_temp, UNbCopy)
-    '  Strategy_Rslt = Strategy_XYZ(U_temp)
-    '  If UBound(Strategy_Rslt, 2) <= 0 Then
-    '    Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " sans résultat."
-    '    Exit Sub
-    '  End If
-
-    '  ' 1 Aide Simple
-    '  Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
-    '  Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
-
-    '  ' 2 Aide Graphique
-    '  '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-    '  Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-    '  If Ligne <> -1 Then
-    '    Candidat = Strategy_Rslt(5, Ligne)
-    '    U_MdC_Init()
-    '    G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(10, Ligne))))
-    '    'U_Strg est documenté dans G4_MdC_Row_Col_Box 
-    '    G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
-    '    For k As Integer = 55 To 99    ' Re-dessine le candidat à enlever dans un cercle plein rouge
-    '      If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-    '      Cellule = CInt(Strategy_Rslt(k, Ligne))
-    '      Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-    '      sc_Cdd.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
-    '      U_Strg(Cellule) = True
-    '    Next k
-    '    Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & ": " & Candidat & " rouge à enlever."
-    '  End If
-    'Catch ex As Exception
-    '  Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-    '  Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    'End Try
   End Sub
-
-  Public Sub G4_Grid_Stratégie_SKy_g(g As Graphics)
-    'La stratégie SKy regroupe 2 Sous-Stratégies:
+  Public Sub G4_Grid_Stratégie_SKy(g As Graphics)
+    'La stratégie SKy regroupe 3 Sous-Stratégies:
     '   s/Stratégie   SKY Skyscraper Gratte-Ciel
     '   s/Stratégie   Kyt Kyte       Cerf-Volant
     '   s/Stratégie   EyR Empty Rct  Rectangle Vide
-    Dim U_temp(80, 3) As String
-    Dim Ligne As Integer
-    Dim Strategy_Rslt(,) As String
-    Dim Cellule As Integer
 
-    Dim Candidat As String
     If Not Plcy_Strg = "SKy" Then Exit Sub
-    Try
-      U_Strg_Effacer_g(g)
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_Rslt = Strategy_SKy(U_temp)
-      If UBound(Strategy_Rslt, 2) <= 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " sans résultat."
-        Exit Sub
-      End If
+    Dim Candidat As String
 
-      ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
-      Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
+    If RRslt.Productivité = False Then
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+      Exit Sub
+    End If
 
-      Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 Then
-        Dim Sous_stratégie As String = Strategy_Rslt(2, Ligne)
-        Candidat = Strategy_Rslt(5, Ligne)
-        Select Case Mid$(Sous_stratégie, 1, 3)
-          Case "SKy"
-            U_MdC_Init()
-            G4_MdC_Trait_ou_Rectangle(CInt(Strategy_Rslt(10, Ligne)), CInt(Strategy_Rslt(11, Ligne)))
-            G4_MdC_Trait_ou_Rectangle(CInt(Strategy_Rslt(10, Ligne)), CInt(Strategy_Rslt(12, Ligne)))
-            G4_MdC_Trait_ou_Rectangle(CInt(Strategy_Rslt(11, Ligne)), CInt(Strategy_Rslt(13, Ligne)))
-            G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
-            For k As Integer = 55 To 99    ' Re-dessine le candidat à enlever dans un cercle plein rouge
-              If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-              Cellule = CInt(Strategy_Rslt(k, Ligne))
-              Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-              sc_Cdd.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
-              U_Strg(Cellule) = True
-            Next k
-            Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " " & Sous_stratégie & ": " & Candidat & "  rouge à exclure."
+    Candidat = RRslt.Candidat
+    For Each cell As Integer In RRslt.Cellule
+      Dim sc As New Cellule_Cls With {.Numéro = cell}
+      G0_Cell_Figure(g, cell, "Double_Carré", Color_Stratégique)
+      sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+      G0_Cdd_Figure(g, cell, CInt(Candidat), "Disque", Color_Stratégique)
+    Next
+    For Each cellexcl As Integer In RRslt.CelExcl
+      G0_Cell_Figure(g, cellexcl, "Double_Carré", Color_Stratégique)
+    Next
 
-          Case "Kyt"
-            U_MdC_Init()
-            G4_MdC_Trait_ou_Rectangle(CInt(Strategy_Rslt(10, Ligne)), CInt(Strategy_Rslt(11, Ligne)))
-            G4_MdC_Trait_ou_Rectangle(CInt(Strategy_Rslt(12, Ligne)), CInt(Strategy_Rslt(13, Ligne)))
-            Select Case Sous_stratégie
-              Case "KytH1V1" : G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(12, Ligne))))
-              Case "KytH1V2" : G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(10, Ligne))))
-              Case "KytH2V1" : G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(12, Ligne))))
-              Case "KytH2V2" : G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(11, Ligne))))
-            End Select
-            G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
-            For k As Integer = 55 To 99    ' Re-dessine le candidat à enlever dans un cercle plein rouge
-              If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-              Cellule = CInt(Strategy_Rslt(k, Ligne))
-              Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-              sc_Cdd.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
-              U_Strg(Cellule) = True
-            Next k
-            Frm_SDK.B_Info.Text = " Stratégie Sky " & Sous_stratégie & ": " & Candidat & "  rouge à exclure."
+    With RRslt
+      Select Case Mid(.Code_Sous_Strg, 1, 3)
+        Case "SKy"
+          U_MdC_Init()
+          G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(1))
+          G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(2))
+          G4_MdC_Trait_ou_Rectangle(.Cellule(1), .Cellule(3))
+          G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
+        Case "Kyt"
+          U_MdC_Init()
+          G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(1))
+          G4_MdC_Trait_ou_Rectangle(.Cellule(2), .Cellule(3))
+          Select Case .Code_Sous_Strg
+            Case "KytH1V1" : G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(2)))
+            Case "KytH1V2" : G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(0)))
+            Case "KytH2V1" : G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(2)))
+            Case "KytH2V2" : G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(1)))
+          End Select
+          G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
+        Case "EyR"
+          U_MdC_Init()
+          G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(0)))
+          G4_MdC_Trait_ou_Rectangle(.Cellule(1), .Cellule(2))
+          G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
+      End Select
+    End With
 
-          Case "EyR"
-            U_MdC_Init()
-            G4_MdC_Row_Col_Box("Box", U_Reg(CInt(Strategy_Rslt(10, Ligne))))
-            G4_MdC_Trait_ou_Rectangle(CInt(Strategy_Rslt(11, Ligne)), CInt(Strategy_Rslt(12, Ligne)))
-            G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
-            For k As Integer = 55 To 99    ' Re-dessine le candidat à enlever dans un cercle plein rouge
-              If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-              Cellule = CInt(Strategy_Rslt(k, Ligne))
-              Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-              sc_Cdd.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
-              U_Strg(Cellule) = True
-            Next k
-            Frm_SDK.B_Info.Text = " Stratégie Sky " & Sous_stratégie & ": " & Candidat & "  rouge à exclure."
-
-        End Select
-      End If
-
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-
+    For Each cellexcl As Integer In RRslt.CelExcl
+      Dim sc As New Cellule_Cls With {.Numéro = cellexcl}
+      sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+      'Re-dessine le candidat à placer dans un cercle plein rouge
+      sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
+      U_Strg_Cdd_Exc(cellexcl) = Candidat
+    Next
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " (" & RRslt.Code_Sous_Strg & ") :   " & Candidat & " rouge à enlever."
+    RRslt_Control_Cdd_Exclure(Candidat)
   End Sub
-
-  Public Sub G4_Grid_Stratégie_Unq_g(g As Graphics)
-    'Unq est traité pour l'aide simple comme les autres stratégies avec Strategy_BTXYSJZKQ_Aide_Simple
-    '               Pour l'Aide Graphique, le traitement diffère : 
-    ' Strategy_BTXYSJZK_ :  Dim Candidat as String  = Strategy_Rslt(5, Ligne)
-    '                       comporte LE candidat à éliminer
-    ' Strategy_________Q :  Dim Candidats As String = Strategy_Rslt(5, Ligne)
-    '                       comporte LES CANDIDATS
-    Dim U_temp(80, 3) As String
-    Dim Ligne As Integer
-    Dim Strategy_Rslt(,) As String
-    Dim Cellule As Integer
-    Dim Candidats_Txt As String = ""
-    Dim Candidats As String
+  Public Sub G4_Grid_Stratégie_Unq(g As Graphics)
     If Not Plcy_Strg = "Unq" Then Exit Sub
-    Try
-      U_Strg_Effacer_g(g)
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_Rslt = Strategy_Unq(U_temp)
-      If UBound(Strategy_Rslt, 2) <= 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " sans résultat."
-        Exit Sub
-      End If
 
-      ' 1 Aide Simple
-      Strategy_BTXYSJZKQ_Aide_Simple_g(g, Strategy_Rslt, U_Strg)
-      Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte
+    If RRslt.Productivité = False Then
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+      Exit Sub
+    End If
+    Dim Candidat As String = RRslt.Candidat
+    Dim Candidats As String() = RRslt.Candidat.Where(Function(c) c <> " "c).
+                                               Select(Function(c) c.ToString()).ToArray()
 
-      Ligne = Strategy_Click(Pbl_Cell_Select, Strategy_Rslt)
-      If Ligne <> -1 Then
-        Dim Sous_stratégie As String = Strategy_Rslt(2, Ligne)
-        'Strategy_Unq_Rectangle_1 candidats comporte 2 candidats (placés dans un string 9)
-        '                         la typologie est R11, R12, R13, R14 suivant le sens du rectangle
-        '                         Les candidats sont correctement placés dans la zone Candidats
-        'Strategy_Unq_Rectangle_2 candidats comporte 1 candidat  
-        '                         la typologie est R2HD, R2HG, R2VH, R2VB
-        '                         Le candidat est correctement placé dans la zone candidats (string 9)
-        '                         
-        Candidats = Strategy_Rslt(5, Ligne)
-        U_MdC_Init()
-        G4_MdC_Trait_ou_Rectangle(CInt(Strategy_Rslt(10, Ligne)), CInt(Strategy_Rslt(12, Ligne)))
-        G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
-        For k As Integer = 55 To 99    ' Re-dessine le candidat à enlever dans un cercle plein rouge
-          If Strategy_Rslt(k, Ligne) = "__" Then Exit For
-          Cellule = CInt(Strategy_Rslt(k, Ligne))
-          Dim sc_Cdd As New Cellule_Cls With {.Numéro = Cellule}
-          Candidats_Txt = ""
-          For c As Integer = 1 To 9
-            If Mid$(Candidats, c, 1) = CStr(c) Then
-              sc_Cdd.G6_Cellule_Paint_Candidat(g, CStr(c), Color_Cdd_Exclure)
-              Candidats_Txt &= CStr(c) & ","
-            End If
-          Next c
-          'Pour perdre la dernière virgule
-          Candidats_Txt = Mid$(Candidats_Txt, 1, Candidats_Txt.Length - 1)
-          U_Strg(Cellule) = True
-        Next k
-        Frm_SDK.B_Info.Text = Stg_Get(Strategy_Rslt(1, 0)).Texte & " " & Sous_stratégie & ": " & Candidats_Txt & "  rouge à exclure."
-      End If
+    For Each cell As Integer In RRslt.Cellule
+      Dim sc As New Cellule_Cls With {.Numéro = cell}
+      G0_Cell_Figure(g, cell, "Double_Carré", Color_Stratégique)
+      sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+      For Each cdd As String In Candidats
+        G0_Cdd_Figure(g, cell, CInt(cdd), "Disque", Color_Stratégique)
+      Next
+    Next
+    For Each cellexcl As Integer In RRslt.CelExcl
+      G0_Cell_Figure(g, cellexcl, "Double_Carré", Color_Stratégique)
+    Next
 
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
+    'Strategy_Unq_Rectangle_1 candidats comporte 2 candidats (placés dans un string 9)
+    '                         la typologie est R11, R12, R13, R14 suivant le sens du rectangle
+    '                         Les candidats sont correctement placés dans la zone Candidats
+    'Strategy_Unq_Rectangle_2 candidats comporte 1 candidat  
+    '                         la typologie est R2HD, R2HG, R2VH, R2VB
+    '                         Le candidat est correctement placé dans la zone candidats (string 9)
+    With RRslt
+
+      U_MdC_Init()
+      G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(2))
+      G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
+
+      For Each cellexcl As Integer In RRslt.CelExcl
+        For Each cdd As String In Candidats
+          If U(cellexcl, 3).Contains(cdd) Then
+            U_Strg_Cdd_Exc(cellexcl) = cdd
+            G0_Cdd_Figure(g, cellexcl, CInt(cdd), "Disque", Color_Cdd_Exclure)
+          End If
+        Next
+      Next
+
+    End With
+    Dim Candidat_txt As String = String.Join(", ", Candidats)
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " (" & RRslt.Code_Sous_Strg & ") :   " & Candidat_txt & " rouge à enlever."
+
+    For Each cdd As String In Candidats
+      RRslt_Control_Cdd_Exclure(cdd)
+    Next
+
 
   End Sub
 

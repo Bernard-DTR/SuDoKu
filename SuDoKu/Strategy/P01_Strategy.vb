@@ -177,17 +177,6 @@ Friend Module P01_Strategy
     Frm_SDK.B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
-  Function Strategy_Click(Cellule As Integer, ByRef Strategy_Rslt(,) As String) As Integer
-    'Strategy_Click retourne le numéro de ligne de Strategy_Rslt
-    For i As Integer = 1 To UBound(Strategy_Rslt, 2)
-      For k As Integer = 10 To 54
-        If Strategy_Rslt(k, i) = "__" Then Exit For
-        If CInt(Strategy_Rslt(k, i)) = Cellule Then Return i
-      Next k
-    Next i
-    Return -1
-  End Function
-
   Sub Strategy_Rslt_Init(ByRef Strategy_Rslt(,) As String,
                          Stratégie As String,
                          Sous_Stratégie As String)

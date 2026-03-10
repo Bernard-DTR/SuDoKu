@@ -545,7 +545,7 @@ Module A00_Public
     Public Code_Sous_Strg As String             ' Sous-Stratégie
     Public Code_LCR As String
     Public LCR As Integer
-    Public Candidat As String                   ' Le candidat de la stratégie
+    Public Candidat As String                   ' Le candidat de la stratégie ou les candidats si Stratégie Unq
     Public Cellule() As Integer                 ' Les cellules de la stratégie
     Public CelExcl() As Integer                 ' Les cellules concernées par l'exclusion
     Public Productivité As Boolean              ' False/ True

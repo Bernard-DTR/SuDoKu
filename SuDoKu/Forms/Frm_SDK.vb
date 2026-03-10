@@ -122,25 +122,22 @@ Public NotInheritable Class Frm_SDK
       End If
     Next
 
-
-
-
     'Le menu 04 diffère des autres menus dans la mesure où il est capable d'afficher une image ET le symbole checked/non checked
     'https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-enable-check-margins-and-image-margins-in-contextmenustrip-controls?view=netframeworkdesktop-4.8
     Mnu04.DropDown = New ContextMenuStrip()
     CType(Mnu04.DropDown, ContextMenuStrip).ShowImageMargin = True
     CType(Mnu04.DropDown, ContextMenuStrip).ShowCheckMargin = True
 
-    Dim Mnu04n_AnnulerLaDerniereOption As New ToolStripMenuItem() With
-        {
-        .Text = "Annuler la dernière option",
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_AnnulerLaDerniereOption.Click, AddressOf Mnu04n_AnnulerLaDerniereOption_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_AnnulerLaDerniereOption)
+    'Dim Mnu04n_AnnulerLaDerniereOption As New ToolStripMenuItem() With
+    '    {
+    '    .Text = "Annuler la dernière option",
+    '    .ForeColor = SystemColors.ControlText
+    '     }
+    'AddHandler Mnu04n_AnnulerLaDerniereOption.Click, AddressOf Mnu04n_AnnulerLaDerniereOption_Click
+    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_AnnulerLaDerniereOption)
 
-    Dim Mnu04n_Sep02 As New ToolStripSeparator
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep02)
+    'Dim Mnu04n_Sep02 As New ToolStripSeparator
+    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep02)
 
     Dim Mnu04n_XCx As New ToolStripMenuItem() With
         {
@@ -936,9 +933,9 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
     Strategy_Code("CdS", Proc_Name_Get())
   End Sub
-  Private Sub Mnu04n_AnnulerLaDerniereOption_Click(sender As Object, e As EventArgs) Handles Btn0.Click
-    Strategy_Dsp_Standard()
-  End Sub
+  'Private Sub Mnu04n_AnnulerLaDerniereOption_Click(sender As Object, e As EventArgs) Handles Btn0.Click
+  '  Strategy_Dsp_Standard()
+  'End Sub
 
   Public Sub Mnu04n_Stratégie_XW_Click(Sender As Object, e As EventArgs)
     If TypeOf Sender Is ToolStripMenuItem Then
