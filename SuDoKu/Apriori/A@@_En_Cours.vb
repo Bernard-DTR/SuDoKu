@@ -125,6 +125,8 @@ Friend Module En_Cours
       Case "Xwg" : Strategy_Rslt = Strategy_Xwg(U_temp)
       Case "XYw" : Strategy_Rslt = Strategy_XYw(U_temp)
       Case "Swf" : Strategy_Rslt = Strategy_Swf(U_temp)
+      Case "Jly" : Strategy_Rslt = Strategy_Jly(U_temp)
+      Case "XYZ" : Strategy_Rslt = Strategy_XYZ(U_temp)
       Case Else
     End Select
 
@@ -175,18 +177,27 @@ Friend Module En_Cours
 
   End Function
 
-  Public Sub Strg_Control_Cdd_Exclure(Candidat As String)
+  Public Sub RRslt_Control_Cdd_Exclure(Candidat As String)
     Jrn_Add_Red(Proc_Name_Get())
-    Jrn_Add_Red(" Liste des cellules du candidat " & Candidat & " à enlever")
+    Jrn_Add_Red("Liste des cellules du candidat " & Candidat & " à enlever")
+    'For i As Integer = 0 To 80
+    '  If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then
+    '    Jrn_Add_Red(U_Coord(i) & " " & U(i, 3))
+    '    If XSolution(i) = Candidat Then
+    '      Jrn_Add(, {"❗ La cellule " & U_Coord(i) & " doit prendre la valeur " & Candidat & " !"}, "Erreur")
+    '    End If
+    '  End If
+    'Next
+    Dim S As String
     For i As Integer = 0 To 80
+      S = ""
       If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then
-        Jrn_Add_Red(U_Coord(i) & " " & U(i, 3))
+        S = (U_Coord(i) & " " & U(i, 3))
         If XSolution(i) = Candidat Then
-          Jrn_Add(, {"❗ La cellule " & U_Coord(i) & " doit prendre la valeur " & Candidat & " !"}, "Erreur")
+          Jrn_Add(, {S & "❗ La cellule doit prendre la valeur " & Candidat & " !"}, "Erreur")
         End If
       End If
     Next
-
   End Sub
 
 End Module

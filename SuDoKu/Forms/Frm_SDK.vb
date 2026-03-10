@@ -3,8 +3,6 @@ Option Explicit On
 Imports System.Threading
 Imports SuDoKu.DancingLink
 
-' Formulaire SDK
-
 Public NotInheritable Class Frm_SDK
   Private MouseClick_Middle_ToolTip As CustomToolTip
 
@@ -393,6 +391,18 @@ Public NotInheritable Class Frm_SDK
       'Jrn_Add_White(Proc_Name_Get() & " " & Plcy_Strg & " " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint)
 
       Select Case Event_OnPaint
+        Case "Général"
+          ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
+          G1_Grid_Paint_g(e.Graphics)
+          Dim Gril As New Grille_Cls
+          Gril.G2_Grille_Paint_Fond_g(e.Graphics)
+          G4_Grid_Stratégie_All(e.Graphics)
+          Dim sc As New Cellule_Cls
+          For i As Integer = 0 To 80
+            sc.Numéro = i
+            sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          Next i
+
         Case "Global"
           ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
           G1_Grid_Paint_g(e.Graphics)
@@ -1072,6 +1082,9 @@ Public NotInheritable Class Frm_SDK
     End Try
     Jrn_Add(, {"Attendre 3 secondes pour que l'application soit lancée..."})
     Thread.Sleep(3000)
+    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint = "Général"
+
     AppActivate("HoDoKu - v2.2.0") 'Active une application qui est déjà en cours d'exécution
     ' AppActivate("Java(TM) Platform SE binary")
     SendKeys.Send("^v")
