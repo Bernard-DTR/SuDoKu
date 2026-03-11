@@ -83,7 +83,7 @@ Friend Module M03_Paint
     U_Strg_Val_Ins(Cellule) = Candidat
     G0_Cell_Figure(g, Cellule, "Double_Carré", Color_Stratégique)
 
-    U_MdC_Init()
+    U_MdC_Clear()
     G4_MdC_Row_Col_Box("Row", U_Row(Cellule))
     G4_MdC_Row_Col_Box("Col", U_Col(Cellule))
     G4_MdC_Row_Col_Box("Box", U_Reg(Cellule))
@@ -116,7 +116,7 @@ Friend Module M03_Paint
 
     Dim Code_LCR As String = RRslt.Code_LCR
     Dim LCR As Integer = RRslt.LCR
-    U_MdC_Init()
+    U_MdC_Clear()
     Select Case Code_LCR
       Case "L" : G4_MdC_Row_Col_Box("Row", LCR)
       Case "C" : G4_MdC_Row_Col_Box("Col", LCR)
@@ -202,7 +202,7 @@ Friend Module M03_Paint
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       If DCdd_List_Exists(Pbl_Cell_Select) Then
         Dim DCdd2 As DCdd_Cls = DCdd_Get(Pbl_Cell_Select)
-        U_MdC_Init()
+        U_MdC_Clear()
         Select Case DCdd2.Sous_Stratégie
           Case "Bh0" : G4_MdC_Trait_ou_Rectangle(0, 26)
           Case "Bh1" : G4_MdC_Trait_ou_Rectangle(27, 53)
@@ -264,7 +264,7 @@ Friend Module M03_Paint
       '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
       If DCdd_List_Exists(Pbl_Cell_Select) Then
         Dim DCdd2 As DCdd_Cls = DCdd_Get(Pbl_Cell_Select)
-        U_MdC_Init()
+        U_MdC_Clear()
         Select Case DCdd2.Sous_Stratégie
           Case "Bh0" : G4_MdC_Trait_ou_Rectangle(0, 26)
           Case "Bh1" : G4_MdC_Trait_ou_Rectangle(27, 53)
@@ -315,7 +315,7 @@ Friend Module M03_Paint
 
     Dim Code_LCR As String = RRslt.Code_LCR
     Dim LCR As Integer = RRslt.LCR
-    U_MdC_Init()
+    U_MdC_Clear()
     Select Case Code_LCR
       Case "L" : G4_MdC_Row_Col_Box("Row", LCR)
       Case "C" : G4_MdC_Row_Col_Box("Col", LCR)
@@ -352,7 +352,7 @@ Friend Module M03_Paint
 
     Dim Code_LCR As String = RRslt.Code_LCR
     Dim LCR As Integer = RRslt.LCR
-    U_MdC_Init()
+    U_MdC_Clear()
     Select Case Code_LCR
       Case "L" : G4_MdC_Row_Col_Box("Row", LCR)
       Case "C" : G4_MdC_Row_Col_Box("Col", LCR)
@@ -387,7 +387,7 @@ Friend Module M03_Paint
     Next
 
     With RRslt
-      U_MdC_Init()
+      U_MdC_Clear()
       Select Case .Code_Sous_Strg
         Case "Xwg_C"
           G4_MdC_Row_Col_Box("Row", U_Row(.Cellule(0)))
@@ -442,7 +442,7 @@ Friend Module M03_Paint
     Next
 
     With RRslt
-      U_MdC_Init()
+      U_MdC_Clear()
       Select Case .Code_Sous_Strg(1).ToString()
         Case "C"
           G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(0)))
@@ -490,7 +490,7 @@ Friend Module M03_Paint
     Next
 
     With RRslt
-      U_MdC_Init()
+      U_MdC_Clear()
       For Each cellule As Integer In RRslt.Cellule
         G4_MdC_Row_Col_Box("Row", U_Row(cellule))
         G4_MdC_Row_Col_Box("Col", U_Col(cellule))
@@ -531,7 +531,7 @@ Friend Module M03_Paint
     Next
 
     With RRslt
-      U_MdC_Init()
+      U_MdC_Clear()
       For Each cellule As Integer In RRslt.Cellule
         G4_MdC_Row_Col_Box("Row", U_Row(cellule))
         G4_MdC_Row_Col_Box("Col", U_Col(cellule))
@@ -571,7 +571,7 @@ Friend Module M03_Paint
     Next
 
     With RRslt
-      U_MdC_Init()
+      U_MdC_Clear()
       G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(0)))
       G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
     End With
@@ -615,13 +615,13 @@ Friend Module M03_Paint
     With RRslt
       Select Case Mid(.Code_Sous_Strg, 1, 3)
         Case "SKy"
-          U_MdC_Init()
+          U_MdC_Clear()
           G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(1))
           G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(2))
           G4_MdC_Trait_ou_Rectangle(.Cellule(1), .Cellule(3))
           G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
         Case "Kyt"
-          U_MdC_Init()
+          U_MdC_Clear()
           G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(1))
           G4_MdC_Trait_ou_Rectangle(.Cellule(2), .Cellule(3))
           Select Case .Code_Sous_Strg
@@ -632,7 +632,7 @@ Friend Module M03_Paint
           End Select
           G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
         Case "EyR"
-          U_MdC_Init()
+          U_MdC_Clear()
           G4_MdC_Row_Col_Box("Box", U_Reg(.Cellule(0)))
           G4_MdC_Trait_ou_Rectangle(.Cellule(1), .Cellule(2))
           G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
@@ -680,7 +680,7 @@ Friend Module M03_Paint
     '                         Le candidat est correctement placé dans la zone candidats (string 9)
     With RRslt
 
-      U_MdC_Init()
+      U_MdC_Clear()
       G4_MdC_Trait_ou_Rectangle(.Cellule(0), .Cellule(2))
       G4_MdC_Paint(g)      ' Les figures sont dessinées et les candidats affichés
 
@@ -1545,7 +1545,7 @@ Friend Module M03_Paint
 
   Public Sub G4_Cell_MdC(Cellule As Integer, Modèle As String)
     'Exemple pour dessiner des Modèles
-    'U_MdC_Init()           'Initialisation pour chaque cellule d'une suite de modèle
+    'U_MdC_Clear()           'Initialisation pour chaque cellule d'une suite de modèle
     'G4_Cell_MdC(40, "CHG") 'Ajout d'un modèle dans une cellule 
     'G4_Cell_MdC(41, "CHD")
     'G4_Cell_MdC(50, "CBD")
@@ -1612,27 +1612,19 @@ Friend Module M03_Paint
   End Sub
 
   '-------------------------------------------------------------------------------
-  'Création : Lundi 12/12/2020
-  '           
   'Idée     : Créer des formes primaires comme un rectangle ou un pouce ou un coude
   '           Décliner ces formes en 2 formes élémentaires Rectangle Horizontal-Vertical
   '                               en 4 formes élémentaires Pouce Haut-Bas et Droit-Gauche
   '                               en 4 formes élémentaires Coude Haut-Droit, Haut-Gauche, Bas-Droit, Bas-Gauche
   '           Combiner des formes élémentaires pour créer une intersection de Rectangles, des Lettres T, 
   '                               des associations rectangles et coude,
-  '           etc...
   '-------------------------------------------------------------------------------   
   'Vocabulaire:
   ' Modèle Primaire        R(V)         C (CHG)        P(B)
   '        Elémentaire     RV, RH       C H/B-D/G      P B/G/H/D/G
   '        Composite       La croix = RV Union RH
   '                        
-  ' Les modèles primaires sont déterminés à/p de cell_x-y-Width-Height  G0_MdP_Build
-  ' Les modèles élémentaires utilisent Matrix, RotateAt, Transform      G0_MdE_Build
-  ' Les modèles composites utilisent U_Mdc() de structure MdC_Struct    G4_Cell_MdC  
-  '                                                                     G4_MdC_Row_Col_Box
-  '                                                                     
-  Public Sub U_MdC_Init()
+  Public Sub U_MdC_Clear()
     'Initialisation de U_Mdc : 1 ligne par Cellule
     'Redim doit être fait pour chaque ligne
     '42 L5-C7 :   RV   PD                                         

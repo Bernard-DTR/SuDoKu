@@ -4,14 +4,11 @@ Option Explicit On
 Imports System.Drawing.Text ' Nécessaire pour InstalledFontCollection() et PrivateFontCollection()
 Imports System.Threading    ' Nécessaire pour Thread
 
-'Date de création: Samedi 16/07/2022
-'Ce Module regroupe pratiquement toutes les variables globales de SDK
-
 Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_03_00 #647"
+  Public SDK_Version As String = "V2026_03_11 #650"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -84,7 +81,7 @@ Module A00_Public
   Public U_Clr_Cell_Fond(0 To 80) As Color      ' Couleur de fond de chaque cellule
   Public U_Clr_Cell_Val(0 To 80) As Color       ' Couleur de la valeur de chaque cellule
   'Ce tableau concerne les stratégies Cdd, CdU, CdO, Flt et Cbl à Unq
-  'Il stocke les cellules concernées par la stratégie (Niveau de base Simple et Aide Graphique) pour n'effacer que celles-là
+  'Il stocke les cellules concernées par la stratégie pour n'effacer que celles-là
   Public U_Strg(0 To 80) As Boolean
 
   ' U_Strg_Val_Ins comporte pour chaque cellule LE SEUL CANDIDAT à INSéRER, c'est donc une zone de 1 caractère
@@ -336,9 +333,10 @@ Module A00_Public
   Public MW_Prv_Val As Integer = 0                      ' Valeur filtrée précédente
   Public MW_Cell_List As New List(Of Integer)           ' Liste des cellules filtrées valeur précédente ET en_cours
 
-
-  Public MW_Val_Cell_List As New List(Of Integer)       ' Liste des cellules filtrées de la valeur en_cours
-  Public MW_Prv_Val_Cell_List As New List(Of Integer)   ' Liste des cellules filtrées de la valeur précédente
+  ' Utilisation du CdS
+  Public CdS_Val As Integer = 0                          ' Saisie valeur en cours
+  Public CdS_Prv_Val As Integer = 0                      ' Saisie valeur précédente
+  Public CdS_Cell_List As New List(Of Integer)           ' Liste des cellules saisies valeur précédente ET en_cours
 
   Public Structure Points_Struct
     Public Pt_From As PointF
@@ -375,7 +373,6 @@ Module A00_Public
 #End Region
 
 #Region "Structures"
-
   Public Structure Wh_Nb_Cell_Struct
     Public Initiales As Integer              ' Nombre de Cellules Initiales
     Public Vides As Integer                  ' Nombre de Cellules Vides
