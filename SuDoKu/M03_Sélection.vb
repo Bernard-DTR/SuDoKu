@@ -170,14 +170,11 @@ Friend Module M03_Sélection
       Next XCel
     End If
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
     Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()
-
-
   End Sub
   Sub Cell_Cdd_Exclude(V As String, Cellule As Integer)
     If Plcy_Gnrl = "Edi" Then Exit Sub
