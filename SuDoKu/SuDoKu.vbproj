@@ -176,7 +176,6 @@
     <Compile Include="Production\M49_Prd_General.vb" />
     <Compile Include="Production\M50_Production.vb" />
     <Compile Include="Production\M59_Prd_Batch.vb" />
-    <Compile Include="Strategy\P09_Strategy_DCdd.vb" />
     <Compile Include="Strategy\P19_Strategy_SKy.vb" />
     <Compile Include="Strategy\P30_Strategy_ForceBrute.vb" />
     <Compile Include="ApplicationEvents.vb" />

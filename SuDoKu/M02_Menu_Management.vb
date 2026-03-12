@@ -164,7 +164,6 @@ Module M02_Menu_Management
             End If
 
           Case "Mnu_Cel_Cdd_Exc_" 'Exclure le candidat 1 à 9
-            ' TODO Traitement insuffisant pour la stratégie Unq
             If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 3 AndAlso Stg_Get(Plcy_Strg).Type = "E" AndAlso U(Cellule, 2) = " " Then
               Candidats = U(Cellule, 3)
               Opt = Ligne.Name(16)
@@ -172,6 +171,19 @@ Module M02_Menu_Management
               If Opt = Candidats(Opt_int) AndAlso U_Strg_Cdd_Exc(Cellule) = Opt Then
                 Ligne.Visible = True
                 Ligne.BackColor = Color_Cdd_Exclure
+              End If
+            End If
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 4 AndAlso Stg_Get(Plcy_Strg).Type = "E" AndAlso U(Cellule, 2) = " " Then
+              If GRslt.CelExcl.Count > 0 Then
+                For Each XCel As GCel_Excl_Cls In GRslt.CelExcl
+                  If XCel.Cel = Cellule Then
+                    Opt = Ligne.Name(16)
+                    If Opt = XCel.Cdd And U(Cellule, 3).Contains(XCel.Cdd) Then
+                      Ligne.Visible = True
+                      Ligne.BackColor = Color_Cdd_Exclure
+                    End If
+                  End If
+                Next XCel
               End If
             End If
 

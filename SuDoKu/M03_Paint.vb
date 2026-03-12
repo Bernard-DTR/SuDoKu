@@ -9,21 +9,6 @@ Friend Module M03_Paint
   '            avec Top-Left + 1 et Width-Height - 3
   '-------------------------------------------------------------------------------   
 
-  Public Sub U_Strg_Effacer_g(g As Graphics)
-    ' TODO Vraisemblablement, tous ces traitements seront supprimés
-    'Toutes les cellules concernées par une stratégie ont un rafraîchissement du fond et de la Valeur/Candidat
-    Dim sc As New Cellule_Cls
-    For i As Integer = 0 To 80
-      If U_Strg(i) Then
-        sc.Numéro = i
-        sc.G2_Cellule_Paint_Fond_g(g)
-        sc.G5_Cellule_Paint_Valeur_g(g)
-        sc.G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd_g(g) ' dans le cas où seul un candidat a été exclu
-      End If
-      U_Strg(i) = False
-    Next i
-  End Sub
-
 #Region "G4 Couche Stratégie"
   '   La couche G4 stratégies n'est appelée que dans G4_Grid_Stratégie_All,
   Public Sub G4_Grid_Stratégie_All(g As Graphics)
@@ -37,8 +22,6 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_CdU(g)
       G4_Grid_Stratégie_CdO(g)
       G4_Grid_Stratégie_Flt(g)
-      G4_Grid_Stratégie_CdS_g(g)
-      G4_Grid_Stratégie_DCd_g(g)
       G4_Grid_Stratégie_Cbl(g)
       G4_Grid_Stratégie_Tpl(g)
       G4_Grid_Stratégie_Xwg(g)
@@ -93,11 +76,6 @@ Friend Module M03_Paint
     sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Insérer)
     Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
 
-    Jrn_Add_Yellow(Proc_Name_Get() & " Liste des candidats à enlever")
-    For i As Integer = 0 To 80
-      If U_Strg_Val_Ins(i) <> "" Then Jrn_Add_Yellow(U_Coord(i) & " " & U(i, 3))
-    Next
-
   End Sub
   Public Sub G4_Grid_Stratégie_CdO(g As Graphics)
     Dim Cellule As Integer
@@ -128,11 +106,6 @@ Friend Module M03_Paint
     sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Insérer)
     Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & Candidat & " jaune à placer."
 
-    Jrn_Add_Yellow(Proc_Name_Get() & " Liste des candidats à enlever")
-    For i As Integer = 0 To 80
-      If U_Strg_Val_Ins(i) <> "" Then Jrn_Add_Yellow(U_Coord(i) & " " & U(i, 3))
-    Next
-
   End Sub
   Public Sub G4_Grid_Stratégie_Flt(g As Graphics)
     ' Affichage des Valeurs Filtrés
@@ -159,144 +132,6 @@ Friend Module M03_Paint
       Next i
       Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
     End If
-  End Sub
-  Public Sub G4_Grid_Stratégie_CdS_g(g As Graphics)
-    ' La stratégie du Candidat Saisi CdS est activée dans Cell_Val_Insert
-    '              qui documente Pbl_Valeur_CdS = V
-    '              qui exécute un Invalidate, donc un OnPaint
-    If Not Plcy_Strg = "CdS" Then Exit Sub
-    If Pbl_Valeur_CdS = "" Then Exit Sub
-
-    ' 1 Aide Simple uniquement
-    For i As Integer = 0 To 80
-      If U(i, 2) = Pbl_Valeur_CdS Then
-        G0_Cell_Figure(g, i, "Double_Carré", Color_Stratégique)
-      End If
-    Next i
-  End Sub
-  Public Sub G4_Grid_Stratégie_DCd_g(g As Graphics)
-    Dim U_temp(80, 3) As String
-    Dim Cellule As Integer
-    If Not Plcy_Strg = "DCd" Then Exit Sub
-    Try
-      U_Strg_Effacer_g(g)
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_DCd(U_temp)
-
-      If DCdd_List.Count = 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
-        Exit Sub
-      End If
-
-      'Public U_Strg_Val_Ins(80) As String comporte pour chaque poste U la valeur à insérer 
-      ' 1 Aide Simple
-      For Each DCdd As DCdd_Cls In DCdd_List
-        Cellule = DCdd.Cellule
-        U_Strg_Val_Ins(Cellule) = DCdd.Candidat
-        G0_Cell_Figure(g, Cellule, "Double_Carré", Color_Stratégique)
-        U_Strg(Cellule) = True
-      Next DCdd
-      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
-
-      ' 2 Aide Graphique
-      '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-      If DCdd_List_Exists(Pbl_Cell_Select) Then
-        Dim DCdd2 As DCdd_Cls = DCdd_Get(Pbl_Cell_Select)
-        U_MdC_Clear()
-        Select Case DCdd2.Sous_Stratégie
-          Case "Bh0" : G4_MdC_Trait_ou_Rectangle(0, 26)
-          Case "Bh1" : G4_MdC_Trait_ou_Rectangle(27, 53)
-          Case "Bh2" : G4_MdC_Trait_ou_Rectangle(54, 80)
-          Case "Bv0" : G4_MdC_Trait_ou_Rectangle(0, 74)
-          Case "Bv1" : G4_MdC_Trait_ou_Rectangle(3, 77)
-          Case "Bv2" : G4_MdC_Trait_ou_Rectangle(6, 80)
-          Case "CdU"
-            G4_MdC_Row_Col_Box("Row", U_Row(Pbl_Cell_Select))
-            G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
-            G4_MdC_Row_Col_Box("Box", U_Reg(Pbl_Cell_Select))
-
-          Case "CdO_L" : G4_MdC_Row_Col_Box("Row", U_Row(Pbl_Cell_Select))
-          Case "CdO_C" : G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
-          Case "CdO_R" : G4_MdC_Row_Col_Box("Box", U_Reg(Pbl_Cell_Select))
-
-          Case Else
-            Jrn_Add(, {"DCd Sous_Stratégie inconnue : " & DCdd2.Sous_Stratégie})
-        End Select
-        'U_Strg est documenté dans G4_MdC_Row_Col_Box 
-        G4_MdC_Paint(g) ' Les figures sont dessinées et les candidats affichés
-
-        '  'Re-dessine le candidat à placer dans un cercle plein Jaune
-        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G6_Cellule_Paint_Candidat(g, DCdd2.Candidat, Color_Cdd_Insérer)
-        U_Strg(Cellule) = True
-        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & DCdd2.Sous_Stratégie & " " & DCdd2.Candidat & " jaune à placer."
-      End If
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-  End Sub
-  Public Sub G4_Grid_Stratégie_DCd_g_save(g As Graphics)
-    Dim U_temp(80, 3) As String
-    Dim Cellule As Integer
-    If Not Plcy_Strg = "DCd" Then Exit Sub
-    Try
-      U_Strg_Effacer_g(g)
-      Array.Copy(U, U_temp, UNbCopy)
-      Strategy_DCd(U_temp)
-
-      If DCdd_List.Count = 0 Then
-        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
-        Exit Sub
-      End If
-
-      'Public U_Strg_Val_Ins(80) As String comporte pour chaque poste U la valeur à insérer 
-      ' 1 Aide Simple
-      For Each DCdd As DCdd_Cls In DCdd_List
-        Cellule = DCdd.Cellule
-        U_Strg_Val_Ins(Cellule) = DCdd.Candidat
-        G0_Cell_Figure(g, Cellule, "Double_Carré", Color_Stratégique)
-        U_Strg(Cellule) = True
-      Next DCdd
-      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
-
-      ' 2 Aide Graphique
-      '   Une cellule est cliquée (Pbl_Cell_Select), à quelle stratégie correspont-elle ?
-      If DCdd_List_Exists(Pbl_Cell_Select) Then
-        Dim DCdd2 As DCdd_Cls = DCdd_Get(Pbl_Cell_Select)
-        U_MdC_Clear()
-        Select Case DCdd2.Sous_Stratégie
-          Case "Bh0" : G4_MdC_Trait_ou_Rectangle(0, 26)
-          Case "Bh1" : G4_MdC_Trait_ou_Rectangle(27, 53)
-          Case "Bh2" : G4_MdC_Trait_ou_Rectangle(54, 80)
-          Case "Bv0" : G4_MdC_Trait_ou_Rectangle(0, 74)
-          Case "Bv1" : G4_MdC_Trait_ou_Rectangle(3, 77)
-          Case "Bv2" : G4_MdC_Trait_ou_Rectangle(6, 80)
-          Case "CdU"
-            G4_MdC_Row_Col_Box("Row", U_Row(Pbl_Cell_Select))
-            G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
-            G4_MdC_Row_Col_Box("Box", U_Reg(Pbl_Cell_Select))
-
-          Case "CdO_L" : G4_MdC_Row_Col_Box("Row", U_Row(Pbl_Cell_Select))
-          Case "CdO_C" : G4_MdC_Row_Col_Box("Col", U_Col(Pbl_Cell_Select))
-          Case "CdO_R" : G4_MdC_Row_Col_Box("Box", U_Reg(Pbl_Cell_Select))
-
-          Case Else
-            Jrn_Add(, {"DCd Sous_Stratégie inconnue : " & DCdd2.Sous_Stratégie})
-        End Select
-        'U_Strg est documenté dans G4_MdC_Row_Col_Box 
-        G4_MdC_Paint(g) ' Les figures sont dessinées et les candidats affichés
-
-        '  'Re-dessine le candidat à placer dans un cercle plein Jaune
-        Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-        sc.G6_Cellule_Paint_Candidat(g, DCdd2.Candidat, Color_Cdd_Insérer)
-        U_Strg(Cellule) = True
-        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & DCdd2.Sous_Stratégie & " " & DCdd2.Candidat & " jaune à placer."
-      End If
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
   End Sub
   Public Sub G4_Grid_Stratégie_Cbl(g As Graphics)
     If Not Plcy_Strg = "Cbl" Then Exit Sub
@@ -1385,7 +1220,7 @@ Friend Module M03_Paint
     Pt_From_Cellule = New Point(sc_From.Position_Center.X, sc_From.Position_Center.Y)
     Dim sc_To As New Cellule_Cls With {.Numéro = To_Cellule}
     Pt_To_Cellule = New Point(sc_To.Position_Center.X, sc_To.Position_Center.Y)
-    Cells_Bresenham_Get(U_Strg, From_Cellule, To_Cellule)
+    'Cells_Bresenham_Get(U_Strg, From_Cellule, To_Cellule)
     Using Pen As New Pen(Color_Stratégique, WH \ 2)
       g.DrawLine(Pen, Pt_From_Cellule, Pt_To_Cellule)
     End Using
@@ -1468,7 +1303,6 @@ Friend Module M03_Paint
       Case Else
         Exit Select
     End Select
-    For i As Integer = 0 To 8 : U_Strg(Grp(i)) = True : Next i
   End Sub
 
   Public Sub G4_MdC_Trait_ou_Rectangle(Cellule_A As Integer, Cellule_B As Integer)
@@ -1488,58 +1322,44 @@ Friend Module M03_Paint
 
     If h = 0 Then    'Trait Horizontal 
       G4_Cell_MdC(Cel_1, "PD")
-      U_Strg(Cel_1) = True
       For i As Integer = U_Col(Cel_1) + 1 To U_Col(Cel_2) - 1 Step 1
         Cel = Wh_Cellule_ColRow(i, U_Row(Cel_1))
         G4_Cell_MdC(Cel, "RH")
-        U_Strg(Cel) = True
       Next i
       G4_Cell_MdC(Cel_2, "PG")
-      U_Strg(Cel_2) = True
       Exit Sub
     End If '
 
     If w = 0 Then    'Trait vertical 
       G4_Cell_MdC(Cel_1, "PB")
-      U_Strg(Cel_1) = True
       For i As Integer = U_Row(Cel_1) + 1 To U_Row(Cel_2) - 1 Step 1
         Cel = Wh_Cellule_ColRow(U_Col(Cel_1), i)
         G4_Cell_MdC(Cel, "RV")
-        U_Strg(Cel) = True
       Next i
       G4_Cell_MdC(Cel_2, "PH")
-      U_Strg(Cel_2) = True
       Exit Sub
     End If '
 
     'Forme rectangulaire
     G4_Cell_MdC(Cel_1, "CHG")
-    U_Strg(Cel_1) = True
     For i As Integer = U_Col(Cel_1) + 1 To U_Col(Cel_2) - 1 Step 1
       Cel = Wh_Cellule_ColRow(i, U_Row(Cel_1))
       G4_Cell_MdC(Cel, "RH")
-      U_Strg(Cel) = True
     Next i
     G4_Cell_MdC(Cel_1 + w, "CHD")
-    U_Strg(Cel_1 + w) = True
     For i As Integer = U_Row(Cel_1) + 1 To U_Row(Cel_2) - 1 Step 1
       Cel = Wh_Cellule_ColRow(U_Col(Cel_1), i)
       G4_Cell_MdC(Cel, "RV")
-      U_Strg(Cel) = True
     Next i
     G4_Cell_MdC(Cel_2, "CBD")
-    U_Strg(Cel_2) = True
     For i As Integer = U_Col(Cel_1) + 1 To U_Col(Cel_2) - 1 Step 1
       Cel = Wh_Cellule_ColRow(i, U_Row(Cel_2))
       G4_Cell_MdC(Cel, "RH")
-      U_Strg(Cel) = True
     Next i
     G4_Cell_MdC(Cel_2 - w, "CBG")
-    U_Strg(Cel_2 - w) = True
     For i As Integer = U_Row(Cel_1) + 1 To U_Row(Cel_2) - 1 Step 1
       Cel = Wh_Cellule_ColRow(U_Col(Cel_2), i)
       G4_Cell_MdC(Cel, "RV")
-      U_Strg(Cel) = True
     Next i
   End Sub
 

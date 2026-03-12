@@ -416,7 +416,6 @@ Friend Module Q000_Strategy_X
           Frm_SDK.Mnu0902.Enabled = False
         End If
     End Select
-    'Memory_Display()
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
     Application.DoEvents()

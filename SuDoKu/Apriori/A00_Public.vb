@@ -8,7 +8,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_03_11 #650"
+  Public SDK_Version As String = "V2026_03_11 #654"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -82,7 +82,7 @@ Module A00_Public
   Public U_Clr_Cell_Val(0 To 80) As Color       ' Couleur de la valeur de chaque cellule
   'Ce tableau concerne les stratégies Cdd, CdU, CdO, Flt et Cbl à Unq
   'Il stocke les cellules concernées par la stratégie pour n'effacer que celles-là
-  Public U_Strg(0 To 80) As Boolean
+  'Public U_Strg(0 To 80) As Boolean
 
   ' U_Strg_Val_Ins comporte pour chaque cellule LE SEUL CANDIDAT à INSéRER, c'est donc une zone de 1 caractère
   ' U_Strg_Cdd_Exc comporte pour chaque cellule le ou les candidats à exclure, c'est donc une zone de 9 caractères
@@ -332,11 +332,6 @@ Module A00_Public
   Public MW_Val As Integer = 0                          ' Valeur filtrée en cours
   Public MW_Prv_Val As Integer = 0                      ' Valeur filtrée précédente
   Public MW_Cell_List As New List(Of Integer)           ' Liste des cellules filtrées valeur précédente ET en_cours
-
-  ' Utilisation du CdS
-  Public CdS_Val As Integer = 0                          ' Saisie valeur en cours
-  Public CdS_Prv_Val As Integer = 0                      ' Saisie valeur précédente
-  Public CdS_Cell_List As New List(Of Integer)           ' Liste des cellules saisies valeur précédente ET en_cours
 
   Public Structure Points_Struct
     Public Pt_From As PointF

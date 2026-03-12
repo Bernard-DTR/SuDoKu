@@ -128,17 +128,6 @@ Public NotInheritable Class Frm_SDK
     CType(Mnu04.DropDown, ContextMenuStrip).ShowImageMargin = True
     CType(Mnu04.DropDown, ContextMenuStrip).ShowCheckMargin = True
 
-    'Dim Mnu04n_AnnulerLaDerniereOption As New ToolStripMenuItem() With
-    '    {
-    '    .Text = "Annuler la dernière option",
-    '    .ForeColor = SystemColors.ControlText
-    '     }
-    'AddHandler Mnu04n_AnnulerLaDerniereOption.Click, AddressOf Mnu04n_AnnulerLaDerniereOption_Click
-    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_AnnulerLaDerniereOption)
-
-    'Dim Mnu04n_Sep02 As New ToolStripSeparator
-    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep02)
-
     Dim Mnu04n_XCx As New ToolStripMenuItem() With
         {
         .Name = "Mnu04n_" & "XCx",
@@ -244,29 +233,6 @@ Public NotInheritable Class Frm_SDK
     Dim Mnu04n_Sep04 As New ToolStripSeparator
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep04)
 
-    Dim Mnu04n_MettreEnÉvidenceLaDernièreCellule As New ToolStripMenuItem() With
-      {
-      .Name = "Mnu04n_DCd",
-      .Text = "Mettre en évidence La Dernière Valeur",
-      .Image = SuDoKu.My.Resources.Resources.Terre,
-      .Checked = False,
-      .CheckOnClick = True,
-      .ForeColor = SystemColors.ControlText
-      }
-    AddHandler Mnu04n_MettreEnÉvidenceLaDernièreCellule.Click, AddressOf Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_MettreEnÉvidenceLaDernièreCellule)
-
-    Dim Mnu04n_MettreEnÉvidenceLeCandidatSaisi As New ToolStripMenuItem() With
-      {
-      .Name = "Mnu04n_CdS",
-      .Text = "Mettre en évidence Le Candidat Saisi",
-      .Checked = False,
-      .CheckOnClick = True,
-      .ForeColor = SystemColors.ControlText
-      }
-    AddHandler Mnu04n_MettreEnÉvidenceLeCandidatSaisi.Click, AddressOf Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_MettreEnÉvidenceLeCandidatSaisi)
-
 #End Region
 
 #Region "Mnu06_Divers Internet Explorer et Url diverses"
@@ -294,6 +260,7 @@ Public NotInheritable Class Frm_SDK
 #Region "ToolTip_B "
     'Il existe 1 Contrôle ToolTip_B  pour les zones B_* 
     With ToolTip_B
+      .SetToolTip(B_Solution, "Famille Stratégie")
       .SetToolTip(B_Position, "Cellule sélectionnée en Ligne-Colonne")
       .SetToolTip(B_Pourcentage, "Taux de remplissage")
       .SetToolTip(B_Info, "Information")
@@ -678,7 +645,7 @@ Public NotInheritable Class Frm_SDK
       ' Si la valeur n'est pas présente 9 fois, on la présente
     Loop While MW_Val <> StartVal
 
-    Strategy_Switch("FV" & CStr(MW_Val))
+    Plcy_Strg = "FV" & CStr(MW_Val)
 
     Dim MW_Cell_Last As Integer = -1
     MW_Cell_List.Clear()
@@ -708,7 +675,8 @@ Public NotInheritable Class Frm_SDK
     If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), FiltreMW) Then Exit Sub
     Dim NewMW As Integer = ((FiltreMW + Sens + 8) Mod 9) + 1
 
-    Strategy_Switch("FC" & CStr(NewMW))
+    Plcy_Strg = "FC" & CStr(NewMW)
+
     Event_OnPaint_MAP = Proc_Name_Get() & " FC" & CStr(NewMW)
     Event_OnPaint = "Global"
     Invalidate()
@@ -899,7 +867,7 @@ Public NotInheritable Class Frm_SDK
     Transf_Région_V()
   End Sub
   '--------------04n--------------------------------------------------------------
-  ' TOUTES les stratégies de la barre d'outils et les 2 stratégies DCd et CdS sont lancées ici
+  ' TOUTES les stratégies de la barre d'outils sont lancées ici
   Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) _
                                 Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click,
                                         Btn_Unq.Click, Btn_Tpl.Click, Btn_Swf.Click,
@@ -917,6 +885,10 @@ Public NotInheritable Class Frm_SDK
     ' Si aucune correspondance trouvée
     Jrn_Add(, {Proc_Name_Get() & " Sender inconnu : " & Sender.ToString()}, "Erreur")
   End Sub
+  Private Sub Btn0_Click(sender As Object, e As EventArgs) Handles Btn0.Click
+    Strategy_Dsp_Standard()
+  End Sub
+
   Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown
     Dim btn As ToolStripButton = DirectCast(sender, ToolStripButton)
     Dim flt As String = btn.Name.Substring(3, 1)
@@ -927,16 +899,6 @@ Public NotInheritable Class Frm_SDK
         Strategy_Code("FC" & flt, Proc_Name_Get())
     End Select
   End Sub
-  Private Sub Mnu04n_MettreEnÉvidenceLaDernièreCellule_Click(sender As Object, e As EventArgs)
-    Strategy_Code("DCd", Proc_Name_Get())
-  End Sub
-  Private Sub Mnu04n_MettreEnÉvidenceLeCandidatSaisi_Click(sender As Object, e As EventArgs)
-    Strategy_Code("CdS", Proc_Name_Get())
-  End Sub
-  'Private Sub Mnu04n_AnnulerLaDerniereOption_Click(sender As Object, e As EventArgs) Handles Btn0.Click
-  '  Strategy_Dsp_Standard()
-  'End Sub
-
   Public Sub Mnu04n_Stratégie_XW_Click(Sender As Object, e As EventArgs)
     If TypeOf Sender Is ToolStripMenuItem Then
       Dim Mnu As ToolStripMenuItem = CType(Sender, ToolStripMenuItem)
@@ -958,6 +920,8 @@ Public NotInheritable Class Frm_SDK
         Case "WgW" : Plcy_Strg = "WgW" : Strategy_WgW(U_temp)
         Case Else : Jrn_Add(, {"Mnu_Name inconnu : " & Mnu_Name, "Erreur"})
       End Select
+      B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+
     Else
       Jrn_Add(, {"Sender inconnu : " & Sender.ToString(), "Erreur"})
     End If
@@ -1204,7 +1168,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu07_Strategy_CdO_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_CdO.Click
     Mnu07_Strategy("O")
   End Sub
-  Private Sub Mnu07_Strategy_DCd_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_DCd.Click
+  Private Sub Mnu07_Strategy_DCd_Click(sender As Object, e As EventArgs)
     Mnu07_Strategy("D")
   End Sub
   Private Sub Mnu07_Strategy_Cbl_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_Cbl.Click
@@ -1242,7 +1206,6 @@ Public NotInheritable Class Frm_SDK
       Select Case Strategy
         Case "U" : Strategy_Rslt = Strategy_CdU(U_temp)
         Case "O" : Strategy_Rslt = Strategy_CdO(U_temp)
-        Case "D" : Strategy_DCd(U_temp)
         Case "B" : Strategy_Rslt = Strategy_Cbl(U_temp)
         Case "T" : Strategy_Rslt = Strategy_Tpl(U_temp)
         Case "X" : Strategy_Rslt = Strategy_Xwg(U_temp)
@@ -1254,12 +1217,7 @@ Public NotInheritable Class Frm_SDK
         Case "Q" : Strategy_Rslt = Strategy_Unq(U_temp)
       End Select
 
-      Select Case Strategy
-        Case "D"
-          DCdd_List_Display()
-        Case Else
-          Strategy_Rslt_Display(Strategy_Rslt, -1)
-      End Select
+      Strategy_Rslt_Display(Strategy_Rslt, -1)
 
     Catch ex As Exception
       MsgBox(ex.Message,, Proc_Name_Get())
@@ -1787,10 +1745,8 @@ Public NotInheritable Class Frm_SDK
 #Region "Menu Graphe"
   Private Sub Mnu0901_Click(sender As Object, e As EventArgs) Handles Mnu0901.Click
     Jrn_Add(, {Proc_Name_Get() & " Lancement des Stratégies G "})
-    Strategy_Switch("   ")
+    Plcy_Strg = "   "
     B_Info.Text = Proc_Name_Get()
-    'Dsp_AideGraphique("Non")
-    'U_Strg_Effacer()
     Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
@@ -1813,6 +1769,8 @@ Public NotInheritable Class Frm_SDK
         Case "WgZ" : Strategy_WgZ(U_temp)
         Case "WgW" : Strategy_WgW(U_temp)
       End Select
+      B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+
       If GRslt.Productivité Then Exit For
     Next i
     If Pzzl_Slv_UO(U_temp) Then Jrn_Add(, {"La grille est résolvable en CdU et CdO."})
@@ -1820,13 +1778,11 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu0902_Click(sender As Object, e As EventArgs) Handles Mnu0902.Click
     ' Cette option permet de supprimer les candidats et rétablit l'affichage standard
-    Jrn_Add(, {Proc_Name_Get() & " Suppression des Candidats Exclues "})
+    Jrn_Add(, {Proc_Name_Get() & " Suppression des Candidats Exclus "})
     Jrn_Add(, {"Stratégie en cours: " & Plcy_Strg})
     Select Case Plcy_Strg
       Case "Gbl", "Gbv", "GCs"
-        For Each XCel As GCel_Excl_Cls In GRslt.CelExcl
-          Cell_Cdd_Exclude(XCel.Cdd, XCel.Cel)
-        Next XCel
+        Cell_Cdd_Exclude_GRslt()
       Case "XCx", "XCy", "Xrp", "XNl", "WgX", "WgY", "WgZ", "WgW"
         For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
           Cell_Cdd_Exclude(XCel.Cdd, XCel.Cel)
@@ -1840,24 +1796,28 @@ Public NotInheritable Class Frm_SDK
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GLk(U_temp)
+    B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
   Private Sub Mnu0930_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu0930_Gbl.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_Gbl(U_temp)
+    B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
   Private Sub Mnu0950_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu0950_Gbv.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_Gbv(U_temp)
+    B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
   Private Sub Mnu0970_GCs_Click(sender As Object, e As EventArgs) Handles Mnu0970_GCs.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GCs(U_temp)
+    B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 #End Region
 End Class

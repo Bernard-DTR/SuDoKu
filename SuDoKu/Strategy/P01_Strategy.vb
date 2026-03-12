@@ -45,48 +45,55 @@ Option Explicit On
 '             les boucles de 10 to 54 et 55 to 99 peuvent donc s'arrêter à la première valeur "__"
 '
 '---------------------------------------------------------------------------------------------------------------------------------
-' Stratégie Indicative
-'           Placement d'une valeur
-'           Eviction d'un Candidat  
-' 
-'---------------------------------------------------------------------------------------------------------------------------------
 
 '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 'Il est impératif d'utiliser U_temp, copie de U, pour utiliser la stratégie interactivement ET en arrière-plan
 '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Friend Module P01_Strategy
-
-  Sub Strategy_Compteur_Display(Type As String, Nb As Integer())
-    'Compteurs des Stratégies:  (Profondeur : 9)
-    '0-CdU 1-CdO 2-Cbl 3-Tpl 4-Xwg 5-XYw 6-Swf 7-Jly 8-XYZ 9-SKy10-Unq 
-    '  101    16    10     0     0     0     0     0     0     0 
-    Jrn_Add("SDK_Space")
-    Jrn_Add(, {"Compteurs des Stratégies"})
-    Jrn_Add(, {Type})
-    Dim S1 As String = "  "
-    Dim S2 As String = "  "
-    For i As Integer = 0 To 10
-      S1 &= CStr(i).PadLeft(1) & "-" & Stg_List_Code(i) & " "
-      S2 &= CStr(Nb(i)).PadLeft(5) & " "
-    Next i
-    Jrn_Add(, {S1})
-    Jrn_Add(, {S2})
-  End Sub
-
   '
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   '
   Sub Strategy_Dsp_Standard()
-    'Procédure appelée par: Mnu04n_AnnulerLaDerniereOption_Click
-
-    Strategy_Switch("   ")
-    ' Plcy_Strg est positionnée à "   "  
-    Dim item_DCd As ToolStripMenuItem = DirectCast(Frm_SDK.Mnu04.DropDown.Items("Mnu04n_DCd"), ToolStripMenuItem)
-    item_DCd.Checked = False
-    Dim item_CdS As ToolStripMenuItem = DirectCast(Frm_SDK.Mnu04.DropDown.Items("Mnu04n_CdS"), ToolStripMenuItem)
-    item_CdS.Checked = False
+    Plcy_Strg = "   "
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    Event_OnPaint_MAP = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
+  End Sub
+
+  Sub Strategy_Code(strg_Code As String, Origine As String)
+    Plcy_Strg = strg_Code
+    Frm_SDK.B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    If Plcy_Strg = "   " Then
+      Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+      Exit Sub
+    End If
+
+    If Plcy_Strg <> "   " Then Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
+
+    Dim U_temp(80, 3) As String
+    Dim Strategy_Rslt(,) As String = Nothing
+    Array.Copy(U, U_temp, UNbCopy)
+    Select Case Plcy_Strg
+      Case "Cdd"
+      Case "CdU" : Strategy_Rslt = Strategy_CdU(U_temp)
+      Case "CdO" : Strategy_Rslt = Strategy_CdO(U_temp)
+      Case "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"
+      Case "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9"
+      Case "Cbl" : Strategy_Rslt = Strategy_Cbl(U_temp)
+      Case "Tpl" : Strategy_Rslt = Strategy_Tpl(U_temp)
+      Case "Xwg" : Strategy_Rslt = Strategy_Xwg(U_temp)
+      Case "XYw" : Strategy_Rslt = Strategy_XYw(U_temp)
+      Case "Swf" : Strategy_Rslt = Strategy_Swf(U_temp)
+      Case "Jly" : Strategy_Rslt = Strategy_Jly(U_temp)
+      Case "XYZ" : Strategy_Rslt = Strategy_XYZ(U_temp)
+      Case "SKy" : Strategy_Rslt = Strategy_SKy(U_temp)
+      Case "Unq" : Strategy_Rslt = Strategy_Unq(U_temp)
+      Case Else
+    End Select
+
+    Dim index As Integer = RRslt_Copy_Rnd(Strategy_Rslt)
     Event_OnPaint_MAP = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
@@ -152,30 +159,79 @@ Friend Module P01_Strategy
     Frm_SDK.Invalidate()
     Application.DoEvents()
   End Sub
-  Sub Strategy_Switch(Strg As String)
-    ' Switch la Plcy_Strg_Swt entre 1 et -1
-    ' La difficulté réside sur le fait que l'on peut passer d'une stratégie CdU-On à une stratégie CdO-On
-    '    sans être passé par la stratégie CdU-Off
-    ' Permet d'alterner la stratégie On/Off/On/Off Etc
-    ' Strategy_Dsp_Standard() positionne en Off la stratégie précédente
 
-    Dim AllStrategies As New HashSet(Of String)(
-    {"   ",
-     "Cdd", "CdU", "CdO", "DCd", "CdS", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq",
-     "FV1", "FV2", "FV3", "FV4", "FV5", "FV6", "FV7", "FV8", "FV9",
-     "FC1", "FC2", "FC3", "FC4", "FC5", "FC6", "FC7", "FC8", "FC9"})
+#Region "RRslt: Les Résultats d'une stratégie 'Classique'"
+  Public Sub RRslt_Display()
+    With RRslt
+      Jrn_Add(, {"Affichage des données RRslt _ Occurence " & .Occurence & " / " & .Nb_Occurences})
+      Jrn_Add(, {"Code Stratégie " & .Code_Strg & ", " & Stg_Get(.Code_Strg).Texte})
+      Jrn_Add(, {"Sous_Stratégie " & .Code_Sous_Strg})
+      Jrn_Add(, {"Code_LCR_LCR   " & .Code_LCR & (.LCR + 1)})
+      Jrn_Add(, {"Candidat       " & .Candidat})
+      If .Cellule IsNot Nothing Then Jrn_Add(, {"Cellule        " & String.Join(", ", .Cellule.Select(Function(c) U_Coord(c)))})
+      If .CelExcl IsNot Nothing Then Jrn_Add(, {"CelExcl        " & String.Join(", ", .CelExcl.Select(Function(c) U_Coord(c)))})
+      Jrn_Add(, {"Productivité   " & .Productivité.ToString()})
+    End With
+  End Sub
 
-    If Not AllStrategies.Contains(Strg) Then
-      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
-      Jrn_Add("ERR_00140", {"#" & Strg & "#"}, "Erreur")
-      Exit Sub
+  Public Function RRslt_Copy_Rnd(Strategy_Rslt(,) As String) As Integer
+    ' La procédure documente RRSlt d'un résultat pris au hasard de Strategy_Rslt
+    If Strategy_Rslt Is Nothing OrElse UBound(Strategy_Rslt, 2) <= 0 Then     'Strategy_Rslt.GetLength(1) = 0
+      RRslt.Productivité = False
+      Return -1
     End If
 
-    Plcy_Strg = Strg
-    Plcy_Strg_Swt = If(Plcy_Strg <> Prv_Plcy_Strg, 1, -Plcy_Strg_Swt)
-    Prv_Plcy_Strg = Plcy_Strg
-    Frm_SDK.B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    Dim rnd As New Random()
+    Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1) + 1)   ' Tire un nombre entre min inclus et max non inclus
+    With RRslt
+      .Occurence = Index
+      .Nb_Occurences = Strategy_Rslt.GetUpperBound(1)
+      .Code_Strg = Strategy_Rslt(1, Index)
+      .Code_Sous_Strg = Strategy_Rslt(2, Index)
+      .Code_LCR = Strategy_Rslt(3, Index)
+      .LCR = CInt(Strategy_Rslt(4, Index))
+      .Candidat = Strategy_Rslt(5, Index)
+
+      Dim valeurs As New List(Of Integer)
+      For k As Integer = 0 To 44
+        Dim s As String = Strategy_Rslt(10 + k, Index)
+        If s = "__" Then Exit For
+        valeurs.Add(CInt(s))
+      Next
+      .Cellule = valeurs.ToArray()
+      valeurs.Clear()
+      For k As Integer = 0 To 44
+        Dim s As String = Strategy_Rslt(55 + k, Index)
+        If s = "__" Then Exit For
+        valeurs.Add(CInt(s))
+      Next
+      .CelExcl = valeurs.ToArray()
+
+      .Productivité = True
+    End With
+    Strategy_Rslt_Display(Strategy_Rslt, -1)
+    RRslt_Display()
+    Return Index
+
+  End Function
+
+  Public Sub RRslt_Control_Cdd_Exclure(Candidat As String)
+    Jrn_Add_Red(Proc_Name_Get())
+    Jrn_Add_Red("Liste des cellules du candidat " & Candidat & " à enlever")
+    Dim S As String
+    For i As Integer = 0 To 80
+      If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then
+        S = (U_Coord(i) & " " & U(i, 3))
+        If XSolution(i) = Candidat Then
+          Jrn_Add(, {S & "❗ La cellule doit prendre la valeur " & Candidat & " !"}, "Erreur")
+        End If
+      End If
+    Next
   End Sub
+
+#End Region
+
+
 
   Sub Strategy_Rslt_Init(ByRef Strategy_Rslt(,) As String,
                          Stratégie As String,
@@ -295,7 +351,7 @@ Friend Module P01_Strategy
     End Try
   End Sub
 
-  Sub OO_130_Stg_Init()
+  Sub Stg_List_Init()
     'Initialisation de la Liste des Stratégies
     ' 12/10/2025 Toutes les Plcy_Strg sont dans la liste
     '                               Lettre pour la barre d'Outils ou N
@@ -305,8 +361,6 @@ Friend Module P01_Strategy
     '                                         Pour afficher Insérer ou Exclure avec les candidats des stratégies
     Stg_List.Add(New Stg_Cls("CdU", "U", "O", "I", "O", 3, "Stratégie des Candidats Uniques"))
     Stg_List.Add(New Stg_Cls("CdO", "O", "O", "I", "O", 3, "Stratégie des Candidats Obligatoires"))
-    Stg_List.Add(New Stg_Cls("DCd", "N", "N", "I", "N", 4, "Stratégie des Derniers Candidats"))
-    Stg_List.Add(New Stg_Cls("CdS", "N", "N", "I", "N", 4, "Stratégie du Candidat Saisi"))
     Stg_List.Add(New Stg_Cls("Flt", "N", "N", "N", "N", 3, "Stratégie des Filtres"))
     Stg_List.Add(New Stg_Cls("FV1", "N", "N", "N", "N", 2, "Filtre des Valeurs 1"))
     Stg_List.Add(New Stg_Cls("FV2", "N", "N", "N", "N", 2, "Filtre des Valeurs 2"))
@@ -327,8 +381,8 @@ Friend Module P01_Strategy
     Stg_List.Add(New Stg_Cls("FC8", "N", "N", "N", "N", 3, "Filtre des Candidats 8"))
     Stg_List.Add(New Stg_Cls("FC9", "N", "N", "N", "N", 3, "Filtre des Candidats 9"))
     '                                N pas de lettre
-    Stg_List.Add(New Stg_Cls("Obj", "N", "N", "N", "N", 4, "Dessiner sur la Grille"))
-    Stg_List.Add(New Stg_Cls("Edi", "N", "N", "N", "N", 4, "Edition de la Grille"))
+    Stg_List.Add(New Stg_Cls("Obj", "N", "N", "N", "N", 9, "Dessiner sur la Grille"))
+    Stg_List.Add(New Stg_Cls("Edi", "N", "N", "N", "N", 9, "Edition de la Grille"))
     Stg_List.Add(New Stg_Cls("Cbl", "B", "O", "E", "O", 3, "Stratégie des Candidats bloqués"))
     Stg_List.Add(New Stg_Cls("Tpl", "T", "O", "E", "O", 3, "Stratégie des Candidats doubles, triples, quadruples"))
     Stg_List.Add(New Stg_Cls("Xwg", "X", "O", "E", "O", 3, "Stratégie X-Wing, Finned, Sashimi"))
@@ -341,18 +395,18 @@ Friend Module P01_Strategy
 
     ' Les codes des nouvelles stratégies des Liens commencent par X ou W
     '                                la lettre est L Link
-    Stg_List.Add(New Stg_Cls("GLk", "N", "N", "E", "N", 4, "Affichage des Liens forts"))
-    Stg_List.Add(New Stg_Cls("Gbl", "L", "N", "E", "N", 3, "Stratégie bi-locaux (Candidats bloqués)"))
-    Stg_List.Add(New Stg_Cls("Gbv", "L", "N", "E", "N", 3, "Stratégie bi-values"))
-    Stg_List.Add(New Stg_Cls("GCs", "L", "N", "E", "N", 3, "Stratégie DFS Coloration Simple"))
-    Stg_List.Add(New Stg_Cls("XCx", "L", "N", "E", "N", 3, "Stratégie X-Chain"))
-    Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 3, "Stratégie XY-Chain"))
-    Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 3, "Stratégie Remote Pairs"))
-    Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 3, "Stratégie Nice_Loop"))
-    Stg_List.Add(New Stg_Cls("WgX", "L", "N", "E", "N", 3, "Stratégie X-Wing"))
-    Stg_List.Add(New Stg_Cls("WgY", "L", "N", "E", "N", 3, "Stratégie XY-Wing"))
-    Stg_List.Add(New Stg_Cls("WgZ", "L", "N", "E", "N", 3, "Stratégie XYZ-Wing"))
-    Stg_List.Add(New Stg_Cls("WgW", "L", "N", "E", "N", 3, "Stratégie W-Wing"))
+    Stg_List.Add(New Stg_Cls("GLk", "N", "N", "E", "N", 9, "Affichage des Liens forts"))
+    Stg_List.Add(New Stg_Cls("Gbl", "L", "N", "E", "N", 4, "Stratégie bi-locaux (Candidats bloqués)"))
+    Stg_List.Add(New Stg_Cls("Gbv", "L", "N", "E", "N", 4, "Stratégie bi-values"))
+    Stg_List.Add(New Stg_Cls("GCs", "L", "N", "E", "N", 4, "Stratégie DFS Coloration Simple"))
+    Stg_List.Add(New Stg_Cls("XCx", "L", "N", "E", "N", 4, "Stratégie X-Chain"))
+    Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 4, "Stratégie XY-Chain"))
+    Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 4, "Stratégie Remote Pairs"))
+    Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 4, "Stratégie Nice_Loop"))
+    Stg_List.Add(New Stg_Cls("WgX", "L", "N", "E", "N", 4, "Stratégie X-Wing"))
+    Stg_List.Add(New Stg_Cls("WgY", "L", "N", "E", "N", 4, "Stratégie XY-Wing"))
+    Stg_List.Add(New Stg_Cls("WgZ", "L", "N", "E", "N", 4, "Stratégie XYZ-Wing"))
+    Stg_List.Add(New Stg_Cls("WgW", "L", "N", "E", "N", 4, "Stratégie W-Wing"))
 
     'Création de Stg_List_Code, Stg_List_Lettre et Stg_List_Link
     For i As Integer = 0 To Stg_List.Count - 1

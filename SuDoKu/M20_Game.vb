@@ -3,7 +3,6 @@ Option Explicit On
 Imports SuDoKu.DancingLink
 
 Friend Module M20_Game
-
   Public Sub Game_New_Game(Gnrl As String,
                            Nom As String,
                            Prb As String,
@@ -21,7 +20,7 @@ Friend Module M20_Game
 
     Select Case Plcy_Gnrl
       Case "Nrm" '---------------------------------------------------------------------------------------
-        Strategy_Switch("   ")
+        Plcy_Strg = "   "
         Game_Load(Nom, Prb, Jeu, Sol, Frc)
         Grid_Cdd_Remove_Cell_Coll(U)
 
@@ -34,7 +33,6 @@ Friend Module M20_Game
         End If
         Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     End Select
-
 
     'Fin commune à toute nouvelle partie
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales

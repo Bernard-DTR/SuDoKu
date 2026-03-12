@@ -63,7 +63,7 @@ Friend Module M03_Sélection
           End Using
         End If
 
-      Case 3
+      Case 3, 4
         ' Toutes les stratégies, et de nombreuses situations spéciales
         Event_OnPaint = "Global"
         Frm_SDK.Invalidate()
@@ -157,7 +157,28 @@ Friend Module M03_Sélection
 
   End Sub
 
+  Sub Cell_Cdd_Exclude_GRslt()
+    If GRslt.CelExcl.Count > 0 Then
+      For Each XCel As GCel_Excl_Cls In GRslt.CelExcl
+        Dim Candidats As String = U(XCel.Cel, 3)
+        Dim Candidats_Exclus As String = U_CddExc(XCel.Cel)
+        Mid$(Candidats, CInt(XCel.Cdd), 1) = " "
+        Mid$(Candidats_Exclus, CInt(XCel.Cdd), 1) = XCel.Cdd
+        U(XCel.Cel, 3) = Candidats
+        U_CddExc(XCel.Cel) = Candidats_Exclus
+        Jrn_Add_Yellow(Proc_Name_Get() & " V " & XCel.Cdd & " " & U_Coord(XCel.Cel))
+      Next XCel
+    End If
+    Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
+    Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+    Event_OnPaint_MAP = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
+    Application.DoEvents()
+
+
+  End Sub
   Sub Cell_Cdd_Exclude(V As String, Cellule As Integer)
     If Plcy_Gnrl = "Edi" Then Exit Sub
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub

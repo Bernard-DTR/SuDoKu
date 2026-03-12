@@ -305,19 +305,19 @@
 #648 Ma 10/03/2026 Mise en place de la stratégie SKy  
 #649 Ma 10/03/2026 Mise en place de la stratégie Unq  
 #650 Ma 10/03/2026 Toutes les stratégies "classiques" sont remises en place correctement
-#651 Me 11/03/2026 Etude de la stratégie DCs
+#651 Me 11/03/2026 Abandon de la stratégie DCs
+#652 J  12/03/2026 Abandon de la stratégie CdS
+#653 J  12/03/2026 Suppression de U_Strg_Effacer_g et U_Strg
+#654 J  12/03/2026 Reprise des stratégies Gbl, Gbv, GCs
 
 ?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 Grandes étapes:
-                   Mise en place de la stratégie CdS, DCs  
                    Reprise des stratégies liens avec DFS
                    Stratégie Loop discontinue
                    U_Strg_Effacer_g et U_Strg
 ##############################################################################################################################
 
-	               Il y a une nouvelle erreur dans le calcul de résolution d’une partie E
 	               Lors de la saisie, est-ce que DL est calculé
-	               Comment traiter les écarts entre ma solution et celle de DL ?
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
                    Revoir le traitement en arrière-plan si on est en mode de maintenance
                    Je ne peux plus ajouter un candidat après l'avoir supprimé

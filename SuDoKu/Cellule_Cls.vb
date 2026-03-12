@@ -295,15 +295,7 @@ Public Class Cellule_Cls
     End Using
   End Sub
 
-  ''' <summary>Dessine les Candidats de la Cellule sous conditions habituelles.</summary>
-  Public Sub G6_Cellule_Paint_Candidats_Conditions_Nrm_Cdd_g(g As Graphics)
-    '10 occurences
-    'Concerne UNIQUEMENT les cellules Vides avec des Candidats et dans les conditions précisées
-    If (Plcy_Gnrl = "Nrm" And Plcy_Strg = "Cdd") _
-    Or (Plcy_Gnrl = "Edi") Then
-      G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
-    End If
-  End Sub
+
 #End Region
 End Class
 
@@ -349,7 +341,7 @@ Public Class Grille_Cls
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
     ' Il faut que les 81 cellules soient remplies et que la grille soit correcte
     ' Il faut que la partie ait été jouée (Act_Index > 1)
-    Strategy_Switch("   ")
+    Plcy_Strg = "   "
     Dim U_Chk(80, 3) As String
     Array.Copy(U, U_Chk, UNbCopy)
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)

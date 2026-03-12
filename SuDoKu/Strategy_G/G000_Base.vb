@@ -303,14 +303,12 @@ Friend Module G000_Base
       Next gLink
     End If
 
-    If GRslt.CelExcl.Count <> 0 Then
+    If GRslt.CelExcl.Count > 0 Then
       Jrn_Add(, {"Affichage de GRslt.CelExcl : " & GRslt.CelExcl.Count & " Lignes."})
       Nb = 0
       For Each XCel As GCel_Excl_Cls In GRslt.CelExcl
-        With XCel
-          Nb += 1
-          Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(.Cel) & " Candidat : " & .Cdd & " Extrémités : " & U_Coord(.Exc(0)) & " ←→ " & U_Coord(.Exc(1))})
-        End With
+        Nb += 1
+        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(XCel.Cel) & " Candidat : " & XCel.Cdd & " Extrémités : " & U_Coord(XCel.Exc(0)) & " ←→ " & U_Coord(XCel.Exc(1))})
       Next XCel
 
       'XSolution est calculé dans Game_Load (Game_New_Game)
@@ -338,30 +336,12 @@ Friend Module G000_Base
 #End Region
 
 #Region "Divers"
-  Public Sub Memory_Display()
-    ' La procédure affiche la mémoire utilisée
-    Dim proc As Process = Process.GetCurrentProcess()
-    Dim workingSet As Long = proc.WorkingSet64          ' en octets
-    Dim privateBytes As Long = proc.PrivateMemorySize64 ' en octets
-    Dim memManaged As Long = GC.GetTotalMemory(forceFullCollection:=False)
-    Jrn_Add(, {"Utilisation Mémoire"})
-    With GRslt
-      Jrn_Add(, {"Mémoire physique utilisée   " & (workingSet \ (1024 * 1024)).ToString().PadLeft(3) & " Mo."})
-      Jrn_Add(, {"Mémoire privée du processus " & (privateBytes \ (1024 * 1024)).ToString().PadLeft(3) & " Mo."})
-      Jrn_Add(, {"Mémoire NET managée         " & (memManaged \ (1024 * 1024)).ToString().PadLeft(3) & " Mo."})
-    End With
-  End Sub
 #End Region
 
 #Region "Autres"
   Public Function Pzzl_Slv_UO(U_temp(,) As String) As Boolean
     ' La procédure consiste à appliquer les stratégies CdU et CdO pour résoudre la grille U_Temp
     ' Retourne True si la grille est résolue, False sinon
-    ' Dim Sa As String = String.Join("", Enumerable.Range(0, 81).Select(Function(i) If(U_temp(i, 2) = " ", ".", U_temp(i, 2))))
-
-    'Dim slv_U As Integer = 0
-    'Dim slv_O As Integer = 0
-
     While Wh_Grid_Nb_Cellules_Remplies(U_temp) <> 81  ' Tant que la grille n'est pas remplie
       'slv_U += 1
       Dim nb_U As Integer = 0
@@ -397,11 +377,6 @@ Friend Module G000_Base
       If nb_O = 0 Then Exit While
 
     End While
-
-    'Dim Sb As String = String.Join("", Enumerable.Range(0, 81).Select(Function(i) If(U_temp(i, 2) = " ", ".", U_temp(i, 2))))
-    'Jrn_Add(, {"/" & Proc_Name_Get() & " " & CStr(slv_U) & "-" & CStr(slv_O) & " passage(s)."})
-    'Jrn_Add(, {"Av: " & Sa})
-    'Jrn_Add(, {"Ap: " & Sb})
     If Wh_Grid_Nb_Cellules_Remplies(U_temp) = 81 Then Return True Else Return False
   End Function
   Function Cdd_Placer(U_temp(,) As String, Cellule As Integer, Candidat As String) As Boolean

@@ -9,7 +9,7 @@ Friend Module A01_OnlyOnce
     OO_100_Paths()
     OO_110_Variables_My_Settings()
     OO_120_Variables_Autres()
-    OO_130_Stg_Init()
+    Stg_List_Init()
     OC_Plcy_Stg_UOBTXYSJZKQ()
     OO_200_Msg_Load()
     OO_300_U_Init()
