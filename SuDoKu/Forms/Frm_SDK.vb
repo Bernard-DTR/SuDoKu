@@ -662,6 +662,7 @@ Public NotInheritable Class Frm_SDK
         For Each cell As Integer In MW_Cell_List
           reg.Union(Sqr_Pth(cell))
         Next
+        B_Info.Text = Stg_Get(Plcy_Strg).Texte
         Event_OnPaint_MAP = Proc_Name_Get() & " FV En cours " & CStr(MW_Val & " /Prv " & MW_Prv_Val)
         Event_OnPaint = "Mouse_Wheel"
         Invalidate(reg, False)
