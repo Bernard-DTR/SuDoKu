@@ -37,7 +37,7 @@ Friend Module M02_ClipBoard
       End If
 
       Prb = Prb.Substring(0, 81)
-      Game_New_Game(Gnrl:="Nrm", Nom:=Proc_Name_Get(), Prb:=Prb, Jeu:=Prb, Sol:=StrDup(81, " "), Cdd729:=StrDup(729, " "), Frc:="5")
+      Game_New_Game(Gnrl:="Nrm", Nom:=Proc_Name_Get(), Prb:=Prb, Jeu:=Prb, Sol:=StrDup(81, " "), Cdd729:=StrDup(729, " "), Frc:="5", Proc_Name_Get())
     Catch Ex As Exception
       Dim Msg As String = "Le ClipBoard Coller n'est pas exploitable." & vbCrLf & Ex.ToString() & vbCrLf & Len(Ex.ToString())
       Nsd_i = MsgBox(Msg & vbCrLf & Prb,, Proc_Name_Get())

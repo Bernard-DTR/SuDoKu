@@ -1208,7 +1208,7 @@ Phase_End:
         Jrn_Add(, {"Résolution   : " & "Problème de résolution,  Prd.Prd_Code_Retour=" & Prd.Prd_Code_Retour}, "Erreur")
     End Select
 
-    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc)
+    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
   End Sub
 
 

@@ -84,7 +84,7 @@ Module M10_Transformation
           Jeu &= U_temp(i, 2)
         Next i
 
-        Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Prb, Jeu:=Prb, Sol:=Prb, Cdd729:=StrDup(729, " "), Frc:=Frc)
+        Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Prb, Jeu:=Prb, Sol:=Prb, Cdd729:=StrDup(729, " "), Frc:=Frc, Proc_Name_Get())
 
     End Select
     For i As Integer = 0 To 80
@@ -358,7 +358,7 @@ Module M10_Transformation
         Sol &= Cible(c, r, 1)
       Next c
     Next r
-    Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Prb, Jeu:=Prb, Sol:=Sol, Cdd729:=StrDup(729, " "), Frc:=Frc)
+    Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Prb, Jeu:=Prb, Sol:=Sol, Cdd729:=StrDup(729, " "), Frc:=Frc, Proc_Name_Get())
   End Sub
   Sub Transf_Display(Origine As String, i As Integer)
     'Liste Source et Csr Valeur Initiale et Solution

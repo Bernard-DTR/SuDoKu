@@ -77,7 +77,7 @@ Public Class Frm_LoadPartiesHodoku
         DL_Solution = DL.Solution(0)
         Jrn_Add(, {"Puzzle Hodoku 220 sans solution, une solution a été calculée."})
       End If
-      Game_New_Game(Gnrl:=Plcy_Gnrl, Nom:=Nom, Prb:=Prb, Jeu:=Prb, Sol:=DL_Solution, Cdd729:=StrDup(729, " "), Frc:=Frc)
+      Game_New_Game(Gnrl:=Plcy_Gnrl, Nom:=Nom, Prb:=Prb, Jeu:=Prb, Sol:=DL_Solution, Cdd729:=StrDup(729, " "), Frc:=Frc, Proc_Name_Get())
       'Les 3 variables LP_ ont été documentées. 
       Jrn_Add(, {"PR_Nom=" & Nom})
       Jrn_Add(, {"PR_Ini=" & LP_Prb.Replace(" ", ".")})

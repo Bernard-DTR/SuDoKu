@@ -263,7 +263,7 @@ Module M01_Enregistrement_Partie
       Next
       Cdd729 = String.Join("", Cdd81e)
     End If
-    Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Ini, Jeu:=Val, Sol:=Sol, Cdd729:=Cdd729, Frc:="5")
+    Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Ini, Jeu:=Val, Sol:=Sol, Cdd729:=Cdd729, Frc:="5", Proc_Name_Get())
   End Sub
 
   Sub Pzzl_Load_Partie_Test()

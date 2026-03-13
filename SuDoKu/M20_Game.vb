@@ -9,7 +9,8 @@ Friend Module M20_Game
                            Jeu As String,
                            Sol As String,
                            Cdd729 As String,
-                           Frc As String)
+                           Frc As String,
+                           Origine As String)
     Jrn_Add("SDK_Space")
     Jrn_Add("SDK_00000", {Proc_Name_Get() & " Name: " & Nom & " Jeu: " & Prb.Substring(0, 9)})
     Plcy_Gnrl = Gnrl
@@ -58,8 +59,8 @@ Friend Module M20_Game
       End Select
     End If
     Mnu_Mngt_Barre_Outils_Filtres()
+    Event_OnPaint_MAP = Proc_Name_Get() & " Origine : " & Origine
     Event_OnPaint = "Global"
-    Event_OnPaint_MAP = Proc_Name_Get()
     Frm_SDK.Invalidate()
   End Sub
 

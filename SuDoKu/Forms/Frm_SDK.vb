@@ -308,7 +308,7 @@ Public NotInheritable Class Frm_SDK
     'Jrn_Add("SDK_00100", {LP_Nom})
     Jrn_Add(, {"/" & Proc_Name_Get()})
     OC_Présentation()
-    Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc)
+    Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc, Proc_Name_Get())
 #End Region
 
     'Reprise de la logique de présentation du formulaire, les contrôles sont mis en place
@@ -699,7 +699,7 @@ Public NotInheritable Class Frm_SDK
     Application.DoEvents()
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
-    Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc)
+    Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc, Proc_Name_Get())
     Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
     Invalidate()
@@ -716,7 +716,7 @@ Public NotInheritable Class Frm_SDK
     'La procédure Saisir diffère de celle de l'Edition
     'U(i,1) est égal à " " tant que Commencer n'est pas lancé.
     'Les candidats collatéraux sont enlevés au fur et à mesure de la Saisie 
-    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc)
+    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
     Mnu01_Saisir.Enabled = False
     Mnu01_Commencer.Enabled = True
   End Sub
@@ -732,7 +732,7 @@ Public NotInheritable Class Frm_SDK
     Next i
     Dim Sol As String = StrDup(81, " ")
     Dim Frc As String = "0"
-    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc)
+    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
     Mnu01_Saisir.Enabled = True
     Mnu01_Commencer.Enabled = False
     Jrn_Add(, {Prb})
@@ -984,7 +984,7 @@ Public NotInheritable Class Frm_SDK
     Dim Jeu As String = StrDup(81, " ")
     Dim Sol As String = StrDup(81, " ")
     Dim Frc As String = "0"
-    Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Prb, Jeu:=Jeu, Sol:=Sol, Cdd729:=StrDup(729, " "), Frc:=Frc)
+    Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Prb, Jeu:=Jeu, Sol:=Sol, Cdd729:=StrDup(729, " "), Frc:=Frc, Proc_Name_Get())
     Mnu01_Saisir.Enabled = True
     Mnu01_Commencer.Enabled = True
   End Sub
