@@ -52,6 +52,8 @@ Module G050_Strategy_bi_locaux
       If U_temp(Grp(r), 3).Contains(gLink.Cdd(0)) Then
         gLink_Productif = True
         GRslt.CelExcl.Add(New GCel_Excl_Cls With {.Cel = Grp(r), .Cdd = gLink.Cdd(0), .Exc = {gLink.Cel(0), gLink.Cel(1)}})
+        Dim CelExcl_key As Tuple(Of Integer, String) = Tuple.Create(Grp(r), gLink.Cdd(0))
+        GRslt.CelExcl_hs.Add(CelExcl_key)
       End If
     Next r
     If gLink_Productif = True Then GRslt.RoadRight.Add(gLink)

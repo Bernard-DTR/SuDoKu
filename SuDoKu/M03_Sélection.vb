@@ -158,16 +158,18 @@ Friend Module M03_Sélection
   End Sub
 
   Sub Cell_Cdd_Exclude_GRslt()
-    If GRslt.CelExcl.Count > 0 Then
-      For Each XCel As GCel_Excl_Cls In GRslt.CelExcl
-        Dim Candidats As String = U(XCel.Cel, 3)
-        Dim Candidats_Exclus As String = U_CddExc(XCel.Cel)
-        Mid$(Candidats, CInt(XCel.Cdd), 1) = " "
-        Mid$(Candidats_Exclus, CInt(XCel.Cdd), 1) = XCel.Cdd
-        U(XCel.Cel, 3) = Candidats
-        U_CddExc(XCel.Cel) = Candidats_Exclus
-        Jrn_Add_Yellow(Proc_Name_Get() & " V " & XCel.Cdd & " " & U_Coord(XCel.Cel))
-      Next XCel
+    If GRslt.CelExcl_hs.Count > 0 Then
+      For Each CelExcl_key As Tuple(Of Integer, String) In GRslt.CelExcl_hs
+        Dim XCel_Cel As Integer = CelExcl_key.Item1
+        Dim XCel_Cdd As String = CelExcl_key.Item2
+        Dim Candidats As String = U(XCel_Cel, 3)
+        Dim Candidats_Exclus As String = U_CddExc(XCel_Cel)
+        Mid$(Candidats, CInt(XCel_Cdd), 1) = " "
+        Mid$(Candidats_Exclus, CInt(XCel_Cdd), 1) = XCel_Cdd
+        U(XCel_Cel, 3) = Candidats
+        U_CddExc(XCel_Cel) = Candidats_Exclus
+        Jrn_Add_Yellow(Proc_Name_Get() & " V " & XCel_Cdd & " " & U_Coord(XCel_Cel))
+      Next
     End If
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()

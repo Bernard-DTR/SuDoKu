@@ -104,11 +104,9 @@ Module G100_Strategy_bi_values
       For Each cdd As String In Cddi
         If U_temp(cel, 3).Contains(cdd) Then
           Link_Productif = True
-          GRslt.CelExcl.Add(New GCel_Excl_Cls With {
-              .Cel = cel,
-              .Cdd = cdd,
-              .Exc = {Celi, Celj}
-          })
+          GRslt.CelExcl.Add(New GCel_Excl_Cls With {.Cel = cel, .Cdd = cdd, .Exc = {Celi, Celj}})
+          Dim CelExcl_key As Tuple(Of Integer, String) = Tuple.Create(cel, cdd)
+          GRslt.CelExcl_hs.Add(CelExcl_key)
         End If
       Next
     Next

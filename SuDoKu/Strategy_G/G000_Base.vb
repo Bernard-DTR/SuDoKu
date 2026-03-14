@@ -269,6 +269,7 @@ Friend Module G000_Base
       .Path_Number = -1
       .RoadRight = New List(Of GLink_Cls)
       .CelExcl = New List(Of GCel_Excl_Cls)
+      .CelExcl_hs = New HashSet(Of Tuple(Of Integer, String))
       .Productivité = False
     End With
   End Sub
@@ -306,10 +307,24 @@ Friend Module G000_Base
     If GRslt.CelExcl.Count > 0 Then
       Jrn_Add(, {"Affichage de GRslt.CelExcl : " & GRslt.CelExcl.Count & " Lignes."})
       Nb = 0
-      For Each XCel As GCel_Excl_Cls In GRslt.CelExcl
+      For Each GCel As GCel_Excl_Cls In GRslt.CelExcl
         Nb += 1
-        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(XCel.Cel) & " Candidat : " & XCel.Cdd & " Extrémités : " & U_Coord(XCel.Exc(0)) & " ←→ " & U_Coord(XCel.Exc(1))})
-      Next XCel
+        Dim key As Tuple(Of Integer, String) = Tuple.Create(GCel.Cel, GCel.Cdd)
+        GRslt.CelExcl_hs.Add(key)
+        Jrn_Add(, {CStr(Nb).PadLeft(2) & " " & U_Coord(GCel.Cel) & " Candidat : " & GCel.Cdd & " Extrémités : " & U_Coord(GCel.Exc(0)) & " ←→ " & U_Coord(GCel.Exc(1))})
+      Next GCel
+
+      Nb = 0
+      Dim S As String = ""
+      'Jrn_Add_Yellow("soit : " & GRslt.CelExcl_hs.Count.ToString() & " candidat(s)")
+      Jrn_Add(, {"soit : " & GRslt.CelExcl_hs.Count.ToString() & " candidat(s)"})
+      For Each CelExcl_key As Tuple(Of Integer, String) In GRslt.CelExcl_hs
+        Nb += 1
+        Dim cellule As Integer = CelExcl_key.Item1
+        Dim candidat As String = CelExcl_key.Item2
+        S &= $"{CStr(Nb),2} {U_Coord(cellule)} Candidat : {candidat}{vbCrLf}"
+      Next
+      Jrn_Add(, {S})
 
       'XSolution est calculé dans Game_Load (Game_New_Game)
       Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)

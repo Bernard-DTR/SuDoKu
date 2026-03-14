@@ -8,7 +8,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_03_11 #654"
+  Public SDK_Version As String = "V2026_03_11 #662"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -522,7 +522,9 @@ Module A00_Public
     Public RoadRight As List(Of GLink_Cls)        ' Liste des liens du Chemin correct
     Public Productivité As Boolean                ' If GRslt.CelExcl.Count > 0 Then GRslt.Productivité = True
     Public CelExcl As List(Of GCel_Excl_Cls)      ' Liste de Cellules concernées avec Cdd
-    '                                             ' la liste comporte la cellule concernée, le candidat et les 2 cellules d'extrémités 
+    '                                             ' la liste   comporte la cellule concernée, le candidat et les 2 cellules d'extrémités 
+    Public CelExcl_hs As HashSet(Of Tuple(Of Integer, String))
+    '                                             ' le HashSet comporte la cellule concernée et le candidat sous forme unique
   End Structure
   Public GRslt As New GRslt_Struct
   Public Class GCel_Excl_Cls 'Classe déterminant la structure des Cellules concernées Cdd_Excluses de la stratégie

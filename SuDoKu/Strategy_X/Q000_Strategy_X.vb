@@ -91,6 +91,17 @@ Friend Module Q000_Strategy_X
             " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Composition &
             " N° Cellules " & CStr(.Cel(0)).PadLeft(2) & " " & CStr(.Cel(1)).PadLeft(2)
           Case Else
+            ' Permet l'affichage de X_Chain
+            ' Les stratégies X et Wing (sauf XYZ-Wing)
+            'Cel()        comporte les 2 cellules
+            'Cdd(0 et 1)  sont les candidats de cel(0)
+            'Cdd(2 et 3)  sont les candidats de cel(1)
+            'Cdd(4)       est le candidat commun
+            S = .Cdd(4) & " " &
+            U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
+            U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
+            " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Composition &
+            " N° Cellules " & CStr(.Cel(0)).PadLeft(2) & " " & CStr(.Cel(1)).PadLeft(2)
         End Select
       End With
     Catch ex As Exception
@@ -399,7 +410,7 @@ Friend Module Q000_Strategy_X
     Select Case Plcy_Strg
       Case "Gbl", "Gbv", "GCs"
         If GRslt.Productivité Then
-          Frm_SDK.Mnu0902.Text = "Supprimer " & GRslt.CelExcl.Count & " Candidat(s) : " & Stg_Get(Plcy_Strg).Texte & "."
+          Frm_SDK.Mnu0902.Text = "Supprimer " & GRslt.CelExcl_hs.Count & " Candidat(s) : " & Stg_Get(Plcy_Strg).Texte & "."
           Frm_SDK.Mnu0902.Enabled = True
           GRslt_Display() 'Pour contrôle
         Else

@@ -201,6 +201,7 @@ Module M01_Enregistrement_Partie
         End Try
       End While
     End Using
+
     If Stg <> "" Then
       Jrn_Add("Prl_00000", {"Profondeur         : "})
       Jrn_Add("Prl_00000", {"Avant              : " & Stg_Profondeur})
@@ -220,6 +221,7 @@ Module M01_Enregistrement_Partie
         End If
       Next i
       My.Settings.Prf_03R_Plcy_Stg_Clb = Plcy_Stg_Clb
+
       ' Affichage de contrôle
       Jrn_Add("Prl_00000", {"Profondeur         : "})
       Jrn_Add("Prl_00000", {"Avant              : " & Stg_Profondeur})

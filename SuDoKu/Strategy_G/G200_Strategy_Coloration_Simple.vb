@@ -106,6 +106,8 @@ Module G200_Strategy_Coloration_Simple
           For Each kvp As KeyValuePair(Of Integer, Boolean) In Couleurs
             If kvp.Value Then
               GRslt.CelExcl.Add(New GCel_Excl_Cls With {.Cel = kvp.Key, .Cdd = Candidat})
+              Dim CelExcl_key As Tuple(Of Integer, String) = Tuple.Create(kvp.Key, Candidat)
+              GRslt.CelExcl_hs.Add(CelExcl_key)
             End If
           Next
           GRslt.Productivité = True
@@ -126,8 +128,9 @@ Module G200_Strategy_Coloration_Simple
             If Not U_temp(i, 3).Contains(Candidat) Then Continue For
             If Is_Vu(i, celG) AndAlso Is_Vu(i, celB) Then
               If Not GRslt.CelExcl.Any(Function(ex) ex.Cel = i AndAlso ex.Cdd = Candidat) Then
-                GRslt.CelExcl.Add(New GCel_Excl_Cls With {
-                    .Cel = i, .Cdd = Candidat, .Exc = {celB, celG}})
+                GRslt.CelExcl.Add(New GCel_Excl_Cls With {.Cel = i, .Cdd = Candidat, .Exc = {celB, celG}})
+                Dim CelExcl_key As Tuple(Of Integer, String) = Tuple.Create(i, Candidat)
+                GRslt.CelExcl_hs.Add(CelExcl_key)
               End If
             End If
           Next
