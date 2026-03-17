@@ -408,7 +408,7 @@ Friend Module Q000_Strategy_X
     ' Traitement commun aux stratégies G
 
     Select Case Plcy_Strg
-      Case "Gbl", "Gbv", "GCs"
+      Case "Gbl", "Gbv", "GCs", "GCx"
         If GRslt.Productivité Then
           Frm_SDK.Mnu0902.Text = "Supprimer " & GRslt.CelExcl_hs.Count & " Candidat(s) : " & Stg_Get(Plcy_Strg).Texte & "."
           Frm_SDK.Mnu0902.Enabled = True

@@ -76,6 +76,14 @@ Friend Module En_Cours
   End Sub
   Public Sub TestJ()
     Jrn_Add(, {Proc_Name_Get()})
+    Dim U_temp(80, 3) As String
+
+    Plcy_Strg = "GCx"
+    Jrn_Add(, {"Strategy_" & Plcy_Strg})
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_GCx(U_temp)
+    Frm_SDK.B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
 #End Region
 End Module

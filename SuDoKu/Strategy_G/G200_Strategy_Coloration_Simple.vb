@@ -43,12 +43,12 @@ Module G200_Strategy_Coloration_Simple
       GRslt.Nb_Paths = Solver.AllPaths.Count
 
       ' 40 Vérification des chemins
-      If GRoads_Vérification_dfs(U_Temp, GAllRoads) Then Exit For
+      If GRoads_Vérification_DFS(U_Temp, GAllRoads) Then Exit For
     Next Cdd
 
     Stratégies_G_End()
   End Sub
-  Public Function GRoads_Vérification_dfs(U_temp(,) As String,
+  Public Function GRoads_Vérification_DFS(U_temp(,) As String,
                                           gAllRoads As List(Of List(Of GLink_Cls))) As Boolean
     Dim Road_Numéro As Integer = 0
     Dim Candidat As String = GRslt.Candidat(0)
@@ -57,17 +57,17 @@ Module G200_Strategy_Coloration_Simple
       If GRslt.Productivité Then Exit For
       Road_Numéro += 1
 
-      If Road_Vérification_dfs(U_temp, Road, Candidat, Road_Numéro) Then
+      If Road_Vérification_DFS(U_temp, Road, Candidat, Road_Numéro) Then
         Exit For
       End If
     Next
 
     Return GRslt.Productivité
   End Function
-  Private Function Road_Vérification_dfs(U_temp(,) As String,
-                                            Road As List(Of GLink_Cls),
-                                            Candidat As String,
-                                            Road_Numéro As Integer) As Boolean
+  Private Function Road_Vérification_DFS(U_temp(,) As String,
+                                         Road As List(Of GLink_Cls),
+                                         Candidat As String,
+                                         Road_Numéro As Integer) As Boolean
 
     Dim Link_Fin_Prv As Integer = -1
     Dim LienIndex As Integer = 0

@@ -490,7 +490,6 @@ Module A00_Public
   Public GAllRoads As New List(Of List(Of GLink_Cls))  ' Liste de tous les chemins possibles
 
   Public GCels As New List(Of GCel_Cls)                ' Liste des cellules
-  Public Const GRoads_Max As Integer = 645120
   Public Structure XRslt_Struct
     Public Code As String                         ' Code Stratégie: XCx / XCy /XRp /XNl
     Public Candidat() As String                   ' Le ou les candidats de la stratégie
@@ -505,7 +504,7 @@ Module A00_Public
     Public Durée_ms As Integer                    ' Durée en ms du calcul de la stratégie
   End Structure
   Public XRslt As New XRslt_Struct
-  Public Xap As Boolean = False
+  Public Xap As Boolean = True 'False
   Public XSolution As String
   Public U_Road(0 To 80) As Boolean               ' Tableau des Cellules sur le chemin
 

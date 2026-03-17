@@ -130,7 +130,7 @@ Friend Module Q030_Strategy_X_Chain
       If i = Road_CelDéb Or i = Road_CelFin Then Continue For
       If Is_Vu(i, Road_CelDéb) AndAlso Is_Vu(i, Road_CelFin) Then
         XRslt.CelExcl.Add(New XCel_Excl_Cls With {.Cel = i, .Cdd = Candidat, .Exc = {Road_CelDéb, Road_CelFin}})
-
+        Jrn_Add_Yellow(Proc_Name_Get() & " " & U_Coord(i) & " " & Candidat)
       End If
     Next i
     Return XRslt.CelExcl.Count

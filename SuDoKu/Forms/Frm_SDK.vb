@@ -1332,17 +1332,22 @@ Public NotInheritable Class Frm_SDK
         Dim Source As String = File
         Dim Destination As String = Path_Batch_Poubelle & Nom_Physique
         Try
-          ' Le fichier existe déjà
           My.Computer.FileSystem.CopyFile(Source, Destination)
-          ' et ensuite Suppression du fichier
-          ' Une fois la partie lancée, le fichier est supprimé
-          My.Computer.FileSystem.DeleteFile(File,
-           Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
-           Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently)
         Catch ex As Exception
           Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
+          Jrn_Add("ERR_00000", {"Erreur CopyFile"}, "Erreur")
           Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-          Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+          Return
+        End Try
+
+        Try
+          My.Computer.FileSystem.DeleteFile(File,
+        Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
+        Microsoft.VisualBasic.FileIO.RecycleOption.DeletePermanently)
+        Catch ex As Exception
+          Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
+          Jrn_Add("ERR_00000", {"Erreur DeleteFile"}, "Erreur")
+          Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
         End Try
 
         'Affichage du fichier si Plcy_Open_Display
