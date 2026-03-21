@@ -319,6 +319,7 @@
 #662 S  14/03/2026 Traitement effectué pour Gbl, Gbv, GCs et GRslt_Display(), Cell_Cdd_Exclude_GRslt()
 #663 S  14/03/2026 Traitement effectué pour Gbl, Gbv, GCs et GRslt_Display(), Cell_Cdd_Exclude_GRslt()
 #664 Ma 17/03/2026 Premiers essais de GCx avec DFS
+#665 S  21/03/2026 Démarrage d'une expérimentation de stratégies à la Berthier
 
 ?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 Grandes étapes:
@@ -333,7 +334,6 @@ Grandes étapes:
                     1 Recommencer GitHub avec un seul profil ! 
                     0 Stratégie Loop discontinue
 ##############################################################################################################################
-                       Comment éliminer les cellules-candidats en double à éliminer dans les stratégies G
 	               Lors de la saisie, est-ce que DL est calculé
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
                    Revoir le traitement en arrière-plan si on est en mode de maintenance
@@ -341,3 +341,7 @@ Grandes étapes:
                    Est-il possible en Strg Cdd de supprimer/insérer un candidat ? 
 
 ##############################################################################################################################
+
+x mettre en place Trace
+  mettre en place les Hidden stratégies
+  Locked Candidates (Pointing / Claiming),

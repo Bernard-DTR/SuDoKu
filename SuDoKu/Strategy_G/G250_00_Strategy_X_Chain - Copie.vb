@@ -24,6 +24,19 @@ Module G250_Strategy_X_Chain
       If Xap Then GLinks_Display()
 
       GRslt.Nb_Liens = GLinks.Count
+      'For Each gLink As GLink_Cls In GLinks
+      '  Dim Current As New List(Of GLink_Cls)
+      '  Current.Add(gLink)
+
+      '  Array.Clear(U_Road, 0, 81)
+      '  U_Road(gLink.Cel(0)) = True
+      '  U_Road(gLink.Cel(1)) = True
+
+      '  If DFS_XChain(GLinks, Current, U_Road, U_temp) Then
+      '    Exit For
+      '  End If
+
+      'Next
 
       For Each gLink As GLink_Cls In GLinks
 
@@ -52,7 +65,11 @@ Module G250_Strategy_X_Chain
         If DFS_XChain(GLinks, Current2, U_Road, U_temp) Then
           Exit For
         End If
+
       Next
+
+
+
     Next
     Stratégies_G_End()
   End Sub
@@ -111,6 +128,7 @@ Module G250_Strategy_X_Chain
 
     Return False
   End Function
+
   Public Function DFS_XChain(ByVal AllLinks As List(Of GLink_Cls),
                              ByVal Current As List(Of GLink_Cls),
                              ByVal U_Road As Boolean(),

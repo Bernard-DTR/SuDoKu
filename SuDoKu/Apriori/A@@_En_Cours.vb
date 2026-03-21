@@ -56,6 +56,7 @@ Friend Module En_Cours
 
 
   End Sub
+
   Public Sub TestD()
     Jrn_Add(, {Proc_Name_Get()})
   End Sub
@@ -64,15 +65,45 @@ Friend Module En_Cours
   End Sub
   Public Sub TestF()
     Jrn_Add(, {Proc_Name_Get()})
+    Dim Grid As String = ClipBoard_Copier_New("1")
+    Jrn_Add_Yellow(Grid)
+    Dim AllCandidates(728) As Candidate
+    AllCandidates_Init(AllCandidates)
+
+
+    SDK_AllCandidate(Grid, AllCandidates)
+    AllCandidates_Display(AllCandidates)
+
+    AllCandidates_Display_IsSolved(AllCandidates)
+
   End Sub
   Public Sub TestG()
     Jrn_Add(, {Proc_Name_Get()})
   End Sub
   Public Sub TestH()
+    Plcy_Strg = "   "
     Jrn_Add(, {Proc_Name_Get()})
+    Dim Grid As String = ClipBoard_Copier_New("1")
+    Jrn_Add_Yellow(Grid)
+    Dim AllCandidates(728) As Candidate
+    AllCandidates_Init(AllCandidates)
+    SDK_AllCandidate(Grid, AllCandidates)
+    AllCandidates_Display(AllCandidates)
+    PropagateSolvedCandidates(AllCandidates)
+    AllCandidates_SDK(AllCandidates, True)
   End Sub
   Public Sub TestI()
+    Plcy_Strg = "   "
     Jrn_Add(, {Proc_Name_Get()})
+    Dim Grid As String = ClipBoard_Copier_New("1")
+    Jrn_Add_Yellow(Grid)
+    Dim AllCandidates(728) As Candidate
+    AllCandidates_Init(AllCandidates)
+    SDK_AllCandidate(Grid, AllCandidates)
+    'AllCandidates_Display(AllCandidates)
+    PropagateSolvedCandidates(AllCandidates)
+    DB_Solution(AllCandidates)
+    AllCandidates_SDK(AllCandidates, True)
   End Sub
   Public Sub TestJ()
     Jrn_Add(, {Proc_Name_Get()})

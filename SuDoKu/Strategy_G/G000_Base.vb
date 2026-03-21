@@ -221,7 +221,7 @@ Friend Module G000_Base
     GLinks = New List(Of GLink_Cls)(GLinks_ToKeep)
   End Sub
   Public Sub GLinks_Exclude_Doubles()
-    Jrn_Add(, {Proc_Name_Get() & " Affichage de GLinks : " & GLinks.Count & " Lignes."})
+    'Jrn_Add(, {Proc_Name_Get() & " Affichage de GLinks : " & GLinks.Count & " Lignes."})
     'la procédure élimine les liens en double
     GLinks = GLinks.GroupBy(Function(gl) (gl.Cel(0), gl.Cel(1))) _
                    .Select(Function(g) g.First()) _

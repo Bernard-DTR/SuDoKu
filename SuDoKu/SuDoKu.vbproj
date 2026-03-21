@@ -153,6 +153,8 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DenisBerthier\DB_01.vb" />
+    <Compile Include="DenisBerthier\DB_02.vb" />
     <Compile Include="M03_Paint_g.vb" />
     <Compile Include="Models\XLink_Cls.vb" />
     <Compile Include="Apriori\A%40%40_En_Cours.vb" />

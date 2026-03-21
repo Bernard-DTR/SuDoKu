@@ -932,9 +932,6 @@ Public NotInheritable Class Frm_SDK
   End Sub
   '--------------04---------------------------------------------------------------
   '--------------05---------------------------------------------------------------
-  Private Sub Mnu05_AideSudokuGraphique_Click(sender As Object, e As EventArgs)
-    'Dsp_AideGraphique("Alt")
-  End Sub
   Private Sub Mnu05_APropos_Click(sender As Object, e As EventArgs) Handles Mnu05_APropos.Click
     Frm_About.Show()
   End Sub
@@ -1787,7 +1784,7 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add(, {Proc_Name_Get() & " Suppression des Candidats Exclus "})
     Jrn_Add(, {"Stratégie en cours: " & Plcy_Strg})
     Select Case Plcy_Strg
-      Case "Gbl", "Gbv", "GCs"
+      Case "Gbl", "Gbv", "GCs", "GCx"
         Cell_Cdd_Exclude_GRslt()
       Case "XCx", "XCy", "Xrp", "XNl", "WgX", "WgY", "WgZ", "WgW"
         For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
