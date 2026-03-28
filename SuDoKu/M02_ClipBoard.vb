@@ -37,7 +37,7 @@ Friend Module M02_ClipBoard
       End If
 
       Prb = Prb.Substring(0, 81)
-      Game_New_Game(Gnrl:="Nrm", Nom:=Proc_Name_Get(), Prb:=Prb, Jeu:=Prb, Sol:=StrDup(81, " "), Cdd729:=StrDup(729, " "), Frc:="5", Proc_Name_Get())
+      Game_New_Game(Gnrl:="Nrm", "   ", Nom:=Proc_Name_Get(), Prb:=Prb, Jeu:=Prb, Sol:=StrDup(81, " "), Cdd729:=StrDup(729, " "), Frc:="5", Proc_Name_Get())
     Catch Ex As Exception
       Dim Msg As String = "Le ClipBoard Coller n'est pas exploitable." & vbCrLf & Ex.ToString() & vbCrLf & Len(Ex.ToString())
       Nsd_i = MsgBox(Msg & vbCrLf & Prb,, Proc_Name_Get())
@@ -115,7 +115,7 @@ Friend Module M02_ClipBoard
             Case Else : CC &= U(i, 1)
           End Select
         Next i
-        Jrn_Add("SDK_00000", {"VI        :" & CC})
+        'Jrn_Add("SDK_00000", {"VI        :" & CC})
 
       Case "2" ' Toutes les valeurs
         For i As Integer = 0 To 80
@@ -124,13 +124,13 @@ Friend Module M02_ClipBoard
             Case Else : CC &= U(i, 2)
           End Select
         Next i
-        Jrn_Add("SDK_00000", {"Valeurs   :" & CC})
+        'Jrn_Add("SDK_00000", {"Valeurs   :" & CC})
 
       Case "3" ' Les candidats
         For i As Integer = 0 To 80
           CC &= U(i, 3).Replace(" ", "") & ";"
         Next i
-        Jrn_Add("SDK_00000", {"Candidats :" & CC})
+        'Jrn_Add("SDK_00000", {"Candidats :" & CC})
     End Select
     Clipboard.Clear()
     Clipboard.SetData(DataFormats.Text, CType(CC, Object))

@@ -320,7 +320,18 @@
 #663 S  14/03/2026 Traitement effectué pour Gbl, Gbv, GCs et GRslt_Display(), Cell_Cdd_Exclude_GRslt()
 #664 Ma 17/03/2026 Premiers essais de GCx avec DFS
 #665 S  21/03/2026 Démarrage d'une expérimentation de stratégies à la Berthier
+#666 D  22/03/2026 Remise en place de Saisir-Commencer
+                   Ajout de la stratégie Plcy_Strg = "Sai"
+                   Modification de Game_New_Game et Cell_Val_Insert
+                   3 messages jaunes sont affichés
+#667 S  28/03/2026 Ré-écriture de M01_Enregistrement_Partie , Save, Load et Write
 
+
+                   Le nom d'une partie n'est pas limitée à 11 caractères !
+                   Pzzl_Write_Partie_Test doit utiliser une Dim SFD As New SaveFileDialog()
+                   Est-il possible de mattre en option If Cdu_Exists Then GoTo Pzzl_Prd_Batch_Exit dans Pzzl_Prd_Batch
+                   ??? est-ce que DL est lancé à chaque chargement de partie ? 
+                   ??? est-ce qu'un message est affiché ?
 ?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 Grandes étapes:
                     9 X_Xhain         G + DFS
@@ -343,5 +354,6 @@ Grandes étapes:
 ##############################################################################################################################
 
 x mettre en place Trace
-  mettre en place les Hidden stratégies
-  Locked Candidates (Pointing / Claiming),
+x mettre en place les Hidden stratégies
+x Locked Candidates (Pointing / Claiming),
+  Remettre en place Saisir-Commencer pour saisir les grilles de DB

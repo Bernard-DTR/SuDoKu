@@ -101,5 +101,9 @@ Module M02_U
       Jrn_Add(, {Mid$(Cdd, 1, Cdd.Length - 1)})
     Next row
 
+    Jrn_Add(, {"XSolution"})
+    Jrn_Add(, {XSolution})
+    Jrn_Add(, {"/XSolution"})
+
   End Sub
 End Module

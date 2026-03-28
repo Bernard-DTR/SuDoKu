@@ -1,7 +1,119 @@
 ﻿Module DB_02
+  Dim Incompatibles(728) As List(Of Integer)
+
+  Public Sub DB_Solution(ByVal AllCandidates() As Candidate)
+    Dim progress As Boolean
+    Do
+      progress = False
+
+      If DetectNakedSingles(AllCandidates) Then
+        PropagateSolvedCandidates(AllCandidates)
+        progress = True
+      End If
+
+      If DetectHiddenSingles(AllCandidates) Then
+        PropagateSolvedCandidates(AllCandidates)
+        progress = True
+      End If
+
+      If DetectLockedCandidates(AllCandidates) Then
+        progress = True
+      End If
+
+      ' ---------------------------------------------------
+      ' À partir d’ici : stratégies avancées Berthier
+      ' ---------------------------------------------------
+      Incompatibles = BuildIncompatibilityGraph(AllCandidates)
+      BuildStrongAndWeakLinks(AllCandidates, Incompatibles)
+      For d As Integer = 1 To 9
+        Dim id As Integer = ((1 - 1) * 81) + ((1 - 1) * 9) + (d - 1)
+        DebugIncompatibles(AllCandidates, Incompatibles, id)
+      Next
+
+      'If ApplyWhips(AllCandidates, Incompatibles) Then
+      'progress = True
+      'End If
+
+      'If ApplyBraids(AllCandidates, Incompatibles) Then
+      'progress = True
+      'End If
+
+    Loop While progress
+  End Sub
+
+  Public Sub DebugIncompatibles(ByVal AllCandidates() As Candidate,
+                              ByVal Incompatibles() As List(Of Integer),
+                              ByVal id As Integer)
+
+    Dim cand As Candidate = AllCandidates(id)
+
+    Jrn_Add_White("Candidat ID " & id &
+                      "  R" & cand.Row &
+                      "C" & cand.Col &
+                      " d" & cand.Digit)
+
+    Jrn_Add_White("Incompatibles :")
+
+    For Each otherId As Integer In Incompatibles(id)
+      Dim c As Candidate = AllCandidates(otherId)
+      Jrn_Add_White("  -> ID " & otherId &
+                          "  R" & c.Row &
+                          "C" & c.Col &
+                          " d" & c.Digit)
+    Next
+
+  End Sub
+
+  Public Sub PropagateSolvedCandidates(ByVal AllCandidates() As Candidate)
+    ' Dès qu'un candidat est IsSolved, IsActive= False des candidats de la même case
+    '                                                                de la même unité
+    ' Convention 1 : les règles évidentes de propagation des contraintes élémentaires
+    ' ECP(cellule), ECP (ligne), ECP(col) et ECP(blk) ne seront jamais affichées.
+    For Each cdd As Candidate In AllCandidates
+      If cdd.IsSolved Then
+
+        Dim r As Integer = cdd.Row
+        Dim c As Integer = cdd.Col
+        Dim d As Integer = cdd.Digit
+
+        ' 1. Désactiver les autres candidats de la même case
+        For dd As Integer = 1 To 9
+          If dd <> d Then
+            AllCandidates(Index(r, c, dd)).IsActive = False
+          End If
+        Next
+        ' 2. Désactiver la valeur dans la même ligne
+        For cc As Integer = 1 To 9
+          If cc <> c Then
+            AllCandidates(Index(r, cc, d)).IsActive = False
+          End If
+        Next
+        ' 3. Désactiver la valeur dans la même colonne
+        For rr As Integer = 1 To 9
+          If rr <> r Then
+            AllCandidates(Index(rr, c, d)).IsActive = False
+          End If
+        Next
+        ' 4. Désactiver la valeur dans le même bloc
+        Dim br As Integer = ((r - 1) \ 3) * 3 + 1
+        Dim bc As Integer = ((c - 1) \ 3) * 3 + 1
+        For dr As Integer = 0 To 2
+          For dc As Integer = 0 To 2
+            Dim rr As Integer = br + dr
+            Dim cc As Integer = bc + dc
+            If rr <> r OrElse cc <> c Then
+              AllCandidates(Index(rr, cc, d)).IsActive = False
+            End If
+          Next
+        Next
+
+      End If
+    Next
+  End Sub
+
 
   Public Function DetectNakedSingles(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add_Orange("Passage : " & CStr(DB_Passage) & " " & Proc_Name_Get())
+    Jrn_Add_Orange(Proc_Name_Get())
     Dim found As Boolean = False
 
     For row As Integer = 1 To 9
@@ -31,42 +143,15 @@
         If activeCount = 1 Then
           lastActive.IsSolved = True
           found = True
-          Trace(lastActive)
+          Trace("NS", lastActive)
         End If
 
       Next
     Next
     Return found
   End Function
-  Public Sub Trace(Cdd As Candidate)
-    With Cdd
-      Dim S As String
-      Dim Cellule As Integer = Wh_Cellule_RowCol(.Row - 1, .Col - 1)
-      S = $"{CStr(.ID),3} R{ .Row}_C{ .Col} Digit { .Digit}  Block { .Block} IsActive = { CStr(.IsActive),5} IsSolved = { CStr(.IsSolved),5}  {U_Coord(Cellule)}"
-      Jrn_Add_Orange(S)
-    End With
-
-  End Sub
-  Public Sub DB_Solution(ByVal AllCandidates() As Candidate)
-    Dim progress As Boolean
-    Do
-      DB_Passage += 1
-      progress = False
-
-      If DetectNakedSingles(AllCandidates) Then
-        PropagateSolvedCandidates(AllCandidates)
-        progress = True
-      End If
-
-      'If DetectHiddenSingles(AllCandidates) Then
-      'PropagateSolvedCandidates(AllCandidates)
-      'progress = True
-      'End If
-
-    Loop While progress
-  End Sub
-
   Private Function DetectHiddenSinglesInRows(ByVal AllCandidates() As Candidate) As Boolean
+    Jrn_Add_Orange(Proc_Name_Get())
 
     Dim found As Boolean = False
 
@@ -90,6 +175,7 @@
           If Not lastActive.IsSolved Then
             lastActive.IsSolved = True
             found = True
+            Trace("HS R", lastActive)
           End If
         End If
 
@@ -99,8 +185,8 @@
     Return found
 
   End Function
-
   Private Function DetectHiddenSinglesInCols(ByVal AllCandidates() As Candidate) As Boolean
+    Jrn_Add_Orange(Proc_Name_Get())
 
     Dim found As Boolean = False
 
@@ -123,6 +209,7 @@
           If Not lastActive.IsSolved Then
             lastActive.IsSolved = True
             found = True
+            Trace("HS C", lastActive)
           End If
         End If
 
@@ -132,15 +219,15 @@
     Return found
 
   End Function
-
   Private Function DetectHiddenSinglesInBlocks(ByVal AllCandidates() As Candidate) As Boolean
+    Jrn_Add_Orange(Proc_Name_Get())
 
     Dim found As Boolean = False
 
-    For block As Integer = 0 To 8
+    For block As Integer = 1 To 9
 
-      Dim startRow As Integer = (block \ 3) * 3 + 1
-      Dim startCol As Integer = (block Mod 3) * 3 + 1
+      Dim startRow As Integer = ((block - 1) \ 3) * 3 + 1
+      Dim startCol As Integer = ((block - 1) Mod 3) * 3 + 1
 
       For val As Integer = 1 To 9
 
@@ -167,6 +254,7 @@
           If Not lastActive.IsSolved Then
             lastActive.IsSolved = True
             found = True
+            Trace("HS B", lastActive)
           End If
         End If
 
@@ -176,18 +264,164 @@
     Return found
 
   End Function
-
   Public Function DetectHiddenSingles(ByVal AllCandidates() As Candidate) As Boolean
-
     Dim found As Boolean = False
-
     If DetectHiddenSinglesInRows(AllCandidates) Then found = True
     If DetectHiddenSinglesInCols(AllCandidates) Then found = True
     If DetectHiddenSinglesInBlocks(AllCandidates) Then found = True
-
     Return found
-
   End Function
 
+  Public Function DetectLockedCandidates(ByVal AllCandidates() As Candidate) As Boolean
+    Jrn_Add_Orange(Proc_Name_Get())
 
+    Dim progress As Boolean = False
+
+    ' ---------------------------------------------------------
+    ' 1. POINTING : bloc → ligne/colonne
+    ' ---------------------------------------------------------
+    Dim b As Integer, d As Integer, r As Integer, c As Integer
+
+    For b = 1 To 9
+      For d = 1 To 9
+
+        ' Trouver les candidats actifs (b,d)
+        Dim rows As New HashSet(Of Integer)()
+        Dim cols As New HashSet(Of Integer)()
+
+        For Each cand As Candidate In AllCandidates
+          If cand.IsActive AndAlso cand.Block = b AndAlso cand.Digit = d Then
+            rows.Add(cand.Row)
+            cols.Add(cand.Col)
+          End If
+        Next
+
+        ' POINTING : si tous les candidats sont dans UNE SEULE ligne
+        If rows.Count = 1 Then
+          Dim targetRow As Integer = rows.First()
+
+          For c = 1 To 9
+            ' Exclure les cases du bloc
+            Dim blockStartRow As Integer = ((b - 1) \ 3) * 3 + 1
+            Dim blockStartCol As Integer = ((b - 1) Mod 3) * 3 + 1
+
+            If Not (targetRow >= blockStartRow AndAlso targetRow <= blockStartRow + 2 AndAlso
+                    c >= blockStartCol AndAlso c <= blockStartCol + 2) Then
+
+              Dim id As Integer = ((targetRow - 1) * 81) + ((c - 1) * 9) + (d - 1)
+
+              If AllCandidates(id).IsActive Then
+                AllCandidates(id).IsActive = False
+                Trace("LC PL", AllCandidates(id))
+
+                progress = True
+              End If
+            End If
+          Next
+        End If
+
+        ' POINTING : si tous les candidats sont dans UNE SEULE colonne
+        If cols.Count = 1 Then
+          Dim targetCol As Integer = cols.First()
+
+          For r = 1 To 9
+            Dim blockStartRow As Integer = ((b - 1) \ 3) * 3 + 1
+            Dim blockStartCol As Integer = ((b - 1) Mod 3) * 3 + 1
+
+            If Not (r >= blockStartRow AndAlso r <= blockStartRow + 2 AndAlso
+                    targetCol >= blockStartCol AndAlso targetCol <= blockStartCol + 2) Then
+
+              Dim id As Integer = ((r - 1) * 81) + ((targetCol - 1) * 9) + (d - 1)
+
+              If AllCandidates(id).IsActive Then
+                AllCandidates(id).IsActive = False
+                Trace("LC PC", AllCandidates(id))
+
+                progress = True
+              End If
+            End If
+          Next
+        End If
+
+      Next d
+    Next b
+
+    ' ---------------------------------------------------------
+    ' 2. CLAIMING : ligne/colonne → bloc
+    ' ---------------------------------------------------------
+
+    ' CLAIMING LIGNE
+    For r = 1 To 9
+      For d = 1 To 9
+
+        Dim blocks As New HashSet(Of Integer)()
+
+        For Each cand As Candidate In AllCandidates
+          If cand.IsActive AndAlso cand.Row = r AndAlso cand.Digit = d Then
+            blocks.Add(cand.Block)
+          End If
+        Next
+
+        If blocks.Count = 1 Then
+          Dim targetBlock As Integer = blocks.First()
+
+          Dim blockStartRow As Integer = ((targetBlock - 1) \ 3) * 3 + 1
+          Dim blockStartCol As Integer = ((targetBlock - 1) Mod 3) * 3 + 1
+
+          For rr As Integer = blockStartRow To blockStartRow + 2
+            For cc As Integer = blockStartCol To blockStartCol + 2
+              If rr <> r Then
+                Dim id As Integer = ((rr - 1) * 81) + ((cc - 1) * 9) + (d - 1)
+                If AllCandidates(id).IsActive Then
+                  AllCandidates(id).IsActive = False
+                  Trace("LC CL", AllCandidates(id))
+
+                  progress = True
+                End If
+              End If
+            Next
+          Next
+        End If
+
+      Next d
+    Next r
+
+    ' CLAIMING COLONNE
+    For c = 1 To 9
+      For d = 1 To 9
+
+        Dim blocks As New HashSet(Of Integer)()
+
+        For Each cand As Candidate In AllCandidates
+          If cand.IsActive AndAlso cand.Col = c AndAlso cand.Digit = d Then
+            blocks.Add(cand.Block)
+          End If
+        Next
+
+        If blocks.Count = 1 Then
+          Dim targetBlock As Integer = blocks.First()
+
+          Dim blockStartRow As Integer = ((targetBlock - 1) \ 3) * 3 + 1
+          Dim blockStartCol As Integer = ((targetBlock - 1) Mod 3) * 3 + 1
+
+          For rr As Integer = blockStartRow To blockStartRow + 2
+            For cc As Integer = blockStartCol To blockStartCol + 2
+              If cc <> c Then
+                Dim id As Integer = ((rr - 1) * 81) + ((cc - 1) * 9) + (d - 1)
+                If AllCandidates(id).IsActive Then
+                  AllCandidates(id).IsActive = False
+                  Trace("LC CC", AllCandidates(id))
+                  progress = True
+                End If
+              End If
+            Next
+          Next
+        End If
+
+      Next d
+    Next c
+
+    Return progress
+
+  End Function
 End Module

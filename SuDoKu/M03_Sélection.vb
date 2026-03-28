@@ -11,8 +11,8 @@ Friend Module M03_Sélection
     If U(Cellule, 2) <> " " Then Exit Sub
     If V < "1" Or V > "9" Then Exit Sub
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
-    If Not (Plcy_Gnrl = "Nrm" And V = XSolution(Cellule)) Then Exit Sub
-
+    'If Not (Plcy_Gnrl = "Nrm" And V = XSolution(Cellule)) Then Exit Sub
+    If Not ((Plcy_Strg = "Sai") Or (Plcy_Strg <> "Sai" And V = XSolution(Cellule))) Then Exit Sub
     Game_Undo_Redo = "Normal"
     Dim Av_Jeu As String = Act_Jeu()
     Dim Av_AllCdd As String = Act_Candidats()

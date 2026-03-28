@@ -28,8 +28,36 @@
     End Sub
   End Class
 
+  Public Class DB_Stg_Cls 'Classe structurant les stratégies de Denis Berthier
+    Public Property Code As String         ' 0 Code
+    Public Property Type As String         ' 1 Type: Insertion, Exclusion, Non 
+    Public Property Texte As String        ' 2 Texte                            
+    'Constructeur paramétré
+    Sub New(New_Code As String,
+            New_Type As String,
+            New_Texte As String)
+      Code = New_Code
+      Type = New_Type
+      Texte = New_Texte
+    End Sub
+  End Class
+  Public DB_Stg_List As New List(Of DB_Stg_Cls)        ' List comportant les stratégies de Denis Berthier
+
+  Public Sub DB_Stg_List_Init()
+    'Initialisation de la Liste des Stratégies de Denis Berthier
+    With DB_Stg_List
+      .Add(New DB_Stg_Cls("vi   ", "N", "SDK_AllCandidate"))
+      .Add(New DB_Stg_Cls("NS   ", "V", "NakedSingles"))
+      .Add(New DB_Stg_Cls("HS   ", "V", "HiddenSingles"))
+      .Add(New DB_Stg_Cls("LC   ", "C", "LockedCandidates"))
+
+    End With
+  End Sub
+
+
+
+
   Dim AllCandidates(728) As Candidate ' Tableau des 729 Candidate
-  Public DB_Passage As Integer
 
   Public Sub AllCandidates_Display(AllCandidates() As Candidate)
     Dim Nb_IsActive As Integer
@@ -41,7 +69,7 @@
       If Cdd.IsActive And Cdd.IsSolved Then Nb_IsActiveSolved += 1
       If Cdd.IsActive And Not Cdd.IsSolved Then Nb_IsActiveNotsolved += 1
       If Cdd.IsSolved Then Nb_IsSolved += 1
-      Trace(Cdd)
+      Trace("Dsp  ", Cdd)
     Next
     Jrn_Add_Yellow("IsActive           " & Nb_IsActive)
     Jrn_Add_Yellow("IsActive_Solved    " & Nb_IsActiveSolved)
@@ -56,13 +84,13 @@
       If Cdd.IsSolved Then
         If Cdd.IsActive Then Nb_IsActive += 1
         If Cdd.IsSolved Then Nb_IsSolved += 1
-        Trace(Cdd)
+        Trace("dsp", Cdd)
       End If
     Next
     Jrn_Add_Yellow("IsActive " & Nb_IsActive)
     Jrn_Add_Yellow("IsSolved " & Nb_IsSolved)
   End Sub
-  Public Sub AllCandidates_SDK(AllCandidates() As Candidate, VI As Boolean)
+  Public Sub AllCandidates_SDK(AllCandidates() As Candidate)
     ' Copie AllCandidates(Denis Berthier) ---> U (SDK)
     ' Tableau temporaire : 81 cellules × 3 champs
     Dim U_temp(80, 3) As String
@@ -78,7 +106,6 @@
       If Not Cdd.IsActive Then Continue For
       Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
       If Cdd.IsSolved Then
-        If VI Then U_temp(Cellule, 1) = Cdd.Digit.ToString()
         U_temp(Cellule, 2) = Cdd.Digit.ToString()
         U_temp(Cellule, 3) = Cnddts_Blancs
       Else
@@ -89,7 +116,12 @@
       End If
     Next
 
-    Array.Copy(U_temp, U, UNbCopy)
+    For i As Integer = 0 To 80
+      'U(i, 1) = U_temp(i, 1) '= " "
+      U(i, 2) = U_temp(i, 2) '= " "
+      U(i, 3) = U_temp(i, 3) '= Cnddts_Blancs
+    Next
+
     Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
@@ -127,6 +159,7 @@
             If d = solvedDigit Then
               AllCandidates(id).IsActive = True
               AllCandidates(id).IsSolved = True
+              Trace("vi", AllCandidates(id))
             Else
               AllCandidates(id).IsActive = False
               AllCandidates(id).IsSolved = False
@@ -148,49 +181,14 @@
     Return (r - 1) * 81 + (c - 1) * 9 + (d - 1)
   End Function
 
-  Public Sub PropagateSolvedCandidates(ByVal AllCandidates() As Candidate)
-    ' Dès qu'un candidat est IsSolved, IsActive= False des candidats de la même case
-    '                                                                de la même unité
-    For Each cdd As Candidate In AllCandidates
-      If cdd.IsSolved Then
-
-        Dim r As Integer = cdd.Row
-        Dim c As Integer = cdd.Col
-        Dim d As Integer = cdd.Digit
-
-        ' 1. Désactiver les autres candidats de la même case
-        For dd As Integer = 1 To 9
-          If dd <> d Then
-            AllCandidates(Index(r, c, dd)).IsActive = False
-          End If
-        Next
-        ' 2. Désactiver la valeur dans la même ligne
-        For cc As Integer = 1 To 9
-          If cc <> c Then
-            AllCandidates(Index(r, cc, d)).IsActive = False
-          End If
-        Next
-        ' 3. Désactiver la valeur dans la même colonne
-        For rr As Integer = 1 To 9
-          If rr <> r Then
-            AllCandidates(Index(rr, c, d)).IsActive = False
-          End If
-        Next
-        ' 4. Désactiver la valeur dans le même bloc
-        Dim br As Integer = ((r - 1) \ 3) * 3 + 1
-        Dim bc As Integer = ((c - 1) \ 3) * 3 + 1
-        For dr As Integer = 0 To 2
-          For dc As Integer = 0 To 2
-            Dim rr As Integer = br + dr
-            Dim cc As Integer = bc + dc
-            If rr <> r OrElse cc <> c Then
-              AllCandidates(Index(rr, cc, d)).IsActive = False
-            End If
-          Next
-        Next
-
-      End If
-    Next
+  Public Sub Trace(DB_Stg As String, Cdd As Candidate)
+    With Cdd
+      Dim S As String
+      Dim Cellule As Integer = Wh_Cellule_RowCol(.Row - 1, .Col - 1)
+      S = $"{DB_Stg,-5} {CStr(.ID),3} R{ .Row}_C{ .Col} Digit { .Digit}  Block { .Block} IsActive = { CStr(.IsActive),-5} IsSolved = { CStr(.IsSolved),-5}  {U_Coord(Cellule)} :{ .Digit}"
+      Jrn_Add_Orange(S)
+    End With
   End Sub
+
 
 End Module

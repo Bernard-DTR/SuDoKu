@@ -101,16 +101,16 @@ Friend Module M59_Prd_Batch
         Pzzl_Prd_Batch("P", Prd)
       Next i
 
-      Nb = 0
-      Jrn_Add_Red(Proc_Name_Get() & " Phase E.")
-      For i As Integer = 1 To Nb_Max - Nb_E
-        Nb += 1
-        If Nb > Nb_Limite Then Exit For
-        'Prd est ensuite aménagée des valeurs particulières de la difficulté demandée pour la grille
-        Prd.Prd_Chat = False
-        Prd.Prd_Create_Nb_Cel_Demandées = 22 ' Grilles Difficiles
-        Pzzl_Prd_Batch("P", Prd)
-      Next i
+      'Nb = 0
+      'Jrn_Add_Red(Proc_Name_Get() & " Phase E.")
+      'For i As Integer = 1 To Nb_Max - Nb_E
+      '  Nb += 1
+      '  If Nb > Nb_Limite Then Exit For
+      '  'Prd est ensuite aménagée des valeurs particulières de la difficulté demandée pour la grille
+      '  Prd.Prd_Chat = False
+      '  Prd.Prd_Create_Nb_Cel_Demandées = 22 ' Grilles Difficiles
+      '  Pzzl_Prd_Batch("P", Prd)
+      'Next i
 
     Catch ex As Exception
       '28/05/2024 le message permet de comprendre l'arrêt anormal du traitement

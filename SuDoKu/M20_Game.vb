@@ -4,6 +4,7 @@ Imports SuDoKu.DancingLink
 
 Friend Module M20_Game
   Public Sub Game_New_Game(Gnrl As String,
+                           Strg As String,
                            Nom As String,
                            Prb As String,
                            Jeu As String,
@@ -21,7 +22,67 @@ Friend Module M20_Game
 
     Select Case Plcy_Gnrl
       Case "Nrm" '---------------------------------------------------------------------------------------
-        Plcy_Strg = "   "
+        Plcy_Strg = Strg
+        Game_Load(Nom, Prb, Jeu, Sol, Frc)
+        Grid_Cdd_Remove_Cell_Coll(U)
+
+        If Cdd729.Length = 729 And Cdd729 <> StrDup(729, " ") Then
+          For i As Integer = 0 To 80
+            If U(i, 2) = " " Then
+              U(i, 3) = Cdd729.Substring(i * 9, 9)
+            End If
+          Next i
+        End If
+        Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    End Select
+
+    'Fin commune à toute nouvelle partie
+    Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
+
+    Paint_Partie_Terminée_Nb = 0
+    'Lors d'une nouvelle partie, une cellule vide est sélectionnée au hasard comme Cellule Sélectionnée 
+    Pbl_Cell_Select = 0
+    Prv_Pbl_Cell_Select = Pbl_Cell_Select
+    Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+    ' TODO : à revoir, faire une fonction
+    If Plcy_Dancing_Link Then
+      ' Vérification d'une solution unique
+      '29/07/2025 Dans le cadre des tests XChains, il peut être possible de vérifier la solution! 
+      XSolution = StrDup(81, "0")
+      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
+      Select Case DL.Nb_Solution
+        Case -1, 0
+        Case 1
+          XSolution = DL.Solution(0)
+        Case Else
+          Dim MsgTit As String = Application.ProductName & " " & SDK_Version
+          Nsd_i = MsgBox("Dancing Link : " & DL.DLCode & "  Solutions multiples.",, MsgTit)
+      End Select
+    End If
+    Mnu_Mngt_Barre_Outils_Filtres()
+    Event_OnPaint_MAP = Proc_Name_Get() & " Origine : " & Origine
+    Event_OnPaint = "Global"
+    Frm_SDK.Invalidate()
+  End Sub
+  Public Sub Game_New_Game_Old(Gnrl As String,
+                           Nom As String,
+                           Prb As String,
+                           Jeu As String,
+                           Sol As String,
+                           Cdd729 As String,
+                           Frc As String,
+                           Origine As String)
+    Jrn_Add("SDK_Space")
+    Jrn_Add("SDK_00000", {Proc_Name_Get() & " Name: " & Nom & " Jeu: " & Prb.Substring(0, 9)})
+    Plcy_Gnrl = Gnrl
+
+    'Début commun à toute nouvelle partie, quoique seul Nrm utilise Annuler/Refaire
+    ReDim Act(11, 100) : Act_Index = -1 ' Ré-initialise les mouvements
+    UR_A_Index = -1
+
+    Select Case Plcy_Gnrl
+      Case "Nrm" '---------------------------------------------------------------------------------------
+        'Plcy_Strg = "   "
         Game_Load(Nom, Prb, Jeu, Sol, Frc)
         Grid_Cdd_Remove_Cell_Coll(U)
 

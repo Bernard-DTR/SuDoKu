@@ -98,7 +98,7 @@ Module G20_Général
     'Chargement d'une grille 
     For i As Integer = 0 To Pzzl_List.Count - 1
       If Pzzl_List.Item(i).Nom = Nom_Pzzl Then
-        Game_New_Game(Gnrl:=Plcy_Gnrl, Nom:=Pzzl_List.Item(i).Nom, Prb:=Pzzl_List.Item(i).Problème, Jeu:=Pzzl_List.Item(i).Problème, Sol:=Pzzl_List.Item(i).Solution, Cdd729:=StrDup(729, " "), Frc:=Pzzl_List.Item(i).Force, Proc_Name_Get())
+        Game_New_Game(Gnrl:=Plcy_Gnrl, "   ", Nom:=Pzzl_List.Item(i).Nom, Prb:=Pzzl_List.Item(i).Problème, Jeu:=Pzzl_List.Item(i).Problème, Sol:=Pzzl_List.Item(i).Solution, Cdd729:=StrDup(729, " "), Frc:=Pzzl_List.Item(i).Force, Proc_Name_Get())
         Exit For
       End If
     Next i

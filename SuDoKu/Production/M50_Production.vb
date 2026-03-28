@@ -1208,7 +1208,7 @@ Phase_End:
         Jrn_Add(, {"Résolution   : " & "Problème de résolution,  Prd.Prd_Code_Retour=" & Prd.Prd_Code_Retour}, "Erreur")
     End Select
 
-    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
+    Game_New_Game(Plcy_Gnrl, "   ", Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
   End Sub
 
 
@@ -1666,7 +1666,7 @@ Pzzl_Prd_Batch_End:
           Exit For
         End If
       Next i
-      If Cdu_Exists Then GoTo Pzzl_Prd_Batch_Exit
+      'If Cdu_Exists Then GoTo Pzzl_Prd_Batch_Exit
 
       'Enregistrement du Puzzle
       Dim File As String = Pzzl_Save(Prd)

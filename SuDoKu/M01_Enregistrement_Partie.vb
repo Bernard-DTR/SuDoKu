@@ -1,10 +1,8 @@
 ﻿Option Strict On
 Option Explicit On
-
+Imports System.IO
 
 Module M01_Enregistrement_Partie
-
-
   Public Function Pzzl_Save(Prd As Prd_Struct) As String
     ' Enregistrement d'un Puzzle
     ' 17/10/2025 Modification du nom du fichier FMDE
@@ -63,81 +61,80 @@ Module M01_Enregistrement_Partie
     My.Settings.Prd_Number = Prd_Number
     Dim Prd_DateTime As String = Format(Now, "yyyy_MM_dd") & "_" & Format(Now, "HH_mm_ss_fff")
 
+    ' Le nom fait 11 caractères
     File_Save_Name &= "SDK_" & Code_FMDE & "_" & CStr(Prd_Number).PadLeft(5, CChar("0")) & ".txt"
     ' 31 Création du Fichier
     Try
-      Dim File As System.IO.FileStream = System.IO.File.Create(File_Save_Name)
-      Dim Ligne As String
-      Dim Grille_Ini As String = ""
-      Dim Grille_Val As String = ""
-      Dim Grille_Sol As String = ""
-      ' 31 Enregistrement des lignes du Fichier
-      Ligne = Msg_Read("PRD_20030", {File_Save_Name})
-      Pzzl_Record_Ligne(File, Ligne)
-      Dim s As Integer = InStrRev(File_Save_Name, "\")
-      Dim Name As String = Mid$(File_Save_Name, s + 1, File_Save_Name.Length - s - 4)
-      Ligne = Msg_Read("PRD_20010", {Name})
-      Pzzl_Record_Ligne(File, Ligne)
-      For i As Integer = 0 To 80
-        Grille_Ini &= Prd.Prd_Ini(i)
-        Grille_Val &= Prd.Prd_Ini(i)
-        Grille_Sol &= Prd.Prd_Val(i)
-      Next i
-      Ligne = Msg_Read("PRD_20020", {Grille_Ini.Replace(" ", ".")})
-      Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read("PRD_20021", {Grille_Val.Replace(" ", ".")})
-      Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read("PRD_20023", {Grille_Sol.Replace(" ", ".")})
-      Pzzl_Record_Ligne(File, Ligne)
+      Using file As New IO.StreamWriter(File_Save_Name, False, Text.Encoding.UTF8)
+        Dim Ligne As String
+        Dim Grille_Ini As String = ""
+        Dim Grille_Val As String = ""
+        Dim Grille_Sol As String = ""
+        ' 31 Enregistrement des lignes du Fichier
+        Ligne = Msg_Read("PRD_20030", {File_Save_Name})
+        Pzzl_Record_Ligne(file, Ligne)
+        Dim s As Integer = InStrRev(File_Save_Name, "\")
+        Dim Name As String = Mid$(File_Save_Name, s + 1, File_Save_Name.Length - s - 4)
+        Ligne = Msg_Read("PRD_20010", {Name})
+        Pzzl_Record_Ligne(file, Ligne)
+        For i As Integer = 0 To 80
+          Grille_Ini &= Prd.Prd_Ini(i)
+          Grille_Val &= Prd.Prd_Ini(i)
+          Grille_Sol &= Prd.Prd_Val(i)
+        Next i
+        Ligne = Msg_Read("PRD_20020", {Grille_Ini.Replace(" ", ".")})
+        Pzzl_Record_Ligne(file, Ligne)
+        Ligne = Msg_Read("PRD_20021", {Grille_Val.Replace(" ", ".")})
+        Pzzl_Record_Ligne(file, Ligne)
+        Ligne = Msg_Read("PRD_20023", {Grille_Sol.Replace(" ", ".")})
+        Pzzl_Record_Ligne(file, Ligne)
 
-      ' Affichage de DLCode et DLSolution 
-      Ligne = Msg_Read("PRD_20025", {Prd.Prd_DlCode})
-      Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read("PRD_20026", {Prd.Prd_DlSolution})
-      Pzzl_Record_Ligne(File, Ligne)
+        ' Affichage de DLCode et DLSolution 
+        Ligne = Msg_Read("PRD_20025", {Prd.Prd_DlCode})
+        Pzzl_Record_Ligne(file, Ligne)
+        Ligne = Msg_Read("PRD_20026", {Prd.Prd_DlSolution})
+        Pzzl_Record_Ligne(file, Ligne)
 
-      Ligne = Msg_Read("PRD_20030", {"Date_Heure de création       : " & Prd_DateTime})
-      Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read("PRD_20030", {"Version                      : " & SDK_Version})
-      Pzzl_Record_Ligne(File, Ligne)
+        Ligne = Msg_Read("PRD_20030", {"Date_Heure de création       : " & Prd_DateTime})
+        Pzzl_Record_Ligne(file, Ligne)
+        Ligne = Msg_Read("PRD_20030", {"Version                      : " & SDK_Version})
+        Pzzl_Record_Ligne(file, Ligne)
 
-      ' 32 Enregistrement des Informations de Prd
-      Ligne = Msg_Read("PRD_20030", {"Plcy_Strg_Profondeur         : " & Prd.Prd_Plcy_Strg_Profondeur})
-      Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read("PRD_20030", {"Contrainte                   : " & Prd.Prd_Cnt_Type & CStr(Prd.Prd_Cnt_Valeur)})
-      Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read("PRD_20030", {"Nb_Cellules_Demandées        : " & CStr(Prd.Prd_Create_Nb_Cel_Demandées)})
-      Pzzl_Record_Ligne(File, Ligne)
+        ' 32 Enregistrement des Informations de Prd
+        Ligne = Msg_Read("PRD_20030", {"Plcy_Strg_Profondeur         : " & Prd.Prd_Plcy_Strg_Profondeur})
+        Pzzl_Record_Ligne(file, Ligne)
+        Ligne = Msg_Read("PRD_20030", {"Contrainte                   : " & Prd.Prd_Cnt_Type & CStr(Prd.Prd_Cnt_Valeur)})
+        Pzzl_Record_Ligne(file, Ligne)
+        Ligne = Msg_Read("PRD_20030", {"Nb_Cellules_Demandées        : " & CStr(Prd.Prd_Create_Nb_Cel_Demandées)})
+        Pzzl_Record_Ligne(file, Ligne)
 
-      Dim S1 As String = "Str: "
-      Dim S2 As String = "Crt: "
-      Dim S3 As String = "Slv: "
-      For i As Integer = 0 To 10
-        S1 &= CStr(i).PadLeft(1) & "-" & Stg_List_Code(i) & " "
-        S2 &= CStr(Prd.Crt_Strg_Nb(i)).PadLeft(5) & " "
-        S3 &= CStr(Prd.Slv_Strg_Nb(i)).PadLeft(5) & " "
-      Next i
-      Ligne = Msg_Read("PRD_20030", {S1})
-      Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read("PRD_20030", {S2})
-      Pzzl_Record_Ligne(File, Ligne)
-      Ligne = Msg_Read("PRD_20030", {S3})
-      Pzzl_Record_Ligne(File, Ligne)
+        Dim S1 As String = "Str: "
+        Dim S2 As String = "Crt: "
+        Dim S3 As String = "Slv: "
+        For i As Integer = 0 To 10
+          S1 &= CStr(i).PadLeft(1) & "-" & Stg_List_Code(i) & " "
+          S2 &= CStr(Prd.Crt_Strg_Nb(i)).PadLeft(5) & " "
+          S3 &= CStr(Prd.Slv_Strg_Nb(i)).PadLeft(5) & " "
+        Next i
+        Ligne = Msg_Read("PRD_20030", {S1})
+        Pzzl_Record_Ligne(file, Ligne)
+        Ligne = Msg_Read("PRD_20030", {S2})
+        Pzzl_Record_Ligne(file, Ligne)
+        Ligne = Msg_Read("PRD_20030", {S3})
+        Pzzl_Record_Ligne(file, Ligne)
 
-      If Prd.Prd_Ext_Triplet <> "#" Then
-        Ligne = Msg_Read("PRD_20030", {"Triplet                      : " & Prd.Prd_Ext_Triplet & " " & U_cr(Prd.Prd_Ext_Triplet_Cellule)})
-        Pzzl_Record_Ligne(File, Ligne)
-      End If
-      If Prd.Prd_Ext_XWing <> "#" Then
-        Ligne = Msg_Read("PRD_20030", {"Xwing                        : " & Prd.Prd_Ext_XWing & " " & U_cr(Prd.Prd_Ext_XWing_Cellule)})
-        Pzzl_Record_Ligne(File, Ligne)
-      End If
+        If Prd.Prd_Ext_Triplet <> "#" Then
+          Ligne = Msg_Read("PRD_20030", {"Triplet                      : " & Prd.Prd_Ext_Triplet & " " & U_cr(Prd.Prd_Ext_Triplet_Cellule)})
+          Pzzl_Record_Ligne(file, Ligne)
+        End If
+        If Prd.Prd_Ext_XWing <> "#" Then
+          Ligne = Msg_Read("PRD_20030", {"Xwing                        : " & Prd.Prd_Ext_XWing & " " & U_cr(Prd.Prd_Ext_XWing_Cellule)})
+          Pzzl_Record_Ligne(file, Ligne)
+        End If
 
-      Ligne = Msg_Read("PRD_20030", {"..."})
-      Pzzl_Record_Ligne(File, Ligne)
-      ' 33 Fermeture du Fichier
-      File.Close()
-
+        Ligne = Msg_Read("PRD_20030", {"..."})
+        Pzzl_Record_Ligne(file, Ligne)
+      End Using
     Catch ex As Exception
       ' Une erreur se produit lors de la création du fichier
       '28/05/2024 le message permet de comprendre l'arrêt anormal du traitement
@@ -147,10 +144,9 @@ Module M01_Enregistrement_Partie
     Return File_Save_Name
   End Function
 
-  Public Sub Pzzl_Record_Ligne(File As System.IO.FileStream, Ligne As String)
-    ' Enregistre une ligne
-    Dim WLigne As Byte() = New System.Text.UTF8Encoding(True).GetBytes(Ligne & vbCrLf)
-    File.Write(WLigne, 0, WLigne.Length)
+  Public Sub Pzzl_Record_Ligne(sw As StreamWriter, Ligne As String)
+    If sw Is Nothing Then Exit Sub
+    sw.WriteLine(Ligne)
   End Sub
 
   Sub Pzzl_Open(File_Name As String)
@@ -265,115 +261,88 @@ Module M01_Enregistrement_Partie
       Next
       Cdd729 = String.Join("", Cdd81e)
     End If
-    Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Ini, Jeu:=Val, Sol:=Sol, Cdd729:=Cdd729, Frc:="5", Proc_Name_Get())
+    Game_New_Game(Gnrl:="Nrm", "   ", Nom:=Nom, Prb:=Ini, Jeu:=Val, Sol:=Sol, Cdd729:=Cdd729, Frc:="5", Proc_Name_Get())
   End Sub
 
   Sub Pzzl_Load_Partie_Test()
-    Dim s, l As Integer
-    Dim File_Name As String = ""
     Jrn_Add(, {Proc_Name_Get()})
 
-    Dim Last_Paramètre As String = My.Settings.SDK_Partie_Test
-    s = InStrRev(Last_Paramètre, "\")
-    l = Last_Paramètre.Length
-    Dim Last_Répertoire As String = Mid$(Last_Paramètre, 1, s)
-    Dim Last_Partie As String = Mid$(Last_Paramètre, s + 1, l - s)
+    Dim lastFile As String = My.Settings.SDK_Partie_Test
+    Dim lastDir As String = Path.GetDirectoryName(lastFile)
+    Dim lastName As String = Path.GetFileName(lastFile)
 
-    '1 OpenFileDialog pour sélectionner le fichier
-    Dim OFD As New OpenFileDialog With
-        {
+    Dim OFD As New OpenFileDialog With {
         .Title = "Choisir une Partie Test",
-        .InitialDirectory = Last_Répertoire,
-        .Filter = "(*.txt)|*.txt|All files (*.*)|*.*",
-        .FileName = Last_Partie
-        }
-    Dim OFDStream As System.IO.Stream = Nothing
-    If OFD.ShowDialog() = System.Windows.Forms.DialogResult.OK Then 'OK_La partie est choisie
-      Try
-        OFDStream = OFD.OpenFile()
-        If (OFDStream IsNot Nothing) Then File_Name = OFD.FileName.ToString()
-      Catch Ex As Exception
-        Jrn_Add("ERR_00000", {Ex.Message}, "Erreur")
-        Jrn_Add("ERR_00000", {Ex.ToString()}, "Erreur")
-        Exit Sub
-      Finally
-        If (OFDStream IsNot Nothing) Then OFDStream.Close()
-      End Try
-    End If
+        .InitialDirectory = lastDir,
+        .Filter = "Fichiers texte (*.txt)|*.txt|Tous les fichiers (*.*)|*.*",
+        .FileName = lastName
+    }
 
-    If File_Name = "" Then Exit Sub
+    If OFD.ShowDialog() <> DialogResult.OK Then Exit Sub
 
-    My.Settings.SDK_Partie_Test = File_Name
-    Jrn_Add("SDK_00130", {File_Name})
-    Pzzl_Open(File_Name)
+    Dim fileName As String = OFD.FileName
+    If String.IsNullOrWhiteSpace(fileName) Then Exit Sub
+
+    My.Settings.SDK_Partie_Test = fileName
+    Jrn_Add("SDK_00130", {fileName})
+
+    Pzzl_Open(fileName)
   End Sub
 
   Sub Pzzl_Write_Partie_Test()
-    'Enregistrement d'une Partie Test 
-    'Structure conforme à l'enregistrement M50_Production.vb Pzzl_Save
-    '20/11/2025 Enregistrement des candidats
-    Dim Texte As String = "Nom de la Partie Test: "
-    Dim Titre As String = "Enregistrement d'une Partie Test"
-    Dim DftValue As String = My.Settings.SDK_Partie_Test
-    Dim Réponse As String = InputBox(Texte, Titre, DftValue, Frm_SDK.Left, Frm_SDK.Top)
-    If Réponse Is "" Then
-      Jrn_Add("SDK_00121")
-      Exit Sub 'Cancel enfoncé
-    End If
+    Jrn_Add(, {Proc_Name_Get()})
 
-    Dim File_Save_Name As String = Réponse.ToString()
-    Dim Prd_DateTime As String = Format(Now, "yyyy_MM_dd") & "_" & Format(Now, "HH_mm_ss_fff")
+    Dim lastFile As String = My.Settings.SDK_Partie_Test
+    Dim lastDir As String = Path.GetDirectoryName(lastFile)
+    Dim lastName As String = Path.GetFileName(lastFile)
 
-    ' Delete the file if it exists. 
-    If IO.File.Exists(File_Save_Name) Then
-      Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
+    Dim SFD As New SaveFileDialog With {
+        .Title = "Enregistrer une Partie Test",
+        .InitialDirectory = lastDir,
+        .Filter = "Fichiers texte (*.txt)|*.txt|Tous les fichiers (*.*)|*.*",
+        .FileName = lastName
+    }
 
-      If MsgBox("Il existe déjà un fichier " & File_Save_Name & vbCrLf &
-                "Voulez-vous le remplacer ? " & vbCrLf & "(Les anciens commentaires seront effacés.)",
-                MsgBoxStyle.OkCancel, MsgTit) = vbCancel Then Exit Sub
-      IO.File.Delete(File_Save_Name)
-    End If
+    If SFD.ShowDialog() <> DialogResult.OK Then Exit Sub
 
-    Dim File As IO.FileStream = IO.File.Create(File_Save_Name)
-    Dim Ligne As String
-    Dim Grille_Ini As String = ""
-    Dim Grille_Val As String = ""
-    Dim Grille_Sol As String = ""
-    Dim Grille_Cdd As String = ""
+    Dim fileName As String = SFD.FileName
+    If String.IsNullOrWhiteSpace(fileName) Then Exit Sub
 
-    Ligne = Msg_Read("PRD_20030", {File_Save_Name})
-    Pzzl_Record_Ligne(File, Ligne)
-    Dim s As Integer = InStrRev(File_Save_Name, "\")
-    Dim Name As String = Mid$(File_Save_Name, s + 1, File_Save_Name.Length - s - 4)
-    Ligne = Msg_Read("PRD_20010", {Name})
-    Pzzl_Record_Ligne(File, Ligne)
+    My.Settings.SDK_Partie_Test = fileName
 
-    For i As Integer = 0 To 80
-      Grille_Ini &= U(i, 1)                                                        'Problème
-      If U(i, 2) <> " " Then Grille_Val &= U(i, 2) Else Grille_Val &= U(i, 1)      'Jeu
-      Grille_Sol &= U_Sol(i)                                                       'Solution
-      Grille_Cdd &= U(i, 3).Replace(" ", "") & ";"
-    Next i
+    Dim dt As String = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff")
 
-    Ligne = Msg_Read("PRD_20020", {Grille_Ini.Replace(" ", ".")})
-    Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read("PRD_20021", {Grille_Val.Replace(" ", ".")})
-    Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read("PRD_20023", {Grille_Sol.Replace(" ", ".")})
-    Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read("PRD_20027", {Grille_Cdd})
-    Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read("PRD_20024", {Stg_Profondeur})
-    Pzzl_Record_Ligne(File, Ligne)
-    Ligne = Msg_Read("PRD_20030", {"Date_Heure d'enregistrement  : " & Prd_DateTime})
-    Pzzl_Record_Ligne(File, Ligne)
+    Using fs As New IO.StreamWriter(fileName, False, Text.Encoding.UTF8)
 
-    Ligne = Msg_Read("PRD_20030", {"..."})
-    Pzzl_Record_Ligne(File, Ligne)
+      Dim name As String = Path.GetFileNameWithoutExtension(fileName)
 
-    File.Close()
-    My.Settings.SDK_Partie_Test = Réponse.ToString()
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20030", {fileName}))
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20010", {name}))
+
+      Dim ini As New Text.StringBuilder()
+      Dim val As New Text.StringBuilder()
+      Dim sol As New Text.StringBuilder()
+      Dim cdd As New Text.StringBuilder()
+
+      For i As Integer = 0 To 80
+        ini.Append(U(i, 1))
+        val.Append(If(U(i, 2) <> " ", U(i, 2), U(i, 1)))
+        sol.Append(U_Sol(i))
+        cdd.Append(U(i, 3).Replace(" ", "")).Append(";"c)
+      Next
+
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20020", {ini.ToString().Replace(" ", ".")}))
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20021", {val.ToString().Replace(" ", ".")}))
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20023", {sol.ToString().Replace(" ", ".")}))
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20027", {cdd.ToString()}))
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20024", {Stg_Profondeur}))
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20030", {"Date_Heure d'enregistrement : " & dt}))
+      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20030", {"..."}))
+
+    End Using
+
     Jrn_Add("SDK_00122")
-    Jrn_Add("SDK_00100", {File_Save_Name})
+    Jrn_Add("SDK_00100", {fileName})
   End Sub
+
 End Module

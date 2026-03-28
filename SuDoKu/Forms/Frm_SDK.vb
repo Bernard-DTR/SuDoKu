@@ -308,7 +308,7 @@ Public NotInheritable Class Frm_SDK
     'Jrn_Add("SDK_00100", {LP_Nom})
     Jrn_Add(, {"/" & Proc_Name_Get()})
     OC_Présentation()
-    Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc, Proc_Name_Get())
+    Game_New_Game(Plcy_Gnrl, "   ", LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc, Proc_Name_Get())
 #End Region
 
     'Reprise de la logique de présentation du formulaire, les contrôles sont mis en place
@@ -699,7 +699,7 @@ Public NotInheritable Class Frm_SDK
     Application.DoEvents()
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
-    Game_New_Game(Plcy_Gnrl, LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc, Proc_Name_Get())
+    Game_New_Game(Plcy_Gnrl, "   ", LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc, Proc_Name_Get())
     Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
     Invalidate()
@@ -715,8 +715,10 @@ Public NotInheritable Class Frm_SDK
     Plcy_Saisir_Commencer = True
     'La procédure Saisir diffère de celle de l'Edition
     'U(i,1) est égal à " " tant que Commencer n'est pas lancé.
-    'Les candidats collatéraux sont enlevés au fur et à mesure de la Saisie 
-    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
+    'Les candidats collatéraux sont enlevés au fur et à mesure de la Saisie
+    Plcy_Gnrl = "Nrm"
+    Plcy_Strg = "Sai"
+    Game_New_Game(Plcy_Gnrl, Plcy_Strg, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
     Mnu01_Saisir.Enabled = False
     Mnu01_Commencer.Enabled = True
   End Sub
@@ -732,10 +734,11 @@ Public NotInheritable Class Frm_SDK
     Next i
     Dim Sol As String = StrDup(81, " ")
     Dim Frc As String = "0"
-    Game_New_Game(Plcy_Gnrl, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
+    Plcy_Gnrl = "Nrm"
+    Plcy_Strg = "   "
+    Game_New_Game(Plcy_Gnrl, Plcy_Strg, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
     Mnu01_Saisir.Enabled = True
     Mnu01_Commencer.Enabled = False
-    Jrn_Add(, {Prb})
   End Sub
   Private Sub Mnu01_EnregistrerUnePartieTest_Click(sender As Object, e As EventArgs) Handles Mnu01_EnregistrerUnePartieTest.Click
     Pzzl_Write_Partie_Test()
@@ -981,7 +984,7 @@ Public NotInheritable Class Frm_SDK
     Dim Jeu As String = StrDup(81, " ")
     Dim Sol As String = StrDup(81, " ")
     Dim Frc As String = "0"
-    Game_New_Game(Gnrl:="Nrm", Nom:=Nom, Prb:=Prb, Jeu:=Jeu, Sol:=Sol, Cdd729:=StrDup(729, " "), Frc:=Frc, Proc_Name_Get())
+    Game_New_Game(Gnrl:="Nrm", Strg:="   ", Nom:=Nom, Prb:=Prb, Jeu:=Jeu, Sol:=Sol, Cdd729:=StrDup(729, " "), Frc:=Frc, Proc_Name_Get())
     Mnu01_Saisir.Enabled = True
     Mnu01_Commencer.Enabled = True
   End Sub
@@ -1509,7 +1512,7 @@ Public NotInheritable Class Frm_SDK
 
 #Region "Menus Contextuels"
   Private Sub Mnu_Cel_Val_Insérer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Ins_9.Click, Mnu_Cel_Val_Ins_8.Click, Mnu_Cel_Val_Ins_7.Click, Mnu_Cel_Val_Ins_6.Click, Mnu_Cel_Val_Ins_5.Click, Mnu_Cel_Val_Ins_4.Click, Mnu_Cel_Val_Ins_3.Click, Mnu_Cel_Val_Ins_2.Click, Mnu_Cel_Val_Ins_1.Click
-    'Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(18) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx_Ins")
+    Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(18) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx_Ins")
     Cell_Val_Insert(sender.ToString(18), Pbl_Cell_Select, "Mnu_Ctx_Ins")
   End Sub
   Private Sub Mnu_Cel_Val_Effacer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Eff_x.Click
