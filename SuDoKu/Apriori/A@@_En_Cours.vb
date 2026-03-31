@@ -56,7 +56,6 @@ Friend Module En_Cours
 
 
   End Sub
-
   Public Sub TestD()
     Jrn_Add(, {Proc_Name_Get()})
   End Sub
@@ -65,17 +64,6 @@ Friend Module En_Cours
   End Sub
   Public Sub TestF()
     Jrn_Add(, {Proc_Name_Get()})
-    Dim Grid As String = ClipBoard_Copier_New("1")
-    Jrn_Add_Yellow(Grid)
-    Dim AllCandidates(728) As Candidate
-    AllCandidates_Init(AllCandidates)
-
-
-    SDK_AllCandidate(Grid, AllCandidates)
-    AllCandidates_Display(AllCandidates)
-
-    AllCandidates_Display_IsSolved(AllCandidates)
-
   End Sub
   Public Sub TestG()
     Jrn_Add(, {Proc_Name_Get()})
@@ -85,14 +73,19 @@ Friend Module En_Cours
   End Sub
   Public Sub TestI()
     Jrn_Add(, {Proc_Name_Get()})
+    ' Lancement de la solution DB_Solution de Denis_Berthier
+    '  La grille proposée est la grille en cours, elle est copiée-collée,
+    '            chargée dans le modèle Berthier
+    '            traitée
+    '  et remise dans le modèle SDK
+    '  les traitements sont tracés dans le journal
+
     Dim Grid As String = ClipBoard_Copier_New("1")
-    Jrn_Add_Yellow(Grid)
+    Jrn_Add(, {Grid})
     Dim AllCandidates(728) As Candidate
     AllCandidates_Init(AllCandidates)
     SDK_AllCandidate(Grid, AllCandidates)
-    'AllCandidates_Display(AllCandidates)
     PropagateSolvedCandidates(AllCandidates)
-    'AllCandidates_Display_IsSolved(AllCandidates)
     DB_Solution(AllCandidates)
     AllCandidates_SDK(AllCandidates)
   End Sub

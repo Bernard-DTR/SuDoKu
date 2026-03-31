@@ -66,47 +66,33 @@ Module M01_Enregistrement_Partie
     ' 31 Création du Fichier
     Try
       Using file As New IO.StreamWriter(File_Save_Name, False, Text.Encoding.UTF8)
-        Dim Ligne As String
         Dim Grille_Ini As String = ""
         Dim Grille_Val As String = ""
         Dim Grille_Sol As String = ""
         ' 31 Enregistrement des lignes du Fichier
-        Ligne = Msg_Read("PRD_20030", {File_Save_Name})
-        Pzzl_Record_Ligne(file, Ligne)
+        file.WriteLine(Msg_Read("PRD_20030", {File_Save_Name}))
         Dim s As Integer = InStrRev(File_Save_Name, "\")
         Dim Name As String = Mid$(File_Save_Name, s + 1, File_Save_Name.Length - s - 4)
-        Ligne = Msg_Read("PRD_20010", {Name})
-        Pzzl_Record_Ligne(file, Ligne)
+        file.WriteLine(Msg_Read("PRD_20010", {Name}))
         For i As Integer = 0 To 80
           Grille_Ini &= Prd.Prd_Ini(i)
           Grille_Val &= Prd.Prd_Ini(i)
           Grille_Sol &= Prd.Prd_Val(i)
         Next i
-        Ligne = Msg_Read("PRD_20020", {Grille_Ini.Replace(" ", ".")})
-        Pzzl_Record_Ligne(file, Ligne)
-        Ligne = Msg_Read("PRD_20021", {Grille_Val.Replace(" ", ".")})
-        Pzzl_Record_Ligne(file, Ligne)
-        Ligne = Msg_Read("PRD_20023", {Grille_Sol.Replace(" ", ".")})
-        Pzzl_Record_Ligne(file, Ligne)
+        file.WriteLine(Msg_Read("PRD_20020", {Grille_Ini.Replace(" ", ".")}))
+        file.WriteLine(Msg_Read("PRD_20021", {Grille_Val.Replace(" ", ".")}))
+        file.WriteLine(Msg_Read("PRD_20023", {Grille_Sol.Replace(" ", ".")}))
 
         ' Affichage de DLCode et DLSolution 
-        Ligne = Msg_Read("PRD_20025", {Prd.Prd_DlCode})
-        Pzzl_Record_Ligne(file, Ligne)
-        Ligne = Msg_Read("PRD_20026", {Prd.Prd_DlSolution})
-        Pzzl_Record_Ligne(file, Ligne)
-
-        Ligne = Msg_Read("PRD_20030", {"Date_Heure de création       : " & Prd_DateTime})
-        Pzzl_Record_Ligne(file, Ligne)
-        Ligne = Msg_Read("PRD_20030", {"Version                      : " & SDK_Version})
-        Pzzl_Record_Ligne(file, Ligne)
+        file.WriteLine(Msg_Read("PRD_20025", {Prd.Prd_DlCode}))
+        file.WriteLine(Msg_Read("PRD_20026", {Prd.Prd_DlSolution}))
+        file.WriteLine(Msg_Read("PRD_20030", {"Date_Heure de création       : " & Prd_DateTime}))
+        file.WriteLine(Msg_Read("PRD_20030", {"Version                      : " & SDK_Version}))
 
         ' 32 Enregistrement des Informations de Prd
-        Ligne = Msg_Read("PRD_20030", {"Plcy_Strg_Profondeur         : " & Prd.Prd_Plcy_Strg_Profondeur})
-        Pzzl_Record_Ligne(file, Ligne)
-        Ligne = Msg_Read("PRD_20030", {"Contrainte                   : " & Prd.Prd_Cnt_Type & CStr(Prd.Prd_Cnt_Valeur)})
-        Pzzl_Record_Ligne(file, Ligne)
-        Ligne = Msg_Read("PRD_20030", {"Nb_Cellules_Demandées        : " & CStr(Prd.Prd_Create_Nb_Cel_Demandées)})
-        Pzzl_Record_Ligne(file, Ligne)
+        file.WriteLine(Msg_Read("PRD_20030", {"Plcy_Strg_Profondeur         : " & Prd.Prd_Plcy_Strg_Profondeur}))
+        file.WriteLine(Msg_Read("PRD_20030", {"Contrainte                   : " & Prd.Prd_Cnt_Type & CStr(Prd.Prd_Cnt_Valeur)}))
+        file.WriteLine(Msg_Read("PRD_20030", {"Nb_Cellules_Demandées        : " & CStr(Prd.Prd_Create_Nb_Cel_Demandées)}))
 
         Dim S1 As String = "Str: "
         Dim S2 As String = "Crt: "
@@ -116,24 +102,18 @@ Module M01_Enregistrement_Partie
           S2 &= CStr(Prd.Crt_Strg_Nb(i)).PadLeft(5) & " "
           S3 &= CStr(Prd.Slv_Strg_Nb(i)).PadLeft(5) & " "
         Next i
-        Ligne = Msg_Read("PRD_20030", {S1})
-        Pzzl_Record_Ligne(file, Ligne)
-        Ligne = Msg_Read("PRD_20030", {S2})
-        Pzzl_Record_Ligne(file, Ligne)
-        Ligne = Msg_Read("PRD_20030", {S3})
-        Pzzl_Record_Ligne(file, Ligne)
+        file.WriteLine(Msg_Read("PRD_20030", {S1}))
+        file.WriteLine(Msg_Read("PRD_20030", {S2}))
+        file.WriteLine(Msg_Read("PRD_20030", {S3}))
 
         If Prd.Prd_Ext_Triplet <> "#" Then
-          Ligne = Msg_Read("PRD_20030", {"Triplet                      : " & Prd.Prd_Ext_Triplet & " " & U_cr(Prd.Prd_Ext_Triplet_Cellule)})
-          Pzzl_Record_Ligne(file, Ligne)
+          file.WriteLine(Msg_Read("PRD_20030", {"Triplet                      : " & Prd.Prd_Ext_Triplet & " " & U_cr(Prd.Prd_Ext_Triplet_Cellule)}))
         End If
         If Prd.Prd_Ext_XWing <> "#" Then
-          Ligne = Msg_Read("PRD_20030", {"Xwing                        : " & Prd.Prd_Ext_XWing & " " & U_cr(Prd.Prd_Ext_XWing_Cellule)})
-          Pzzl_Record_Ligne(file, Ligne)
+          file.WriteLine(Msg_Read("PRD_20030", {"Xwing                        : " & Prd.Prd_Ext_XWing & " " & U_cr(Prd.Prd_Ext_XWing_Cellule)}))
         End If
 
-        Ligne = Msg_Read("PRD_20030", {"..."})
-        Pzzl_Record_Ligne(file, Ligne)
+        file.WriteLine(Msg_Read("PRD_20030", {"..."}))
       End Using
     Catch ex As Exception
       ' Une erreur se produit lors de la création du fichier
@@ -143,11 +123,6 @@ Module M01_Enregistrement_Partie
     End Try
     Return File_Save_Name
   End Function
-
-  Public Sub Pzzl_Record_Ligne(sw As StreamWriter, Ligne As String)
-    If sw Is Nothing Then Exit Sub
-    sw.WriteLine(Ligne)
-  End Sub
 
   Sub Pzzl_Open(File_Name As String)
     ' Chargement_Ouverture d'une partie
@@ -315,10 +290,8 @@ Module M01_Enregistrement_Partie
     Using fs As New IO.StreamWriter(fileName, False, Text.Encoding.UTF8)
 
       Dim name As String = Path.GetFileNameWithoutExtension(fileName)
-
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20030", {fileName}))
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20010", {name}))
-
+      fs.WriteLine(Msg_Read("PRD_20030", {fileName}))
+      fs.WriteLine(Msg_Read("PRD_20010", {name}))
       Dim ini As New Text.StringBuilder()
       Dim val As New Text.StringBuilder()
       Dim sol As New Text.StringBuilder()
@@ -330,14 +303,13 @@ Module M01_Enregistrement_Partie
         sol.Append(U_Sol(i))
         cdd.Append(U(i, 3).Replace(" ", "")).Append(";"c)
       Next
-
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20020", {ini.ToString().Replace(" ", ".")}))
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20021", {val.ToString().Replace(" ", ".")}))
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20023", {sol.ToString().Replace(" ", ".")}))
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20027", {cdd.ToString()}))
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20024", {Stg_Profondeur}))
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20030", {"Date_Heure d'enregistrement : " & dt}))
-      Pzzl_Record_Ligne(fs, Msg_Read("PRD_20030", {"..."}))
+      fs.WriteLine(Msg_Read("PRD_20020", {ini.ToString().Replace(" ", ".")}))
+      fs.WriteLine(Msg_Read("PRD_20021", {val.ToString().Replace(" ", ".")}))
+      fs.WriteLine(Msg_Read("PRD_20023", {sol.ToString().Replace(" ", ".")}))
+      fs.WriteLine(Msg_Read("PRD_20027", {cdd.ToString()}))
+      fs.WriteLine(Msg_Read("PRD_20024", {Stg_Profondeur}))
+      fs.WriteLine(Msg_Read("PRD_20030", {"Date_Heure d'enregistrement : " & dt}))
+      fs.WriteLine(Msg_Read("PRD_20030", {"..."}))
 
     End Using
 

@@ -1,81 +1,369 @@
 ﻿Module DB_02
-  Dim Incompatibles(728) As List(Of Integer)
+  '--------------------------------------------------------------------------------
+  ' Exécution des stratégies
+  ' Propagation des candidats solveds
+  '--------------------------------------------------------------------------------
 
-  Public Sub DB_Solution(ByVal AllCandidates() As Candidate)
+
+  Public Function DB_Solution(ByVal AllCandidates() As Candidate) As Boolean
+
     Dim progress As Boolean
+    Dim tour As Integer = 0
+
+    Do
+      progress = False
+      tour += 1
+      Jrn_Add(, {"--- Tour " & tour & " ---"})
+
+      '----------------------------------------------------
+      ' 1. Naked Singles
+      '----------------------------------------------------
+      If DetectNakedSingles(AllCandidates) Then
+        progress = True
+        Continue Do
+      End If
+
+      '----------------------------------------------------
+      ' 2. Hidden Singles (lignes, colonnes, blocs)
+      '----------------------------------------------------
+      If DetectHiddenSingles(AllCandidates) Then
+        PropagateSolvedCandidates(AllCandidates)
+        progress = True
+        Continue Do
+      End If
+
+      '----------------------------------------------------
+      ' 3. Locked Candidates
+      '----------------------------------------------------
+      If DetectLockedCandidates(AllCandidates) Then
+        progress = True
+        Continue Do
+      End If
+
+      '----------------------------------------------------
+      ' 4. Construire le graphe (incompatibilités + liens)
+      '----------------------------------------------------
+      Dim Incompatibles() As List(Of Integer)
+      Incompatibles = BuildIncompatibilityGraph(AllCandidates)
+
+      BuildStrongAndWeakLinks(AllCandidates, Incompatibles)
+
+      '----------------------------------------------------
+      ' 5a. X-Chains (digit par digit)
+      '----------------------------------------------------
+      Dim d As Integer
+      For d = 1 To 9
+        If ApplyXChain(AllCandidates, Incompatibles, d) Then
+          progress = True
+          Exit For
+        End If
+      Next
+      If progress Then Continue Do
+
+      '----------------------------------------------------
+      ' 5b. AIC général façon Berthier
+      '----------------------------------------------------
+      If ApplyAIC(AllCandidates, Incompatibles, maxDepth:=7) Then
+        progress = True
+        Continue Do
+      End If
+
+      '----------------------------------------------------
+      ' 5c. Whips / Braids (si tu veux les réactiver)
+      '----------------------------------------------------
+      'If ApplyWhips(AllCandidates, Incompatibles, maxDepth:=4) Then
+      '    progress = True
+      '    Continue Do
+      'End If
+      '
+      'If ApplyBraids(AllCandidates, Incompatibles, maxDepth:=4) Then
+      '    progress = True
+      '    Continue Do
+      'End If
+
+      '----------------------------------------------------
+      ' 6. Si aucune stratégie n'a progressé, on sort
+      '----------------------------------------------------
+    Loop While progress
+
+    '--------------------------------------------------------
+    ' 7. Contrôle final : grille résolue ?
+    '--------------------------------------------------------
+    Return IsSolved(AllCandidates)
+
+  End Function
+
+
+
+
+
+
+  Public Function DB_Solution_119(ByVal AllCandidates() As Candidate) As Boolean
+
+    Dim progress As Boolean
+    Dim tour As Integer = 0
+
+    Do
+      progress = False
+      tour += 1
+      Jrn_Add(, {"--- Tour " & tour & " ---"})
+
+      '----------------------------------------------------
+      ' 1. Naked Singles
+      '----------------------------------------------------
+      If DetectNakedSingles(AllCandidates) Then
+        progress = True
+        Continue Do
+      End If
+
+      '----------------------------------------------------
+      ' 2. Hidden Singles (lignes, colonnes, blocs)
+      '----------------------------------------------------
+      If DetectHiddenSingles(AllCandidates) Then
+        PropagateSolvedCandidates(AllCandidates)
+        progress = True
+        Continue Do
+      End If
+
+      '----------------------------------------------------
+      ' 3. Locked Candidates
+      '----------------------------------------------------
+      If DetectLockedCandidates(AllCandidates) Then
+        progress = True
+        Continue Do
+      End If
+
+      '----------------------------------------------------
+      ' 4. Construire le graphe (incompatibilités + liens)
+      '----------------------------------------------------
+      Dim Incompatibles() As List(Of Integer) = BuildIncompatibilityGraph(AllCandidates)
+      BuildStrongAndWeakLinks(AllCandidates, Incompatibles)
+
+      '----------------------------------------------------
+      ' 5. Chaînes / AIC / X-Chains / Whips / Braids
+      '    (à activer selon ce que tu veux tester)
+      '----------------------------------------------------
+
+      ' 5a. X-Chains (digit par digit)
+      For d As Integer = 1 To 9
+        If ApplyXChain(AllCandidates, Incompatibles, d) Then
+          progress = True
+          Exit For
+        End If
+      Next
+      If progress Then Continue Do
+
+      ' 5b. AIC général (tous digits, toutes unités)
+      If ApplyAIC(AllCandidates, Incompatibles, maxDepth:=7) Then
+        progress = True
+        Continue Do
+      End If
+
+      ' 5c. Whips (si tu veux les garder)  
+      If ApplyWhipsN(AllCandidates, Incompatibles, 1) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyWhipsN(AllCandidates, Incompatibles, 2) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyWhipsN(AllCandidates, Incompatibles, 3) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyWhipsN(AllCandidates, Incompatibles, 4) Then
+        progress = True
+        Continue Do
+      End If
+
+      ' 5d. Braids (idem)
+      If ApplyBraidsN(AllCandidates, Incompatibles, 1) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyBraidsN(AllCandidates, Incompatibles, 2) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyBraidsN(AllCandidates, Incompatibles, 3) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyBraidsN(AllCandidates, Incompatibles, 4) Then
+        progress = True
+        Continue Do
+      End If
+
+    Loop While progress
+
+    '--------------------------------------------------------
+    ' Contrôle final : grille résolue ?
+    '--------------------------------------------------------
+    Return IsSolved(AllCandidates)
+
+  End Function
+
+
+
+  Public Sub DB_Solution2(ByVal AllCandidates() As Candidate)
+
+    Dim progress As Boolean
+    Dim Incompatibles As List(Of Integer)()
+
     Do
       progress = False
 
+      ' --- Niveau 1 : stratégies simples ---
       If DetectNakedSingles(AllCandidates) Then
         PropagateSolvedCandidates(AllCandidates)
         progress = True
+        Continue Do
       End If
 
       If DetectHiddenSingles(AllCandidates) Then
         PropagateSolvedCandidates(AllCandidates)
         progress = True
+        Continue Do
       End If
 
       If DetectLockedCandidates(AllCandidates) Then
         progress = True
+        Continue Do
       End If
 
-      ' ---------------------------------------------------
-      ' À partir d’ici : stratégies avancées Berthier
-      ' ---------------------------------------------------
+      ' Si la grille est résolue, inutile d'aller plus loin
+      If IsSolved(AllCandidates) Then
+        Jrn_Add(, {"La grille est résolue."})
+        Exit Do
+      End If
+
+      ' --- Niveau 2 : whips / braids ---
       Incompatibles = BuildIncompatibilityGraph(AllCandidates)
       BuildStrongAndWeakLinks(AllCandidates, Incompatibles)
+
+      ' Vérifier l'existence de liens forts APRÈS la construction
+      If Not HasAnyStrongLinks(AllCandidates) Then
+        Jrn_Add(, {"Aucun lien fort."})
+        Exit Do
+      End If
+
       For d As Integer = 1 To 9
-        Dim id As Integer = ((1 - 1) * 81) + ((1 - 1) * 9) + (d - 1)
-        DebugIncompatibles(AllCandidates, Incompatibles, id)
+        If ApplyXChain(AllCandidates, Incompatibles, d) Then
+          progress = True
+          Continue Do
+        End If
       Next
 
-      'If ApplyWhips(AllCandidates, Incompatibles) Then
-      'progress = True
-      'End If
+      ' Debug éventuel
+      'For id As Integer = 0 To 728
+      '  If AllCandidates(id).IsActive AndAlso
+      ' Not AllCandidates(id).IsSolved AndAlso
+      ' AllCandidates(id).StrongLinks.Count > 0 Then
+      '    DebugIncompatibles(AllCandidates, Incompatibles, id)
+      '  End If
+      'Next
 
-      'If ApplyBraids(AllCandidates, Incompatibles) Then
-      'progress = True
-      'End If
+      ' Whip[1]
+      If ApplyWhipsN(AllCandidates, Incompatibles, 1) Then
+        progress = True
+        Continue Do
+      End If
+
+      ' Whip[2]
+      If ApplyWhipsN(AllCandidates, Incompatibles, 2) Then
+        progress = True
+        Continue Do
+      End If
+
+      ' Whip[3]
+      If ApplyWhipsN(AllCandidates, Incompatibles, 3) Then
+        progress = True
+        Continue Do
+      End If
+
+      ' Whip[4]
+      If ApplyWhipsN(AllCandidates, Incompatibles, 4) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyWhipsN(AllCandidates, Incompatibles, 5) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyWhipsN(AllCandidates, Incompatibles, 6) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyWhipsN(AllCandidates, Incompatibles, 7) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyWhipsN(AllCandidates, Incompatibles, 8) Then
+        progress = True
+        Continue Do
+      End If
+
+
+      ' Braid[1]
+      If ApplyBraidsN(AllCandidates, Incompatibles, 1) Then
+        progress = True
+        Continue Do
+      End If
+
+      ' Braid[2]
+      If ApplyBraidsN(AllCandidates, Incompatibles, 2) Then
+        progress = True
+        Continue Do
+      End If
+
+      ' Braid[3]
+      If ApplyBraidsN(AllCandidates, Incompatibles, 3) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyBraidsN(AllCandidates, Incompatibles, 4) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyBraidsN(AllCandidates, Incompatibles, 5) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyBraidsN(AllCandidates, Incompatibles, 6) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyBraidsN(AllCandidates, Incompatibles, 7) Then
+        progress = True
+        Continue Do
+      End If
+      If ApplyBraidsN(AllCandidates, Incompatibles, 8) Then
+        progress = True
+        Continue Do
+      End If
+
+      For d As Integer = 1 To 9
+        If ApplyXChain(AllCandidates, Incompatibles, d) Then
+          progress = True
+          Continue Do
+        End If
+      Next
 
     Loop While progress
-  End Sub
-
-  Public Sub DebugIncompatibles(ByVal AllCandidates() As Candidate,
-                              ByVal Incompatibles() As List(Of Integer),
-                              ByVal id As Integer)
-
-    Dim cand As Candidate = AllCandidates(id)
-
-    Jrn_Add_White("Candidat ID " & id &
-                      "  R" & cand.Row &
-                      "C" & cand.Col &
-                      " d" & cand.Digit)
-
-    Jrn_Add_White("Incompatibles :")
-
-    For Each otherId As Integer In Incompatibles(id)
-      Dim c As Candidate = AllCandidates(otherId)
-      Jrn_Add_White("  -> ID " & otherId &
-                          "  R" & c.Row &
-                          "C" & c.Col &
-                          " d" & c.Digit)
-    Next
 
   End Sub
-
   Public Sub PropagateSolvedCandidates(ByVal AllCandidates() As Candidate)
+    'Dim Nb_isActive As Integer
     ' Dès qu'un candidat est IsSolved, IsActive= False des candidats de la même case
     '                                                                de la même unité
     ' Convention 1 : les règles évidentes de propagation des contraintes élémentaires
     ' ECP(cellule), ECP (ligne), ECP(col) et ECP(blk) ne seront jamais affichées.
     For Each cdd As Candidate In AllCandidates
       If cdd.IsSolved Then
-
         Dim r As Integer = cdd.Row
         Dim c As Integer = cdd.Col
         Dim d As Integer = cdd.Digit
-
         ' 1. Désactiver les autres candidats de la même case
         For dd As Integer = 1 To 9
           If dd <> d Then
@@ -106,322 +394,24 @@
             End If
           Next
         Next
-
       End If
     Next
+    'For Each cdd As Candidate In AllCandidates
+    '  If cdd.IsActive And Not cdd.IsSolved Then Nb_isActive += 1
+    'Next
+    'Jrn_Add_Yellow(Proc_Name_Get() & " Nb candidats isActive et Not isSolved : " & Nb_isActive & ".")
   End Sub
+  Public Sub DebugIncompatibles(ByVal AllCandidates() As Candidate,
+                                ByVal Incompatibles() As List(Of Integer),
+                                ByVal id As Integer)
 
+    Dim cand As Candidate = AllCandidates(id)
+    Jrn_Add(, {"Candidat ID " & Describe(cand)})
+    Jrn_Add(, {"Incompatibles :" & Incompatibles(id).Count})
 
-  Public Function DetectNakedSingles(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add_Orange(Proc_Name_Get())
-    Dim found As Boolean = False
-
-    For row As Integer = 1 To 9
-      For col As Integer = 1 To 9
-
-        ' Vérifier si la case est déjà résolue
-        Dim alreadySolved As Boolean = False
-        For d As Integer = 1 To 9
-          If AllCandidates(Index(row, col, d)).IsSolved Then
-            alreadySolved = True
-            Exit For
-          End If
-        Next
-        If alreadySolved Then Continue For
-
-        Dim lastActive As Candidate = Nothing
-        Dim activeCount As Integer = 0
-
-        For val As Integer = 1 To 9
-          Dim c As Candidate = AllCandidates(Index(row, col, val))
-          If c.IsActive Then
-            activeCount += 1
-            lastActive = c
-          End If
-        Next
-
-        If activeCount = 1 Then
-          lastActive.IsSolved = True
-          found = True
-          Trace("NS", lastActive)
-        End If
-
-      Next
+    For Each otherId As Integer In Incompatibles(id)
+      Dim c As Candidate = AllCandidates(otherId)
+      Jrn_Add(, {"     -> ID " & Describe(c)})
     Next
-    Return found
-  End Function
-  Private Function DetectHiddenSinglesInRows(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add_Orange(Proc_Name_Get())
-
-    Dim found As Boolean = False
-
-    For row As Integer = 1 To 9
-      For val As Integer = 1 To 9
-
-        Dim lastActive As Candidate = Nothing
-        Dim activeCount As Integer = 0
-
-        For col As Integer = 1 To 9
-          Dim c As Candidate = AllCandidates(Index(row, col, val))
-
-          If c.IsActive Then
-            activeCount += 1
-            lastActive = c
-          End If
-        Next
-
-        ' Hidden Single : une seule position possible pour cette valeur dans la ligne
-        If activeCount = 1 Then
-          If Not lastActive.IsSolved Then
-            lastActive.IsSolved = True
-            found = True
-            Trace("HS R", lastActive)
-          End If
-        End If
-
-      Next
-    Next
-
-    Return found
-
-  End Function
-  Private Function DetectHiddenSinglesInCols(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add_Orange(Proc_Name_Get())
-
-    Dim found As Boolean = False
-
-    For col As Integer = 1 To 9
-      For val As Integer = 1 To 9
-
-        Dim lastActive As Candidate = Nothing
-        Dim activeCount As Integer = 0
-
-        For row As Integer = 1 To 9
-          Dim c As Candidate = AllCandidates(Index(row, col, val))
-
-          If c.IsActive Then
-            activeCount += 1
-            lastActive = c
-          End If
-        Next
-
-        If activeCount = 1 Then
-          If Not lastActive.IsSolved Then
-            lastActive.IsSolved = True
-            found = True
-            Trace("HS C", lastActive)
-          End If
-        End If
-
-      Next
-    Next
-
-    Return found
-
-  End Function
-  Private Function DetectHiddenSinglesInBlocks(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add_Orange(Proc_Name_Get())
-
-    Dim found As Boolean = False
-
-    For block As Integer = 1 To 9
-
-      Dim startRow As Integer = ((block - 1) \ 3) * 3 + 1
-      Dim startCol As Integer = ((block - 1) Mod 3) * 3 + 1
-
-      For val As Integer = 1 To 9
-
-        Dim lastActive As Candidate = Nothing
-        Dim activeCount As Integer = 0
-
-        For r As Integer = 0 To 2
-          For c As Integer = 0 To 2
-
-            Dim row As Integer = startRow + r
-            Dim col As Integer = startCol + c
-
-            Dim cand As Candidate = AllCandidates(Index(row, col, val))
-
-            If cand.IsActive Then
-              activeCount += 1
-              lastActive = cand
-            End If
-
-          Next
-        Next
-
-        If activeCount = 1 Then
-          If Not lastActive.IsSolved Then
-            lastActive.IsSolved = True
-            found = True
-            Trace("HS B", lastActive)
-          End If
-        End If
-
-      Next
-    Next
-
-    Return found
-
-  End Function
-  Public Function DetectHiddenSingles(ByVal AllCandidates() As Candidate) As Boolean
-    Dim found As Boolean = False
-    If DetectHiddenSinglesInRows(AllCandidates) Then found = True
-    If DetectHiddenSinglesInCols(AllCandidates) Then found = True
-    If DetectHiddenSinglesInBlocks(AllCandidates) Then found = True
-    Return found
-  End Function
-
-  Public Function DetectLockedCandidates(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add_Orange(Proc_Name_Get())
-
-    Dim progress As Boolean = False
-
-    ' ---------------------------------------------------------
-    ' 1. POINTING : bloc → ligne/colonne
-    ' ---------------------------------------------------------
-    Dim b As Integer, d As Integer, r As Integer, c As Integer
-
-    For b = 1 To 9
-      For d = 1 To 9
-
-        ' Trouver les candidats actifs (b,d)
-        Dim rows As New HashSet(Of Integer)()
-        Dim cols As New HashSet(Of Integer)()
-
-        For Each cand As Candidate In AllCandidates
-          If cand.IsActive AndAlso cand.Block = b AndAlso cand.Digit = d Then
-            rows.Add(cand.Row)
-            cols.Add(cand.Col)
-          End If
-        Next
-
-        ' POINTING : si tous les candidats sont dans UNE SEULE ligne
-        If rows.Count = 1 Then
-          Dim targetRow As Integer = rows.First()
-
-          For c = 1 To 9
-            ' Exclure les cases du bloc
-            Dim blockStartRow As Integer = ((b - 1) \ 3) * 3 + 1
-            Dim blockStartCol As Integer = ((b - 1) Mod 3) * 3 + 1
-
-            If Not (targetRow >= blockStartRow AndAlso targetRow <= blockStartRow + 2 AndAlso
-                    c >= blockStartCol AndAlso c <= blockStartCol + 2) Then
-
-              Dim id As Integer = ((targetRow - 1) * 81) + ((c - 1) * 9) + (d - 1)
-
-              If AllCandidates(id).IsActive Then
-                AllCandidates(id).IsActive = False
-                Trace("LC PL", AllCandidates(id))
-
-                progress = True
-              End If
-            End If
-          Next
-        End If
-
-        ' POINTING : si tous les candidats sont dans UNE SEULE colonne
-        If cols.Count = 1 Then
-          Dim targetCol As Integer = cols.First()
-
-          For r = 1 To 9
-            Dim blockStartRow As Integer = ((b - 1) \ 3) * 3 + 1
-            Dim blockStartCol As Integer = ((b - 1) Mod 3) * 3 + 1
-
-            If Not (r >= blockStartRow AndAlso r <= blockStartRow + 2 AndAlso
-                    targetCol >= blockStartCol AndAlso targetCol <= blockStartCol + 2) Then
-
-              Dim id As Integer = ((r - 1) * 81) + ((targetCol - 1) * 9) + (d - 1)
-
-              If AllCandidates(id).IsActive Then
-                AllCandidates(id).IsActive = False
-                Trace("LC PC", AllCandidates(id))
-
-                progress = True
-              End If
-            End If
-          Next
-        End If
-
-      Next d
-    Next b
-
-    ' ---------------------------------------------------------
-    ' 2. CLAIMING : ligne/colonne → bloc
-    ' ---------------------------------------------------------
-
-    ' CLAIMING LIGNE
-    For r = 1 To 9
-      For d = 1 To 9
-
-        Dim blocks As New HashSet(Of Integer)()
-
-        For Each cand As Candidate In AllCandidates
-          If cand.IsActive AndAlso cand.Row = r AndAlso cand.Digit = d Then
-            blocks.Add(cand.Block)
-          End If
-        Next
-
-        If blocks.Count = 1 Then
-          Dim targetBlock As Integer = blocks.First()
-
-          Dim blockStartRow As Integer = ((targetBlock - 1) \ 3) * 3 + 1
-          Dim blockStartCol As Integer = ((targetBlock - 1) Mod 3) * 3 + 1
-
-          For rr As Integer = blockStartRow To blockStartRow + 2
-            For cc As Integer = blockStartCol To blockStartCol + 2
-              If rr <> r Then
-                Dim id As Integer = ((rr - 1) * 81) + ((cc - 1) * 9) + (d - 1)
-                If AllCandidates(id).IsActive Then
-                  AllCandidates(id).IsActive = False
-                  Trace("LC CL", AllCandidates(id))
-
-                  progress = True
-                End If
-              End If
-            Next
-          Next
-        End If
-
-      Next d
-    Next r
-
-    ' CLAIMING COLONNE
-    For c = 1 To 9
-      For d = 1 To 9
-
-        Dim blocks As New HashSet(Of Integer)()
-
-        For Each cand As Candidate In AllCandidates
-          If cand.IsActive AndAlso cand.Col = c AndAlso cand.Digit = d Then
-            blocks.Add(cand.Block)
-          End If
-        Next
-
-        If blocks.Count = 1 Then
-          Dim targetBlock As Integer = blocks.First()
-
-          Dim blockStartRow As Integer = ((targetBlock - 1) \ 3) * 3 + 1
-          Dim blockStartCol As Integer = ((targetBlock - 1) Mod 3) * 3 + 1
-
-          For rr As Integer = blockStartRow To blockStartRow + 2
-            For cc As Integer = blockStartCol To blockStartCol + 2
-              If cc <> c Then
-                Dim id As Integer = ((rr - 1) * 81) + ((cc - 1) * 9) + (d - 1)
-                If AllCandidates(id).IsActive Then
-                  AllCandidates(id).IsActive = False
-                  Trace("LC CC", AllCandidates(id))
-                  progress = True
-                End If
-              End If
-            Next
-          Next
-        End If
-
-      Next d
-    Next c
-
-    Return progress
-
-  End Function
+  End Sub
 End Module

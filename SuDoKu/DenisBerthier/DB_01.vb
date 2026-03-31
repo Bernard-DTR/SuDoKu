@@ -1,94 +1,66 @@
-﻿Module DB_01
-  Public Class Candidate
-    ' Identifiant unique (0 à 728)
-    Public Property ID As Integer
-    ' Position dans la grille
-    Public Property Row As Integer   ' 1 à 9
-    Public Property Col As Integer   ' 1 à 9
-    Public Property Block As Integer ' 1 à 9
-    ' Valeur du candidat (1 à 9)
-    Public Property Digit As Integer
-    ' État logique
-    Public Property IsActive As Boolean   ' encore possible ?
-    Public Property IsSolved As Boolean   ' fait partie de la solution 
-    ' Liens logiques (pour whips/braids)
-    Public Property StrongLinks As New List(Of Integer) ' IDs des candidats liés
-    Public Property WeakLinks As New List(Of Integer)
-    ' Pour les chaînes : parent, profondeur, etc.
-    Public Property ChainParent As Integer = -1
-    Public Property ChainDepth As Integer = 0
-    Public Sub New(id As Integer, r As Integer, c As Integer, d As Integer)
-      Me.ID = id
-      Me.Row = r
-      Me.Col = c
-      Me.Digit = d
-      Me.Block = ((r - 1) \ 3) * 3 + ((c - 1) \ 3) + 1
-      Me.IsActive = True
-      Me.IsSolved = False
-    End Sub
-  End Class
-
-  Public Class DB_Stg_Cls 'Classe structurant les stratégies de Denis Berthier
-    Public Property Code As String         ' 0 Code
-    Public Property Type As String         ' 1 Type: Insertion, Exclusion, Non 
-    Public Property Texte As String        ' 2 Texte                            
-    'Constructeur paramétré
-    Sub New(New_Code As String,
-            New_Type As String,
-            New_Texte As String)
-      Code = New_Code
-      Type = New_Type
-      Texte = New_Texte
-    End Sub
-  End Class
-  Public DB_Stg_List As New List(Of DB_Stg_Cls)        ' List comportant les stratégies de Denis Berthier
-
-  Public Sub DB_Stg_List_Init()
-    'Initialisation de la Liste des Stratégies de Denis Berthier
-    With DB_Stg_List
-      .Add(New DB_Stg_Cls("vi   ", "N", "SDK_AllCandidate"))
-      .Add(New DB_Stg_Cls("NS   ", "V", "NakedSingles"))
-      .Add(New DB_Stg_Cls("HS   ", "V", "HiddenSingles"))
-      .Add(New DB_Stg_Cls("LC   ", "C", "LockedCandidates"))
-
-    End With
-  End Sub
+﻿Imports SuDoKu.DancingLink
 
 
-
-
-  Dim AllCandidates(728) As Candidate ' Tableau des 729 Candidate
-
-  Public Sub AllCandidates_Display(AllCandidates() As Candidate)
-    Dim Nb_IsActive As Integer
-    Dim Nb_IsActiveSolved As Integer
-    Dim Nb_IsActiveNotsolved As Integer
-    Dim Nb_IsSolved As Integer
-    For Each Cdd As Candidate In AllCandidates
-      If Cdd.IsActive Then Nb_IsActive += 1
-      If Cdd.IsActive And Cdd.IsSolved Then Nb_IsActiveSolved += 1
-      If Cdd.IsActive And Not Cdd.IsSolved Then Nb_IsActiveNotsolved += 1
-      If Cdd.IsSolved Then Nb_IsSolved += 1
-      Trace("Dsp  ", Cdd)
+Module DB_01
+  '--------------------------------------------------------------------------------
+  ' Objectifs:
+  '    Transférer les données entre l'application SDK <---> Denis_Berthier
+  '--------------------------------------------------------------------------------
+  Public Sub AllCandidates_Init(AllCandidates() As Candidate)
+    ' Initialisation de AllCandidates(728)
+    ' id varie de 0 à 728, (9 * 9 * 9 = 729)
+    ' Block = ((r - 1) \ 3) * 3 + ((c - 1) \ 3) + 1
+    ' IsActive = True et IsSolved = False
+    Dim id As Integer = 0
+    For r As Integer = 1 To 9
+      For c As Integer = 1 To 9
+        For d As Integer = 1 To 9
+          AllCandidates(id) = New Candidate(id, r, c, d)
+          id += 1
+        Next
+      Next
     Next
-    Jrn_Add_Yellow("IsActive           " & Nb_IsActive)
-    Jrn_Add_Yellow("IsActive_Solved    " & Nb_IsActiveSolved)
-    Jrn_Add_Yellow("IsActive_NotSolved " & Nb_IsActiveNotsolved)
-    Jrn_Add_Yellow("IsSolved           " & Nb_IsSolved)
   End Sub
-
-  Public Sub AllCandidates_Display_IsSolved(AllCandidates() As Candidate)
-    Dim Nb_IsActive As Integer
-    Dim Nb_IsSolved As Integer
-    For Each Cdd As Candidate In AllCandidates
-      If Cdd.IsSolved Then
-        If Cdd.IsActive Then Nb_IsActive += 1
-        If Cdd.IsSolved Then Nb_IsSolved += 1
-        Trace("dsp", Cdd)
-      End If
+  Public Sub SDK_AllCandidate(grid As String, AllCandidates() As Candidate)
+    ' Copie U (SDK) ---> AllCandidates(Denis Berthier) 
+    Dim Cellule As Integer = 0
+    Dim Nb_ValeursInitiales As Integer
+    For r As Integer = 1 To 9
+      For c As Integer = 1 To 9
+        Dim ch As Char = grid(Cellule)
+        Cellule += 1
+        If ch >= "1"c AndAlso ch <= "9"c Then
+          Dim solvedDigit As Integer = CInt(ch.ToString())
+          For d As Integer = 1 To 9
+            Dim id As Integer = Index(r, c, d)
+            If d = solvedDigit Then
+              AllCandidates(id).IsActive = True
+              AllCandidates(id).IsSolved = True
+              Nb_ValeursInitiales += 1
+            Else
+              AllCandidates(id).IsActive = False
+              AllCandidates(id).IsSolved = False
+            End If
+          Next
+        Else
+          ' Case vide : tous les candidats restent actifs
+          For d As Integer = 1 To 9
+            Dim id As Integer = Index(r, c, d)
+            AllCandidates(id).IsActive = True
+            AllCandidates(id).IsSolved = False
+          Next
+        End If
+      Next
     Next
-    Jrn_Add_Yellow("IsActive " & Nb_IsActive)
-    Jrn_Add_Yellow("IsSolved " & Nb_IsSolved)
+    Jrn_Add(, {Proc_Name_Get() & " " & Nb_ValeursInitiales & " valeurs initiales chargées."})
+    ' Calcul de la Solution avec Dancing_Link
+    Solution = StrDup(81, " ")
+    Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
+    If DL.DLCode = "Dlu" Then
+      Solution = DL.Solution(0)
+      Jrn_Add(, {"Solution attendue calculée avec Dancing_Link"})
+      Jrn_Add(, {Solution})
+    End If
   End Sub
   Public Sub AllCandidates_SDK(AllCandidates() As Candidate)
     ' Copie AllCandidates(Denis Berthier) ---> U (SDK)
@@ -126,69 +98,72 @@
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
+  '--------------------------------------------------------------------------------
+  ' Autres Fonctions 
+  '--------------------------------------------------------------------------------
+  Public Function IsSolved(ByVal AllCandidates() As Candidate) As Boolean
+    'Dès qu'une cellule a plus d'un candidat actif, le grille n'est pas résolue
+
+    Dim activeCount As Integer
+
+    For r As Integer = 1 To 9
+      For c As Integer = 1 To 9
+        activeCount = 0
+        For d As Integer = 1 To 9
+          Dim id As Integer = Index(r, c, d)
+          If AllCandidates(id).IsActive Then
+            activeCount += 1
+          End If
+        Next d
+        ' Une case doit avoir exactement 1 candidat actif
+        If activeCount <> 1 Then
+          Return False
+        End If
+      Next c
+    Next r
+    'Chaque cellule a 1 seul candidat actif: la grille est résolue
+    Return True
+  End Function
+  Public Function HasAnyStrongLinks(ByVal AllCandidates() As Candidate) As Boolean
+    ' La fonction vérifie s'il existe au moins un lien fort dans la grille
+    '    si aucun lien fort n'exite, alors aucun Whip n'est possible 
+    '    Cela évite de lancer des DFS inutiles
+    For id As Integer = 0 To 728
+      If AllCandidates(id).IsActive Then
+        If AllCandidates(id).StrongLinks.Count > 0 Then
+          Return True
+        End If
+      End If
+    Next id
+    Return False
+  End Function
+
+  '--------------------------------------------------------------------------------
+  ' Fonctions utilitaires
+  '--------------------------------------------------------------------------------
+  Public Function Index(r As Integer, c As Integer, d As Integer) As Integer
+    Return (r - 1) * 81 + (c - 1) * 9 + (d - 1)
+  End Function
   Private Function ReplaceDigit(source As String, digit As Integer) As String
     Dim chars() As Char = source.ToCharArray()
     chars(digit - 1) = ChrW(48 + digit)   ' Remplace par "1"…"9"
     Return New String(chars)
   End Function
-
-  Public Sub AllCandidates_Init(AllCandidates() As Candidate)
-    ' Initialisation de AllCandidates(728)
-    Dim id As Integer = 0
-    For r As Integer = 1 To 9
-      For c As Integer = 1 To 9
-        For d As Integer = 1 To 9
-          AllCandidates(id) = New Candidate(id, r, c, d)
-          id += 1
-        Next
-      Next
-    Next
-  End Sub
-
-  Public Sub SDK_AllCandidate(grid As String, AllCandidates() As Candidate)
-    ' Copie U (SDK) ---> AllCandidates(Denis Berthier) 
-    Dim index As Integer = 0
-    For r As Integer = 1 To 9
-      For c As Integer = 1 To 9
-        Dim ch As Char = grid(index)
-        index += 1
-        If ch >= "1"c AndAlso ch <= "9"c Then
-          Dim solvedDigit As Integer = CInt(ch.ToString())
-          For d As Integer = 1 To 9
-            Dim id As Integer = ((r - 1) * 81) + ((c - 1) * 9) + (d - 1)
-            If d = solvedDigit Then
-              AllCandidates(id).IsActive = True
-              AllCandidates(id).IsSolved = True
-              Trace("vi", AllCandidates(id))
-            Else
-              AllCandidates(id).IsActive = False
-              AllCandidates(id).IsSolved = False
-            End If
-          Next
-        Else
-          ' Case vide : tous les candidats restent actifs
-          For d As Integer = 1 To 9
-            Dim id As Integer = ((r - 1) * 81) + ((c - 1) * 9) + (d - 1)
-            AllCandidates(id).IsActive = True
-            AllCandidates(id).IsSolved = False
-          Next
-        End If
-      Next
-    Next
-  End Sub
-
-  Public Function Index(r As Integer, c As Integer, d As Integer) As Integer
-    Return (r - 1) * 81 + (c - 1) * 9 + (d - 1)
-  End Function
-
   Public Sub Trace(DB_Stg As String, Cdd As Candidate)
-    With Cdd
-      Dim S As String
-      Dim Cellule As Integer = Wh_Cellule_RowCol(.Row - 1, .Col - 1)
-      S = $"{DB_Stg,-5} {CStr(.ID),3} R{ .Row}_C{ .Col} Digit { .Digit}  Block { .Block} IsActive = { CStr(.IsActive),-5} IsSolved = { CStr(.IsSolved),-5}  {U_Coord(Cellule)} :{ .Digit}"
-      Jrn_Add_Orange(S)
-    End With
+    Jrn_Add(, {DB_Stg.PadRight(5) & Describe(Cdd)})
   End Sub
-
+  Public Function Describe(ByVal Cdd As Candidate) As String
+    With Cdd
+      Return $" {CStr(.ID),3} R{ .Row}_C{ .Col} d { .Digit}  B { .Block} Act ={ CStr(.IsActive),-5} Sol ={ CStr(.IsSolved),-5} Strong { .StrongLinks.Count} Weak { .WeakLinks.Count}"
+    End With
+  End Function
+  Public Function Controle(Cdd As Candidate) As Boolean
+    Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
+    If Solution(Cellule) <> CStr(Cdd.Digit) Then
+      Jrn_Add(, {"⛔" & "  Erreur : " & U_Coord_DB(Cellule) & " " & Solution(Cellule) & " attendu au lieu de " & CStr(Cdd.Digit)})
+      Return False
+    End If
+    Return True
+  End Function
 
 End Module
