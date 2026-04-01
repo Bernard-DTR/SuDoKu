@@ -64,7 +64,7 @@ Friend Module P01_Strategy
 
   Sub Strategy_Code(strg_Code As String, Origine As String)
     Plcy_Strg = strg_Code
-    Frm_SDK.B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    Frm_SDK.B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
     If Plcy_Strg = "   " Then
       Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
       Exit Sub

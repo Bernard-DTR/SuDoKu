@@ -53,14 +53,8 @@ Module DB_01
       Next
     Next
     Jrn_Add(, {Proc_Name_Get() & " " & Nb_ValeursInitiales & " valeurs initiales chargées."})
-    ' Calcul de la Solution avec Dancing_Link
-    Solution = StrDup(81, " ")
-    Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
-    If DL.DLCode = "Dlu" Then
-      Solution = DL.Solution(0)
-      Jrn_Add(, {"Solution attendue calculée avec Dancing_Link"})
-      Jrn_Add(, {Solution})
-    End If
+    Jrn_Add(, {"Solution attendue calculée avec Dancing_Link"})
+    Jrn_Add(, {XSolution})
   End Sub
   Public Sub AllCandidates_SDK(AllCandidates() As Candidate)
     ' Copie AllCandidates(Denis Berthier) ---> U (SDK)
@@ -150,17 +144,25 @@ Module DB_01
     Return New String(chars)
   End Function
   Public Sub Trace(DB_Stg As String, Cdd As Candidate)
-    Jrn_Add(, {DB_Stg.PadRight(5) & Describe(Cdd)})
+    Jrn_Add(, {DB_Stg.PadRight(7) & Describe(Cdd)})
   End Sub
   Public Function Describe(ByVal Cdd As Candidate) As String
     With Cdd
-      Return $" {CStr(.ID),3} R{ .Row}_C{ .Col} d { .Digit}  B { .Block} Act ={ CStr(.IsActive),-5} Sol ={ CStr(.IsSolved),-5} Strong { .StrongLinks.Count} Weak { .WeakLinks.Count}"
+      Return $" {CStr(.ID),3} R{ .Row}_C{ .Col} { .Digit}  Act={ CStr(.IsActive),-5} Sol={ CStr(.IsSolved),-5} Strong:{ .StrongLinks.Count} Weak:{ .WeakLinks.Count}"
     End With
   End Function
-  Public Function Controle(Cdd As Candidate) As Boolean
+  Public Function Controle_P(Cdd As Candidate) As Boolean
     Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
-    If Solution(Cellule) <> CStr(Cdd.Digit) Then
-      Jrn_Add(, {"⛔" & "  Erreur : " & U_Coord_DB(Cellule) & " " & Solution(Cellule) & " attendu au lieu de " & CStr(Cdd.Digit)})
+    If XSolution(Cellule) <> CStr(Cdd.Digit) Then
+      Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord_DB(Cellule) & " " & XSolution(Cellule) & " est attendu au lieu de " & CStr(Cdd.Digit) & "."})
+      Return False
+    End If
+    Return True
+  End Function
+  Public Function Controle_E(Cdd As Candidate) As Boolean
+    Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
+    If XSolution(Cellule) = CStr(Cdd.Digit) Then
+      Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord_DB(Cellule) & " " & CStr(Cdd.Digit) & " est la solution. "})
       Return False
     End If
     Return True

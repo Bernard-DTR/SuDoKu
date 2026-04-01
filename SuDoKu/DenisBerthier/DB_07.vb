@@ -1,44 +1,49 @@
 ﻿Module DB_07
-  Public Function ApplyAIC_old(ByVal AllCandidates() As Candidate,
+  '--------------------------------------------------------------------------------
+  ' AIC
+  '   ApplyAIC
+  '   ExploreAIC
+  '   EliminateAIC
+  '--------------------------------------------------------------------------------
+
+  Public Function ApplyAIC(ByVal AllCandidates() As Candidate,
                          ByVal Incompatibles() As List(Of Integer),
                          ByVal maxDepth As Integer) As Boolean
+    Jrn_Add(, {"AIC     " & Proc_Name_Get()})
+    Dim startID As Integer
 
-    Dim progress As Boolean = False
-
-    ' On teste chaque candidat actif comme point de départ
-    For startID As Integer = 0 To 728
+    For startID = 0 To 728
 
       If Not AllCandidates(startID).IsActive Then Continue For
 
-      ' AIC = on suppose startID TRUE
       If ExploreAIC(AllCandidates, Incompatibles, startID, maxDepth) Then
         Return True
       End If
 
     Next
 
-    Return progress
+    Return False
   End Function
 
   Private Function ExploreAIC(ByVal AllCandidates() As Candidate,
                             ByVal Incompatibles() As List(Of Integer),
                             ByVal startID As Integer,
                             ByVal maxDepth As Integer) As Boolean
-
+    'Jrn_Add(, {"        " & Proc_Name_Get()})
     Dim stack As New Stack(Of ChainNode)()
     Dim state(728) As Nullable(Of Boolean)
 
-    ' Hypothèse : startID est TRUE
+    Dim cid As Integer
+    Dim other As Integer
+    Dim wid As Integer
+    Dim sid As Integer
+
+    ' Hypothèse de départ : startID est TRUE
     state(startID) = True
 
-    ' Départ : liens faibles → FALSE
-    For Each wid As Integer In AllCandidates(startID).WeakLinks
+    ' Départ : depuis TRUE, on ne propage que via liens faibles → FALSE
+    For Each wid In AllCandidates(startID).WeakLinks
       stack.Push(New ChainNode(wid, startID, 1, False, False))
-    Next
-
-    ' Départ : liens forts → FALSE
-    For Each sid As Integer In AllCandidates(startID).StrongLinks
-      stack.Push(New ChainNode(sid, startID, 1, True, False))
     Next
 
     While stack.Count > 0
@@ -47,44 +52,46 @@
 
       If node.Depth > maxDepth Then Continue While
 
-      Dim cid As Integer = node.CandidateID
+      cid = node.CandidateID
 
       ' Déjà visité ?
       If state(cid).HasValue Then
-
-        ' Contradiction logique : TRUE et FALSE
-        If state(cid).Value <> node.IsTrue Then
-          Return EliminateAIC(AllCandidates, startID)
+        ' Si même état, rien à faire
+        If state(cid).Value = node.IsTrue Then
+          Continue While
+        Else
+          ' Deux états différents atteints par des chemins différents :
+          ' on ignore ce chemin, mais on ne déclare PAS de contradiction
+          Continue While
         End If
-
-        Continue While
       End If
 
       ' Affecter l'état logique
       state(cid) = node.IsTrue
 
-      ' Si TRUE → vérifier incompatibilités
+      ' Si ce candidat est TRUE, vérifier les incompatibilités
       If node.IsTrue Then
-        For Each other As Integer In Incompatibles(cid)
+        For Each other In Incompatibles(cid)
           If state(other).HasValue AndAlso state(other).Value = True Then
+            ' Deux candidats incompatibles forcés TRUE → contradiction valide
             Return EliminateAIC(AllCandidates, startID)
           End If
         Next
       End If
 
-      ' Propagation alternée
-      If node.IsStrong Then
-        ' Strong → Weak
-        For Each wid As Integer In AllCandidates(cid).WeakLinks
+      ' Propagation booléenne façon Berthier
+      If node.IsTrue Then
+        ' TRUE → via liens faibles → FALSE
+        For Each wid In AllCandidates(cid).WeakLinks
           If Not state(wid).HasValue Then
-            stack.Push(New ChainNode(wid, cid, node.Depth + 1, False, Not node.IsTrue))
+            stack.Push(New ChainNode(wid, cid, node.Depth + 1, False, False))
           End If
         Next
       Else
-        ' Weak → Strong
-        For Each sid As Integer In AllCandidates(cid).StrongLinks
+        ' FALSE → via liens forts → TRUE
+        For Each sid In AllCandidates(cid).StrongLinks
           If Not state(sid).HasValue Then
-            stack.Push(New ChainNode(sid, cid, node.Depth + 1, True, Not node.IsTrue))
+            stack.Push(New ChainNode(sid, cid, node.Depth + 1, True, True))
           End If
         Next
       End If
@@ -93,18 +100,13 @@
 
     Return False
   End Function
+
   Private Function EliminateAIC(ByVal AllCandidates() As Candidate,
                               ByVal startID As Integer) As Boolean
-
-    Dim c As Candidate = AllCandidates(startID)
-
-    ' On élimine le candidat de départ
-    c.IsActive = False
-
-    Jrn_Add(, {"AIC élimine → " & Describe(c)})
-
+    AllCandidates(startID).IsActive = False
+    Trace("AIC", AllCandidates(startID))
+    Controle_E(AllCandidates(startID))
     Return True
   End Function
-
 
 End Module

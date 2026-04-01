@@ -1,8 +1,13 @@
 ﻿Module DB_04
-  Public Function BuildIncompatibilityGraph(ByVal AllCandidates() As Candidate) As List(Of Integer)()
-    Jrn_Add(, {"      " & Proc_Name_Get()})
+  '--------------------------------------------------------------------------------
+  ' BuildIncompatibilityGraph & BuildStrongAndWeakLinks
+  '   AddStrongLink
+  '   AddWeakLinks
+  '--------------------------------------------------------------------------------
 
+  Public Function BuildIncompatibilityGraph(ByVal AllCandidates() As Candidate) As List(Of Integer)()
     ' Tableau de 729 listes
+    Jrn_Add(, {"        " & Proc_Name_Get()})
     Dim Incompatibles(728) As List(Of Integer)
 
     Dim i As Integer
@@ -16,70 +21,56 @@
     ' Comparer chaque paire de candidats
     For i = 0 To 728
       cand1 = AllCandidates(i)
-
       If cand1.IsActive Then
-
         Dim j As Integer
         For j = 0 To 728
           If j <> i Then
             cand2 = AllCandidates(j)
-
             If cand2.IsActive Then
-
               ' ---------------------------------------------------------
               ' Règle 1 : même case, digit différent
               ' ---------------------------------------------------------
               If cand1.Row = cand2.Row AndAlso cand1.Col = cand2.Col AndAlso
                  cand1.Digit <> cand2.Digit Then
-
                 Incompatibles(i).Add(j)
                 Continue For
               End If
-
               ' ---------------------------------------------------------
               ' Règle 2 : même ligne, même digit
               ' ---------------------------------------------------------
               If cand1.Row = cand2.Row AndAlso cand1.Digit = cand2.Digit AndAlso
                  cand1.Col <> cand2.Col Then
-
                 Incompatibles(i).Add(j)
                 Continue For
               End If
-
               ' ---------------------------------------------------------
               ' Règle 3 : même colonne, même digit
               ' ---------------------------------------------------------
               If cand1.Col = cand2.Col AndAlso cand1.Digit = cand2.Digit AndAlso
                  cand1.Row <> cand2.Row Then
-
                 Incompatibles(i).Add(j)
                 Continue For
               End If
-
               ' ---------------------------------------------------------
               ' Règle 4 : même bloc, même digit
               ' ---------------------------------------------------------
               If cand1.Block = cand2.Block AndAlso cand1.Digit = cand2.Digit AndAlso
                  (cand1.Row <> cand2.Row OrElse cand1.Col <> cand2.Col) Then
-
                 Incompatibles(i).Add(j)
                 Continue For
               End If
-
             End If
           End If
         Next j
-
       End If
     Next i
-
     Return Incompatibles
 
   End Function
 
   Public Function BuildStrongAndWeakLinks(ByVal AllCandidates() As Candidate,
                                           ByVal Incompatibles() As List(Of Integer)) As Boolean
-    Jrn_Add(, {"      " & Proc_Name_Get()})
+    Jrn_Add(, {"        " & Proc_Name_Get()})
 
     Dim progress As Boolean = False
 
@@ -217,7 +208,6 @@
       AllCandidates(id2).StrongLinks.Add(id1)
     End If
   End Sub
-
 
   Private Sub AddWeakLinks(ByVal AllCandidates() As Candidate,
                            ByVal listIds As List(Of Integer))

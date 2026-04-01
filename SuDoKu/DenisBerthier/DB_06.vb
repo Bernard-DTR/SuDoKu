@@ -1,9 +1,13 @@
 ﻿Module DB_06
+  '--------------------------------------------------------------------------------
+  ' XChain
+  '   ApplyXChain
+  '   EliminateXChain
+  '--------------------------------------------------------------------------------
 
   Public Function ApplyXChain(ByVal AllCandidates() As Candidate,
-                            ByVal Incompatibles() As List(Of Integer),
-                            ByVal digit As Integer) As Boolean
-
+                              ByVal Incompatibles() As List(Of Integer),
+                              ByVal digit As Integer) As Boolean
     Dim progress As Boolean = False
 
     ' Liste des candidats actifs pour ce digit
@@ -17,15 +21,12 @@
 
     ' Pour chaque candidat actif, on cherche une chaîne de liens forts
     For Each startID As Integer In activeList
-
       ' DFS pour liens forts uniquement
       Dim stack As New Stack(Of Integer)()
       Dim visited As New HashSet(Of Integer)()
-
       stack.Push(startID)
 
       While stack.Count > 0
-
         Dim cid As Integer = stack.Pop()
 
         If visited.Contains(cid) Then Continue While
@@ -83,23 +84,18 @@
           If id <> id1 AndAlso id <> id2 Then
             c.IsActive = False
             progress = True
-
-            Jrn_Add(, {"X-Chain élimine → " & Describe(c)})
+            Trace("XChain", c)
+            Controle_E(c)
           End If
 
         End If
-
       End If
-
     Next
-
     Return progress
   End Function
 
   Private Function InSameUnit(ByVal a As Candidate, ByVal b As Candidate) As Boolean
     Return (a.Row = b.Row) OrElse (a.Col = b.Col) OrElse (a.Block = b.Block)
   End Function
-
-
 
 End Module

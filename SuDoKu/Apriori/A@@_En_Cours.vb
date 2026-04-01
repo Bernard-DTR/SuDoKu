@@ -82,11 +82,14 @@ Friend Module En_Cours
 
     Dim Grid As String = ClipBoard_Copier_New("1")
     Jrn_Add(, {Grid})
+    Jrn_Add_Orange("XSolution est déjà calculé ! ")
+    Jrn_Add_Orange(XSolution)
     Dim AllCandidates(728) As Candidate
     AllCandidates_Init(AllCandidates)
     SDK_AllCandidate(Grid, AllCandidates)
     PropagateSolvedCandidates(AllCandidates)
-    DB_Solution(AllCandidates)
+    Dim Solved As Boolean = DB_Solution(AllCandidates)
+    If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."})
     AllCandidates_SDK(AllCandidates)
   End Sub
   Public Sub TestJ()
@@ -97,7 +100,7 @@ Friend Module En_Cours
     Jrn_Add(, {"Strategy_" & Plcy_Strg})
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GCx(U_temp)
-    Frm_SDK.B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    Frm_SDK.B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
     Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
 #End Region

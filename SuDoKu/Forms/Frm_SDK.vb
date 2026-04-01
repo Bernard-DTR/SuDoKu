@@ -7,7 +7,7 @@ Public NotInheritable Class Frm_SDK
   Private MouseClick_Middle_ToolTip As CustomToolTip
 
   Public Journal As New RichTextBox()
-  Public B_Solution As New TextBox
+  Public B_Famille As New TextBox        ' comporte désormais la famille de la stratégie jouée
   Public B_Position As New TextBox()
   Public B_Pourcentage As New TextBox()
   Public B_Info As New TextBox()
@@ -56,13 +56,13 @@ Public NotInheritable Class Frm_SDK
     AddHandler Journal.LinkClicked, AddressOf Journal_Linkcliked
     AddHandler Journal.Click, AddressOf Journal_Click
 
-    With B_Solution
-      .Name = "B_Solution"
+    With B_Famille
+      .Name = "B_Famille"
       .ReadOnly = True
       .ShortcutsEnabled = False 'Pour ne pas avoir de menu contextuel
       .TextAlign = HorizontalAlignment.Center
     End With
-    Controls.Add(B_Solution)
+    Controls.Add(B_Famille)
 
     With B_Position
       .Name = "B_Position"
@@ -260,7 +260,7 @@ Public NotInheritable Class Frm_SDK
 #Region "ToolTip_B "
     'Il existe 1 Contrôle ToolTip_B  pour les zones B_* 
     With ToolTip_B
-      .SetToolTip(B_Solution, "Famille Stratégie")
+      .SetToolTip(B_Famille, "Famille Stratégie")
       .SetToolTip(B_Position, "Cellule sélectionnée en Ligne-Colonne")
       .SetToolTip(B_Pourcentage, "Taux de remplissage")
       .SetToolTip(B_Info, "Information")
@@ -706,6 +706,8 @@ Public NotInheritable Class Frm_SDK
     Application.DoEvents()
   End Sub
   Private Sub Mnu01_Saisir_Click(sender As Object, e As EventArgs) Handles Mnu01_Saisir.Click
+    ' Pendant la saisie les nombres des cellules vides et des candidats sont affichés
+    '         le nombre des valeurs initiales ne peut pas l'être, il faut attendre / Commencer
     Dim Nom As String = "Pzzl_" & "_" & Format(Now, "yyyy_MM_dd_HH_mm_ss")
     'Le nom d'une partie est limitée à 15 caractères
     Dim Prb As String = StrDup(81, " ")
@@ -716,11 +718,16 @@ Public NotInheritable Class Frm_SDK
     'La procédure Saisir diffère de celle de l'Edition
     'U(i,1) est égal à " " tant que Commencer n'est pas lancé.
     'Les candidats collatéraux sont enlevés au fur et à mesure de la Saisie
+    'Utilisation de la stratégie
+    'Stg_List.Add(New Stg_Cls("Sai", "N", "N", "N", "N", 0, "Saisir une grille"))
     Plcy_Gnrl = "Nrm"
     Plcy_Strg = "Sai"
     Game_New_Game(Plcy_Gnrl, Plcy_Strg, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
     Mnu01_Saisir.Enabled = False
     Mnu01_Commencer.Enabled = True
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+
   End Sub
   Private Sub Mnu01_Commencer_Click(sender As Object, e As EventArgs) Handles Mnu01_Commencer.Click
     Dim Nom As String = "Pzzl_" & "_" & Format(Now, "yyyy_MM_dd_HH_mm_ss")
@@ -734,6 +741,8 @@ Public NotInheritable Class Frm_SDK
     Next i
     Dim Sol As String = StrDup(81, " ")
     Dim Frc As String = "0"
+    'Utilisation de la stratégie
+    'Stg_List.Add(New Stg_Cls("   ", "N", "N", "N", "N", 0, "Aucune Stratégie"))
     Plcy_Gnrl = "Nrm"
     Plcy_Strg = "   "
     Game_New_Game(Plcy_Gnrl, Plcy_Strg, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
@@ -750,6 +759,10 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add("SDK_Space")
     Jrn_Add(, {Proc_Name_Get()})
     Frm_LoadPartiesHodoku.Show()
+  End Sub
+  Private Sub Mnu01_CopierLeJournalEnModeRTF_Click(sender As Object, e As EventArgs) Handles Mnu01_CopierLeJournalEnModeRTF.Click
+    Dim File_SDK As String = Jrn_RcdRTF()
+    Processing_Start(File_SDK)
   End Sub
   Private Sub Mnu01_OuvrirLeRépertoire_Click(sender As Object, e As EventArgs) Handles Mnu01_OuvrirLeRépertoire.Click
     Dim Pgm As String = "Explorer /e, /n, " & File_SDK
@@ -808,10 +821,6 @@ Public NotInheritable Class Frm_SDK
   '--------------03---------------------------------------------------------------
   Private Sub Mnu03_EffacerLeJournal_Click(sender As Object, e As EventArgs) Handles Mnu03_EffacerLeJournal.Click
     Jrn_Clear()
-  End Sub
-  Private Sub Mnu03_CopierLeJournalEnModeRTB_Click_1(sender As Object, e As EventArgs) Handles Mnu01_CopierLeJournalEnModeRTF.Click
-    Dim File_SDK As String = Jrn_RcdRTF()
-    Processing_Start(File_SDK)
   End Sub
   Private Sub Mnu03_AfficherLaSolution_Click(sender As Object, e As EventArgs) Handles Mnu03_AfficherLaSolution.Click
     If Plcy_Solution_Existante = False Then Exit Sub
@@ -924,7 +933,7 @@ Public NotInheritable Class Frm_SDK
         Case "WgW" : Plcy_Strg = "WgW" : Strategy_WgW(U_temp)
         Case Else : Jrn_Add(, {"Mnu_Name inconnu : " & Mnu_Name, "Erreur"})
       End Select
-      B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+      B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
 
     Else
       Jrn_Add(, {"Sender inconnu : " & Sender.ToString(), "Erreur"})
@@ -1775,7 +1784,7 @@ Public NotInheritable Class Frm_SDK
         Case "WgZ" : Strategy_WgZ(U_temp)
         Case "WgW" : Strategy_WgW(U_temp)
       End Select
-      B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+      B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
 
       If GRslt.Productivité Then Exit For
     Next i
@@ -1802,28 +1811,30 @@ Public NotInheritable Class Frm_SDK
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GLk(U_temp)
-    B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
   Private Sub Mnu0930_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu0930_Gbl.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_Gbl(U_temp)
-    B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
   Private Sub Mnu0950_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu0950_Gbv.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_Gbv(U_temp)
-    B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
   Private Sub Mnu0970_GCs_Click(sender As Object, e As EventArgs) Handles Mnu0970_GCs.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GCs(U_temp)
-    B_Solution.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
+
+
 #End Region
 End Class

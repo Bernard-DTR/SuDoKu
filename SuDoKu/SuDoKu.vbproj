@@ -161,8 +161,6 @@
     <Compile Include="DenisBerthier\DB_05.vb" />
     <Compile Include="DenisBerthier\DB_06.vb" />
     <Compile Include="DenisBerthier\DB_07.vb" />
-    <Compile Include="DenisBerthier\DB_08.vb" />
-    <Compile Include="DenisBerthier\DB_90.vb" />
     <Compile Include="M03_Paint_g.vb" />
     <Compile Include="Models\XLink_Cls.vb" />
     <Compile Include="Apriori\A%40%40_En_Cours.vb" />

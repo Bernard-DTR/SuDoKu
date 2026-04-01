@@ -327,9 +327,18 @@
 #667 S  28/03/2026 Ré-écriture de M01_Enregistrement_Partie , Save, Load et Write
 #668 D  29/03/2026 Ecriture directe avec .WriteLine
 #669 Ma 31/03.2026 Fin de DB_Solution de Denis_Berthier
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+                   Version 2026_O4 #670 
+§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+#670 Me 01/04/2026 Reprise du menu Fichier
+#671 Me 01/04/2026 Le menu Fichier est correct
+#672 Me 01/04/2026 Mise en place de Game_New_DL_Solution(U)
+#673 Me 01/04/2026 Denis Berthier utilise XSolution
+#674 Me 01/04/2026 B_Solution est remplacée par B_Famille
 
-                   Le nom d'une partie n'est pas limitée à 11 caractères !
 
+                   DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
+                   B_Solution devrait changer de nom, elle comporte à présent le code stratégie
                    Est-il possible de mattre en option If Cdu_Exists Then GoTo Pzzl_Prd_Batch_Exit dans Pzzl_Prd_Batch
                    ??? est-ce que DL est lancé à chaque chargement de partie ? 
                    ??? est-ce qu'un message est affiché ?

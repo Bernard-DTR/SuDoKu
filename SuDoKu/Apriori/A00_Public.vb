@@ -504,7 +504,7 @@ Module A00_Public
     Public Durée_ms As Integer                    ' Durée en ms du calcul de la stratégie
   End Structure
   Public XRslt As New XRslt_Struct
-  Public Xap As Boolean = True 'False
+  Public Xap As Boolean = False 'False
   Public XSolution As String
   Public U_Road(0 To 80) As Boolean               ' Tableau des Cellules sur le chemin
 

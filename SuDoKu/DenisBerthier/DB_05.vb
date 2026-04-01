@@ -1,6 +1,10 @@
 ﻿Module DB_05
-
-  '  Moteur DFS générique, propre, typé, et fidèle à Berthier
+  '--------------------------------------------------------------------------------
+  ' Moteur DFS générique, propre, typé, et fidèle à Berthier
+  '   ExploreChain
+  '   ExploreBraid ApplyWhipsN
+  '   ApplyBraidsN
+  '--------------------------------------------------------------------------------
 
   Public Function ExploreChain(ByVal AllCandidates() As Candidate,
                              ByVal Incompatibles() As List(Of Integer),

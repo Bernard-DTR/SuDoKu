@@ -7,7 +7,7 @@
   '--------------------------------------------------------------------------------
 
   Public Function DetectNakedSingles(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add(, {"NS    " & Proc_Name_Get()})
+    Jrn_Add(, {"NS      " & Proc_Name_Get()})
     Dim found As Boolean = False
     For row As Integer = 1 To 9
       For col As Integer = 1 To 9
@@ -33,14 +33,23 @@
           lastActive.IsSolved = True
           found = True
           Trace("NS", lastActive)
-          Controle(lastActive)
+          Controle_P(lastActive)
         End If
       Next
     Next
     Return found
   End Function
+  Public Function DetectHiddenSingles(ByVal AllCandidates() As Candidate) As Boolean
+    Jrn_Add(, {"HS      " & Proc_Name_Get()})
+    Dim found As Boolean = False
+    If DetectHiddenSinglesInRows(AllCandidates) Then found = True
+    If DetectHiddenSinglesInCols(AllCandidates) Then found = True
+    If DetectHiddenSinglesInBlocks(AllCandidates) Then found = True
+    Return found
+  End Function
+
   Private Function DetectHiddenSinglesInRows(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add(, {"HS    " & Proc_Name_Get()})
+    'Jrn_Add(, {"HS    " & Proc_Name_Get()})
     Dim found As Boolean = False
     For row As Integer = 1 To 9
       For val As Integer = 1 To 9
@@ -59,7 +68,7 @@
             lastActive.IsSolved = True
             found = True
             Trace("HS R", lastActive)
-            Controle(lastActive)
+            Controle_P(lastActive)
           End If
         End If
       Next
@@ -67,7 +76,7 @@
     Return found
   End Function
   Private Function DetectHiddenSinglesInCols(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add(, {"HS    " & Proc_Name_Get()})
+    'Jrn_Add(, {"HS    " & Proc_Name_Get()})
     Dim found As Boolean = False
     For col As Integer = 1 To 9
       For val As Integer = 1 To 9
@@ -85,7 +94,7 @@
             lastActive.IsSolved = True
             found = True
             Trace("HS C", lastActive)
-            Controle(lastActive)
+            Controle_P(lastActive)
           End If
         End If
       Next
@@ -93,7 +102,7 @@
     Return found
   End Function
   Private Function DetectHiddenSinglesInBlocks(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add(, {"HS    " & Proc_Name_Get()})
+    'Jrn_Add(, {"HS    " & Proc_Name_Get()})
     Dim found As Boolean = False
     For block As Integer = 1 To 9
       Dim startRow As Integer = ((block - 1) \ 3) * 3 + 1
@@ -117,23 +126,16 @@
             lastActive.IsSolved = True
             found = True
             Trace("HS B", lastActive)
-            Controle(lastActive)
+            Controle_P(lastActive)
           End If
         End If
       Next
     Next
     Return found
   End Function
-  Public Function DetectHiddenSingles(ByVal AllCandidates() As Candidate) As Boolean
-    Dim found As Boolean = False
-    If DetectHiddenSinglesInRows(AllCandidates) Then found = True
-    If DetectHiddenSinglesInCols(AllCandidates) Then found = True
-    If DetectHiddenSinglesInBlocks(AllCandidates) Then found = True
-    Return found
-  End Function
 
   Public Function DetectLockedCandidates(ByVal AllCandidates() As Candidate) As Boolean
-    Jrn_Add(, {"LC    " & Proc_Name_Get()})
+    Jrn_Add(, {"LC      " & Proc_Name_Get()})
     Dim found As Boolean = False
     ' ---------------------------------------------------------
     ' 1. POINTING : bloc → ligne/colonne
@@ -171,6 +173,7 @@
               If AllCandidates(id).IsActive Then
                 AllCandidates(id).IsActive = False
                 Trace("LC PL", AllCandidates(id))
+                Controle_E(AllCandidates(id))
                 found = True
               End If
             End If
@@ -193,6 +196,7 @@
               If AllCandidates(id).IsActive Then
                 AllCandidates(id).IsActive = False
                 Trace("LC PC", AllCandidates(id))
+                Controle_E(AllCandidates(id))
 
                 found = True
               End If
@@ -232,6 +236,7 @@
                 If AllCandidates(id).IsActive Then
                   AllCandidates(id).IsActive = False
                   Trace("LC CL", AllCandidates(id))
+                  Controle_E(AllCandidates(id))
 
                   found = True
                 End If
@@ -268,6 +273,8 @@
                 If AllCandidates(id).IsActive Then
                   AllCandidates(id).IsActive = False
                   Trace("LC CC", AllCandidates(id))
+                  Controle_E(AllCandidates(id))
+
                   found = True
                 End If
               End If

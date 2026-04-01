@@ -487,7 +487,7 @@ Partial Class Frm_SDK
         'Mnu01_Ouvrir
         '
         Me.Mnu01_Ouvrir.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.Mnu01_Ouvrir.ForeColor = System.Drawing.Color.Red
+        Me.Mnu01_Ouvrir.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu01_Ouvrir.Image = Global.SuDoKu.My.Resources.Resources.OpenFile_16x
         Me.Mnu01_Ouvrir.Name = "Mnu01_Ouvrir"
         Me.Mnu01_Ouvrir.Size = New System.Drawing.Size(410, 34)
@@ -495,7 +495,7 @@ Partial Class Frm_SDK
         '
         'Mnu01_RejouerLaPartie
         '
-        Me.Mnu01_RejouerLaPartie.ForeColor = System.Drawing.Color.Red
+        Me.Mnu01_RejouerLaPartie.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu01_RejouerLaPartie.Name = "Mnu01_RejouerLaPartie"
         Me.Mnu01_RejouerLaPartie.ShortcutKeys = System.Windows.Forms.Keys.F2
         Me.Mnu01_RejouerLaPartie.Size = New System.Drawing.Size(410, 34)
@@ -1211,147 +1211,147 @@ Partial Class Frm_SDK
         '
         Me.Mnu07_Strategy_CdU.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_CdU.Name = "Mnu07_Strategy_CdU"
-        Me.Mnu07_Strategy_CdU.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_CdU.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_CdU.Text = "Stratégie des CdU"
         '
         'Mnu07_Strategy_CdO
         '
         Me.Mnu07_Strategy_CdO.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_CdO.Name = "Mnu07_Strategy_CdO"
-        Me.Mnu07_Strategy_CdO.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_CdO.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_CdO.Text = "Stratégie des CdO"
         '
         'Mnu07_Strategy_Cbl
         '
         Me.Mnu07_Strategy_Cbl.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_Cbl.Name = "Mnu07_Strategy_Cbl"
-        Me.Mnu07_Strategy_Cbl.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_Cbl.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_Cbl.Text = "Stratégie des Cbl"
         '
         'Mnu07_Strategy_Tpl
         '
         Me.Mnu07_Strategy_Tpl.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_Tpl.Name = "Mnu07_Strategy_Tpl"
-        Me.Mnu07_Strategy_Tpl.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_Tpl.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_Tpl.Text = "Stratégie des Tpl"
         '
         'Mnu07_Strategy_Xwg
         '
         Me.Mnu07_Strategy_Xwg.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_Xwg.Name = "Mnu07_Strategy_Xwg"
-        Me.Mnu07_Strategy_Xwg.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_Xwg.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_Xwg.Text = "Stratégie des Xwg"
         '
         'Mnu07_Strategy_XYw
         '
         Me.Mnu07_Strategy_XYw.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_XYw.Name = "Mnu07_Strategy_XYw"
-        Me.Mnu07_Strategy_XYw.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_XYw.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_XYw.Text = "Stratégie des XYw"
         '
         'Mnu07_Strategy_Swf
         '
         Me.Mnu07_Strategy_Swf.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_Swf.Name = "Mnu07_Strategy_Swf"
-        Me.Mnu07_Strategy_Swf.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_Swf.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_Swf.Text = "Stratégie des Swf"
         '
         'Mnu07_Strategy_Jly
         '
         Me.Mnu07_Strategy_Jly.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_Jly.Name = "Mnu07_Strategy_Jly"
-        Me.Mnu07_Strategy_Jly.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_Jly.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_Jly.Text = "Stratégie des Jly"
         '
         'Mnu07_Strategy_XYZ
         '
         Me.Mnu07_Strategy_XYZ.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_XYZ.Name = "Mnu07_Strategy_XYZ"
-        Me.Mnu07_Strategy_XYZ.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_XYZ.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_XYZ.Text = "Stratégie des XYZ"
         '
         'Mnu07_Strategy_SKy
         '
         Me.Mnu07_Strategy_SKy.Name = "Mnu07_Strategy_SKy"
-        Me.Mnu07_Strategy_SKy.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_SKy.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_SKy.Text = "Stratégie des SKy"
         '
         'Mnu07_Strategy_Unq
         '
         Me.Mnu07_Strategy_Unq.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu07_Strategy_Unq.Name = "Mnu07_Strategy_Unq"
-        Me.Mnu07_Strategy_Unq.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07_Strategy_Unq.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07_Strategy_Unq.Text = "Stratégie des Unq"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(267, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(243, 6)
         '
         'Mnu07n_Gbl
         '
         Me.Mnu07n_Gbl.Name = "Mnu07n_Gbl"
-        Me.Mnu07n_Gbl.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_Gbl.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_Gbl.Text = "Gbl"
         '
         'Mnu07n_Gbv
         '
         Me.Mnu07n_Gbv.Name = "Mnu07n_Gbv"
-        Me.Mnu07n_Gbv.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_Gbv.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_Gbv.Text = "Gbv"
         '
         'Mnu07n_GCs
         '
         Me.Mnu07n_GCs.Name = "Mnu07n_GCs"
-        Me.Mnu07n_GCs.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_GCs.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_GCs.Text = "GCs"
         '
         'Mnu07n_XCx
         '
         Me.Mnu07n_XCx.Name = "Mnu07n_XCx"
-        Me.Mnu07n_XCx.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_XCx.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_XCx.Text = "XCx"
         '
         'Mnu07n_XCy
         '
         Me.Mnu07n_XCy.Name = "Mnu07n_XCy"
-        Me.Mnu07n_XCy.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_XCy.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_XCy.Text = "XCy"
         '
         'Mnu07n_XRp
         '
         Me.Mnu07n_XRp.Name = "Mnu07n_XRp"
-        Me.Mnu07n_XRp.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_XRp.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_XRp.Text = "XRp"
         '
         'Mnu07n_XNl
         '
         Me.Mnu07n_XNl.Name = "Mnu07n_XNl"
-        Me.Mnu07n_XNl.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_XNl.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_XNl.Text = "XNl"
         '
         'Mnu07n_WgX
         '
         Me.Mnu07n_WgX.Name = "Mnu07n_WgX"
-        Me.Mnu07n_WgX.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_WgX.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_WgX.Text = "WgX"
         '
         'Mnu07n_WgY
         '
         Me.Mnu07n_WgY.Name = "Mnu07n_WgY"
-        Me.Mnu07n_WgY.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_WgY.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_WgY.Text = "WgY"
         '
         'Mnu07n_WgZ
         '
         Me.Mnu07n_WgZ.Name = "Mnu07n_WgZ"
-        Me.Mnu07n_WgZ.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_WgZ.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_WgZ.Text = "WgZ"
         '
         'Mnu07n_WgW
         '
         Me.Mnu07n_WgW.Name = "Mnu07n_WgW"
-        Me.Mnu07n_WgW.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_WgW.Size = New System.Drawing.Size(246, 34)
         Me.Mnu07n_WgW.Text = "WgW"
         '
         'Mnu09
