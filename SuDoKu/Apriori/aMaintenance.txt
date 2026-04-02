@@ -337,27 +337,15 @@
 #674 Me 01/04/2026 B_Solution est remplacée par B_Famille
 #675 J  02/04/2026 Denis Berthier perd XChain, AIC, Whip et Braid
 #676 J  02/04/2026 Option Explicit et Strict On sont supprimés des modules
+#677 J  02/04/2026 Menus ForeColor=Control Text
+#678 J  02/04/2026 Résolution avec Denis Berthier
+#679 J  02/04/2026 Résolution avec Stg_Profondeur
 
 
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
-                   B_Solution devrait changer de nom, elle comporte à présent le code stratégie
                    Est-il possible de mattre en option If Cdu_Exists Then GoTo Pzzl_Prd_Batch_Exit dans Pzzl_Prd_Batch
-                   ??? est-ce que DL est lancé à chaque chargement de partie ? 
-                   ??? est-ce qu'un message est affiché ?
-?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
-Grandes étapes:
-                    9 X_Xhain         G + DFS fait
-                    8 XY_Chain        G + DFS   
-                    7 Remote_Pairs    G + DFS 
-                    6 Nice_Loop       G + DFS
-                    5 Wing_X          G
-                    4 Wing_XY         G
-                    3 Wing_XYZ        G
-                    2 Wing_W          G
-                    1 Recommencer GitHub avec un seul profil ! 
-                    0 Stratégie Loop discontinue
 ##############################################################################################################################
-	               Lors de la saisie, est-ce que DL est calculé
+                   mettre en place un compteur de pénalités
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
                    Revoir le traitement en arrière-plan si on est en mode de maintenance
                    Je ne peux plus ajouter un candidat après l'avoir supprimé

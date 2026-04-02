@@ -129,13 +129,13 @@ Module DB_01
   End Sub
   Public Function Describe(ByVal Cdd As Candidate) As String
     With Cdd
-      Return $" {CStr(.ID),3} R{ .Row}_C{ .Col} { .Digit}  Act={ CStr(.IsActive),-5} Sol={ CStr(.IsSolved),-5} Strong:{ .StrongLinks.Count} Weak:{ .WeakLinks.Count}"
+      Return $" {CStr(.ID),3} L{ .Row}_C{ .Col} { .Digit}  Act={ CStr(.IsActive),-5} Sol={ CStr(.IsSolved),-5} Strong:{ .StrongLinks.Count} Weak:{ .WeakLinks.Count}"
     End With
   End Function
   Public Function Controle_P(Cdd As Candidate) As Boolean
     Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
     If XSolution(Cellule) <> CStr(Cdd.Digit) Then
-      Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord_DB(Cellule) & " " & XSolution(Cellule) & " est attendu au lieu de " & CStr(Cdd.Digit) & "."})
+      Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & " " & XSolution(Cellule) & " est attendu au lieu de " & CStr(Cdd.Digit) & "."})
       Return False
     End If
     Return True
@@ -143,7 +143,7 @@ Module DB_01
   Public Function Controle_E(Cdd As Candidate) As Boolean
     Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
     If XSolution(Cellule) = CStr(Cdd.Digit) Then
-      Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord_DB(Cellule) & " " & CStr(Cdd.Digit) & " est la solution. "})
+      Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & " " & CStr(Cdd.Digit) & " est la solution. "})
       Return False
     End If
     Return True

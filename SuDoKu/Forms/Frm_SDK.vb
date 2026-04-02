@@ -209,7 +209,7 @@ Public NotInheritable Class Frm_SDK
     Mnu07n_WgY.Text = Stg_Get("WgY").Texte
     Mnu07n_WgZ.Text = Stg_Get("WgZ").Texte
     Mnu07n_WgW.Text = Stg_Get("WgW").Texte
-
+    Mnu08_Résolution.Text = "Résolution SDK _ Stratégies " & Stg_Profondeur
     Mnu0902.Enabled = False
     Mnu0910_GLk.Text = Stg_Get("GLk").Texte & "..."
     Mnu0930_Gbl.Text = Stg_Get("Gbl").Texte
@@ -1446,6 +1446,17 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add(, {"Durée: " & CStr(Durée).PadLeft(5) & " ms, soit " & String.Format("{0:00}:{1:00}:{2:00}:{3:000}", Ts.Hours, Ts.Minutes, Ts.Seconds, Ts.Milliseconds)})
     Jrn_Add(, {"Durée U_Checking comprise. "})
     Cursor.Current = Cursors.Default
+  End Sub
+  Private Sub Mnu08_RésoudreDenisBerthier_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreDenisBerthier.Click
+    Dim Grid As String = ClipBoard_Copier_New("1")
+    Jrn_Add(, {Grid})
+    Dim AllCandidates(728) As Candidate
+    AllCandidates_Init(AllCandidates)
+    SDK_AllCandidate(Grid, AllCandidates)
+    PropagateSolvedCandidates(AllCandidates)
+    Dim Solved As Boolean = DB_Solution(AllCandidates)
+    If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."})
+    AllCandidates_SDK(AllCandidates)
   End Sub
   Private Sub Mnu08_EditionDuProblème_Click(sender As Object, e As EventArgs) Handles Mnu08_EditionDuProblème.Click
     Jrn_Add(, {Proc_Name_Get()})

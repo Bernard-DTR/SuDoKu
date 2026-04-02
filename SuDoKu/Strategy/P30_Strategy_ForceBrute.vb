@@ -3,13 +3,6 @@
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   'La force brute utilise U, elle est utilisée ESSENTIELLEMENT interactivement ET NON en arrière-plan
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  '-------------------------------------------------------------------------------
-  ' Mise en place le 18/06/2023 Guise-Abbaye de St-Michel en Thiérache
-  ' Origine: \SuDoKu_2023\S95_AutresJeux\Planete\VB_Net_Sud1916447222005\Sudoku\Sudoku.sln
-  '          Le code Force Brute est issu d'un autre site
-  '          L'ensemble des URL est 404!
-  '-------------------------------------------------------------------------------
   Dim Profondeur_Rsl_Max As Integer = 0
   Dim Profondeur_Rls As Integer = 0
   ReadOnly Cube_Sdk(9, 9, 11) As Integer

@@ -68,6 +68,7 @@ Friend Module A02_Occasionally
       End If
     Next Stg
     Stg_Profondeur = sb.ToString()
+    Frm_SDK.Mnu08_Résolution.Text = "Résolution SDK _ Stratégies " & Stg_Profondeur
 
     ' 3  Gestion des boutons des stratégies Enabled/Unelabled de la barre d'outils
     'Stg_List_Code: CdU , CdO, Cbl, Tpl, Xwg, XYw, Swf, Jly, XYZ, SKy, Unq

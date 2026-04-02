@@ -70,22 +70,6 @@
   End Sub
   Public Sub TestI()
     Jrn_Add(, {Proc_Name_Get()})
-    ' Lancement de la solution DB_Solution de Denis_Berthier
-    '  La grille proposée est la grille en cours, elle est copiée-collée,
-    '            chargée dans le modèle Berthier
-    '            traitée
-    '  et remise dans le modèle SDK
-    '  les traitements sont tracés dans le journal
-
-    Dim Grid As String = ClipBoard_Copier_New("1")
-    Jrn_Add(, {Grid})
-    Dim AllCandidates(728) As Candidate
-    AllCandidates_Init(AllCandidates)
-    SDK_AllCandidate(Grid, AllCandidates)
-    PropagateSolvedCandidates(AllCandidates)
-    Dim Solved As Boolean = DB_Solution(AllCandidates)
-    If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."})
-    AllCandidates_SDK(AllCandidates)
   End Sub
   Public Sub TestJ()
     Jrn_Add(, {Proc_Name_Get()})

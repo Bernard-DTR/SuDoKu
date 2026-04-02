@@ -26,17 +26,6 @@
     End If
     Return U_cr(Cellule)
   End Function
-
-  Function U_Coord_DB(Cellule As Integer) As String
-    'U_Coord devient un wrapper
-    If Cellule < 0 OrElse Cellule > 80 Then
-      Return "❗" & Cellule.ToString().PadRight(4)
-    End If
-    'Return U_cr(Cellule)
-    Return "R" & U_Row(Cellule) + 1 & "_" & "C" & U_Col(Cellule) + 1               ' Format Rx_Cy conformr Denis Berthier
-  End Function
-
-
   Public Sub U_Display()
     Jrn_Add("SDK_30010")
     Jrn_Add("SDK_30011")
