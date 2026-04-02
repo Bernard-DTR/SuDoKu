@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports SuDoKu.DancingLink
+﻿Imports SuDoKu.DancingLink
 
 Friend Module M20_Game
   Public Sub Game_New_Game(Gnrl As String,

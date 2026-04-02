@@ -1,9 +1,5 @@
 ﻿'  Created By: Marc Cramer
 '  Legal Copyright: Marc Cramer © 1/28/2003
-
-Option Strict On
-Option Explicit On
-
 Imports System.ComponentModel
 
 Public Class ColorCombobox

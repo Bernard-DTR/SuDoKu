@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports System.Reflection
+﻿Imports System.Reflection
 Public NotInheritable Class Frm_About
 
   '-------------------------------------------------------------------------------

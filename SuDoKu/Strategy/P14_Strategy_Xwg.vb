@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------
+﻿'-------------------------------------------------------------------------------
 '
 ' Stratégie des XWing
 ' - dans 2 colonnes, en supprimant les candidats dans 2 lignes
@@ -11,8 +8,7 @@ Option Explicit On
 ' La stratégie XYWing est notée XYw
 '-------------------------------------------------------------------------------
 'La stratégie XWg utilise Strategy_Rslt qui stocke les candidats et les cellules des candidats bloqués
-'
-'
+
 '  XU est utilisé pour placer en colonne 10 le candidat commun sur la ligne
 '                          et en ligne   10 le candidat commun sur la colonne
 '  XU représente donc la grille d'un candidat en 9*9 avec les résultats en ligne et colonne 10

@@ -1,10 +1,7 @@
-﻿Option Strict On
-Option Explicit On
-Friend Module M03_Sélection
+﻿Friend Module M03_Sélection
   '-------------------------------------------------------------------------------
   ' Traitement de la Sélection 
   '-------------------------------------------------------------------------------
-
   Sub Cell_Val_Insert(V As String, Cellule As Integer, Origine As String)
     ' 01  Les Conditions d'Insertion
     If Cellule < 0 Or Cellule > 80 Then Exit Sub

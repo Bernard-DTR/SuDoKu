@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------------------
+﻿'-------------------------------------------------------------------------------------------
 ' Stratégie des CdU avec Strategy_Rslt
 '
 ' La stratégie CdU est la plus simple, il faut que le candidat soit unique, le plus simple est de tester

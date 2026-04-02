@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-Friend Module En_Cours
+﻿Module A_En_Cours
 #Region "Menus Test A à J"
   Public Sub TestA()
     Jrn_Add(, {Proc_Name_Get()})
@@ -82,8 +79,6 @@ Friend Module En_Cours
 
     Dim Grid As String = ClipBoard_Copier_New("1")
     Jrn_Add(, {Grid})
-    Jrn_Add_Orange("XSolution est déjà calculé ! ")
-    Jrn_Add_Orange(XSolution)
     Dim AllCandidates(728) As Candidate
     AllCandidates_Init(AllCandidates)
     SDK_AllCandidate(Grid, AllCandidates)

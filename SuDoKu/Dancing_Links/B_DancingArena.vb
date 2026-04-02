@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-' Copyright (c) 2006 Miran Uhan
+﻿' Copyright (c) 2006 Miran Uhan
 Namespace DancingLink
 
   Friend MustInherit Class B_DancingArena

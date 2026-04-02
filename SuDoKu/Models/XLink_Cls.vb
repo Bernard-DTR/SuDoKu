@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Public Class XLink_Cls
+﻿Public Class XLink_Cls
   ' Classe structurant un Lien
   '   La structure d'un Lien comporte 2 cellules, le lien sera Cel(0) → Cel(1)
   '   puis un tableau de 9 candidats.

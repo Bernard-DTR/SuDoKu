@@ -1,12 +1,7 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------------------
-'
+﻿'-------------------------------------------------------------------------------------------
 ' Gbl G bi-locaux
 ' Mise en place 20/12/2025 
 '-------------------------------------------------------------------------------------------
-
 Module G050_Strategy_bi_locaux
   Public Sub Strategy_Gbl(U_temp(,) As String)
     ' Cette procédure affiche les liens forts pour supprimer Les Candidats Bloqués

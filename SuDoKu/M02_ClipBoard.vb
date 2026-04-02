@@ -1,12 +1,8 @@
-﻿Option Strict On
-Option Explicit On
-Imports System.Drawing.Imaging
-
+﻿Imports System.Drawing.Imaging
 Friend Module M02_ClipBoard
   '-------------------------------------------------------------------------------
   ' Traitement des Copier-Coller
   '-------------------------------------------------------------------------------
-
   Public Sub ClipBoard_Coller()
     '-----------------------------------------------------------------------
     ' OK    Copier de Angus Johnson

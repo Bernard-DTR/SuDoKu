@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-Friend Module P30_Strategy_ForceBrute
+﻿Friend Module P30_Strategy_ForceBrute
 
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   'La force brute utilise U, elle est utilisée ESSENTIELLEMENT interactivement ET NON en arrière-plan

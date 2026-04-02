@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-Public Class Frm_LoadParties
+﻿Public Class Frm_LoadParties
   '-------------------------------------------------------------------------------
   '
   '  Formulaire de Gestion des Parties.

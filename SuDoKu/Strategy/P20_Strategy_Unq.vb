@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------
+﻿'-------------------------------------------------------------------------------
 ' Stratégie des Uniqueness Test                           
 ' Préfixe       Unq
 ' Documentation issue de http://sudopedia.enjoysudoku.com/Uniqueness_Test.html

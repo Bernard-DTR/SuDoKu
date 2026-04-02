@@ -1,8 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'04/02/2025 
-
+﻿'04/02/2025 
 Friend Module M49_Prd_General
 #Region "Structure Prd"
   'La structure Prd est nécessaire à la production d'une grille afin de passer des informations

@@ -1,15 +1,9 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------------------
+﻿'-------------------------------------------------------------------------------------------
 ' Vendredi 22/08/2025
 ' Stratégie Wing_XYZ
-'  
 ' Préfixe WgZ, 
 ' Les stratégies sont ou seront X, XY, XYZ et W, soit WgX, WgY, WgZ et WgW
-'
 '6...527..4....35......1.............37.1.8.4...574.6.3..89..42.......3....2.86..9
-'
 '
 '📌 Définition de la stratégie XYZ-Wing
 'On a trois cases qui forment un motif :

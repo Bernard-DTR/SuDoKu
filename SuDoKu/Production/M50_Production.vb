@@ -1,13 +1,9 @@
-﻿Option Strict On
-Option Explicit On
-Imports SuDoKu.DancingLink
+﻿Imports SuDoKu.DancingLink
 Imports SuDoKu.DancingLink.A_Copyright
-
 '08/12/2023  
 ' Prd Module de Production de Puzzle
 '     Crt Création d'une Grille + Slv Solution d'une grille = Prd d'un Puzzle
 '     Pzzl_Prd_Interactive | Pzzl_Prd_Batch = Pzzl_Crt + Pzzl_Slv
-
 Friend Module M50_Production
   'Pzzl_Prd dépend uniquement des paramètres entrés et sortis de Prd.Prd_ qqch
   'Production d'une grille de Sudoku

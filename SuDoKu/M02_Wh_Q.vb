@@ -1,13 +1,8 @@
-﻿Option Strict On
-Option Explicit On
-
-Module M02_Wh_Q
+﻿Module M02_Wh_Q
   '-------------------------------------------------------------------------------
   ' Wh What Réservé aux fonctions
   ' Hw How  Réservé aux procédures
   '-------------------------------------------------------------------------------
-
-
   Public Function Wh_3RowReg(Région As Integer) As Integer()
     ' Retourne les 3 Rangées d'une Région
     Dim Wh_3Row(2) As Integer

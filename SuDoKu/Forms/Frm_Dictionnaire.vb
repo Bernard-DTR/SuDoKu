@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-Imports System.Data
+﻿Imports System.Data
 Imports System.Data.SqlClient
 
 ' DGV           DataGridView

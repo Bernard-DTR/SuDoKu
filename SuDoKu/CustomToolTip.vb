@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-' Usage : Clic Middle pour afficher les candidats de l'unité
+﻿' Usage : Clic Middle pour afficher les candidats de l'unité
 Public Class CustomToolTip
   Inherits Form
   Private _text As String

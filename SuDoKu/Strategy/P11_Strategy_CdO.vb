@@ -1,13 +1,9 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------------------
+﻿'-------------------------------------------------------------------------------------------
 ' Stratégie des CdO
 '
 ' La stratégie CdO consiste à vérifier qu'un des candidats de la cellule ne peut aller qu'à cet endroit
 '    de la ligne, de la colonne ou de la région. Il faut donc vérifier l'unicité de ce candidat dans les 3 unités
 '-------------------------------------------------------------------------------------------
-
 Friend Module P11_Strategy_CdO
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   'Il est impératif d'utiliser U_temp, copie de U, pour utiliser la stratégie interactivement ET en arrière-plan

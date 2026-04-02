@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports SuDoKu.DancingLink       ' Pour l'indication de mémoire
+﻿Imports SuDoKu.DancingLink       ' Pour l'indication de mémoire
 
 '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ' Mise en place 19/12/2025

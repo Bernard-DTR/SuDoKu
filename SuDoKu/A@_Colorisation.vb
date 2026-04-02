@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports System.Drawing.Drawing2D
+﻿Imports System.Drawing.Drawing2D
 
 ' Dimanche 27/04/2025 Colorisation
 ' Préfixe  

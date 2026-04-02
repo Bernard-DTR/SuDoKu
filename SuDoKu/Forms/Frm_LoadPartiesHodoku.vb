@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports SuDoKu.DancingLink
+﻿Imports SuDoKu.DancingLink
 
 Public Class Frm_LoadPartiesHodoku
   '-------------------------------------------------------------------------------

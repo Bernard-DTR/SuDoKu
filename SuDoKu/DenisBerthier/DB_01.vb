@@ -1,6 +1,5 @@
 ﻿Imports SuDoKu.DancingLink
 
-
 Module DB_01
   '--------------------------------------------------------------------------------
   ' Objectifs:
@@ -37,6 +36,7 @@ Module DB_01
               AllCandidates(id).IsActive = True
               AllCandidates(id).IsSolved = True
               Nb_ValeursInitiales += 1
+              Trace("vi", AllCandidates(id))
             Else
               AllCandidates(id).IsActive = False
               AllCandidates(id).IsSolved = False
@@ -66,7 +66,6 @@ Module DB_01
       U_temp(i, 2) = " "
       U_temp(i, 3) = Cnddts_Blancs
     Next
-
     ' Remplissage
     For Each Cdd As Candidate In AllCandidates
       If Not Cdd.IsActive Then Continue For
@@ -81,13 +80,11 @@ Module DB_01
         U_temp(Cellule, 3) = Candidats
       End If
     Next
-
     For i As Integer = 0 To 80
       'U(i, 1) = U_temp(i, 1) '= " "
       U(i, 2) = U_temp(i, 2) '= " "
       U(i, 3) = U_temp(i, 3) '= Cnddts_Blancs
     Next
-
     Event_OnPaint_MAP = Proc_Name_Get()
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
@@ -97,9 +94,7 @@ Module DB_01
   '--------------------------------------------------------------------------------
   Public Function IsSolved(ByVal AllCandidates() As Candidate) As Boolean
     'Dès qu'une cellule a plus d'un candidat actif, le grille n'est pas résolue
-
     Dim activeCount As Integer
-
     For r As Integer = 1 To 9
       For c As Integer = 1 To 9
         activeCount = 0
@@ -118,20 +113,6 @@ Module DB_01
     'Chaque cellule a 1 seul candidat actif: la grille est résolue
     Return True
   End Function
-  Public Function HasAnyStrongLinks(ByVal AllCandidates() As Candidate) As Boolean
-    ' La fonction vérifie s'il existe au moins un lien fort dans la grille
-    '    si aucun lien fort n'exite, alors aucun Whip n'est possible 
-    '    Cela évite de lancer des DFS inutiles
-    For id As Integer = 0 To 728
-      If AllCandidates(id).IsActive Then
-        If AllCandidates(id).StrongLinks.Count > 0 Then
-          Return True
-        End If
-      End If
-    Next id
-    Return False
-  End Function
-
   '--------------------------------------------------------------------------------
   ' Fonctions utilitaires
   '--------------------------------------------------------------------------------
@@ -167,5 +148,4 @@ Module DB_01
     End If
     Return True
   End Function
-
 End Module

@@ -1,10 +1,6 @@
-﻿Option Strict On
-Option Explicit On
-
-Imports System.Threading
+﻿Imports System.Threading
 
 '08/12/2023  
-
 Friend Module M59_Prd_Batch
   Public Sub Batch_Initial()
     '///////////////////////////////////////////////////////////////////////////////////////

@@ -1,14 +1,9 @@
-﻿Option Strict On
-Option Explicit On
-
-'Dans le menu projet, cliquez sur Ajouter une référence.
+﻿'Dans le menu projet, cliquez sur Ajouter une référence.
 '     Sous l'onglet COM ,recherchez la Bibliothèque d'objets Microsoft Word, 
 '     cliquez sur Sélectionner.
 Imports System.Reflection                                     ' Nécessaire pour Assembly et StackFrame
 Imports System.Runtime.InteropServices                        ' Nécessaire pour Marshal.SizeOf(DisplayDevice)
 Imports SuDoKu.NativeMethods
-
-
 Module G20_Général
   '-------------------------------------------------------------------------------
   ' Traitement 

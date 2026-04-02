@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-Imports System.Drawing.Text
+﻿Imports System.Drawing.Text
 
 Public Class Frm_Police
 

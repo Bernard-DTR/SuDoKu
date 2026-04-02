@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-' Implements sudoku puzzle solver with dancing links.
+﻿' Implements sudoku puzzle solver with dancing links.
 ' Copyright (c) 2006 Miran Uhan
 Namespace DancingLink
 

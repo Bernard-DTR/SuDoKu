@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports System.Drawing.Drawing2D
+﻿Imports System.Drawing.Drawing2D
 Imports System.Runtime.InteropServices   ' Nécessaire à <DllImport("user32.dll")>
 Imports System.Threading
 

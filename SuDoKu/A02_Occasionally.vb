@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-Imports System.Drawing.Drawing2D
+﻿Imports System.Drawing.Drawing2D
 Imports System.Text
 
 ' Date de création: 28/07/2024

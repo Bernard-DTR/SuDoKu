@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-Public Class Frm_Préférences
+﻿Public Class Frm_Préférences
   '-------------------------------------------------------------------------------
   'Le formulaire est constitué d'onglets
   'Il est ouvert à l'endroit où il a été fermé, comme il a été fermé, sauf à l'ouverture de l'application.

@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'Date de création: Dimanche 28/07/2024
+﻿'Date de création: Dimanche 28/07/2024
 'Ce Module regroupe l'ensemble des traitements qui ne sont faits qu'une seule fois
 
 Friend Module A01_OnlyOnce

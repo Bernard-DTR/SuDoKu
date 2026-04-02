@@ -1,8 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-Module M02_Menu_Management
-
+﻿Module M02_Menu_Management
   Sub Mnu_EDI(Action As String, sender As Object, e As EventArgs)
     'Alternance de Swt_ModeEdition permettant de Lancer puis d'Arrêter le Mode Edition
     'Arrêt du Mode de clignotement qui "fatigue visuellement"

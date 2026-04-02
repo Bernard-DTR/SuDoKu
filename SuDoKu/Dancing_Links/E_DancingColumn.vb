@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-' Class implementing column header.
+﻿' Class implementing column header.
 ' Copyright (c) 2006 Miran Uhan
 Namespace DancingLink
 

@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports SuDoKu.DancingLink
+﻿Imports SuDoKu.DancingLink
 
 '-------------------------------------------------------------------------------------------
 'Mardi 08/07/2025

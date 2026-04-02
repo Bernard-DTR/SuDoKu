@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------
+﻿'-------------------------------------------------------------------------------
 '
 '
 '  Ce module comporte la stratégie Jellyfish, identique à swordfish, mais en 4x4

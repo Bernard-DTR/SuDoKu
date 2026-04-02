@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-' Class implementing matrix "1" element as data object.
+﻿' Class implementing matrix "1" element as data object.
 ' Copyright (c) 2006 Miran Uhan
 Namespace DancingLink
 

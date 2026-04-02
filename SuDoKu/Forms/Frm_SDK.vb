@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports System.Threading
+﻿Imports System.Threading
 Imports SuDoKu.DancingLink
 
 Public NotInheritable Class Frm_SDK

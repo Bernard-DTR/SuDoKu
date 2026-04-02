@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'---------------------------------------------------------------------------------------------------------------------------------
+﻿'---------------------------------------------------------------------------------------------------------------------------------
 ' Strategy_Rslt  comporte les informations des calculs des différentes stratégies
 '          il est suffisamment large pour contenir les informations de la stratégie
 '                                                  45 cellules concernées    

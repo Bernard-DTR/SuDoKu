@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-'Création: 31/01/2023
+﻿'Création: 31/01/2023
 Imports System.Reflection ' Nécessaire pour Property Info
 
 Public Class Frm_SystemInfoBrowser

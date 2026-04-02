@@ -1,14 +1,6 @@
-﻿Option Strict On
-Option Explicit On
-
-Module M10_Transformation
+﻿Module M10_Transformation
   '-------------------------------------------------------------------------------
   'Procédure de Transformation d'une grille
-  '04/03/2024 Permutation de lignes par bande
-  '           Permutation de colonnes par pile
-  'https://les-mathematiques.net/vanilla/discussion/1778116/bi-cycles-dans-un-sudoku
-  'https://fr.wikipedia.org/wiki/Math%C3%A9matiques_du_sudoku
-  'https://perso.univ-rennes1.fr/matthieu.romagny/agreg/exo/sudoku.pdf
   'Il y a permutation des valeurs et persistance des positions des VI
   'Uu(80) booleen reprend U(i,1) pour préciser si la cellule est ou n'est pas Valeur initiale
   'La grille doit être complète.
@@ -21,23 +13,6 @@ Module M10_Transformation
   '                concerne les lignes ou les colonnes
   '                1-3-2, 2-1-3, 2-3-1, 3-1-2 et 3-2-1  
   '-------------------------------------------------------------------------------
-  ' Denis Berthier
-  '  Symétries « géométriques » de la grille : 
-  'permutations des rangées individuelles 1, 2, 3 
-  'permutations des rangées individuelles 4, 5, 6 ; 
-  'permutations des rangées individuelles 7, 8, 9 ; 
-  'permutations de triolets des rangées 1-3, 4-6 et 7-9 ; 
-  'symétrie par rapport à la première diagonale (symétrie ligne-colonne). 
-  'De ces symétries géométriques primaires, d'autres peuvent être déduites : 
-  'permutations de colonnes individuelles 1, 2, 3 ; 
-  'permutations de colonnes individuelles 4, 5, 6 ; - permutations de colonnes individuelles 7, 8, 9 ; 
-  'permutations de triolets des colonnes 1-3, 4-6 et 7-9 ; 
-  'réflexion (symétrie gauche-droite) ; 
-  'symétrie haut-bas ; 
-  'symétrie par rapport à la deuxième diagonale ; 
-  'rotation 
-  '-------------------------------------------------------------------------------
-
   Public Sub Transf_Permutation()
     Dim U_temp(80, 3) As String
     Dim Uu(80) As Boolean

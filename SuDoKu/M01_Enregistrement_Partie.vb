@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Imports System.IO
-
+﻿Imports System.IO
 Module M01_Enregistrement_Partie
   Public Function Pzzl_Save(Prd As Prd_Struct) As String
     ' Enregistrement d'un Puzzle

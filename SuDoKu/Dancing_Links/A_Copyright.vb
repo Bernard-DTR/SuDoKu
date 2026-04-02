@@ -1,6 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-Namespace DancingLink
+﻿Namespace DancingLink
   Module A_Copyright
 
 #Region "Copyright" ' Copyright (c) 2006 Miran Uhan

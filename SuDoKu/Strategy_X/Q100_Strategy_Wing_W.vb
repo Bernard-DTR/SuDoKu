@@ -1,10 +1,6 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------------------
+﻿'-------------------------------------------------------------------------------------------
 ' Jeudi 14/08/2025, Lundi 25/08/2025
 ' Stratégie Wing_XYZ
-'  
 ' Préfixe WgW, 
 ' Les stratégies sont ou seront X, XY, XYZ et W, soit WgX, WgY, WgZ et WgW
 '

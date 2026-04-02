@@ -1,24 +1,7 @@
-﻿Option Strict On
-Option Explicit On
-
-Module M12_Collection
+﻿Module M12_Collection
   '-------------------------------------------------------------------------------
   ' Traitement des Collections et accès aléatoire
   ' Une Collection est un ensemble d'éléments ordonnés qui peut être désigné sous le nom d'unité,
-  ' Ces éléments représentent en général des Numéros de Cellule de 0 à 80
-  ' EXEMPLE    :
-  ' les cellules 11,23,45 et 89 sont des cellules à candidat unique.
-  '     pour choisir au hasard UNE cellule, on range dans une collection CU_Clct ces 4 cellules,
-  '     on choisit au hasard un chiffre entre 1 et 5 (.Next, 1 inclu, 5 exclu)
-  '     on trouve peut-être 2, donc la cellule 23 est choisie et le poste 2 exclu
-  ' UTILISATION:
-  ' 1 Il faut déclarer la Collection : Dim Rég_Clct As New Collection          ' Collection des 9 Régions
-  '           le nom DOIT être             xxx_Clct
-  ' 2 Si la collection comporte les 81 cellules on peut utiliser
-  '           Clct_Init(xxx_Clct, 0, 80)
-  '   Sinon on ajoute une valeur Clct_Add(xxx_Clct, i)
-  ' 3 Enfin, pour récupérer au hasard une valeur de la collection:
-  '   Dim Valeur_LCR As Integer = Clct_Random(xxx_Clct)
   '-------------------------------------------------------------------------------
   Sub Clct_Init(Coll As Collection, first As Integer, last As Integer)
     'Initialisation d'une Collection INTEGER

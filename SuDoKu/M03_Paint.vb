@@ -1,14 +1,9 @@
-﻿Option Strict On
-Option Explicit On
-
-Imports System.Drawing.Drawing2D
-
+﻿Imports System.Drawing.Drawing2D
 Friend Module M03_Paint
   '-------------------------------------------------------------------------------
   ' 20/09/2022 L'ensemble des dessins sont faits à l'intérieur de Sqr_Cel
   '            avec Top-Left + 1 et Width-Height - 3
   '-------------------------------------------------------------------------------   
-
 #Region "G4 Couche Stratégie"
   '   La couche G4 stratégies n'est appelée que dans G4_Grid_Stratégie_All,
   Public Sub G4_Grid_Stratégie_All(g As Graphics)

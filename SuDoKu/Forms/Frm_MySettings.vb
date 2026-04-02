@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'Création : Me 01/02/2023
+﻿'Création : Me 01/02/2023
 
 Public Class Frm_MySettings
   Private Sub Frm_MySettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load

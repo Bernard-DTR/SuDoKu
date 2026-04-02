@@ -1,7 +1,4 @@
-﻿Option Strict On
-Option Explicit On
-
-'-------------------------------------------------------------------------------
+﻿'-------------------------------------------------------------------------------
 ' Création  Mardi 14/05/2024  
 '
 ' La mise en place d'une nouvelle stratégie entraîne la mise place de différents éléments:

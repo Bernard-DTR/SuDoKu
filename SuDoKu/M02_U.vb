@@ -1,13 +1,7 @@
-﻿Option Strict On
-Option Explicit On
-
-Module M02_U
+﻿Module M02_U
   '-------------------------------------------------------------------------------
   ' Regroupe l'ensemble des traitements concernant le tableau U
   ' 
-  '-------------------------------------------------------------------------------
-
-  '-------------------------------------------------------------------------------
   ' Gestion de U
   ' Cellules                           Régions
   ' 

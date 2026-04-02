@@ -1,11 +1,6 @@
-﻿Option Strict On
-Option Explicit On
-'-------------------------------------------------------------------------------
-'
+﻿'-------------------------------------------------------------------------------
 ' Stratégie des Tuples: Paires, Triples et Quadruples
-'
 '-------------------------------------------------------------------------------
-
 Friend Module P13_Strategy_Tpl
   '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   'Il est impératif d'utiliser U_temp, copie de U, pour utiliser la stratégie interactivement ET en arrière-plan
@@ -315,7 +310,7 @@ Friend Module P13_Strategy_Tpl
       Cd_Str = "........."
       For cd As Integer = 1 To 9
         If (TpC(cd) <> 0 And TpA(cd) = 0) Then Mid$(Cd_Str, cd, 1) = CStr(cd)
-      Next Cd
+      Next cd
 
       For cd As Integer = 1 To 9
         nb = 0

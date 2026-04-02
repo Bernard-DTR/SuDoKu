@@ -1,16 +1,6 @@
-﻿Option Strict On
-Option Explicit On
-
-Imports System.Drawing.Drawing2D
-
+﻿Imports System.Drawing.Drawing2D
 ' Création le 16/01/2026  
-' Nommage:
-' Paint
-'     N° de Couche
-'         Grid ou Cellule
-
 Module M03_Paint_g
-
 #Region "G1 Couche Quadrillage"
   Public Sub G1_Grid_Paint_g(g As Graphics)
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
