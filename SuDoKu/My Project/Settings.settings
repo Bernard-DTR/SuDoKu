@@ -136,9 +136,6 @@
     <Setting Name="Date_Extraction" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Prf_05D_Plcy_AfficherDCdd_Bande" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="Prf_03R_Plcy_Stg_Clb" Type="System.String" Scope="User">
       <Value Profile="(Default)">NNNNNNNNNN</Value>
     </Setting>
@@ -156,6 +153,9 @@
     </Setting>
     <Setting Name="Prd_Number" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">700</Value>
+    </Setting>
+    <Setting Name="Prf_02C_Create_Grille_CdU" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

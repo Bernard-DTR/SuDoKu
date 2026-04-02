@@ -1662,7 +1662,11 @@ Pzzl_Prd_Batch_End:
           Exit For
         End If
       Next i
-      'If Cdu_Exists Then GoTo Pzzl_Prd_Batch_Exit
+
+      If Create_Grille_CdU Then
+      Else
+        If Cdu_Exists Then GoTo Pzzl_Prd_Batch_Exit
+      End If
 
       'Enregistrement du Puzzle
       Dim File As String = Pzzl_Save(Prd)

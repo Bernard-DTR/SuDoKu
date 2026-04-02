@@ -24,7 +24,6 @@ Partial Class Frm_Préférences
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Onglet_05 = New System.Windows.Forms.TabPage()
-        Me.CB05_12 = New System.Windows.Forms.CheckBox()
         Me.CB05_11 = New System.Windows.Forms.CheckBox()
         Me.CB05_10 = New System.Windows.Forms.CheckBox()
         Me.Btn05_90 = New System.Windows.Forms.Button()
@@ -34,6 +33,7 @@ Partial Class Frm_Préférences
         Me.CLB03_Stratégies = New System.Windows.Forms.CheckedListBox()
         Me.Btn03_92 = New System.Windows.Forms.Button()
         Me.Onglet_02 = New System.Windows.Forms.TabPage()
+        Me.CB02_12 = New System.Windows.Forms.CheckBox()
         Me.TB02_07 = New System.Windows.Forms.TextBox()
         Me.Lbl02_07 = New System.Windows.Forms.Label()
         Me.Lbl02_03 = New System.Windows.Forms.Label()
@@ -99,7 +99,6 @@ Partial Class Frm_Préférences
         'Onglet_05
         '
         Me.Onglet_05.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Onglet_05.Controls.Add(Me.CB05_12)
         Me.Onglet_05.Controls.Add(Me.CB05_11)
         Me.Onglet_05.Controls.Add(Me.CB05_10)
         Me.Onglet_05.Controls.Add(Me.Btn05_90)
@@ -110,18 +109,6 @@ Partial Class Frm_Préférences
         Me.Onglet_05.Size = New System.Drawing.Size(932, 356)
         Me.Onglet_05.TabIndex = 4
         Me.Onglet_05.Text = "D"
-        '
-        'CB05_12
-        '
-        Me.CB05_12.AutoSize = True
-        Me.CB05_12.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.CB05_12.Location = New System.Drawing.Point(15, 143)
-        Me.CB05_12.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.CB05_12.Name = "CB05_12"
-        Me.CB05_12.Size = New System.Drawing.Size(46, 24)
-        Me.CB05_12.TabIndex = 34
-        Me.CB05_12.Text = "S"
-        Me.CB05_12.UseVisualStyleBackColor = True
         '
         'CB05_11
         '
@@ -220,6 +207,7 @@ Partial Class Frm_Préférences
         'Onglet_02
         '
         Me.Onglet_02.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Onglet_02.Controls.Add(Me.CB02_12)
         Me.Onglet_02.Controls.Add(Me.TB02_07)
         Me.Onglet_02.Controls.Add(Me.Lbl02_07)
         Me.Onglet_02.Controls.Add(Me.Lbl02_03)
@@ -241,6 +229,17 @@ Partial Class Frm_Préférences
         Me.Onglet_02.Size = New System.Drawing.Size(932, 356)
         Me.Onglet_02.TabIndex = 1
         Me.Onglet_02.Text = "G"
+        '
+        'CB02_12
+        '
+        Me.CB02_12.AutoSize = True
+        Me.CB02_12.Location = New System.Drawing.Point(8, 283)
+        Me.CB02_12.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CB02_12.Name = "CB02_12"
+        Me.CB02_12.Size = New System.Drawing.Size(116, 24)
+        Me.CB02_12.TabIndex = 22
+        Me.CB02_12.Text = "CheckBox1"
+        Me.CB02_12.UseVisualStyleBackColor = True
         '
         'TB02_07
         '
@@ -878,7 +877,6 @@ Partial Class Frm_Préférences
     Friend WithEvents CB05_11 As CheckBox
     Friend WithEvents TB02_07 As TextBox
     Friend WithEvents Lbl02_07 As Label
-    Friend WithEvents CB05_12 As CheckBox
     Friend WithEvents Onglet_07 As TabPage
     Friend WithEvents DGV07_Color As DataGridView
     Friend WithEvents CB02_10 As CheckBox
@@ -890,4 +888,5 @@ Partial Class Frm_Préférences
     Friend WithEvents CB08_01 As CheckBox
     Friend WithEvents Lbl08_02 As Label
     Friend WithEvents CBB08_03 As ComboBox
+    Friend WithEvents CB02_12 As CheckBox
 End Class

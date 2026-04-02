@@ -8,16 +8,20 @@
 ' </auto-generated>
 '------------------------------------------------------------------------------
 
+Option Strict On
+Option Explicit On
+
+
 Namespace My
-
-  <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0"),
-     Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>
-  Partial Friend NotInheritable Class MySettings
-    Inherits Global.System.Configuration.ApplicationSettingsBase
-
-    Private Shared defaultInstance As MySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New MySettings()), MySettings)
-
+    
+    <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.4.0.0"),  _
+     Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
+    Partial Friend NotInheritable Class MySettings
+        Inherits Global.System.Configuration.ApplicationSettingsBase
+        
+        Private Shared defaultInstance As MySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New MySettings()),MySettings)
+        
 #Region "Fonctionnalité Enregistrement automatique My.Settings"
 #If _MyType = "WindowsForms" Then
     Private Shared addedHandler As Boolean
@@ -32,10 +36,10 @@ Namespace My
     End Sub
 #End If
 #End Region
-
-    Public Shared ReadOnly Property [Default]() As MySettings
-      Get
-
+        
+        Public Shared ReadOnly Property [Default]() As MySettings
+            Get
+                
 #If _MyType = "WindowsForms" Then
                If Not addedHandler Then
                     SyncLock addedHandlerLockObject
@@ -46,629 +50,629 @@ Namespace My
                     End SyncLock
                 End If
 #End If
-        Return defaultInstance
-      End Get
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>
-    Public Property Prf_00_Onglet_Sélecté() As Integer
-      Get
-        Return CType(Me("Prf_00_Onglet_Sélecté"), Integer)
-      End Get
-      Set
-        Me("Prf_00_Onglet_Sélecté") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("Sudoku_Paramètres")>
-    Public Property LP_Nom() As String
-      Get
-        Return CType(Me("LP_Nom"), String)
-      End Get
-      Set
-        Me("LP_Nom") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("080000500000407000003000020004050030030900806700002000000100003905004070010020900" &
-            "")>
-    Public Property LP_Prb() As String
-      Get
-        Return CType(Me("LP_Prb"), String)
-      End Get
-      Set
-        Me("LP_Prb") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("080000500000407000003000020004050030030900806700002000000100003905004070010020900" &
-            "")>
-    Public Property LP_Jeu() As String
-      Get
-        Return CType(Me("LP_Jeu"), String)
-      End Get
-      Set
-        Me("LP_Jeu") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("489263517251487369673519428194658732532971846768342195847196253925834671316725984" &
-            "")>
-    Public Property LP_Sol() As String
-      Get
-        Return CType(Me("LP_Sol"), String)
-      End Get
-      Set
-        Me("LP_Sol") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>
-    Public Property LP_Frc() As String
-      Get
-        Return CType(Me("LP_Frc"), String)
-      End Get
-      Set
-        Me("LP_Frc") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("348")>
-    Public Property LP_Numéro() As Integer
-      Get
-        Return CType(Me("LP_Numéro"), Integer)
-      End Get
-      Set
-        Me("LP_Numéro") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>
-    Public Property SDK_IE_Last_Url() As Integer
-      Get
-        Return CType(Me("SDK_IE_Last_Url"), Integer)
-      End Get
-      Set
-        Me("SDK_IE_Last_Url") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>
-    Public Property Prf_01C_Taille_Cellule() As Integer
-      Get
-        Return CType(Me("Prf_01C_Taille_Cellule"), Integer)
-      End Get
-      Set
-        Me("Prf_01C_Taille_Cellule") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("30")>
-    Public Property Prf_02C_Create_Nb_Cel_Demandées() As Integer
-      Get
-        Return CType(Me("Prf_02C_Create_Nb_Cel_Demandées"), Integer)
-      End Get
-      Set
-        Me("Prf_02C_Create_Nb_Cel_Demandées") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("Nrm")>
-    Public Property LP_Plcy_Gnrl() As String
-      Get
-        Return CType(Me("LP_Plcy_Gnrl"), String)
-      End Get
-      Set
-        Me("LP_Plcy_Gnrl") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("000000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000")>
-    Public Property LP_Cdd() As String
-      Get
-        Return CType(Me("LP_Cdd"), String)
-      End Get
-      Set
-        Me("LP_Cdd") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("5")>
-    Public Property LP_Numéro_Hodoku() As Integer
-      Get
-        Return CType(Me("LP_Numéro_Hodoku"), Integer)
-      End Get
-      Set
-        Me("LP_Numéro_Hodoku") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>
-    Public Property Prf_01C_Fond_Grille() As Integer
-      Get
-        Return CType(Me("Prf_01C_Fond_Grille"), Integer)
-      End Get
-      Set
-        Me("Prf_01C_Fond_Grille") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("Red")>
-    Public Property Prf_01C_Clr_ComboBoxVI() As String
-      Get
-        Return CType(Me("Prf_01C_Clr_ComboBoxVI"), String)
-      End Get
-      Set
-        Me("Prf_01C_Clr_ComboBoxVI") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("Green")>
-    Public Property Prf_01C_Clr_ComboBoxVCdd() As String
-      Get
-        Return CType(Me("Prf_01C_Clr_ComboBoxVCdd"), String)
-      End Get
-      Set
-        Me("Prf_01C_Clr_ComboBoxVCdd") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>
-    Public Property DGV_Dictionnaire_Width() As String
-      Get
-        Return CType(Me("DGV_Dictionnaire_Width"), String)
-      End Get
-      Set
-        Me("DGV_Dictionnaire_Width") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>
-    Public Property DGV_CodT_Width() As String
-      Get
-        Return CType(Me("DGV_CodT_Width"), String)
-      End Get
-      Set
-        Me("DGV_CodT_Width") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>
-    Public Property DGV_MotT_Width() As String
-      Get
-        Return CType(Me("DGV_MotT_Width"), String)
-      End Get
-      Set
-        Me("DGV_MotT_Width") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
-    Public Property Sql_TB_MotT_Input() As String
-      Get
-        Return CType(Me("Sql_TB_MotT_Input"), String)
-      End Get
-      Set
-        Me("Sql_TB_MotT_Input") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>
-    Public Property DGV_PrcT_Width() As String
-      Get
-        Return CType(Me("DGV_PrcT_Width"), String)
-      End Get
-      Set
-        Me("DGV_PrcT_Width") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>
-    Public Property DGV_MsgT_Width() As String
-      Get
-        Return CType(Me("DGV_MsgT_Width"), String)
-      End Get
-      Set
-        Me("DGV_MsgT_Width") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
-    Public Property Sql_TB_PrcT_Input() As String
-      Get
-        Return CType(Me("Sql_TB_PrcT_Input"), String)
-      End Get
-      Set
-        Me("Sql_TB_PrcT_Input") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
-    Public Property Sql_TB_MsgT_Input() As String
-      Get
-        Return CType(Me("Sql_TB_MsgT_Input"), String)
-      End Get
-      Set
-        Me("Sql_TB_MsgT_Input") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>
-    Public Property DGV_MotTRéservés_Width() As String
-      Get
-        Return CType(Me("DGV_MotTRéservés_Width"), String)
-      End Get
-      Set
-        Me("DGV_MotTRéservés_Width") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.ApplicationScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=HPOMEN16\SQLEXPRESS;Initial Catalog=SuDoKu;Integrated Security=True")>
-    Public ReadOnly Property Connect() As String
-      Get
-        Return CType(Me("Connect"), String)
-      End Get
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("000000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000000000000000000000000000000000000000000000000000000000000000000000000000" &
-            "00000000")>
-    Public Property LP_CddExc() As String
-      Get
-        Return CType(Me("LP_CddExc"), String)
-      End Get
-      Set
-        Me("LP_CddExc") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>
-    Public Property DGV_PrmT_Width() As String
-      Get
-        Return CType(Me("DGV_PrmT_Width"), String)
-      End Get
-      Set
-        Me("DGV_PrmT_Width") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>
-    Public Property Prf_05D_Plcy_Globale() As Boolean
-      Get
-        Return CType(Me("Prf_05D_Plcy_Globale"), Boolean)
-      End Get
-      Set
-        Me("Prf_05D_Plcy_Globale") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>
-    Public Property Prf_01C_MouseClick_Middle() As Boolean
-      Get
-        Return CType(Me("Prf_01C_MouseClick_Middle"), Boolean)
-      End Get
-      Set
-        Me("Prf_01C_MouseClick_Middle") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>
-    Public Property Prf_02C_Plcy_Batch_Generate() As Boolean
-      Get
-        Return CType(Me("Prf_02C_Plcy_Batch_Generate"), Boolean)
-      End Get
-      Set
-        Me("Prf_02C_Plcy_Batch_Generate") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("5")>
-    Public Property Prf_02C_Nb_Batch_Generate() As Integer
-      Get
-        Return CType(Me("Prf_02C_Nb_Batch_Generate"), Integer)
-      End Get
-      Set
-        Me("Prf_02C_Nb_Batch_Generate") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Développement\SuDoKu_2023\S50_SDK\Etude\UOBTXYSJZQ\SDK_UO----SJ--EC_01.txt")>
-    Public Property SDK_Partie_Test() As String
-      Get
-        Return CType(Me("SDK_Partie_Test"), String)
-      End Get
-      Set
-        Me("SDK_Partie_Test") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
-    Public Property Sql_TB_CodT_Input() As String
-      Get
-        Return CType(Me("Sql_TB_CodT_Input"), String)
-      End Get
-      Set
-        Me("Sql_TB_CodT_Input") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>
-    Public Property Prf_02C_Create_Chat() As Boolean
-      Get
-        Return CType(Me("Prf_02C_Create_Chat"), Boolean)
-      End Get
-      Set
-        Me("Prf_02C_Create_Chat") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("10")>
-    Public Property Prf_02C_Create_Nb_Tentatives() As Integer
-      Get
-        Return CType(Me("Prf_02C_Create_Nb_Tentatives"), Integer)
-      End Get
-      Set
-        Me("Prf_02C_Create_Nb_Tentatives") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>
-    Public Property Prf_02C_Create_Contrainte() As Integer
-      Get
-        Return CType(Me("Prf_02C_Create_Contrainte"), Integer)
-      End Get
-      Set
-        Me("Prf_02C_Create_Contrainte") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>
-    Public Property Format_DAB() As Integer
-      Get
-        Return CType(Me("Format_DAB"), Integer)
-      End Get
-      Set
-        Me("Format_DAB") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>
-    Public Property Thème_Clr() As Integer
-      Get
-        Return CType(Me("Thème_Clr"), Integer)
-      End Get
-      Set
-        Me("Thème_Clr") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>
-    Public Property Prf_05D_Plcy_Dancing_Link() As Boolean
-      Get
-        Return CType(Me("Prf_05D_Plcy_Dancing_Link"), Boolean)
-      End Get
-      Set
-        Me("Prf_05D_Plcy_Dancing_Link") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>
-    Public Property Prf_05D_Plcy_Open_Display() As Boolean
-      Get
-        Return CType(Me("Prf_05D_Plcy_Open_Display"), Boolean)
-      End Get
-      Set
-        Me("Prf_05D_Plcy_Open_Display") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("15")>
-    Public Property Prf_02C_Nb_Max_Dl() As Integer
-      Get
-        Return CType(Me("Prf_02C_Nb_Max_Dl"), Integer)
-      End Get
-      Set
-        Me("Prf_02C_Nb_Max_Dl") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
-    Public Property Date_Extraction() As String
-      Get
-        Return CType(Me("Date_Extraction"), String)
-      End Get
-      Set
-        Me("Date_Extraction") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>
-    Public Property Prf_05D_Plcy_AfficherDCdd_Bande() As Boolean
-      Get
-        Return CType(Me("Prf_05D_Plcy_AfficherDCdd_Bande"), Boolean)
-      End Get
-      Set
-        Me("Prf_05D_Plcy_AfficherDCdd_Bande") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("NNNNNNNNNN")>
-    Public Property Prf_03R_Plcy_Stg_Clb() As String
-      Get
-        Return CType(Me("Prf_03R_Plcy_Stg_Clb"), String)
-      End Get
-      Set
-        Me("Prf_03R_Plcy_Stg_Clb") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
-    Public Property Obj_Colors() As String
-      Get
-        Return CType(Me("Obj_Colors"), String)
-      End Get
-      Set
-        Me("Obj_Colors") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("A")>
-    Public Property Obj_Symbol() As String
-      Get
-        Return CType(Me("Obj_Symbol"), String)
-      End Get
-      Set
-        Me("Obj_Symbol") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("Carré")>
-    Public Property Obj_Forme() As String
-      Get
-        Return CType(Me("Obj_Forme"), String)
-      End Get
-      Set
-        Me("Obj_Forme") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>
-    Public Property Prf_08H_Flèche() As Integer
-      Get
-        Return CType(Me("Prf_08H_Flèche"), Integer)
-      End Get
-      Set
-        Me("Prf_08H_Flèche") = Value
-      End Set
-    End Property
-
-    <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("700")>
-    Public Property Prd_Number() As Integer
-      Get
-        Return CType(Me("Prd_Number"), Integer)
-      End Get
-      Set
-        Me("Prd_Number") = Value
-      End Set
-    End Property
-  End Class
+                Return defaultInstance
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Prf_00_Onglet_Sélecté() As Integer
+            Get
+                Return CType(Me("Prf_00_Onglet_Sélecté"),Integer)
+            End Get
+            Set
+                Me("Prf_00_Onglet_Sélecté") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Sudoku_Paramètres")>  _
+        Public Property LP_Nom() As String
+            Get
+                Return CType(Me("LP_Nom"),String)
+            End Get
+            Set
+                Me("LP_Nom") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("080000500000407000003000020004050030030900806700002000000100003905004070010020900"& _ 
+            "")>  _
+        Public Property LP_Prb() As String
+            Get
+                Return CType(Me("LP_Prb"),String)
+            End Get
+            Set
+                Me("LP_Prb") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("080000500000407000003000020004050030030900806700002000000100003905004070010020900"& _ 
+            "")>  _
+        Public Property LP_Jeu() As String
+            Get
+                Return CType(Me("LP_Jeu"),String)
+            End Get
+            Set
+                Me("LP_Jeu") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("489263517251487369673519428194658732532971846768342195847196253925834671316725984"& _ 
+            "")>  _
+        Public Property LP_Sol() As String
+            Get
+                Return CType(Me("LP_Sol"),String)
+            End Get
+            Set
+                Me("LP_Sol") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property LP_Frc() As String
+            Get
+                Return CType(Me("LP_Frc"),String)
+            End Get
+            Set
+                Me("LP_Frc") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("348")>  _
+        Public Property LP_Numéro() As Integer
+            Get
+                Return CType(Me("LP_Numéro"),Integer)
+            End Get
+            Set
+                Me("LP_Numéro") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property SDK_IE_Last_Url() As Integer
+            Get
+                Return CType(Me("SDK_IE_Last_Url"),Integer)
+            End Get
+            Set
+                Me("SDK_IE_Last_Url") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Prf_01C_Taille_Cellule() As Integer
+            Get
+                Return CType(Me("Prf_01C_Taille_Cellule"),Integer)
+            End Get
+            Set
+                Me("Prf_01C_Taille_Cellule") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("30")>  _
+        Public Property Prf_02C_Create_Nb_Cel_Demandées() As Integer
+            Get
+                Return CType(Me("Prf_02C_Create_Nb_Cel_Demandées"),Integer)
+            End Get
+            Set
+                Me("Prf_02C_Create_Nb_Cel_Demandées") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Nrm")>  _
+        Public Property LP_Plcy_Gnrl() As String
+            Get
+                Return CType(Me("LP_Plcy_Gnrl"),String)
+            End Get
+            Set
+                Me("LP_Plcy_Gnrl") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("000000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000")>  _
+        Public Property LP_Cdd() As String
+            Get
+                Return CType(Me("LP_Cdd"),String)
+            End Get
+            Set
+                Me("LP_Cdd") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("5")>  _
+        Public Property LP_Numéro_Hodoku() As Integer
+            Get
+                Return CType(Me("LP_Numéro_Hodoku"),Integer)
+            End Get
+            Set
+                Me("LP_Numéro_Hodoku") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Prf_01C_Fond_Grille() As Integer
+            Get
+                Return CType(Me("Prf_01C_Fond_Grille"),Integer)
+            End Get
+            Set
+                Me("Prf_01C_Fond_Grille") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Red")>  _
+        Public Property Prf_01C_Clr_ComboBoxVI() As String
+            Get
+                Return CType(Me("Prf_01C_Clr_ComboBoxVI"),String)
+            End Get
+            Set
+                Me("Prf_01C_Clr_ComboBoxVI") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Green")>  _
+        Public Property Prf_01C_Clr_ComboBoxVCdd() As String
+            Get
+                Return CType(Me("Prf_01C_Clr_ComboBoxVCdd"),String)
+            End Get
+            Set
+                Me("Prf_01C_Clr_ComboBoxVCdd") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>  _
+        Public Property DGV_Dictionnaire_Width() As String
+            Get
+                Return CType(Me("DGV_Dictionnaire_Width"),String)
+            End Get
+            Set
+                Me("DGV_Dictionnaire_Width") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>  _
+        Public Property DGV_CodT_Width() As String
+            Get
+                Return CType(Me("DGV_CodT_Width"),String)
+            End Get
+            Set
+                Me("DGV_CodT_Width") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>  _
+        Public Property DGV_MotT_Width() As String
+            Get
+                Return CType(Me("DGV_MotT_Width"),String)
+            End Get
+            Set
+                Me("DGV_MotT_Width") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Sql_TB_MotT_Input() As String
+            Get
+                Return CType(Me("Sql_TB_MotT_Input"),String)
+            End Get
+            Set
+                Me("Sql_TB_MotT_Input") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>  _
+        Public Property DGV_PrcT_Width() As String
+            Get
+                Return CType(Me("DGV_PrcT_Width"),String)
+            End Get
+            Set
+                Me("DGV_PrcT_Width") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>  _
+        Public Property DGV_MsgT_Width() As String
+            Get
+                Return CType(Me("DGV_MsgT_Width"),String)
+            End Get
+            Set
+                Me("DGV_MsgT_Width") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Sql_TB_PrcT_Input() As String
+            Get
+                Return CType(Me("Sql_TB_PrcT_Input"),String)
+            End Get
+            Set
+                Me("Sql_TB_PrcT_Input") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Sql_TB_MsgT_Input() As String
+            Get
+                Return CType(Me("Sql_TB_MsgT_Input"),String)
+            End Get
+            Set
+                Me("Sql_TB_MsgT_Input") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>  _
+        Public Property DGV_MotTRéservés_Width() As String
+            Get
+                Return CType(Me("DGV_MotTRéservés_Width"),String)
+            End Get
+            Set
+                Me("DGV_MotTRéservés_Width") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=HPOMEN16\SQLEXPRESS;Initial Catalog=SuDoKu;Integrated Security=True")>  _
+        Public ReadOnly Property Connect() As String
+            Get
+                Return CType(Me("Connect"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("000000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000000000000000000000000000000000000000000000000000000000000000000000000000"& _ 
+            "00000000")>  _
+        Public Property LP_CddExc() As String
+            Get
+                Return CType(Me("LP_CddExc"),String)
+            End Get
+            Set
+                Me("LP_CddExc") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100;100;100;100;100;100;100;100;100;")>  _
+        Public Property DGV_PrmT_Width() As String
+            Get
+                Return CType(Me("DGV_PrmT_Width"),String)
+            End Get
+            Set
+                Me("DGV_PrmT_Width") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Prf_05D_Plcy_Globale() As Boolean
+            Get
+                Return CType(Me("Prf_05D_Plcy_Globale"),Boolean)
+            End Get
+            Set
+                Me("Prf_05D_Plcy_Globale") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Prf_01C_MouseClick_Middle() As Boolean
+            Get
+                Return CType(Me("Prf_01C_MouseClick_Middle"),Boolean)
+            End Get
+            Set
+                Me("Prf_01C_MouseClick_Middle") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Prf_02C_Plcy_Batch_Generate() As Boolean
+            Get
+                Return CType(Me("Prf_02C_Plcy_Batch_Generate"),Boolean)
+            End Get
+            Set
+                Me("Prf_02C_Plcy_Batch_Generate") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("5")>  _
+        Public Property Prf_02C_Nb_Batch_Generate() As Integer
+            Get
+                Return CType(Me("Prf_02C_Nb_Batch_Generate"),Integer)
+            End Get
+            Set
+                Me("Prf_02C_Nb_Batch_Generate") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Développement\SuDoKu_2023\S50_SDK\Etude\UOBTXYSJZQ\SDK_UO----SJ--EC_01.txt")>  _
+        Public Property SDK_Partie_Test() As String
+            Get
+                Return CType(Me("SDK_Partie_Test"),String)
+            End Get
+            Set
+                Me("SDK_Partie_Test") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Sql_TB_CodT_Input() As String
+            Get
+                Return CType(Me("Sql_TB_CodT_Input"),String)
+            End Get
+            Set
+                Me("Sql_TB_CodT_Input") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Prf_02C_Create_Chat() As Boolean
+            Get
+                Return CType(Me("Prf_02C_Create_Chat"),Boolean)
+            End Get
+            Set
+                Me("Prf_02C_Create_Chat") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("10")>  _
+        Public Property Prf_02C_Create_Nb_Tentatives() As Integer
+            Get
+                Return CType(Me("Prf_02C_Create_Nb_Tentatives"),Integer)
+            End Get
+            Set
+                Me("Prf_02C_Create_Nb_Tentatives") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Prf_02C_Create_Contrainte() As Integer
+            Get
+                Return CType(Me("Prf_02C_Create_Contrainte"),Integer)
+            End Get
+            Set
+                Me("Prf_02C_Create_Contrainte") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Format_DAB() As Integer
+            Get
+                Return CType(Me("Format_DAB"),Integer)
+            End Get
+            Set
+                Me("Format_DAB") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Thème_Clr() As Integer
+            Get
+                Return CType(Me("Thème_Clr"),Integer)
+            End Get
+            Set
+                Me("Thème_Clr") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Prf_05D_Plcy_Dancing_Link() As Boolean
+            Get
+                Return CType(Me("Prf_05D_Plcy_Dancing_Link"),Boolean)
+            End Get
+            Set
+                Me("Prf_05D_Plcy_Dancing_Link") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Prf_05D_Plcy_Open_Display() As Boolean
+            Get
+                Return CType(Me("Prf_05D_Plcy_Open_Display"),Boolean)
+            End Get
+            Set
+                Me("Prf_05D_Plcy_Open_Display") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("15")>  _
+        Public Property Prf_02C_Nb_Max_Dl() As Integer
+            Get
+                Return CType(Me("Prf_02C_Nb_Max_Dl"),Integer)
+            End Get
+            Set
+                Me("Prf_02C_Nb_Max_Dl") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Date_Extraction() As String
+            Get
+                Return CType(Me("Date_Extraction"),String)
+            End Get
+            Set
+                Me("Date_Extraction") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("NNNNNNNNNN")>  _
+        Public Property Prf_03R_Plcy_Stg_Clb() As String
+            Get
+                Return CType(Me("Prf_03R_Plcy_Stg_Clb"),String)
+            End Get
+            Set
+                Me("Prf_03R_Plcy_Stg_Clb") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property Obj_Colors() As String
+            Get
+                Return CType(Me("Obj_Colors"),String)
+            End Get
+            Set
+                Me("Obj_Colors") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("A")>  _
+        Public Property Obj_Symbol() As String
+            Get
+                Return CType(Me("Obj_Symbol"),String)
+            End Get
+            Set
+                Me("Obj_Symbol") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Carré")>  _
+        Public Property Obj_Forme() As String
+            Get
+                Return CType(Me("Obj_Forme"),String)
+            End Get
+            Set
+                Me("Obj_Forme") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
+        Public Property Prf_08H_Flèche() As Integer
+            Get
+                Return CType(Me("Prf_08H_Flèche"),Integer)
+            End Get
+            Set
+                Me("Prf_08H_Flèche") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("700")>  _
+        Public Property Prd_Number() As Integer
+            Get
+                Return CType(Me("Prd_Number"),Integer)
+            End Get
+            Set
+                Me("Prd_Number") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Prf_02C_Create_Grille_CdU() As Boolean
+            Get
+                Return CType(Me("Prf_02C_Create_Grille_CdU"),Boolean)
+            End Get
+            Set
+                Me("Prf_02C_Create_Grille_CdU") = value
+            End Set
+        End Property
+    End Class
 End Namespace
 
 Namespace My

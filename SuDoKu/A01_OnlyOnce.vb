@@ -57,12 +57,12 @@ Friend Module A01_OnlyOnce
       If WH = 0 Then WH = 80
       Plcy_Dancing_Link = .Prf_05D_Plcy_Dancing_Link
       Plcy_Open_Display = .Prf_05D_Plcy_Open_Display
-      Plcy_AfficherDCdd_Bande = .Prf_05D_Plcy_AfficherDCdd_Bande
       Plcy_Fond_Grille = .Prf_01C_Fond_Grille
       Plcy_MouseClick_Middle = .Prf_01C_MouseClick_Middle
       Plcy_Generate_Batch = .Prf_02C_Plcy_Batch_Generate
       Create_Contrainte_Originale = .Prf_02C_Create_Contrainte
       Create_Chat = .Prf_02C_Create_Chat
+      Create_Grille_CdU = .Prf_02C_Create_Grille_CdU
       Create_Nb_Cel_Demandées = CStr(.Prf_02C_Create_Nb_Cel_Demandées)
       Create_Nb_Tentatives = CStr(.Prf_02C_Create_Nb_Tentatives)
       Lettre_Flèche = .Prf_08H_Flèche

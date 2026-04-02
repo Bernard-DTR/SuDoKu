@@ -130,6 +130,11 @@
       Case False : CB02_10.Checked = False
       Case True : CB02_10.Checked = True
     End Select
+    CB02_12.Text = Msg_Read("PRF_02052")
+    Select Case Create_Grille_CdU
+      Case False : CB02_12.Checked = False
+      Case True : CB02_12.Checked = True
+    End Select
     CB02_Contraintes.Items.Clear()
     CB02_Contraintes.Items.Add(Msg_Read("PRF_02060"))
     CB02_Contraintes.Items.Add(Msg_Read("PRF_02061"))
@@ -172,11 +177,6 @@
     Select Case Plcy_Open_Display
       Case True : CB05_11.Checked = True
       Case False : CB05_11.Checked = False
-    End Select
-    CB05_12.Text = Msg_Read("PRF_05120")
-    Select Case Plcy_AfficherDCdd_Bande
-      Case True : CB05_12.Checked = True
-      Case False : CB05_12.Checked = False
     End Select
 
     'Onglet 06 Couleurs
@@ -479,6 +479,17 @@
         My.Settings.Prf_02C_Create_Chat = True
     End Select
   End Sub
+  Private Sub CB02_12_CheckedChanged(sender As Object, e As EventArgs) Handles CB02_12.CheckedChanged
+    'Création autorisée de Grilles avec CdU
+    Select Case CB02_12.CheckState
+      Case CheckState.Unchecked '0  'Non
+        Create_Grille_CdU = False
+        My.Settings.Prf_02C_Create_Grille_CdU = False
+      Case CheckState.Checked '1  'Oui
+        Create_Grille_CdU = True
+        My.Settings.Prf_02C_Create_Grille_CdU = True
+    End Select
+  End Sub
   Private Sub TB02_06_TextChanged(sender As Object, e As EventArgs) Handles TB02_06.TextChanged
     My.Settings.Prf_02C_Nb_Batch_Generate = CInt(TB02_06.Text)
   End Sub
@@ -522,23 +533,6 @@
     End If
   End Sub
 
-  Private Sub CB05_12_CheckedChanged(sender As Object, e As EventArgs) Handles CB05_12.CheckedChanged
-    ' Affichage du Dernier Candidat dans la bande de la Cellule
-    Select Case CB05_12.CheckState
-      Case CheckState.Unchecked '0  'Non
-        Plcy_AfficherDCdd_Bande = False
-        My.Settings.Prf_05D_Plcy_AfficherDCdd_Bande = False
-      Case CheckState.Checked '1  'Oui
-        Plcy_AfficherDCdd_Bande = True
-        My.Settings.Prf_05D_Plcy_AfficherDCdd_Bande = True
-    End Select
-    If Not Mode_Load Then
-      OC_Présentation()
-      Event_OnPaint = "Global"
-      Frm_SDK.Invalidate()
-      Application.DoEvents()
-    End If
-  End Sub
   Private Sub Btn03_91_Click(sender As Object, e As EventArgs) Handles Btn03_91.Click
     'Enlever toutes les sélections
     For i As Integer = 0 To Plcy_Stg_Clb.Count - 1
@@ -587,6 +581,7 @@
         Plcy_MouseClick_Middle = False
       Case 1 ' Création
         My.Settings.Prf_02C_Create_Chat = False
+        My.Settings.Prf_02C_Create_Grille_CdU = False
         My.Settings.Prf_02C_Create_Nb_Cel_Demandées = 25
         My.Settings.Prf_02C_Create_Nb_Tentatives = 10
         Create_Chat = My.Settings.Prf_02C_Create_Chat
@@ -895,4 +890,6 @@
   Private Sub Btn08_99_Click(sender As Object, e As EventArgs) Handles Btn08_99.Click
     Close()
   End Sub
+
+
 End Class

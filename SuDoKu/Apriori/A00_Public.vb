@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_04_00 #679"
+  Public SDK_Version As String = "V2026_04_00 #681"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -227,7 +227,6 @@ Module A00_Public
   'Policies particulières 
   Public Plcy_Saisir_Commencer As Boolean = False
   Public Plcy_Solution_Existante As Boolean = False
-  Public Plcy_AfficherDCdd_Bande As Boolean = True
   Public Plcy_Fond_Grille As Integer = 0                       ' Numéro de la grille de fond
   Public Plcy_MouseClick_Middle As Boolean = False
   Public Plcy_Dancing_Link As Boolean = False
@@ -250,6 +249,7 @@ Module A00_Public
   Public Create_Nb_Tentatives As String
   Public Create_Contrainte_Originale As Integer
   Public Create_Chat As Boolean = True
+  Public Create_Grille_CdU As Boolean = False
   Public Lettre_Flèche As Integer
   Public Lettre_Flèche_ChrW As Integer
 #End Region

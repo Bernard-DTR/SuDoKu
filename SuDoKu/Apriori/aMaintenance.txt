@@ -340,10 +340,11 @@
 #677 J  02/04/2026 Menus ForeColor=Control Text
 #678 J  02/04/2026 Résolution avec Denis Berthier
 #679 J  02/04/2026 Résolution avec Stg_Profondeur
+#680 J  02/04/2026 Suppression de Plcy_AfficherDCdd_Bande
+#681 J  02/04/2026 Préférences / Création Création de Grilles avec CdU
 
 
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
-                   Est-il possible de mattre en option If Cdu_Exists Then GoTo Pzzl_Prd_Batch_Exit dans Pzzl_Prd_Batch
 ##############################################################################################################################
                    mettre en place un compteur de pénalités
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
