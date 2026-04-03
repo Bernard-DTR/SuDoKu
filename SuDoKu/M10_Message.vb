@@ -130,7 +130,7 @@ Module M10_Message
         Case "Info"         'Pour info 
           .SelectionFont = New Font(.Font, FontStyle.Regular)
           .SelectionColor = Color.Black
-          .SelectionBackColor = Color.Yellow
+          .SelectionBackColor = Color.White
         Case "Yellow"       'Pour info 
           .SelectionFont = New Font(.Font, FontStyle.Regular)
           .SelectionColor = Color.Black
@@ -199,6 +199,30 @@ Module M10_Message
   Public Sub Jrn_Add_Red(V As String)
     'Affichage rapide d'une information en blanc
     Jrn_Add(, {V}, "Red")
+  End Sub
+  Public Sub Jrn_Exemple()
+    Jrn_Add_Yellow("Jrn_Add_Yellow affiche un message en jaune")
+    Jrn_Add_Orange("Jrn_Add_Orange affiche un message en orange")
+    Jrn_Add_White("Jrn_Add_White  affiche un message en blanc")
+    Jrn_Add_Blue("Jrn_Add_Blue   affiche un message en bleue")
+    Jrn_Add_Red("Jrn_Add_Red    affiche un message en rouge")
+    Jrn_Add(, {"Aucun style        affichage standard"})
+    Jrn_Add(, {"Insertion          Italic  et rouge                "}, "Insertion")
+    Jrn_Add(, {"Refaire            Italic  et bleu                 "}, "Refaire")
+    Jrn_Add(, {"Annuler            Italic  et vert                 "}, "Annuler")
+    Jrn_Add(, {"Info               Regular et noir  / blanc        "}, "Info")
+    Jrn_Add(, {"Yellow             Regular et noir  / Jaune        "}, "Yellow")
+    Jrn_Add(, {"Orange             Regular et noir  / Orange       "}, "Orange")
+    Jrn_Add(, {"White              Regular et noir  / blanc        "}, "White")
+    Jrn_Add(, {"Blue               Italic  et bleu  / blanc        "}, "Blue")
+    Jrn_Add(, {"Red                Italic  et rouge / blanc        "}, "Red")
+    Jrn_Add(, {"Italique           Italic  et blanc                "}, "Italique")
+    Jrn_Add(, {"Erreur             Bold    et blanc / rouge        "}, "Erreur")
+    Jrn_Add(, {"Else               Regular et blanc / jaune        "}, "Else")
+
+
+
+
   End Sub
   ''' <summary>Efface le journal.</summary>
   Public Sub Jrn_Clear()

@@ -213,8 +213,8 @@ Friend Module P01_Strategy
   End Function
 
   Public Sub RRslt_Control_Cdd_Exclure(Candidat As String)
-    Jrn_Add_Red(Proc_Name_Get())
-    Jrn_Add_Red("Liste des cellules du candidat " & Candidat & " à enlever")
+    'Jrn_Add_Red(Proc_Name_Get())
+    'Jrn_Add_Red("Liste des cellules du candidat " & Candidat & " à enlever")
     Dim S As String
     For i As Integer = 0 To 80
       If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then
@@ -227,8 +227,6 @@ Friend Module P01_Strategy
   End Sub
 
 #End Region
-
-
 
   Sub Strategy_Rslt_Init(ByRef Strategy_Rslt(,) As String,
                          Stratégie As String,
@@ -396,16 +394,15 @@ Friend Module P01_Strategy
     Stg_List.Add(New Stg_Cls("GLk", "N", "N", "E", "N", 9, "Affichage des Liens forts"))
     Stg_List.Add(New Stg_Cls("Gbl", "L", "N", "E", "N", 4, "Stratégie bi-locaux (Candidats bloqués)"))
     Stg_List.Add(New Stg_Cls("Gbv", "L", "N", "E", "N", 4, "Stratégie bi-values"))
-    Stg_List.Add(New Stg_Cls("GCs", "L", "N", "E", "N", 4, "Stratégie DFS Coloration Simple"))
-    Stg_List.Add(New Stg_Cls("GCx", "L", "N", "E", "N", 4, "New! Stratégie X-Chain"))
-    Stg_List.Add(New Stg_Cls("XCx", "L", "N", "E", "N", 9, "Stratégie X-Chain"))
-    Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 9, "Stratégie XY-Chain"))
-    Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 9, "Stratégie Remote Pairs"))
-    Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 9, "Stratégie Nice_Loop"))
-    Stg_List.Add(New Stg_Cls("WgX", "L", "N", "E", "N", 9, "Stratégie X-Wing"))
-    Stg_List.Add(New Stg_Cls("WgY", "L", "N", "E", "N", 9, "Stratégie XY-Wing"))
-    Stg_List.Add(New Stg_Cls("WgZ", "L", "N", "E", "N", 9, "Stratégie XYZ-Wing"))
-    Stg_List.Add(New Stg_Cls("WgW", "L", "N", "E", "N", 9, "Stratégie W-Wing"))
+    Stg_List.Add(New Stg_Cls("GCs", "L", "N", "E", "N", 4, "Stratégie Coloration Simple"))
+    Stg_List.Add(New Stg_Cls("GCx", "L", "N", "E", "N", 4, "Stratégie X-Chain"))
+    Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 4, "Stratégie XY-Chain"))
+    Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 4, "Stratégie Remote Pairs"))
+    Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 4, "Stratégie Nice_Loop"))
+    Stg_List.Add(New Stg_Cls("WgX", "L", "N", "E", "N", 4, "Stratégie Wing X"))
+    Stg_List.Add(New Stg_Cls("WgY", "L", "N", "E", "N", 4, "Stratégie Wing XY"))
+    Stg_List.Add(New Stg_Cls("WgZ", "L", "N", "E", "N", 4, "Stratégie Wing XYZ"))
+    Stg_List.Add(New Stg_Cls("WgW", "L", "N", "E", "N", 4, "Stratégie Wing W"))
 
     'Création de Stg_List_Code, Stg_List_Lettre et Stg_List_Link
     For i As Integer = 0 To Stg_List.Count - 1

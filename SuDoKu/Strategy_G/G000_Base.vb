@@ -326,12 +326,12 @@ Friend Module G000_Base
 
       'XSolution est calculé dans Game_Load (Game_New_Game)
       Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
-      Jrn_Add(, {"Dancing Link        : " & CStr(DL.Nb_Solution)})
+      'Jrn_Add(, {"Dancing Link        : " & CStr(DL.Nb_Solution)})
       Select Case DL.Nb_Solution
         Case -1, 0
         Case 1
-          Jrn_Add(, {"Dancing Link        : " & DL.DLCode})
-          Jrn_Add(, {"DL_Solution(0) " & XSolution})
+          'Jrn_Add(, {"Dancing Link        : " & DL.DLCode})
+          ' Jrn_Add(, {"DL_Solution(0) " & XSolution})
           For Each gCel As GCel_Excl_Cls In GRslt.CelExcl
             Nb += 1
             With gCel
@@ -342,7 +342,7 @@ Friend Module G000_Base
             End With
           Next gCel
         Case Else
-          Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
+          'Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
       End Select
     End If
   End Sub

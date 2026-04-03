@@ -165,7 +165,8 @@
         Mid$(Candidats_Exclus, CInt(XCel_Cdd), 1) = XCel_Cdd
         U(XCel_Cel, 3) = Candidats
         U_CddExc(XCel_Cel) = Candidats_Exclus
-        Jrn_Add_Yellow(Proc_Name_Get() & " V " & XCel_Cdd & " " & U_Coord(XCel_Cel))
+        Act_Add(XCel_Cel, "Exclure_Cdd", XCel_Cdd, Candidats, Plcy_Strg, Act_Jeu(), Act_Candidats())
+
       Next
     End If
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})

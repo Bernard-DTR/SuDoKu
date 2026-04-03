@@ -267,23 +267,23 @@ Friend Module Q000_Strategy_X
 
     'XSolution est calculé dans Game_Load (Game_New_Game)
     Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
-    Jrn_Add(, {"Dancing Link        : " & CStr(DL.Nb_Solution)})
+    'Jrn_Add(, {"Dancing Link        : " & CStr(DL.Nb_Solution)})
     Select Case DL.Nb_Solution
       Case -1, 0
       Case 1
-        Jrn_Add(, {"Dancing Link        : " & DL.DLCode})
-        Jrn_Add(, {"DL_Solution(0) " & XSolution})
+        'Jrn_Add(, {"Dancing Link        : " & DL.DLCode})
+        'Jrn_Add(, {"DL_Solution(0) " & XSolution})
         For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
           Nb += 1
           With XCel
             Dim DL_Cellule As Integer = .Cel
             If XSolution(DL_Cellule) = .Cdd Then
-              Jrn_Add(, {" La cellule " & U_Coord(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
+              Jrn_Add(, {"❗ La cellule " & U_Coord(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
             End If
           End With
         Next XCel
       Case Else
-        Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
+        'Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
     End Select
 
   End Sub
@@ -331,23 +331,23 @@ Friend Module Q000_Strategy_X
 
     'XSolution est calculé dans Game_Load (Game_New_Game)
     Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
-    Jrn_Add(, {"Dancing Link        : " & CStr(DL.Nb_Solution)})
+    'Jrn_Add(, {"Dancing Link        : " & CStr(DL.Nb_Solution)})
     Select Case DL.Nb_Solution
       Case -1, 0
       Case 1
-        Jrn_Add(, {"Dancing Link        : " & DL.DLCode})
-        Jrn_Add(, {"DL_Solution(0) " & XSolution})
+        'Jrn_Add(, {"Dancing Link        : " & DL.DLCode})
+        'Jrn_Add(, {"DL_Solution(0) " & XSolution})
         For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
           Nb += 1
           With XCel
             Dim DL_Cellule As Integer = .Cel
             If XSolution(DL_Cellule) = .Cdd Then
-              Jrn_Add(, {" La cellule " & U_Coord(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
+              Jrn_Add(, {"❗ La cellule " & U_Coord(DL_Cellule) & " doit prendre la valeur " & .Cdd & " !"}, "Erreur")
             End If
           End With
         Next XCel
       Case Else
-        Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
+        'Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
     End Select
 
   End Sub
@@ -404,7 +404,6 @@ Friend Module Q000_Strategy_X
 
   Public Sub Stratégies_G_End()
     ' Traitement commun aux stratégies G
-
     Select Case Plcy_Strg
       Case "Gbl", "Gbv", "GCs", "GCx"
         If GRslt.Productivité Then
@@ -415,7 +414,7 @@ Friend Module Q000_Strategy_X
           Jrn_Add(, {Stg_Get(Plcy_Strg).Texte & " sans résultat."})
           Frm_SDK.Mnu0902.Enabled = False
         End If
-      Case "XCx", "XCy", "Xrp", "XNl", "WgX", "WgY", "WgZ", "WgW"
+      Case "XCy", "XRp", "XNl", "WgX", "WgY", "WgZ", "WgW"
         If XRslt.Productivité Then
           Frm_SDK.Mnu0902.Text = "Supprimer " & XRslt.CelExcl.Count & " Candidat(s) : " & Stg_Get(Plcy_Strg).Texte & "."
           Frm_SDK.Mnu0902.Enabled = True

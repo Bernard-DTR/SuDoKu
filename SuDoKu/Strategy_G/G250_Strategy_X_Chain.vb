@@ -4,8 +4,12 @@
 '...6..51........3937..9......45....1.6...87..2..731..668..........1...........8.5
 '..3...9.2..5.9..3.6.2..3..8....5....3.126..9....3.851641.....2......5.........6..
 '-------------------------------------------------------------------------------------------
+
+
 Module G250_Strategy_X_Chain
   Public Sub Strategy_GCx(U_temp(,) As String)
+    ' 1 Initialisation de GRslt avec Plcy_Strg = "GCx"
+    Plcy_Strg = "GCx"
     If Xap Then Jrn_Add(, {Proc_Name_Get()})
     GRslt_Init()
     For Cdd As Integer = 1 To 9
@@ -199,6 +203,8 @@ Module G250_Strategy_X_Chain
           .Cdd = Candidat,
           .Exc = {Road_CelDéb, Road_CelFin}
         })
+        Dim CelExcl_key As Tuple(Of Integer, String) = Tuple.Create(i, Candidat)
+        GRslt.CelExcl_hs.Add(CelExcl_key)
       End If
     Next
 

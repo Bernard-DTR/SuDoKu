@@ -13,7 +13,7 @@ Friend Module Q46_Strategy_W_Wing
   Public Sub Strategy_WgW(U_temp(,) As String)
     If Xap Then Jrn_Add(, {Proc_Name_Get()})
 
-    ' 1 Initialisation de XRslt avec Plcy_Strg = "WgZ" 
+    ' 1 Initialisation de XRslt avec Plcy_Strg = "WgW" 
     XRslt_Init()
 
     ' 2  Inventaire des Cellules Bivalues 

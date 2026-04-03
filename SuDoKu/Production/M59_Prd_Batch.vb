@@ -3,14 +3,6 @@
 '08/12/2023  
 Friend Module M59_Prd_Batch
   Public Sub Batch_Initial()
-    '///////////////////////////////////////////////////////////////////////////////////////
-    '#616 Samedi 14/02/2026
-    'Je bloque temporairement la génération de grilles en arrière-plan 
-    ' Pour des problèmes de stabilisation de l'application
-    ' je soupçonne ce traitement de grilles en arrière-plan d'être à l'origine de certains arrêts anormaux de l'application
-    '///////////////////////////////////////////////////////////////////////////////////////
-    Jrn_Add_Red(Proc_Name_Get() & " #616 La génération de grilles en arrière-plan est temporairement désactivée.")
-    Exit Sub
 
     'Une fois l'application lancée, id dès que la grille est affichée,
     'la procédure est lancée If Plcy_Generate_Batch
@@ -65,7 +57,7 @@ Friend Module M59_Prd_Batch
       Dim U_temp(0 To 80, 0 To 3) As String
       Prd_Init(Prd, U_temp, "B")
       Nb = 0
-      Jrn_Add_Red(Proc_Name_Get() & " Phase F.")
+      Jrn_Add(, {Proc_Name_Get() & " Phase F."})
       For i As Integer = 1 To Nb_Max - Nb_F
         Nb += 1
         If Nb > Nb_Limite Then Exit For
@@ -76,7 +68,7 @@ Friend Module M59_Prd_Batch
       Next i
 
       Nb = 0
-      Jrn_Add_Red(Proc_Name_Get() & " Phase M.")
+      Jrn_Add(, {Proc_Name_Get() & " Phase M."})
       For i As Integer = 1 To Nb_Max - Nb_M
         Nb += 1
         If Nb > Nb_Limite Then Exit For
@@ -87,7 +79,7 @@ Friend Module M59_Prd_Batch
       Next i
 
       Nb = 0
-      Jrn_Add_Red(Proc_Name_Get() & " Phase D.")
+      Jrn_Add(, {Proc_Name_Get() & " Phase D."})
       For i As Integer = 1 To Nb_Max - Nb_D
         Nb += 1
         If Nb > Nb_Limite Then Exit For
@@ -97,29 +89,17 @@ Friend Module M59_Prd_Batch
         Pzzl_Prd_Batch("P", Prd)
       Next i
 
-      'Nb = 0
-      'Jrn_Add_Red(Proc_Name_Get() & " Phase E.")
-      'For i As Integer = 1 To Nb_Max - Nb_E
-      '  Nb += 1
-      '  If Nb > Nb_Limite Then Exit For
-      '  'Prd est ensuite aménagée des valeurs particulières de la difficulté demandée pour la grille
-      '  Prd.Prd_Chat = False
-      '  Prd.Prd_Create_Nb_Cel_Demandées = 22 ' Grilles Difficiles
-      '  Pzzl_Prd_Batch("P", Prd)
-      'Next i
+      ' Les grilles doivent être créées pour être nommées
+      '    si elles sont résolues en CdU-CdO      F
+      '    si                        Cbl_Tpl      M
+      '    si                        X à Q        D
+      '    si non résoluées et Dlu                E
 
     Catch ex As Exception
       '28/05/2024 le message permet de comprendre l'arrêt anormal du traitement
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       MsgBox(ex.ToString(),, MsgTit)
     End Try
-
-    '#616 Samedi 14/02/2026
-    ' il me semble que le stock ne peut pas dépasser Nb_LImite
-    'Stock_Excédent_Delete("SDK_F")
-    'Stock_Excédent_Delete("SDK_M")
-    'Stock_Excédent_Delete("SDK_D")
-    'Stock_Excédent_Delete("SDK_E")
 
     Batch_en_Cours = False
     Event_OnPaint_MAP = Proc_Name_Get()

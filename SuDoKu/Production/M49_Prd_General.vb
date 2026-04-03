@@ -360,9 +360,9 @@ U_Checking_End:
           Jrn_Add(, {"Vides_Sans_Candidat : " & CStr(.Nb_Vides_Sans_Candidat)})
           Jrn_Add(, {"Code_LCR            : " & .Code_LCR & CStr(.LCR + 1)})
           Jrn_Add(, {"Valeur              : " & CStr(.Valeur)})
-          Jrn_Add(, {"Val before/after    : "})
-          Jrn_Add(, {"bef " & .Val_before.Replace(" ", ".")})
-          Jrn_Add(, {"aft " & .Val_after.Replace(" ", ".")})
+          'Jrn_Add(, {"Val before/after    : "})
+          'Jrn_Add(, {"bef " & .Val_before.Replace(" ", ".")})
+          'Jrn_Add(, {"aft " & .Val_after.Replace(" ", ".")})
         End With
         Jrn_Add(, {"/Checking_List "}, "Italique")
 

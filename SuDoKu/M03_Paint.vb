@@ -27,8 +27,8 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_SKy(g)
       G4_Grid_Stratégie_Unq(g)
       G4_Grid_Stratégie_Obj_g(g)
-      G4_Grid_Stratégie_GCx_GCy_GNl(g)
-      G4_Grid_Stratégie_XCx_XCy_XNl_g(g)
+      G4_Grid_Stratégie_GCx(g)
+      G4_Grid_Stratégie_XCy_XNl_g(g)
       G4_Grid_Stratégie_XRp_g(g)
       G4_Grid_Stratégie_WgX_WgY_WgZ_WgW_g(g)
       G4_Grid_Stratégie_GLk_g(g)
@@ -535,79 +535,10 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_GCx_GCy_GNl(g As Graphics)
-    'If Not (Plcy_Strg = "XCx" Or Plcy_Strg = "XCy" Or Plcy_Strg = "XNl") Then Exit Sub
-    If Not (Plcy_Strg = "GCx") Then Exit Sub
-    Try
-      Dim sc As New Cellule_Cls
-      If GRslt.Productivité = False Then
-        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
-        Exit Sub
-      End If
-
-      ' 1 Affichage des Candidats
-      For i As Integer = 0 To 80
-        sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
-        If U(i, 3).Contains(GRslt.Candidat(0)) Then
-          G0_Cdd_Figure(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
-        End If
-      Next i
-
-      ' 2 Affichage des Courbes de Bézier
-      Dim Nb As Integer = 0
-      For Each Link As GLink_Cls In GRslt.RoadRight
-        Nb += 1
-        With Link
-          Select Case Plcy_Strg
-            Case "GCx" 'Alternance de liens forts et faibles, sans alternance de couleurs des candidats 
-              G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
-            Case "XCy"
-              G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(4)), .Cel(1), CInt(.Cdd(4)), .Type, Nb)
-            Case "XNl"
-              G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(4)), .Cel(1), CInt(.Cdd(4)), .Type, Nb)
-            Case Else
-          End Select
-
-          ' 3 Affichage des Extrémités des liens  
-          Dim PremierLien As GLink_Cls = GRslt.RoadRight.First()
-          Dim DernierLien As GLink_Cls = GRslt.RoadRight.Last()
-          G0_Cell_Icône_g(g, PremierLien.Cel(0), "Start")
-          G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
-          Select Case Plcy_Strg
-            Case "XCy"
-              G0_Cdd_Figure(g, PremierLien.Cel(0), CInt(PremierLien.Cdd(0)), "Disque", Color_Link_S)
-              G0_Cdd_Figure(g, DernierLien.Cel(1), CInt(DernierLien.Cdd(1)), "Disque", Color_Link_S)
-          End Select
-
-        End With
-      Next Link
-
-      ' 4 Affichage des Candidats à exclure 
-      Dim Candidats As String = Cnddts_Blancs
-      For Each gCelExcl As GCel_Excl_Cls In GRslt.CelExcl
-        With gCelExcl
-          sc.Numéro = .Cel
-          If U(.Cel, 3).Contains(.Cdd) Then
-            sc.G6_Cellule_Paint_Candidat(g, .Cdd, Color_Cdd_Exclure)
-            ' Coloration du menu contextuel avec les 2 candidats
-            Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
-            U_Strg_Cdd_Exc(.Cel) = Candidats
-          End If
-        End With
-      Next gCelExcl
-      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & GRslt.Candidat(0) & " rouge à enlever."
-
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-
-  End Sub
 
 
-  Public Sub G4_Grid_Stratégie_XCx_XCy_XNl_g(g As Graphics)
-    If Not (Plcy_Strg = "XCx" Or Plcy_Strg = "XCy" Or Plcy_Strg = "XNl") Then Exit Sub
+  Public Sub G4_Grid_Stratégie_XCy_XNl_g(g As Graphics)
+    If Not (Plcy_Strg = "XCy" Or Plcy_Strg = "XNl") Then Exit Sub
     Try
       Dim sc As New Cellule_Cls
       If XRslt.Productivité = False Then
@@ -983,7 +914,6 @@ Friend Module M03_Paint
     Try
       Dim sc As New Cellule_Cls
       If GRslt.Productivité = False Then
-        ' Dsp_AideGraphique("Non")
         Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
         Exit Sub
       End If
@@ -1025,6 +955,60 @@ Friend Module M03_Paint
       End Select
       G0_Cell_Icône_g(g, firstLien.Cel(0), "Start")
       G0_Cell_Icône_g(g, lastLien.Cel(1), "End")
+
+      ' 4 Affichage des Candidats à exclure 
+      Dim Candidats As String = Cnddts_Blancs
+      For Each gCelExcl As GCel_Excl_Cls In GRslt.CelExcl
+        With gCelExcl
+          sc.Numéro = .Cel
+          If U(.Cel, 3).Contains(.Cdd) Then
+            sc.G6_Cellule_Paint_Candidat(g, .Cdd, Color_Cdd_Exclure)
+            ' Coloration du menu contextuel avec les 2 candidats
+            Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
+            U_Strg_Cdd_Exc(.Cel) = Candidats
+          End If
+        End With
+      Next gCelExcl
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & GRslt.Candidat(0) & " rouge à enlever."
+
+    Catch ex As Exception
+      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+    End Try
+
+  End Sub
+  Public Sub G4_Grid_Stratégie_GCx(g As Graphics)
+    If Not (Plcy_Strg = "GCx") Then Exit Sub
+    Try
+      Dim sc As New Cellule_Cls
+      If GRslt.Productivité = False Then
+        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+        Exit Sub
+      End If
+
+      ' 1 Affichage des Candidats
+      For i As Integer = 0 To 80
+        sc.Numéro = i
+        sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+        If U(i, 3).Contains(GRslt.Candidat(0)) Then
+          G0_Cdd_Figure(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
+        End If
+      Next i
+
+      ' 2 Affichage des Courbes de Bézier
+      Dim Nb As Integer = 0
+      For Each Link As GLink_Cls In GRslt.RoadRight
+        Nb += 1
+        With Link
+          G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
+
+          ' 3 Affichage des Extrémités des liens  
+          Dim PremierLien As GLink_Cls = GRslt.RoadRight.First()
+          Dim DernierLien As GLink_Cls = GRslt.RoadRight.Last()
+          G0_Cell_Icône_g(g, PremierLien.Cel(0), "Start")
+          G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
+        End With
+      Next Link
 
       ' 4 Affichage des Candidats à exclure 
       Dim Candidats As String = Cnddts_Blancs

@@ -126,14 +126,14 @@ Public NotInheritable Class Frm_SDK
     CType(Mnu04.DropDown, ContextMenuStrip).ShowImageMargin = True
     CType(Mnu04.DropDown, ContextMenuStrip).ShowCheckMargin = True
 
-    Dim Mnu04n_XCx As New ToolStripMenuItem() With
-        {
-        .Name = "Mnu04n_" & "XCx",
-        .Text = Stg_Get("XCx").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_XCx.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_XCx)
+    'Dim Mnu04n_XCx As New ToolStripMenuItem() With
+    '    {
+    '    .Name = "Mnu04n_" & "XCx",
+    '    .Text = Stg_Get("XCx").Texte,
+    '    .ForeColor = SystemColors.ControlText
+    '     }
+    'AddHandler Mnu04n_XCx.Click, AddressOf Mnu04n_Stratégie_XW_Click
+    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_XCx)
 
     Dim Mnu04n_XCy As New ToolStripMenuItem() With
         {
@@ -201,7 +201,7 @@ Public NotInheritable Class Frm_SDK
     Mnu07n_Gbl.Text = Stg_Get("Gbl").Texte
     Mnu07n_Gbv.Text = Stg_Get("Gbv").Texte
     Mnu07n_GCs.Text = Stg_Get("GCs").Texte
-    Mnu07n_XCx.Text = Stg_Get("XCx").Texte
+    Mnu07n_GCx.Text = Stg_Get("GCx").Texte
     Mnu07n_XCy.Text = Stg_Get("XCy").Texte
     Mnu07n_XRp.Text = Stg_Get("XRp").Texte
     Mnu07n_XNl.Text = Stg_Get("XNl").Texte
@@ -215,6 +215,7 @@ Public NotInheritable Class Frm_SDK
     Mnu0930_Gbl.Text = Stg_Get("Gbl").Texte
     Mnu0950_Gbv.Text = Stg_Get("Gbv").Texte
     Mnu0970_GCs.Text = Stg_Get("GCs").Texte
+    Mnu0990_GCx.Text = Stg_Get("GCx").Texte
 
     Dim Mnu04n_Sep03 As New ToolStripSeparator
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep03)
@@ -318,20 +319,12 @@ Public NotInheritable Class Frm_SDK
 
     'Plcy_Generate_Batch autorise la création de grilles par lot en arrière-plan
     If Plcy_Generate_Batch Then
-      '///////////////////////////////////////////////////////////////////////////////////////
-      '#616 Samedi 14/02/2026
-      'Je bloque temporairement la génération de grilles en arrière-plan 
-      ' Pour des problèmes de stabilisation de l'application
-      ' je soupçonne ce traitement de grilles en arrière-plan d'être à l'origine de certains arrêts anormaux de l'application
-      '///////////////////////////////////////////////////////////////////////////////////////
-      Jrn_Add_Red(Proc_Name_Get() & " #616 La génération de grilles en arrière-plan est temporairement désactivée.")
-      ' Traitement mis en commentaire
-      'Batch_Timer.Interval = 5000
-      ''Process_16x est un png 16x16 32 bits
-      ''Me.Mnu08.Size = New System.Drawing.Size(98, 32)
-      'Mnu08.Image = SuDoKu.My.Resources.Resources.Process_16x
-      'Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
-      'Batch_Initial()
+      Batch_Timer.Interval = 5000
+      'Process_16x est un png 16x16 32 bits
+      'Me.Mnu08.Size = New System.Drawing.Size(98, 32)
+      Mnu08.Image = SuDoKu.My.Resources.Resources.Process_16x
+      Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
+      Batch_Initial()
     End If
     ' OnPaint est appelé à la fin de Frm_SDK_Load par Frm_SDK_Activated
   End Sub
@@ -921,7 +914,7 @@ Public NotInheritable Class Frm_SDK
         Case "Gbl" : Plcy_Strg = "Gbl" : Strategy_Gbl(U_temp)
         Case "Gbv" : Plcy_Strg = "Gbv" : Strategy_Gbv(U_temp)
         Case "GCs" : Plcy_Strg = "GCs" : Strategy_GCs(U_temp)
-        Case "XCx" : Plcy_Strg = "XCx" : Strategy_XCx(U_temp)
+        Case "GCx" : Plcy_Strg = "GCx" : Strategy_GCx(U_temp)
         Case "XCy" : Plcy_Strg = "XCy" : Strategy_XCy(U_temp)
         Case "XRp" : Plcy_Strg = "XRp" : Strategy_XRp(U_temp)
         Case "XNl" : Plcy_Strg = "XNl" : Strategy_XNl(U_temp)
@@ -1253,7 +1246,7 @@ Public NotInheritable Class Frm_SDK
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
-  Private Sub Mnu07_XCx_Click(sender As Object, e As EventArgs) Handles Mnu07n_XCx.Click
+  Private Sub Mnu07_GCx_Click(sender As Object, e As EventArgs) Handles Mnu07n_GCx.Click, Mnu07n_GCx.Click
     Dim File_Name As String = Path_SDK & Msg_Read("MNU_07020")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
@@ -1530,7 +1523,7 @@ Public NotInheritable Class Frm_SDK
 
 #Region "Menus Contextuels"
   Private Sub Mnu_Cel_Val_Insérer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Ins_9.Click, Mnu_Cel_Val_Ins_8.Click, Mnu_Cel_Val_Ins_7.Click, Mnu_Cel_Val_Ins_6.Click, Mnu_Cel_Val_Ins_5.Click, Mnu_Cel_Val_Ins_4.Click, Mnu_Cel_Val_Ins_3.Click, Mnu_Cel_Val_Ins_2.Click, Mnu_Cel_Val_Ins_1.Click
-    Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(18) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx_Ins")
+    'Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(18) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx_Ins")
     Cell_Val_Insert(sender.ToString(18), Pbl_Cell_Select, "Mnu_Ctx_Ins")
   End Sub
   Private Sub Mnu_Cel_Val_Effacer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Eff_x.Click
@@ -1538,11 +1531,11 @@ Public NotInheritable Class Frm_SDK
     Cell_Val_Delete(Pbl_Cell_Select, "Mnu_Ctx_Eff")
   End Sub
   Private Sub Mnu_Cel_Cdd_Insérer(Sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Ins_9.Click, Mnu_Cel_Cdd_Ins_8.Click, Mnu_Cel_Cdd_Ins_7.Click, Mnu_Cel_Cdd_Ins_6.Click, Mnu_Cel_Cdd_Ins_5.Click, Mnu_Cel_Cdd_Ins_4.Click, Mnu_Cel_Cdd_Ins_3.Click, Mnu_Cel_Cdd_Ins_2.Click, Mnu_Cel_Cdd_Ins_1.Click
-    Jrn_Add_Yellow(Proc_Name_Get() & " V " & Sender.ToString(20) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx")
+    'Jrn_Add_Yellow(Proc_Name_Get() & " V " & Sender.ToString(20) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx")
     Cell_Cdd_Insert(Sender.ToString(20), Pbl_Cell_Select, "Mnu_Ctx")
   End Sub
   Private Sub Mnu_Cel_Cdd_Exclure(sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Exc_9.Click, Mnu_Cel_Cdd_Exc_8.Click, Mnu_Cel_Cdd_Exc_7.Click, Mnu_Cel_Cdd_Exc_6.Click, Mnu_Cel_Cdd_Exc_5.Click, Mnu_Cel_Cdd_Exc_4.Click, Mnu_Cel_Cdd_Exc_3.Click, Mnu_Cel_Cdd_Exc_2.Click, Mnu_Cel_Cdd_Exc_1.Click
-    Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(20) & " " & U_Coord(Pbl_Cell_Select))
+    'Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(20) & " " & U_Coord(Pbl_Cell_Select))
     Cell_Cdd_Exclude(sender.ToString(20), Pbl_Cell_Select)
   End Sub
   '-------------------------------------------------------------------------------
@@ -1768,6 +1761,7 @@ Public NotInheritable Class Frm_SDK
 
 #Region "Menu Graphe"
   Private Sub Mnu0901_Click(sender As Object, e As EventArgs) Handles Mnu0901.Click
+    Jrn_Add("SDK_Space")
     Jrn_Add(, {Proc_Name_Get() & " Lancement des Stratégies G "})
     Plcy_Strg = "   "
     B_Info.Text = Proc_Name_Get()
@@ -1778,13 +1772,18 @@ Public NotInheritable Class Frm_SDK
 
     For i As Integer = 0 To Stg_List_Link.Count - 1
       Plcy_Strg = Stg_List_Link(i)
-      Jrn_Add(, {"Strategy_" & Plcy_Strg})
+      Jrn_Add("SDK_Space")
+      Jrn_Add(, {"Strategie " & Plcy_Strg})
       Array.Copy(U, U_temp, UNbCopy)
+
+      GRslt.Productivité = False
+      XRslt.Productivité = False
+
       Select Case Plcy_Strg
         Case "Gbl" : Strategy_Gbl(U_temp)
         Case "Gbv" : Strategy_Gbv(U_temp)
         Case "GCs" : Strategy_GCs(U_temp)
-        Case "XCx" : Strategy_XCx(U_temp)
+        Case "GCx" : Strategy_GCx(U_temp)
         Case "XCy" : Strategy_XCy(U_temp)
         Case "XRp" : Strategy_XRp(U_temp)
         Case "XNl" : Strategy_XNl(U_temp)
@@ -1794,10 +1793,9 @@ Public NotInheritable Class Frm_SDK
         Case "WgW" : Strategy_WgW(U_temp)
       End Select
       B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-
-      If GRslt.Productivité Then Exit For
+      If GRslt.Productivité Or XRslt.Productivité Then Exit For
     Next i
-    If Pzzl_Slv_UO(U_temp) Then Jrn_Add(, {"La grille est résolvable en CdU et CdO."})
+    If Pzzl_Slv_UO(U_temp) Then Jrn_Add(, {"La grille est désormais résolvable en CdU_CdO."})
 
   End Sub
   Private Sub Mnu0902_Click(sender As Object, e As EventArgs) Handles Mnu0902.Click
@@ -1807,13 +1805,14 @@ Public NotInheritable Class Frm_SDK
     Select Case Plcy_Strg
       Case "Gbl", "Gbv", "GCs", "GCx"
         Cell_Cdd_Exclude_GRslt()
-      Case "XCx", "XCy", "Xrp", "XNl", "WgX", "WgY", "WgZ", "WgW"
+      Case "XCy", "XRp", "XNl", "WgX", "WgY", "WgZ", "WgW"
         For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
           Cell_Cdd_Exclude(XCel.Cdd, XCel.Cel)
         Next XCel
     End Select
     Mnu0902.Enabled = False
     Strategy_Dsp_Standard()
+    Jrn_Add(, {"Les candidats sont supprimés"})
   End Sub
 
   Private Sub Mnu0910_GLk_Click(sender As Object, e As EventArgs) Handles Mnu0910_GLk.Click
@@ -1821,6 +1820,7 @@ Public NotInheritable Class Frm_SDK
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GLk(U_temp)
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
 
   Private Sub Mnu0930_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu0930_Gbl.Click
@@ -1828,6 +1828,7 @@ Public NotInheritable Class Frm_SDK
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_Gbl(U_temp)
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
 
   Private Sub Mnu0950_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu0950_Gbv.Click
@@ -1835,6 +1836,7 @@ Public NotInheritable Class Frm_SDK
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_Gbv(U_temp)
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
 
   Private Sub Mnu0970_GCs_Click(sender As Object, e As EventArgs) Handles Mnu0970_GCs.Click
@@ -1842,6 +1844,15 @@ Public NotInheritable Class Frm_SDK
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GCs(U_temp)
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+  End Sub
+
+  Private Sub Mnu0990_GCx_Click(sender As Object, e As EventArgs) Handles Mnu0990_GCx.Click
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_GCx(U_temp)
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
 
 
