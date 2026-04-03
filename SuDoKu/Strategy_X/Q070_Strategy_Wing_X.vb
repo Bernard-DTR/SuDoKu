@@ -13,7 +13,7 @@ Friend Module Q070_Strategy_Wing_X
 
   Public Sub Strategy_WgX(U_temp(,) As String)
     If Xap Then Jrn_Add(, {Proc_Name_Get()})
-
+    Plcy_Strg = "WgX"
     ' 1 Initialisation de XRslt avec Plcy_Strg = "WgX" 
     XRslt_Init()
 

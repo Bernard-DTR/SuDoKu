@@ -38,7 +38,7 @@ Friend Module Q090_Strategy_Wing_XYZ
 
   Public Sub Strategy_WgZ(U_temp(,) As String)
     If Xap Then Jrn_Add(, {Proc_Name_Get()})
-
+    Plcy_Strg = "WgZ"
     ' 1 Initialisation de XRslt avec Plcy_Strg = "WgZ" 
     XRslt_Init()
 

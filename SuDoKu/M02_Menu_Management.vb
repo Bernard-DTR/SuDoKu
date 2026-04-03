@@ -182,6 +182,19 @@
                 Next XCel
               End If
             End If
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 5 AndAlso Stg_Get(Plcy_Strg).Type = "E" AndAlso U(Cellule, 2) = " " Then
+              If XRslt.CelExcl.Count > 0 Then
+                For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
+                  If XCel.Cel = Cellule Then
+                    Opt = Ligne.Name(16)
+                    If Opt = XCel.Cdd And U(Cellule, 3).Contains(XCel.Cdd) Then
+                      Ligne.Visible = True
+                      Ligne.BackColor = Color_Cdd_Exclure
+                    End If
+                  End If
+                Next XCel
+              End If
+            End If
 
           Case "Mnu_Cel_Cdd_Ins_" 'Insérer les Candidats ....
             'If U(Cellule, 2) = " " Then

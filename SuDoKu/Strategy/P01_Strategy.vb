@@ -396,13 +396,13 @@ Friend Module P01_Strategy
     Stg_List.Add(New Stg_Cls("Gbv", "L", "N", "E", "N", 4, "Stratégie bi-values"))
     Stg_List.Add(New Stg_Cls("GCs", "L", "N", "E", "N", 4, "Stratégie Coloration Simple"))
     Stg_List.Add(New Stg_Cls("GCx", "L", "N", "E", "N", 4, "Stratégie X-Chain"))
-    Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 4, "Stratégie XY-Chain"))
-    Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 4, "Stratégie Remote Pairs"))
-    Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 4, "Stratégie Nice_Loop"))
-    Stg_List.Add(New Stg_Cls("WgX", "L", "N", "E", "N", 4, "Stratégie Wing X"))
-    Stg_List.Add(New Stg_Cls("WgY", "L", "N", "E", "N", 4, "Stratégie Wing XY"))
-    Stg_List.Add(New Stg_Cls("WgZ", "L", "N", "E", "N", 4, "Stratégie Wing XYZ"))
-    Stg_List.Add(New Stg_Cls("WgW", "L", "N", "E", "N", 4, "Stratégie Wing W"))
+    Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 5, "Stratégie XY-Chain"))
+    Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 5, "Stratégie Remote Pairs"))
+    Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 5, "Stratégie Nice_Loop"))
+    Stg_List.Add(New Stg_Cls("WgX", "L", "N", "E", "N", 5, "Stratégie Wing X"))
+    Stg_List.Add(New Stg_Cls("WgY", "L", "N", "E", "N", 5, "Stratégie Wing XY"))
+    Stg_List.Add(New Stg_Cls("WgZ", "L", "N", "E", "N", 5, "Stratégie Wing XYZ"))
+    Stg_List.Add(New Stg_Cls("WgW", "L", "N", "E", "N", 5, "Stratégie Wing W"))
 
     'Création de Stg_List_Code, Stg_List_Lettre et Stg_List_Link
     For i As Integer = 0 To Stg_List.Count - 1

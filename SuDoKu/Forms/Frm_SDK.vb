@@ -126,78 +126,6 @@ Public NotInheritable Class Frm_SDK
     CType(Mnu04.DropDown, ContextMenuStrip).ShowImageMargin = True
     CType(Mnu04.DropDown, ContextMenuStrip).ShowCheckMargin = True
 
-    'Dim Mnu04n_XCx As New ToolStripMenuItem() With
-    '    {
-    '    .Name = "Mnu04n_" & "XCx",
-    '    .Text = Stg_Get("XCx").Texte,
-    '    .ForeColor = SystemColors.ControlText
-    '     }
-    'AddHandler Mnu04n_XCx.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    'Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_XCx)
-
-    Dim Mnu04n_XCy As New ToolStripMenuItem() With
-        {
-        .Name = "Mnu04n_" & "XCy",
-        .Text = Stg_Get("XCy").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_XCy.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_XCy)
-
-    Dim Mnu04n_XRp As New ToolStripMenuItem() With
-        {
-        .Name = "Mnu04n_" & "XRp",
-        .Text = Stg_Get("XRp").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_XRp.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_XRp)
-
-    Dim Mnu04n_XNl As New ToolStripMenuItem() With
-        {
-        .Name = "Mnu04n_" & "XNl",
-        .Text = Stg_Get("XNl").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_XNl.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_XNl)
-
-    Dim Mnu04n_WgX As New ToolStripMenuItem() With
-        {
-        .Name = "Mnu04n_" & "WgX",
-        .Text = Stg_Get("WgX").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_WgX.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_WgX)
-
-    Dim Mnu04n_WgY As New ToolStripMenuItem() With
-        {
-        .Name = "Mnu04n_" & "WgY",
-        .Text = Stg_Get("WgY").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_WgY.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_WgY)
-
-    Dim Mnu04n_WgZ As New ToolStripMenuItem() With
-        {
-        .Name = "Mnu04n_" & "WgZ",
-        .Text = Stg_Get("WgZ").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_WgZ.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_WgZ)
-
-    Dim Mnu04n_WgW As New ToolStripMenuItem() With
-        {
-        .Name = "Mnu04n_" & "WgW",
-        .Text = Stg_Get("WgW").Texte,
-        .ForeColor = SystemColors.ControlText
-         }
-    AddHandler Mnu04n_WgW.Click, AddressOf Mnu04n_Stratégie_XW_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_WgW)
-
     Mnu07n_Gbl.Text = Stg_Get("Gbl").Texte
     Mnu07n_Gbv.Text = Stg_Get("Gbv").Texte
     Mnu07n_GCs.Text = Stg_Get("GCs").Texte
@@ -211,14 +139,19 @@ Public NotInheritable Class Frm_SDK
     Mnu07n_WgW.Text = Stg_Get("WgW").Texte
     Mnu08_Résolution.Text = "Résolution SDK _ Stratégies " & Stg_Profondeur
     Mnu0902.Enabled = False
-    Mnu0910_GLk.Text = Stg_Get("GLk").Texte & "..."
-    Mnu0930_Gbl.Text = Stg_Get("Gbl").Texte
-    Mnu0950_Gbv.Text = Stg_Get("Gbv").Texte
-    Mnu0970_GCs.Text = Stg_Get("GCs").Texte
-    Mnu0990_GCx.Text = Stg_Get("GCx").Texte
 
-    Dim Mnu04n_Sep03 As New ToolStripSeparator
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep03)
+    Mnu0910_GLk.Text = Stg_Get("GLk").Texte & "..."
+    Mnu0915_Gbl.Text = Stg_Get("Gbl").Texte
+    Mnu0920_Gbv.Text = Stg_Get("Gbv").Texte
+    Mnu0925_GCs.Text = Stg_Get("GCs").Texte
+    Mnu0930_GCx.Text = Stg_Get("GCx").Texte
+    Mnu0935_XCy.Text = Stg_Get("XCy").Texte
+    Mnu0940_XRp.Text = Stg_Get("XRp").Texte
+    Mnu0945_XNl.Text = Stg_Get("XNl").Texte
+    Mnu0950_WgX.Text = Stg_Get("WgX").Texte
+    Mnu0955_WgY.Text = Stg_Get("WgY").Texte
+    Mnu0960_WgZ.Text = Stg_Get("WgZ").Texte
+    Mnu0965_WgW.Text = Stg_Get("WgW").Texte
 
     Dim Mnu04n_RésoudreUneCellule As New ToolStripMenuItem() With
         {
@@ -228,9 +161,6 @@ Public NotInheritable Class Frm_SDK
          }
     AddHandler Mnu04n_RésoudreUneCellule.Click, AddressOf Mnu04n_RésoudreUneCellule_Click
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_RésoudreUneCellule)
-
-    Dim Mnu04n_Sep04 As New ToolStripSeparator
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_Sep04)
 
 #End Region
 
@@ -1814,7 +1744,6 @@ Public NotInheritable Class Frm_SDK
     Strategy_Dsp_Standard()
     Jrn_Add(, {"Les candidats sont supprimés"})
   End Sub
-
   Private Sub Mnu0910_GLk_Click(sender As Object, e As EventArgs) Handles Mnu0910_GLk.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
@@ -1822,39 +1751,83 @@ Public NotInheritable Class Frm_SDK
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
     B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
-
-  Private Sub Mnu0930_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu0930_Gbl.Click
+  Private Sub Mnu0915_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu0915_Gbl.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_Gbl(U_temp)
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
     B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
-
-  Private Sub Mnu0950_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu0950_Gbv.Click
+  Private Sub Mnu0920_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu0920_Gbv.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_Gbv(U_temp)
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
     B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
-
-  Private Sub Mnu0970_GCs_Click(sender As Object, e As EventArgs) Handles Mnu0970_GCs.Click
+  Private Sub Mnu0925_GCs_Click(sender As Object, e As EventArgs) Handles Mnu0925_GCs.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GCs(U_temp)
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
     B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
-
-  Private Sub Mnu0990_GCx_Click(sender As Object, e As EventArgs) Handles Mnu0990_GCx.Click
+  Private Sub Mnu0930_GCx_Click(sender As Object, e As EventArgs) Handles Mnu0930_GCx.Click
     Dim U_temp(80, 3) As String
     Array.Copy(U, U_temp, UNbCopy)
     Strategy_GCx(U_temp)
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
     B_Info.Text = Stg_Get(Plcy_Strg).Texte
   End Sub
-
+  Private Sub Mnu0935_XCy_Click(sender As Object, e As EventArgs) Handles Mnu0935_XCy.Click
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_XCy(U_temp)
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+  End Sub
+  Private Sub Mnu0940_XRp_Click(sender As Object, e As EventArgs) Handles Mnu0940_XRp.Click
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_XRp(U_temp)
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+  End Sub
+  Private Sub Mnu0945_XNl_Click(sender As Object, e As EventArgs) Handles Mnu0945_XNl.Click
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_XNl(U_temp)
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+  End Sub
+  Private Sub Mnu0950_WgX_Click(sender As Object, e As EventArgs) Handles Mnu0950_WgX.Click
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_WgX(U_temp)
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+  End Sub
+  Private Sub Mnu0955_WgY_Click(sender As Object, e As EventArgs) Handles Mnu0955_WgY.Click
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_WgY(U_temp)
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+  End Sub
+  Private Sub Mnu0960_WgZ_Click(sender As Object, e As EventArgs) Handles Mnu0960_WgZ.Click
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_WgZ(U_temp)
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+  End Sub
+  Private Sub Mnu0965_WgW_Click(sender As Object, e As EventArgs) Handles Mnu0965_WgW.Click
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+    Strategy_WgW(U_temp)
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+  End Sub
 
 #End Region
 End Class

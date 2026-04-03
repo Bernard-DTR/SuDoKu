@@ -344,21 +344,19 @@
 #681 J  02/04/2026 Préférences / Création Création de Grilles avec CdU
 #682 V  03/04/2026 La production de grille est remise en place
 #683 V  03/04/2026 Mise en place de GCx
+#684 V  03/04/2026 Mise en place dans Graphe des stratégies G et X
 
+##############################################################################################################################
 
-????               Regrouper dans Résoudre avec les stratégies G_X les stratégies de Extension
 ????               Est-il nécessaire de faire varier le grille de saisie ? 
 ????               GitHub ?
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
                    De même comme la solution est calculée, le contrôle d'insertion de valeurs
                            ou d'exclusion de candait doit être standardisé 
                            Denis_Berthier ET RRslt_Control_Cdd_Exclure
-                   Ecrire une procédure permettant de lister TOUS les types de messages
-##############################################################################################################################
                    mettre en place un compteur de pénalités
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
                    Revoir le traitement en arrière-plan si on est en mode de maintenance
                    Je ne peux plus ajouter un candidat après l'avoir supprimé
                    Est-il possible en Strg Cdd de supprimer/insérer un candidat ? 
-
-##############################################################################################################################
+                   Simplifier les listes d'appels des stratégies.

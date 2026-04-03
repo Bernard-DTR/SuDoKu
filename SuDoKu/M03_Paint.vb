@@ -561,8 +561,6 @@ Friend Module M03_Paint
         Nb += 1
         With Link
           Select Case Plcy_Strg
-            Case "XCx" 'Alternance de liens forts et faibles, sans alternance de couleurs des candidats 
-              G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
             Case "XCy"
               G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(4)), .Cel(1), CInt(.Cdd(4)), .Type, Nb)
             Case "XNl"
