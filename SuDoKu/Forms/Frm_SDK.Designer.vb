@@ -1213,67 +1213,67 @@ Partial Class Frm_SDK
         'Mnu07n_Gbl
         '
         Me.Mnu07n_Gbl.Name = "Mnu07n_Gbl"
-        Me.Mnu07n_Gbl.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_Gbl.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_Gbl.Text = "Gbl"
         '
         'Mnu07n_Gbv
         '
         Me.Mnu07n_Gbv.Name = "Mnu07n_Gbv"
-        Me.Mnu07n_Gbv.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_Gbv.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_Gbv.Text = "Gbv"
         '
         'Mnu07n_GCs
         '
         Me.Mnu07n_GCs.Name = "Mnu07n_GCs"
-        Me.Mnu07n_GCs.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_GCs.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_GCs.Text = "GCs"
         '
         'Mnu07n_GCx
         '
         Me.Mnu07n_GCx.Name = "Mnu07n_GCx"
-        Me.Mnu07n_GCx.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_GCx.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_GCx.Text = "XCx"
         '
         'Mnu07n_XCy
         '
         Me.Mnu07n_XCy.Name = "Mnu07n_XCy"
-        Me.Mnu07n_XCy.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_XCy.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_XCy.Text = "XCy"
         '
         'Mnu07n_XRp
         '
         Me.Mnu07n_XRp.Name = "Mnu07n_XRp"
-        Me.Mnu07n_XRp.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_XRp.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_XRp.Text = "XRp"
         '
         'Mnu07n_XNl
         '
         Me.Mnu07n_XNl.Name = "Mnu07n_XNl"
-        Me.Mnu07n_XNl.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_XNl.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_XNl.Text = "XNl"
         '
         'Mnu07n_WgX
         '
         Me.Mnu07n_WgX.Name = "Mnu07n_WgX"
-        Me.Mnu07n_WgX.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_WgX.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_WgX.Text = "WgX"
         '
         'Mnu07n_WgY
         '
         Me.Mnu07n_WgY.Name = "Mnu07n_WgY"
-        Me.Mnu07n_WgY.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_WgY.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_WgY.Text = "WgY"
         '
         'Mnu07n_WgZ
         '
         Me.Mnu07n_WgZ.Name = "Mnu07n_WgZ"
-        Me.Mnu07n_WgZ.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_WgZ.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_WgZ.Text = "WgZ"
         '
         'Mnu07n_WgW
         '
         Me.Mnu07n_WgW.Name = "Mnu07n_WgW"
-        Me.Mnu07n_WgW.Size = New System.Drawing.Size(270, 34)
+        Me.Mnu07n_WgW.Size = New System.Drawing.Size(149, 34)
         Me.Mnu07n_WgW.Text = "WgW"
         '
         'Mnu09

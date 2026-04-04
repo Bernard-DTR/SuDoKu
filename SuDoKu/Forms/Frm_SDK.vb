@@ -1109,72 +1109,20 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   '--------------07---------------------------------------------------------------
-  Private Sub Mnu07_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu07n_Gbl.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07001")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
+  Private Sub Mnu07_Outils(sender As Object, e As EventArgs) Handles Mnu07n_Gbl.Click, Mnu07n_XRp.Click, Mnu07n_XNl.Click, Mnu07n_XCy.Click, Mnu07n_WgZ.Click, Mnu07n_WgY.Click, Mnu07n_WgX.Click, Mnu07n_WgW.Click, Mnu07n_GCx.Click, Mnu07n_GCs.Click, Mnu07n_Gbv.Click
+    If TypeOf sender Is ToolStripMenuItem Then
+      Dim Mnu As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
+      Dim Mnu_Name As String = Mnu.Name
+      Dim Stratégie_XW As String = Mnu_Name.Substring(7, 3)
+
+      Dim File_Name As String = File_SDKEtd & Stratégie_XW & ".txt"
+      Jrn_Add(, {"Stratégie Test fichier : " & File_Name})
+      If Plcy_Open_Display Then Processing_Start(File_Name)
+      Pzzl_Open(File_Name)
+      Mnu04n_Stratégie_XW_Click(sender, e)
+    End If
   End Sub
-  Private Sub Mnu07_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu07n_Gbv.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07002")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_GCs_Click(sender As Object, e As EventArgs) Handles Mnu07n_GCs.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07010")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_GCx_Click(sender As Object, e As EventArgs) Handles Mnu07n_GCx.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07020")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_XCy_Click(sender As Object, e As EventArgs) Handles Mnu07n_XCy.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07030")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_XRp_Click(sender As Object, e As EventArgs) Handles Mnu07n_XRp.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07040")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_XNl_Click(sender As Object, e As EventArgs) Handles Mnu07n_XNl.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07050")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_WgX_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgX.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07110")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_WgY_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgY.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07120")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_WgZ_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgZ.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07130")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
-  Private Sub Mnu07_WgW_Click(sender As Object, e As EventArgs) Handles Mnu07n_WgW.Click
-    Dim File_Name As String = Path_SDK & Msg_Read("MNU_07140")
-    If Plcy_Open_Display Then Processing_Start(File_Name)
-    Pzzl_Open(File_Name)
-    Mnu04n_Stratégie_XW_Click(sender, e)
-  End Sub
+
   '--------------08---------------------------------------------------------------
   Private Sub Mnu08_Jouer_Click(sender As Object, e As EventArgs) Handles Mnu08_Jouer.Click
     Mnu08J_F.Text = "Facile" & " (" & CStr(File_Nb("SDK_F")) & ") "
@@ -1695,90 +1643,41 @@ Public NotInheritable Class Frm_SDK
     Strategy_Dsp_Standard()
     Jrn_Add(, {"Les candidats sont supprimés"})
   End Sub
-  Private Sub Mnu0910_GLk_Click(sender As Object, e As EventArgs) Handles Mnu0910_GLk.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_GLk(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
+
+  Private Sub Mnu09_Exec(sender As Object, e As EventArgs) Handles Mnu0965_WgW.Click, Mnu0960_WgZ.Click, Mnu0955_WgY.Click, Mnu0950_WgX.Click, Mnu0945_XNl.Click, Mnu0940_XRp.Click, Mnu0935_XCy.Click, Mnu0930_GCx.Click, Mnu0925_GCs.Click, Mnu0920_Gbv.Click, Mnu0915_Gbl.Click, Mnu0910_GLk.Click
+    If TypeOf sender Is ToolStripMenuItem Then
+      Dim Mnu As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
+      Dim Mnu_Name As String = Mnu.Name
+
+      Jrn_Add(, {Mnu_Name.Substring(8, 3)})
+      Plcy_Strg = Mnu_Name.Substring(8, 3)
+
+
+
+      Dim U_temp(80, 3) As String
+      Array.Copy(U, U_temp, UNbCopy)
+
+      Select Case Plcy_Strg
+        Case "GLk" : Strategy_GLk(U_temp)
+        Case "Gbl" : Strategy_Gbl(U_temp)
+        Case "Gbv" : Strategy_Gbv(U_temp)
+        Case "GCs" : Strategy_GCs(U_temp)
+        Case "GCx" : Strategy_GCx(U_temp)
+        Case "XCy" : Strategy_XCy(U_temp)
+        Case "XRp" : Strategy_XRp(U_temp)
+        Case "XNl" : Strategy_XNl(U_temp)
+        Case "WgX" : Strategy_WgX(U_temp)
+        Case "WgY" : Strategy_WgY(U_temp)
+        Case "WgZ" : Strategy_WgZ(U_temp)
+        Case "WgW" : Strategy_WgW(U_temp)
+      End Select
+      B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+      B_Info.Text = Stg_Get(Plcy_Strg).Texte
+    End If
+
   End Sub
-  Private Sub Mnu0915_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu0915_Gbl.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_Gbl(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0920_Gbv_Click(sender As Object, e As EventArgs) Handles Mnu0920_Gbv.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_Gbv(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0925_GCs_Click(sender As Object, e As EventArgs) Handles Mnu0925_GCs.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_GCs(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0930_GCx_Click(sender As Object, e As EventArgs) Handles Mnu0930_GCx.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_GCx(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0935_XCy_Click(sender As Object, e As EventArgs) Handles Mnu0935_XCy.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_XCy(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0940_XRp_Click(sender As Object, e As EventArgs) Handles Mnu0940_XRp.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_XRp(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0945_XNl_Click(sender As Object, e As EventArgs) Handles Mnu0945_XNl.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_XNl(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0950_WgX_Click(sender As Object, e As EventArgs) Handles Mnu0950_WgX.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_WgX(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0955_WgY_Click(sender As Object, e As EventArgs) Handles Mnu0955_WgY.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_WgY(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0960_WgZ_Click(sender As Object, e As EventArgs) Handles Mnu0960_WgZ.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_WgZ(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
-  Private Sub Mnu0965_WgW_Click(sender As Object, e As EventArgs) Handles Mnu0965_WgW.Click
-    Dim U_temp(80, 3) As String
-    Array.Copy(U, U_temp, UNbCopy)
-    Strategy_WgW(U_temp)
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-    B_Info.Text = Stg_Get(Plcy_Strg).Texte
-  End Sub
+
+
 
 #End Region
 End Class

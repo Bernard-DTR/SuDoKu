@@ -347,6 +347,7 @@
 #684 V  03/04/2026 Mise en place dans Graphe des stratégies G et X
 #685 S  04/04/2026 Suppression des options Outils / Stratégies des CdU à Unq
                                    remplacées par le Clic Droit sur les boutons
+#686 S  04/04/2026 Consolidation des menus de tests et d'exécution des stratégies XetG des options Outils / Stratégies des CdU à Unq
 
 ##############################################################################################################################
 
@@ -361,4 +362,3 @@
                    Revoir le traitement en arrière-plan si on est en mode de maintenance
                    Je ne peux plus ajouter un candidat après l'avoir supprimé
                    Est-il possible en Strg Cdd de supprimer/insérer un candidat ? 
-                   Simplifier les listes d'appels des stratégies.
