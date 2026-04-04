@@ -206,8 +206,8 @@ Friend Module P01_Strategy
 
       .Productivité = True
     End With
-    Strategy_Rslt_Display(Strategy_Rslt, -1)
-    RRslt_Display()
+    'Strategy_Rslt_Display(Strategy_Rslt, -1)
+    'RRslt_Display()
     Return Index
 
   End Function

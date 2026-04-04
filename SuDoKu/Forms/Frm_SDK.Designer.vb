@@ -164,38 +164,26 @@ Partial Class Frm_SDK
     Me.Mnu06_Sep04 = New System.Windows.Forms.ToolStripSeparator()
     Me.Mnu06_CB = New System.Windows.Forms.ToolStripComboBox()
     Me.Mnu07 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_CdU = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_CdO = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_Cbl = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_Tpl = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_Xwg = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_XYw = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_Swf = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_Jly = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_XYZ = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_SKy = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07_Strategy_Unq = New System.Windows.Forms.ToolStripMenuItem()
-    Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu07n_Gbl = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_Gbv = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_GCs = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_GCx = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_XCy = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_XRp = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_XNl = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_WgX = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_WgY = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_WgZ = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu07n_WgW = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu09 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu0901 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu0902 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu09_Sep1 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu0910_GLk = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu0915_Gbl = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu0920_Gbv = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu0925_GCs = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu0930_GCx = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_Gbl = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_Gbv = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_GCs = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_GCx = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_XCy = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_XRp = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_XNl = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_WgX = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_WgY = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_WgZ = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu07n_WgW = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu09 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu0901 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu0902 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu09_Sep1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu0910_GLk = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu0915_Gbl = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu0920_Gbv = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu0925_GCs = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu0930_GCx = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0935_XCy = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0940_XRp = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0945_XNl = New System.Windows.Forms.ToolStripMenuItem()
@@ -474,7 +462,7 @@ Partial Class Frm_SDK
         Me.Mnu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.Mnu.Location = New System.Drawing.Point(0, 0)
         Me.Mnu.Name = "Mnu"
-        Me.Mnu.Size = New System.Drawing.Size(1869, 29)
+        Me.Mnu.Size = New System.Drawing.Size(1869, 32)
         Me.Mnu.TabIndex = 18
         Me.Mnu.Text = "MenuStrip1"
         '
@@ -490,7 +478,7 @@ Partial Class Frm_SDK
         Me.Mnu01.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu01.Name = "Mnu01"
         Me.Mnu01.ShowShortcutKeys = False
-        Me.Mnu01.Size = New System.Drawing.Size(75, 25)
+        Me.Mnu01.Size = New System.Drawing.Size(75, 28)
         Me.Mnu01.Text = "&Fichier"
         '
         'Mnu01_Ouvrir
@@ -605,7 +593,7 @@ Partial Class Frm_SDK
         Me.Mnu02.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu02_Annuler, Me.Mnu02_Refaire, Me.Mnu02_Sep01, Me.Mnu02_Copier, Me.Mnu02_Copier2, Me.Mnu02_Copie3, Me.Mnu02_Coller, Me.Mnu02_CopierlaGrilleDansLeJournal})
         Me.Mnu02.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu02.Name = "Mnu02"
-        Me.Mnu02.Size = New System.Drawing.Size(78, 25)
+        Me.Mnu02.Size = New System.Drawing.Size(78, 28)
         Me.Mnu02.Text = "Copier "
         '
         'Mnu02_Annuler
@@ -679,7 +667,7 @@ Partial Class Frm_SDK
         Me.Mnu03.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu03_EffacerLeJournal, Me.Mnu03_Sep01, Me.Mnu03_Transformation, Me.Mnu03_AfficherLaSolution, Me.Mnu03_Rafraîchir})
         Me.Mnu03.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu03.Name = "Mnu03"
-        Me.Mnu03.Size = New System.Drawing.Size(95, 25)
+        Me.Mnu03.Size = New System.Drawing.Size(95, 28)
         Me.Mnu03.Text = "&Affichage"
         '
         'Mnu03_EffacerLeJournal
@@ -802,7 +790,7 @@ Partial Class Frm_SDK
         '
         Me.Mnu04.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu04.Name = "Mnu04"
-        Me.Mnu04.Size = New System.Drawing.Size(101, 25)
+        Me.Mnu04.Size = New System.Drawing.Size(101, 28)
         Me.Mnu04.Text = "&Stratégies"
         '
         'Mnu08
@@ -811,7 +799,7 @@ Partial Class Frm_SDK
         Me.Mnu08.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu08.ForeColor = System.Drawing.Color.Black
         Me.Mnu08.Name = "Mnu08"
-        Me.Mnu08.Size = New System.Drawing.Size(98, 25)
+        Me.Mnu08.Size = New System.Drawing.Size(98, 28)
         Me.Mnu08.Text = "E&xtension"
         '
         'Mnu08_Jouer
@@ -999,7 +987,7 @@ Partial Class Frm_SDK
         Me.Mnu05.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu05_Préférences, Me.Mnu05_FichierDesMessages, Me.Mnu05_APropos, Me.Mnu05_Documentation, Me.Mnu05_Maintenance, Me.Mnu05_Dictionnaire, Me.Mnu05_ModeEtendu})
         Me.Mnu05.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu05.Name = "Mnu05"
-        Me.Mnu05.Size = New System.Drawing.Size(59, 25)
+        Me.Mnu05.Size = New System.Drawing.Size(59, 28)
         Me.Mnu05.Text = "A&ide"
         '
         'Mnu05_Préférences
@@ -1055,7 +1043,7 @@ Partial Class Frm_SDK
         Me.Mnu06.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu06_ListerU, Me.Mnu06_ListerA, Me.Mnu06_Manuel_des_Stratégies, Me.Mnu063_VérificationDeLaGrille, Me.Mnu06_Sep01, Me.Mnu06_EffacerLaGrille, Me.Mnu06_Sep02, Me.Mnu06_SudokuPCA, Me.Mnu06_SudokuAngusJohnson, Me.Mnu06_SudokuDarrenColes, Me.Mnu06_SudokuPatriceHenrion, Me.Mnu06_SudokuNKH, Me.Mnu06_Hodoku220, Me.Mnu06_SudokuFedynaK, Me.Mnu06_SudoCue, Me.Mnu06_DiufSudokuJava, Me.Mnu06_Sep03, Me.Mnu06_ClassicSudoku, Me.Mnu06_SudokuSolver, Me.Mnu06_MicrosoftSudoku, Me.Mnu06_HHSudokuGame, Me.Mnu06_MUDancingLink, Me.Mnu06_Sep04, Me.Mnu06_CB})
         Me.Mnu06.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu06.Name = "Mnu06"
-        Me.Mnu06.Size = New System.Drawing.Size(73, 25)
+        Me.Mnu06.Size = New System.Drawing.Size(73, 28)
         Me.Mnu06.Text = "&Divers"
         '
         'Mnu06_ListerU
@@ -1216,157 +1204,76 @@ Partial Class Frm_SDK
         '
         'Mnu07
         '
-        Me.Mnu07.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu07_Strategy_CdU, Me.Mnu07_Strategy_CdO, Me.Mnu07_Strategy_Cbl, Me.Mnu07_Strategy_Tpl, Me.Mnu07_Strategy_Xwg, Me.Mnu07_Strategy_XYw, Me.Mnu07_Strategy_Swf, Me.Mnu07_Strategy_Jly, Me.Mnu07_Strategy_XYZ, Me.Mnu07_Strategy_SKy, Me.Mnu07_Strategy_Unq, Me.ToolStripSeparator3, Me.Mnu07n_Gbl, Me.Mnu07n_Gbv, Me.Mnu07n_GCs, Me.Mnu07n_GCx, Me.Mnu07n_XCy, Me.Mnu07n_XRp, Me.Mnu07n_XNl, Me.Mnu07n_WgX, Me.Mnu07n_WgY, Me.Mnu07n_WgZ, Me.Mnu07n_WgW})
+        Me.Mnu07.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu07n_Gbl, Me.Mnu07n_Gbv, Me.Mnu07n_GCs, Me.Mnu07n_GCx, Me.Mnu07n_XCy, Me.Mnu07n_XRp, Me.Mnu07n_XNl, Me.Mnu07n_WgX, Me.Mnu07n_WgY, Me.Mnu07n_WgZ, Me.Mnu07n_WgW})
         Me.Mnu07.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu07.Name = "Mnu07"
-        Me.Mnu07.Size = New System.Drawing.Size(69, 25)
+        Me.Mnu07.Size = New System.Drawing.Size(69, 28)
         Me.Mnu07.Text = "O&utils"
-        '
-        'Mnu07_Strategy_CdU
-        '
-        Me.Mnu07_Strategy_CdU.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_CdU.Name = "Mnu07_Strategy_CdU"
-        Me.Mnu07_Strategy_CdU.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_CdU.Text = "Stratégie des CdU"
-        '
-        'Mnu07_Strategy_CdO
-        '
-        Me.Mnu07_Strategy_CdO.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_CdO.Name = "Mnu07_Strategy_CdO"
-        Me.Mnu07_Strategy_CdO.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_CdO.Text = "Stratégie des CdO"
-        '
-        'Mnu07_Strategy_Cbl
-        '
-        Me.Mnu07_Strategy_Cbl.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_Cbl.Name = "Mnu07_Strategy_Cbl"
-        Me.Mnu07_Strategy_Cbl.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_Cbl.Text = "Stratégie des Cbl"
-        '
-        'Mnu07_Strategy_Tpl
-        '
-        Me.Mnu07_Strategy_Tpl.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_Tpl.Name = "Mnu07_Strategy_Tpl"
-        Me.Mnu07_Strategy_Tpl.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_Tpl.Text = "Stratégie des Tpl"
-        '
-        'Mnu07_Strategy_Xwg
-        '
-        Me.Mnu07_Strategy_Xwg.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_Xwg.Name = "Mnu07_Strategy_Xwg"
-        Me.Mnu07_Strategy_Xwg.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_Xwg.Text = "Stratégie des Xwg"
-        '
-        'Mnu07_Strategy_XYw
-        '
-        Me.Mnu07_Strategy_XYw.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_XYw.Name = "Mnu07_Strategy_XYw"
-        Me.Mnu07_Strategy_XYw.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_XYw.Text = "Stratégie des XYw"
-        '
-        'Mnu07_Strategy_Swf
-        '
-        Me.Mnu07_Strategy_Swf.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_Swf.Name = "Mnu07_Strategy_Swf"
-        Me.Mnu07_Strategy_Swf.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_Swf.Text = "Stratégie des Swf"
-        '
-        'Mnu07_Strategy_Jly
-        '
-        Me.Mnu07_Strategy_Jly.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_Jly.Name = "Mnu07_Strategy_Jly"
-        Me.Mnu07_Strategy_Jly.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_Jly.Text = "Stratégie des Jly"
-        '
-        'Mnu07_Strategy_XYZ
-        '
-        Me.Mnu07_Strategy_XYZ.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_XYZ.Name = "Mnu07_Strategy_XYZ"
-        Me.Mnu07_Strategy_XYZ.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_XYZ.Text = "Stratégie des XYZ"
-        '
-        'Mnu07_Strategy_SKy
-        '
-        Me.Mnu07_Strategy_SKy.Name = "Mnu07_Strategy_SKy"
-        Me.Mnu07_Strategy_SKy.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_SKy.Text = "Stratégie des SKy"
-        '
-        'Mnu07_Strategy_Unq
-        '
-        Me.Mnu07_Strategy_Unq.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Mnu07_Strategy_Unq.Name = "Mnu07_Strategy_Unq"
-        Me.Mnu07_Strategy_Unq.Size = New System.Drawing.Size(246, 34)
-        Me.Mnu07_Strategy_Unq.Text = "Stratégie des Unq"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(243, 6)
         '
         'Mnu07n_Gbl
         '
         Me.Mnu07n_Gbl.Name = "Mnu07n_Gbl"
-        Me.Mnu07n_Gbl.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_Gbl.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_Gbl.Text = "Gbl"
         '
         'Mnu07n_Gbv
         '
         Me.Mnu07n_Gbv.Name = "Mnu07n_Gbv"
-        Me.Mnu07n_Gbv.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_Gbv.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_Gbv.Text = "Gbv"
         '
         'Mnu07n_GCs
         '
         Me.Mnu07n_GCs.Name = "Mnu07n_GCs"
-        Me.Mnu07n_GCs.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_GCs.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_GCs.Text = "GCs"
         '
         'Mnu07n_GCx
         '
         Me.Mnu07n_GCx.Name = "Mnu07n_GCx"
-        Me.Mnu07n_GCx.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_GCx.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_GCx.Text = "XCx"
         '
         'Mnu07n_XCy
         '
         Me.Mnu07n_XCy.Name = "Mnu07n_XCy"
-        Me.Mnu07n_XCy.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_XCy.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_XCy.Text = "XCy"
         '
         'Mnu07n_XRp
         '
         Me.Mnu07n_XRp.Name = "Mnu07n_XRp"
-        Me.Mnu07n_XRp.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_XRp.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_XRp.Text = "XRp"
         '
         'Mnu07n_XNl
         '
         Me.Mnu07n_XNl.Name = "Mnu07n_XNl"
-        Me.Mnu07n_XNl.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_XNl.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_XNl.Text = "XNl"
         '
         'Mnu07n_WgX
         '
         Me.Mnu07n_WgX.Name = "Mnu07n_WgX"
-        Me.Mnu07n_WgX.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_WgX.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_WgX.Text = "WgX"
         '
         'Mnu07n_WgY
         '
         Me.Mnu07n_WgY.Name = "Mnu07n_WgY"
-        Me.Mnu07n_WgY.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_WgY.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_WgY.Text = "WgY"
         '
         'Mnu07n_WgZ
         '
         Me.Mnu07n_WgZ.Name = "Mnu07n_WgZ"
-        Me.Mnu07n_WgZ.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_WgZ.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_WgZ.Text = "WgZ"
         '
         'Mnu07n_WgW
         '
         Me.Mnu07n_WgW.Name = "Mnu07n_WgW"
-        Me.Mnu07n_WgW.Size = New System.Drawing.Size(246, 34)
+        Me.Mnu07n_WgW.Size = New System.Drawing.Size(270, 34)
         Me.Mnu07n_WgW.Text = "WgW"
         '
         'Mnu09
@@ -1374,7 +1281,7 @@ Partial Class Frm_SDK
         Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0910_GLk, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
-        Me.Mnu09.Size = New System.Drawing.Size(79, 25)
+        Me.Mnu09.Size = New System.Drawing.Size(79, 28)
         Me.Mnu09.Text = "Graphe"
         '
         'Mnu0901
@@ -1472,7 +1379,7 @@ Partial Class Frm_SDK
         Me.BarreOutils.ContextMenuStrip = Me.Mnu_Ctxt_Vide
         Me.BarreOutils.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.BarreOutils.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Btn_Cdd, Me.Btn_CdU, Me.Btn_CdO, Me.ToolStripSeparator13, Me.Btn1, Me.Btn2, Me.Btn3, Me.Btn4, Me.Btn5, Me.Btn6, Me.Btn7, Me.Btn8, Me.Btn9, Me.ToolStripSeparator14, Me.Btn_Cbl, Me.Btn_Tpl, Me.Btn_Xwg, Me.Btn_XYw, Me.Btn_Swf, Me.Btn_Jly, Me.Btn_XYZ, Me.Btn_SKy, Me.Btn_Unq, Me.ToolStripSeparator15, Me.Btn0, Me.ToolStripSeparator16})
-        Me.BarreOutils.Location = New System.Drawing.Point(0, 29)
+        Me.BarreOutils.Location = New System.Drawing.Point(0, 32)
         Me.BarreOutils.Name = "BarreOutils"
         Me.BarreOutils.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.BarreOutils.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -2105,67 +2012,55 @@ Partial Class Frm_SDK
   Friend WithEvents Mnu08_TestA As ToolStripMenuItem
   Friend WithEvents Mnu08_TestB As ToolStripMenuItem
   Friend WithEvents Mnu07 As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_CdU As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_CdO As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_Cbl As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_Tpl As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_Xwg As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_XYw As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_Swf As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_Jly As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_XYZ As ToolStripMenuItem
-  Friend WithEvents Mnu07_Strategy_Unq As ToolStripMenuItem
-  Friend WithEvents Mnu_EDI_Saisir_Valeur As ToolStripMenuItem
-  Friend WithEvents ToolTip_B As ToolTip
-  Friend WithEvents Mnu08_Jouer As ToolStripMenuItem
-  Friend WithEvents Mnu08J_F As ToolStripMenuItem
-  Friend WithEvents Mnu08J_M As ToolStripMenuItem
-  Friend WithEvents Mnu08J_D As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestC As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestD As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestE As ToolStripMenuItem
-  Friend WithEvents Mnu06_HHSudokuGame As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestF As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestG As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestH As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestI As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestJ As ToolStripMenuItem
-  Friend WithEvents Mnu_Ctxt_Vide As ContextMenuStrip
-  Friend WithEvents Mnu05_ModeEtendu As ToolStripMenuItem
-  Friend WithEvents Btn_SKy As ToolStripButton
-  Friend WithEvents Mnu07_Strategy_SKy As ToolStripMenuItem
-  Friend WithEvents Batch_Timer As Timer
-  Friend WithEvents Mnu06_MUDancingLink As ToolStripMenuItem
-  Friend WithEvents Mnu08_RésoudreDancingLink As ToolStripMenuItem
-  Friend WithEvents Mnu08_JouerAutrement As ToolStripMenuItem
-  Friend WithEvents Mnu06_SudoCue As ToolStripMenuItem
-  Friend WithEvents Mnu06_DiufSudokuJava As ToolStripMenuItem
-  Friend WithEvents Mnu_Obj As ContextMenuStrip
-  Friend WithEvents Couleurs As ToolStripMenuItem
-  Friend WithEvents A As ToolStripMenuItem
-  Friend WithEvents B As ToolStripMenuItem
-  Friend WithEvents C As ToolStripMenuItem
-  Friend WithEvents D As ToolStripMenuItem
-  Friend WithEvents Objets As ToolStripMenuItem
-  Friend WithEvents Cadre As ToolStripMenuItem
-  Friend WithEvents Carré As ToolStripMenuItem
-  Friend WithEvents Cercle As ToolStripMenuItem
-  Friend WithEvents Disque As ToolStripMenuItem
-  Friend WithEvents Croix As ToolStripMenuItem
-  Friend WithEvents Cel_Cdd As ToolStripMenuItem
-  Friend WithEvents Enlever As ToolStripMenuItem
-  Friend WithEvents Flèche As ToolStripMenuItem
-  Friend WithEvents Origine As ToolStripMenuItem
-  Friend WithEvents Destination As ToolStripMenuItem
-  Friend WithEvents Flèche_Supprimer As ToolStripMenuItem
-  Friend WithEvents Enlever_Tout As ToolStripMenuItem
-  Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-  Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-  Friend WithEvents TTT_Timer As Timer
-  Friend WithEvents Mnu08_DessinerSurLaGrille As ToolStripMenuItem
-  Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
-  Friend WithEvents Mnu07n_GCs As ToolStripMenuItem
-  Friend WithEvents Mnu07n_GCx As ToolStripMenuItem
+    Friend WithEvents Mnu_EDI_Saisir_Valeur As ToolStripMenuItem
+    Friend WithEvents ToolTip_B As ToolTip
+    Friend WithEvents Mnu08_Jouer As ToolStripMenuItem
+    Friend WithEvents Mnu08J_F As ToolStripMenuItem
+    Friend WithEvents Mnu08J_M As ToolStripMenuItem
+    Friend WithEvents Mnu08J_D As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestC As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestD As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestE As ToolStripMenuItem
+    Friend WithEvents Mnu06_HHSudokuGame As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestF As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestG As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestH As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestI As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestJ As ToolStripMenuItem
+    Friend WithEvents Mnu_Ctxt_Vide As ContextMenuStrip
+    Friend WithEvents Mnu05_ModeEtendu As ToolStripMenuItem
+    Friend WithEvents Btn_SKy As ToolStripButton
+    Friend WithEvents Batch_Timer As Timer
+    Friend WithEvents Mnu06_MUDancingLink As ToolStripMenuItem
+    Friend WithEvents Mnu08_RésoudreDancingLink As ToolStripMenuItem
+    Friend WithEvents Mnu08_JouerAutrement As ToolStripMenuItem
+    Friend WithEvents Mnu06_SudoCue As ToolStripMenuItem
+    Friend WithEvents Mnu06_DiufSudokuJava As ToolStripMenuItem
+    Friend WithEvents Mnu_Obj As ContextMenuStrip
+    Friend WithEvents Couleurs As ToolStripMenuItem
+    Friend WithEvents A As ToolStripMenuItem
+    Friend WithEvents B As ToolStripMenuItem
+    Friend WithEvents C As ToolStripMenuItem
+    Friend WithEvents D As ToolStripMenuItem
+    Friend WithEvents Objets As ToolStripMenuItem
+    Friend WithEvents Cadre As ToolStripMenuItem
+    Friend WithEvents Carré As ToolStripMenuItem
+    Friend WithEvents Cercle As ToolStripMenuItem
+    Friend WithEvents Disque As ToolStripMenuItem
+    Friend WithEvents Croix As ToolStripMenuItem
+    Friend WithEvents Cel_Cdd As ToolStripMenuItem
+    Friend WithEvents Enlever As ToolStripMenuItem
+    Friend WithEvents Flèche As ToolStripMenuItem
+    Friend WithEvents Origine As ToolStripMenuItem
+    Friend WithEvents Destination As ToolStripMenuItem
+    Friend WithEvents Flèche_Supprimer As ToolStripMenuItem
+    Friend WithEvents Enlever_Tout As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents TTT_Timer As Timer
+    Friend WithEvents Mnu08_DessinerSurLaGrille As ToolStripMenuItem
+    Friend WithEvents Mnu07n_GCs As ToolStripMenuItem
+    Friend WithEvents Mnu07n_GCx As ToolStripMenuItem
   Friend WithEvents Mnu07n_XCy As ToolStripMenuItem
   Friend WithEvents Mnu07n_XRp As ToolStripMenuItem
   Friend WithEvents Mnu07n_XNl As ToolStripMenuItem

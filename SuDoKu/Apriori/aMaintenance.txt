@@ -345,6 +345,8 @@
 #682 V  03/04/2026 La production de grille est remise en place
 #683 V  03/04/2026 Mise en place de GCx
 #684 V  03/04/2026 Mise en place dans Graphe des stratégies G et X
+#685 S  04/04/2026 Suppression des options Outils / Stratégies des CdU à Unq
+                                   remplacées par le Clic Droit sur les boutons
 
 ##############################################################################################################################
 

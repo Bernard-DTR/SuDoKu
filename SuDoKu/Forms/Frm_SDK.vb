@@ -802,22 +802,38 @@ Public NotInheritable Class Frm_SDK
   End Sub
   '--------------04n--------------------------------------------------------------
   ' TOUTES les stratégies de la barre d'outils sont lancées ici
-  Public Sub Mnu04n_Stratégie_BTXYSJZKQ(Sender As Object, e As EventArgs) _
-                                Handles Btn_XYZ.Click, Btn_XYw.Click, Btn_Xwg.Click,
-                                        Btn_Unq.Click, Btn_Tpl.Click, Btn_Swf.Click,
-                                        Btn_SKy.Click, Btn_Jly.Click, Btn_Cbl.Click,
-                                        Btn_CdO.Click, Btn_CdU.Click, Btn_Cdd.Click
-    'Le Sender provient soit du texte de l'option du menu, le texte du menu est explicite
-    '                   soit de la barre d'Outils, le texte d'un bouton est une simple lettre
-    Dim stgs() As String = {"Cdd", "CdU", "CdO", "Cbl", "Tpl", "Xwg", "XYw", "Swf", "Jly", "XYZ", "SKy", "Unq"}
-    For Each stg As String In stgs
-      If Sender.ToString() = Stg_Get(stg).Texte OrElse Sender.ToString() = Stg_Get(stg).Lettre Then
-        Strategy_Code(stg, Proc_Name_Get())
-        Exit Sub
-      End If
-    Next
-    ' Si aucune correspondance trouvée
-    Jrn_Add(, {Proc_Name_Get() & " Sender inconnu : " & Sender.ToString()}, "Erreur")
+  Private Sub Btn_CUO_BTXYSJZKQ_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn_CdU.MouseDown, Btn_CdO.MouseDown, Btn_Cdd.MouseDown, Btn_Cbl.MouseDown, Btn_Xwg.MouseDown, Btn_Tpl.MouseDown, Btn_XYw.MouseDown, Btn_Swf.MouseDown, Btn_XYZ.MouseDown, Btn_Unq.MouseDown, Btn_SKy.MouseDown, Btn_Jly.MouseDown
+    Dim Lettre As String = sender.ToString()
+    Dim Strg_Classique As String = "###"
+    For Each Stg As Stg_Cls In Stg_List
+      If Stg.Lettre = Lettre Then Strg_Classique = Stg.Code
+    Next Stg
+
+    Select Case e.Button
+      Case MouseButtons.Left
+        ' le bouton gauche exécute la stratégie et affiche 1 seul résultat
+        Strategy_Code(Strg_Classique, Proc_Name_Get())
+      Case MouseButtons.Right
+        ' Le bouton droit affiche tous les résultats de la stratégie sauf pour Cdd
+        Dim U_temp(80, 3) As String
+        Dim Strategy_Rslt(99, 0) As String
+        Array.Copy(U, U_temp, UNbCopy)
+        Select Case Lettre
+          Case "U" : Strategy_Rslt = Strategy_CdU(U_temp)
+          Case "O" : Strategy_Rslt = Strategy_CdO(U_temp)
+          Case "B" : Strategy_Rslt = Strategy_Cbl(U_temp)
+          Case "T" : Strategy_Rslt = Strategy_Tpl(U_temp)
+          Case "X" : Strategy_Rslt = Strategy_Xwg(U_temp)
+          Case "Y" : Strategy_Rslt = Strategy_XYw(U_temp)
+          Case "S" : Strategy_Rslt = Strategy_Swf(U_temp)
+          Case "J" : Strategy_Rslt = Strategy_Jly(U_temp)
+          Case "Z" : Strategy_Rslt = Strategy_XYZ(U_temp)
+          Case "K" : Strategy_Rslt = Strategy_SKy(U_temp)
+          Case "Q" : Strategy_Rslt = Strategy_Unq(U_temp)
+          Case Else : Exit Sub
+        End Select
+        Strategy_Rslt_Display(Strategy_Rslt, -1)
+    End Select
   End Sub
   Private Sub Btn0_Click(sender As Object, e As EventArgs) Handles Btn0.Click
     Strategy_Dsp_Standard()
@@ -1093,71 +1109,6 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   '--------------07---------------------------------------------------------------
-  Private Sub Mnu07_Strategy_CdU_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_CdU.Click
-    Mnu07_Strategy("U")
-  End Sub
-  Private Sub Mnu07_Strategy_CdO_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_CdO.Click
-    Mnu07_Strategy("O")
-  End Sub
-  Private Sub Mnu07_Strategy_DCd_Click(sender As Object, e As EventArgs)
-    Mnu07_Strategy("D")
-  End Sub
-  Private Sub Mnu07_Strategy_Cbl_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_Cbl.Click
-    Mnu07_Strategy("B")
-  End Sub
-  Private Sub Mnu07_Strategy_Tpl_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_Tpl.Click
-    Mnu07_Strategy("T")
-  End Sub
-  Private Sub Mnu07_Strategy_Xwg_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_Xwg.Click
-    Mnu07_Strategy("X")
-  End Sub
-  Private Sub Mnu07_Strategy_XYw_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_XYw.Click
-    Mnu07_Strategy("Y")
-  End Sub
-  Private Sub Mnu07_Strategy_Swf_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_Swf.Click
-    Mnu07_Strategy("S")
-  End Sub
-  Private Sub Mnu07_Strategy_Jly_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_Jly.Click
-    Mnu07_Strategy("J")
-  End Sub
-  Private Sub Mnu07_Strategy_XYZ_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_XYZ.Click
-    Mnu07_Strategy("Z")
-  End Sub
-  Private Sub Mnu07_Strategy_Sky_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_SKy.Click
-    Mnu07_Strategy("K")
-  End Sub
-  Private Sub Mnu07_Strategy_Unq_Click(sender As Object, e As EventArgs) Handles Mnu07_Strategy_Unq.Click
-    Mnu07_Strategy("Q")
-  End Sub
-  Public Sub Mnu07_Strategy(Strategy As String)
-    Dim U_temp(80, 3) As String
-    Dim Strategy_Rslt(99, 0) As String
-    Try
-      Array.Copy(U, U_temp, UNbCopy)
-      Select Case Strategy
-        Case "U" : Strategy_Rslt = Strategy_CdU(U_temp)
-        Case "O" : Strategy_Rslt = Strategy_CdO(U_temp)
-        Case "B" : Strategy_Rslt = Strategy_Cbl(U_temp)
-        Case "T" : Strategy_Rslt = Strategy_Tpl(U_temp)
-        Case "X" : Strategy_Rslt = Strategy_Xwg(U_temp)
-        Case "Y" : Strategy_Rslt = Strategy_XYw(U_temp)
-        Case "S" : Strategy_Rslt = Strategy_Swf(U_temp)
-        Case "J" : Strategy_Rslt = Strategy_Jly(U_temp)
-        Case "Z" : Strategy_Rslt = Strategy_XYZ(U_temp)
-        Case "K" : Strategy_Rslt = Strategy_SKy(U_temp)
-        Case "Q" : Strategy_Rslt = Strategy_Unq(U_temp)
-      End Select
-
-      Strategy_Rslt_Display(Strategy_Rslt, -1)
-
-    Catch ex As Exception
-      MsgBox(ex.Message,, Proc_Name_Get())
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-
-  End Sub
-
   Private Sub Mnu07_Gbl_Click(sender As Object, e As EventArgs) Handles Mnu07n_Gbl.Click
     Dim File_Name As String = Path_SDK & Msg_Read("MNU_07001")
     If Plcy_Open_Display Then Processing_Start(File_Name)
@@ -1176,7 +1127,7 @@ Public NotInheritable Class Frm_SDK
     Pzzl_Open(File_Name)
     Mnu04n_Stratégie_XW_Click(sender, e)
   End Sub
-  Private Sub Mnu07_GCx_Click(sender As Object, e As EventArgs) Handles Mnu07n_GCx.Click, Mnu07n_GCx.Click
+  Private Sub Mnu07_GCx_Click(sender As Object, e As EventArgs) Handles Mnu07n_GCx.Click
     Dim File_Name As String = Path_SDK & Msg_Read("MNU_07020")
     If Plcy_Open_Display Then Processing_Start(File_Name)
     Pzzl_Open(File_Name)
