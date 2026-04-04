@@ -348,7 +348,7 @@
 #685 S  04/04/2026 Suppression des options Outils / Stratégies des CdU à Unq
                                    remplacées par le Clic Droit sur les boutons
 #686 S  04/04/2026 Consolidation des menus de tests et d'exécution des stratégies XetG des options Outils / Stratégies des CdU à Unq
-
+#687 S             Liste des fichiers pour Github
 ##############################################################################################################################
 
 ????               Est-il nécessaire de faire varier le grille de saisie ? 

@@ -483,7 +483,6 @@ Public NotInheritable Class Frm_SDK
     Dim TTT_Message As String = Cnddts_Blancs
     Dim Cellule As Integer = Pbl_Cell_Select
     If Plcy_Fantasy Then Exit Sub    'Le TTT_Message ne fonctionne pas avec une police fantaisie.
-
     Select Case Cellule
       Case 1, 2, 3, 4, 5, 6, 7, 73, 74, 75, 76, 77, 78, 79           ' Colonnes haut et bas
         TTT_Message = Wh_Candidats_Unité(U_9CelCol(U_Col(Cellule)))
