@@ -740,7 +740,7 @@ Pzzl_Prd_End:
     Select Case Prd.Prd_Code_Retour
       Case 0
         Jrn_Add(, {Proc_Name_Get() & " /Fin Création d'un SuDoKu"})
-        Dim File As String = Pzzl_Save(Prd)
+        Dim File As String = Pzzl_Rcd(Prd)
         Pzzl_Open(File)
       Case Else
         Jrn_Add(, {Proc_Name_Get() & " /Fin sans réussite"})
@@ -1014,7 +1014,7 @@ Phase_End:
     End Select
 
     Prd_Display(Prd)
-    Dim File As String = Pzzl_Save(Prd)
+    Dim File As String = Pzzl_Rcd(Prd)
     Pzzl_Open(File)
   End Sub
 
@@ -1480,7 +1480,7 @@ Pzzl_Prd_Batch_End:
       End If
 
       'Enregistrement du Puzzle
-      Dim File As String = Pzzl_Save(Prd)
+      Dim File As String = Pzzl_Rcd(Prd)
     Catch ex As Exception
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       MsgBox(ex.ToString(),, MsgTit)

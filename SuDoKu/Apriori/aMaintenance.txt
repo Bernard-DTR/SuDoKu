@@ -355,17 +355,18 @@
 #691 D             Paint et Paint_g deviennent Paint et Paint_Quadrillage
 #692 D             Strategy_X\Q050_Remote_Pairs.vb devient Strategy_X\Q050_Strategy_Rp.vb
 #693 D  05/04/2026 Les fonctions _g sont renommées en perdant cette extension
-
-
-????               Je lance SDK, réponds OK à la création Batch, et reçois le message:
-                   Game_New_Game Name: SDK_M_01066 Jeu: 600945830
-                   OnPaint L1_C1 / Batch_Initial / #
-
-
-
+#694 D  05/04/2026 Obj_Colors_Save et Pzzl_Save sont renommés en _Rcd
+#695 D  05/04/2026 Il ne semble pas y avoir de fonction _Old ou _Save
+#696 D  05/04/2026 Correction de G0_Cdd_Bézier
+                   Sauvegarde de G0_Cdd_Bézier en G0_Cdd_Bézier_Save
+                   la courbe de Bézier est utilisée dans les stratégies X et G
+#697 D  05/04/2026 Correction de G0_Cdd_Bézier, les extrémités sont dessinées ailleurs
 
 
 ##############################################################################################################################
+????               Je lance SDK, réponds OK à la création Batch, et reçois le message:
+                   Game_New_Game Name: SDK_M_01066 Jeu: 600945830
+                   OnPaint L1_C1 / Batch_Initial / #
 
 ????               Est-il nécessaire de faire varier le grille de saisie ? 
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)

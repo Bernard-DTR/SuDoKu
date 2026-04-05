@@ -6,7 +6,7 @@
 
 Friend Module A__Colorisation
 
-  Public Sub Obj_Colors_Save()
+  Public Sub Obj_Colors_Rcd()
     Dim Data As String = String.Join(";", Color_List.Select(Function(c) $"{c.Symbol},{c.Color.ToArgb()}"))
     My.Settings.Obj_Colors = Data
     My.Settings.Save()

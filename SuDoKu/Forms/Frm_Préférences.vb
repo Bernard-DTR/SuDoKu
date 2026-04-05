@@ -852,7 +852,7 @@
       If .ShowDialog() = DialogResult.OK Then          ' Réponse OK à l'Affichage de la ColorDialog
         Color_List(Lcg).Color = .Color                 ' Modification de la couleur
         DGV07_Color.Item(columnIndex:=1, rowIndex:=Lcg).Style.BackColor = Color_List(Lcg).Color
-        Obj_Colors_Save()                              ' Entregistrement des couleurs
+        Obj_Colors_Rcd()                              ' Entregistrement des couleurs
       End If
     End With
   End Sub

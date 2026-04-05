@@ -1,8 +1,7 @@
 ﻿Imports System.IO
 Module M01_Enregistrement_Partie
-  Public Function Pzzl_Save(Prd As Prd_Struct) As String
+  Public Function Pzzl_Rcd(Prd As Prd_Struct) As String
     ' Enregistrement d'un Puzzle
-    ' 17/10/2025 Modification du nom du fichier FMDE
     Dim Code_FMDE As String = "#"
     Dim File_Save_Name As String = ""
 

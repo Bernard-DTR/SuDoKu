@@ -157,6 +157,7 @@
     <Compile Include="DenisBerthier\DB_01.vb" />
     <Compile Include="DenisBerthier\DB_02.vb" />
     <Compile Include="DenisBerthier\DB_03.vb" />
+    <Compile Include="M03_Paint_Exp.vb" />
     <Compile Include="M03_Paint_Quadrillage.vb" />
     <Compile Include="Models\XLink_Cls.vb" />
     <Compile Include="Apriori\A%40%40_En_Cours.vb" />
