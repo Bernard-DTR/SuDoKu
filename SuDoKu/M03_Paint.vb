@@ -26,15 +26,15 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_XYZ(g)
       G4_Grid_Stratégie_SKy(g)
       G4_Grid_Stratégie_Unq(g)
-      G4_Grid_Stratégie_Obj_g(g)
+      G4_Grid_Stratégie_Obj(g)
       G4_Grid_Stratégie_GCx(g)
-      G4_Grid_Stratégie_XCy_XNl_g(g)
-      G4_Grid_Stratégie_XRp_g(g)
-      G4_Grid_Stratégie_WgX_WgY_WgZ_WgW_g(g)
-      G4_Grid_Stratégie_GLk_g(g)
-      G4_Grid_Stratégie_Gbl_g(g)
-      G4_Grid_Stratégie_Gbv_g(g)
-      G4_Grid_Stratégie_GCs_g(g)
+      G4_Grid_Stratégie_XCy_XNl(g)
+      G4_Grid_Stratégie_XRp(g)
+      G4_Grid_Stratégie_WgX_WgY_WgZ_WgW(g)
+      G4_Grid_Stratégie_GLk(g)
+      G4_Grid_Stratégie_Gbl(g)
+      G4_Grid_Stratégie_Gbv(g)
+      G4_Grid_Stratégie_GCs(g)
     End If
   End Sub
 
@@ -537,7 +537,7 @@ Friend Module M03_Paint
 
 
 
-  Public Sub G4_Grid_Stratégie_XCy_XNl_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_XCy_XNl(g As Graphics)
     If Not (Plcy_Strg = "XCy" Or Plcy_Strg = "XNl") Then Exit Sub
     Try
       Dim sc As New Cellule_Cls
@@ -562,17 +562,17 @@ Friend Module M03_Paint
         With Link
           Select Case Plcy_Strg
             Case "XCy"
-              G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(4)), .Cel(1), CInt(.Cdd(4)), .Type, Nb)
+              G0_Cdd_Bézier(g, .Cel(0), CInt(.Cdd(4)), .Cel(1), CInt(.Cdd(4)), .Type, Nb)
             Case "XNl"
-              G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(4)), .Cel(1), CInt(.Cdd(4)), .Type, Nb)
+              G0_Cdd_Bézier(g, .Cel(0), CInt(.Cdd(4)), .Cel(1), CInt(.Cdd(4)), .Type, Nb)
             Case Else
           End Select
 
           ' 3 Affichage des Extrémités des liens  
           Dim PremierLien As XLink_Cls = XRslt.RoadRight.First()
           Dim DernierLien As XLink_Cls = XRslt.RoadRight.Last()
-          G0_Cell_Icône_g(g, PremierLien.Cel(0), "Start")
-          G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
+          G0_Cell_Icône(g, PremierLien.Cel(0), "Start")
+          G0_Cell_Icône(g, DernierLien.Cel(1), "End")
           Select Case Plcy_Strg
             Case "XCy"
               G0_Cdd_Figure(g, PremierLien.Cel(0), CInt(PremierLien.Cdd(0)), "Disque", Color_Link_S)
@@ -604,7 +604,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_XRp_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_XRp(g As Graphics)
     If Not Plcy_Strg = "XRp" Then Exit Sub
     Try
       Dim sc As New Cellule_Cls
@@ -629,20 +629,20 @@ Friend Module M03_Paint
         Nb += 1
         With Link
           Select Case Nb Mod 2 ' Pour alterner les liens entre les séries de candidats
-            Case 0 : G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
-            Case 1 : G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(1)), .Cel(1), CInt(.Cdd(3)), .Type, Nb)
+            Case 0 : G0_Cdd_Bézier(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
+            Case 1 : G0_Cdd_Bézier(g, .Cel(0), CInt(.Cdd(1)), .Cel(1), CInt(.Cdd(3)), .Type, Nb)
           End Select
         End With
       Next Link
 
       ' 3 Affichage des Extrémités des liens  
       Dim PremierLien As XLink_Cls = XRslt.RoadRight.First()
-      G0_Cell_Icône_g(g, PremierLien.Cel(0), "Start")
+      G0_Cell_Icône(g, PremierLien.Cel(0), "Start")
       G0_Cdd_Figure(g, PremierLien.Cel(0), CInt(XRslt.Candidat(0)), "Disque", Color_Link_W)
       G0_Cdd_Figure(g, PremierLien.Cel(0), CInt(XRslt.Candidat(1)), "Disque", Color_Link_W)
 
       Dim DernierLien As XLink_Cls = XRslt.RoadRight.Last()
-      G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
+      G0_Cell_Icône(g, DernierLien.Cel(1), "End")
       G0_Cdd_Figure(g, DernierLien.Cel(1), CInt(XRslt.Candidat(0)), "Disque", Color_Link_W)
       G0_Cdd_Figure(g, DernierLien.Cel(1), CInt(XRslt.Candidat(1)), "Disque", Color_Link_W)
 
@@ -669,7 +669,7 @@ Friend Module M03_Paint
     End Try
   End Sub
 
-  Public Sub G4_Grid_Stratégie_WgX_WgY_WgZ_WgW_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_WgX_WgY_WgZ_WgW(g As Graphics)
     If Not (Plcy_Strg = "WgX" Or Plcy_Strg = "WgY" Or Plcy_Strg = "WgZ" Or Plcy_Strg = "WgW") Then Exit Sub
 
     Try
@@ -694,16 +694,16 @@ Friend Module M03_Paint
         Nb += 1
         Select Case Plcy_Strg
           Case "WgX"
-            G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(0)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
+            G0_Cdd_Bézier(g, Link.Cel(0), CInt(Link.Cdd(0)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
           Case "WgY"
-            G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(2)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
+            G0_Cdd_Bézier(g, Link.Cel(0), CInt(Link.Cdd(2)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
             G0_Cdd_Figure(g, Link.Cel(1), CInt(Link.Cdd(3)), "Disque", Color_Link_S) 'Mise en exergue du candidat Z
           Case "WgZ"
-            G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(3)), Link.Cel(1), CInt(Link.Cdd(3)), Link.Type, Nb)
-            G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(4)), Link.Cel(1), CInt(Link.Cdd(4)), Link.Type, Nb)
+            G0_Cdd_Bézier(g, Link.Cel(0), CInt(Link.Cdd(3)), Link.Cel(1), CInt(Link.Cdd(3)), Link.Type, Nb)
+            G0_Cdd_Bézier(g, Link.Cel(0), CInt(Link.Cdd(4)), Link.Cel(1), CInt(Link.Cdd(4)), Link.Type, Nb)
             G0_Cdd_Figure(g, Link.Cel(0), CInt(Link.Cdd(5)), "Disque", Color_Link_S) 'Mise en exergue du candidat du pivot
           Case "WgW"
-            G0_Cdd_Bézier_g(g, Link.Cel(0), CInt(Link.Cdd(0)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
+            G0_Cdd_Bézier(g, Link.Cel(0), CInt(Link.Cdd(0)), Link.Cel(1), CInt(Link.Cdd(2)), Link.Type, Nb)
             G0_Cdd_Figure(g, XRslt.Cellule(0), CInt(XRslt.Candidat(1)), "Disque", Color_Link_S) 'Mise en exergue du candidat  
             G0_Cdd_Figure(g, XRslt.Cellule(1), CInt(XRslt.Candidat(1)), "Disque", Color_Link_S) 'Mise en exergue du candidat  
         End Select
@@ -712,15 +712,15 @@ Friend Module M03_Paint
       ' 3 Affichage des Extrémités des liens  
       Select Case Plcy_Strg
         Case "WgX"
-          G0_Cell_Icône_g(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
-          G0_Cell_Icône_g(g, XRslt.RoadRight.Item(1).Cel(0), "Start")
+          G0_Cell_Icône(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
+          G0_Cell_Icône(g, XRslt.RoadRight.Item(1).Cel(0), "Start")
         Case "WgY"
-          G0_Cell_Icône_g(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
+          G0_Cell_Icône(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
         Case "WgZ"
-          G0_Cell_Icône_g(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
+          G0_Cell_Icône(g, XRslt.RoadRight.Item(0).Cel(0), "Start")
         Case "WgW"
-          G0_Cell_Icône_g(g, XRslt.Cellule(0), "Start")
-          G0_Cell_Icône_g(g, XRslt.Cellule(1), "Start")
+          G0_Cell_Icône(g, XRslt.Cellule(0), "Start")
+          G0_Cell_Icône(g, XRslt.Cellule(1), "Start")
       End Select
 
       ' 4 Affichage des Candidats à exclure 
@@ -745,7 +745,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_GLk_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_GLk(g As Graphics)
     If Not Plcy_Strg = "GLk" Then Exit Sub
     Try
       If GLinks.Count = 0 Then
@@ -767,7 +767,7 @@ Friend Module M03_Paint
       Dim Nb As Integer = 0
       For Each gLink As GLink_Cls In GLinks
         Nb += 1
-        G0_Cdd_Bézier_g(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
+        G0_Cdd_Bézier(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
         Dim sc_gLink As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
         If U(gLink.Cel(0), 3).Contains(gLink.Cdd(0)) Then
           sc_gLink.G6_Cellule_Paint_Candidat(g, gLink.Cdd(0), Color_Link_S)
@@ -786,7 +786,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_Gbl_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_Gbl(g As Graphics)
     If Not Plcy_Strg = "Gbl" Then Exit Sub
 
     Try
@@ -809,7 +809,7 @@ Friend Module M03_Paint
       Dim Nb As Integer = 0
       For Each gLink As GLink_Cls In GRslt.RoadRight
         Nb += 1
-        G0_Cdd_Bézier_g(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
+        G0_Cdd_Bézier(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
         Dim sc_gLink As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
         If U(gLink.Cel(0), 3).Contains(gLink.Cdd(0)) Then
           sc_gLink.G6_Cellule_Paint_Candidat(g, gLink.Cdd(0), Color_Link_S)
@@ -842,7 +842,7 @@ Friend Module M03_Paint
     End Try
 
   End Sub
-  Public Sub G4_Grid_Stratégie_Gbv_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_Gbv(g As Graphics)
     If Not Plcy_Strg = "Gbv" Then Exit Sub
 
     Try
@@ -863,7 +863,7 @@ Friend Module M03_Paint
       For Each gLink As GLink_Cls In GRslt.RoadRight
         Nb += 1
         ' Premier lien
-        G0_Cdd_Bézier_g(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
+        G0_Cdd_Bézier(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
         Dim sc_gLink1 As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
         If U(gLink.Cel(0), 3).Contains(gLink.Cdd(0)) Then
           sc_gLink1.G6_Cellule_Paint_Candidat(g, gLink.Cdd(0), Color_Link_S)
@@ -873,7 +873,7 @@ Friend Module M03_Paint
           sc_gLink1.G6_Cellule_Paint_Candidat(g, gLink.Cdd(2), Color_Link_S)
         End If
         ' Second lien
-        G0_Cdd_Bézier_g(g, gLink.Cel(0), CInt(gLink.Cdd(1)), gLink.Cel(1), CInt(gLink.Cdd(3)), gLink.Type, 0)
+        G0_Cdd_Bézier(g, gLink.Cel(0), CInt(gLink.Cdd(1)), gLink.Cel(1), CInt(gLink.Cdd(3)), gLink.Type, 0)
         Dim sc_gLink2 As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
         If U(gLink.Cel(0), 3).Contains(gLink.Cdd(1)) Then
           sc_gLink2.G6_Cellule_Paint_Candidat(g, gLink.Cdd(1), Color_Link_S)
@@ -907,7 +907,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_GCs_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_GCs(g As Graphics)
     If Not (Plcy_Strg = "GCs") Then Exit Sub
     Try
       Dim sc As New Cellule_Cls
@@ -930,7 +930,7 @@ Friend Module M03_Paint
       For Each gLink As GLink_Cls In GRslt.RoadRight
         Nb += 1
         With gLink
-          G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
+          G0_Cdd_Bézier(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
           Select Case Nb Mod 2
             Case 0
               Dim sc_Cdd As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
@@ -951,8 +951,8 @@ Friend Module M03_Paint
         Case 0 : sc_LCdd.G6_Cellule_Paint_Candidat(g, lastLien.Cdd(0), Color.Green)
         Case 1 : sc_LCdd.G6_Cellule_Paint_Candidat(g, lastLien.Cdd(0), Color.Blue)
       End Select
-      G0_Cell_Icône_g(g, firstLien.Cel(0), "Start")
-      G0_Cell_Icône_g(g, lastLien.Cel(1), "End")
+      G0_Cell_Icône(g, firstLien.Cel(0), "Start")
+      G0_Cell_Icône(g, lastLien.Cel(1), "End")
 
       ' 4 Affichage des Candidats à exclure 
       Dim Candidats As String = Cnddts_Blancs
@@ -998,13 +998,13 @@ Friend Module M03_Paint
       For Each Link As GLink_Cls In GRslt.RoadRight
         Nb += 1
         With Link
-          G0_Cdd_Bézier_g(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
+          G0_Cdd_Bézier(g, .Cel(0), CInt(.Cdd(0)), .Cel(1), CInt(.Cdd(2)), .Type, Nb)
 
           ' 3 Affichage des Extrémités des liens  
           Dim PremierLien As GLink_Cls = GRslt.RoadRight.First()
           Dim DernierLien As GLink_Cls = GRslt.RoadRight.Last()
-          G0_Cell_Icône_g(g, PremierLien.Cel(0), "Start")
-          G0_Cell_Icône_g(g, DernierLien.Cel(1), "End")
+          G0_Cell_Icône(g, PremierLien.Cel(0), "Start")
+          G0_Cell_Icône(g, DernierLien.Cel(1), "End")
         End With
       Next Link
 
@@ -1030,7 +1030,7 @@ Friend Module M03_Paint
 
   End Sub
 
-  Public Sub G4_Grid_Stratégie_Obj_g(g As Graphics)
+  Public Sub G4_Grid_Stratégie_Obj(g As Graphics)
     Dim sc As New Cellule_Cls
     If Not Plcy_Strg = "Obj" Then Exit Sub
     For i As Integer = 0 To 80
@@ -1050,7 +1050,7 @@ Friend Module M03_Paint
                 G0_Cdd_Figure(g, .Cel_From, .Cdd_From, .Forme, Color_BySymbol(.Symbol))
             End Select
           Case "Flèche"
-            G0_Cdd_Flèche_g(g, .Cel_From, .Cdd_From, .Cel_To, .Cdd_To, Color_BySymbol(.Symbol))
+            G0_Cdd_Flèche(g, .Cel_From, .Cdd_From, .Cel_To, .Cdd_To, Color_BySymbol(.Symbol))
           Case Else
         End Select
       End With
@@ -1061,7 +1061,7 @@ Friend Module M03_Paint
 
 #Region "Paint Figures et Formes de base"
 
-  Public Sub G0_Cell_Icône_g(g As Graphics, Cellule As Integer, Icône As String)
+  Public Sub G0_Cell_Icône(g As Graphics, Cellule As Integer, Icône As String)
     ' Place une icône de Début dans le premier candidat "libre" de la cellule
     '       une icône de Fin   dans le second candidat "libre" de la cellule
 
@@ -1183,7 +1183,7 @@ Friend Module M03_Paint
     Return New PointF(CSng(x), CSng(y))
   End Function
 
-  Public Sub G0_Cdd_Bézier_g(g As Graphics, From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer, Link_Type As String, Link_Numéro As Integer)
+  Public Sub G0_Cdd_Bézier(g As Graphics, From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer, Link_Type As String, Link_Numéro As Integer)
     ' 1 Calcul des Centres et des Points de contrôle pour une courbe de Bézier
     Dim From_Centre As PointF = Get_CentreF(From_Cellule, From_Candidat)
     Dim To_Centre As PointF = Get_CentreF(To_Cellule, To_Candidat)
@@ -1461,7 +1461,7 @@ Friend Module M03_Paint
           g.FillRegion(brsh, MdC_Région)                    ' G4
         End Using
         Dim sc As New Cellule_Cls With {.Numéro = i}
-        If sc.Valeur <> 0 Then sc.G5_Cellule_Paint_Valeur_g(g)                            ' G5
+        If sc.Valeur <> 0 Then sc.G5_Cellule_Paint_Valeur(g)                            ' G5
         If sc.Valeur = 0 Then sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")   ' G6
       End If
       MdC_Région.Dispose()

@@ -155,11 +155,12 @@ Public Class Cellule_Cls
 #End Region
 
 #Region "Méthodes"
-  ' TODO il reste à regarder si la solution est différente
-  ' TODO il reste à regarder si la cellule n'a plus de candidats
-
   ''' <summary>Peint le Fond de la Cellule .</summary>
-  Public Sub G2_Cellule_Paint_Fond_g(g As Graphics)
+  Public Sub G2_Cellule_Paint_Fond(g As Graphics)
+    'TODO Le fond de la cellule doit traiter 3 choses:
+    '             La valeur saisie est différente de la solution
+    '             la cellule est vide et n'a plus de candidats
+    '             l'affichage de la cellule vise présente un quadrillage de saisie et/ou des chiffres
     'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
     'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
     '                 0 est le "Fond Standard", ie une couleur et non une photo
@@ -237,7 +238,7 @@ Public Class Cellule_Cls
   End Sub
 
   ''' <summary>Peint la valeur d'une cellule IR.</summary>
-  Public Sub G5_Cellule_Paint_Valeur_g(g As Graphics)
+  Public Sub G5_Cellule_Paint_Valeur(g As Graphics)
     'Concerne l'ensemble des Cellules Initiales et Remplies
     'Les valeurs sont peintes dans une couleur différentes suivant leur typologie I/R
     If Not IsValid Then Exit Sub
@@ -326,15 +327,15 @@ Public Class Grille_Cls
 #End Region
 
 #Region "Méthodes"
-  Public Sub G2_Grille_Paint_Fond_g(g As Graphics)
+  Public Sub G2_Grille_Paint_Fond(g As Graphics)
     Dim sc As New Cellule_Cls
     For i As Integer = 0 To 80
       sc.Numéro = i
-      sc.G2_Cellule_Paint_Fond_g(g)
+      sc.G2_Cellule_Paint_Fond(g)
     Next i
   End Sub
 
-  Public Sub G8_Grille_Partie_Terminée_g(g As Graphics)
+  Public Sub G8_Grille_Partie_Terminée(g As Graphics)
     Dim Cellule_Clct As New Collection
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
     ' Il faut que les 81 cellules soient remplies et que la grille soit correcte

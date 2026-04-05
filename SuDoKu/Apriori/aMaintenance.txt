@@ -350,6 +350,20 @@
 #686 S  04/04/2026 Consolidation des menus de tests et d'exécution des stratégies XetG des options Outils / Stratégies des CdU à Unq
 #687 S             Liste des fichiers pour Github
 #688 S  04/04/2026 Utilisation de git local et GitHub
+#689 D  05/04/2026 le suffixe _g peut être abandonné. CreateGraphics n'est plus utilisé
+#690 D             Est-ce que des modules utilisent ce suffixe ?
+#691 D             Paint et Paint_g deviennent Paint et Paint_Quadrillage
+#692 D             Strategy_X\Q050_Remote_Pairs.vb devient Strategy_X\Q050_Strategy_Rp.vb
+#693 D  05/04/2026 Les fonctions _g sont renommées en perdant cette extension
+
+
+????               Je lance SDK, réponds OK à la création Batch, et reçois le message:
+                   Game_New_Game Name: SDK_M_01066 Jeu: 600945830
+                   OnPaint L1_C1 / Batch_Initial / #
+
+
+
+
 
 ##############################################################################################################################
 
@@ -358,7 +372,6 @@
                    De même comme la solution est calculée, le contrôle d'insertion de valeurs
                            ou d'exclusion de candait doit être standardisé 
                            Denis_Berthier ET RRslt_Control_Cdd_Exclure
-                   mettre en place un compteur de pénalités
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
                    Revoir le traitement en arrière-plan si on est en mode de maintenance
                    Je ne peux plus ajouter un candidat après l'avoir supprimé

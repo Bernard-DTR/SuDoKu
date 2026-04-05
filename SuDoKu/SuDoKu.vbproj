@@ -157,7 +157,7 @@
     <Compile Include="DenisBerthier\DB_01.vb" />
     <Compile Include="DenisBerthier\DB_02.vb" />
     <Compile Include="DenisBerthier\DB_03.vb" />
-    <Compile Include="M03_Paint_g.vb" />
+    <Compile Include="M03_Paint_Quadrillage.vb" />
     <Compile Include="Models\XLink_Cls.vb" />
     <Compile Include="Apriori\A%40%40_En_Cours.vb" />
     <Compile Include="A%40_Colorisation.vb" />
@@ -282,7 +282,7 @@
     <Compile Include="Strategy_X\Q030_Strategy_X_Chain.vb" />
     <Compile Include="Strategy_X\Q040_Strategy_XY_Chain.vb" />
     <Compile Include="Strategy_X\Q060_Strategy_Nice_Loop.vb" />
-    <Compile Include="Strategy_X\Q050_Remote_Pairs.vb" />
+    <Compile Include="Strategy_X\Q050_Strategy_Rp.vb" />
     <Compile Include="Strategy_X\Q100_Strategy_Wing_W.vb" />
     <Compile Include="Strategy_X\Q070_Strategy_Wing_X.vb" />
     <Compile Include="Strategy_X\Q080_Strategy_Wing_XY.vb" />

@@ -278,34 +278,34 @@ Public NotInheritable Class Frm_SDK
       Select Case Event_OnPaint
         Case "Général"
           ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
-          G1_Grid_Paint_g(e.Graphics)
+          G1_Grid_Paint(e.Graphics)
           Dim Gril As New Grille_Cls
-          Gril.G2_Grille_Paint_Fond_g(e.Graphics)
+          Gril.G2_Grille_Paint_Fond(e.Graphics)
           G4_Grid_Stratégie_All(e.Graphics)
           Dim sc As New Cellule_Cls
           For i As Integer = 0 To 80
             sc.Numéro = i
-            sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+            sc.G5_Cellule_Paint_Valeur(e.Graphics)
           Next i
 
         Case "Global"
           ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
-          G1_Grid_Paint_g(e.Graphics)
+          G1_Grid_Paint(e.Graphics)
           Dim Gril As New Grille_Cls
-          Gril.G2_Grille_Paint_Fond_g(e.Graphics)
+          Gril.G2_Grille_Paint_Fond(e.Graphics)
           G4_Grid_Stratégie_All(e.Graphics)
           Dim sc As New Cellule_Cls
           For i As Integer = 0 To 80
             sc.Numéro = i
-            sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+            sc.G5_Cellule_Paint_Valeur(e.Graphics)
           Next i
 
         Case "Cellule"
           ' La cellule est redessinée sur la couche Fond et Valeur
           ' Stratégie Cdd et Flt (boutons)
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-          sc.G2_Cellule_Paint_Fond_g(e.Graphics)
-          sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          sc.G2_Cellule_Paint_Fond(e.Graphics)
+          sc.G5_Cellule_Paint_Valeur(e.Graphics)
           If Stg_Get(Plcy_Strg).Family = 2 And U(Pbl_Cell_Select, 2) = Plcy_Strg(2) Then
             ' Stratégie de filtre des valeurs, la valeur doit être présentée en Double-Carré 
             G0_Cell_Figure(e.Graphics, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
@@ -316,20 +316,20 @@ Public NotInheritable Class Frm_SDK
           ' 1 Les cellules collatérales concernées sont rafraîchies sur les couches Fond et Candidats
           For Each cell As Integer In Cell_Coll_Modifiées_List
             Dim sc_cell_coll As New Cellule_Cls With {.Numéro = cell}
-            sc_cell_coll.G2_Cellule_Paint_Fond_g(e.Graphics)
+            sc_cell_coll.G2_Cellule_Paint_Fond(e.Graphics)
             sc_cell_coll.G6_Cellule_Paint_Candidats(e.Graphics, "LesCandidatsEligibles")
           Next cell
           ' 2 La cellule est redessinée sur la couche Fond et Valeur
           Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-          sc.G2_Cellule_Paint_Fond_g(e.Graphics)
-          sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+          sc.G2_Cellule_Paint_Fond(e.Graphics)
+          sc.G5_Cellule_Paint_Valeur(e.Graphics)
 
         Case "Mouse_Wheel"
           ' Se produit lors de l'affichage des valeurs filtrées avec le bouton MouseWheeel de la souris
           For Each cell As Integer In MW_Cell_List
             Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
-            sc_cell.G2_Cellule_Paint_Fond_g(e.Graphics)
-            sc_cell.G5_Cellule_Paint_Valeur_g(e.Graphics)
+            sc_cell.G2_Cellule_Paint_Fond(e.Graphics)
+            sc_cell.G5_Cellule_Paint_Valeur(e.Graphics)
             If U(cell, 2) = Plcy_Strg(2) Then
               G0_Cell_Figure(e.Graphics, cell, "Double_Carré", Color_Stratégique)
             End If
@@ -339,15 +339,15 @@ Public NotInheritable Class Frm_SDK
           ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
           '            qui lancera ensuite "Global" pour rafraîchir la grille
           'La grille est rafraîchie entièrement 
-          G1_Grid_Paint_g(e.Graphics)
+          G1_Grid_Paint(e.Graphics)
           Dim Gril As New Grille_Cls
-          Gril.G2_Grille_Paint_Fond_g(e.Graphics)
+          Gril.G2_Grille_Paint_Fond(e.Graphics)
           Dim sc As New Cellule_Cls
           For i As Integer = 0 To 80
             sc.Numéro = i
-            sc.G5_Cellule_Paint_Valeur_g(e.Graphics)
+            sc.G5_Cellule_Paint_Valeur(e.Graphics)
           Next i
-          Gril.G8_Grille_Partie_Terminée_g(e.Graphics)
+          Gril.G8_Grille_Partie_Terminée(e.Graphics)
 
         Case Else
           Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint}, "Erreur")

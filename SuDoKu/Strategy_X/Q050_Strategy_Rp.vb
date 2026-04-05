@@ -6,7 +6,7 @@
 ' la stratégie propose également les cellules ayant l'un au l'autre des candidats
 '-------------------------------------------------------------------------------------------
 
-Friend Module Q050_Remote_Pairs
+Friend Module Q050_Strategy_Rp
   Public Sub Strategy_XRp(U_temp(,) As String)
     ' Stratégie Remote_Pairs
     If Xap Then Jrn_Add(, {Proc_Name_Get()})

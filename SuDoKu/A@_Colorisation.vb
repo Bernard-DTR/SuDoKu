@@ -160,7 +160,7 @@ Friend Module A__Colorisation
     Return Pts
   End Function
 
-  Public Sub G0_Cdd_Flèche_g(g As Graphics, From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer, Color As Color)
+  Public Sub G0_Cdd_Flèche(g As Graphics, From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer, Color As Color)
     If From_Cellule = -1 Or From_Candidat = 0 Or To_Cellule = -1 Or To_Candidat = 0 Then Exit Sub
 
     Dim From_Centre As PointF = Get_CentreF(From_Cellule, From_Candidat)

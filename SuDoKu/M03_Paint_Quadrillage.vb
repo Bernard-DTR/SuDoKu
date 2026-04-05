@@ -1,8 +1,7 @@
 ﻿Imports System.Drawing.Drawing2D
-' Création le 16/01/2026  
-Module M03_Paint_g
+Module M03_Paint_Quadrillage
 #Region "G1 Couche Quadrillage"
-  Public Sub G1_Grid_Paint_g(g As Graphics)
+  Public Sub G1_Grid_Paint(g As Graphics)
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
     ' et dessiner ensuite le quadrillage
     ' le fond du formulaire est Color_Frm_BackColor, il est défini dans Sub Présentation_SDK
@@ -12,13 +11,13 @@ Module M03_Paint_g
       g.FillRectangle(brsh, Gz_Pt_TopLeft.X, Gz_Pt_TopLeft.Y, Bld_WH_Grid, Bld_WH_Grid)
     End Using
     Select Case Plcy_Format_DAB
-      Case 0, 0 : G1_Grid_Paint_Quadrillage_00_g(g)
-      Case 1, 2 : G1_Grid_Paint_Quadrillage_04_g(g)
-      Case 3, 4 : G1_Grid_Paint_Quadrillage_20_g(g)
-      Case 5, 6 : G1_Grid_Paint_Quadrillage_36_g(g)
+      Case 0, 0 : G1_Grid_Paint_Quadrillage_00(g)
+      Case 1, 2 : G1_Grid_Paint_Quadrillage_04(g)
+      Case 3, 4 : G1_Grid_Paint_Quadrillage_20(g)
+      Case 5, 6 : G1_Grid_Paint_Quadrillage_36(g)
     End Select
   End Sub
-  Public Sub G1_Grid_Paint_Quadrillage_00_g(g As Graphics)
+  Public Sub G1_Grid_Paint_Quadrillage_00(g As Graphics)
     'Les suffixes 00,04,20,36 représentent le nombre de coins arrondis ou biseautés
     'Quadrillage de référence pour l'entourage, les régions et les cellules horizontal et vertical
     Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
@@ -45,7 +44,7 @@ Module M03_Paint_g
       Next i
     End Using
   End Sub
-  Public Sub G1_Grid_Paint_Quadrillage_04_g(g As Graphics)
+  Public Sub G1_Grid_Paint_Quadrillage_04(g As Graphics)
     ' 4 Coins arrondis ou biseautés
     'Quadrillage de référence pour l'entourage, les régions et les cellules horizontal et vertical
     'Sauf les traits 0 et 9
@@ -121,7 +120,7 @@ Module M03_Paint_g
     End Using
 
   End Sub
-  Public Sub G1_Grid_Paint_Quadrillage_20_g(g As Graphics)
+  Public Sub G1_Grid_Paint_Quadrillage_20(g As Graphics)
     'Quadrillage Coins Arrondis
     ' 1 Traits intérieurs fins 
     Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
@@ -317,7 +316,7 @@ Module M03_Paint_g
     End Using
 
   End Sub
-  Public Sub G1_Grid_Paint_Quadrillage_36_g(g As Graphics)
+  Public Sub G1_Grid_Paint_Quadrillage_36(g As Graphics)
     ' 1 Traits intérieurs fins 
     Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
 
