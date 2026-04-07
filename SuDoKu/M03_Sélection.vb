@@ -1,15 +1,23 @@
-﻿Friend Module M03_Sélection
+﻿Imports System.Diagnostics.Eventing.Reader
+
+Friend Module M03_Sélection
   '-------------------------------------------------------------------------------
   ' Traitement de la Sélection 
   '-------------------------------------------------------------------------------
   Sub Cell_Val_Insert(V As String, Cellule As Integer, Origine As String)
+    ' Jrn_Add_Yellow(Proc_Name_Get())
+
     ' 01  Les Conditions d'Insertion
     If Cellule < 0 Or Cellule > 80 Then Exit Sub
     If U(Cellule, 2) <> " " Then Exit Sub
     If V < "1" Or V > "9" Then Exit Sub
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
-    'If Not (Plcy_Gnrl = "Nrm" And V = XSolution(Cellule)) Then Exit Sub
-    If Not ((Plcy_Strg = "Sai") Or (Plcy_Strg <> "Sai" And V = XSolution(Cellule))) Then Exit Sub
+
+    'If Not (Plcy_Gnrl = "Nrm" And Candidat = XSolution(Cellule)) Then Exit Sub
+    'If Not ((Plcy_Strg = "Sai") Or (Plcy_Strg <> "Sai" And Candidat = XSolution(Cellule))) Then Exit Sub
+    If Plcy_Strg <> "Sai" AndAlso Not Cell_Cdd_Controle(V, Cellule, "Include") Then Exit Sub
+
+
     Game_Undo_Redo = "Normal"
     Dim Av_Jeu As String = Act_Jeu()
     Dim Av_AllCdd As String = Act_Candidats()
@@ -180,8 +188,9 @@
     If Plcy_Gnrl = "Edi" Then Exit Sub
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
     Try
-      If V = XSolution(Cellule) Then Exit Sub
-
+      ' Jrn_Add_Yellow(Proc_Name_Get())
+      'If Candidat = XSolution(Cellule) Then Exit Sub
+      If Not Cell_Cdd_Controle(V, Cellule, "Exclude") Then Exit Sub
       If U(Cellule, 3).Contains(V) = False Then Exit Sub
       Game_Undo_Redo = "Normal"
       'Avant toute modification
@@ -259,4 +268,25 @@
       Cdd_Remove_Cell_Coll(U_temp, i)
     Next i
   End Sub
+
+
+
+  Public Function Cell_Cdd_Controle(Candidat As String, Cellule As Integer, Type_IE As String) As Boolean
+    'Jrn_Add_Yellow(Proc_Name_Get())
+    'Le contrôle n'est pas effectué s'il n'y a pas de solution DL.
+    If XSolution(Cellule) = "0" Then Return False
+    Select Case Type_IE
+      Case "Include"
+        If XSolution(Cellule) <> Candidat Then
+          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat : " & XSolution(Cellule) & " est attendu à la place de " & Candidat & "."})
+          Return False
+        End If
+      Case "Exclude"
+        If XSolution(Cellule) = Candidat Then
+          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat " & Candidat & " est la solution. "})
+          Return False
+        End If
+    End Select
+    Return True
+  End Function
 End Module

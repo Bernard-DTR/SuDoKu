@@ -362,19 +362,33 @@
                    la courbe de Bézier est utilisée dans les stratégies X et G
 #697 D  05/04/2026 Correction de G0_Cdd_Bézier, les extrémités sont dessinées ailleurs
 #698 D  05/04/2026 Correction de G0_Cdd_Bézier, les extrémités sont dessinées ailleurs
+#698 D  05/04/2026 CB01_Thèmes_SelectedIndexChanged Event_OnPaint = "Global" au lieu de Total_Frm_Préférences
+#699 L  06/04/2026 La cellule vide est présentée avec une grille et les chiffres
+#700 L  06/04/2026 Game_New_Game calcule XSolution
+#701 L  06/04/2026 Game_New_Game affiche le nom, la famille, le pourcentage et Info   
+#702               Stratégie Cdd (Famille=1, c'est la seule)
+                   Affichage des candidats à exclure
+                   Il serait intéressant d'utiliser les messages "Berthier" 
+                   pour vérifier qu'un candidat est placé ou enlevé correctement
+#703 Ma 07/04/2026 Le menu contestuel Cdd permet d'Exclure/Insérer des candidats
+#704 Ma 07/04/2026 Vérification d'insertion de valeur et d'exclusion de candidat
+#705 Ma 07/04/2026 La grille de saisie est fixe grille et candidat
+
 
 
 ##############################################################################################################################
+????               le fond d'image n'est pas affiché si la forme est différence de Angle droit
+????               Il en est de même des couleurs
 ????               Je lance SDK, réponds OK à la création Batch, et reçois le message:
                    Game_New_Game Name: SDK_M_01066 Jeu: 600945830
                    OnPaint L1_C1 / Batch_Initial / #
 
-????               Est-il nécessaire de faire varier le grille de saisie ? 
+????               Revoir à quel moment on décleche la stratégie
+
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
                    De même comme la solution est calculée, le contrôle d'insertion de valeurs
                            ou d'exclusion de candait doit être standardisé 
                            Denis_Berthier ET RRslt_Control_Cdd_Exclure
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
                    Revoir le traitement en arrière-plan si on est en mode de maintenance
-                   Je ne peux plus ajouter un candidat après l'avoir supprimé
-                   Est-il possible en Strg Cdd de supprimer/insérer un candidat ? 
+

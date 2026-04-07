@@ -174,54 +174,36 @@ Public Class Cellule_Cls
           g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
         End If
 
-        Dim Type_Grille_V As Integer
-        Dim P As Integer = ((Wh_Nb_Cell(U).Remplies * 100) \ 81)
-        Select Case P
-          Case 0 To 50 : Type_Grille_V = 3
-          Case 51 To 70 : Type_Grille_V = 2
-          Case 71 To 80 : Type_Grille_V = 1
-          Case Else : Type_Grille_V = 0
-        End Select
-
         If Typologie = "V" And (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) Then
+          ' Définition des points et du style de trait
+          Dim dashPattern As Single() = {1, 5}
+          Dim startX As Integer = Sqr_Cel(Numéro).X
+          Dim startY As Integer = Sqr_Cel(Numéro).Y
+          ' Création du stylo avec trait discontinu
+          Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
+            pen.DashPattern = dashPattern
+            ' Lignes verticales
+            Dim x1 As Integer = startX + WHthird
+            Dim x2 As Integer = startX + (2 * WHthird)
+            g.DrawLine(pen, x1, startY, x1, startY + WH)
+            g.DrawLine(pen, x2, startY, x2, startY + WH)
+            ' Lignes horizontales
+            Dim y1 As Integer = startY + WHthird
+            Dim y2 As Integer = startY + (2 * WHthird)
+            g.DrawLine(pen, startX, y1, startX + WH, y1)
+            g.DrawLine(pen, startX, y2, startX + WH, y2)
+          End Using
 
-          If Type_Grille_V = 1 Or Type_Grille_V = 3 Then
-            ' Définition des points et du style de trait
-            Dim dashPattern As Single() = {1, 5}
-            Dim startX As Integer = Sqr_Cel(Numéro).X
-            Dim startY As Integer = Sqr_Cel(Numéro).Y
-
-            ' Création du stylo avec trait discontinu
-            Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
-              pen.DashPattern = dashPattern
-
-              ' Lignes verticales
-              Dim x1 As Integer = startX + WHthird
-              Dim x2 As Integer = startX + (2 * WHthird)
-              g.DrawLine(pen, x1, startY, x1, startY + WH)
-              g.DrawLine(pen, x2, startY, x2, startY + WH)
-
-              ' Lignes horizontales
-              Dim y1 As Integer = startY + WHthird
-              Dim y2 As Integer = startY + (2 * WHthird)
-              g.DrawLine(pen, startX, y1, startX + WH, y1)
-              g.DrawLine(pen, startX, y2, startX + WH, y2)
-            End Using
-          End If
-
-          If Type_Grille_V = 2 Or Type_Grille_V = 3 Then
-            Dim Coté_6 As Integer = Coté \ 6
-            Dim cdd_n As Integer
-            Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-              brsh9 As New SolidBrush(Color.FromArgb(128, Color_VCdd))
-              For cdd As Integer = 1 To 9
-                cdd_n = (Numéro * 10) + cdd
-                g.DrawString(Subst_Police(CStr(cdd)), font9, brsh9,
-                        Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
-              Next cdd
-            End Using
-          End If
-
+          Dim Coté_6 As Integer = Coté \ 6
+          Dim cdd_n As Integer
+          Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
+                                  brsh9 As New SolidBrush(Color.FromArgb(128, Color_VCdd))
+            For cdd As Integer = 1 To 9
+              cdd_n = (Numéro * 10) + cdd
+              g.DrawString(Subst_Police(CStr(cdd)), font9, brsh9,
+                           Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
+            Next cdd
+          End Using
         End If
 
       Else                            ' L'image de fond est affichée

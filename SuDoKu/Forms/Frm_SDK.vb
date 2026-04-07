@@ -472,10 +472,11 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Frm_SDK_MouseClick_Left(Candidat_Pt As Integer)
+    'Jrn_Add_Yellow(Proc_Name_Get())
     ' Provient UNIQUEMENT de Frm_SDK_MouseClick
-    If U(Pbl_Cell_Select, 3).Contains(CStr(Candidat_Pt)) = True Then
-      Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
-    End If
+    'If U(Pbl_Cell_Select, 3).Contains(CStr(Candidat_Pt)) = True Then
+    Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
+    'End If
   End Sub
 
   Private Sub Frm_SDK_MouseClick_Middle(sender As Object, Candidat As Integer)

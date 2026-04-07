@@ -394,7 +394,7 @@
     If Not Mode_Load Then
       My.Settings.Thème_Clr = CB01_Thèmes.SelectedIndex
       OC_Présentation()
-      Event_OnPaint = "Total_Frm_Préférences"
+      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       OC_Thèmes_Couleurs(My.Settings.Thème_Clr)
       BackColor = Color_Frm_BackColor

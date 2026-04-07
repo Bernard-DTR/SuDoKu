@@ -128,45 +128,50 @@
   End Sub
 
   Sub Mnu_Mngt(Cellule As Integer)
-    Dim Mnu_Item As Boolean, Mnu_Sep As Boolean, Mnu_Grp As Boolean
+    Dim Mnu_Item As Boolean, Mnu_Sep As Boolean
     Dim Ligne As ToolStripItem
     Dim Candidats As String
-    Dim Opt As String = ""
-    Dim Opt_int As Integer
+    Dim Opt As String
 
     Mnu_Mngt_Barre_Outils_Filtres()
 
-    Mnu_Grp = False
     For Each Ligne In Frm_SDK.Mnu_Cel.Items
       Try
         'Le menu est systématiquement effacé, rendu invisible
         Ligne.Visible = False
         Mnu_Item = False : Mnu_Sep = False
+        ' la ligne est soit un menu_item, soit un separateur
         Select Case Ligne.GetType().ToString()
           Case "System.Windows.Forms.ToolStripMenuItem" : Mnu_Item = True
           Case "System.Windows.Forms.ToolStripSeparator" : Mnu_Sep = True
         End Select
+
         Select Case Ligne.Name.Substring(0, 16)
 
-          Case "Mnu_Cel_Val_Ins_" 'Insérer la valeur 1 à 9
+          Case "Mnu_Cel_Val_Ins_" 'Insérer la valeur 1 à 9  en JAUNE
             If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 3 AndAlso Stg_Get(Plcy_Strg).Type = "I" AndAlso U(Cellule, 2) = " " Then
               Candidats = U(Cellule, 3)
               Opt = Ligne.Name(16)
-              Opt_int = CInt(Opt) - 1
-              If Opt = Candidats(Opt_int) AndAlso U_Strg_Val_Ins(Cellule) = Opt Then
-                Ligne.Visible = True
-                Ligne.BackColor = Color_Cdd_Insérer
+              If Opt = Candidats(CInt(Opt) - 1) AndAlso U_Strg_Val_Ins(Cellule) = Opt Then
+                Ligne.Visible = True : Ligne.BackColor = Color_Cdd_Insérer
               End If
             End If
 
           Case "Mnu_Cel_Cdd_Exc_" 'Exclure le candidat 1 à 9
+            '                     'Exclure le candidat 1 à 9 en Normal
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 1 AndAlso U(Cellule, 2) = " " Then
+              Candidats = U(Cellule, 3)
+              Opt = Ligne.Name(16)
+              If Opt = Candidats(CInt(Opt) - 1) Then
+                Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
+              End If
+            End If
+            '                     'Exclure le candidat 1 à 9 en ROUGE
             If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 3 AndAlso Stg_Get(Plcy_Strg).Type = "E" AndAlso U(Cellule, 2) = " " Then
               Candidats = U(Cellule, 3)
               Opt = Ligne.Name(16)
-              Opt_int = CInt(Opt) - 1
-              If Opt = Candidats(Opt_int) AndAlso U_Strg_Cdd_Exc(Cellule) = Opt Then
-                Ligne.Visible = True
-                Ligne.BackColor = Color_Cdd_Exclure
+              If Opt = Candidats(CInt(Opt) - 1) AndAlso U_Strg_Cdd_Exc(Cellule) = Opt Then
+                Ligne.Visible = True : Ligne.BackColor = Color_Cdd_Exclure
               End If
             End If
             If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 4 AndAlso Stg_Get(Plcy_Strg).Type = "E" AndAlso U(Cellule, 2) = " " Then
@@ -175,8 +180,7 @@
                   If XCel.Cel = Cellule Then
                     Opt = Ligne.Name(16)
                     If Opt = XCel.Cdd And U(Cellule, 3).Contains(XCel.Cdd) Then
-                      Ligne.Visible = True
-                      Ligne.BackColor = Color_Cdd_Exclure
+                      Ligne.Visible = True : Ligne.BackColor = Color_Cdd_Exclure
                     End If
                   End If
                 Next XCel
@@ -188,40 +192,32 @@
                   If XCel.Cel = Cellule Then
                     Opt = Ligne.Name(16)
                     If Opt = XCel.Cdd And U(Cellule, 3).Contains(XCel.Cdd) Then
-                      Ligne.Visible = True
-                      Ligne.BackColor = Color_Cdd_Exclure
+                      Ligne.Visible = True : Ligne.BackColor = Color_Cdd_Exclure
                     End If
                   End If
                 Next XCel
               End If
             End If
-
-          Case "Mnu_Cel_Cdd_Ins_" 'Insérer les Candidats ....
-            'If U(Cellule, 2) = " " Then
-
-            '  If Stg_Get(Plcy_Strg).Family = 3 Then
-            '    Dim Candidats_Excl As String = U_CddExc(Cellule)
-            '    If Wh_Cell_Nb_Candidats(U, Cellule) > 1 Then
-            '      Opt = Ligne.Name.Substring(16, 1)
-            '      If Mnu_Sep And Mnu_Grp Then Ligne.Visible = True
-            '      'les stratégies proposent d'exclure un candidat.
-            '      If Mnu_Item Then
-            '        If Opt = Candidats_Excl.Substring(CInt(Opt) - 1, 1) Then
-            '          Ligne.BackColor = Control.DefaultBackColor
-            '          Ligne.Visible = True : Mnu_Grp = True
-            '        Else
-            '          Ligne.Visible = False
-            '        End If
-            '      End If
-            '    End If
-            '  End If
-            'End If
-
-          Case "Mnu_Cel_Val_Eff_"
-            ' Option Effacer la valeur dans une cellule remplie
+          Case "Mnu_Cel_Cdd_Ins_" 'Insérer les Candidats .... en NORMAL
+            If Mnu_Sep AndAlso Stg_Get(Plcy_Strg).Family = 1 AndAlso U(Cellule, 2) = " " Then
+              Candidats = U_CddExc(Cellule)
+              If Candidats <> Cnddts_Blancs Then
+                Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
+              End If
+            End If
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 1 AndAlso U(Cellule, 2) = " " Then
+              Candidats = U_CddExc(Cellule)
+              Opt = Ligne.Name(16)
+              If Opt = Candidats(CInt(Opt) - 1) Then
+                Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
+              End If
+            End If
+          Case "Mnu_Cel_Val_Eff_" 'On efface la valeur de la cellule remplie
             If (U(Cellule, 1) = " " AndAlso U(Cellule, 2) <> " ") Then
-              If Mnu_Sep And Mnu_Grp Then Ligne.Visible = True
-              If Mnu_Item Then Ligne.Visible = True : Mnu_Grp = True
+              If Mnu_Item Then
+                Ligne.Visible = True
+                Ligne.BackColor = Control.DefaultBackColor
+              End If
             End If
 
           Case Else
@@ -236,5 +232,4 @@
       End Try
     Next Ligne
   End Sub
-
 End Module

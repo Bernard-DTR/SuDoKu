@@ -31,29 +31,34 @@ Friend Module M20_Game
             End If
           Next i
         End If
-        Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     End Select
 
-    'Fin commune à toute nouvelle partie
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
 
     Paint_Partie_Terminée_Nb = 0
-    'Lors d'une nouvelle partie, une cellule vide est sélectionnée au hasard comme Cellule Sélectionnée 
     Pbl_Cell_Select = 0
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
-    Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-    Game_New_DL_Solution(U)
     Mnu_Mngt_Barre_Outils_Filtres()
+    Game_New_Game_DL_Solution(U)
+    Frm_SDK.B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
+    Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    Frm_SDK.Text = LP_Nom
+
     Event_OnPaint_MAP = Proc_Name_Get() & " Origine : " & Origine
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
 
-  Public Function Game_New_DL_Solution(U(,) As String) As Integer
+  Public Function Game_New_Game_DL_Solution(U(,) As String) As Integer
     ' La fonction calcule XSolution qui la solution Dancing_Link
     ' soit 000000000000000000000000000000000000000000000000000000000000000000000000000000000
     ' soit la solution unique
-    ' et retourne le nombre de solutions. 1 est attendu de préférence.
+    ' et retourne le nombre de solutions,
+    '                -2 non calculé,
+    '                -1,0 en erreur,
+    '                1 est attendu de préférence
+    '                x nombre de solution
     XSolution = StrDup(81, "0")
     If Plcy_Dancing_Link Then
       Dim MsgTit As String = Application.ProductName & " " & SDK_Version
@@ -118,22 +123,22 @@ Friend Module M20_Game
         U_Clr_Cell_Val(i) = Color_VI
       End If
     Next i
-    If Plcy_Dancing_Link Then
-      ' Vérification d'une solution unique
-      '29/07/2025 Dans le cadre des tests XChains, il peut être possible de vérifier la solution! 
-      XSolution = StrDup(81, "0")
-      Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
-      Select Case DL.Nb_Solution
-        Case -1, 0
-        Case 1
-          XSolution = DL.Solution(0)
-        Case Else
-          Dim MsgTit As String = Application.ProductName & " " & SDK_Version
-          Nsd_i = MsgBox("Dancing Link : " & DL.DLCode & "  Solutions multiples.",, MsgTit)
-      End Select
-    End If
+    'If Plcy_Dancing_Link Then
+    '  ' Vérification d'une solution unique
+    '  '29/07/2025 Dans le cadre des tests XChains, il peut être possible de vérifier la solution! 
+    '  XSolution = StrDup(81, "0")
+    '  Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
+    '  Select Case DL.Nb_Solution
+    '    Case -1, 0
+    '    Case 1
+    '      XSolution = DL.Solution(0)
+    '    Case Else
+    '      Dim MsgTit As String = Application.ProductName & " " & SDK_Version
+    '      Nsd_i = MsgBox("Dancing Link : " & DL.DLCode & "  Solutions multiples.",, MsgTit)
+    '  End Select
+    'End If
 
-    Frm_SDK.Text = LP_Nom
+    'Frm_SDK.Text = LP_Nom
   End Sub
 
 End Module
