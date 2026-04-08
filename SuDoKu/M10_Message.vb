@@ -158,6 +158,10 @@ Module M10_Message
           .SelectionFont = New Font(.Font, FontStyle.Bold)
           .SelectionColor = Color.Black
           .SelectionBackColor = Color.Red
+        Case "Emoji"
+          .SelectionFont = New Font("Segoe UI Emoji", .Font.Size, FontStyle.Bold)
+          .SelectionColor = Color.Red
+          .SelectionBackColor = Nothing
         Case Else          'Affichage standard d'une ligne dans le journal
           .SelectionFont = New Font(.Font, FontStyle.Regular)
           .SelectionColor = Color.White

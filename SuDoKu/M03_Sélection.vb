@@ -278,12 +278,12 @@ Friend Module M03_Sélection
     Select Case Type_IE
       Case "Include"
         If XSolution(Cellule) <> Candidat Then
-          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat : " & XSolution(Cellule) & " est attendu à la place de " & Candidat & "."})
+          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat : " & XSolution(Cellule) & " est attendu à la place de " & Candidat & "."}, "Emoji")
           Return False
         End If
       Case "Exclude"
         If XSolution(Cellule) = Candidat Then
-          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat " & Candidat & " est la solution. "})
+          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat " & Candidat & " est la solution. "}, "Emoji")
           Return False
         End If
     End Select
