@@ -334,6 +334,7 @@ Public Class Grille_Cls
       Cursor.Current = Cursors.WaitCursor
       Paint_Partie_Terminée_Nb += 1
       Frm_SDK.B_Info.Text = Msg_Read("SDK_50029")
+      Jrn_Add(, {"La grille est résolue."}, "Red")
 
       Dim sc As New Cellule_Cls
       'Collection des valeurs initiales

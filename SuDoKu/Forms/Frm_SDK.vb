@@ -707,19 +707,19 @@ Public NotInheritable Class Frm_SDK
       Case Else
     End Select
   End Sub
-  Private Sub Mnu02_Effacer_Click(sender As Object, e As EventArgs)
-    'Effacer remet à blanc une case et replace tous les candidats.
-    'Cette option n'est accessible que si la case a été saisie
-    'En réalité cette option NE PEUT PAS ETRE UTILISéE par le menu, puisqu'il faut que la cellule soit sélectionnée
-    'SEUL Le raccourci SUPPR exécute cette option
-    '     ou la touche SUPPR du clavier numérique en mode déplacement
-    Try
-      Cell_Val_Delete(Pbl_Cell_Select, "Mnu_Eff")
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-  End Sub
+  'Private Sub Mnu02_Effacer_Click(sender As Object, e As EventArgs)
+  '  'Effacer remet à blanc une case et replace tous les candidats.
+  '  'Cette option n'est accessible que si la case a été saisie
+  '  'En réalité cette option NE PEUT PAS ETRE UTILISéE par le menu, puisqu'il faut que la cellule soit sélectionnée
+  '  'SEUL Le raccourci SUPPR exécute cette option
+  '  '     ou la touche SUPPR du clavier numérique en mode déplacement
+  '  Try
+  '    Cell_Val_Delete(Pbl_Cell_Select, "Mnu_Eff")
+  '  Catch ex As Exception
+  '    Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+  '    Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+  '  End Try
+  'End Sub
   Private Sub Mnu02_Copier_Click(sender As Object, e As EventArgs) Handles Mnu02_Copier.Click
     'Uniquement les Valeurs initiales
     ClipBoard_Copier_New("1")
@@ -1277,7 +1277,7 @@ Public NotInheritable Class Frm_SDK
     SDK_AllCandidate(Grid, AllCandidates)
     PropagateSolvedCandidates(AllCandidates)
     Dim Solved As Boolean = DB_Solution(AllCandidates)
-    If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."})
+    If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."}, "Red")
     AllCandidates_SDK(AllCandidates)
   End Sub
   Private Sub Mnu08_EditionDuProblème_Click(sender As Object, e As EventArgs) Handles Mnu08_EditionDuProblème.Click

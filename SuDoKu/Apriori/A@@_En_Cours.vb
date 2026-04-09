@@ -27,6 +27,7 @@ Module A_En_Cours
   End Sub
   Public Sub TestD()
     Jrn_Add(, {Proc_Name_Get()})
+    Jrn_Exemple()
   End Sub
   Public Sub TestE()
     Jrn_Add(, {Proc_Name_Get()})

@@ -117,7 +117,8 @@ Friend Module M03_Sélection
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
-    Act_Add(Cellule, "Effacer", VE, Cnddts_Blancs, Origine, Av_Jeu, Av_AllCdd)
+    'Act_Add(Cellule, "Effacer", VE, Cnddts_Blancs, Origine, Av_Jeu, Av_AllCdd)
+    Act_Add(Cellule, "Effacer", VE, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
