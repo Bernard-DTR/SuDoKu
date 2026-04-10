@@ -5,9 +5,6 @@
 '    de la ligne, de la colonne ou de la région. Il faut donc vérifier l'unicité de ce candidat dans les 3 unités
 '-------------------------------------------------------------------------------------------
 Friend Module P11_Strategy_CdO
-  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  'Il est impératif d'utiliser U_temp, copie de U, pour utiliser la stratégie interactivement ET en arrière-plan
-  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Function Strategy_CdO(U_temp(,) As String) As String(,)
     '17/02/2023 Déport de l'initialisation de Cel45 et Exc45
     Dim Stratégie As String = "CdO"

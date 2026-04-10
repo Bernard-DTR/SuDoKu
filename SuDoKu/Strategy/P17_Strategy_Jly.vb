@@ -1,14 +1,8 @@
 ﻿'-------------------------------------------------------------------------------
-'
-'
 '  Ce module comporte la stratégie Jellyfish, identique à swordfish, mais en 4x4
-'  
 '-------------------------------------------------------------------------------
 
 Friend Module P17_Strategy_Jly
-  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  'Il est impératif d'utiliser U_temp, copie de U, pour utiliser la stratégie interactivement ET en arrière-plan
-  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Function Strategy_Jly(U_temp(,) As String) As String(,)
     Dim Stratégie As String = "Jly"
     Dim Sous_Stratégie As String = "Jly"

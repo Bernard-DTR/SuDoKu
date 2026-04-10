@@ -1,9 +1,5 @@
 ﻿Imports System.Drawing.Drawing2D
 
-' Dimanche 27/04/2025 Colorisation
-' Préfixe  
-' Le module reprend pour l'instant tout ce qui a trait à la colorisation
-
 Friend Module A__Colorisation
 
   Public Sub Obj_Colors_Rcd()
@@ -46,7 +42,7 @@ Friend Module A__Colorisation
                                 U_Coord(.Cel_To) & "-" & .Cdd_To &
                                 " Pt_From " & .Point_From.ToString() & " Pt_To " & .Point_To.ToString()})
       End With
-    Next obj
+    Next Obj
   End Sub
 
   Function FormatARGB(a As Byte, r As Byte, g As Byte, b As Byte) As String
@@ -65,14 +61,14 @@ Friend Module A__Colorisation
       With Clr
         Jrn_Add(, {"Couleur " & .Symbol & " ; " & FormatARGB(.Color.A, .Color.R, .Color.G, .Color.B)})
       End With
-    Next clr
+    Next Clr
   End Sub
 
   Public Function Color_BySymbol(Symbol As String) As Color
     ' Méthode pour trouver la couleur à/p de Symbol
     For Each Clr As Color_Cls In Color_List
       If Clr.Symbol = Symbol Then Return Clr.Color
-    Next clr
+    Next Clr
     Return Color.Transparent
   End Function
 
@@ -89,14 +85,14 @@ Friend Module A__Colorisation
         Item.Checked = True
         Exit For
       End If
-    Next item
+    Next Item
   End Sub
 
   Public Sub Objets_Reset(Items() As ToolStripMenuItem)
     For Each Item As ToolStripMenuItem In Items
       Item.Checked = False
       Item.BackColor = SystemColors.Control
-    Next item
+    Next Item
   End Sub
 
   Public Sub Objets_CheckAndColor(Items() As ToolStripMenuItem, ActiveItem As String, Color As Color)
@@ -106,7 +102,7 @@ Friend Module A__Colorisation
         Item.BackColor = Color
         Exit For
       End If
-    Next item
+    Next Item
   End Sub
 
   Public Sub DrawCustomArrow(g As Graphics, startPoint As PointF, endPoint As PointF, color As Color, width As Single)

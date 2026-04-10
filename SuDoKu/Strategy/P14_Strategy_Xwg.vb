@@ -19,10 +19,6 @@
 '  Mid$(Code_LCR, 1, 1) devient Code_LCR
 '  Le traitement des Régions est supprimé
 
-'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-'Il est impératif d'utiliser U_temp, copie de U, pour utiliser la stratégie interactivement ET en arrière-plan
-'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 Friend Module P14_Strategy_Xwg
   ' 06/02/2025  Stratégie Finned Ailettes Finned-X_Wing
   ' 11/03/2025  Stratégie Finned Sashimi X_Wing

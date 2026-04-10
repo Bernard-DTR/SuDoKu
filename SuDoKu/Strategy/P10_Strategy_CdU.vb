@@ -5,9 +5,6 @@
 '    la longueur de Trim(U_temp(Cellule, 3)).Length = 1
 '-------------------------------------------------------------------------------------------
 Friend Module P10_Strategy_CdU
-  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  'Il est impératif d'utiliser U_temp, copie de U, pour utiliser la stratégie interactivement ET en arrière-plan
-  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Function Strategy_CdU(U_temp(,) As String) As String(,)
     Dim Stratégie As String = "CdU"

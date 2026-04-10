@@ -2,9 +2,6 @@
 ' Stratégie des Tuples: Paires, Triples et Quadruples
 '-------------------------------------------------------------------------------
 Friend Module P13_Strategy_Tpl
-  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  'Il est impératif d'utiliser U_temp, copie de U, pour utiliser la stratégie interactivement ET en arrière-plan
-  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   Function Strategy_Tpl(U_temp(,) As String) As String(,)
     Dim Stratégie As String = "Tpl"
     Dim Sous_Stratégie As String = "Tpl"

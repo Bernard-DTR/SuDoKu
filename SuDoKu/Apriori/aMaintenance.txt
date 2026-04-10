@@ -285,7 +285,7 @@
 #628 S  28/02/2026 Version 2026_03 #630 
 #629 D  01/03/2026 Correction du bogue 202 dans Préférences avec DGV_PrmT_Width
 #630 D  01/03/2026 Evolution de la grille de saisie Rien, chiffre, carré, carré et chiffre
-#631 L  02/03/2026 Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
+#631 L  02/03/2026 Pour chercher 3 lignes de commentaires : ('.*\r?\n){5}
 #632 L  02/03/2026 Recommencer la partie, la barres d'outils est recalculée
 #633 Me 04/03/2026 Correction Mnu08J_Click si la partie est déjà dans la poubelle                   
 #635 J  05/03/2026 Suppression du suffixe _IA                   
@@ -375,6 +375,7 @@
 #705 Ma 07/04/2026 La grille de saisie est fixe grille et candidat
 #706 Me 08/04/2026 Affichage de l'emoji "⛔" 
 #707 J  09/04/2026 Cell_Val_Delete: Les nouveaux candidats sont présentés.
+#708 V  10/04/2026 Event_OnPaint = "Général" ou Else OnPaint réaffiche la grille
 
 
 ##############################################################################################################################

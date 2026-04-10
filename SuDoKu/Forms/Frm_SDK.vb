@@ -276,17 +276,17 @@ Public NotInheritable Class Frm_SDK
       'Jrn_Add_White(Proc_Name_Get() & " " & Plcy_Strg & " " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint)
 
       Select Case Event_OnPaint
-        Case "Général"
-          ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
-          G1_Grid_Paint(e.Graphics)
-          Dim Gril As New Grille_Cls
-          Gril.G2_Grille_Paint_Fond(e.Graphics)
-          G4_Grid_Stratégie_All(e.Graphics)
-          Dim sc As New Cellule_Cls
-          For i As Integer = 0 To 80
-            sc.Numéro = i
-            sc.G5_Cellule_Paint_Valeur(e.Graphics)
-          Next i
+        'Case "Général"
+          '' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
+          'G1_Grid_Paint(e.Graphics)
+          'Dim Gril As New Grille_Cls
+          'Gril.G2_Grille_Paint_Fond(e.Graphics)
+          'G4_Grid_Stratégie_All(e.Graphics)
+          'Dim sc As New Cellule_Cls
+          'For i As Integer = 0 To 80
+          '  sc.Numéro = i
+          '  sc.G5_Cellule_Paint_Valeur(e.Graphics)
+          'Next i
 
         Case "Global"
           ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
@@ -350,6 +350,16 @@ Public NotInheritable Class Frm_SDK
           Gril.G8_Grille_Partie_Terminée(e.Graphics)
 
         Case Else
+          ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
+          G1_Grid_Paint(e.Graphics)
+          Dim Gril As New Grille_Cls
+          Gril.G2_Grille_Paint_Fond(e.Graphics)
+          G4_Grid_Stratégie_All(e.Graphics)
+          Dim sc As New Cellule_Cls
+          For i As Integer = 0 To 80
+            sc.Numéro = i
+            sc.G5_Cellule_Paint_Valeur(e.Graphics)
+          Next i
           Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint}, "Erreur")
 
       End Select
@@ -707,19 +717,6 @@ Public NotInheritable Class Frm_SDK
       Case Else
     End Select
   End Sub
-  'Private Sub Mnu02_Effacer_Click(sender As Object, e As EventArgs)
-  '  'Effacer remet à blanc une case et replace tous les candidats.
-  '  'Cette option n'est accessible que si la case a été saisie
-  '  'En réalité cette option NE PEUT PAS ETRE UTILISéE par le menu, puisqu'il faut que la cellule soit sélectionnée
-  '  'SEUL Le raccourci SUPPR exécute cette option
-  '  '     ou la touche SUPPR du clavier numérique en mode déplacement
-  '  Try
-  '    Cell_Val_Delete(Pbl_Cell_Select, "Mnu_Eff")
-  '  Catch ex As Exception
-  '    Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-  '    Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-  '  End Try
-  'End Sub
   Private Sub Mnu02_Copier_Click(sender As Object, e As EventArgs) Handles Mnu02_Copier.Click
     'Uniquement les Valeurs initiales
     ClipBoard_Copier_New("1")
@@ -731,7 +728,6 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu02_Copie3_Click(sender As Object, e As EventArgs) Handles Mnu02_Copie3.Click
     ClipBoard_Copier_New("3")
   End Sub
-
   Private Sub Mnu02_Coller_Click(sender As Object, e As EventArgs) Handles Mnu02_Coller.Click
     'Coller le Presse-Papier dans la Grille
     ClipBoard_Coller()
@@ -1624,7 +1620,7 @@ Public NotInheritable Class Frm_SDK
       B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
       If GRslt.Productivité Or XRslt.Productivité Then Exit For
     Next i
-    If Pzzl_Slv_UO(U_temp) Then Jrn_Add(, {"La grille est désormais résolvable en CdU_CdO."})
+    If Pzzl_Slv_UO(U_temp) Then Jrn_Add(, {"La grille est désormais résolvable en CdU_CdO."}, "Red")
 
   End Sub
   Private Sub Mnu0902_Click(sender As Object, e As EventArgs) Handles Mnu0902.Click
