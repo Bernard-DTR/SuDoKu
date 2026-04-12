@@ -16,7 +16,7 @@ Friend Module M59_Prd_Batch
     'Je lance SDK avec Visual Studio 2022 OUI
 
     If ProcessStarted("devenv") Then
-      Event_OnPaint_MAP = Proc_Name_Get()
+      Event_OnPaint_Origine = Proc_Name_Get()
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
       Dim reponse As MsgBoxResult
       reponse = MsgBox("Vous êtes en maintenance d'application " & vbCrLf &
@@ -27,7 +27,7 @@ Friend Module M59_Prd_Batch
     End If
 
     Batch_Thread = New Thread(AddressOf Batch_Sudoku) _
-      With {.IsBackground = False,
+      With {.IsBackground = True,
             .Priority = ThreadPriority.Lowest,
             .Name = "Batch_Sudoku"}
     Batch_Thread.Start()
@@ -102,7 +102,7 @@ Friend Module M59_Prd_Batch
     End Try
 
     Batch_en_Cours = False
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
 

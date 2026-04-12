@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_04_00 #708"
+  Public SDK_Version As String = "V2026_04_00 #711"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -139,7 +139,8 @@ Module A00_Public
 
 #Region "20 Les Eléments graphiques: Color, ..."
   Public Event_OnPaint As String = "#"
-  Public Event_OnPaint_MAP As String = ""
+  Public Event_OnPaint_Prv As String = "#"
+  Public Event_OnPaint_Origine As String = ""
   Public Gz_Pt_TopLeft As Point
   'Structure des Traits
   'Il y a 10 Traits Horizontaux et 10 Traits Verticaux

@@ -85,7 +85,7 @@ Module DB_01
       U(i, 2) = U_temp(i, 2) '= " "
       U(i, 3) = U_temp(i, 3) '= Cnddts_Blancs
     Next
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub

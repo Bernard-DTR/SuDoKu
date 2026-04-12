@@ -273,21 +273,8 @@ Public NotInheritable Class Frm_SDK
     Try
       MyBase.OnPaint(e)
       If Not Phase_Démarrage_Terminée Then Exit Sub
-      'Jrn_Add_White(Proc_Name_Get() & " " & Plcy_Strg & " " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint)
 
       Select Case Event_OnPaint
-        'Case "Général"
-          '' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
-          'G1_Grid_Paint(e.Graphics)
-          'Dim Gril As New Grille_Cls
-          'Gril.G2_Grille_Paint_Fond(e.Graphics)
-          'G4_Grid_Stratégie_All(e.Graphics)
-          'Dim sc As New Cellule_Cls
-          'For i As Integer = 0 To 80
-          '  sc.Numéro = i
-          '  sc.G5_Cellule_Paint_Valeur(e.Graphics)
-          'Next i
-
         Case "Global"
           ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
           G1_Grid_Paint(e.Graphics)
@@ -360,7 +347,7 @@ Public NotInheritable Class Frm_SDK
             sc.Numéro = i
             sc.G5_Cellule_Paint_Valeur(e.Graphics)
           Next i
-          Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " / " & Event_OnPaint_MAP & " / " & Event_OnPaint}, "Erreur")
+          Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " /Précédent: " & Event_OnPaint_Prv & " /Origine: " & Event_OnPaint_Origine}, "Italique")
 
       End Select
     Catch ex As Exception
@@ -369,6 +356,7 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
 
+    Event_OnPaint_Prv = Event_OnPaint
     Event_OnPaint = "#"
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -398,7 +386,7 @@ Public NotInheritable Class Frm_SDK
       Cursor = Cursors.WaitCursor
 
       ' Attendre la fin du thread
-      Event_OnPaint_MAP = Proc_Name_Get()
+      Event_OnPaint_Origine = Proc_Name_Get()
       Event_OnPaint = "Global"
       Invalidate()
       MsgBox("SuDoKu est en train de calculer des grilles " & vbCrLf & "Merci de patienter ! ",
@@ -412,27 +400,27 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Frm_SDK_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
     'Se produit quand le contrôle est redimensionné par exemple après une Réduction 
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_MinimumSizeChanged(sender As Object, e As EventArgs) Handles MyBase.MinimumSizeChanged
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_Move(sender As Object, e As EventArgs) Handles MyBase.Move
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
   Private Sub Frm_SDK_VisibleChanged(sender As Object, e As EventArgs) Handles MyBase.VisibleChanged
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
   End Sub
 
@@ -482,11 +470,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Frm_SDK_MouseClick_Left(Candidat_Pt As Integer)
-    'Jrn_Add_Yellow(Proc_Name_Get())
-    ' Provient UNIQUEMENT de Frm_SDK_MouseClick
-    'If U(Pbl_Cell_Select, 3).Contains(CStr(Candidat_Pt)) = True Then
     Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
-    'End If
   End Sub
 
   Private Sub Frm_SDK_MouseClick_Middle(sender As Object, Candidat As Integer)
@@ -594,7 +578,7 @@ Public NotInheritable Class Frm_SDK
           reg.Union(Sqr_Pth(cell))
         Next
         B_Info.Text = Stg_Get(Plcy_Strg).Texte
-        Event_OnPaint_MAP = Proc_Name_Get() & " FV En cours " & CStr(MW_Val & " /Prv " & MW_Prv_Val)
+        Event_OnPaint_Origine = Proc_Name_Get() & " FV En cours " & CStr(MW_Val & " /Prv " & MW_Prv_Val)
         Event_OnPaint = "Mouse_Wheel"
         Invalidate(reg, False)
         Application.DoEvents()
@@ -609,7 +593,7 @@ Public NotInheritable Class Frm_SDK
 
     Plcy_Strg = "FC" & CStr(NewMW)
 
-    Event_OnPaint_MAP = Proc_Name_Get() & " FC" & CStr(NewMW)
+    Event_OnPaint_Origine = Proc_Name_Get() & " FC" & CStr(NewMW)
     Event_OnPaint = "Global"
     Invalidate()
   End Sub
@@ -624,14 +608,14 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu01_Ouvrir_Click(sender As Object, e As EventArgs) Handles Mnu01_Ouvrir.Click
     'Chargement d'une nouvelle partie en mode normal 
     Frm_LoadParties.Show()
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
     Game_New_Game(Plcy_Gnrl, "   ", LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc, Proc_Name_Get())
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
@@ -749,7 +733,7 @@ Public NotInheritable Class Frm_SDK
     Next i
 
     B_Info.Text = "Affichage de la Solution"
-    Event_OnPaint_MAP = Proc_Name_Get() & " 1"
+    Event_OnPaint_Origine = Proc_Name_Get() & "_1"
     Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()    'Affiche la grille sans solutions immédiatement
@@ -758,13 +742,13 @@ Public NotInheritable Class Frm_SDK
 
     For i As Integer = 0 To 80 : U(i, 2) = jeu_Save.Substring(i, 1) : Next i
     B_Info.Text = " _ "
-    Event_OnPaint_MAP = Proc_Name_Get() & " 2"
+    Event_OnPaint_Origine = Proc_Name_Get() & "_2"
     Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
   End Sub
   Private Sub Mnu03_Rafraîchir_Click(sender As Object, e As EventArgs) Handles Mnu03_Rafraîchir.Click
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Global"
     Invalidate()
   End Sub
@@ -986,7 +970,7 @@ Public NotInheritable Class Frm_SDK
     End Try
     Jrn_Add(, {"Attendre 3 secondes pour que l'application soit lancée..."})
     Thread.Sleep(3000)
-    Event_OnPaint_MAP = Proc_Name_Get()
+    Event_OnPaint_Origine = Proc_Name_Get()
     Event_OnPaint = "Général"
 
     AppActivate("HoDoKu - v2.2.0") 'Active une application qui est déjà en cours d'exécution
