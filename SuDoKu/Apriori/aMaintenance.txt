@@ -380,6 +380,7 @@
 #710 S  11/04/2026 Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " /Précédent: " & Event_OnPaint_Origine & " /Origine: " & Event_OnPaint}, "Italic")
 #711 D  12/04/2026 Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " /Précédent: " & Event_OnPaint_Prv & " /Origine: " & Event_OnPaint_Origine}, "Italique")
 #712 L  13/04/2026 Documentation Rapport git-github
+#713 L  13/04/2026 Copilot remplacement de l'ajout répétitif d'un delegate anonyme par un handler unique.
 
 ##############################################################################################################################
 ????               le fond d'image n'est pas affiché si la forme est différence de Angle droit

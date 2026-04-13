@@ -99,6 +99,9 @@ Public NotInheritable Class Frm_SDK
     Controls.Add(B_ProgressBar)
 #End Region
 
+    '#713
+    AddHandler TTT_Timer.Tick, AddressOf TTT_Timer_Tick
+
 #Region "Mnu04_Stratégies"
     'Text et TTT des Btn_Stratégies
     For Each Stg As Stg_Cls In Stg_List
@@ -258,7 +261,17 @@ Public NotInheritable Class Frm_SDK
     End If
     ' OnPaint est appelé à la fin de Frm_SDK_Load par Frm_SDK_Activated
   End Sub
-
+  '#713
+  Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)
+    Try
+      If MouseClick_Middle_ToolTip IsNot Nothing Then
+        MouseClick_Middle_ToolTip.HideTooltip()
+      End If
+    Catch
+      ' Ne pas propager l'erreur depuis le timer
+    End Try
+    TTT_Timer.Stop()
+  End Sub
   Private Sub Batch_Timer_Tick(sender As Object, e As EventArgs) Handles Batch_Timer.Tick
     If Mnu08.Image Is Nothing Then Exit Sub
     Select Case Batch_en_Cours
@@ -397,6 +410,9 @@ Public NotInheritable Class Frm_SDK
       Cursor = Cursors.Default
       Enabled = True
     End If
+
+    '#713
+    RemoveHandler TTT_Timer.Tick, AddressOf TTT_Timer_Tick
   End Sub
   Private Sub Frm_SDK_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
     'Se produit quand le contrôle est redimensionné par exemple après une Réduction 
@@ -533,11 +549,14 @@ Public NotInheritable Class Frm_SDK
     Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X, Top + Get_Centre(Cellule, Candidat).Y)
 
     MouseClick_Middle_ToolTip.ShowTooltip(Position)
+    '#713
+    'TTT_Timer.Interval = 2000
+    'AddHandler TTT_Timer.Tick, Sub(senderObj As Object, eventArgs As EventArgs)
+    '                             MouseClick_Middle_ToolTip.HideTooltip()
+    '                             TTT_Timer.Stop()
+    '                           End Sub
+    'TTT_Timer.Start()
     TTT_Timer.Interval = 2000
-    AddHandler TTT_Timer.Tick, Sub(senderObj As Object, eventArgs As EventArgs)
-                                 MouseClick_Middle_ToolTip.HideTooltip()
-                                 TTT_Timer.Stop()
-                               End Sub
     TTT_Timer.Start()
   End Sub
 
@@ -1656,8 +1675,6 @@ Public NotInheritable Class Frm_SDK
     End If
 
   End Sub
-
-
 
 #End Region
 End Class
