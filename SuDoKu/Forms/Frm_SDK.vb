@@ -469,7 +469,7 @@ Public NotInheritable Class Frm_SDK
       'Droit : Le menu contextuel est affiché, ainsi le bouton droit n'est pas traité par Frm_SDK_MouseClick
       Select Case e.Button
         Case MouseButtons.Left
-          Frm_SDK_MouseClick_Left(Candidat_Pt)
+          Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
 
         Case MouseButtons.Middle
           ' Affiche les candidats de l'unité en fonction de la position du clic et de l'option Afficher les candidats en InfoBulle
@@ -485,9 +485,11 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-  Private Sub Frm_SDK_MouseClick_Left(Candidat_Pt As Integer)
-    Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
-  End Sub
+
+  '#714
+  'Private Sub Frm_SDK_MouseClick_Left(Candidat_Pt As Integer)
+  '  Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
+  'End Sub
 
   Private Sub Frm_SDK_MouseClick_Middle(sender As Object, Candidat As Integer)
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click

@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_04_00 #713"
+  Public SDK_Version As String = "V2026_04_00 #714"
   Public Phase_Démarrage_Terminée As Boolean = False
 #End Region
 
@@ -115,6 +115,7 @@ Module A00_Public
   Public U_Pt20(80, 19) As PointF                   '  Comporte 20 points pour chaque cellule   
   Public Sqr_Cel(0 To 80) As Rectangle              '  Le tableau comporte les informations des 81 rectangles du jeu
   Public Sqr_Cdd(809) As Rectangle                  '  Le tableau comporte les informations des 9 rectangles de chaque candidat de chaque cellule
+  Public Sqr_Cdd_Inf(809) As Rectangle              '  Le tableau comporte les informations des 9 rectangles inflate pour cliquer plus facilement les candidats
   Public Grid_Pth As Drawing2D.GraphicsPath         '  Tracé de la Grille avec angle arrondi
   Public Reg_Pth(8) As Drawing2D.GraphicsPath       '  Tracés des 9 régions avec angle arrondi
   Public Sqr_Pth(0 To 80) As Drawing2D.GraphicsPath '  Tracés des squares du jeu avec ou sans angle arrondi ou biseauté

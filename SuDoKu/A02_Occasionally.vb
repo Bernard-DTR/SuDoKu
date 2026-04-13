@@ -276,6 +276,15 @@ Friend Module A02_Occasionally
       Next i
     Next j
 
+    '#714
+    ' Calcul de ces mêmes Sqr_Cdd_Inf avec Inflate utilisés lors des clics
+    For s As Integer = 0 To 809
+      Dim r As Rectangle = Sqr_Cdd(s)
+      'Agrandissement du rectangle (1 pixel autour)
+      r.Inflate(1, 1)
+      Sqr_Cdd_Inf(s) = r
+    Next s
+
     ' Calcul des Squares Path à Coins Arrondis et carrés
     k = 0
     For j As Integer = 0 To 8      ' Axe des y, vertical

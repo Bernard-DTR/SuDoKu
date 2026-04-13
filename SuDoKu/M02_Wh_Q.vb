@@ -240,25 +240,18 @@
   End Function
 
 #Region "Fonctions diverses"
-  Public Function Wh_Cellule_Candidat_Pt(Cellule As Integer, Pt As Point) As Integer
-    'Donne la zone du Candidat clické en fonction du point ou retourne -1
-    'En fonction de e, le point peut être un Point (MouseDown, MouseClick)
-    '                           ou        un PointToClient (Drag And Drop)
-    Dim Candidat_Clic As Integer = -1
-    If Cellule < 0 Or Cellule > 80 Then
-      Return Candidat_Clic
-    End If
 
-    '29/07/2023 Agrandissement du rectangle du candidat  
+  Public Function Wh_Cellule_Candidat_Pt(cellule As Integer, pt As Point) As Integer
+    If cellule < 0 OrElse cellule > 80 Then
+      Return -1
+    End If
+    Dim baseIdx As Integer = cellule * 10
     For cdd As Integer = 1 To 9
-      Dim cdd_n As Integer = (Cellule * 10) + cdd
-      Dim Sqr_Cdd_n As New Rectangle(Sqr_Cdd(cdd_n).X - 1, Sqr_Cdd(cdd_n).Y - 1, Sqr_Cdd(cdd_n).Width + 2, Sqr_Cdd(cdd_n).Height + 2)
-      If Sqr_Cdd_n.Contains(Pt) Then
-        Candidat_Clic = cdd
-        Exit For
+      If Sqr_Cdd_Inf(baseIdx + cdd).Contains(pt) Then
+        Return cdd
       End If
-    Next cdd
-    Return Candidat_Clic
+    Next
+    Return -1
   End Function
 
   Public Function Wh_Candidats_Unité(Grp() As Integer) As String
