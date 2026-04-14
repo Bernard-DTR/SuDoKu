@@ -382,6 +382,7 @@
 #712 L  13/04/2026 Documentation Rapport git-github
 #713 L  13/04/2026 Copilot remplacement de l'ajout répétitif d'un delegate anonyme par un handler unique.
 #714 L  13/04/2026 Utilisation de Sqr_Cdd_Inf(809) et de Wh_Cellule_Candidat_Pt
+#715 Ma 14/04/2026 New déplacé dans OnPaint
 
 
 ##############################################################################################################################

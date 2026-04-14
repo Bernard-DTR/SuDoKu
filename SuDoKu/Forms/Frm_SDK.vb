@@ -314,8 +314,11 @@ Public NotInheritable Class Frm_SDK
         Case "Cell_Coll"
           ' Stratégie Cdd, seules les cellules collatérales sont reaffichées
           ' 1 Les cellules collatérales concernées sont rafraîchies sur les couches Fond et Candidats
+          '#715 évite le New dans la boucle
+          Dim sc_cell_coll As New Cellule_Cls
           For Each cell As Integer In Cell_Coll_Modifiées_List
-            Dim sc_cell_coll As New Cellule_Cls With {.Numéro = cell}
+            'Dim sc_cell_coll As New Cellule_Cls With {.Numéro = cell}
+            sc_cell_coll.Numéro = cell
             sc_cell_coll.G2_Cellule_Paint_Fond(e.Graphics)
             sc_cell_coll.G6_Cellule_Paint_Candidats(e.Graphics, "LesCandidatsEligibles")
           Next cell
@@ -326,8 +329,11 @@ Public NotInheritable Class Frm_SDK
 
         Case "Mouse_Wheel"
           ' Se produit lors de l'affichage des valeurs filtrées avec le bouton MouseWheeel de la souris
+          '#715 évite le New dans la boucle
+          Dim sc_cell As New Cellule_Cls
           For Each cell As Integer In MW_Cell_List
-            Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
+            'Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
+            sc_cell.Numéro = cell
             sc_cell.G2_Cellule_Paint_Fond(e.Graphics)
             sc_cell.G5_Cellule_Paint_Valeur(e.Graphics)
             If U(cell, 2) = Plcy_Strg(2) Then

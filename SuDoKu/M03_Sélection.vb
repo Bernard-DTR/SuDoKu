@@ -1,6 +1,4 @@
-﻿Imports System.Diagnostics.Eventing.Reader
-
-Friend Module M03_Sélection
+﻿Friend Module M03_Sélection
   '-------------------------------------------------------------------------------
   ' Traitement de la Sélection 
   '-------------------------------------------------------------------------------
@@ -13,10 +11,7 @@ Friend Module M03_Sélection
     If V < "1" Or V > "9" Then Exit Sub
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
 
-    'If Not (Plcy_Gnrl = "Nrm" And Candidat = XSolution(Cellule)) Then Exit Sub
-    'If Not ((Plcy_Strg = "Sai") Or (Plcy_Strg <> "Sai" And Candidat = XSolution(Cellule))) Then Exit Sub
     If Plcy_Strg <> "Sai" AndAlso Not Cell_Cdd_Controle(V, Cellule, "Include") Then Exit Sub
-
 
     Game_Undo_Redo = "Normal"
     Dim Av_Jeu As String = Act_Jeu()
@@ -245,32 +240,44 @@ Friend Module M03_Sélection
 
     Return nb
   End Function
-  Public Function Cdd_Remove_Cell_Coll_List(ByRef U_temp(,) As String, Cellule As Integer) As List(Of Integer)
+  Public Function Cdd_Remove_Cell_Coll_List(ByRef U_temp(,) As String, cellule As Integer) As List(Of Integer)
     ' TODO à terme cette fonction devrait remplacer Cdd_Remove_Cell_Coll
     ' Le tableau U_temp des cellules est passé en ByRef, car il sort modifié de la fonction 
-    Dim list_Coll As New List(Of Integer)
     ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales
     ' Retourne la liste des cellules dans lesquelles un candidat a été enlevé
-    Dim valeur As String = U_temp(Cellule, 2)
-    Dim grp() As Integer = U_20Cell_Coll(Cellule)
-    For Each cell_Coll As Integer In grp
-      If U_temp(cell_Coll, 2) <> " " Then Continue For  ' Si la cellule collatérale a déjà une valeur, continuer
-      Dim Candidats As String = U_temp(cell_Coll, 3)
-      If Candidats.Substring(CInt(valeur) - 1, 1) = valeur Then
-        Mid$(Candidats, CInt(valeur), 1) = " "        ' Remplacer la valeur par un espace
-        U_temp(cell_Coll, 3) = Candidats
-        list_Coll.Add(cell_Coll)
+    Dim list_Coll As New List(Of Integer)
+
+    ' Valeur placée dans la cellule
+    Dim valeur As String = U_temp(cellule, 2)
+    If valeur = " " Then Return list_Coll   ' Rien à enlever
+
+    Dim v As Integer = CInt(valeur)
+    Dim Grp() As Integer = U_20Cell_Coll(cellule)
+
+    For Each cell_coll As Integer In Grp
+      ' Si la cellule collatérale a déjà une valeur, on ignore
+      If U_temp(cell_coll, 2) <> " " Then Continue For
+      Dim candidats As String = U_temp(cell_coll, 3)
+
+      ' Vérification de sécurité : longueur correcte
+      If candidats.Length < 9 Then Continue For
+
+      ' Si le candidat est présent
+      If candidats(v - 1) = valeur Then
+        Dim sb As New System.Text.StringBuilder(candidats)
+        sb(v - 1) = " "c
+        U_temp(cell_coll, 3) = sb.ToString()
+        list_Coll.Add(cell_coll)
       End If
-    Next cell_Coll
+    Next
     Return list_Coll
   End Function
+
   Public Sub Grid_Cdd_Remove_Cell_Coll(ByRef U_temp(,) As String)
     For i As Integer = 0 To 80
       Cdd_Remove_Cell_Coll(U_temp, i)
     Next i
   End Sub
-
-
 
   Public Function Cell_Cdd_Controle(Candidat As String, Cellule As Integer, Type_IE As String) As Boolean
     'Jrn_Add_Yellow(Proc_Name_Get())
