@@ -1,6 +1,13 @@
 ﻿Imports System.Drawing.Drawing2D
 Module M03_Paint_Quadrillage
 #Region "G1 Couche Quadrillage"
+  Public Sub Build_Quadrillage()
+    Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
+    Using g As Graphics = Graphics.FromImage(Bmp_Quadrillage)
+      G1_Grid_Paint(g)
+    End Using
+  End Sub
+
   Public Sub G1_Grid_Paint(g As Graphics)
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
     ' et dessiner ensuite le quadrillage

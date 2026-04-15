@@ -383,14 +383,13 @@
 #713 L  13/04/2026 Copilot remplacement de l'ajout répétitif d'un delegate anonyme par un handler unique.
 #714 L  13/04/2026 Utilisation de Sqr_Cdd_Inf(809) et de Wh_Cellule_Candidat_Pt
 #715 Ma 14/04/2026 New déplacé dans OnPaint
-
+#716 Me 15/04/2026 Cell_Cdd_Controle return True si XSolution = "0000..."
+#717 Me 15/04/2026 OnPaint est ré-écrit sans New
+#718 Me 15/04/2026 OnPaint utilise Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
 
 ##############################################################################################################################
 ????               le fond d'image n'est pas affiché si la forme est différence de Angle droit
 ????               Il en est de même des couleurs
-????               Je lance SDK, réponds OK à la création Batch, et reçois le message:
-                   Game_New_Game Name: SDK_M_01066 Jeu: 600945830
-                   OnPaint L1_C1 / Batch_Initial / #
 
 ????               Revoir à quel moment on déclenche la stratégie
 
@@ -398,6 +397,5 @@
                    De même comme la solution est calculée, le contrôle d'insertion de valeurs
                            ou d'exclusion de candait doit être standardisé 
                            Denis_Berthier ET RRslt_Control_Cdd_Exclure
-	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
-                   Revoir le traitement en arrière-plan si on est en mode de maintenance
-
+	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plut
+????               Stratégie sans aucun controle Noc

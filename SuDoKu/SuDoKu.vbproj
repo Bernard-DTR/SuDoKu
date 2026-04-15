@@ -153,6 +153,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Apriori\SDK_01.vb" />
     <Compile Include="DenisBerthier\DB_00.vb" />
     <Compile Include="DenisBerthier\DB_01.vb" />
     <Compile Include="DenisBerthier\DB_02.vb" />

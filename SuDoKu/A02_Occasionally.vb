@@ -138,7 +138,7 @@ Friend Module A02_Occasionally
       .B_ProgressBar.Size = New Size(Bld_Marge_LT + Bld_WH_Grid - B_Width, B_Height)
       .B_ProgressBar.Visible = False
     End With
-
+    Build_Quadrillage()
   End Sub
 
   Public Sub OC_Présentation_Menu()

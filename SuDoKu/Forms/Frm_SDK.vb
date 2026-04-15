@@ -15,6 +15,9 @@ Public NotInheritable Class Frm_SDK
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
 
+  Private ReadOnly Grille As New Grille_Cls()
+  Private ReadOnly Cell As New Cellule_Cls()
+
   Public Sub New()
     ' Cet appel est requis par le concepteur.
     InitializeComponent()
@@ -239,6 +242,7 @@ Public NotInheritable Class Frm_SDK
     LP_CddExc = ""
     'Jrn_Add("SDK_00100", {LP_Nom})
     Jrn_Add(, {"/" & Proc_Name_Get()})
+
     OC_Présentation()
     Game_New_Game(Plcy_Gnrl, "   ", LP_Nom, LP_Prb, LP_Jeu, LP_Sol, LP_Cdd, LP_Frc, Proc_Name_Get())
 #End Region
@@ -282,93 +286,71 @@ Public NotInheritable Class Frm_SDK
         Batch_Timer.Interval = 50000
     End Select
   End Sub
+
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
     Try
       MyBase.OnPaint(e)
       If Not Phase_Démarrage_Terminée Then Exit Sub
+      Dim g As Graphics = e.Graphics
 
       Select Case Event_OnPaint
         Case "Global"
-          ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
-          G1_Grid_Paint(e.Graphics)
-          Dim Gril As New Grille_Cls
-          Gril.G2_Grille_Paint_Fond(e.Graphics)
-          G4_Grid_Stratégie_All(e.Graphics)
-          Dim sc As New Cellule_Cls
+          'G1_Grid_Paint(g)
+          g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
+          Grille.G2_Grille_Paint_Fond(g)
+          G4_Grid_Stratégie_All(g)
           For i As Integer = 0 To 80
-            sc.Numéro = i
-            sc.G5_Cellule_Paint_Valeur(e.Graphics)
-          Next i
-
+            Cell.Numéro = i
+            Cell.G5_Cellule_Paint_Valeur(g)
+          Next
         Case "Cellule"
-          ' La cellule est redessinée sur la couche Fond et Valeur
-          ' Stratégie Cdd et Flt (boutons)
-          Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-          sc.G2_Cellule_Paint_Fond(e.Graphics)
-          sc.G5_Cellule_Paint_Valeur(e.Graphics)
-          If Stg_Get(Plcy_Strg).Family = 2 And U(Pbl_Cell_Select, 2) = Plcy_Strg(2) Then
-            ' Stratégie de filtre des valeurs, la valeur doit être présentée en Double-Carré 
-            G0_Cell_Figure(e.Graphics, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
+          Cell.Numéro = Pbl_Cell_Select
+          Cell.G2_Cellule_Paint_Fond(g)
+          Cell.G5_Cellule_Paint_Valeur(g)
+          If Stg_Get(Plcy_Strg).Family = 2 AndAlso U(Pbl_Cell_Select, 2) = Plcy_Strg(2) Then
+            G0_Cell_Figure(g, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
           End If
-
         Case "Cell_Coll"
-          ' Stratégie Cdd, seules les cellules collatérales sont reaffichées
-          ' 1 Les cellules collatérales concernées sont rafraîchies sur les couches Fond et Candidats
-          '#715 évite le New dans la boucle
-          Dim sc_cell_coll As New Cellule_Cls
-          For Each cell As Integer In Cell_Coll_Modifiées_List
-            'Dim sc_cell_coll As New Cellule_Cls With {.Numéro = cell}
-            sc_cell_coll.Numéro = cell
-            sc_cell_coll.G2_Cellule_Paint_Fond(e.Graphics)
-            sc_cell_coll.G6_Cellule_Paint_Candidats(e.Graphics, "LesCandidatsEligibles")
-          Next cell
-          ' 2 La cellule est redessinée sur la couche Fond et Valeur
-          Dim sc As New Cellule_Cls With {.Numéro = Pbl_Cell_Select}
-          sc.G2_Cellule_Paint_Fond(e.Graphics)
-          sc.G5_Cellule_Paint_Valeur(e.Graphics)
-
+          ' 1) Cellules collatérales
+          For Each idx As Integer In Cell_Coll_Modifiées_List
+            Cell.Numéro = idx
+            Cell.G2_Cellule_Paint_Fond(g)
+            Cell.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+          Next
+          ' 2) Cellule sélectionnée
+          Cell.Numéro = Pbl_Cell_Select
+          Cell.G2_Cellule_Paint_Fond(g)
+          Cell.G5_Cellule_Paint_Valeur(g)
         Case "Mouse_Wheel"
-          ' Se produit lors de l'affichage des valeurs filtrées avec le bouton MouseWheeel de la souris
-          '#715 évite le New dans la boucle
-          Dim sc_cell As New Cellule_Cls
-          For Each cell As Integer In MW_Cell_List
-            'Dim sc_cell As New Cellule_Cls With {.Numéro = cell}
-            sc_cell.Numéro = cell
-            sc_cell.G2_Cellule_Paint_Fond(e.Graphics)
-            sc_cell.G5_Cellule_Paint_Valeur(e.Graphics)
-            If U(cell, 2) = Plcy_Strg(2) Then
-              G0_Cell_Figure(e.Graphics, cell, "Double_Carré", Color_Stratégique)
+          For Each idx As Integer In MW_Cell_List
+            Cell.Numéro = idx
+            Cell.G2_Cellule_Paint_Fond(g)
+            Cell.G5_Cellule_Paint_Valeur(g)
+            If U(idx, 2) = Plcy_Strg(2) Then
+              G0_Cell_Figure(g, idx, "Double_Carré", Color_Stratégique)
             End If
-          Next cell
-
+          Next
         Case "Animation"
-          ' Se produit lorsque la grille est remplie, le test est effectué dans Cell_Val_Insert
-          '            qui lancera ensuite "Global" pour rafraîchir la grille
-          'La grille est rafraîchie entièrement 
-          G1_Grid_Paint(e.Graphics)
-          Dim Gril As New Grille_Cls
-          Gril.G2_Grille_Paint_Fond(e.Graphics)
-          Dim sc As New Cellule_Cls
+          'G1_Grid_Paint(g)
+          g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
+          Grille.G2_Grille_Paint_Fond(g)
           For i As Integer = 0 To 80
-            sc.Numéro = i
-            sc.G5_Cellule_Paint_Valeur(e.Graphics)
-          Next i
-          Gril.G8_Grille_Partie_Terminée(e.Graphics)
-
+            Cell.Numéro = i
+            Cell.G5_Cellule_Paint_Valeur(g)
+          Next
+          Grille.G8_Grille_Partie_Terminée(g)
         Case Else
-          ' La grille est ré-affichée entièrement sur les couches Quadrillage, Fond, Stratégie et Valeur 
-          G1_Grid_Paint(e.Graphics)
-          Dim Gril As New Grille_Cls
-          Gril.G2_Grille_Paint_Fond(e.Graphics)
-          G4_Grid_Stratégie_All(e.Graphics)
-          Dim sc As New Cellule_Cls
+          'G1_Grid_Paint(g)
+          g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
+          Grille.G2_Grille_Paint_Fond(g)
+          G4_Grid_Stratégie_All(g)
           For i As Integer = 0 To 80
-            sc.Numéro = i
-            sc.G5_Cellule_Paint_Valeur(e.Graphics)
-          Next i
+            Cell.Numéro = i
+            Cell.G5_Cellule_Paint_Valeur(g)
+          Next
           Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " /Précédent: " & Event_OnPaint_Prv & " /Origine: " & Event_OnPaint_Origine}, "Italique")
-
       End Select
+
     Catch ex As Exception
       Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")

@@ -282,7 +282,7 @@
   Public Function Cell_Cdd_Controle(Candidat As String, Cellule As Integer, Type_IE As String) As Boolean
     'Jrn_Add_Yellow(Proc_Name_Get())
     'Le contrôle n'est pas effectué s'il n'y a pas de solution DL.
-    If XSolution(Cellule) = "0" Then Return False
+    If XSolution(Cellule) = "0" Then Return True
     Select Case Type_IE
       Case "Include"
         If XSolution(Cellule) <> Candidat Then
