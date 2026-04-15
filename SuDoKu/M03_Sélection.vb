@@ -297,4 +297,10 @@
     End Select
     Return True
   End Function
+
+  '🛠
+  Public Sub Pénalités(Origine As String)
+    Cpt_Pénalités += 1
+    Jrn_Add(, {"🛠" & " " & Cpt_Pénalités.ToString().PadLeft(5) & " " & Origine}, "Emoji")
+  End Sub
 End Module

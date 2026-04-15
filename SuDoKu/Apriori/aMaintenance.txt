@@ -386,6 +386,7 @@
 #716 Me 15/04/2026 Cell_Cdd_Controle return True si XSolution = "0000..."
 #717 Me 15/04/2026 OnPaint est ré-écrit sans New
 #718 Me 15/04/2026 OnPaint utilise Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
+#719 Me 15/04/2026 Calcul de pénalités
 
 ##############################################################################################################################
 ????               le fond d'image n'est pas affiché si la forme est différence de Angle droit

@@ -44,6 +44,7 @@ Friend Module M20_Game
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.Text = LP_Nom
+    Cpt_Pénalités = 0
 
     Event_OnPaint_Origine = Proc_Name_Get() & " Origine : " & Origine
     Event_OnPaint = "Global"
@@ -123,22 +124,7 @@ Friend Module M20_Game
         U_Clr_Cell_Val(i) = Color_VI
       End If
     Next i
-    'If Plcy_Dancing_Link Then
-    '  ' Vérification d'une solution unique
-    '  '29/07/2025 Dans le cadre des tests XChains, il peut être possible de vérifier la solution! 
-    '  XSolution = StrDup(81, "0")
-    '  Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
-    '  Select Case DL.Nb_Solution
-    '    Case -1, 0
-    '    Case 1
-    '      XSolution = DL.Solution(0)
-    '    Case Else
-    '      Dim MsgTit As String = Application.ProductName & " " & SDK_Version
-    '      Nsd_i = MsgBox("Dancing Link : " & DL.DLCode & "  Solutions multiples.",, MsgTit)
-    '  End Select
-    'End If
 
-    'Frm_SDK.Text = LP_Nom
   End Sub
 
 End Module

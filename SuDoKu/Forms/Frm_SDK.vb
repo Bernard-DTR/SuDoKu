@@ -292,11 +292,11 @@ Public NotInheritable Class Frm_SDK
       MyBase.OnPaint(e)
       If Not Phase_Démarrage_Terminée Then Exit Sub
       Dim g As Graphics = e.Graphics
+      'Le quadrillage n'est pas redessiné, c'est un bitmap qui est affiché, ce qui améliore les performances d'affichage
+      g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
 
       Select Case Event_OnPaint
         Case "Global"
-          'G1_Grid_Paint(g)
-          g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
           Grille.G2_Grille_Paint_Fond(g)
           G4_Grid_Stratégie_All(g)
           For i As Integer = 0 To 80
@@ -331,8 +331,6 @@ Public NotInheritable Class Frm_SDK
             End If
           Next
         Case "Animation"
-          'G1_Grid_Paint(g)
-          g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
           Grille.G2_Grille_Paint_Fond(g)
           For i As Integer = 0 To 80
             Cell.Numéro = i
@@ -340,8 +338,6 @@ Public NotInheritable Class Frm_SDK
           Next
           Grille.G8_Grille_Partie_Terminée(g)
         Case Else
-          'G1_Grid_Paint(g)
-          g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
           Grille.G2_Grille_Paint_Fond(g)
           G4_Grid_Stratégie_All(g)
           For i As Integer = 0 To 80
@@ -483,6 +479,7 @@ Public NotInheritable Class Frm_SDK
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
     Dim TTT_Message As String = Cnddts_Blancs
     Dim Cellule As Integer = Pbl_Cell_Select
+    Pénalités(Proc_Name_Get() & " " & U_Coord(Cellule) & "(" & Candidat & ")")
     If Plcy_Fantasy Then Exit Sub    'Le TTT_Message ne fonctionne pas avec une police fantaisie.
     Select Case Cellule
       Case 1, 2, 3, 4, 5, 6, 7, 73, 74, 75, 76, 77, 78, 79           ' Colonnes haut et bas
@@ -555,6 +552,7 @@ Public NotInheritable Class Frm_SDK
     ' Détermination du sens de défilement
     Dim ScrollDelta As Integer = e.Delta * SystemInformation.MouseWheelScrollLines \ SystemInformation.MouseWheelScrollDelta
     Dim Sens As Integer = Math.Sign(ScrollDelta)
+
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg.StartsWith("FV") Then MouseWheel_Valeur(Sens)
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg.StartsWith("FC") Then MouseWheel_Candidat(Sens)
   End Sub
@@ -570,7 +568,7 @@ Public NotInheritable Class Frm_SDK
     Loop While MW_Val <> StartVal
 
     Plcy_Strg = "FV" & CStr(MW_Val)
-
+    Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
     Dim MW_Cell_Last As Integer = -1
     MW_Cell_List.Clear()
     For i As Integer = 0 To 80
@@ -601,6 +599,7 @@ Public NotInheritable Class Frm_SDK
     Dim NewMW As Integer = ((FiltreMW + Sens + 8) Mod 9) + 1
 
     Plcy_Strg = "FC" & CStr(NewMW)
+    Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
 
     Event_OnPaint_Origine = Proc_Name_Get() & " FC" & CStr(NewMW)
     Event_OnPaint = "Global"
@@ -823,6 +822,8 @@ Public NotInheritable Class Frm_SDK
         End Select
         Strategy_Rslt_Display(Strategy_Rslt, -1)
     End Select
+    Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
+
   End Sub
   Private Sub Btn0_Click(sender As Object, e As EventArgs) Handles Btn0.Click
     Strategy_Dsp_Standard()
@@ -837,6 +838,7 @@ Public NotInheritable Class Frm_SDK
       Case MouseButtons.Right
         Strategy_Code("FC" & flt, Proc_Name_Get())
     End Select
+    Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
   End Sub
   Public Sub Mnu04n_Stratégie_XW_Click(Sender As Object, e As EventArgs)
     If TypeOf Sender Is ToolStripMenuItem Then
