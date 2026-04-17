@@ -462,7 +462,7 @@ Partial Class Frm_SDK
         Me.Mnu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.Mnu.Location = New System.Drawing.Point(0, 0)
         Me.Mnu.Name = "Mnu"
-        Me.Mnu.Size = New System.Drawing.Size(1869, 32)
+        Me.Mnu.Size = New System.Drawing.Size(1869, 29)
         Me.Mnu.TabIndex = 18
         Me.Mnu.Text = "MenuStrip1"
         '
@@ -478,7 +478,7 @@ Partial Class Frm_SDK
         Me.Mnu01.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu01.Name = "Mnu01"
         Me.Mnu01.ShowShortcutKeys = False
-        Me.Mnu01.Size = New System.Drawing.Size(75, 28)
+        Me.Mnu01.Size = New System.Drawing.Size(75, 25)
         Me.Mnu01.Text = "&Fichier"
         '
         'Mnu01_Ouvrir
@@ -593,7 +593,7 @@ Partial Class Frm_SDK
         Me.Mnu02.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu02_Annuler, Me.Mnu02_Refaire, Me.Mnu02_Sep01, Me.Mnu02_Copier, Me.Mnu02_Copier2, Me.Mnu02_Copie3, Me.Mnu02_Coller, Me.Mnu02_CopierlaGrilleDansLeJournal})
         Me.Mnu02.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu02.Name = "Mnu02"
-        Me.Mnu02.Size = New System.Drawing.Size(78, 28)
+        Me.Mnu02.Size = New System.Drawing.Size(78, 25)
         Me.Mnu02.Text = "Copier "
         '
         'Mnu02_Annuler
@@ -667,7 +667,7 @@ Partial Class Frm_SDK
         Me.Mnu03.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu03_EffacerLeJournal, Me.Mnu03_Sep01, Me.Mnu03_Transformation, Me.Mnu03_AfficherLaSolution, Me.Mnu03_Rafraîchir})
         Me.Mnu03.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu03.Name = "Mnu03"
-        Me.Mnu03.Size = New System.Drawing.Size(95, 28)
+        Me.Mnu03.Size = New System.Drawing.Size(95, 25)
         Me.Mnu03.Text = "&Affichage"
         '
         'Mnu03_EffacerLeJournal
@@ -790,7 +790,7 @@ Partial Class Frm_SDK
         '
         Me.Mnu04.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu04.Name = "Mnu04"
-        Me.Mnu04.Size = New System.Drawing.Size(101, 28)
+        Me.Mnu04.Size = New System.Drawing.Size(101, 25)
         Me.Mnu04.Text = "&Stratégies"
         '
         'Mnu08
@@ -799,7 +799,7 @@ Partial Class Frm_SDK
         Me.Mnu08.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu08.ForeColor = System.Drawing.Color.Black
         Me.Mnu08.Name = "Mnu08"
-        Me.Mnu08.Size = New System.Drawing.Size(98, 28)
+        Me.Mnu08.Size = New System.Drawing.Size(98, 25)
         Me.Mnu08.Text = "E&xtension"
         '
         'Mnu08_Jouer
@@ -987,7 +987,7 @@ Partial Class Frm_SDK
         Me.Mnu05.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu05_Préférences, Me.Mnu05_FichierDesMessages, Me.Mnu05_APropos, Me.Mnu05_Documentation, Me.Mnu05_Maintenance, Me.Mnu05_Dictionnaire, Me.Mnu05_ModeEtendu})
         Me.Mnu05.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu05.Name = "Mnu05"
-        Me.Mnu05.Size = New System.Drawing.Size(59, 28)
+        Me.Mnu05.Size = New System.Drawing.Size(59, 25)
         Me.Mnu05.Text = "A&ide"
         '
         'Mnu05_Préférences
@@ -1043,7 +1043,7 @@ Partial Class Frm_SDK
         Me.Mnu06.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu06_ListerU, Me.Mnu06_ListerA, Me.Mnu06_Manuel_des_Stratégies, Me.Mnu063_VérificationDeLaGrille, Me.Mnu06_Sep01, Me.Mnu06_EffacerLaGrille, Me.Mnu06_Sep02, Me.Mnu06_SudokuPCA, Me.Mnu06_SudokuAngusJohnson, Me.Mnu06_SudokuDarrenColes, Me.Mnu06_SudokuPatriceHenrion, Me.Mnu06_SudokuNKH, Me.Mnu06_Hodoku220, Me.Mnu06_SudokuFedynaK, Me.Mnu06_SudoCue, Me.Mnu06_DiufSudokuJava, Me.Mnu06_Sep03, Me.Mnu06_ClassicSudoku, Me.Mnu06_SudokuSolver, Me.Mnu06_MicrosoftSudoku, Me.Mnu06_HHSudokuGame, Me.Mnu06_MUDancingLink, Me.Mnu06_Sep04, Me.Mnu06_CB})
         Me.Mnu06.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu06.Name = "Mnu06"
-        Me.Mnu06.Size = New System.Drawing.Size(73, 28)
+        Me.Mnu06.Size = New System.Drawing.Size(73, 25)
         Me.Mnu06.Text = "&Divers"
         '
         'Mnu06_ListerU
@@ -1207,7 +1207,7 @@ Partial Class Frm_SDK
         Me.Mnu07.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu07n_Gbl, Me.Mnu07n_Gbv, Me.Mnu07n_GCs, Me.Mnu07n_GCx, Me.Mnu07n_XCy, Me.Mnu07n_XRp, Me.Mnu07n_XNl, Me.Mnu07n_WgX, Me.Mnu07n_WgY, Me.Mnu07n_WgZ, Me.Mnu07n_WgW})
         Me.Mnu07.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu07.Name = "Mnu07"
-        Me.Mnu07.Size = New System.Drawing.Size(69, 28)
+        Me.Mnu07.Size = New System.Drawing.Size(69, 25)
         Me.Mnu07.Text = "O&utils"
         '
         'Mnu07n_Gbl
@@ -1281,7 +1281,7 @@ Partial Class Frm_SDK
         Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0910_GLk, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
-        Me.Mnu09.Size = New System.Drawing.Size(79, 28)
+        Me.Mnu09.Size = New System.Drawing.Size(79, 25)
         Me.Mnu09.Text = "Graphe"
         '
         'Mnu0901
@@ -1379,7 +1379,7 @@ Partial Class Frm_SDK
         Me.BarreOutils.ContextMenuStrip = Me.Mnu_Ctxt_Vide
         Me.BarreOutils.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.BarreOutils.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Btn_Cdd, Me.Btn_CdU, Me.Btn_CdO, Me.ToolStripSeparator13, Me.Btn1, Me.Btn2, Me.Btn3, Me.Btn4, Me.Btn5, Me.Btn6, Me.Btn7, Me.Btn8, Me.Btn9, Me.ToolStripSeparator14, Me.Btn_Cbl, Me.Btn_Tpl, Me.Btn_Xwg, Me.Btn_XYw, Me.Btn_Swf, Me.Btn_Jly, Me.Btn_XYZ, Me.Btn_SKy, Me.Btn_Unq, Me.ToolStripSeparator15, Me.Btn0, Me.ToolStripSeparator16})
-        Me.BarreOutils.Location = New System.Drawing.Point(0, 32)
+        Me.BarreOutils.Location = New System.Drawing.Point(0, 29)
         Me.BarreOutils.Name = "BarreOutils"
         Me.BarreOutils.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.BarreOutils.RenderMode = System.Windows.Forms.ToolStripRenderMode.System

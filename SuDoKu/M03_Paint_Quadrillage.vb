@@ -7,6 +7,50 @@ Module M03_Paint_Quadrillage
       G1_Grid_Paint(g)
     End Using
   End Sub
+  Public Sub Build_Fond_Valeur()
+    Bmp_Fond_Valeur = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
+    Using g As Graphics = Graphics.FromImage(Bmp_Fond_Valeur)
+      Dim sc As New Cellule_Cls
+      For i As Integer = 0 To 80
+        sc.Numéro = i
+        sc.G2_Cellule_Paint_Fond(g)
+        sc.G5_Cellule_Paint_Valeur(g)
+      Next
+    End Using
+  End Sub
+
+  Public Sub Build_Fond_Cellule_Survolee()
+    Bmp_Fond_Cellule_Survolee = New Bitmap(WH, WH)
+    Dim r As New Rectangle(0, 0, WH, WH)
+    Dim WH3 As Integer = WH \ 3
+    Using g As Graphics = Graphics.FromImage(Bmp_Fond_Cellule_Survolee)
+      g.SmoothingMode = SmoothingMode.AntiAlias
+      ' Définition des points et du style de trait
+      Dim dashPattern As Single() = {1, 5}
+      Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
+        pen.DashPattern = dashPattern
+        Dim x1 As Integer = WH3
+        Dim x2 As Integer = (2 * WH3)
+        g.DrawLine(pen, x1, 0, x1, WH)
+        g.DrawLine(pen, x2, 0, x2, WH)
+        ' Lignes horizontales
+        Dim y1 As Integer = WH3
+        Dim y2 As Integer = +(2 * WH3)
+        g.DrawLine(pen, 0, y1, WH, y1)
+        g.DrawLine(pen, 0, y2, WH, y2)
+      End Using
+
+      Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
+                              brsh9 As New SolidBrush(Color.FromArgb(110, 80, 160, 255))
+        For cdd As Integer = 1 To 9
+          Dim row As Integer = (cdd - 1) \ 3
+          Dim col As Integer = (cdd - 1) Mod 3
+          Dim rc As New Rectangle(r.X + col * WH3, r.Y + row * WH3, WH3, WH3)
+          g.DrawString(Subst_Police(CStr(cdd)), font9, brsh9, rc, Format_Center)
+        Next cdd
+      End Using
+    End Using
+  End Sub
 
   Public Sub G1_Grid_Paint(g As Graphics)
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille

@@ -27,6 +27,7 @@
     Cell_Coll_Modifiées_List = Cdd_Remove_Cell_Coll_List(U, Cellule)
     Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
     Pbl_Valeur_CdS = V
+    Build_Fond_Valeur()
 
     Mnu_Mngt_Barre_Outils_Filtres()
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
@@ -112,7 +113,7 @@
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
-    'Act_Add(Cellule, "Effacer", VE, Cnddts_Blancs, Origine, Av_Jeu, Av_AllCdd)
+    Build_Fond_Valeur()
     Act_Add(Cellule, "Effacer", VE, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 

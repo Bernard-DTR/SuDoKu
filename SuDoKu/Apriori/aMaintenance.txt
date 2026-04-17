@@ -387,10 +387,12 @@
 #717 Me 15/04/2026 OnPaint est ré-écrit sans New
 #718 Me 15/04/2026 OnPaint utilise Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
 #719 Me 15/04/2026 Calcul de pénalités
+#720 V  17/04/2026 Mise en place de Bmp_Fond_Cellule_Survolee
 
 ##############################################################################################################################
 ????               le fond d'image n'est pas affiché si la forme est différence de Angle droit
 ????               Il en est de même des couleurs
+????               Relancer les 3 build_Fonds lors du changement de taille de WH
 
 ????               Revoir à quel moment on déclenche la stratégie
 
@@ -400,3 +402,5 @@
                            Denis_Berthier ET RRslt_Control_Cdd_Exclure
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plut
 ????               Stratégie sans aucun controle Noc
+????               Il semble que 2 présentations seulement sont utilisées Angle droit et Régions arrondies
+????               Le fond des cellules ne dvrait pas dépendre de la famille des stratégies !

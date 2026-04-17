@@ -173,39 +173,6 @@ Public Class Cellule_Cls
         Else
           g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
         End If
-
-        If Typologie = "V" And (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) Then
-          ' Définition des points et du style de trait
-          Dim dashPattern As Single() = {1, 5}
-          Dim startX As Integer = Sqr_Cel(Numéro).X
-          Dim startY As Integer = Sqr_Cel(Numéro).Y
-          ' Création du stylo avec trait discontinu
-          Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
-            pen.DashPattern = dashPattern
-            ' Lignes verticales
-            Dim x1 As Integer = startX + WHthird
-            Dim x2 As Integer = startX + (2 * WHthird)
-            g.DrawLine(pen, x1, startY, x1, startY + WH)
-            g.DrawLine(pen, x2, startY, x2, startY + WH)
-            ' Lignes horizontales
-            Dim y1 As Integer = startY + WHthird
-            Dim y2 As Integer = startY + (2 * WHthird)
-            g.DrawLine(pen, startX, y1, startX + WH, y1)
-            g.DrawLine(pen, startX, y2, startX + WH, y2)
-          End Using
-
-          Dim Coté_6 As Integer = Coté \ 6
-          Dim cdd_n As Integer
-          Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-                                  brsh9 As New SolidBrush(Color.FromArgb(128, Color_VCdd))
-            For cdd As Integer = 1 To 9
-              cdd_n = (Numéro * 10) + cdd
-              g.DrawString(Subst_Police(CStr(cdd)), font9, brsh9,
-                           Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
-            Next cdd
-          End Using
-        End If
-
       Else                            ' L'image de fond est affichée
         If Cellule_Arrondie Then
           g.ResetClip()
@@ -218,7 +185,6 @@ Public Class Cellule_Cls
       End If
     End Using
   End Sub
-
   ''' <summary>Peint la valeur d'une cellule IR.</summary>
   Public Sub G5_Cellule_Paint_Valeur(g As Graphics)
     'Concerne l'ensemble des Cellules Initiales et Remplies
@@ -309,14 +275,6 @@ Public Class Grille_Cls
 #End Region
 
 #Region "Méthodes"
-  Public Sub G2_Grille_Paint_Fond(g As Graphics)
-    Dim sc As New Cellule_Cls
-    For i As Integer = 0 To 80
-      sc.Numéro = i
-      sc.G2_Cellule_Paint_Fond(g)
-    Next i
-  End Sub
-
   Public Sub G8_Grille_Partie_Terminée(g As Graphics)
     Dim Cellule_Clct As New Collection
     If Plcy_Gnrl <> "Nrm" Then Exit Sub

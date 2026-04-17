@@ -263,7 +263,9 @@ Public NotInheritable Class Frm_SDK
       Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
       Batch_Initial()
     End If
-    ' OnPaint est appelé à la fin de Frm_SDK_Load par Frm_SDK_Activated
+
+    Build_Fond_Cellule_Survolee()
+
   End Sub
   '#713
   Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)
@@ -294,19 +296,13 @@ Public NotInheritable Class Frm_SDK
       Dim g As Graphics = e.Graphics
       'Le quadrillage n'est pas redessiné, c'est un bitmap qui est affiché, ce qui améliore les performances d'affichage
       g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
+      g.DrawImageUnscaled(Bmp_Fond_Valeur, 0, 0)
 
       Select Case Event_OnPaint
         Case "Global"
-          Grille.G2_Grille_Paint_Fond(g)
           G4_Grid_Stratégie_All(g)
-          For i As Integer = 0 To 80
-            Cell.Numéro = i
-            Cell.G5_Cellule_Paint_Valeur(g)
-          Next
         Case "Cellule"
           Cell.Numéro = Pbl_Cell_Select
-          Cell.G2_Cellule_Paint_Fond(g)
-          Cell.G5_Cellule_Paint_Valeur(g)
           If Stg_Get(Plcy_Strg).Family = 2 AndAlso U(Pbl_Cell_Select, 2) = Plcy_Strg(2) Then
             G0_Cell_Figure(g, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
           End If
@@ -314,44 +310,37 @@ Public NotInheritable Class Frm_SDK
           ' 1) Cellules collatérales
           For Each idx As Integer In Cell_Coll_Modifiées_List
             Cell.Numéro = idx
-            Cell.G2_Cellule_Paint_Fond(g)
             Cell.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
           Next
           ' 2) Cellule sélectionnée
           Cell.Numéro = Pbl_Cell_Select
           Cell.G2_Cellule_Paint_Fond(g)
-          Cell.G5_Cellule_Paint_Valeur(g)
+         'Cell.G5_Cellule_Paint_Valeur(g)
         Case "Mouse_Wheel"
           For Each idx As Integer In MW_Cell_List
             Cell.Numéro = idx
             Cell.G2_Cellule_Paint_Fond(g)
-            Cell.G5_Cellule_Paint_Valeur(g)
             If U(idx, 2) = Plcy_Strg(2) Then
               G0_Cell_Figure(g, idx, "Double_Carré", Color_Stratégique)
             End If
           Next
         Case "Animation"
-          Grille.G2_Grille_Paint_Fond(g)
-          For i As Integer = 0 To 80
-            Cell.Numéro = i
-            Cell.G5_Cellule_Paint_Valeur(g)
-          Next
           Grille.G8_Grille_Partie_Terminée(g)
-        Case Else
-          Grille.G2_Grille_Paint_Fond(g)
-          G4_Grid_Stratégie_All(g)
-          For i As Integer = 0 To 80
-            Cell.Numéro = i
-            Cell.G5_Cellule_Paint_Valeur(g)
-          Next
-          Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " /Précédent: " & Event_OnPaint_Prv & " /Origine: " & Event_OnPaint_Origine}, "Italique")
       End Select
+      If Cellule_Survolee >= 0 Then
+        If U(Cellule_Survolee, 2) = " " Then   ' 0 = cellule vide
+          If (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) Then
+            g.DrawImageUnscaled(Bmp_Fond_Cellule_Survolee, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
+          End If
+        End If
+      End If
 
     Catch ex As Exception
       Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
+    'Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " /Précédent: " & Event_OnPaint_Prv & " /Origine: " & Event_OnPaint_Origine}, "Italique")
 
     Event_OnPaint_Prv = Event_OnPaint
     Event_OnPaint = "#"
@@ -434,6 +423,30 @@ Public NotInheritable Class Frm_SDK
       Mnu_Mngt(Pbl_Cell_Select)
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
+
+    Dim idx As Integer = Cellule_MM
+
+    If idx <> Cellule_Survolee Then
+
+      ' Invalider l’ancienne cellule
+      If Cellule_Survolee >= 0 Then
+        Me.Invalidate(Sqr_Cel(Cellule_Survolee))
+      End If
+
+      ' Invalider la nouvelle cellule
+      If idx >= 0 Then
+        Me.Invalidate(Sqr_Cel(idx))
+      End If
+
+      Cellule_Survolee = idx
+    End If
+
+  End Sub
+  Private Sub Frm_SDK_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
+    If Cellule_Survolee >= 0 Then
+      Me.Invalidate(Sqr_Cel(Cellule_Survolee))
+    End If
+    Cellule_Survolee = -1
   End Sub
 
   Private Sub Frm_SDK_MouseClick(sender As Object, e As MouseEventArgs) Handles MyBase.MouseClick
@@ -1667,6 +1680,7 @@ Public NotInheritable Class Frm_SDK
     End If
 
   End Sub
+
 
 #End Region
 End Class

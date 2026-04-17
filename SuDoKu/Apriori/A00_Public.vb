@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_04_00 #719"
+  Public SDK_Version As String = "V2026_04_00 #720"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
 #End Region
@@ -212,6 +212,9 @@ Module A00_Public
   Public PrivateFontFamily() As FontFamily
 
   Public Bmp_Quadrillage As Bitmap
+  Public Bmp_Fond_Valeur As Bitmap
+  Public Bmp_Fond_Cellule_Survolee As Bitmap
+  Public Cellule_Survolee As Integer = -1
 
 #End Region
 

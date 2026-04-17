@@ -46,6 +46,8 @@ Friend Module M20_Game
     Frm_SDK.Text = LP_Nom
     Cpt_Pénalités = 0
 
+    Build_Fond_Valeur()
+
     Event_OnPaint_Origine = Proc_Name_Get() & " Origine : " & Origine
     Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
