@@ -77,14 +77,14 @@ Friend Module A01_OnlyOnce
       'Placé à cet endroit pour conserver les couleurs des Valeurs et des Candidats
       'OC_Thèmes_Couleurs(.Thème_Clr)
       Select Case .Format_DAB
-        Case 7 : OC_Thèmes_Couleurs(Rdc.Next(0, 3))
+        Case 2 : OC_Thèmes_Couleurs(Rdc.Next(0, 3))
         Case Else : OC_Thèmes_Couleurs(.Thème_Clr)
       End Select
       Color_VI = Color.FromName(.Prf_01C_Clr_ComboBoxVI)
       Color_VCdd = Color.FromName(.Prf_01C_Clr_ComboBoxVCdd)
       Select Case .Format_DAB
-        Case 0 To 6 : Plcy_Format_DAB = .Format_DAB
-        Case 7 : Plcy_Format_DAB = Rdc.Next(0, 6)
+        Case 0 To 1 : Plcy_Format_DAB = .Format_DAB
+        Case 2 : Plcy_Format_DAB = Rdc.Next(0, 2)
       End Select
     End With
   End Sub

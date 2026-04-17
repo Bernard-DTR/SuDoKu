@@ -1635,13 +1635,11 @@ Friend Module M03_Paint
           Select Case Plcy_Format_DAB
             Case 0       ' Droits 
               .AddPolygon({A, B, C, D, A})
-            Case 1, 3, 5 ' Arrondis
+            Case 1 ', 3, 5 ' Arrondis
               .AddArc(Rect_A_m, 180, 180)
               .AddLine(BC, C)
               .AddLine(C, D)
               .AddLine(D, AD)
-            Case 2, 4, 6 ' Biseautés
-              .AddPolygon({A1, A2, A3, C, D, A1})
           End Select
           .CloseFigure()
         End With
@@ -1662,7 +1660,7 @@ Friend Module M03_Paint
           Select Case Plcy_Format_DAB
             Case 0         ' Droits 
               .AddPolygon({A, B, BC, C, CD, D, A})
-            Case 1, 3, 5   ' Arrondis
+            Case 1
               'Un arc est compris dans un rectangle
               'Un rectangle est défini par un Left-Top (x-y) et Width-Height
               'L'angle Start à 0 sur l'axe x et tourne dans le sens des aiguilles d'une montre
@@ -1672,8 +1670,6 @@ Friend Module M03_Paint
               .AddLine(B, BC)
               .AddArc(Rect_C_p, 270, -90)
               .AddLine(CD, D)
-            Case 2, 4, 6  ' Biseautés
-              .AddPolygon({A1, A2, B, BC, CD, D, A1})
           End Select
           .CloseFigure()
         End With

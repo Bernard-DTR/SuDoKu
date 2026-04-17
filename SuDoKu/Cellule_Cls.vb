@@ -144,9 +144,7 @@ Public Class Cellule_Cls
     ' Définition des cellules arrondies selon les formats DAB
     Get 'Propriété dépendante de U et de Plcy_Format_DAB
       Select Case Plcy_Format_DAB
-        Case 1, 2 : Return Format12.Contains(Numéro)
-        Case 3, 4 : Return Format34.Contains(Numéro)
-        Case 5, 6 : Return Format34.Contains(Numéro) OrElse Format56_Extra.Contains(Numéro)
+        Case 1 : Return Format34.Contains(Numéro) OrElse Format56_Extra.Contains(Numéro)
         Case Else
           Return False
       End Select

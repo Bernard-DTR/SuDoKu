@@ -84,16 +84,11 @@
 
     Cb01_Format.Items.Clear()
     Nsd_i = Cb01_Format.Items.Add("Angles droits")          ' 0  D
-    Nsd_i = Cb01_Format.Items.Add("4 Coins arrondis")       ' 1  A
-    Nsd_i = Cb01_Format.Items.Add("4 Coins biseautés")      ' 2  B
-    Nsd_i = Cb01_Format.Items.Add("Coins arrondis")         ' 3  A
-    Nsd_i = Cb01_Format.Items.Add("Coins biseautés")        ' 4  B
     Nsd_i = Cb01_Format.Items.Add("Régions arrondies")      ' 5  A
-    Nsd_i = Cb01_Format.Items.Add("Régions biseautées")     ' 6  B
     Nsd_i = Cb01_Format.Items.Add("... Au hasard")          ' 7
     Cb01_Format.SelectedIndex = My.Settings.Format_DAB
     Plcy_Format_DAB = My.Settings.Format_DAB
-    If My.Settings.Format_DAB = 7 Then Plcy_Format_DAB = Rdc.Next(0, 6)
+    If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
 
     CB01_Thèmes.Items.Clear()
     Nsd_i = CB01_Thèmes.Items.Add("Standard")               ' 0     
@@ -328,6 +323,9 @@
     My.Settings.Prf_01C_Taille_Cellule = WH
     If Not Mode_Load Then
       OC_Présentation()
+      Build_Quadrillage()
+      Build_Fond_Valeur()
+      Build_Fond_Cellule_Survolee()
       Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
       Application.DoEvents()
@@ -382,7 +380,8 @@
     If Not Mode_Load Then
       My.Settings.Format_DAB = Cb01_Format.SelectedIndex
       Plcy_Format_DAB = My.Settings.Format_DAB
-      If My.Settings.Format_DAB = 7 Then Plcy_Format_DAB = Rdc.Next(0, 6)
+      If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
+      Build_Fond_Valeur()
       OC_Présentation()
       Event_OnPaint = "Global"
       Frm_SDK.Invalidate()

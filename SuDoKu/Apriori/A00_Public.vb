@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_04_00 #720"
+  Public SDK_Version As String = "V2026_04_00 #722"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
 #End Region
@@ -119,8 +119,8 @@ Module A00_Public
   Public Sqr_Cdd_Inf(809) As Rectangle              '  Le tableau comporte les informations des 9 rectangles inflate pour cliquer plus facilement les candidats
   Public Grid_Pth As Drawing2D.GraphicsPath         '  Tracé de la Grille avec angle arrondi
   Public Reg_Pth(8) As Drawing2D.GraphicsPath       '  Tracés des 9 régions avec angle arrondi
-  Public Sqr_Pth(0 To 80) As Drawing2D.GraphicsPath '  Tracés des squares du jeu avec ou sans angle arrondi ou biseauté
-  ' Les traitements, compute ou paint, sont identiques que les paths soient des carrés, avec angles arrondis ou biseautés
+  Public Sqr_Pth(0 To 80) As Drawing2D.GraphicsPath '  Tracés des squares du jeu avec ou sans angle arrondi  
+  ' Les traitements, compute ou paint, sont identiques que les paths soient des carrés, avec angles arrondis  
 
   Public Structure MdC_Struct                       '  Structure des Modèles Composites d'une stratégie
     Public Cellule As Integer                       '  Cellule concernée

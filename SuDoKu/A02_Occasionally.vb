@@ -285,7 +285,7 @@ Friend Module A02_Occasionally
       Sqr_Cdd_Inf(s) = r
     Next s
 
-    ' Calcul des Squares Path à Coins Arrondis et carrés
+    ' Calcul des Squares Path à Coins Arrondis  
     k = 0
     For j As Integer = 0 To 8      ' Axe des y, vertical
       For i As Integer = 0 To 8    ' Axe des x, horizontal
@@ -297,77 +297,41 @@ Friend Module A02_Occasionally
           Case 0, 3, 6, 27, 30, 33, 54, 57, 60       ' Coin HG arrondi
             With Sqr_Pth(k)
               .StartFigure()
-              Select Case Plcy_Format_DAB
-                Case 1, 3, 5
-                  .AddArc(New Rectangle(x, y, WHhalf, WHhalf), 180, 90)
-                  .AddLine(x + WHhalf, y, x + WH, y)
-                  .AddLine(x + WH, y, x + WH, y + WH)
-                  .AddLine(x + WH, y + WH, x, y + WH)
-                  .AddLine(x, y + WH, x, y + WHhalf)
-                Case 2, 4, 6
-                  .AddLine(x, y + WHquart, x + WHquart, y)
-                  .AddLine(x + WHquart, y, x + WH, y)
-                  .AddLine(x + WH, y, x + WH, y + WH)
-                  .AddLine(x + WH, y + WH, x, y + WH)
-                  .AddLine(x, y + WH, x, y + WHquart)
-              End Select
+              .AddArc(New Rectangle(x, y, WHhalf, WHhalf), 180, 90)
+              .AddLine(x + WHhalf, y, x + WH, y)
+              .AddLine(x + WH, y, x + WH, y + WH)
+              .AddLine(x + WH, y + WH, x, y + WH)
+              .AddLine(x, y + WH, x, y + WHhalf)
               .CloseFigure() 'La figure est déjà fermée
             End With
           Case 2, 5, 8, 29, 32, 35, 56, 59, 62       ' Coin HD arrondi
             With Sqr_Pth(k)
               .StartFigure()
-              Select Case Plcy_Format_DAB
-                Case 1, 3, 5
-                  .AddLine(x, y, x + WH - WHhalf, y)
-                  .AddArc(New Rectangle(x + WH - WHhalf, y, WHhalf, WHhalf), 270, 90)
-                  .AddLine(x + WH, y + WHhalf, x + WH, y + WH)
-                  .AddLine(x + WH, y + WH, x, y + WH)
-                  .AddLine(x, y + WH, x, y)
-                Case 2, 4, 6
-                  .AddLine(x, y, x + WH - WHquart, y)
-                  .AddLine(x + WH - WHquart, y, x + WH, y + WHquart)
-                  .AddLine(x + WH, y + WHhalf, x + WH, y + WH)
-                  .AddLine(x + WH, y + WH, x, y + WH)
-                  .AddLine(x, y + WH, x, y)
-              End Select
+              .AddLine(x, y, x + WH - WHhalf, y)
+              .AddArc(New Rectangle(x + WH - WHhalf, y, WHhalf, WHhalf), 270, 90)
+              .AddLine(x + WH, y + WHhalf, x + WH, y + WH)
+              .AddLine(x + WH, y + WH, x, y + WH)
+              .AddLine(x, y + WH, x, y)
               .CloseFigure()
             End With
           Case 18, 21, 24, 45, 48, 51, 72, 75, 78    ' Coin BG arrondi
             With Sqr_Pth(k)
               .StartFigure()
-              Select Case Plcy_Format_DAB
-                Case 1, 3, 5
-                  .AddLine(x, y, x + WH, y)
-                  .AddLine(x + WH, y, x + WH, y + WH)
-                  .AddLine(x + WH, y + WH, x + WHhalf, y + WH)
-                  .AddArc(New Rectangle(x, y + WH - WHhalf, WHhalf, WHhalf), 90, 90)
-                  .AddLine(x, y + WH - WHhalf, x, y)
-                Case 2, 4, 6
-                  .AddLine(x, y, x + WH, y)
-                  .AddLine(x + WH, y, x + WH, y + WH)
-                  .AddLine(x + WH, y + WH, x + WHquart, y + WH)
-                  .AddLine(x + WHquart, y + WH, x, y + WH - WHquart)
-                  .AddLine(x, y + WH - WHquart, x, y)
-              End Select
+              .AddLine(x, y, x + WH, y)
+              .AddLine(x + WH, y, x + WH, y + WH)
+              .AddLine(x + WH, y + WH, x + WHhalf, y + WH)
+              .AddArc(New Rectangle(x, y + WH - WHhalf, WHhalf, WHhalf), 90, 90)
+              .AddLine(x, y + WH - WHhalf, x, y)
               .CloseFigure()
             End With
           Case 20, 23, 26, 47, 50, 53, 74, 77, 80    ' Coin BD arrondi
             With Sqr_Pth(k)
               .StartFigure()
-              Select Case Plcy_Format_DAB
-                Case 1, 3, 5
-                  .AddLine(x, y, x + WH, y)
-                  .AddLine(x + WH, y, x + WH, y + WH - WHhalf)
-                  .AddArc(New Rectangle(x + WH - WHhalf, y + WH - WHhalf, WHhalf, WHhalf), 0, 90)
-                  .AddLine(x + WH - WHhalf, y + WH, x, y + WH)
-                  .AddLine(x, y + WH, x, y)
-                Case 2, 4, 6
-                  .AddLine(x, y, x + WH, y)
-                  .AddLine(x + WH, y, x + WH, y + WH - WHquart)
-                  .AddLine(x + WH, y + WH - WHquart, x + WH - WHquart, y + WH)
-                  .AddLine(x + WH - WHquart, y + WH, x, y + WH)
-                  .AddLine(x, y + WH, x, y)
-              End Select
+              .AddLine(x, y, x + WH, y)
+              .AddLine(x + WH, y, x + WH, y + WH - WHhalf)
+              .AddArc(New Rectangle(x + WH - WHhalf, y + WH - WHhalf, WHhalf, WHhalf), 0, 90)
+              .AddLine(x + WH - WHhalf, y + WH, x, y + WH)
+              .AddLine(x, y + WH, x, y)
               .CloseFigure()
             End With
           Case Else                   ' Carré
