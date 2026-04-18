@@ -397,6 +397,13 @@
                    If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2) (soit 0, soit 1)
 #722 V  17/04/2026 Correction du bogue d'affichage en fonction du format
 #723 S  18/04/2026 Utilisation correcte et optimisée de Bmp_Fond_Cellule_Survolee avec Color_Cell_Select
+#724 S  18/04/2026 OnPaint Abandon de Event_OnPaint = "Cellule"  
+#725 S  18/04/2026 Case "Global" devient Case Else
+#726 S  18/04/2026 ---> Event_OnPaint = "Global" (45 occurences) peut être enlevé !
+#727 S  18/04/2026 Case "Cell_Coll" ne gère plus que les cellules collatérales
+#728 S  18/04/2026 Case "Cell_Coll" ne gère plus rien !
+#729 S  18/04/2026 Case "Mouse_Wheeel" ne gère plus rien !
+#730 S  18/04/2026 ---> et Application.DoEvents() 39 occurences
 
 ##############################################################################################################################
  

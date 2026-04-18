@@ -50,8 +50,6 @@ Friend Module P01_Strategy
   Sub Strategy_Dsp_Standard()
     Plcy_Strg = "   "
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-    Event_OnPaint_Origine = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
-    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
 
@@ -87,8 +85,6 @@ Friend Module P01_Strategy
     End Select
 
     Dim index As Integer = RRslt_Copy_Rnd(Strategy_Rslt)
-    Event_OnPaint_Origine = Proc_Name_Get() & " Plcy_Strg: '" & Plcy_Strg & "'"
-    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
   End Sub
 
@@ -148,9 +144,7 @@ Friend Module P01_Strategy
                       " | " & Action
     Jrn_Add(, {S}, Action)
 
-    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
-    Application.DoEvents()
   End Sub
 
 #Region "RRslt: Les Résultats d'une stratégie 'Classique'"

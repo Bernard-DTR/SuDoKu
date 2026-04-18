@@ -83,9 +83,7 @@
       Jrn_Add(, {"Stratégie de Force Brute : ECHEC!"})
     End If
     Build_Fond_Valeur()
-    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
-    Application.DoEvents()
   End Sub
 
   Public Function Calcul_ForceBrute() As Integer

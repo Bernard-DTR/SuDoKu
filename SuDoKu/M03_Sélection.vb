@@ -37,54 +37,40 @@
     Select Case Stg_Get(Plcy_Strg).Family
       Case 0, 2
         ' Aucune stratégie, stratégie des filtres 
-        Event_OnPaint_Origine = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-        Event_OnPaint = "Cellule"
         Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
           Frm_SDK.Invalidate(reg, False)
         End Using
-        Application.DoEvents()
-
       Case 1
         ' Stratégie Cdd, les candidats sont affichés
-        Event_OnPaint_Origine = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-        Event_OnPaint = "Cell_Coll"
         If Cell_Coll_Modifiées_List.Count > 0 Then
           Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
             For Each cell As Integer In Cell_Coll_Modifiées_List
               reg.Union(Sqr_Pth(cell))
             Next
             Frm_SDK.Invalidate(reg, False)
-            Application.DoEvents()
           End Using
         Else
           ' Si la liste est vide, on peut invalider uniquement la cellule principale
           Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
             Frm_SDK.Invalidate(reg, False)
-            Application.DoEvents()
           End Using
         End If
 
       Case 3, 4
         ' Toutes les stratégies, et de nombreuses situations spéciales
-        Event_OnPaint = "Global"
         Frm_SDK.Invalidate()
-        Application.DoEvents()
       Case Else
     End Select
 
     ' 04 Fin de partie
-    If Wh_Nb_Cell(U).Remplies = 81 Then
-      ' 041 L'animation est faite en 2 temps d'abord l'animation 
-      Event_OnPaint_Origine = Proc_Name_Get() & "_A " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Animation"
-      Frm_SDK.Invalidate()
-      Application.DoEvents()
-      ' 042 puis un affichage de la grille complète
-      Event_OnPaint_Origine = Proc_Name_Get() & "_B " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Global"
-      Frm_SDK.Invalidate()
-      Application.DoEvents()
-    End If
+    'If Wh_Nb_Cell(U).Remplies = 81 Then
+    '  ' 041 L'animation est faite en 2 temps d'abord l'animation 
+    '  Frm_SDK.Invalidate()
+    '  Application.DoEvents()
+    '  ' 042 puis un affichage de la grille complète
+    '  Frm_SDK.Invalidate()
+    '  Application.DoEvents()
+    'End If
   End Sub
   Sub Cell_Val_Delete(Cellule As Integer, Origine As String)
     'Avant toute modification
@@ -118,11 +104,7 @@
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-    Event_OnPaint_Origine = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
-    Application.DoEvents()
-
   End Sub
 
   Sub Cell_Cdd_Insert(V As String, Cellule As Integer, Origine As String)
@@ -147,10 +129,7 @@
       Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
       Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-      Event_OnPaint_Origine = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
-      Application.DoEvents()
 
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
@@ -176,10 +155,7 @@
     End If
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-    Event_OnPaint_Origine = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
-    Application.DoEvents()
   End Sub
   Sub Cell_Cdd_Exclude(V As String, Cellule As Integer)
     If Plcy_Gnrl = "Edi" Then Exit Sub
@@ -205,10 +181,7 @@
       Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
       Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
-      Event_OnPaint_Origine = Proc_Name_Get() & " " & Plcy_Gnrl & " Plcy_Strg: '" & Plcy_Strg & "'"
-      Event_OnPaint = "Global"
       Frm_SDK.Invalidate()
-      Application.DoEvents()
 
     Catch ex As Exception
       Jrn_Add("ERR_00000", {ex.Message}, "Erreur")

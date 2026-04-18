@@ -73,9 +73,7 @@
         Jrn_Add("ERR_00000", {sender.ToString() & " Action : " & Action & " en: " & U_Coord(Cellule)}, "Erreur")
     End Select
 
-    Event_OnPaint = "Global"
     Frm_SDK.Invalidate()
-    Application.DoEvents()
   End Sub
 
   Sub Mnu_Mngt_Barre_Outils_Filtres()

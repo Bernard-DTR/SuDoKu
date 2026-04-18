@@ -18,7 +18,6 @@ Module M03_Paint_Quadrillage
       Next
     End Using
   End Sub
-
   Public Sub Build_Fond_Cellule_Survolee()
     ' le Bmp_Fond_Cellule_Survolee est calculé une seule fois dans Frm_SDK_Load
     Bmp_Fond_Cellule_Survolee = New Bitmap(WH, WH)
@@ -27,7 +26,7 @@ Module M03_Paint_Quadrillage
       g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
 
       Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-                              brsh9 As New SolidBrush(Color_Cell_Select)
+                              brsh9 As New SolidBrush(Color_Trait)
         For cdd As Integer = 1 To 9
           Dim row As Integer = (cdd - 1) \ 3
           Dim col As Integer = (cdd - 1) Mod 3
@@ -51,7 +50,6 @@ Module M03_Paint_Quadrillage
       End Using
     End Using
   End Sub
-
   Public Sub G1_Grid_Paint(g As Graphics)
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
     ' et dessiner ensuite le quadrillage

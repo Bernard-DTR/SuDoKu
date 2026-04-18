@@ -267,7 +267,6 @@ Public NotInheritable Class Frm_SDK
     Build_Fond_Cellule_Survolee()
 
   End Sub
-  '#713
   Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)
     Try
       If MouseClick_Middle_ToolTip IsNot Nothing Then
@@ -290,60 +289,22 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
-    Try
-      MyBase.OnPaint(e)
-      If Not Phase_Démarrage_Terminée Then Exit Sub
-      Dim g As Graphics = e.Graphics
-      'Le quadrillage n'est pas redessiné, c'est un bitmap qui est affiché, ce qui améliore les performances d'affichage
-      g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
-      g.DrawImageUnscaled(Bmp_Fond_Valeur, 0, 0)
+    MyBase.OnPaint(e)
+    If Not Phase_Démarrage_Terminée Then Exit Sub
+    Dim g As Graphics = e.Graphics
 
-      Select Case Event_OnPaint
-        Case "Global"
-          G4_Grid_Stratégie_All(g)
-        Case "Cellule"
-          Cell.Numéro = Pbl_Cell_Select
-          Cell.G5_Cellule_Paint_Valeur(g)
-          If Stg_Get(Plcy_Strg).Family = 2 AndAlso U(Pbl_Cell_Select, 2) = Plcy_Strg(2) Then
-            G0_Cell_Figure(g, Pbl_Cell_Select, "Double_Carré", Color_Stratégique)
-          End If
-        Case "Cell_Coll"
-          ' 1) Cellules collatérales
-          For Each idx As Integer In Cell_Coll_Modifiées_List
-            Cell.Numéro = idx
-            Cell.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
-          Next
-          ' 2) Cellule sélectionnée
-          Cell.Numéro = Pbl_Cell_Select
-          Cell.G2_Cellule_Paint_Fond(g)
-          Cell.G5_Cellule_Paint_Valeur(g)
-        Case "Mouse_Wheel"
-          For Each idx As Integer In MW_Cell_List
-            Cell.Numéro = idx
-            Cell.G2_Cellule_Paint_Fond(g)
-            Cell.G5_Cellule_Paint_Valeur(g)
-            If U(idx, 2) = Plcy_Strg(2) Then
-              G0_Cell_Figure(g, idx, "Double_Carré", Color_Stratégique)
-            End If
-          Next
-        Case "Animation"
-          Grille.G8_Grille_Partie_Terminée(g)
-      End Select
-      If Cellule_Survolee >= 0 Then
-        If U(Cellule_Survolee, 2) = " " Then
-          g.DrawImage(Bmp_Fond_Cellule_Survolee, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
-        End If
+    'Le quadrillage n'est pas redessiné, c'est un bitmap qui est affiché, ce qui améliore les performances d'affichage
+    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
+    g.DrawImageUnscaled(Bmp_Fond_Valeur, 0, 0)
+    G4_Grid_Stratégie_All(g)
+
+    'If Grille.Nb_Cellules_Remplies = 81 Then Grille.G8_Grille_Partie_Terminée(g)
+
+    If Cellule_Survolee >= 0 Then
+      If U(Cellule_Survolee, 2) = " " Then
+        g.DrawImage(Bmp_Fond_Cellule_Survolee, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
       End If
-
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
-    End Try
-    'Jrn_Add("SDK_00000", {"OnPaint " & U_Coord(Pbl_Cell_Select) & " /Précédent: " & Event_OnPaint_Prv & " /Origine: " & Event_OnPaint_Origine}, "Italique")
-
-    Event_OnPaint_Prv = Event_OnPaint
-    Event_OnPaint = "#"
+    End If
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
     'En plaçant à cet endroit l'enregistrement des LP_*, 
@@ -372,8 +333,6 @@ Public NotInheritable Class Frm_SDK
       Cursor = Cursors.WaitCursor
 
       ' Attendre la fin du thread
-      Event_OnPaint_Origine = Proc_Name_Get()
-      Event_OnPaint = "Global"
       Invalidate()
       MsgBox("SuDoKu est en train de calculer des grilles " & vbCrLf & "Merci de patienter ! ",
       MsgBoxStyle.Information, "SuDoKu")
@@ -384,33 +343,7 @@ Public NotInheritable Class Frm_SDK
       Enabled = True
     End If
 
-    '#713
     RemoveHandler TTT_Timer.Tick, AddressOf TTT_Timer_Tick
-  End Sub
-  Private Sub Frm_SDK_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
-    'Se produit quand le contrôle est redimensionné par exemple après une Réduction 
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
-  End Sub
-  Private Sub Frm_SDK_MinimumSizeChanged(sender As Object, e As EventArgs) Handles MyBase.MinimumSizeChanged
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
-  End Sub
-  Private Sub Frm_SDK_LocationChanged(sender As Object, e As EventArgs) Handles MyBase.LocationChanged
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
-  End Sub
-  Private Sub Frm_SDK_Move(sender As Object, e As EventArgs) Handles MyBase.Move
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
-  End Sub
-  Private Sub Frm_SDK_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
-  End Sub
-  Private Sub Frm_SDK_VisibleChanged(sender As Object, e As EventArgs) Handles MyBase.VisibleChanged
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
   End Sub
 
 #Region "Mouse Clic"
@@ -424,24 +357,21 @@ Public NotInheritable Class Frm_SDK
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
 
-    If Stg_Get(Plcy_Strg).Family = 0 Then
-      Dim idx As Integer = Cellule_MM
-      If idx <> Cellule_Survolee Then
-        ' Invalider l’ancienne cellule
+    If Stg_Get(Plcy_Strg).Family = 0 And U(Pbl_Cell_Select, 2) = " " Then
+      If Pbl_Cell_Select <> Cellule_Survolee Then
         If Cellule_Survolee >= 0 Then
-          Me.Invalidate(Sqr_Cel(Cellule_Survolee))
+          Me.Invalidate(Sqr_Cel(Cellule_Survolee))  ' Invalider l’ancienne cellule
         End If
-        ' Invalider la nouvelle cellule
-        If idx >= 0 Then
-          Me.Invalidate(Sqr_Cel(idx))
+        If Pbl_Cell_Select >= 0 Then
+          Me.Invalidate(Sqr_Cel(Pbl_Cell_Select))   ' Invalider la nouvelle cellule
         End If
-        Cellule_Survolee = idx
+        Cellule_Survolee = Pbl_Cell_Select
       End If
     End If
 
   End Sub
   Private Sub Frm_SDK_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
-    If Stg_Get(Plcy_Strg).Family = 0 Then
+    If Stg_Get(Plcy_Strg).Family = 0 And U(Pbl_Cell_Select, 2) = " " Then
       If Cellule_Survolee >= 0 Then
         Me.Invalidate(Sqr_Cel(Cellule_Survolee))
       End If
@@ -482,11 +412,6 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-
-  '#714
-  'Private Sub Frm_SDK_MouseClick_Left(Candidat_Pt As Integer)
-  '  Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
-  'End Sub
 
   Private Sub Frm_SDK_MouseClick_Middle(sender As Object, Candidat As Integer)
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
@@ -598,10 +523,7 @@ Public NotInheritable Class Frm_SDK
           reg.Union(Sqr_Pth(cell))
         Next
         B_Info.Text = Stg_Get(Plcy_Strg).Texte
-        Event_OnPaint_Origine = Proc_Name_Get() & " FV En cours " & CStr(MW_Val & " /Prv " & MW_Prv_Val)
-        Event_OnPaint = "Mouse_Wheel"
         Invalidate(reg, False)
-        Application.DoEvents()
       End Using
     End If
     MW_Prv_Val = MW_Val
@@ -610,12 +532,8 @@ Public NotInheritable Class Frm_SDK
     Dim FiltreMW As Integer
     If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), FiltreMW) Then Exit Sub
     Dim NewMW As Integer = ((FiltreMW + Sens + 8) Mod 9) + 1
-
     Plcy_Strg = "FC" & CStr(NewMW)
     Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
-
-    Event_OnPaint_Origine = Proc_Name_Get() & " FC" & CStr(NewMW)
-    Event_OnPaint = "Global"
     Invalidate()
   End Sub
 #End Region
@@ -629,17 +547,11 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu01_Ouvrir_Click(sender As Object, e As EventArgs) Handles Mnu01_Ouvrir.Click
     'Chargement d'une nouvelle partie en mode normal 
     Frm_LoadParties.Show()
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
     Invalidate()
-    Application.DoEvents()
   End Sub
   Private Sub Mnu01_RejouerLaPartie_Click(sender As Object, e As EventArgs) Handles Mnu01_RejouerLaPartie.Click
     Game_New_Game(Plcy_Gnrl, "   ", LP_Nom, LP_Prb, LP_Prb, LP_Sol, Cdd729:=StrDup(729, " "), LP_Frc, Proc_Name_Get())
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
     Invalidate()
-    Application.DoEvents()
   End Sub
   Private Sub Mnu01_Saisir_Click(sender As Object, e As EventArgs) Handles Mnu01_Saisir.Click
     ' Pendant la saisie les nombres des cellules vides et des candidats sont affichés
@@ -754,8 +666,6 @@ Public NotInheritable Class Frm_SDK
     Next i
     Build_Fond_Valeur()
     B_Info.Text = "Affichage de la Solution"
-    Event_OnPaint_Origine = Proc_Name_Get() & "_1"
-    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()    'Affiche la grille sans solutions immédiatement
 
@@ -764,14 +674,10 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80 : U(i, 2) = jeu_Save.Substring(i, 1) : Next i
     Build_Fond_Valeur()
     B_Info.Text = " _ "
-    Event_OnPaint_Origine = Proc_Name_Get() & "_2"
-    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
   End Sub
   Private Sub Mnu03_Rafraîchir_Click(sender As Object, e As EventArgs) Handles Mnu03_Rafraîchir.Click
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Global"
     Invalidate()
   End Sub
   '--------------Transformation---------------------------------------------------
@@ -995,8 +901,6 @@ Public NotInheritable Class Frm_SDK
     End Try
     Jrn_Add(, {"Attendre 3 secondes pour que l'application soit lancée..."})
     Thread.Sleep(3000)
-    Event_OnPaint_Origine = Proc_Name_Get()
-    Event_OnPaint = "Général"
 
     AppActivate("HoDoKu - v2.2.0") 'Active une application qui est déjà en cours d'exécution
     ' AppActivate("Java(TM) Platform SE binary")
@@ -1260,9 +1164,7 @@ Public NotInheritable Class Frm_SDK
           U(i, 2) = DL.Solution(0).Substring(i, 1)
         Next i
         Build_Fond_Valeur()
-        Event_OnPaint = "Global"
         Invalidate()
-        Application.DoEvents()
       Case Else
         Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
         For i As Integer = 1 To DL.Solution.Length - 1
@@ -1352,9 +1254,7 @@ Public NotInheritable Class Frm_SDK
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
     Next i
     Build_Fond_Valeur()
-    Event_OnPaint = "Global"
     Invalidate()
-    Application.DoEvents()
   End Sub
 
 #End Region
@@ -1485,9 +1385,7 @@ Public NotInheritable Class Frm_SDK
     My.Settings.Save()
 
     If Afficher Then
-      Event_OnPaint = "Global"
       Invalidate()
-      Application.DoEvents()
     End If
   End Sub
   '-------------------------------------------------------------------------------
@@ -1603,7 +1501,6 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add(, {Proc_Name_Get() & " Lancement des Stratégies G "})
     Plcy_Strg = "   "
     B_Info.Text = Proc_Name_Get()
-    Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()
     Dim U_temp(80, 3) As String

@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_04_18 #723"
+  Public SDK_Version As String = "V2026_04_18 #730"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
 #End Region
@@ -140,9 +140,6 @@ Module A00_Public
 #End Region
 
 #Region "20 Les Eléments graphiques: Color, ..."
-  Public Event_OnPaint As String = "#"
-  Public Event_OnPaint_Prv As String = "#"
-  Public Event_OnPaint_Origine As String = ""
   Public Gz_Pt_TopLeft As Point
   'Structure des Traits
   'Il y a 10 Traits Horizontaux et 10 Traits Verticaux
@@ -164,7 +161,7 @@ Module A00_Public
 
   Public Color_VI As Color = Color.FromArgb(255, 211, 40, 10)              ' Couleur d'affichage graphique des Valeurs Initiales       (Rouge)
   Public Color_VCdd As Color = Color.FromArgb(255, 23, 94, 23)             ' Couleur d'affichage graphique des Valeurs et des Candidats (Vert)
-  Public Color_Cell_Select As Color = Color.FromArgb(128, Color.White)
+  Public Color_Cell_Select As Color = Color.FromArgb(128 + 64, Color.White)
   Public Color_Cdd_Insérer As Color = Color.Yellow
   Public Color_Cdd_Exclure As Color = Color.Red
   Public Format_Center As New StringFormat With
