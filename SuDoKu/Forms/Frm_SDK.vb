@@ -330,8 +330,8 @@ Public NotInheritable Class Frm_SDK
           Grille.G8_Grille_Partie_Terminée(g)
       End Select
       If Cellule_Survolee >= 0 Then
-        If U(Cellule_Survolee, 2) = " " Then   ' 0 = cellule vide
-          g.DrawImageUnscaled(Bmp_Fond_Cellule_Survolee, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
+        If U(Cellule_Survolee, 2) = " " Then
+          g.DrawImage(Bmp_Fond_Cellule_Survolee, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
         End If
       End If
 
@@ -424,7 +424,7 @@ Public NotInheritable Class Frm_SDK
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
 
-    If (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) Then
+    If Stg_Get(Plcy_Strg).Family = 0 Then
       Dim idx As Integer = Cellule_MM
       If idx <> Cellule_Survolee Then
         ' Invalider l’ancienne cellule
@@ -441,7 +441,7 @@ Public NotInheritable Class Frm_SDK
 
   End Sub
   Private Sub Frm_SDK_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
-    If (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) Then
+    If Stg_Get(Plcy_Strg).Family = 0 Then
       If Cellule_Survolee >= 0 Then
         Me.Invalidate(Sqr_Cel(Cellule_Survolee))
       End If
@@ -1221,6 +1221,7 @@ Public NotInheritable Class Frm_SDK
     Array.Copy(U, U_Chk, UNbCopy)
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
     U_Checking_Display(U_Check, True)
+    Build_Fond_Valeur()
   End Sub
   Private Sub Mnu08_RésoudreEnForceBrute_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreEnForceBrute.Click
     Jrn_Add(, {Proc_Name_Get()})
@@ -1234,6 +1235,7 @@ Public NotInheritable Class Frm_SDK
       Cursor.Current = Cursors.WaitCursor
       Dim Durée_Déb As Integer = CInt(NativeMethods.GetTickCount64)
       Strategy_Force_Brute()
+
       Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
       Dim Durée As Integer = Durée_Fin - Durée_Déb
       Dim Ts As TimeSpan = TimeSpan.FromMilliseconds(Durée)
@@ -1257,6 +1259,7 @@ Public NotInheritable Class Frm_SDK
         For i As Integer = 0 To 80
           U(i, 2) = DL.Solution(0).Substring(i, 1)
         Next i
+        Build_Fond_Valeur()
         Event_OnPaint = "Global"
         Invalidate()
         Application.DoEvents()
@@ -1266,7 +1269,6 @@ Public NotInheritable Class Frm_SDK
           Jrn_Add(, {CStr(i).PadLeft(2) & " " & DL.Solution(i)})
         Next i
     End Select
-
     Dim Durée_Fin As Integer = CInt(NativeMethods.GetTickCount64)
     Dim Durée As Integer = Durée_Fin - Durée_Déb
     Dim Ts As TimeSpan = TimeSpan.FromMilliseconds(Durée)
@@ -1284,6 +1286,7 @@ Public NotInheritable Class Frm_SDK
     Dim Solved As Boolean = DB_Solution(AllCandidates)
     If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."}, "Red")
     AllCandidates_SDK(AllCandidates)
+    Build_Fond_Valeur()
   End Sub
   Private Sub Mnu08_EditionDuProblème_Click(sender As Object, e As EventArgs) Handles Mnu08_EditionDuProblème.Click
     Jrn_Add(, {Proc_Name_Get()})
@@ -1348,6 +1351,7 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
     Next i
+    Build_Fond_Valeur()
     Event_OnPaint = "Global"
     Invalidate()
     Application.DoEvents()

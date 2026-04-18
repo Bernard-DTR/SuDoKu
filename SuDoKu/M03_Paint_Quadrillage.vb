@@ -20,15 +20,14 @@ Module M03_Paint_Quadrillage
   End Sub
 
   Public Sub Build_Fond_Cellule_Survolee()
+    ' le Bmp_Fond_Cellule_Survolee est calculé une seule fois dans Frm_SDK_Load
     Bmp_Fond_Cellule_Survolee = New Bitmap(WH, WH)
     Dim r As New Rectangle(0, 0, WH, WH)
     Using g As Graphics = Graphics.FromImage(Bmp_Fond_Cellule_Survolee)
-      g.SmoothingMode = SmoothingMode.AntiAlias
-      'Dim c As Color = Color.FromArgb(110, 80, 160, 255)
-      'Dim c As Color = Color.White
-      Dim c As Color = Color.FromArgb(110, 247, 238, 239)
+      g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
+
       Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-                              brsh9 As New SolidBrush(c)
+                              brsh9 As New SolidBrush(Color_Cell_Select)
         For cdd As Integer = 1 To 9
           Dim row As Integer = (cdd - 1) \ 3
           Dim col As Integer = (cdd - 1) Mod 3
@@ -50,7 +49,6 @@ Module M03_Paint_Quadrillage
         g.DrawLine(pen, 0, y1, WH, y1)
         g.DrawLine(pen, 0, y2, WH, y2)
       End Using
-
     End Using
   End Sub
 

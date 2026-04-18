@@ -396,16 +396,13 @@
                    Plcy_Format_DAB = My.Settings.Format_DAB
                    If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2) (soit 0, soit 1)
 #722 V  17/04/2026 Correction du bogue d'affichage en fonction du format
+#723 S  18/04/2026 Utilisation correcte et optimisée de Bmp_Fond_Cellule_Survolee avec Color_Cell_Select
 
 ##############################################################################################################################
  
  
 
 ????               Revoir à quel moment on déclenche la stratégie
-
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
-                   De même comme la solution est calculée, le contrôle d'insertion de valeurs
-                           ou d'exclusion de candait doit être standardisé 
-                           Denis_Berthier ET RRslt_Control_Cdd_Exclure
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
 ????               Stratégie sans aucun controle Noc
