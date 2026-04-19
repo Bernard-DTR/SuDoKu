@@ -14,7 +14,6 @@ Public NotInheritable Class Frm_SDK
   'La ProgressBar ne peut pas adopter la couleur souhaitée
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
-
   Public Sub New()
     ' Cet appel est requis par le concepteur.
     InitializeComponent()
@@ -343,8 +342,10 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
 #Region "Mouse Clic"
+
   Private Sub Frm_SDK_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-    Dim Cellule_MM As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(e.X, e.Y))
+    'Dim Cellule_MM As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(e.X, e.Y))
+    Dim Cellule_MM As Integer = Wh_Cellule_Pt(New Point(e.X, e.Y))
     If Cellule_MM = -1 Then Exit Sub
     Pbl_Cell_Select = Cellule_MM
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then

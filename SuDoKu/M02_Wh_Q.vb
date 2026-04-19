@@ -240,6 +240,21 @@
   End Function
 
 #Region "Fonctions diverses"
+  Public Function Wh_Cellule_Pt(pt As Point) As Integer
+    'Coordonnées relatives à la grille
+    Dim rx As Integer = pt.X - Gz_Pt_TopLeft.X
+    Dim ry As Integer = pt.Y - Gz_Pt_TopLeft.Y
+
+    'En dehors de la grille ?
+    If rx < 0 Or ry < 0 Then Return -1
+    If rx >= 9 * WH Or ry >= 9 * WH Then Return -1
+
+    'Calcul direct
+    Dim col As Integer = rx \ WH   'division entière
+    Dim row As Integer = ry \ WH
+
+    Return row * 9 + col
+  End Function
 
   Public Function Wh_Cellule_Candidat_Pt(cellule As Integer, pt As Point) As Integer
     If cellule < 0 OrElse cellule > 80 Then
