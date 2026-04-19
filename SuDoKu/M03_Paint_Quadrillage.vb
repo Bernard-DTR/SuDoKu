@@ -51,8 +51,6 @@ Module M03_Paint_Quadrillage
     End Using
   End Sub
 
-
-
   Public Sub G1_Grid_Paint(g As Graphics)
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
     ' et dessiner ensuite le quadrillage

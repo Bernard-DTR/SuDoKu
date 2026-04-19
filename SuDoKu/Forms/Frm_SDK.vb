@@ -353,7 +353,7 @@ Public NotInheritable Class Frm_SDK
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
 
-    If Stg_Get(Plcy_Strg).Family = 0 And U(Pbl_Cell_Select, 2) = " " Then
+    If (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) AndAlso U(Pbl_Cell_Select, 2) = " " Then
       If Pbl_Cell_Select <> Cellule_Survolee Then
         If Cellule_Survolee >= 0 Then
           Me.Invalidate(Sqr_Cel(Cellule_Survolee))  ' Invalider l’ancienne cellule
@@ -1122,6 +1122,7 @@ Public NotInheritable Class Frm_SDK
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
     U_Checking_Display(U_Check, True)
     Build_Fond_Valeur()
+    Invalidate()
   End Sub
   Private Sub Mnu08_RésoudreEnForceBrute_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreEnForceBrute.Click
     Jrn_Add(, {Proc_Name_Get()})

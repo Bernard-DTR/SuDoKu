@@ -70,6 +70,8 @@
       If U_Check.Check AndAlso Wh_Nb_Cell(U).Initiales < 81 Then
         Jrn_Add(, {"La grille est correcte."}, "Emoji")
         Frm_SDK.B_Info.Text = "La grille est correcte."
+        Plcy_Strg = "Ani"
+        Frm_SDK.Invalidate()
       End If
     End If
   End Sub

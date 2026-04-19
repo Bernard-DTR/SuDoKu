@@ -35,7 +35,40 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_Gbl(g)
       G4_Grid_Stratégie_Gbv(g)
       G4_Grid_Stratégie_GCs(g)
+      G4_Grid_Stratégie_Animation(g)
     End If
+  End Sub
+  Public Sub G4_Grid_Stratégie_Animation(g As Graphics)
+    If Not Plcy_Strg = "Ani" Then Exit Sub
+    Dim Cellule_Clct As New Collection
+
+
+    Dim cellule As Integer
+    'Collection des valeurs initiales
+    For i As Integer = 0 To 80
+      If U(i, 1) <> " " Then Clct_Add(Cellule_Clct, i)
+    Next i
+    ' Animation de la Grille
+    Dim Rect As Rectangle
+    Dim Inflate As Integer = 0
+    For i As Integer = 1 To Cellule_Clct.Count
+      cellule = Clct_Random(Cellule_Clct)
+      Rect = Sqr_Cel(cellule)
+      Inflate += 2
+      If Inflate > WH \ 2 Then Exit For
+      Rect.Inflate(New Size(Inflate - 2, Inflate - 2))
+      g.DrawIcon(My.Resources.SuDoKu, Rect)
+      Threading.Thread.Sleep(100)
+      Rect.Inflate(New Size(Inflate, Inflate))
+      g.DrawIcon(My.Resources.SuDoKu, Rect)
+      Threading.Thread.Sleep(100)
+      Rect.Inflate(New Size(Inflate + 1, Inflate + 1))
+      g.DrawIcon(My.Resources.SuDoKu, Rect)
+      Threading.Thread.Sleep(100)
+    Next i
+
+    Plcy_Strg = "   "
+    Frm_SDK.Invalidate()
   End Sub
 
   Public Sub G4_Grid_Stratégie_Cdd(g As Graphics)
