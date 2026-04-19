@@ -1,169 +1,169 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Frm_SDK
-  Inherits System.Windows.Forms.Form
+    Inherits System.Windows.Forms.Form
 
-  'Form remplace la méthode Dispose pour nettoyer la liste des composants.
-  <System.Diagnostics.DebuggerNonUserCode()>
-  Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-    Try
-      If disposing AndAlso components IsNot Nothing Then
-        components.Dispose()
-      End If
-    Finally
-      MyBase.Dispose(disposing)
-    End Try
-  End Sub
+    'Form remplace la méthode Dispose pour nettoyer la liste des composants.
+    <System.Diagnostics.DebuggerNonUserCode()>
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
 
-  'Requise par le Concepteur Windows Form
-  Private components As System.ComponentModel.IContainer
+    'Requise par le Concepteur Windows Form
+    Private components As System.ComponentModel.IContainer
 
-  'REMARQUE : la procédure suivante est requise par le Concepteur Windows Form
-  'Elle peut être modifiée à l'aide du Concepteur Windows Form.  
-  'Ne la modifiez pas à l'aide de l'éditeur de code.
-  <System.Diagnostics.DebuggerStepThrough()>
-  Private Sub InitializeComponent()
-    Me.components = New System.ComponentModel.Container()
-    Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_SDK))
-    Me.Mnu_Cel = New System.Windows.Forms.ContextMenuStrip(Me.components)
-    Me.Mnu_Cel_Val_Ins_1 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Ins_2 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Ins_3 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Ins_4 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Ins_5 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Ins_6 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Ins_7 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Ins_8 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Ins_9 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_Separator = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu_Cel_Cdd_Exc_1 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_2 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_3 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_4 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_5 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_6 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_7 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_8 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Exc_9 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_Separator = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu_Cel_Cdd_Ins_1 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_2 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_3 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_4 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_5 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_6 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_7 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_8 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Cdd_Ins_9 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu_Cel_Val_Eff_Separator = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu_Cel_Val_Eff_x = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu = New System.Windows.Forms.MenuStrip()
-    Me.Mnu_Ctxt_Vide = New System.Windows.Forms.ContextMenuStrip(Me.components)
-    Me.Mnu01 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Ouvrir = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_RejouerLaPartie = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep01 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_Saisir = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Commencer = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep03 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_EnregistrerUnePartieTest = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_ChargerUnePartieTest = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_OuvrirLaBibliothèqueTestDeHodoku = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep04 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_OuvrirLeRépertoire = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep05 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_CopierLeJournalEnModeRTF = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu01_Sep07 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu01_Quitter = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu02 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu02_Annuler = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu02_Refaire = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu02_Sep01 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu02_Copier = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu02_Copier2 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu02_Copie3 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu02_Coller = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu02_CopierlaGrilleDansLeJournal = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03_EffacerLeJournal = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03_Sep01 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu03_Transformation = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu031_Incrémentation = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu031I = New System.Windows.Forms.ToolStripComboBox()
-    Me.Mnu031_Symétrie = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03MH = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03MV = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03DD = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03DG = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu031_Rotation90 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu031_Région = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03RH = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03RV = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu031_Aléatoire = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03_AfficherLaSolution = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu03_Rafraîchir = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu04 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_Jouer = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08J_F = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08J_M = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08J_D = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08J_E = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_JouerAutrement = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_Création = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_Résolution = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_RésoudreEnForceBrute = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_RésoudreDancingLink = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_RésoudreDenisBerthier = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_Sep01 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu08_EditionDuProblème = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_DessinerSurLaGrille = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_Sep03 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu08_InsérerTouteLaSolution = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_Sep04 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu08_TestA = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestB = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestC = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestD = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestE = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestF = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestG = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestH = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestI = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu08_TestJ = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu05 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu05_Préférences = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu05_FichierDesMessages = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu05_APropos = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu05_Documentation = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu05_Maintenance = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu05_Dictionnaire = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu05_ModeEtendu = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_ListerU = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_ListerA = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_Manuel_des_Stratégies = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu063_VérificationDeLaGrille = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_Sep01 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu06_EffacerLaGrille = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_Sep02 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu06_SudokuPCA = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_SudokuAngusJohnson = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_SudokuDarrenColes = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_SudokuPatriceHenrion = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_SudokuNKH = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_Hodoku220 = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_SudokuFedynaK = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_SudoCue = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_DiufSudokuJava = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_Sep03 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu06_ClassicSudoku = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_SudokuSolver = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_MicrosoftSudoku = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_HHSudokuGame = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_MUDancingLink = New System.Windows.Forms.ToolStripMenuItem()
-    Me.Mnu06_Sep04 = New System.Windows.Forms.ToolStripSeparator()
-    Me.Mnu06_CB = New System.Windows.Forms.ToolStripComboBox()
-    Me.Mnu07 = New System.Windows.Forms.ToolStripMenuItem()
+    'REMARQUE : la procédure suivante est requise par le Concepteur Windows Form
+    'Elle peut être modifiée à l'aide du Concepteur Windows Form.  
+    'Ne la modifiez pas à l'aide de l'éditeur de code.
+    <System.Diagnostics.DebuggerStepThrough()>
+    Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_SDK))
+        Me.Mnu_Cel = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Mnu_Cel_Val_Ins_1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Ins_2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Ins_3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Ins_4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Ins_5 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Ins_6 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Ins_7 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Ins_8 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Ins_9 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_Separator = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu_Cel_Cdd_Exc_1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_5 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_6 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_7 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_8 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Exc_9 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_Separator = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu_Cel_Cdd_Ins_1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_4 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_5 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_6 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_7 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_8 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_Ins_9 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Val_Eff_Separator = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu_Cel_Val_Eff_x = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu = New System.Windows.Forms.MenuStrip()
+        Me.Mnu_Ctxt_Vide = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.Mnu01 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Ouvrir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_RejouerLaPartie = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep01 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_Saisir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Commencer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep03 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_EnregistrerUnePartieTest = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_ChargerUnePartieTest = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_OuvrirLaBibliothèqueTestDeHodoku = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep04 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_OuvrirLeRépertoire = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep05 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_CopierLeJournalEnModeRTF = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu01_Sep07 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu01_Quitter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu02 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu02_Annuler = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu02_Refaire = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu02_Sep01 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu02_Copier = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu02_Copier2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu02_Copie3 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu02_Coller = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu02_CopierlaGrilleDansLeJournal = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03_EffacerLeJournal = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03_Sep01 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu03_Transformation = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu031_Incrémentation = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu031I = New System.Windows.Forms.ToolStripComboBox()
+        Me.Mnu031_Symétrie = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03MH = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03MV = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03DD = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03DG = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu031_Rotation90 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu031_Région = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03RH = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03RV = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu031_Aléatoire = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03_AfficherLaSolution = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu03_Rafraîchir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu04 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_Jouer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08J_F = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08J_M = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08J_D = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08J_E = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_JouerAutrement = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_Création = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_Résolution = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_RésoudreEnForceBrute = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_RésoudreDancingLink = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_RésoudreDenisBerthier = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_Sep01 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu08_EditionDuProblème = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_DessinerSurLaGrille = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_Sep03 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu08_InsérerTouteLaSolution = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_Sep04 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu08_TestA = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestB = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestC = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestD = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestF = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestG = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestH = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestI = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu08_TestJ = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu05 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu05_Préférences = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu05_FichierDesMessages = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu05_APropos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu05_Documentation = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu05_Maintenance = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu05_Dictionnaire = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu05_ModeEtendu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_ListerU = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_ListerA = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_Manuel_des_Stratégies = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu063_VérificationDeLaGrille = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_Sep01 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu06_EffacerLaGrille = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_Sep02 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu06_SudokuPCA = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_SudokuAngusJohnson = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_SudokuDarrenColes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_SudokuPatriceHenrion = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_SudokuNKH = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_Hodoku220 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_SudokuFedynaK = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_SudoCue = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_DiufSudokuJava = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_Sep03 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu06_ClassicSudoku = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_SudokuSolver = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_MicrosoftSudoku = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_HHSudokuGame = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_MUDancingLink = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu06_Sep04 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu06_CB = New System.Windows.Forms.ToolStripComboBox()
+        Me.Mnu07 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu07n_Gbl = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu07n_Gbv = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu07n_GCs = New System.Windows.Forms.ToolStripMenuItem()
@@ -462,7 +462,7 @@ Partial Class Frm_SDK
         Me.Mnu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.Mnu.Location = New System.Drawing.Point(0, 0)
         Me.Mnu.Name = "Mnu"
-        Me.Mnu.Size = New System.Drawing.Size(1869, 29)
+        Me.Mnu.Size = New System.Drawing.Size(1869, 36)
         Me.Mnu.TabIndex = 18
         Me.Mnu.Text = "MenuStrip1"
         '
@@ -478,7 +478,7 @@ Partial Class Frm_SDK
         Me.Mnu01.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu01.Name = "Mnu01"
         Me.Mnu01.ShowShortcutKeys = False
-        Me.Mnu01.Size = New System.Drawing.Size(75, 25)
+        Me.Mnu01.Size = New System.Drawing.Size(75, 32)
         Me.Mnu01.Text = "&Fichier"
         '
         'Mnu01_Ouvrir
@@ -593,7 +593,7 @@ Partial Class Frm_SDK
         Me.Mnu02.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu02_Annuler, Me.Mnu02_Refaire, Me.Mnu02_Sep01, Me.Mnu02_Copier, Me.Mnu02_Copier2, Me.Mnu02_Copie3, Me.Mnu02_Coller, Me.Mnu02_CopierlaGrilleDansLeJournal})
         Me.Mnu02.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu02.Name = "Mnu02"
-        Me.Mnu02.Size = New System.Drawing.Size(78, 25)
+        Me.Mnu02.Size = New System.Drawing.Size(78, 32)
         Me.Mnu02.Text = "Copier "
         '
         'Mnu02_Annuler
@@ -667,7 +667,7 @@ Partial Class Frm_SDK
         Me.Mnu03.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu03_EffacerLeJournal, Me.Mnu03_Sep01, Me.Mnu03_Transformation, Me.Mnu03_AfficherLaSolution, Me.Mnu03_Rafraîchir})
         Me.Mnu03.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu03.Name = "Mnu03"
-        Me.Mnu03.Size = New System.Drawing.Size(95, 25)
+        Me.Mnu03.Size = New System.Drawing.Size(95, 32)
         Me.Mnu03.Text = "&Affichage"
         '
         'Mnu03_EffacerLeJournal
@@ -790,7 +790,7 @@ Partial Class Frm_SDK
         '
         Me.Mnu04.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu04.Name = "Mnu04"
-        Me.Mnu04.Size = New System.Drawing.Size(101, 25)
+        Me.Mnu04.Size = New System.Drawing.Size(101, 32)
         Me.Mnu04.Text = "&Stratégies"
         '
         'Mnu08
@@ -799,7 +799,7 @@ Partial Class Frm_SDK
         Me.Mnu08.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu08.ForeColor = System.Drawing.Color.Black
         Me.Mnu08.Name = "Mnu08"
-        Me.Mnu08.Size = New System.Drawing.Size(98, 25)
+        Me.Mnu08.Size = New System.Drawing.Size(98, 32)
         Me.Mnu08.Text = "E&xtension"
         '
         'Mnu08_Jouer
@@ -987,7 +987,7 @@ Partial Class Frm_SDK
         Me.Mnu05.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu05_Préférences, Me.Mnu05_FichierDesMessages, Me.Mnu05_APropos, Me.Mnu05_Documentation, Me.Mnu05_Maintenance, Me.Mnu05_Dictionnaire, Me.Mnu05_ModeEtendu})
         Me.Mnu05.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu05.Name = "Mnu05"
-        Me.Mnu05.Size = New System.Drawing.Size(59, 25)
+        Me.Mnu05.Size = New System.Drawing.Size(59, 32)
         Me.Mnu05.Text = "A&ide"
         '
         'Mnu05_Préférences
@@ -1043,7 +1043,7 @@ Partial Class Frm_SDK
         Me.Mnu06.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu06_ListerU, Me.Mnu06_ListerA, Me.Mnu06_Manuel_des_Stratégies, Me.Mnu063_VérificationDeLaGrille, Me.Mnu06_Sep01, Me.Mnu06_EffacerLaGrille, Me.Mnu06_Sep02, Me.Mnu06_SudokuPCA, Me.Mnu06_SudokuAngusJohnson, Me.Mnu06_SudokuDarrenColes, Me.Mnu06_SudokuPatriceHenrion, Me.Mnu06_SudokuNKH, Me.Mnu06_Hodoku220, Me.Mnu06_SudokuFedynaK, Me.Mnu06_SudoCue, Me.Mnu06_DiufSudokuJava, Me.Mnu06_Sep03, Me.Mnu06_ClassicSudoku, Me.Mnu06_SudokuSolver, Me.Mnu06_MicrosoftSudoku, Me.Mnu06_HHSudokuGame, Me.Mnu06_MUDancingLink, Me.Mnu06_Sep04, Me.Mnu06_CB})
         Me.Mnu06.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu06.Name = "Mnu06"
-        Me.Mnu06.Size = New System.Drawing.Size(73, 25)
+        Me.Mnu06.Size = New System.Drawing.Size(73, 32)
         Me.Mnu06.Text = "&Divers"
         '
         'Mnu06_ListerU
@@ -1207,7 +1207,7 @@ Partial Class Frm_SDK
         Me.Mnu07.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu07n_Gbl, Me.Mnu07n_Gbv, Me.Mnu07n_GCs, Me.Mnu07n_GCx, Me.Mnu07n_XCy, Me.Mnu07n_XRp, Me.Mnu07n_XNl, Me.Mnu07n_WgX, Me.Mnu07n_WgY, Me.Mnu07n_WgZ, Me.Mnu07n_WgW})
         Me.Mnu07.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu07.Name = "Mnu07"
-        Me.Mnu07.Size = New System.Drawing.Size(69, 25)
+        Me.Mnu07.Size = New System.Drawing.Size(69, 32)
         Me.Mnu07.Text = "O&utils"
         '
         'Mnu07n_Gbl
@@ -1281,7 +1281,7 @@ Partial Class Frm_SDK
         Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0910_GLk, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
-        Me.Mnu09.Size = New System.Drawing.Size(79, 25)
+        Me.Mnu09.Size = New System.Drawing.Size(79, 32)
         Me.Mnu09.Text = "Graphe"
         '
         'Mnu0901
@@ -1379,11 +1379,11 @@ Partial Class Frm_SDK
         Me.BarreOutils.ContextMenuStrip = Me.Mnu_Ctxt_Vide
         Me.BarreOutils.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.BarreOutils.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Btn_Cdd, Me.Btn_CdU, Me.Btn_CdO, Me.ToolStripSeparator13, Me.Btn1, Me.Btn2, Me.Btn3, Me.Btn4, Me.Btn5, Me.Btn6, Me.Btn7, Me.Btn8, Me.Btn9, Me.ToolStripSeparator14, Me.Btn_Cbl, Me.Btn_Tpl, Me.Btn_Xwg, Me.Btn_XYw, Me.Btn_Swf, Me.Btn_Jly, Me.Btn_XYZ, Me.Btn_SKy, Me.Btn_Unq, Me.ToolStripSeparator15, Me.Btn0, Me.ToolStripSeparator16})
-        Me.BarreOutils.Location = New System.Drawing.Point(0, 29)
+        Me.BarreOutils.Location = New System.Drawing.Point(0, 36)
         Me.BarreOutils.Name = "BarreOutils"
         Me.BarreOutils.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.BarreOutils.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
-        Me.BarreOutils.Size = New System.Drawing.Size(1869, 33)
+        Me.BarreOutils.Size = New System.Drawing.Size(1869, 38)
         Me.BarreOutils.TabIndex = 19
         '
         'Btn_Cdd
@@ -1392,7 +1392,7 @@ Partial Class Frm_SDK
         Me.Btn_Cdd.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
         Me.Btn_Cdd.ImageTransparentColor = System.Drawing.Color.Maroon
         Me.Btn_Cdd.Name = "Btn_Cdd"
-        Me.Btn_Cdd.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_Cdd.Size = New System.Drawing.Size(34, 33)
         Me.Btn_Cdd.Text = "_"
         Me.Btn_Cdd.ToolTipText = "_"
         '
@@ -1402,7 +1402,7 @@ Partial Class Frm_SDK
         Me.Btn_CdU.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
         Me.Btn_CdU.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_CdU.Name = "Btn_CdU"
-        Me.Btn_CdU.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_CdU.Size = New System.Drawing.Size(34, 33)
         Me.Btn_CdU.Text = "_"
         Me.Btn_CdU.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         '
@@ -1412,84 +1412,84 @@ Partial Class Frm_SDK
         Me.Btn_CdO.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
         Me.Btn_CdO.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_CdO.Name = "Btn_CdO"
-        Me.Btn_CdO.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_CdO.Size = New System.Drawing.Size(34, 33)
         Me.Btn_CdO.Text = "_"
         Me.Btn_CdO.ToolTipText = "_"
         '
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(6, 33)
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(6, 38)
         '
         'Btn1
         '
         Me.Btn1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn1.Name = "Btn1"
         Me.Btn1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Btn1.Size = New System.Drawing.Size(34, 28)
+        Me.Btn1.Size = New System.Drawing.Size(34, 33)
         Me.Btn1.Text = " "
         '
         'Btn2
         '
         Me.Btn2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn2.Name = "Btn2"
-        Me.Btn2.Size = New System.Drawing.Size(34, 28)
+        Me.Btn2.Size = New System.Drawing.Size(34, 33)
         Me.Btn2.Text = " "
         '
         'Btn3
         '
         Me.Btn3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn3.Name = "Btn3"
-        Me.Btn3.Size = New System.Drawing.Size(34, 28)
+        Me.Btn3.Size = New System.Drawing.Size(34, 33)
         Me.Btn3.Text = " "
         '
         'Btn4
         '
         Me.Btn4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn4.Name = "Btn4"
-        Me.Btn4.Size = New System.Drawing.Size(34, 28)
+        Me.Btn4.Size = New System.Drawing.Size(34, 33)
         Me.Btn4.Text = " "
         '
         'Btn5
         '
         Me.Btn5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn5.Name = "Btn5"
-        Me.Btn5.Size = New System.Drawing.Size(34, 28)
+        Me.Btn5.Size = New System.Drawing.Size(34, 33)
         Me.Btn5.Text = " "
         '
         'Btn6
         '
         Me.Btn6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn6.Name = "Btn6"
-        Me.Btn6.Size = New System.Drawing.Size(34, 28)
+        Me.Btn6.Size = New System.Drawing.Size(34, 33)
         Me.Btn6.Text = " "
         '
         'Btn7
         '
         Me.Btn7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn7.Name = "Btn7"
-        Me.Btn7.Size = New System.Drawing.Size(34, 28)
+        Me.Btn7.Size = New System.Drawing.Size(34, 33)
         Me.Btn7.Text = " "
         '
         'Btn8
         '
         Me.Btn8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn8.Name = "Btn8"
-        Me.Btn8.Size = New System.Drawing.Size(34, 28)
+        Me.Btn8.Size = New System.Drawing.Size(34, 33)
         Me.Btn8.Text = " "
         '
         'Btn9
         '
         Me.Btn9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn9.Name = "Btn9"
-        Me.Btn9.Size = New System.Drawing.Size(34, 28)
+        Me.Btn9.Size = New System.Drawing.Size(34, 33)
         Me.Btn9.Text = " "
         Me.Btn9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripSeparator14
         '
         Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(6, 33)
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(6, 38)
         '
         'Btn_Cbl
         '
@@ -1498,7 +1498,7 @@ Partial Class Frm_SDK
         Me.Btn_Cbl.ForeColor = System.Drawing.Color.Black
         Me.Btn_Cbl.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Cbl.Name = "Btn_Cbl"
-        Me.Btn_Cbl.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_Cbl.Size = New System.Drawing.Size(34, 33)
         Me.Btn_Cbl.Text = "_"
         Me.Btn_Cbl.ToolTipText = "_"
         '
@@ -1509,7 +1509,7 @@ Partial Class Frm_SDK
         Me.Btn_Tpl.ForeColor = System.Drawing.Color.Black
         Me.Btn_Tpl.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Tpl.Name = "Btn_Tpl"
-        Me.Btn_Tpl.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_Tpl.Size = New System.Drawing.Size(34, 33)
         Me.Btn_Tpl.Text = "_"
         Me.Btn_Tpl.ToolTipText = "_"
         '
@@ -1520,7 +1520,7 @@ Partial Class Frm_SDK
         Me.Btn_Xwg.ForeColor = System.Drawing.Color.Black
         Me.Btn_Xwg.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Xwg.Name = "Btn_Xwg"
-        Me.Btn_Xwg.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_Xwg.Size = New System.Drawing.Size(34, 33)
         Me.Btn_Xwg.Text = "_"
         Me.Btn_Xwg.ToolTipText = "_"
         '
@@ -1531,7 +1531,7 @@ Partial Class Frm_SDK
         Me.Btn_XYw.ForeColor = System.Drawing.Color.Black
         Me.Btn_XYw.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_XYw.Name = "Btn_XYw"
-        Me.Btn_XYw.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_XYw.Size = New System.Drawing.Size(34, 33)
         Me.Btn_XYw.Text = "_"
         Me.Btn_XYw.ToolTipText = "_"
         '
@@ -1542,7 +1542,7 @@ Partial Class Frm_SDK
         Me.Btn_Swf.ForeColor = System.Drawing.Color.Black
         Me.Btn_Swf.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Swf.Name = "Btn_Swf"
-        Me.Btn_Swf.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_Swf.Size = New System.Drawing.Size(34, 33)
         Me.Btn_Swf.Tag = ""
         Me.Btn_Swf.Text = "_"
         Me.Btn_Swf.ToolTipText = "_"
@@ -1554,7 +1554,7 @@ Partial Class Frm_SDK
         Me.Btn_Jly.ForeColor = System.Drawing.Color.Black
         Me.Btn_Jly.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Jly.Name = "Btn_Jly"
-        Me.Btn_Jly.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_Jly.Size = New System.Drawing.Size(34, 33)
         Me.Btn_Jly.Tag = ""
         Me.Btn_Jly.Text = "_"
         Me.Btn_Jly.ToolTipText = "_"
@@ -1566,7 +1566,7 @@ Partial Class Frm_SDK
         Me.Btn_XYZ.ForeColor = System.Drawing.Color.Black
         Me.Btn_XYZ.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_XYZ.Name = "Btn_XYZ"
-        Me.Btn_XYZ.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_XYZ.Size = New System.Drawing.Size(34, 33)
         Me.Btn_XYZ.Tag = ""
         Me.Btn_XYZ.Text = "_"
         Me.Btn_XYZ.ToolTipText = "_"
@@ -1578,7 +1578,7 @@ Partial Class Frm_SDK
         Me.Btn_SKy.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Btn_SKy.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_SKy.Name = "Btn_SKy"
-        Me.Btn_SKy.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_SKy.Size = New System.Drawing.Size(34, 33)
         Me.Btn_SKy.Text = "_"
         Me.Btn_SKy.ToolTipText = "_"
         '
@@ -1589,7 +1589,7 @@ Partial Class Frm_SDK
         Me.Btn_Unq.ForeColor = System.Drawing.Color.Black
         Me.Btn_Unq.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Unq.Name = "Btn_Unq"
-        Me.Btn_Unq.Size = New System.Drawing.Size(34, 28)
+        Me.Btn_Unq.Size = New System.Drawing.Size(34, 33)
         Me.Btn_Unq.Tag = ""
         Me.Btn_Unq.Text = "_"
         Me.Btn_Unq.ToolTipText = "_"
@@ -1597,7 +1597,7 @@ Partial Class Frm_SDK
         'ToolStripSeparator15
         '
         Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
-        Me.ToolStripSeparator15.Size = New System.Drawing.Size(6, 33)
+        Me.ToolStripSeparator15.Size = New System.Drawing.Size(6, 38)
         '
         'Btn0
         '
@@ -1607,14 +1607,14 @@ Partial Class Frm_SDK
         Me.Btn0.Image = Global.SuDoKu.My.Resources.Resources.AnnulerG
         Me.Btn0.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn0.Name = "Btn0"
-        Me.Btn0.Size = New System.Drawing.Size(34, 28)
+        Me.Btn0.Size = New System.Drawing.Size(34, 33)
         Me.Btn0.Text = "0"
         Me.Btn0.ToolTipText = "Annuler la dernière option"
         '
         'ToolStripSeparator16
         '
         Me.ToolStripSeparator16.Name = "ToolStripSeparator16"
-        Me.ToolStripSeparator16.Size = New System.Drawing.Size(6, 33)
+        Me.ToolStripSeparator16.Size = New System.Drawing.Size(6, 38)
         '
         'Mnu_Journal
         '
@@ -1861,157 +1861,157 @@ Partial Class Frm_SDK
 
     End Sub
     Friend WithEvents Mnu As System.Windows.Forms.MenuStrip
-  Friend WithEvents Mnu01 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_Ouvrir As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_Saisir As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_Commencer As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_Quitter As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu02 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu04 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu05 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu05_APropos As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_Sep01 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu_Cel As System.Windows.Forms.ContextMenuStrip
-  Friend WithEvents Mnu_Cel_Val_Ins_1 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Ins_2 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Ins_3 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Ins_4 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Ins_5 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Ins_6 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Ins_7 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Ins_8 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Ins_9 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03_EffacerLeJournal As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_RejouerLaPartie As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_Separator As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu_Cel_Cdd_Exc_1 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_2 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_3 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_4 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_5 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_6 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_7 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_8 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Exc_9 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_Separator As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu_Cel_Cdd_Ins_1 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_2 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_3 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_4 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_5 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_6 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_7 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_8 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Cdd_Ins_9 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_Sep05 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu01_OuvrirLeRépertoire As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03_Sep01 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu06 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_ListerU As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_ListerA As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_Sep02 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu06_SudokuPCA As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_SudokuAngusJohnson As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_SudokuDarrenColes As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_SudokuPatriceHenrion As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu02_Copier As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu02_Coller As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03_Transformation As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu031_Incrémentation As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu031I As System.Windows.Forms.ToolStripComboBox
-  Friend WithEvents Mnu031_Symétrie As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03MH As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03MV As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03DD As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03DG As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu031_Rotation90 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents BarreOutils As System.Windows.Forms.ToolStrip
-  Friend WithEvents Btn_Cdd As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn_CdU As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn_CdO As System.Windows.Forms.ToolStripButton
-  Friend WithEvents ToolStripSeparator13 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Btn1 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn2 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn3 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn4 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn5 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn6 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn7 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn8 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn9 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents ToolStripSeparator14 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Btn_Cbl As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn_Tpl As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Btn_Xwg As System.Windows.Forms.ToolStripButton
-  Friend WithEvents ToolStripSeparator15 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Btn0 As System.Windows.Forms.ToolStripButton
-  Friend WithEvents ToolStripSeparator16 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu031_Aléatoire As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_Sep04 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Btn_XYw As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Mnu08 As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu08_Création As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu08_EditionDuProblème As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu08_Résolution As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu05_Documentation As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu08_Sep01 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu_Journal As System.Windows.Forms.ContextMenuStrip
-  Friend WithEvents Mnu_Jrn_BloquerLeDéroulement As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu03_AfficherLaSolution As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu02_CopierlaGrilleDansLeJournal As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu02_Annuler As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu02_Refaire As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu02_Sep01 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu06_SudokuNKH As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_Sep03 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu01_EnregistrerUnePartieTest As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_ChargerUnePartieTest As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu01_Sep04 As System.Windows.Forms.ToolStripSeparator
-  Friend WithEvents Mnu_EDI As System.Windows.Forms.ContextMenuStrip
-  Friend WithEvents Mnu_EDI_Candidats As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Btn_Swf As System.Windows.Forms.ToolStripButton
-  Friend WithEvents Mnu05_Préférences As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu05_FichierDesMessages As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_Manuel_des_Stratégies As System.Windows.Forms.ToolStripMenuItem
-  Friend WithEvents Mnu06_CB As System.Windows.Forms.ToolStripComboBox
-  Friend WithEvents Mnu01_Sep07 As ToolStripSeparator
-  Friend WithEvents Mnu_Cel_Val_Eff_Separator As ToolStripSeparator
-  Friend WithEvents Mnu063_VérificationDeLaGrille As ToolStripMenuItem
-  Friend WithEvents Mnu031_Région As ToolStripMenuItem
-  Friend WithEvents Mnu03RH As ToolStripMenuItem
-  Friend WithEvents Mnu03RV As ToolStripMenuItem
-  Friend WithEvents Mnu_EDI_Effacer As ToolStripMenuItem
-  Friend WithEvents Mnu_EDI_Val_Initiale As ToolStripMenuItem
-  Friend WithEvents Mnu_EDI_Val_Normale As ToolStripMenuItem
-  Friend WithEvents Mnu06_Sep03 As ToolStripSeparator
-  Friend WithEvents Mnu06_ClassicSudoku As ToolStripMenuItem
-  Friend WithEvents Mnu06_SudokuSolver As ToolStripMenuItem
-  Friend WithEvents Mnu06_MicrosoftSudoku As ToolStripMenuItem
-  Friend WithEvents Mnu02_Copier2 As ToolStripMenuItem
-  Friend WithEvents Mnu08_Sep03 As ToolStripSeparator
-  Friend WithEvents Mnu08_InsérerTouteLaSolution As ToolStripMenuItem
-  Friend WithEvents Btn_XYZ As ToolStripButton
-  Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-  Friend WithEvents Mnu_Cel_Val_Eff_x As ToolStripMenuItem
-  Friend WithEvents Mnu06_Hodoku220 As ToolStripMenuItem
-  Friend WithEvents Mnu01_OuvrirLaBibliothèqueTestDeHodoku As ToolStripMenuItem
-  Friend WithEvents Btn_Unq As ToolStripButton
-  Friend WithEvents Btn_Jly As ToolStripButton
-  Friend WithEvents Mnu08_RésoudreEnForceBrute As ToolStripMenuItem
-  Friend WithEvents Mnu05_Maintenance As ToolStripMenuItem
-  Friend WithEvents Mnu_Jrn_CopierLaSélectionDansLePresse_Papier_RTF As ToolStripMenuItem
-  Friend WithEvents Mnu03_Rafraîchir As ToolStripMenuItem
-  Friend WithEvents Mnu06_Sep01 As ToolStripSeparator
-  Friend WithEvents Mnu06_EffacerLaGrille As ToolStripMenuItem
-  Friend WithEvents Mnu01_CopierLeJournalEnModeRTF As ToolStripMenuItem
-  Friend WithEvents Mnu_Jrn_CopierLaSélectionDansLePresse_Papier_Texte As ToolStripMenuItem
-  Friend WithEvents Mnu05_Dictionnaire As ToolStripMenuItem
-  Friend WithEvents Mnu06_SudokuFedynaK As ToolStripMenuItem
-  Friend WithEvents Mnu08_Sep04 As ToolStripSeparator
-  Friend WithEvents Mnu08_TestA As ToolStripMenuItem
-  Friend WithEvents Mnu08_TestB As ToolStripMenuItem
-  Friend WithEvents Mnu07 As ToolStripMenuItem
+    Friend WithEvents Mnu01 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_Ouvrir As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_Saisir As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_Commencer As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_Quitter As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu02 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu04 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu05 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu05_APropos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_Sep01 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu_Cel As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents Mnu_Cel_Val_Ins_1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Ins_2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Ins_3 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Ins_4 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Ins_5 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Ins_6 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Ins_7 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Ins_8 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Ins_9 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03_EffacerLeJournal As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_RejouerLaPartie As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_Separator As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu_Cel_Cdd_Exc_1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_3 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_4 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_5 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_6 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_7 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_8 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Exc_9 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_Separator As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu_Cel_Cdd_Ins_1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_3 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_4 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_5 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_6 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_7 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_8 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_Ins_9 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_Sep05 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu01_OuvrirLeRépertoire As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03_Sep01 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu06 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_ListerU As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_ListerA As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_Sep02 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu06_SudokuPCA As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_SudokuAngusJohnson As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_SudokuDarrenColes As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_SudokuPatriceHenrion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu02_Copier As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu02_Coller As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03_Transformation As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu031_Incrémentation As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu031I As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents Mnu031_Symétrie As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03MH As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03MV As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03DD As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03DG As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu031_Rotation90 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents BarreOutils As System.Windows.Forms.ToolStrip
+    Friend WithEvents Btn_Cdd As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn_CdU As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn_CdO As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripSeparator13 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Btn1 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn2 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn3 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn4 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn5 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn6 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn7 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn8 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn9 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripSeparator14 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Btn_Cbl As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn_Tpl As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Btn_Xwg As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripSeparator15 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Btn0 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripSeparator16 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu031_Aléatoire As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_Sep04 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Btn_XYw As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Mnu08 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu08_Création As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu08_EditionDuProblème As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu08_Résolution As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu05_Documentation As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu08_Sep01 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu_Journal As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents Mnu_Jrn_BloquerLeDéroulement As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu03_AfficherLaSolution As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu02_CopierlaGrilleDansLeJournal As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu02_Annuler As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu02_Refaire As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu02_Sep01 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu06_SudokuNKH As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_Sep03 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu01_EnregistrerUnePartieTest As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_ChargerUnePartieTest As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu01_Sep04 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents Mnu_EDI As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents Mnu_EDI_Candidats As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Btn_Swf As System.Windows.Forms.ToolStripButton
+    Friend WithEvents Mnu05_Préférences As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu05_FichierDesMessages As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_Manuel_des_Stratégies As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Mnu06_CB As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents Mnu01_Sep07 As ToolStripSeparator
+    Friend WithEvents Mnu_Cel_Val_Eff_Separator As ToolStripSeparator
+    Friend WithEvents Mnu063_VérificationDeLaGrille As ToolStripMenuItem
+    Friend WithEvents Mnu031_Région As ToolStripMenuItem
+    Friend WithEvents Mnu03RH As ToolStripMenuItem
+    Friend WithEvents Mnu03RV As ToolStripMenuItem
+    Friend WithEvents Mnu_EDI_Effacer As ToolStripMenuItem
+    Friend WithEvents Mnu_EDI_Val_Initiale As ToolStripMenuItem
+    Friend WithEvents Mnu_EDI_Val_Normale As ToolStripMenuItem
+    Friend WithEvents Mnu06_Sep03 As ToolStripSeparator
+    Friend WithEvents Mnu06_ClassicSudoku As ToolStripMenuItem
+    Friend WithEvents Mnu06_SudokuSolver As ToolStripMenuItem
+    Friend WithEvents Mnu06_MicrosoftSudoku As ToolStripMenuItem
+    Friend WithEvents Mnu02_Copier2 As ToolStripMenuItem
+    Friend WithEvents Mnu08_Sep03 As ToolStripSeparator
+    Friend WithEvents Mnu08_InsérerTouteLaSolution As ToolStripMenuItem
+    Friend WithEvents Btn_XYZ As ToolStripButton
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Val_Eff_x As ToolStripMenuItem
+    Friend WithEvents Mnu06_Hodoku220 As ToolStripMenuItem
+    Friend WithEvents Mnu01_OuvrirLaBibliothèqueTestDeHodoku As ToolStripMenuItem
+    Friend WithEvents Btn_Unq As ToolStripButton
+    Friend WithEvents Btn_Jly As ToolStripButton
+    Friend WithEvents Mnu08_RésoudreEnForceBrute As ToolStripMenuItem
+    Friend WithEvents Mnu05_Maintenance As ToolStripMenuItem
+    Friend WithEvents Mnu_Jrn_CopierLaSélectionDansLePresse_Papier_RTF As ToolStripMenuItem
+    Friend WithEvents Mnu03_Rafraîchir As ToolStripMenuItem
+    Friend WithEvents Mnu06_Sep01 As ToolStripSeparator
+    Friend WithEvents Mnu06_EffacerLaGrille As ToolStripMenuItem
+    Friend WithEvents Mnu01_CopierLeJournalEnModeRTF As ToolStripMenuItem
+    Friend WithEvents Mnu_Jrn_CopierLaSélectionDansLePresse_Papier_Texte As ToolStripMenuItem
+    Friend WithEvents Mnu05_Dictionnaire As ToolStripMenuItem
+    Friend WithEvents Mnu06_SudokuFedynaK As ToolStripMenuItem
+    Friend WithEvents Mnu08_Sep04 As ToolStripSeparator
+    Friend WithEvents Mnu08_TestA As ToolStripMenuItem
+    Friend WithEvents Mnu08_TestB As ToolStripMenuItem
+    Friend WithEvents Mnu07 As ToolStripMenuItem
     Friend WithEvents Mnu_EDI_Saisir_Valeur As ToolStripMenuItem
     Friend WithEvents ToolTip_B As ToolTip
     Friend WithEvents Mnu08_Jouer As ToolStripMenuItem
@@ -2061,33 +2061,33 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu08_DessinerSurLaGrille As ToolStripMenuItem
     Friend WithEvents Mnu07n_GCs As ToolStripMenuItem
     Friend WithEvents Mnu07n_GCx As ToolStripMenuItem
-  Friend WithEvents Mnu07n_XCy As ToolStripMenuItem
-  Friend WithEvents Mnu07n_XRp As ToolStripMenuItem
-  Friend WithEvents Mnu07n_XNl As ToolStripMenuItem
-  Friend WithEvents Mnu07n_WgX As ToolStripMenuItem
-  Friend WithEvents Mnu07n_WgY As ToolStripMenuItem
-  Friend WithEvents Mnu07n_WgZ As ToolStripMenuItem
-  Friend WithEvents Mnu07n_WgW As ToolStripMenuItem
-  Friend WithEvents Mnu08J_E As ToolStripMenuItem
-  Friend WithEvents Mnu07n_Gbl As ToolStripMenuItem
-  Friend WithEvents Mnu07n_Gbv As ToolStripMenuItem
-  Friend WithEvents Mnu02_Copie3 As ToolStripMenuItem
-  Friend WithEvents Lister As ToolStripMenuItem
-  Friend WithEvents Mnu09 As ToolStripMenuItem
-  Friend WithEvents Mnu0910_GLk As ToolStripMenuItem
-  Friend WithEvents Mnu0915_Gbl As ToolStripMenuItem
-  Friend WithEvents Mnu0920_Gbv As ToolStripMenuItem
-  Friend WithEvents Mnu0925_GCs As ToolStripMenuItem
-  Friend WithEvents Mnu0901 As ToolStripMenuItem
-  Friend WithEvents Mnu0902 As ToolStripMenuItem
-  Friend WithEvents Mnu09_Sep1 As ToolStripSeparator
-  Friend WithEvents Mnu08_RésoudreDenisBerthier As ToolStripMenuItem
-  Friend WithEvents Mnu0930_GCx As ToolStripMenuItem
-  Friend WithEvents Mnu0935_XCy As ToolStripMenuItem
-  Friend WithEvents Mnu0940_XRp As ToolStripMenuItem
-  Friend WithEvents Mnu0945_XNl As ToolStripMenuItem
-  Friend WithEvents Mnu0950_WgX As ToolStripMenuItem
-  Friend WithEvents Mnu0955_WgY As ToolStripMenuItem
-  Friend WithEvents Mnu0960_WgZ As ToolStripMenuItem
-  Friend WithEvents Mnu0965_WgW As ToolStripMenuItem
+    Friend WithEvents Mnu07n_XCy As ToolStripMenuItem
+    Friend WithEvents Mnu07n_XRp As ToolStripMenuItem
+    Friend WithEvents Mnu07n_XNl As ToolStripMenuItem
+    Friend WithEvents Mnu07n_WgX As ToolStripMenuItem
+    Friend WithEvents Mnu07n_WgY As ToolStripMenuItem
+    Friend WithEvents Mnu07n_WgZ As ToolStripMenuItem
+    Friend WithEvents Mnu07n_WgW As ToolStripMenuItem
+    Friend WithEvents Mnu08J_E As ToolStripMenuItem
+    Friend WithEvents Mnu07n_Gbl As ToolStripMenuItem
+    Friend WithEvents Mnu07n_Gbv As ToolStripMenuItem
+    Friend WithEvents Mnu02_Copie3 As ToolStripMenuItem
+    Friend WithEvents Lister As ToolStripMenuItem
+    Friend WithEvents Mnu09 As ToolStripMenuItem
+    Friend WithEvents Mnu0910_GLk As ToolStripMenuItem
+    Friend WithEvents Mnu0915_Gbl As ToolStripMenuItem
+    Friend WithEvents Mnu0920_Gbv As ToolStripMenuItem
+    Friend WithEvents Mnu0925_GCs As ToolStripMenuItem
+    Friend WithEvents Mnu0901 As ToolStripMenuItem
+    Friend WithEvents Mnu0902 As ToolStripMenuItem
+    Friend WithEvents Mnu09_Sep1 As ToolStripSeparator
+    Friend WithEvents Mnu08_RésoudreDenisBerthier As ToolStripMenuItem
+    Friend WithEvents Mnu0930_GCx As ToolStripMenuItem
+    Friend WithEvents Mnu0935_XCy As ToolStripMenuItem
+    Friend WithEvents Mnu0940_XRp As ToolStripMenuItem
+    Friend WithEvents Mnu0945_XNl As ToolStripMenuItem
+    Friend WithEvents Mnu0950_WgX As ToolStripMenuItem
+    Friend WithEvents Mnu0955_WgY As ToolStripMenuItem
+    Friend WithEvents Mnu0960_WgZ As ToolStripMenuItem
+    Friend WithEvents Mnu0965_WgW As ToolStripMenuItem
 End Class

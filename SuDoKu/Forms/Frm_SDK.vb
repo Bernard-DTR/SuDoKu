@@ -15,9 +15,6 @@ Public NotInheritable Class Frm_SDK
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
 
-  Private ReadOnly Grille As New Grille_Cls()
-  Private ReadOnly Cell As New Cellule_Cls()
-
   Public Sub New()
     ' Cet appel est requis par le concepteur.
     InitializeComponent()
@@ -28,7 +25,6 @@ Public NotInheritable Class Frm_SDK
     SuspendLayout()
     Phase_Démarrage_Terminée = False
     OO_000_SDK_Load()
-    'AutoScaleMode = Me_AutoScaleMode_Standard
     AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     Size = New Size(1692, 1036) 'Taille maximale :SDK   
     SetStyle(ControlStyles.UserPaint Or ControlStyles.AllPaintingInWmPaint, True)
@@ -263,10 +259,10 @@ Public NotInheritable Class Frm_SDK
       Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
       Batch_Initial()
     End If
-
     Build_Fond_Cellule_Survolee()
 
   End Sub
+
   Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)
     Try
       If MouseClick_Middle_ToolTip IsNot Nothing Then
@@ -305,6 +301,7 @@ Public NotInheritable Class Frm_SDK
         g.DrawImage(Bmp_Fond_Cellule_Survolee, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
       End If
     End If
+
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
     'En plaçant à cet endroit l'enregistrement des LP_*, 
@@ -328,7 +325,6 @@ Public NotInheritable Class Frm_SDK
     My.Settings.Save()
 
     If Batch_Thread IsNot Nothing AndAlso Batch_Thread.IsAlive Then
-      ' Optionnel : afficher un message ou une animation d'attente
       Enabled = False
       Cursor = Cursors.WaitCursor
 
@@ -371,11 +367,11 @@ Public NotInheritable Class Frm_SDK
 
   End Sub
   Private Sub Frm_SDK_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
-    If Stg_Get(Plcy_Strg).Family = 0 And U(Pbl_Cell_Select, 2) = " " Then
-      If Cellule_Survolee >= 0 Then
+    'If Stg_Get(Plcy_Strg).Family = 0 And U(Pbl_Cell_Select, 2) = " " Then
+    If Cellule_Survolee >= 0 Then
         Me.Invalidate(Sqr_Cel(Cellule_Survolee))
       End If
-    End If
+    'End If
     Cellule_Survolee = -1
   End Sub
 

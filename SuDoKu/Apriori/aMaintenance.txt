@@ -404,6 +404,7 @@
 #728 S  18/04/2026 Case "Cell_Coll" ne gère plus rien !
 #729 S  18/04/2026 Case "Mouse_Wheeel" ne gère plus rien !
 #730 S  18/04/2026 ---> et Application.DoEvents() 39 occurences
+#731 D  19/04/2026 Suppression de l'animation
 
 ##############################################################################################################################
  

@@ -62,15 +62,16 @@
       Case Else
     End Select
 
-    ' 04 Fin de partie
-    'If Wh_Nb_Cell(U).Remplies = 81 Then
-    '  ' 041 L'animation est faite en 2 temps d'abord l'animation 
-    '  Frm_SDK.Invalidate()
-    '  Application.DoEvents()
-    '  ' 042 puis un affichage de la grille complète
-    '  Frm_SDK.Invalidate()
-    '  Application.DoEvents()
-    'End If
+    '  Fin de partie
+    If Wh_Nb_Cell(U).Remplies = 81 Then
+      Dim U_Chk(80, 3) As String
+      Array.Copy(U, U_Chk, UNbCopy)
+      Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
+      If U_Check.Check AndAlso Wh_Nb_Cell(U).Initiales < 81 Then
+        Jrn_Add(, {"La grille est correcte."}, "Emoji")
+        Frm_SDK.B_Info.Text = "La grille est correcte."
+      End If
+    End If
   End Sub
   Sub Cell_Val_Delete(Cellule As Integer, Origine As String)
     'Avant toute modification

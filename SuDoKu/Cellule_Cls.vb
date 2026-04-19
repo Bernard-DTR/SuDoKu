@@ -184,41 +184,6 @@ Public Class Cellule_Cls
     End Using
   End Sub
 
-  Public Sub G2_Cellule_Select(g As Graphics)
-    ' Définition des points et du style de trait
-    Dim dashPattern As Single() = {1, 5}
-    Dim startX As Integer = Sqr_Cel(Numéro).X
-    Dim startY As Integer = Sqr_Cel(Numéro).Y
-    ' Création du stylo avec trait discontinu
-    Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
-      pen.DashPattern = dashPattern
-      ' Lignes verticales
-      Dim x1 As Integer = startX + WHthird
-      Dim x2 As Integer = startX + (2 * WHthird)
-      g.DrawLine(pen, x1, startY, x1, startY + WH)
-      g.DrawLine(pen, x2, startY, x2, startY + WH)
-      ' Lignes horizontales
-      Dim y1 As Integer = startY + WHthird
-      Dim y2 As Integer = startY + (2 * WHthird)
-      g.DrawLine(pen, startX, y1, startX + WH, y1)
-      g.DrawLine(pen, startX, y2, startX + WH, y2)
-    End Using
-
-    Dim Coté_6 As Integer = Coté \ 6
-    Dim cdd_n As Integer
-    Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-                                  brsh9 As New SolidBrush(Color.FromArgb(128, Color_VCdd))
-      For cdd As Integer = 1 To 9
-        cdd_n = (Numéro * 10) + cdd
-        g.DrawString(Subst_Police(CStr(cdd)), font9, brsh9,
-                           Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
-      Next cdd
-    End Using
-
-
-  End Sub
-
-
   ''' <summary>Peint la valeur d'une cellule IR.</summary>
   Public Sub G5_Cellule_Paint_Valeur(g As Graphics)
     'Concerne l'ensemble des Cellules Initiales et Remplies
@@ -278,93 +243,13 @@ Public Class Cellule_Cls
 #End Region
 End Class
 
-Public Class Grille_Cls
-#Region "Propriétés"
-  Private _nb_cellules_initiales As Integer            ' Nouveau  
-  Private _nb_cellules_remplies As Integer             ' Nouveau  
-  Public ReadOnly Property Nb_Cellules_Initiales As Integer
-    Get
-      Dim sc As New Cellule_Cls
-      _nb_cellules_initiales = 0
-      For i As Integer = 0 To 80
-        sc.Numéro = i
-        If sc.Valeur_Initiale Then _nb_cellules_initiales += 1
-      Next i
-      Return _nb_cellules_initiales
-    End Get
-  End Property
-  Public ReadOnly Property Nb_Cellules_Remplies As Integer
-    Get
-      Dim sc As New Cellule_Cls
-      _nb_cellules_remplies = 0
-      For i As Integer = 0 To 80
-        sc.Numéro = i
-        If sc.Valeur <> 0 Then _nb_cellules_remplies += 1
-      Next i
-      Return _nb_cellules_remplies
-    End Get
-  End Property
-#End Region
-
-#Region "Méthodes"
-  Public Sub G8_Grille_Partie_Terminée(g As Graphics)
-    Dim Cellule_Clct As New Collection
-    If Plcy_Gnrl <> "Nrm" Then Exit Sub
-    ' Il faut que les 81 cellules soient remplies et que la grille soit correcte
-    ' Il faut que la partie ait été jouée (Act_Index > 1)
-    Plcy_Strg = "   "
-    Dim U_Chk(80, 3) As String
-    Array.Copy(U, U_Chk, UNbCopy)
-    Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
-    'La grille est  remplie et elle est correcte
-    If (Nb_Cellules_Remplies = 81 And U_Check.Check = True And Nb_Cellules_Initiales < 81) Then
-      'Permet de ne pas afficher le message en mode 2-3 de génération
-      If Act_Index = 0 Then Exit Sub
-      If Paint_Partie_Terminée_Nb > 2 Then Exit Sub
-      Cursor.Current = Cursors.WaitCursor
-      Paint_Partie_Terminée_Nb += 1
-      Frm_SDK.B_Info.Text = Msg_Read("SDK_50029")
-      Jrn_Add(, {"La grille est résolue."}, "Red")
-
-      Dim sc As New Cellule_Cls
-      'Collection des valeurs initiales
-      For i As Integer = 0 To 80
-        sc.Numéro = i
-        If sc.Valeur_Initiale Then Clct_Add(Cellule_Clct, sc.Numéro)
-      Next i
-      ' Animation de la Grille
-      Dim Rect As Rectangle
-      Dim Inflate As Integer = 0
-      For i As Integer = 1 To Cellule_Clct.Count
-        sc.Numéro = Clct_Random(Cellule_Clct)
-        Rect = Sqr_Cel(sc.Numéro)
-        Inflate += 2        '2
-        If Inflate > WH \ 2 Then Exit For
-        Rect.Inflate(New Size(Inflate - 2, Inflate - 2))
-        g.DrawIcon(My.Resources.SuDoKu, Rect)
-        Thread.Sleep(100)
-        Rect.Inflate(New Size(Inflate, Inflate))
-        g.DrawIcon(My.Resources.SuDoKu, Rect)
-        Thread.Sleep(100)
-        Rect.Inflate(New Size(Inflate + 1, Inflate + 1))
-        g.DrawIcon(My.Resources.SuDoKu, Rect)
-        Thread.Sleep(100)
-      Next i
-      Cursor.Current = Cursors.Default
-    End If
-  End Sub
-
-#End Region
-End Class
 
 Public Class SDK_ColorDialog
   '05/04/2024 Personnalisation du Titre de la Boîte des couleurs
   Inherits ColorDialog
-
   <DllImport("user32.dll")>
   Private Shared Function SetWindowText(hWnd As IntPtr, lpString As String) As Boolean
   End Function
-
   Private _title As String = String.Empty
   Private _titleSet As Boolean = False
   Public Property Title As String
