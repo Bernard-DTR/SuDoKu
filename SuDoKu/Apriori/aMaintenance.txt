@@ -411,12 +411,15 @@
                                           Demandes 20% Complétions 29%
 #735 D  19/04/2026 Optimisation du calcul avec Wh_Cellule_Pt_Finalement ce calcul est faux
 #736 L  20/04/2026 Optimisation du calcul avec Wh_Cellule_Pt 
+#737 L  20/04/2026 Stratégie expérimentale DCd (Test E) 
 
 ##############################################################################################################################
 
-
+????               Préférences ne met pas correctement à jour le quadrillage et le fond !
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
 ????               Stratégie sans aucun controle Noc
-????               Vérifier la cohérence des Sqr_cel(i) et Sqr_celx(i) et Sqr_cely(i)  
+????               La stratégie du dernier candidat pourrait être remise, comme celle des filtres en saisie  
+????               A qoui sert la propriété paint_fond et paint valeur
+????               voir dans les formes primaires à quoi sert de mettre le valeurs ou les candidats

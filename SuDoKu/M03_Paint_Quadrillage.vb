@@ -18,13 +18,14 @@ Module M03_Paint_Quadrillage
       Next
     End Using
   End Sub
-  Public Sub Build_Fond_Cellule_Survolee()
-    ' le Bmp_Fond_Cellule_Survolee est calculé une seule fois dans Frm_SDK_Load
-    Bmp_Fond_Cellule_Survolee = New Bitmap(WH, WH)
+  Public Sub Build_Fond_Saisie()
+    ' le Bmp_Fond_Saisie est calculé une seule fois dans Frm_SDK_Load
+    Bmp_Fond_Saisie = New Bitmap(WH, WH)
     Dim r As New Rectangle(0, 0, WH, WH)
-    Using g As Graphics = Graphics.FromImage(Bmp_Fond_Cellule_Survolee)
+    Using g As Graphics = Graphics.FromImage(Bmp_Fond_Saisie)
       g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
-
+      'Il n'est pas possible d'utiliser Sqr_Cdd( de 1 à 9)
+      'Il faut utiliser un bitmap plus large
       Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
                               brsh9 As New SolidBrush(Color_Trait)
         For cdd As Integer = 1 To 9
@@ -135,25 +136,25 @@ Module M03_Paint_Quadrillage
           Dim WH_Région As Integer = (WH * 3) + 5
 
           Pt1 = New Point(x:=Gz_Pt_TopLeft.X + Top,
-                        y:=Gz_Pt_TopLeft.Y + Left)
+                          y:=Gz_Pt_TopLeft.Y + Left)
           Pt2 = New Point(x:=Pt1.X + WH_Région,
-                        y:=Pt1.Y)
+                          y:=Pt1.Y)
           Pt3 = New Point(x:=Pt1.X + WH_Région,
-                        y:=Pt1.Y + WH_Région)
+                          y:=Pt1.Y + WH_Région)
           Pt4 = New Point(x:=Pt1.X,
-                        y:=Pt1.Y + WH_Région)
+                          y:=Pt1.Y + WH_Région)
 
           ' 1 Calcul avec les 4 coins arrondis
           With Reg_Pth
             .StartFigure()
             .AddArc(New Rectangle(CInt(Pt1.X), CInt(Pt1.Y), WHhalf, WHhalf), 180, 90)                 'Coin en haut à gauche  
             .AddLine(Pt1.X + WHhalf, Pt1.Y, Pt2.X - WHhalf, Pt2.Y)                                    'Ligne horizontale A  B en haut
-                .AddArc(New Rectangle(CInt(Pt2.X) - WHhalf, CInt(Pt2.Y), WHhalf, WHhalf), 270, 90)        'Coin en haut à droite  
-                .AddLine(Pt2.X, Pt2.Y + WHhalf, Pt3.X, Pt3.Y - WHhalf)                                    'Ligne verticale   B  C droite
-                .AddArc(New Rectangle(CInt(Pt3.X) - WHhalf, CInt(Pt3.Y) - WHhalf, WHhalf, WHhalf), 0, 90) 'Coin en bas à droite  
-                .AddLine(Pt3.X - WHhalf, Pt3.Y, Pt4.X + WHhalf, Pt4.Y)                                    'Ligne horizontale C  D en bas
-                .AddArc(New Rectangle(CInt(Pt4.X), CInt(Pt4.Y) - WHhalf, WHhalf, WHhalf), 90, 90)         'Coin en bas à gauche  
-                .AddLine(Pt4.X, Pt4.Y - WHhalf, Pt1.X, Pt1.Y + WHhalf)                                    'Ligne verticale   D  A gauche
+            .AddArc(New Rectangle(CInt(Pt2.X) - WHhalf, CInt(Pt2.Y), WHhalf, WHhalf), 270, 90)        'Coin en haut à droite  
+            .AddLine(Pt2.X, Pt2.Y + WHhalf, Pt3.X, Pt3.Y - WHhalf)                                    'Ligne verticale   B  C droite
+            .AddArc(New Rectangle(CInt(Pt3.X) - WHhalf, CInt(Pt3.Y) - WHhalf, WHhalf, WHhalf), 0, 90) 'Coin en bas à droite  
+            .AddLine(Pt3.X - WHhalf, Pt3.Y, Pt4.X + WHhalf, Pt4.Y)                                    'Ligne horizontale C  D en bas
+            .AddArc(New Rectangle(CInt(Pt4.X), CInt(Pt4.Y) - WHhalf, WHhalf, WHhalf), 90, 90)         'Coin en bas à gauche  
+            .AddLine(Pt4.X, Pt4.Y - WHhalf, Pt1.X, Pt1.Y + WHhalf)                                    'Ligne verticale   D  A gauche
             .CloseFigure()
           End With
           ' 2 Entourage avec coins arrondis

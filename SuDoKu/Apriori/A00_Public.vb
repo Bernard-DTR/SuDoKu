@@ -119,7 +119,7 @@ Module A00_Public
   Public Sqr_Cely(0 To 8) As Integer                '  LImites gauches
   Public Sqr_Cdd(809) As Rectangle                  '  Le tableau comporte les informations des 9 rectangles de chaque candidat de chaque cellule
   Public Sqr_Cdd_Inf(809) As Rectangle              '  Le tableau comporte les informations des 9 rectangles inflate pour cliquer plus facilement les candidats
-  Public Grid_Pth As Drawing2D.GraphicsPath         '  Tracé de la Grille avec angle arrondi
+  'Public Grid_Pth As Drawing2D.GraphicsPath         '  Tracé de la Grille avec angle arrondi
   Public Reg_Pth(8) As Drawing2D.GraphicsPath       '  Tracés des 9 régions avec angle arrondi
   Public Sqr_Pth(0 To 80) As Drawing2D.GraphicsPath '  Tracés des squares du jeu avec ou sans angle arrondi  
   ' Les traitements, compute ou paint, sont identiques que les paths soient des carrés, avec angles arrondis  
@@ -211,7 +211,7 @@ Module A00_Public
 
   Public Bmp_Quadrillage As Bitmap
   Public Bmp_Fond_Valeur As Bitmap
-  Public Bmp_Fond_Cellule_Survolee As Bitmap
+  Public Bmp_Fond_Saisie As Bitmap
   Public Cellule_Survolee As Integer = -1
 
 #End Region

@@ -35,12 +35,12 @@
 
     ' 03  L'affichage du résultat
     Select Case Stg_Get(Plcy_Strg).Family
-      Case 0, 2
+      Case 0, 2     ' Invalidation d'une cellule
         ' Aucune stratégie, stratégie des filtres 
         Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
           Frm_SDK.Invalidate(reg, False)
         End Using
-      Case 1
+      Case 1        ' Invalidation des cellules collatérales
         ' Stratégie Cdd, les candidats sont affichés
         If Cell_Coll_Modifiées_List.Count > 0 Then
           Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
@@ -55,11 +55,9 @@
             Frm_SDK.Invalidate(reg, False)
           End Using
         End If
-
-      Case 3, 4
-        ' Toutes les stratégies, et de nombreuses situations spéciales
+      Case Else     ' Invalidation de la grille entière
+        'les stratégies 3,4,7 et de nombreuses situations spéciales
         Frm_SDK.Invalidate()
-      Case Else
     End Select
 
     '  Fin de partie
@@ -263,7 +261,7 @@
     Select Case Type_IE
       Case "Include"
         If XSolution(Cellule) <> Candidat Then
-          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat : " & XSolution(Cellule) & " est attendu à la place de " & Candidat & "."}, "Emoji")
+          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat " & XSolution(Cellule) & " est attendu à la place de " & Candidat & "."}, "Emoji")
           Return False
         End If
       Case "Exclude"

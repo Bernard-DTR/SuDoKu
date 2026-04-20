@@ -341,6 +341,7 @@ Friend Module P01_Strategy
     ' 12/10/2025 Toutes les Plcy_Strg sont dans la liste
     '                               Lettre pour la barre d'Outils ou N
     Stg_List.Add(New Stg_Cls("   ", "N", "N", "N", "N", 0, "Aucune Stratégie"))
+    Stg_List.Add(New Stg_Cls("DCd", "N", "N", "N", "N", 7, "Aucune Stratégie"))
     Stg_List.Add(New Stg_Cls("Ani", "N", "N", "N", "N", 8, "Stratégie d'Animation"))
     Stg_List.Add(New Stg_Cls("Sai", "N", "N", "N", "N", 0, "Saisir une grille"))
     Stg_List.Add(New Stg_Cls("Cdd", "C", "O", "N", "N", 1, "Stratégie des Candidats"))

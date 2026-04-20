@@ -325,7 +325,7 @@
       OC_Présentation()
       Build_Quadrillage()
       Build_Fond_Valeur()
-      Build_Fond_Cellule_Survolee()
+      Build_Fond_Saisie()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -351,8 +351,8 @@
     My.Settings.Prf_01C_Fond_Grille = CB01_ComboBoxFond.SelectedIndex
     Plcy_Fond_Grille = CB01_ComboBoxFond.SelectedIndex
     If Not Mode_Load Then
-      ' Recalculer Sqr_Img et Font_Style
       OC_Présentation()
+      Build_Fond_Valeur()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -373,8 +373,8 @@
       My.Settings.Format_DAB = Cb01_Format.SelectedIndex
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
-      Build_Fond_Valeur()
       OC_Présentation()
+      Build_Fond_Valeur()
       Frm_SDK.Invalidate()
     End If
   End Sub

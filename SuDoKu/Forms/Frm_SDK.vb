@@ -258,7 +258,7 @@ Public NotInheritable Class Frm_SDK
       Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
       Batch_Initial()
     End If
-    Build_Fond_Cellule_Survolee()
+    Build_Fond_Saisie()
 
   End Sub
 
@@ -286,21 +286,13 @@ Public NotInheritable Class Frm_SDK
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
     MyBase.OnPaint(e)
     If Not Phase_Démarrage_Terminée Then Exit Sub
-    Dim g As Graphics = e.Graphics
-
     'Le quadrillage n'est pas redessiné, c'est un bitmap qui est affiché, ce qui améliore les performances d'affichage
-    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
-    g.DrawImageUnscaled(Bmp_Fond_Valeur, 0, 0)
-    G4_Grid_Stratégie_All(g)
-
-    'If Grille.Nb_Cellules_Remplies = 81 Then Grille.G8_Grille_Partie_Terminée(g)
-
-    If Cellule_Survolee >= 0 Then
-      If U(Cellule_Survolee, 2) = " " Then
-        g.DrawImage(Bmp_Fond_Cellule_Survolee, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
-      End If
+    e.Graphics.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
+    e.Graphics.DrawImageUnscaled(Bmp_Fond_Valeur, 0, 0)
+    G4_Grid_Stratégie_All(e.Graphics)
+    If Cellule_Survolee >= 0 AndAlso U(Cellule_Survolee, 2) = " " Then
+      e.Graphics.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
     End If
-
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
     'En plaçant à cet endroit l'enregistrement des LP_*, 
@@ -352,7 +344,7 @@ Public NotInheritable Class Frm_SDK
       Mnu_Mngt(Pbl_Cell_Select)
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
-    If (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) AndAlso U(Pbl_Cell_Select, 2) = " " Then
+    If {0, 2, 7}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then
       If Pbl_Cell_Select <> Cellule_Survolee Then
         If Cellule_Survolee >= 0 Then
           Me.Invalidate(Sqr_Cel(Cellule_Survolee))  ' Invalider l’ancienne cellule

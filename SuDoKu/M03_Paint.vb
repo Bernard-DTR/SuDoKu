@@ -13,6 +13,7 @@ Friend Module M03_Paint
         U_Strg_Val_Ins(i) = ""
         U_Strg_Cdd_Exc(i) = Cnddts_Blancs
       Next i
+      G4_Grid_Stratégie_DCd(g)
       G4_Grid_Stratégie_Cdd(g)
       G4_Grid_Stratégie_CdU(g)
       G4_Grid_Stratégie_CdO(g)
@@ -42,7 +43,6 @@ Friend Module M03_Paint
     If Not Plcy_Strg = "Ani" Then Exit Sub
     Dim Cellule_Clct As New Collection
 
-
     Dim cellule As Integer
     'Collection des valeurs initiales
     For i As Integer = 0 To 80
@@ -70,7 +70,39 @@ Friend Module M03_Paint
     Plcy_Strg = "   "
     Frm_SDK.Invalidate()
   End Sub
+  Public Sub G4_Grid_Stratégie_DCd(g As Graphics)
+    If Plcy_Strg <> "DCd" Then Exit Sub
 
+    ' Récupérer les indices des cellules concernées
+    Dim indices As List(Of Integer) = Enumerable.Range(0, 81).
+                             Where(Function(i) U(i, 2) = Pbl_Valeur_CdS).
+                             ToList()
+
+    Dim figure As String =
+        If(indices.Count = 9, "Cercle", "Double_Carré")
+
+    For Each i As Integer In indices
+      G0_Cell_Figure(g, i, figure, Color_Stratégique)
+    Next
+  End Sub
+  Public Sub G4_Grid_Stratégie_DCd_2(g As Graphics)
+    If Not Plcy_Strg = "DCd" Then Exit Sub
+    Dim n As Integer
+    For i As Integer = 0 To 80
+      If U(i, 2) = Pbl_Valeur_CdS Then n += 1
+    Next i
+
+
+    For i As Integer = 0 To 80
+      If U(i, 2) = Pbl_Valeur_CdS Then
+        If n = 9 Then
+          G0_Cell_Figure(g, i, "Cercle", Color_Stratégique)
+        Else
+          G0_Cell_Figure(g, i, "Double_Carré", Color_Stratégique)
+        End If
+      End If
+    Next i
+  End Sub
   Public Sub G4_Grid_Stratégie_Cdd(g As Graphics)
     If Not Plcy_Strg = "Cdd" Then Exit Sub
     For i As Integer = 0 To 80

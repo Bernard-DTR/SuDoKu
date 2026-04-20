@@ -79,7 +79,6 @@ Friend Module A02_Occasionally
         If Stg_Bll(i) = False Then Frm_SDK.BarreOutils.Items(Btn_Name).Enabled = False
       End If
     Next
-
   End Sub
 
   Public Sub OC_Présentation()
