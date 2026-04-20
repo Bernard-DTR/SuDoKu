@@ -254,6 +254,11 @@ Friend Module A02_Occasionally
         k += 1
       Next i
     Next j
+    '#736
+    For i As Integer = 0 To 8
+      Sqr_Celx(i) = Sqr_Cel(i + 9).X
+      Sqr_Cely(i) = Sqr_Cel(i * 9).Y
+    Next
 
     ' Calcul des 9 Squares de chaque candidat   1 2 3  ou  7 8 9
     '                                           4 5 6      4 5 6

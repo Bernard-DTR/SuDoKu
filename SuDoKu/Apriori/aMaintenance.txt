@@ -409,13 +409,14 @@
 #733 D  19/04/2026 La grille de saisie est présentée si aucune stratégie et dans les filtres valeurs
 #734 D  19/04/2026 Utilisation 13/05/2026 Demandes 16% Complétions 27%
                                           Demandes 20% Complétions 29%
-#735 D  19/04/2026 Optimisation du calcul avec Wh_Cellule_Pt
+#735 D  19/04/2026 Optimisation du calcul avec Wh_Cellule_Pt_Finalement ce calcul est faux
+#736 L  20/04/2026 Optimisation du calcul avec Wh_Cellule_Pt 
 
 ##############################################################################################################################
- 
- 
+
 
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
 ????               Stratégie sans aucun controle Noc
+????               Vérifier la cohérence des Sqr_cel(i) et Sqr_celx(i) et Sqr_cely(i)  

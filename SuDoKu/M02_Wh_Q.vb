@@ -241,18 +241,20 @@
 
 #Region "Fonctions diverses"
   Public Function Wh_Cellule_Pt(pt As Point) As Integer
-    'Coordonnées relatives à la grille
-    Dim rx As Integer = pt.X - Gz_Pt_TopLeft.X
-    Dim ry As Integer = pt.Y - Gz_Pt_TopLeft.Y
-
-    'En dehors de la grille ?
-    If rx < 0 Or ry < 0 Then Return -1
-    If rx >= 9 * WH Or ry >= 9 * WH Then Return -1
-
-    'Calcul direct
-    Dim col As Integer = rx \ WH   'division entière
-    Dim row As Integer = ry \ WH
-
+    Dim row As Integer = -1
+    Dim col As Integer = -1
+    For i As Integer = 0 To 8
+      If row = -1 Then
+        Dim y0 As Integer = Sqr_Cely(i)
+        If pt.Y >= y0 AndAlso pt.Y < y0 + WH Then row = i
+      End If
+      If col = -1 Then
+        Dim x0 As Integer = Sqr_Celx(i)
+        If pt.X >= x0 AndAlso pt.X < x0 + WH Then col = i
+      End If
+      If row <> -1 AndAlso col <> -1 Then Exit For
+    Next
+    If row = -1 OrElse col = -1 Then Return -1
     Return row * 9 + col
   End Function
 

@@ -342,10 +342,9 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
 #Region "Mouse Clic"
-
   Private Sub Frm_SDK_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
     'Dim Cellule_MM As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(e.X, e.Y))
-    Dim Cellule_MM As Integer = Wh_Cellule_Pt(New Point(e.X, e.Y))
+    Dim Cellule_MM As Integer = Wh_Cellule_Pt(pt:=New Point(e.X, e.Y))
     If Cellule_MM = -1 Then Exit Sub
     Pbl_Cell_Select = Cellule_MM
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
@@ -353,7 +352,6 @@ Public NotInheritable Class Frm_SDK
       Mnu_Mngt(Pbl_Cell_Select)
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
-
     If (Stg_Get(Plcy_Strg).Family = 0 Or Stg_Get(Plcy_Strg).Family = 2) AndAlso U(Pbl_Cell_Select, 2) = " " Then
       If Pbl_Cell_Select <> Cellule_Survolee Then
         If Cellule_Survolee >= 0 Then
@@ -365,14 +363,11 @@ Public NotInheritable Class Frm_SDK
         Cellule_Survolee = Pbl_Cell_Select
       End If
     End If
-
   End Sub
   Private Sub Frm_SDK_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
-    'If Stg_Get(Plcy_Strg).Family = 0 And U(Pbl_Cell_Select, 2) = " " Then
     If Cellule_Survolee >= 0 Then
-        Me.Invalidate(Sqr_Cel(Cellule_Survolee))
-      End If
-    'End If
+      Me.Invalidate(Sqr_Cel(Cellule_Survolee))
+    End If
     Cellule_Survolee = -1
   End Sub
 
@@ -381,11 +376,10 @@ Public NotInheritable Class Frm_SDK
     ' seuls les clics gauche et milieu sont détectés, le clic droit affiche le menu contextuel
     ' Après un clic de souris sur le contrôle
     ' L'utilisateur appuie sur le bouton de la souris
-    Dim Pt As New Point(x:=e.X, y:=e.Y)
     Try
       'Il n'est pas besoin de calculer la cellule, c'est Pbl_Cell_Select
       If Pbl_Cell_Select = -1 Then Exit Sub
-      Dim Candidat_Pt As Integer = Wh_Cellule_Candidat_Pt(Pbl_Cell_Select, Pt)
+      Dim Candidat_Pt As Integer = Wh_Cellule_Candidat_Pt(Pbl_Cell_Select, New Point(x:=e.X, y:=e.Y))
       'Le mouse-click se fait soit sur un square, soit ailleurs
       'Il est de 3 types: Gauche, Milieu, Droit
       'Gauche: Rien de particulier, le menu contextuel est préparé,
