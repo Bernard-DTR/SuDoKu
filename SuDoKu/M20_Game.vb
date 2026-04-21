@@ -31,11 +31,6 @@ Friend Module M20_Game
             End If
           Next i
         End If
-
-        For i As Integer = 0 To 80
-          If U(i, 1) <> " " Then Clct_Add(Valeurs_initiales_Clct, i)
-        Next i
-
     End Select
 
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales

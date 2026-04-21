@@ -14,9 +14,9 @@ Public NotInheritable Class Frm_SDK
   'La ProgressBar ne peut pas adopter la couleur souhaitée
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
-  Private InflateValue As Integer = 0
+  Public InflateValue As Integer = 0
   Private AnimationCellule As Integer
-  Private AnimationInflate As Integer
+  Public AnimationInflate As Integer
 
 
   Public Sub New()
@@ -308,17 +308,19 @@ Public NotInheritable Class Frm_SDK
     MyBase.OnPaint(e)
     If Not Phase_Démarrage_Terminée Then Exit Sub
     'Le quadrillage n'est pas redessiné, c'est un bitmap qui est affiché, ce qui améliore les performances d'affichage
-    e.Graphics.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
-    e.Graphics.DrawImageUnscaled(Bmp_Fond_Valeur, 0, 0)
-    G4_Grid_Stratégie_All(e.Graphics)
+    Dim g As Graphics = e.Graphics
+    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
+    g.DrawImageUnscaled(Bmp_Fond_Valeur, 0, 0)
+    G4_Grid_Stratégie_All(g)
+    ' Grille de saisie
     If Cellule_Survolee >= 0 AndAlso U(Cellule_Survolee, 2) = " " Then
-      e.Graphics.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
+      g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
     End If
     ' Animation
     If AnimationTimer.Enabled AndAlso AnimationCellule >= 0 Then
       Dim rect As Rectangle = Sqr_Cel(AnimationCellule)
       rect.Inflate(AnimationInflate, AnimationInflate)
-      e.Graphics.DrawIcon(My.Resources.SuDoKu, rect)
+      g.DrawIcon(My.Resources.SuDoKu, rect)
     End If
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing

@@ -69,6 +69,18 @@
         Jrn_Add(, {"La grille est correcte."}, "Emoji")
         Frm_SDK.B_Info.Text = "La grille est correcte."
         ' Configuration du Timer
+        Valeurs_initiales_Clct.Clear()
+        Enumerable.Range(0, 81).
+          Where(Function(i) U(i, 1) <> " ").
+          ToList().
+          ForEach(Sub(i) Clct_Add(Valeurs_initiales_Clct, i))
+
+        'For i As Integer = 0 To 80
+        '  If U(i, 1) <> " " Then Clct_Add(Valeurs_initiales_Clct, i)
+        'Next i
+
+        Frm_SDK.InflateValue = 0
+        Frm_SDK.AnimationInflate = 0
         Frm_SDK.AnimationTimer.Interval = 100 ' ms
         Frm_SDK.AnimationTimer.Start()
       End If
