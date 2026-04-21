@@ -35,7 +35,7 @@
 
     ' 03  L'affichage du résultat
     Select Case Stg_Get(Plcy_Strg).Family
-      Case 0, 2     ' Invalidation d'une cellule
+      Case 0         ' Invalidation d'une cellule
         ' Aucune stratégie, stratégie des filtres 
         Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
           Frm_SDK.Invalidate(reg, False)
@@ -56,7 +56,7 @@
           End Using
         End If
       Case Else     ' Invalidation de la grille entière
-        'les stratégies 3,4,7 et de nombreuses situations spéciales
+        'les stratégies 2,3,4,7 et de nombreuses situations spéciales
         Frm_SDK.Invalidate()
     End Select
 
@@ -68,8 +68,9 @@
       If U_Check.Check AndAlso Wh_Nb_Cell(U).Initiales < 81 Then
         Jrn_Add(, {"La grille est correcte."}, "Emoji")
         Frm_SDK.B_Info.Text = "La grille est correcte."
-        Plcy_Strg = "Ani"
-        Frm_SDK.Invalidate()
+        ' Configuration du Timer
+        Frm_SDK.AnimationTimer.Interval = 100 ' ms
+        Frm_SDK.AnimationTimer.Start()
       End If
     End If
   End Sub

@@ -53,7 +53,7 @@ Public Class Cellule_Cls
     'Propriété dépendante de U
     Get
       _candidat_unique = False
-      If (U(Numéro, 2) = " " And Trim(U(Numéro, 3)).Length = 1) Then _candidat_unique = True
+      If (U(Numéro, 2) = " " AndAlso Trim(U(Numéro, 3)).Length = 1) Then _candidat_unique = True
       Return _candidat_unique
     End Get
   End Property

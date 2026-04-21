@@ -253,6 +253,7 @@ Partial Class Frm_SDK
         Me.Enlever_Tout = New System.Windows.Forms.ToolStripMenuItem()
         Me.Lister = New System.Windows.Forms.ToolStripMenuItem()
         Me.TTT_Timer = New System.Windows.Forms.Timer(Me.components)
+        Me.AnimationTimer = New System.Windows.Forms.Timer(Me.components)
         Me.Mnu_Cel.SuspendLayout()
         Me.Mnu.SuspendLayout()
         Me.BarreOutils.SuspendLayout()
@@ -456,13 +457,12 @@ Partial Class Frm_SDK
         '
         Me.Mnu.ContextMenuStrip = Me.Mnu_Ctxt_Vide
         Me.Mnu.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
-        Me.Mnu.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.Mnu.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.Mnu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu01, Me.Mnu02, Me.Mnu03, Me.Mnu04, Me.Mnu08, Me.Mnu05, Me.Mnu06, Me.Mnu07, Me.Mnu09})
         Me.Mnu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.Mnu.Location = New System.Drawing.Point(0, 0)
         Me.Mnu.Name = "Mnu"
-        Me.Mnu.Size = New System.Drawing.Size(1869, 36)
+        Me.Mnu.Size = New System.Drawing.Size(1869, 29)
         Me.Mnu.TabIndex = 18
         Me.Mnu.Text = "MenuStrip1"
         '
@@ -478,7 +478,7 @@ Partial Class Frm_SDK
         Me.Mnu01.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu01.Name = "Mnu01"
         Me.Mnu01.ShowShortcutKeys = False
-        Me.Mnu01.Size = New System.Drawing.Size(75, 32)
+        Me.Mnu01.Size = New System.Drawing.Size(75, 25)
         Me.Mnu01.Text = "&Fichier"
         '
         'Mnu01_Ouvrir
@@ -593,7 +593,7 @@ Partial Class Frm_SDK
         Me.Mnu02.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu02_Annuler, Me.Mnu02_Refaire, Me.Mnu02_Sep01, Me.Mnu02_Copier, Me.Mnu02_Copier2, Me.Mnu02_Copie3, Me.Mnu02_Coller, Me.Mnu02_CopierlaGrilleDansLeJournal})
         Me.Mnu02.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu02.Name = "Mnu02"
-        Me.Mnu02.Size = New System.Drawing.Size(78, 32)
+        Me.Mnu02.Size = New System.Drawing.Size(78, 25)
         Me.Mnu02.Text = "Copier "
         '
         'Mnu02_Annuler
@@ -667,7 +667,7 @@ Partial Class Frm_SDK
         Me.Mnu03.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu03_EffacerLeJournal, Me.Mnu03_Sep01, Me.Mnu03_Transformation, Me.Mnu03_AfficherLaSolution, Me.Mnu03_Rafraîchir})
         Me.Mnu03.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu03.Name = "Mnu03"
-        Me.Mnu03.Size = New System.Drawing.Size(95, 32)
+        Me.Mnu03.Size = New System.Drawing.Size(95, 25)
         Me.Mnu03.Text = "&Affichage"
         '
         'Mnu03_EffacerLeJournal
@@ -790,7 +790,7 @@ Partial Class Frm_SDK
         '
         Me.Mnu04.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu04.Name = "Mnu04"
-        Me.Mnu04.Size = New System.Drawing.Size(101, 32)
+        Me.Mnu04.Size = New System.Drawing.Size(101, 25)
         Me.Mnu04.Text = "&Stratégies"
         '
         'Mnu08
@@ -799,7 +799,7 @@ Partial Class Frm_SDK
         Me.Mnu08.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu08.ForeColor = System.Drawing.Color.Black
         Me.Mnu08.Name = "Mnu08"
-        Me.Mnu08.Size = New System.Drawing.Size(98, 32)
+        Me.Mnu08.Size = New System.Drawing.Size(98, 25)
         Me.Mnu08.Text = "E&xtension"
         '
         'Mnu08_Jouer
@@ -987,7 +987,7 @@ Partial Class Frm_SDK
         Me.Mnu05.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu05_Préférences, Me.Mnu05_FichierDesMessages, Me.Mnu05_APropos, Me.Mnu05_Documentation, Me.Mnu05_Maintenance, Me.Mnu05_Dictionnaire, Me.Mnu05_ModeEtendu})
         Me.Mnu05.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu05.Name = "Mnu05"
-        Me.Mnu05.Size = New System.Drawing.Size(59, 32)
+        Me.Mnu05.Size = New System.Drawing.Size(59, 25)
         Me.Mnu05.Text = "A&ide"
         '
         'Mnu05_Préférences
@@ -1043,7 +1043,7 @@ Partial Class Frm_SDK
         Me.Mnu06.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu06_ListerU, Me.Mnu06_ListerA, Me.Mnu06_Manuel_des_Stratégies, Me.Mnu063_VérificationDeLaGrille, Me.Mnu06_Sep01, Me.Mnu06_EffacerLaGrille, Me.Mnu06_Sep02, Me.Mnu06_SudokuPCA, Me.Mnu06_SudokuAngusJohnson, Me.Mnu06_SudokuDarrenColes, Me.Mnu06_SudokuPatriceHenrion, Me.Mnu06_SudokuNKH, Me.Mnu06_Hodoku220, Me.Mnu06_SudokuFedynaK, Me.Mnu06_SudoCue, Me.Mnu06_DiufSudokuJava, Me.Mnu06_Sep03, Me.Mnu06_ClassicSudoku, Me.Mnu06_SudokuSolver, Me.Mnu06_MicrosoftSudoku, Me.Mnu06_HHSudokuGame, Me.Mnu06_MUDancingLink, Me.Mnu06_Sep04, Me.Mnu06_CB})
         Me.Mnu06.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu06.Name = "Mnu06"
-        Me.Mnu06.Size = New System.Drawing.Size(73, 32)
+        Me.Mnu06.Size = New System.Drawing.Size(73, 25)
         Me.Mnu06.Text = "&Divers"
         '
         'Mnu06_ListerU
@@ -1207,7 +1207,7 @@ Partial Class Frm_SDK
         Me.Mnu07.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu07n_Gbl, Me.Mnu07n_Gbv, Me.Mnu07n_GCs, Me.Mnu07n_GCx, Me.Mnu07n_XCy, Me.Mnu07n_XRp, Me.Mnu07n_XNl, Me.Mnu07n_WgX, Me.Mnu07n_WgY, Me.Mnu07n_WgZ, Me.Mnu07n_WgW})
         Me.Mnu07.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu07.Name = "Mnu07"
-        Me.Mnu07.Size = New System.Drawing.Size(69, 32)
+        Me.Mnu07.Size = New System.Drawing.Size(69, 25)
         Me.Mnu07.Text = "O&utils"
         '
         'Mnu07n_Gbl
@@ -1281,7 +1281,7 @@ Partial Class Frm_SDK
         Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0910_GLk, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
-        Me.Mnu09.Size = New System.Drawing.Size(79, 32)
+        Me.Mnu09.Size = New System.Drawing.Size(79, 25)
         Me.Mnu09.Text = "Graphe"
         '
         'Mnu0901
@@ -1379,11 +1379,11 @@ Partial Class Frm_SDK
         Me.BarreOutils.ContextMenuStrip = Me.Mnu_Ctxt_Vide
         Me.BarreOutils.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.BarreOutils.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Btn_Cdd, Me.Btn_CdU, Me.Btn_CdO, Me.ToolStripSeparator13, Me.Btn1, Me.Btn2, Me.Btn3, Me.Btn4, Me.Btn5, Me.Btn6, Me.Btn7, Me.Btn8, Me.Btn9, Me.ToolStripSeparator14, Me.Btn_Cbl, Me.Btn_Tpl, Me.Btn_Xwg, Me.Btn_XYw, Me.Btn_Swf, Me.Btn_Jly, Me.Btn_XYZ, Me.Btn_SKy, Me.Btn_Unq, Me.ToolStripSeparator15, Me.Btn0, Me.ToolStripSeparator16})
-        Me.BarreOutils.Location = New System.Drawing.Point(0, 36)
+        Me.BarreOutils.Location = New System.Drawing.Point(0, 29)
         Me.BarreOutils.Name = "BarreOutils"
         Me.BarreOutils.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.BarreOutils.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
-        Me.BarreOutils.Size = New System.Drawing.Size(1869, 38)
+        Me.BarreOutils.Size = New System.Drawing.Size(1869, 33)
         Me.BarreOutils.TabIndex = 19
         '
         'Btn_Cdd
@@ -1392,7 +1392,7 @@ Partial Class Frm_SDK
         Me.Btn_Cdd.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
         Me.Btn_Cdd.ImageTransparentColor = System.Drawing.Color.Maroon
         Me.Btn_Cdd.Name = "Btn_Cdd"
-        Me.Btn_Cdd.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_Cdd.Size = New System.Drawing.Size(34, 28)
         Me.Btn_Cdd.Text = "_"
         Me.Btn_Cdd.ToolTipText = "_"
         '
@@ -1402,7 +1402,7 @@ Partial Class Frm_SDK
         Me.Btn_CdU.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
         Me.Btn_CdU.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_CdU.Name = "Btn_CdU"
-        Me.Btn_CdU.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_CdU.Size = New System.Drawing.Size(34, 28)
         Me.Btn_CdU.Text = "_"
         Me.Btn_CdU.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         '
@@ -1412,84 +1412,84 @@ Partial Class Frm_SDK
         Me.Btn_CdO.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
         Me.Btn_CdO.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_CdO.Name = "Btn_CdO"
-        Me.Btn_CdO.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_CdO.Size = New System.Drawing.Size(34, 28)
         Me.Btn_CdO.Text = "_"
         Me.Btn_CdO.ToolTipText = "_"
         '
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(6, 38)
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(6, 33)
         '
         'Btn1
         '
         Me.Btn1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn1.Name = "Btn1"
         Me.Btn1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.Btn1.Size = New System.Drawing.Size(34, 33)
+        Me.Btn1.Size = New System.Drawing.Size(34, 28)
         Me.Btn1.Text = " "
         '
         'Btn2
         '
         Me.Btn2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn2.Name = "Btn2"
-        Me.Btn2.Size = New System.Drawing.Size(34, 33)
+        Me.Btn2.Size = New System.Drawing.Size(34, 28)
         Me.Btn2.Text = " "
         '
         'Btn3
         '
         Me.Btn3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn3.Name = "Btn3"
-        Me.Btn3.Size = New System.Drawing.Size(34, 33)
+        Me.Btn3.Size = New System.Drawing.Size(34, 28)
         Me.Btn3.Text = " "
         '
         'Btn4
         '
         Me.Btn4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn4.Name = "Btn4"
-        Me.Btn4.Size = New System.Drawing.Size(34, 33)
+        Me.Btn4.Size = New System.Drawing.Size(34, 28)
         Me.Btn4.Text = " "
         '
         'Btn5
         '
         Me.Btn5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn5.Name = "Btn5"
-        Me.Btn5.Size = New System.Drawing.Size(34, 33)
+        Me.Btn5.Size = New System.Drawing.Size(34, 28)
         Me.Btn5.Text = " "
         '
         'Btn6
         '
         Me.Btn6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn6.Name = "Btn6"
-        Me.Btn6.Size = New System.Drawing.Size(34, 33)
+        Me.Btn6.Size = New System.Drawing.Size(34, 28)
         Me.Btn6.Text = " "
         '
         'Btn7
         '
         Me.Btn7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn7.Name = "Btn7"
-        Me.Btn7.Size = New System.Drawing.Size(34, 33)
+        Me.Btn7.Size = New System.Drawing.Size(34, 28)
         Me.Btn7.Text = " "
         '
         'Btn8
         '
         Me.Btn8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn8.Name = "Btn8"
-        Me.Btn8.Size = New System.Drawing.Size(34, 33)
+        Me.Btn8.Size = New System.Drawing.Size(34, 28)
         Me.Btn8.Text = " "
         '
         'Btn9
         '
         Me.Btn9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
         Me.Btn9.Name = "Btn9"
-        Me.Btn9.Size = New System.Drawing.Size(34, 33)
+        Me.Btn9.Size = New System.Drawing.Size(34, 28)
         Me.Btn9.Text = " "
         Me.Btn9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         '
         'ToolStripSeparator14
         '
         Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(6, 38)
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(6, 33)
         '
         'Btn_Cbl
         '
@@ -1498,7 +1498,7 @@ Partial Class Frm_SDK
         Me.Btn_Cbl.ForeColor = System.Drawing.Color.Black
         Me.Btn_Cbl.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Cbl.Name = "Btn_Cbl"
-        Me.Btn_Cbl.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_Cbl.Size = New System.Drawing.Size(34, 28)
         Me.Btn_Cbl.Text = "_"
         Me.Btn_Cbl.ToolTipText = "_"
         '
@@ -1509,7 +1509,7 @@ Partial Class Frm_SDK
         Me.Btn_Tpl.ForeColor = System.Drawing.Color.Black
         Me.Btn_Tpl.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Tpl.Name = "Btn_Tpl"
-        Me.Btn_Tpl.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_Tpl.Size = New System.Drawing.Size(34, 28)
         Me.Btn_Tpl.Text = "_"
         Me.Btn_Tpl.ToolTipText = "_"
         '
@@ -1520,7 +1520,7 @@ Partial Class Frm_SDK
         Me.Btn_Xwg.ForeColor = System.Drawing.Color.Black
         Me.Btn_Xwg.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Xwg.Name = "Btn_Xwg"
-        Me.Btn_Xwg.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_Xwg.Size = New System.Drawing.Size(34, 28)
         Me.Btn_Xwg.Text = "_"
         Me.Btn_Xwg.ToolTipText = "_"
         '
@@ -1531,7 +1531,7 @@ Partial Class Frm_SDK
         Me.Btn_XYw.ForeColor = System.Drawing.Color.Black
         Me.Btn_XYw.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_XYw.Name = "Btn_XYw"
-        Me.Btn_XYw.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_XYw.Size = New System.Drawing.Size(34, 28)
         Me.Btn_XYw.Text = "_"
         Me.Btn_XYw.ToolTipText = "_"
         '
@@ -1542,7 +1542,7 @@ Partial Class Frm_SDK
         Me.Btn_Swf.ForeColor = System.Drawing.Color.Black
         Me.Btn_Swf.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Swf.Name = "Btn_Swf"
-        Me.Btn_Swf.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_Swf.Size = New System.Drawing.Size(34, 28)
         Me.Btn_Swf.Tag = ""
         Me.Btn_Swf.Text = "_"
         Me.Btn_Swf.ToolTipText = "_"
@@ -1554,7 +1554,7 @@ Partial Class Frm_SDK
         Me.Btn_Jly.ForeColor = System.Drawing.Color.Black
         Me.Btn_Jly.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Jly.Name = "Btn_Jly"
-        Me.Btn_Jly.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_Jly.Size = New System.Drawing.Size(34, 28)
         Me.Btn_Jly.Tag = ""
         Me.Btn_Jly.Text = "_"
         Me.Btn_Jly.ToolTipText = "_"
@@ -1566,7 +1566,7 @@ Partial Class Frm_SDK
         Me.Btn_XYZ.ForeColor = System.Drawing.Color.Black
         Me.Btn_XYZ.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_XYZ.Name = "Btn_XYZ"
-        Me.Btn_XYZ.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_XYZ.Size = New System.Drawing.Size(34, 28)
         Me.Btn_XYZ.Tag = ""
         Me.Btn_XYZ.Text = "_"
         Me.Btn_XYZ.ToolTipText = "_"
@@ -1578,7 +1578,7 @@ Partial Class Frm_SDK
         Me.Btn_SKy.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Btn_SKy.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_SKy.Name = "Btn_SKy"
-        Me.Btn_SKy.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_SKy.Size = New System.Drawing.Size(34, 28)
         Me.Btn_SKy.Text = "_"
         Me.Btn_SKy.ToolTipText = "_"
         '
@@ -1589,7 +1589,7 @@ Partial Class Frm_SDK
         Me.Btn_Unq.ForeColor = System.Drawing.Color.Black
         Me.Btn_Unq.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn_Unq.Name = "Btn_Unq"
-        Me.Btn_Unq.Size = New System.Drawing.Size(34, 33)
+        Me.Btn_Unq.Size = New System.Drawing.Size(34, 28)
         Me.Btn_Unq.Tag = ""
         Me.Btn_Unq.Text = "_"
         Me.Btn_Unq.ToolTipText = "_"
@@ -1597,7 +1597,7 @@ Partial Class Frm_SDK
         'ToolStripSeparator15
         '
         Me.ToolStripSeparator15.Name = "ToolStripSeparator15"
-        Me.ToolStripSeparator15.Size = New System.Drawing.Size(6, 38)
+        Me.ToolStripSeparator15.Size = New System.Drawing.Size(6, 33)
         '
         'Btn0
         '
@@ -1607,14 +1607,14 @@ Partial Class Frm_SDK
         Me.Btn0.Image = Global.SuDoKu.My.Resources.Resources.AnnulerG
         Me.Btn0.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Btn0.Name = "Btn0"
-        Me.Btn0.Size = New System.Drawing.Size(34, 33)
+        Me.Btn0.Size = New System.Drawing.Size(34, 28)
         Me.Btn0.Text = "0"
         Me.Btn0.ToolTipText = "Annuler la dernière option"
         '
         'ToolStripSeparator16
         '
         Me.ToolStripSeparator16.Name = "ToolStripSeparator16"
-        Me.ToolStripSeparator16.Size = New System.Drawing.Size(6, 38)
+        Me.ToolStripSeparator16.Size = New System.Drawing.Size(6, 33)
         '
         'Mnu_Journal
         '
@@ -2090,4 +2090,5 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu0955_WgY As ToolStripMenuItem
     Friend WithEvents Mnu0960_WgZ As ToolStripMenuItem
     Friend WithEvents Mnu0965_WgW As ToolStripMenuItem
+    Friend WithEvents AnimationTimer As Timer
 End Class

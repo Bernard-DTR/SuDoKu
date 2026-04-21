@@ -742,7 +742,7 @@
       'Affichage de la ColorDialog
       If .ShowDialog() = DialogResult.OK Then
         Dim A As Integer = 255
-        If Clr = 8 Then A = 128
+        If Clr = 7 Or Clr = 8 Then A = 128
         Prf06_Clr(Clr) = Color.FromArgb(A, .Color.R, .Color.G, .Color.B)
       End If
     End With

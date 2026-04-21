@@ -13,7 +13,7 @@ Friend Module A02_Occasionally
         Color_Trait = Color.Green                                   ' Couleur des traits du Grid
         Color_Fond_Typ_I = Color.FromArgb(255, 192, 255, 192)       ' Couleur Fond Valeurs Initiales
         Color_Fond_Typ_RV = Color.FromArgb(255, 129, 224, 129)      ' Couleur Fond Cellule Remplie/Vide 
-        Color_Stratégique = Color.FromArgb(255, 15, 196, 101)       ' Couleur Couche Stratégique
+        Color_Stratégique = Color.FromArgb(128, 15, 196, 101)       ' Couleur Couche Stratégique
         Color_VI = Color.Green                                      ' Couleur des valeurs initiales
         Color_VCdd = Color.Blue                                     ' Couleur des valeurs et des candidats
       Case 1
@@ -21,7 +21,7 @@ Friend Module A02_Occasionally
         Color_Trait = Color.Blue
         Color_Fond_Typ_I = Color.FromArgb(255, 192, 255, 250)
         Color_Fond_Typ_RV = Color.FromArgb(255, 128, 193, 225)
-        Color_Stratégique = Color.FromArgb(255, 9, 89, 149)
+        Color_Stratégique = Color.FromArgb(128, 9, 89, 149)
         Color_VI = Color.Fuchsia
         Color_VCdd = Color.Purple
       Case 2
@@ -29,7 +29,7 @@ Friend Module A02_Occasionally
         Color_Trait = Color.FromArgb(255, 255, 204, 0)
         Color_Fond_Typ_I = Color.FromArgb(255, 217, 179, 179) '    Color.FromArgb(255, 184, 180, 131)
         Color_Fond_Typ_RV = Color.FromArgb(255, 189, 185, 138)
-        Color_Stratégique = Color.FromArgb(255, 162, 100, 94)
+        Color_Stratégique = Color.FromArgb(128, 162, 100, 94)
         Color_VI = Color.Navy
         Color_VCdd = Color.Red
       Case Else 'Identique à Standard
@@ -37,7 +37,7 @@ Friend Module A02_Occasionally
         Color_Trait = Color.Green
         Color_Fond_Typ_I = Color.FromArgb(255, 192, 255, 192)
         Color_Fond_Typ_RV = Color.FromArgb(255, 129, 224, 129)
-        Color_Stratégique = Color.FromArgb(255, 15, 196, 101)
+        Color_Stratégique = Color.FromArgb(128, 15, 196, 101)
         Color_VI = Color.Green
         Color_VCdd = Color.Blue
     End Select

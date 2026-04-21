@@ -36,79 +36,26 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_Gbl(g)
       G4_Grid_Stratégie_Gbv(g)
       G4_Grid_Stratégie_GCs(g)
-      G4_Grid_Stratégie_Animation(g)
     End If
-  End Sub
-  Public Sub G4_Grid_Stratégie_Animation(g As Graphics)
-    If Not Plcy_Strg = "Ani" Then Exit Sub
-    Dim Cellule_Clct As New Collection
-
-    Dim cellule As Integer
-    'Collection des valeurs initiales
-    For i As Integer = 0 To 80
-      If U(i, 1) <> " " Then Clct_Add(Cellule_Clct, i)
-    Next i
-    ' Animation de la Grille
-    Dim Rect As Rectangle
-    Dim Inflate As Integer = 0
-    For i As Integer = 1 To Cellule_Clct.Count
-      cellule = Clct_Random(Cellule_Clct)
-      Rect = Sqr_Cel(cellule)
-      Inflate += 2
-      If Inflate > WH \ 2 Then Exit For
-      Rect.Inflate(New Size(Inflate - 2, Inflate - 2))
-      g.DrawIcon(My.Resources.SuDoKu, Rect)
-      Threading.Thread.Sleep(100)
-      Rect.Inflate(New Size(Inflate, Inflate))
-      g.DrawIcon(My.Resources.SuDoKu, Rect)
-      Threading.Thread.Sleep(100)
-      Rect.Inflate(New Size(Inflate + 1, Inflate + 1))
-      g.DrawIcon(My.Resources.SuDoKu, Rect)
-      Threading.Thread.Sleep(100)
-    Next i
-
-    Plcy_Strg = "   "
-    Frm_SDK.Invalidate()
   End Sub
   Public Sub G4_Grid_Stratégie_DCd(g As Graphics)
     If Plcy_Strg <> "DCd" Then Exit Sub
-
     ' Récupérer les indices des cellules concernées
     Dim indices As List(Of Integer) = Enumerable.Range(0, 81).
-                             Where(Function(i) U(i, 2) = Pbl_Valeur_CdS).
-                             ToList()
-
+                   Where(Function(i) U(i, 2) = Pbl_Valeur_CdS).ToList()
     Dim figure As String =
         If(indices.Count = 9, "Cercle", "Double_Carré")
-
     For Each i As Integer In indices
       G0_Cell_Figure(g, i, figure, Color_Stratégique)
     Next
   End Sub
-  Public Sub G4_Grid_Stratégie_DCd_2(g As Graphics)
-    If Not Plcy_Strg = "DCd" Then Exit Sub
-    Dim n As Integer
-    For i As Integer = 0 To 80
-      If U(i, 2) = Pbl_Valeur_CdS Then n += 1
-    Next i
-
-
-    For i As Integer = 0 To 80
-      If U(i, 2) = Pbl_Valeur_CdS Then
-        If n = 9 Then
-          G0_Cell_Figure(g, i, "Cercle", Color_Stratégique)
-        Else
-          G0_Cell_Figure(g, i, "Double_Carré", Color_Stratégique)
-        End If
-      End If
-    Next i
-  End Sub
   Public Sub G4_Grid_Stratégie_Cdd(g As Graphics)
     If Not Plcy_Strg = "Cdd" Then Exit Sub
+    Dim sc As New Cellule_Cls
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then
-        Dim sc_a As New Cellule_Cls With {.Numéro = i}
-        sc_a.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+        sc.Numéro = i
+        sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
       End If
     Next i
   End Sub
@@ -172,11 +119,14 @@ Friend Module M03_Paint
     ' Affichage des Valeurs Filtrés
     If Mid$(Plcy_Strg, 1, 2) = "FV" Then
       Dim Valeur_Filtrée As String = Mid$(Plcy_Strg, 3, 1)
-      For i As Integer = 0 To 80
-        If U(i, 2) = Valeur_Filtrée Then
-          G0_Cell_Figure(g, i, "Double_Carré", Color_Stratégique)
-        End If
-      Next i
+      ' Récupérer les indices des cellules concernées
+      Dim indices As List(Of Integer) = Enumerable.Range(0, 81).
+                   Where(Function(i) U(i, 2) = Valeur_Filtrée).ToList()
+      Dim figure As String =
+        If(indices.Count = 9, "Cercle", "Double_Carré")
+      For Each i As Integer In indices
+        G0_Cell_Figure(g, i, figure, Color_Stratégique)
+      Next
       MW_Prv_Val = CInt(Valeur_Filtrée)
       Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte
     End If
@@ -220,8 +170,9 @@ Friend Module M03_Paint
     G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
 
     Candidat = RRslt.Candidat
+    Dim sc As New Cellule_Cls
     For Each cellexcl As Integer In RRslt.CelExcl
-      Dim sc As New Cellule_Cls With {.Numéro = cellexcl}
+      sc.Numéro = cellexcl
       sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
       'Re-dessine le candidat à placer dans un cercle plein rouge
       sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
@@ -256,8 +207,9 @@ Friend Module M03_Paint
     End Select
     G4_MdC_Paint(g)  ' Les figures sont dessinées et les candidats affichés
 
+    Dim sc As New Cellule_Cls
     For Each cellexcl As Integer In RRslt.CelExcl
-      Dim sc As New Cellule_Cls With {.Numéro = cellexcl}
+      sc.Numéro = cellexcl
       sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
       'Re-dessine le candidat à placer dans un cercle plein rouge
       sc.G6_Cellule_Paint_Candidat(g, Candidat, Color_Cdd_Exclure)
@@ -462,6 +414,7 @@ Friend Module M03_Paint
       sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
       G0_Cdd_Figure(g, cell, CInt(Candidat), "Disque", Color_Stratégique)
     Next
+
     For Each cellexcl As Integer In RRslt.CelExcl
       G0_Cell_Figure(g, cellexcl, "Double_Carré", Color_Stratégique)
     Next
@@ -1586,7 +1539,8 @@ Friend Module M03_Paint
           g.FillRegion(brsh, MdC_Région)                    ' G4
         End Using
         Dim sc As New Cellule_Cls With {.Numéro = i}
-        If sc.Valeur <> 0 Then sc.G5_Cellule_Paint_Valeur(g)                            ' G5
+        '21/04/2026 les valeurs ne sont plus dessinées, car Color_Stratégique est transparent 
+        'If sc.Valeur <> 0 Then sc.G5_Cellule_Paint_Valeur(g)                              ' G5
         If sc.Valeur = 0 Then sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")   ' G6
       End If
       MdC_Région.Dispose()

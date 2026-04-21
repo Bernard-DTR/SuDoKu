@@ -5,9 +5,11 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName
-  Public SDK_Version As String = "V2026_04_18 #736"
+  Public SDK_Version As String = "V2026_04_18 #739"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
+  Public Valeurs_initiales_Clct As New Collection
+
 #End Region
 
 #Region "01 Les Tailles"
@@ -159,7 +161,7 @@ Module A00_Public
   Public Color_Trait As Color = Color.Green                                ' Couleur des traits du Grid
   Public Color_Fond_Typ_I As Color = Color.FromArgb(255, 192, 255, 192)    ' Couleur Fond Valeurs Initiales
   Public Color_Fond_Typ_RV As Color = Color.FromArgb(255, 129, 224, 129)   ' Couleur Fond Cellule Remplie/Vide
-  Public Color_Stratégique As Color = Color.FromArgb(255, 15, 196, 101)
+  Public Color_Stratégique As Color = Color.FromArgb(128, 15, 196, 101)
 
   Public Color_VI As Color = Color.FromArgb(255, 211, 40, 10)              ' Couleur d'affichage graphique des Valeurs Initiales       (Rouge)
   Public Color_VCdd As Color = Color.FromArgb(255, 23, 94, 23)             ' Couleur d'affichage graphique des Valeurs et des Candidats (Vert)

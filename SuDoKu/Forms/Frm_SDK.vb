@@ -14,9 +14,18 @@ Public NotInheritable Class Frm_SDK
   'La ProgressBar ne peut pas adopter la couleur souhaitée
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
+  Private InflateValue As Integer = 0
+  Private AnimationCellule As Integer
+  Private AnimationInflate As Integer
+
+
   Public Sub New()
     ' Cet appel est requis par le concepteur.
     InitializeComponent()
+    Me.SetStyle(ControlStyles.DoubleBuffer _
+             Or ControlStyles.UserPaint _
+             Or ControlStyles.AllPaintingInWmPaint, True)
+    Me.UpdateStyles()
   End Sub
 
   Private Sub Frm_SDK_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -26,9 +35,9 @@ Public NotInheritable Class Frm_SDK
     OO_000_SDK_Load()
     AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     Size = New Size(1692, 1036) 'Taille maximale :SDK   
-    SetStyle(ControlStyles.UserPaint Or ControlStyles.AllPaintingInWmPaint, True)
     '        ControlStyles.OptimizedDoubleBuffer, True empêche l'affichage de la grille
-    UpdateStyles()
+    'SetStyle(ControlStyles.UserPaint Or ControlStyles.AllPaintingInWmPaint, True)
+    'UpdateStyles()
 
 #Region "Contrôles B_*"
     'Mise en place des contrôles B_* de Frm_SDK
@@ -261,6 +270,18 @@ Public NotInheritable Class Frm_SDK
     Build_Fond_Saisie()
 
   End Sub
+  Private Sub AnimationTimer_Tick(sender As Object, e As EventArgs) Handles AnimationTimer.Tick
+    Dim cellule As Integer = Clct_Random(Valeurs_initiales_Clct)
+    If cellule = -1 OrElse InflateValue > WH * 2 Then
+      AnimationTimer.Stop()
+      Invalidate()
+      Exit Sub
+    End If
+    AnimationCellule = cellule
+    AnimationInflate = InflateValue
+    InflateValue += 2
+    Invalidate(Sqr_Cel(cellule))   ' Redessine uniquement la zone
+  End Sub
 
   Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)
     Try
@@ -292,6 +313,12 @@ Public NotInheritable Class Frm_SDK
     G4_Grid_Stratégie_All(e.Graphics)
     If Cellule_Survolee >= 0 AndAlso U(Cellule_Survolee, 2) = " " Then
       e.Graphics.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
+    End If
+    ' Animation
+    If AnimationTimer.Enabled AndAlso AnimationCellule >= 0 Then
+      Dim rect As Rectangle = Sqr_Cel(AnimationCellule)
+      rect.Inflate(AnimationInflate, AnimationInflate)
+      e.Graphics.DrawIcon(My.Resources.SuDoKu, rect)
     End If
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -362,7 +389,6 @@ Public NotInheritable Class Frm_SDK
     End If
     Cellule_Survolee = -1
   End Sub
-
   Private Sub Frm_SDK_MouseClick(sender As Object, e As MouseEventArgs) Handles MyBase.MouseClick
     ' e as MouseEventArgs permet de localiser la souris
     ' seuls les clics gauche et milieu sont détectés, le clic droit affiche le menu contextuel
@@ -395,7 +421,6 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-
   Private Sub Frm_SDK_MouseClick_Middle(sender As Object, Candidat As Integer)
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
     Dim TTT_Message As String = Cnddts_Blancs
@@ -726,7 +751,6 @@ Public NotInheritable Class Frm_SDK
         Strategy_Rslt_Display(Strategy_Rslt, -1)
     End Select
     Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
-
   End Sub
   Private Sub Btn0_Click(sender As Object, e As EventArgs) Handles Btn0.Click
     Strategy_Dsp_Standard()
