@@ -1,24 +1,43 @@
 ﻿Imports System.Drawing.Drawing2D
 Module M03_Paint_Quadrillage
 #Region "G1 Couche Quadrillage"
-  Public Sub Build_Quadrillage()
+  Public Sub Build_Bmp_Quadrillage()
     Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
     Using g As Graphics = Graphics.FromImage(Bmp_Quadrillage)
       G1_Grid_Paint(g)
     End Using
   End Sub
-  Public Sub Build_Fond_Valeur()
-    Bmp_Fond_Valeur = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
-    Using g As Graphics = Graphics.FromImage(Bmp_Fond_Valeur)
+  Public Sub Build_Bmp_Fond()
+    Bmp_Fond = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
+    Bmp_Fond.SetResolution(96, 96)
+    Using g As Graphics = Graphics.FromImage(Bmp_Fond)
+      g.SmoothingMode = SmoothingMode.None
+      g.InterpolationMode = InterpolationMode.NearestNeighbor
+      g.PixelOffsetMode = PixelOffsetMode.None
+      g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
       Dim sc As New Cellule_Cls
       For i As Integer = 0 To 80
         sc.Numéro = i
         sc.G2_Cellule_Paint_Fond(g)
+      Next
+    End Using
+  End Sub
+  Public Sub Build_Bmp_Valeur()
+    Bmp_Valeur = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
+    Bmp_Valeur.SetResolution(96, 96)
+    Using g As Graphics = Graphics.FromImage(Bmp_Valeur)
+      g.SmoothingMode = SmoothingMode.None
+      g.InterpolationMode = InterpolationMode.NearestNeighbor
+      g.PixelOffsetMode = PixelOffsetMode.None
+      g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
+      Dim sc As New Cellule_Cls
+      For i As Integer = 0 To 80
+        sc.Numéro = i
         sc.G5_Cellule_Paint_Valeur(g)
       Next
     End Using
   End Sub
-  Public Sub Build_Fond_Saisie()
+  Public Sub Build_Bmp_Saisie()
     ' le Bmp_Fond_Saisie est calculé une seule fois dans Frm_SDK_Load
     Bmp_Fond_Saisie = New Bitmap(WH, WH)
     Dim r As New Rectangle(0, 0, WH, WH)

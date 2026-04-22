@@ -27,7 +27,7 @@
     Cell_Coll_Modifiées_List = Cdd_Remove_Cell_Coll_List(U, Cellule)
     Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
     Pbl_Valeur_CdS = V
-    Build_Fond_Valeur()
+    Build_Bmp_Valeur()
 
     Mnu_Mngt_Barre_Outils_Filtres()
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
@@ -66,6 +66,7 @@
       Array.Copy(U, U_Chk, UNbCopy)
       Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
       If U_Check.Check AndAlso Wh_Nb_Cell(U).Initiales < 81 Then
+        Plcy_Strg = "   "
         Jrn_Add(, {"La grille est correcte."}, "Emoji")
         Frm_SDK.B_Info.Text = "La grille est correcte."
         ' Configuration du Timer
@@ -74,11 +75,6 @@
           Where(Function(i) U(i, 1) <> " ").
           ToList().
           ForEach(Sub(i) Clct_Add(Valeurs_initiales_Clct, i))
-
-        'For i As Integer = 0 To 80
-        '  If U(i, 1) <> " " Then Clct_Add(Valeurs_initiales_Clct, i)
-        'Next i
-
         Frm_SDK.InflateValue = 0
         Frm_SDK.AnimationInflate = 0
         Frm_SDK.AnimationTimer.Interval = 100 ' ms
@@ -113,7 +109,7 @@
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
-    Build_Fond_Valeur()
+    Build_Bmp_Valeur()
     Act_Add(Cellule, "Effacer", VE, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 

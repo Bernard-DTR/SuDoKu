@@ -18,7 +18,6 @@ Public NotInheritable Class Frm_SDK
   Private AnimationCellule As Integer
   Public AnimationInflate As Integer
 
-
   Public Sub New()
     ' Cet appel est requis par le concepteur.
     InitializeComponent()
@@ -267,7 +266,7 @@ Public NotInheritable Class Frm_SDK
       Mnu08.Font = New Font(Mnu08.Font, FontStyle.Italic)
       Batch_Initial()
     End If
-    Build_Fond_Saisie()
+    Build_Bmp_Saisie()
 
   End Sub
   Private Sub AnimationTimer_Tick(sender As Object, e As EventArgs) Handles AnimationTimer.Tick
@@ -310,7 +309,8 @@ Public NotInheritable Class Frm_SDK
     'Le quadrillage n'est pas redessiné, c'est un bitmap qui est affiché, ce qui améliore les performances d'affichage
     Dim g As Graphics = e.Graphics
     g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
-    g.DrawImageUnscaled(Bmp_Fond_Valeur, 0, 0)
+    g.DrawImageUnscaled(Bmp_Fond, 0, 0)
+    g.DrawImageUnscaled(Bmp_Valeur, 0, 0)
     G4_Grid_Stratégie_All(g)
     ' Grille de saisie
     If Cellule_Survolee >= 0 AndAlso U(Cellule_Survolee, 2) = " " Then
@@ -674,7 +674,7 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 1) = " " And U_Sol(i) <> " " Then U(i, 2) = U_Sol(i)
     Next i
-    Build_Fond_Valeur()
+    Build_Bmp_Valeur()
     B_Info.Text = "Affichage de la Solution"
     Invalidate()
     Application.DoEvents()    'Affiche la grille sans solutions immédiatement
@@ -682,7 +682,7 @@ Public NotInheritable Class Frm_SDK
     Thread.Sleep(2000) 'Le temps de lire quelques valeurs
 
     For i As Integer = 0 To 80 : U(i, 2) = jeu_Save.Substring(i, 1) : Next i
-    Build_Fond_Valeur()
+    Build_Bmp_Valeur()
     B_Info.Text = " _ "
     Invalidate()
     Application.DoEvents()
@@ -1134,7 +1134,7 @@ Public NotInheritable Class Frm_SDK
     Array.Copy(U, U_Chk, UNbCopy)
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
     U_Checking_Display(U_Check, True)
-    Build_Fond_Valeur()
+    Build_Bmp_Valeur()
     Invalidate()
   End Sub
   Private Sub Mnu08_RésoudreEnForceBrute_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreEnForceBrute.Click
@@ -1173,7 +1173,7 @@ Public NotInheritable Class Frm_SDK
         For i As Integer = 0 To 80
           U(i, 2) = DL.Solution(0).Substring(i, 1)
         Next i
-        Build_Fond_Valeur()
+        Build_Bmp_Valeur()
         Invalidate()
       Case Else
         Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
@@ -1198,7 +1198,7 @@ Public NotInheritable Class Frm_SDK
     Dim Solved As Boolean = DB_Solution(AllCandidates)
     If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."}, "Red")
     AllCandidates_SDK(AllCandidates)
-    Build_Fond_Valeur()
+    Build_Bmp_Valeur()
   End Sub
   Private Sub Mnu08_EditionDuProblème_Click(sender As Object, e As EventArgs) Handles Mnu08_EditionDuProblème.Click
     Jrn_Add(, {Proc_Name_Get()})
@@ -1263,7 +1263,7 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
     Next i
-    Build_Fond_Valeur()
+    Build_Bmp_Valeur()
     Invalidate()
   End Sub
 

@@ -415,6 +415,9 @@
 #738 Ma 21/04/2026 Me.SetStyle(ControlStyles.DoubleBuffer True) pour éviter les scintillements
 #739 Ma 21/04/2026 Animation refaite avec un timer  
 #740 Ma 21/04/2026 Animation refaite avec un timer  + Correction des collections de grilles en cours de création
+#741 Me 22/04/2026 Mise en place de Build_Bmp_Fond et Build_Bmp_Valeur séparés
+
+
 ##############################################################################################################################
 
 ????               Préférences ne met pas correctement à jour le quadrillage et le fond !

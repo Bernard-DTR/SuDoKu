@@ -82,7 +82,7 @@
     Else
       Jrn_Add(, {"Stratégie de Force Brute : ECHEC!"})
     End If
-    Build_Fond_Valeur()
+    Build_Bmp_Valeur()
     Frm_SDK.Invalidate()
   End Sub
 
