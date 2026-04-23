@@ -99,7 +99,7 @@ Module A00_Public
   Public U_Row(0 To 80) As Integer                   '        dans quelle Ligne   se trouve une cellule (de 0 à 8)
   Public U_cr(0 To 80) As String                     '        les coordonnées Lx_Cy de chaque cellule
   Public U_Reg(0 To 80) As Integer                   '        dans quelle Région  se trouve une cellule (de 0 à 8)
-
+  Public U_dv(0 To 80) As Boolean
   'Le terme Rectangle est remplacé par le terme Bande 
   Public U_Bh(0 To 80) As Integer                    '        N° de la bande horizontale
   Public U_Bv(0 To 80) As Integer                    '        N° de la bande verticale

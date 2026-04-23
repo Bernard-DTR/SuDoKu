@@ -23,43 +23,45 @@
     ' 02  L'insertion dans les ressources
     U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
     U_CddExc(Cellule) = Cnddts_Blancs
+    ' TODO La liste est désormais inutile
     Cell_Coll_Modifiées_List.Clear()
     Cell_Coll_Modifiées_List = Cdd_Remove_Cell_Coll_List(U, Cellule)
     Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
     Pbl_Valeur_CdS = V
-    Build_Bmp_Valeur()
+    'CalculDernieresVides()
+    Build_Bmp_Valeurs()
 
     Mnu_Mngt_Barre_Outils_Filtres()
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     ' 03  L'affichage du résultat
-    Select Case Stg_Get(Plcy_Strg).Family
-      Case 0         ' Invalidation d'une cellule
-        ' Aucune stratégie, stratégie des filtres 
-        Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-          Frm_SDK.Invalidate(reg, False)
-        End Using
-      Case 1        ' Invalidation des cellules collatérales
-        ' Stratégie Cdd, les candidats sont affichés
-        If Cell_Coll_Modifiées_List.Count > 0 Then
-          Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-            For Each cell As Integer In Cell_Coll_Modifiées_List
-              reg.Union(Sqr_Pth(cell))
-            Next
-            Frm_SDK.Invalidate(reg, False)
-          End Using
-        Else
-          ' Si la liste est vide, on peut invalider uniquement la cellule principale
-          Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-            Frm_SDK.Invalidate(reg, False)
-          End Using
-        End If
-      Case Else     ' Invalidation de la grille entière
-        'les stratégies 2,3,4,7 et de nombreuses situations spéciales
-        Frm_SDK.Invalidate()
-    End Select
-
+    'Select Case Stg_Get(Plcy_Strg).Family
+    '  Case 0         ' Invalidation d'une cellule
+    '    ' Aucune stratégie, stratégie des filtres 
+    '    Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+    '      Frm_SDK.Invalidate(reg, False)
+    '    End Using
+    '  Case 1        ' Invalidation des cellules collatérales
+    '    ' Stratégie Cdd, les candidats sont affichés
+    '    If Cell_Coll_Modifiées_List.Count > 0 Then
+    '      Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+    '        For Each cell As Integer In Cell_Coll_Modifiées_List
+    '          reg.Union(Sqr_Pth(cell))
+    '        Next
+    '        Frm_SDK.Invalidate(reg, False)
+    '      End Using
+    '    Else
+    '      ' Si la liste est vide, on peut invalider uniquement la cellule principale
+    '      Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
+    '        Frm_SDK.Invalidate(reg, False)
+    '      End Using
+    '    End If
+    '  Case Else     ' Invalidation de la grille entière
+    '    'les stratégies 2,3,4,7 et de nombreuses situations spéciales
+    '    Frm_SDK.Invalidate()
+    'End Select
+    Frm_SDK.Invalidate()
     '  Fin de partie
     If Wh_Nb_Cell(U).Remplies = 81 Then
       Dim U_Chk(80, 3) As String
@@ -70,13 +72,12 @@
         Jrn_Add(, {"La grille est correcte."}, "Emoji")
         Frm_SDK.B_Info.Text = "La grille est correcte."
         ' Configuration du Timer
-        Valeurs_initiales_Clct.Clear()
+        'l'animation pourrait être simplifiée en prenant les VI dans l'ordre
+        'Valeurs_initiales_Clct.Clear()
         Enumerable.Range(0, 81).
           Where(Function(i) U(i, 1) <> " ").
           ToList().
           ForEach(Sub(i) Clct_Add(Valeurs_initiales_Clct, i))
-        Frm_SDK.InflateValue = 0
-        Frm_SDK.AnimationInflate = 0
         Frm_SDK.AnimationTimer.Interval = 100 ' ms
         Frm_SDK.AnimationTimer.Start()
       End If
@@ -109,7 +110,7 @@
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
-    Build_Bmp_Valeur()
+    Build_Bmp_Valeurs()
     Act_Add(Cellule, "Effacer", VE, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
 
@@ -160,7 +161,6 @@
         U(XCel_Cel, 3) = Candidats
         U_CddExc(XCel_Cel) = Candidats_Exclus
         Act_Add(XCel_Cel, "Exclure_Cdd", XCel_Cdd, Candidats, Plcy_Strg, Act_Jeu(), Act_Candidats())
-
       Next
     End If
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
@@ -270,21 +270,102 @@
     Select Case Type_IE
       Case "Include"
         If XSolution(Cellule) <> Candidat Then
-          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat " & XSolution(Cellule) & " est attendu à la place de " & Candidat & "."}, "Emoji")
+          Cpt_Pénalités += 1
+          Jrn_Add(, {Cpt_Pénalités.ToString().PadLeft(3) & " Erreur en " & U_Coord(Cellule) & "! Le candidat " & XSolution(Cellule) & " est attendu à la place de " & Candidat & "."}, "Red")
           Return False
         End If
       Case "Exclude"
         If XSolution(Cellule) = Candidat Then
-          Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & "! Le candidat " & Candidat & " est la solution. "}, "Emoji")
+          Cpt_Pénalités += 1
+          Jrn_Add(, {Cpt_Pénalités.ToString().PadLeft(3) & " Erreur en " & U_Coord(Cellule) & "! Le candidat " & Candidat & " est la solution. "}, "Red")
           Return False
         End If
     End Select
     Return True
   End Function
 
-  '🛠
   Public Sub Pénalités(Origine As String)
     Cpt_Pénalités += 1
-    Jrn_Add(, {"🛠" & " " & Cpt_Pénalités.ToString().PadLeft(5) & " " & Origine}, "Emoji")
+    Jrn_Add(, {Cpt_Pénalités.ToString().PadLeft(3) & " " & Origine}, "Red")
+
   End Sub
+
+  Public Function UniqueVideLigne(U(,) As String, row As Integer) As Integer
+    Dim idxVide As Integer = -1
+    Dim count As Integer = 0
+
+    For c As Integer = 0 To 8
+      Dim i As Integer = row * 9 + c
+      If U(i, 2) = " " Then
+        idxVide = i
+        count += 1
+        If count > 1 Then Return -1
+      End If
+    Next
+
+    Return If(count = 1, idxVide, -1)
+  End Function
+
+  Public Function UniqueVideCol(U(,) As String, col As Integer) As Integer
+    Dim idxVide As Integer = -1
+    Dim count As Integer = 0
+
+    For r As Integer = 0 To 8
+      Dim i As Integer = r * 9 + col
+      If U(i, 2) = " " Then
+        idxVide = i
+        count += 1
+        If count > 1 Then Return -1
+      End If
+    Next
+
+    Return If(count = 1, idxVide, -1)
+  End Function
+
+  Public Function UniqueVideRegion(U(,) As String, reg As Integer) As Integer
+    Dim r0 As Integer = (reg \ 3) * 3
+    Dim c0 As Integer = (reg Mod 3) * 3
+
+    Dim idxVide As Integer = -1
+    Dim count As Integer = 0
+
+    For k As Integer = 0 To 8
+      Dim r As Integer = r0 + (k \ 3)
+      Dim c As Integer = c0 + (k Mod 3)
+      Dim i As Integer = r * 9 + c
+
+      If U(i, 2) = " " Then
+        idxVide = i
+        count += 1
+        If count > 1 Then Return -1
+      End If
+    Next
+
+    Return If(count = 1, idxVide, -1)
+  End Function
+
+  Public Sub CalculDernieresVides()
+
+    Array.Clear(U_dv, 0, U_dv.Length)
+
+    ' Lignes
+    For r As Integer = 0 To 8
+      Dim i As Integer = UniqueVideLigne(U, r)
+      If i >= 0 Then U_dv(i) = True
+    Next
+
+    ' Colonnes
+    For c As Integer = 0 To 8
+      Dim i As Integer = UniqueVideCol(U, c)
+      If i >= 0 Then U_dv(i) = True
+    Next
+
+    ' Régions
+    For reg As Integer = 0 To 8
+      Dim i As Integer = UniqueVideRegion(U, reg)
+      If i >= 0 Then U_dv(i) = True
+    Next
+
+  End Sub
+
 End Module

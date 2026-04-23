@@ -2,7 +2,6 @@
 Imports Word = Microsoft.Office.Interop.Word 'Pour enregistrer en RTF le Journal
 ' Gestion des Messages
 ' V()  as string comporte les variables %0,%1,...,%9
-' Ve() as string
 
 'Msg_01000 = Définition du message avec des variables %0, %1 à %9; éventuellement %vbcrlf permet d'aller à la ligne.%Sp-xy pour placer xy caractères blancs
 'Le message commence immédiatement à droite du signe égal
@@ -158,10 +157,6 @@ Module M10_Message
           .SelectionFont = New Font(.Font, FontStyle.Bold)
           .SelectionColor = Color.Black
           .SelectionBackColor = Color.Red
-        Case "Emoji"
-          .SelectionFont = New Font("Segoe UI Emoji", .Font.Size, FontStyle.Bold)
-          .SelectionColor = Color.Red
-          .SelectionBackColor = Nothing
         Case Else          'Affichage standard d'une ligne dans le journal
           .SelectionFont = New Font(.Font, FontStyle.Regular)
           .SelectionColor = Color.White

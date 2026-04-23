@@ -416,6 +416,8 @@
 #739 Ma 21/04/2026 Animation refaite avec un timer  
 #740 Ma 21/04/2026 Animation refaite avec un timer  + Correction des collections de grilles en cours de création
 #741 Me 22/04/2026 Mise en place de Build_Bmp_Fond et Build_Bmp_Valeur séparés
+#742 J  23/04/2026 Les erreurs sont comptées
+#743 J  23/04/2026 Invalidate(cellule) et invalidate(cell_Coll) sont abandonnées
 
 
 ##############################################################################################################################
@@ -429,3 +431,5 @@
 ????               voir dans les formes primaires à quoi sert de mettre le valeurs ou les candidats
 ????               Revoir les couches la couche stratégique doit être l'avant dernière, la saisie la dernière
 ????               Faire un tableau de l'utilisation de strategie.Famille
+                   Stg_Get(Plcy_Strg).Family ne sert plus que dans le menu contextuel et Mouse_Clic!
+                   Signaler la dernier cellule d'une unité

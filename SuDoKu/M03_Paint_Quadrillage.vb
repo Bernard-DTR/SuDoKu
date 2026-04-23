@@ -7,7 +7,7 @@ Module M03_Paint_Quadrillage
       G1_Grid_Paint(g)
     End Using
   End Sub
-  Public Sub Build_Bmp_Fond()
+  Public Sub Build_Bmp_Fonds()
     Bmp_Fond = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
     Bmp_Fond.SetResolution(96, 96)
     Using g As Graphics = Graphics.FromImage(Bmp_Fond)
@@ -22,7 +22,7 @@ Module M03_Paint_Quadrillage
       Next
     End Using
   End Sub
-  Public Sub Build_Bmp_Valeur()
+  Public Sub Build_Bmp_Valeurs()
     Bmp_Valeur = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
     Bmp_Valeur.SetResolution(96, 96)
     Using g As Graphics = Graphics.FromImage(Bmp_Valeur)
@@ -35,6 +35,9 @@ Module M03_Paint_Quadrillage
         sc.Numéro = i
         sc.G5_Cellule_Paint_Valeur(g)
       Next
+      'For i As Integer = 0 To 80
+      '  If U_dv(i) Then G0_Cell_Figure(g, i, "Cercle", Color_Stratégique)
+      'Next
     End Using
   End Sub
   Public Sub Build_Bmp_Saisie()

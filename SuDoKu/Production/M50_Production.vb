@@ -832,8 +832,9 @@ Pzzl_Prd_Boucle:
     Jrn_Add(, {"Les candidats ne sont pas recalculés."}, "Info")
     Dim Wh_Nb As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
     Wh_Nb_Cell_Display(Wh_Nb)
+    Build_Bmp_Fonds()
+    Build_Bmp_Valeurs()
     Frm_SDK.Invalidate()
-    Application.DoEvents()
 
 Pzzl_Prd_End:
     Select Case Prd.Prd_Code_Retour

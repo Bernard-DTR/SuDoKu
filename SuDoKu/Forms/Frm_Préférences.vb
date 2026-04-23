@@ -324,8 +324,8 @@
     If Not Mode_Load Then
       OC_Présentation()
       Build_Bmp_Quadrillage()
-      Build_Bmp_Fond()
-      Build_Bmp_Valeur()
+      Build_Bmp_Fonds()
+      Build_Bmp_Valeurs()
       Build_Bmp_Saisie()
       Frm_SDK.Invalidate()
     End If
@@ -353,8 +353,8 @@
     Plcy_Fond_Grille = CB01_ComboBoxFond.SelectedIndex
     If Not Mode_Load Then
       OC_Présentation()
-      Build_Bmp_Fond()
-      Build_Bmp_Valeur()
+      Build_Bmp_Fonds()
+      Build_Bmp_Valeurs()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -376,8 +376,8 @@
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
       OC_Présentation()
-      Build_Bmp_Fond()
-      Build_Bmp_Valeur()
+      Build_Bmp_Fonds()
+      Build_Bmp_Valeurs()
       Frm_SDK.Invalidate()
     End If
   End Sub

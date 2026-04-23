@@ -14,9 +14,7 @@ Public NotInheritable Class Frm_SDK
   'La ProgressBar ne peut pas adopter la couleur souhaitée
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
-  Public InflateValue As Integer = 0
   Private AnimationCellule As Integer
-  Public AnimationInflate As Integer
 
   Public Sub New()
     ' Cet appel est requis par le concepteur.
@@ -271,14 +269,12 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub AnimationTimer_Tick(sender As Object, e As EventArgs) Handles AnimationTimer.Tick
     Dim cellule As Integer = Clct_Random(Valeurs_initiales_Clct)
-    If cellule = -1 OrElse InflateValue > WH * 2 Then
+    If cellule = -1 Then
       AnimationTimer.Stop()
       Invalidate()
       Exit Sub
     End If
     AnimationCellule = cellule
-    AnimationInflate = InflateValue
-    InflateValue += 2
     Invalidate(Sqr_Cel(cellule))   ' Redessine uniquement la zone
   End Sub
 
@@ -318,9 +314,7 @@ Public NotInheritable Class Frm_SDK
     End If
     ' Animation
     If AnimationTimer.Enabled AndAlso AnimationCellule >= 0 Then
-      Dim rect As Rectangle = Sqr_Cel(AnimationCellule)
-      rect.Inflate(AnimationInflate, AnimationInflate)
-      g.DrawIcon(My.Resources.SuDoKu, rect)
+      g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(AnimationCellule))
     End If
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -674,7 +668,7 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 1) = " " And U_Sol(i) <> " " Then U(i, 2) = U_Sol(i)
     Next i
-    Build_Bmp_Valeur()
+    Build_Bmp_Valeurs()
     B_Info.Text = "Affichage de la Solution"
     Invalidate()
     Application.DoEvents()    'Affiche la grille sans solutions immédiatement
@@ -682,10 +676,9 @@ Public NotInheritable Class Frm_SDK
     Thread.Sleep(2000) 'Le temps de lire quelques valeurs
 
     For i As Integer = 0 To 80 : U(i, 2) = jeu_Save.Substring(i, 1) : Next i
-    Build_Bmp_Valeur()
+    Build_Bmp_Valeurs()
     B_Info.Text = " _ "
     Invalidate()
-    Application.DoEvents()
   End Sub
   Private Sub Mnu03_Rafraîchir_Click(sender As Object, e As EventArgs) Handles Mnu03_Rafraîchir.Click
     Invalidate()
@@ -1134,7 +1127,7 @@ Public NotInheritable Class Frm_SDK
     Array.Copy(U, U_Chk, UNbCopy)
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
     U_Checking_Display(U_Check, True)
-    Build_Bmp_Valeur()
+    Build_Bmp_Valeurs()
     Invalidate()
   End Sub
   Private Sub Mnu08_RésoudreEnForceBrute_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreEnForceBrute.Click
@@ -1173,7 +1166,7 @@ Public NotInheritable Class Frm_SDK
         For i As Integer = 0 To 80
           U(i, 2) = DL.Solution(0).Substring(i, 1)
         Next i
-        Build_Bmp_Valeur()
+        Build_Bmp_Valeurs()
         Invalidate()
       Case Else
         Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
@@ -1198,7 +1191,7 @@ Public NotInheritable Class Frm_SDK
     Dim Solved As Boolean = DB_Solution(AllCandidates)
     If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."}, "Red")
     AllCandidates_SDK(AllCandidates)
-    Build_Bmp_Valeur()
+    Build_Bmp_Valeurs()
   End Sub
   Private Sub Mnu08_EditionDuProblème_Click(sender As Object, e As EventArgs) Handles Mnu08_EditionDuProblème.Click
     Jrn_Add(, {Proc_Name_Get()})
@@ -1263,7 +1256,7 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
     Next i
-    Build_Bmp_Valeur()
+    Build_Bmp_Valeurs()
     Invalidate()
   End Sub
 
@@ -1541,7 +1534,6 @@ Public NotInheritable Class Frm_SDK
       If GRslt.Productivité Or XRslt.Productivité Then Exit For
     Next i
     If Pzzl_Slv_UO(U_temp) Then Jrn_Add(, {"La grille est désormais résolvable en CdU_CdO."}, "Red")
-
   End Sub
   Private Sub Mnu0902_Click(sender As Object, e As EventArgs) Handles Mnu0902.Click
     ' Cette option permet de supprimer les candidats et rétablit l'affichage standard
