@@ -15,6 +15,7 @@ Public NotInheritable Class Frm_SDK
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
   Private AnimationCellule As Integer
+  Private AnimationNuméro As Integer = 0
 
   Public Sub New()
     ' Cet appel est requis par le concepteur.
@@ -268,14 +269,19 @@ Public NotInheritable Class Frm_SDK
 
   End Sub
   Private Sub AnimationTimer_Tick(sender As Object, e As EventArgs) Handles AnimationTimer.Tick
-    Dim cellule As Integer = Clct_Random(Valeurs_initiales_Clct)
-    If cellule = -1 Then
+    'L'utilisation de Cell_FY_List permet d'avoir une séquense hasardeuse et
+    'une arythmie puisque seules les VI sont animées.
+    Dim cellule As Integer = Cell_FY_List.Item(AnimationNuméro)
+    AnimationNuméro += 1
+    If AnimationNuméro >= 80 Then
       AnimationTimer.Stop()
       Invalidate()
       Exit Sub
     End If
-    AnimationCellule = cellule
-    Invalidate(Sqr_Cel(cellule))   ' Redessine uniquement la zone
+    If U(cellule, 1) <> " " Then
+      AnimationCellule = cellule
+      Invalidate(Sqr_Cel(AnimationCellule))
+    End If
   End Sub
 
   Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)

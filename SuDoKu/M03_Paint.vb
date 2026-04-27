@@ -13,7 +13,7 @@ Friend Module M03_Paint
         U_Strg_Val_Ins(i) = ""
         U_Strg_Cdd_Exc(i) = Cnddts_Blancs
       Next i
-      G4_Grid_Stratégie_DCd(g)
+      G4_Grid_Stratégie_DCs(g)
       G4_Grid_Stratégie_Cdd(g)
       G4_Grid_Stratégie_CdU(g)
       G4_Grid_Stratégie_CdO(g)
@@ -38,8 +38,8 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_GCs(g)
     End If
   End Sub
-  Public Sub G4_Grid_Stratégie_DCd(g As Graphics)
-    If Plcy_Strg <> "DCd" Then Exit Sub
+  Public Sub G4_Grid_Stratégie_DCs(g As Graphics)
+    If Plcy_Strg <> "DCs" Then Exit Sub
     ' Récupérer les indices des cellules concernées
     Dim indices As List(Of Integer) = Enumerable.Range(0, 81).
                    Where(Function(i) U(i, 2) = Pbl_Valeur_CdS).ToList()

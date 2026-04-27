@@ -8,7 +8,6 @@ Module A00_Public
   Public SDK_Version As String = "V2026_04_18 #741"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
-  Public Valeurs_initiales_Clct As New Collection
 #End Region
 
 #Region "01 Les Tailles"

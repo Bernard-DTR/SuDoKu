@@ -69,15 +69,9 @@
       Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
       If U_Check.Check AndAlso Wh_Nb_Cell(U).Initiales < 81 Then
         Plcy_Strg = "   "
-        Jrn_Add(, {"La grille est correcte."}, "Emoji")
+        Jrn_Add(, {"La grille est correcte."}, "Red")
         Frm_SDK.B_Info.Text = "La grille est correcte."
         ' Configuration du Timer
-        'l'animation pourrait être simplifiée en prenant les VI dans l'ordre
-        'Valeurs_initiales_Clct.Clear()
-        Enumerable.Range(0, 81).
-          Where(Function(i) U(i, 1) <> " ").
-          ToList().
-          ForEach(Sub(i) Clct_Add(Valeurs_initiales_Clct, i))
         Frm_SDK.AnimationTimer.Interval = 100 ' ms
         Frm_SDK.AnimationTimer.Start()
       End If
