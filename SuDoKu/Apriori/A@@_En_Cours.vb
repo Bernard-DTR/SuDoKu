@@ -39,6 +39,10 @@ Module A_En_Cours
   End Sub
   Public Sub TestG()
     Jrn_Add(, {Proc_Name_Get()})
+    Jrn_Add_Yellow("U_nb = ")
+    For i As Integer = 0 To 10
+      Jrn_Add_Orange("U_nb(" & i & ") = " & U_nb(i).ToString())
+    Next
   End Sub
   Public Sub TestH()
     Jrn_Add(, {Proc_Name_Get()})

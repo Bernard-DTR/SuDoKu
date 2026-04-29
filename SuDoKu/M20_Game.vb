@@ -32,10 +32,9 @@ Friend Module M20_Game
           Next i
         End If
     End Select
-
+    WH_U_nb()
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
 
-    Paint_Partie_Terminée_Nb = 0
     Pbl_Cell_Select = 0
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
     Mnu_Mngt_Barre_Outils_Filtres()

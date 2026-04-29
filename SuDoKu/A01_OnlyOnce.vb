@@ -129,7 +129,6 @@ Friend Module A01_OnlyOnce
       U_Col(i) = i Mod 9
       U_Row(i) = i \ 9
       U_Reg(i) = Wh_Région_Cel(i)
-      'U_Suggest(i) = "0"
     Next i
     For i As Integer = 0 To 80
       U_cr(i) = "L" & U_Row(i) + 1 & "_" & "C" & U_Col(i) + 1               ' Format Lx_Cy

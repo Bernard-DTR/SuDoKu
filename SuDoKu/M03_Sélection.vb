@@ -2,37 +2,47 @@
   '-------------------------------------------------------------------------------
   ' Traitement de la Sélection 
   '-------------------------------------------------------------------------------
-  Sub Cell_Val_Insert(V As String, Cellule As Integer, Origine As String)
-    ' Jrn_Add_Yellow(Proc_Name_Get())
-
-    ' 01  Les Conditions d'Insertion
-    If Cellule < 0 Or Cellule > 80 Then Exit Sub
-    If U(Cellule, 2) <> " " Then Exit Sub
-    If V < "1" Or V > "9" Then Exit Sub
+  Sub Cell_Val_Insert(Val As String, Cellule As Integer, Origine As String)
+    ' 3 Utilisations : Frm_SDK_MouseClick     La cellule et le candidat sont testés
+    '                  Mnu_Cel_Val_Insérer    La cellule et le candidat sont testés dans le menu
+    '                  Cell_Slv_Result        les tests sont effectués dans le calcul de la résolution
+    ' La cellule est obligatoirement une cellule, une cellule vide et le candidat est correct
+    ' 011 Cellule et Val   
+    'If Cellule < 0 Or Cellule > 80 Then Exit Sub
+    'If U(Cellule, 2) <> " " Then Exit Sub
+    'If Val < "1" Or Val > "9" Then Exit Sub
+    ' 012 Les Policy
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
-
-    If Plcy_Strg <> "Sai" AndAlso Not Cell_Cdd_Controle(V, Cellule, "Include") Then Exit Sub
-
-    Game_Undo_Redo = "Normal"
+    If Plcy_Strg <> "Sai" AndAlso Not Cell_Cdd_Controle(Val, Cellule, "Include") Then Exit Sub
+    ' 013 Undo-Redo
+    Game_Undo_Redo = "Normal" ' Peut prendre la valeur "Normal" ou Action
     Dim Av_Jeu As String = Act_Jeu()
     Dim Av_AllCdd As String = Act_Candidats()
     Dim Candidats_Avant As String = U(Cellule, 3)
-
     Pbl_Cell_Select = Cellule
 
     ' 02  L'insertion dans les ressources
-    U(Cellule, 2) = V : U(Cellule, 3) = Cnddts_Blancs
+    U(Cellule, 2) = Val : U(Cellule, 3) = Cnddts_Blancs
     U_CddExc(Cellule) = Cnddts_Blancs
+    U_nb(0) += 1                         ' Décompte les cellules saisies
+    U_nb(CInt(Val)) += 1                 ' Décompte les cellules par valeur
+
+    ' 021 Traitement des cellules collatérales
+    Cdd_Remove_Cell_Coll_Opt(U, Cellule)
     ' TODO La liste est désormais inutile
-    Cell_Coll_Modifiées_List.Clear()
-    Cell_Coll_Modifiées_List = Cdd_Remove_Cell_Coll_List(U, Cellule)
-    Act_Add(Cellule, "Ajouter", V, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
-    Pbl_Valeur_CdS = V
+    'Cell_Coll_Modifiées_List.Clear()
+    'Cell_Coll_Modifiées_List = Cdd_Remove_Cell_Coll_List(U, Cellule)
+
+    ' 022 Traitement divers
+    Act_Add(Cellule, "Ajouter", Val, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
+    Pbl_Valeur_CdS = Val
     'CalculDernieresVides()
     Build_Bmp_Valeurs()
-
-    Mnu_Mngt_Barre_Outils_Filtres()
-    Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    'Mnu_Mngt_Barre_Outils_Filtres() distinguer Build et enabled
+    Mnu_Mngt_Barre_Outils_Filtres_Enabled()
+    'Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
+    'SDK_00112 = Cellules Initiales %0, Cellules vides %1
+    Frm_SDK.B_Info.Text = Msg_Read("SDK_00112", {U_nb(10).ToString(), (81 - U_nb(0)).ToString()})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     ' 03  L'affichage du résultat
@@ -82,7 +92,7 @@
     Dim Av_Jeu As String = Act_Jeu()
     Dim Av_AllCdd As String = Act_Candidats()
     Game_Undo_Redo = "Normal"
-    Dim VE As String = U(Cellule, 2)        'Valeur effacée  
+    Dim VE As String = U(Cellule, 2)        'Val effacée  
 
     If Plcy_Gnrl = "Edi" Then Exit Sub
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
@@ -107,7 +117,6 @@
     Build_Bmp_Valeurs()
     Act_Add(Cellule, "Effacer", VE, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
     Frm_SDK.Invalidate()
   End Sub
@@ -192,6 +201,25 @@
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
+  Public Function Cdd_Remove_Cell_Coll_Opt(ByRef U_temp(,) As String, Cellule As Integer) As Integer
+    ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales
+    ' Retourne le nombre de cellules dans lesquelles un candidat a été enlevé 
+    '         -1 en cas d'erreur
+    ' Le tableau U_temp des cellules est passé en ByRef, car il sort modifié de la fonction 
+    Dim nb As Integer = 0
+    Dim Val As String = U_temp(Cellule, 2)
+    Dim Grp() As Integer = U_20Cell_Coll(Cellule)
+    For Each Cell_Coll As Integer In Grp
+      If U_temp(Cell_Coll, 2) <> " " Then Continue For  ' La cellule collatérale a déjà une valeur, on continue
+      Dim Candidats As String = U_temp(Cell_Coll, 3)
+      If Candidats.Substring(CInt(Val) - 1, 1) = Val Then
+        Mid$(Candidats, CInt(Val), 1) = " "          ' Remplacer la valeur par un espace
+        U_temp(Cell_Coll, 3) = Candidats
+        nb += 1
+      End If
+    Next Cell_Coll
+    Return nb
+  End Function
 
   Public Function Cdd_Remove_Cell_Coll(ByRef U_temp(,) As String, Cellule As Integer) As Integer
     ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales
@@ -207,10 +235,10 @@
 
     Dim Grp() As Integer = U_20Cell_Coll(Cellule)
     For Each Cell_Coll As Integer In Grp
-      If U_temp(Cell_Coll, 2) <> " " Then Continue For  ' Si la cellule collatérale a déjà une valeur, continuer
+      If U_temp(Cell_Coll, 2) <> " " Then Continue For  ' La cellule collatérale a déjà une valeur, on continue
       Dim Candidats As String = U_temp(Cell_Coll, 3)
       If Candidats.Substring(CInt(Valeur) - 1, 1) = Valeur Then
-        Mid$(Candidats, CInt(Valeur), 1) = " "        ' Remplacer la valeur par un espace
+        Mid$(Candidats, CInt(Valeur), 1) = " "          ' Remplacer la valeur par un espace
         U_temp(Cell_Coll, 3) = Candidats
         nb += 1
       End If
@@ -225,7 +253,7 @@
     ' Retourne la liste des cellules dans lesquelles un candidat a été enlevé
     Dim list_Coll As New List(Of Integer)
 
-    ' Valeur placée dans la cellule
+    ' Val placée dans la cellule
     Dim valeur As String = U_temp(cellule, 2)
     If valeur = " " Then Return list_Coll   ' Rien à enlever
 

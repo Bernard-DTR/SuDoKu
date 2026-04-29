@@ -4,10 +4,16 @@ Imports System.Threading    ' Nécessaire pour Thread
 Module A00_Public
 
 #Region "00 Généralités"
-  'Le nom de l'application est Application.ProductName
+  'Le nom de l'application est Application.ProductName    
   Public SDK_Version As String = "V2026_04_18 #741"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
+  Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
+  '                                        ' 0 Nombre de cellules remplies
+  '                                        ' 10 Nombre de cellules initiales
+  '                                        ' 1 à 9 Nombre de cellules remplies avec la valeur correspondante    
+  '      Initialisées dans Game_New_Game()
+  '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete()   
 #End Region
 
 #Region "01 Les Tailles"
@@ -98,7 +104,7 @@ Module A00_Public
   Public U_Row(0 To 80) As Integer                   '        dans quelle Ligne   se trouve une cellule (de 0 à 8)
   Public U_cr(0 To 80) As String                     '        les coordonnées Lx_Cy de chaque cellule
   Public U_Reg(0 To 80) As Integer                   '        dans quelle Région  se trouve une cellule (de 0 à 8)
-  Public U_dv(0 To 80) As Boolean
+  Public U_dv(0 To 80) As Boolean                    'Calcul des dernières cellules vides
   'Le terme Rectangle est remplacé par le terme Bande 
   Public U_Bh(0 To 80) As Integer                    '        N° de la bande horizontale
   Public U_Bv(0 To 80) As Integer                    '        N° de la bande verticale
@@ -298,7 +304,6 @@ Module A00_Public
   Public Journal_Emp_Blocage As Integer = 0
 
   Public Swt_ModeEdition As Integer = -1
-  Public Paint_Partie_Terminée_Nb As Integer = 0
   Public Msg_Dsp_MsgId As Boolean = False         ' Affiche ou non le MsgId devant le texte du message
 
   Public Game_Undo_Redo As String = String.Empty

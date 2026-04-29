@@ -419,6 +419,9 @@
 #742 J  23/04/2026 Les erreurs sont comptées
 #743 J  23/04/2026 Invalidate(cellule) et invalidate(cell_Coll) sont abandonnées
 #744 L  27/04/2026 Animation, utilisation de Cell_FY_List
+#745 Ma 28/04/2026 Création de U_nb(0 to 10) pour compter les valeurs d'une grille
+#746 Me 29/04/2026 Optimisation de l'insertion d'une valeur
+#747 Me 29/04/2026 Mnu_Mngt_Barre_Outils_Filtres_Enabled() est appelé à chaque insertion de valeur
 
 ##############################################################################################################################
 
@@ -433,3 +436,4 @@
 ????               Faire un tableau de l'utilisation de strategie.Famille
                    Stg_Get(Plcy_Strg).Family ne sert plus que dans le menu contextuel et Mouse_Clic!
                    Signaler la dernier cellule d'une unité
+                   Optimisation

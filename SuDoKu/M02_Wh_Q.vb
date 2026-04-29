@@ -3,6 +3,19 @@
   ' Wh What Réservé aux fonctions
   ' Hw How  Réservé aux procédures
   '-------------------------------------------------------------------------------
+  Public Sub WH_U_nb()
+    ' Retourne le nombre de valeurs différentes des valeurs dans la grille
+    For i As Integer = 0 To 10 : U_nb(i) = 0 : Next
+    Dim V As Integer
+    For i As Integer = 0 To 80
+      If U(i, 2) <> " " Then
+        V = CInt(U(i, 2))
+        U_nb(0) += 1                         ' Compte les cellules saisies
+        U_nb(V) += 1                         ' Compte les cellules par valeur
+        If U(i, 1) <> " " Then U_nb(10) += 1 ' Compte les cellules initiales
+      End If
+    Next i
+  End Sub
   Public Function Wh_3RowReg(Région As Integer) As Integer()
     ' Retourne les 3 Rangées d'une Région
     Dim Wh_3Row(2) As Integer
@@ -106,7 +119,6 @@
     Next cd
     Return n
   End Function
-
   Public Function Wh_Pourcentage() As String
     'Calcule le Pourcentage de cellules remplies dans la grille
     Return CStr((Wh_Nb_Cell(U).Remplies * 100) \ 81) & " %"
@@ -259,9 +271,10 @@
   End Function
 
   Public Function Wh_Cellule_Candidat_Pt(cellule As Integer, pt As Point) As Integer
-    If cellule < 0 OrElse cellule > 80 Then
-      Return -1
-    End If
+    '#746 La cellule est correcte
+    'If cellule < 0 OrElse cellule > 80 Then
+    '  Return -1
+    'End If
     Dim baseIdx As Integer = cellule * 10
     For cdd As Integer = 1 To 9
       If Sqr_Cdd_Inf(baseIdx + cdd).Contains(pt) Then

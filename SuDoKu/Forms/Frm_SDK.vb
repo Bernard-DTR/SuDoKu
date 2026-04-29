@@ -308,7 +308,8 @@ Public NotInheritable Class Frm_SDK
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
     MyBase.OnPaint(e)
     If Not Phase_Démarrage_Terminée Then Exit Sub
-    'Le quadrillage n'est pas redessiné, c'est un bitmap qui est affiché, ce qui améliore les performances d'affichage
+    'Le quadrillage, le fond, les valeurs et la grille de saisie ne sont pas redessinés.
+    'C'est 4 bitmaps qui sont affichés pour améliorer les performances d'affichage
     Dim g As Graphics = e.Graphics
     g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
     g.DrawImageUnscaled(Bmp_Fond, 0, 0)
@@ -400,6 +401,7 @@ Public NotInheritable Class Frm_SDK
       'Il n'est pas besoin de calculer la cellule, c'est Pbl_Cell_Select
       If Pbl_Cell_Select = -1 Then Exit Sub
       Dim Candidat_Pt As Integer = Wh_Cellule_Candidat_Pt(Pbl_Cell_Select, New Point(x:=e.X, y:=e.Y))
+      If Candidat_Pt = -1 Then Exit Sub
       'Le mouse-click se fait soit sur un square, soit ailleurs
       'Il est de 3 types: Gauche, Milieu, Droit
       'Gauche: Rien de particulier, le menu contextuel est préparé,
@@ -1270,7 +1272,6 @@ Public NotInheritable Class Frm_SDK
 
 #Region "Menus Contextuels"
   Private Sub Mnu_Cel_Val_Insérer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Ins_9.Click, Mnu_Cel_Val_Ins_8.Click, Mnu_Cel_Val_Ins_7.Click, Mnu_Cel_Val_Ins_6.Click, Mnu_Cel_Val_Ins_5.Click, Mnu_Cel_Val_Ins_4.Click, Mnu_Cel_Val_Ins_3.Click, Mnu_Cel_Val_Ins_2.Click, Mnu_Cel_Val_Ins_1.Click
-    'Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(18) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx_Ins")
     Cell_Val_Insert(sender.ToString(18), Pbl_Cell_Select, "Mnu_Ctx_Ins")
   End Sub
   Private Sub Mnu_Cel_Val_Effacer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Eff_x.Click

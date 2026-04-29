@@ -76,13 +76,30 @@
     Frm_SDK.Invalidate()
   End Sub
 
+  Sub Mnu_Mngt_Barre_Outils_Filtres_Enabled()
+    For Each Btn As ToolStripItem In Frm_SDK.BarreOutils.Items
+      ' Seuls les Boutons Filtres de la Barre d'Outils sont traités
+      If Not TypeOf Btn Is ToolStripButton Then Continue For
+      Dim Flt As String = Mid$(Btn.Name, 4, 1)
+      If Not (Flt >= "1" AndAlso Flt <= "9") Then Continue For
+      Btn.Visible = True
+      Btn.Enabled = True
+      Btn.ToolTipText = $"Filtrer les valeurs ou candidats {Flt}"
+      If U_nb(CInt(Flt)) = 9 Then
+        Jrn_Add_Yellow(Proc_Name_Get() & " " & Btn.Name)
+        Btn.Enabled = False
+        Btn.ToolTipText = $"Les valeurs {Flt} sont toutes présentes."
+      End If
+    Next Btn
+  End Sub
+
   Sub Mnu_Mngt_Barre_Outils_Filtres()
     ' Seuls les Boutons Filtres de la Barre d'Outils sont traités
     Dim n() As Integer = Wh_Nb_Cell(U).Val_Nb
-    Dim Btn As System.Windows.Forms.ToolStripItem
+    'Dim Btn As System.Windows.Forms.ToolStripItem
     'Les ToolStripSeparator sont correctement placés
     'Les Btn Filtre n'ont pas de texte, uniquement une Image
-    For Each Btn In Frm_SDK.BarreOutils.Items
+    For Each Btn As System.Windows.Forms.ToolStripItem In Frm_SDK.BarreOutils.Items
       If Btn.GetType().ToString() <> "System.Windows.Forms.ToolStripButton" Then Continue For
       Btn.Visible = True
       'Remise à l'état standard, ne concerne que les filtres 1 à 9
