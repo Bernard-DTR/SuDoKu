@@ -119,13 +119,10 @@ Friend Module M03_Paint
     ' Affichage des Valeurs Filtrés
     If Mid$(Plcy_Strg, 1, 2) = "FV" Then
       Dim Valeur_Filtrée As String = Mid$(Plcy_Strg, 3, 1)
-      ' Récupérer les indices des cellules concernées
-      Dim indices As List(Of Integer) = Enumerable.Range(0, 81).
-                   Where(Function(i) U(i, 2) = Valeur_Filtrée).ToList()
-      Dim figure As String =
-        If(indices.Count = 9, "Cercle", "Double_Carré")
-      For Each i As Integer In indices
-        G0_Cell_Figure(g, i, figure, Color_Stratégique)
+      Dim figure2 As String =
+        If(U_nb(CInt(Valeur_Filtrée)) = 9, "Cercle", "Double_Carré")
+      For i As Integer = 0 To 80
+        If U(i, 2) = Valeur_Filtrée Then G0_Cell_Figure(g, i, figure2, Color_Stratégique)
       Next
       MW_Prv_Val = CInt(Valeur_Filtrée)
       Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte

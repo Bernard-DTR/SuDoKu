@@ -86,7 +86,7 @@
       Btn.Enabled = True
       Btn.ToolTipText = $"Filtrer les valeurs ou candidats {Flt}"
       If U_nb(CInt(Flt)) = 9 Then
-        Jrn_Add_Yellow(Proc_Name_Get() & " " & Btn.Name)
+        'Jrn_Add_Yellow(Proc_Name_Get() & " " & Btn.Name)
         Btn.Enabled = False
         Btn.ToolTipText = $"Les valeurs {Flt} sont toutes présentes."
       End If

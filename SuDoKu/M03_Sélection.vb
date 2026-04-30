@@ -8,9 +8,6 @@
     '                  Cell_Slv_Result        les tests sont effectués dans le calcul de la résolution
     ' La cellule est obligatoirement une cellule, une cellule vide et le candidat est correct
     ' 011 Cellule et Val   
-    'If Cellule < 0 Or Cellule > 80 Then Exit Sub
-    'If U(Cellule, 2) <> " " Then Exit Sub
-    'If Val < "1" Or Val > "9" Then Exit Sub
     ' 012 Les Policy
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
     If Plcy_Strg <> "Sai" AndAlso Not Cell_Cdd_Controle(Val, Cellule, "Include") Then Exit Sub
@@ -29,50 +26,19 @@
 
     ' 021 Traitement des cellules collatérales
     Cdd_Remove_Cell_Coll_Opt(U, Cellule)
-    ' TODO La liste est désormais inutile
-    'Cell_Coll_Modifiées_List.Clear()
-    'Cell_Coll_Modifiées_List = Cdd_Remove_Cell_Coll_List(U, Cellule)
 
     ' 022 Traitement divers
     Act_Add(Cellule, "Ajouter", Val, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
     Pbl_Valeur_CdS = Val
     'CalculDernieresVides()
     Build_Bmp_Valeurs()
-    'Mnu_Mngt_Barre_Outils_Filtres() distinguer Build et enabled
     Mnu_Mngt_Barre_Outils_Filtres_Enabled()
-    'Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
-    'SDK_00112 = Cellules Initiales %0, Cellules vides %1
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00112", {U_nb(10).ToString(), (81 - U_nb(0)).ToString()})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
 
     ' 03  L'affichage du résultat
-    'Select Case Stg_Get(Plcy_Strg).Family
-    '  Case 0         ' Invalidation d'une cellule
-    '    ' Aucune stratégie, stratégie des filtres 
-    '    Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-    '      Frm_SDK.Invalidate(reg, False)
-    '    End Using
-    '  Case 1        ' Invalidation des cellules collatérales
-    '    ' Stratégie Cdd, les candidats sont affichés
-    '    If Cell_Coll_Modifiées_List.Count > 0 Then
-    '      Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-    '        For Each cell As Integer In Cell_Coll_Modifiées_List
-    '          reg.Union(Sqr_Pth(cell))
-    '        Next
-    '        Frm_SDK.Invalidate(reg, False)
-    '      End Using
-    '    Else
-    '      ' Si la liste est vide, on peut invalider uniquement la cellule principale
-    '      Using reg As New Region(Sqr_Pth(Pbl_Cell_Select))
-    '        Frm_SDK.Invalidate(reg, False)
-    '      End Using
-    '    End If
-    '  Case Else     ' Invalidation de la grille entière
-    '    'les stratégies 2,3,4,7 et de nombreuses situations spéciales
-    '    Frm_SDK.Invalidate()
-    'End Select
     Frm_SDK.Invalidate()
-    '  Fin de partie
+    ' 04  Fin de partie
     If Wh_Nb_Cell(U).Remplies = 81 Then
       Dim U_Chk(80, 3) As String
       Array.Copy(U, U_Chk, UNbCopy)
@@ -212,10 +178,15 @@
     For Each Cell_Coll As Integer In Grp
       If U_temp(Cell_Coll, 2) <> " " Then Continue For  ' La cellule collatérale a déjà une valeur, on continue
       Dim Candidats As String = U_temp(Cell_Coll, 3)
-      If Candidats.Substring(CInt(Val) - 1, 1) = Val Then
-        Mid$(Candidats, CInt(Val), 1) = " "          ' Remplacer la valeur par un espace
-        U_temp(Cell_Coll, 3) = Candidats
-        nb += 1
+      'If Candidats.Substring(CInt(Val) - 1, 1) = Val Then
+      '  Mid$(Candidats, CInt(Val), 1) = " "          ' Remplacer la valeur par un espace
+      '  U_temp(Cell_Coll, 3) = Candidats
+      '  nb += 1
+      'End If
+      If Candidats(CInt(Val) - 1) = Val Then
+        Dim sb As New System.Text.StringBuilder(Candidats)
+        sb(CInt(Val) - 1) = " "c
+        U_temp(Cell_Coll, 3) = sb.ToString()
       End If
     Next Cell_Coll
     Return nb
@@ -246,39 +217,6 @@
 
     Return nb
   End Function
-  Public Function Cdd_Remove_Cell_Coll_List(ByRef U_temp(,) As String, cellule As Integer) As List(Of Integer)
-    ' TODO à terme cette fonction devrait remplacer Cdd_Remove_Cell_Coll
-    ' Le tableau U_temp des cellules est passé en ByRef, car il sort modifié de la fonction 
-    ' Enlever la valeur placée dans la Cellule des 20 Cellules Collatérales
-    ' Retourne la liste des cellules dans lesquelles un candidat a été enlevé
-    Dim list_Coll As New List(Of Integer)
-
-    ' Val placée dans la cellule
-    Dim valeur As String = U_temp(cellule, 2)
-    If valeur = " " Then Return list_Coll   ' Rien à enlever
-
-    Dim v As Integer = CInt(valeur)
-    Dim Grp() As Integer = U_20Cell_Coll(cellule)
-
-    For Each cell_coll As Integer In Grp
-      ' Si la cellule collatérale a déjà une valeur, on ignore
-      If U_temp(cell_coll, 2) <> " " Then Continue For
-      Dim candidats As String = U_temp(cell_coll, 3)
-
-      ' Vérification de sécurité : longueur correcte
-      If candidats.Length < 9 Then Continue For
-
-      ' Si le candidat est présent
-      If candidats(v - 1) = valeur Then
-        Dim sb As New System.Text.StringBuilder(candidats)
-        sb(v - 1) = " "c
-        U_temp(cell_coll, 3) = sb.ToString()
-        list_Coll.Add(cell_coll)
-      End If
-    Next
-    Return list_Coll
-  End Function
-
   Public Sub Grid_Cdd_Remove_Cell_Coll(ByRef U_temp(,) As String)
     For i As Integer = 0 To 80
       Cdd_Remove_Cell_Coll(U_temp, i)

@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_04_18 #741"
+  Public SDK_Version As String = "V2026_04_18 #748"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -489,8 +489,6 @@ Module A00_Public
 
   Public XCdds_List As New List(Of XCdd_Cls)
   Public XLinks_List As New List(Of XLink_Cls)         ' List des liens 
-
-  Public Cell_Coll_Modifiées_List As New List(Of Integer)
 
   Public XAllRoads_List As New List(Of List(Of XLink_Cls))
   Public Const XRoads_Max As Integer = 645120          ' Nombre de chemins pour 7 liens
