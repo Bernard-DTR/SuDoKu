@@ -41,12 +41,17 @@ Friend Module M03_Paint
   Public Sub G4_Grid_Stratégie_DCs(g As Graphics)
     If Plcy_Strg <> "DCs" Then Exit Sub
     ' Récupérer les indices des cellules concernées
-    Dim indices As List(Of Integer) = Enumerable.Range(0, 81).
-                   Where(Function(i) U(i, 2) = Pbl_Valeur_CdS).ToList()
+    'Dim indices As List(Of Integer) = Enumerable.Range(0, 81).
+    '               Where(Function(i) U(i, 2) = Pbl_Valeur_CdS).ToList()
+    'Dim figure As String =
+    '    If(indices.Count = 9, "Cercle", "Double_Carré")
+    'For Each i As Integer In indices
+    '  G0_Cell_Figure(g, i, figure, Color_Stratégique)
+    'Next
     Dim figure As String =
-        If(indices.Count = 9, "Cercle", "Double_Carré")
-    For Each i As Integer In indices
-      G0_Cell_Figure(g, i, figure, Color_Stratégique)
+        If(U_nb(CInt(Pbl_Valeur_CdS)) = 9, "Cercle", "Double_Carré")
+    For i As Integer = 0 To 80
+      If U(i, 2) = Pbl_Valeur_CdS Then G0_Cell_Figure(g, i, figure, Color_Stratégique)
     Next
   End Sub
   Public Sub G4_Grid_Stratégie_Cdd(g As Graphics)
@@ -119,10 +124,10 @@ Friend Module M03_Paint
     ' Affichage des Valeurs Filtrés
     If Mid$(Plcy_Strg, 1, 2) = "FV" Then
       Dim Valeur_Filtrée As String = Mid$(Plcy_Strg, 3, 1)
-      Dim figure2 As String =
+      Dim figure As String =
         If(U_nb(CInt(Valeur_Filtrée)) = 9, "Cercle", "Double_Carré")
       For i As Integer = 0 To 80
-        If U(i, 2) = Valeur_Filtrée Then G0_Cell_Figure(g, i, figure2, Color_Stratégique)
+        If U(i, 2) = Valeur_Filtrée Then G0_Cell_Figure(g, i, figure, Color_Stratégique)
       Next
       MW_Prv_Val = CInt(Valeur_Filtrée)
       Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte

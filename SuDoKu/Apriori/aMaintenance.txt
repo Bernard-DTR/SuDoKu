@@ -423,6 +423,7 @@
 #746 Me 29/04/2026 Optimisation de l'insertion d'une valeur
 #747 Me 29/04/2026 Mnu_Mngt_Barre_Outils_Filtres_Enabled() est appelé à chaque insertion de valeur
 #748 J  30/04/2026 G4_Grid_Stratégie_Flt utilise U_nb
+#749 J  30/04/2026 G4_Grid_Stratégie_DCs utilise U_nb
 
 ##############################################################################################################################
 
