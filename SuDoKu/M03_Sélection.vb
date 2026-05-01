@@ -58,7 +58,7 @@
     Dim Av_Jeu As String = Act_Jeu()
     Dim Av_AllCdd As String = Act_Candidats()
     Game_Undo_Redo = "Normal"
-    Dim VE As String = U(Cellule, 2)        'Val effacée  
+    Dim Val As String = U(Cellule, 2)        'Val effacée  
 
     If Plcy_Gnrl = "Edi" Then Exit Sub
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
@@ -68,20 +68,24 @@
         U(Cellule, 2) = " "
         U(Cellule, 3) = Cnddts
         U_CddExc(Cellule) = Cnddts_Blancs
-        'Remettre le candidat enlevé VE dans les cellules collatérales
+        U_nb(0) -= 1                         ' Décompte les cellules saisies
+        U_nb(CInt(Val)) -= 1                 ' Décompte les cellules par valeur
+
+        'Remettre le candidat enlevé Val dans les cellules collatérales
         Dim Grp() As Integer = U_20Cell_Coll(Cellule)
         For g As Integer = 0 To UBound(Grp)
           If U(Grp(g), 2) <> " " Then Continue For
-          If U(Grp(g), 3).Contains(VE) = False Then
+          If U(Grp(g), 3).Contains(Val) = False Then
             Dim Candidats As String = U(Grp(g), 3)
-            Mid$(Candidats, CInt(VE), 1) = VE
+            Mid$(Candidats, CInt(Val), 1) = Val
             U(Grp(g), 3) = Candidats
           End If
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
     Build_Bmp_Valeurs()
-    Act_Add(Cellule, "Effacer", VE, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
+    Mnu_Mngt_Barre_Outils_Filtres_Enabled()
+    Act_Add(Cellule, "Effacer", Val, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
     Frm_SDK.Invalidate()
@@ -247,7 +251,6 @@
   Public Sub Pénalités(Origine As String)
     Cpt_Pénalités += 1
     Jrn_Add(, {Cpt_Pénalités.ToString().PadLeft(3) & " " & Origine}, "Red")
-
   End Sub
 
   Public Function UniqueVideLigne(U(,) As String, row As Integer) As Integer

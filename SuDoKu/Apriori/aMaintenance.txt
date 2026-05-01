@@ -424,6 +424,8 @@
 #747 Me 29/04/2026 Mnu_Mngt_Barre_Outils_Filtres_Enabled() est appelé à chaque insertion de valeur
 #748 J  30/04/2026 G4_Grid_Stratégie_Flt utilise U_nb
 #749 J  30/04/2026 G4_Grid_Stratégie_DCs utilise U_nb
+#750 V  01/05/2026 Correction d'un bogue Mnu_Mngt_Barre_Outils_Filtres() (Boucle inutile)
+
 
 ##############################################################################################################################
 
@@ -438,4 +440,5 @@
 ????               Faire un tableau de l'utilisation de strategie.Famille
                    Stg_Get(Plcy_Strg).Family ne sert plus que dans le menu contextuel et Mouse_Clic!
                    Signaler la dernier cellule d'une unité
-                   Optimisation
+                   Mettre en place le DCs et la DCu
+                   Certaines stratégies propose plusieurs candidats à enlever, le menu conserve la ligne après suppression du candidat

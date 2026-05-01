@@ -79,16 +79,17 @@
   Sub Mnu_Mngt_Barre_Outils_Filtres_Enabled()
     For Each Btn As ToolStripItem In Frm_SDK.BarreOutils.Items
       ' Seuls les Boutons Filtres de la Barre d'Outils sont traités
-      If Not TypeOf Btn Is ToolStripButton Then Continue For
-      Dim Flt As String = Mid$(Btn.Name, 4, 1)
-      If Not (Flt >= "1" AndAlso Flt <= "9") Then Continue For
-      Btn.Visible = True
-      Btn.Enabled = True
-      Btn.ToolTipText = $"Filtrer les valeurs ou candidats {Flt}"
-      If U_nb(CInt(Flt)) = 9 Then
-        'Jrn_Add_Yellow(Proc_Name_Get() & " " & Btn.Name)
-        Btn.Enabled = False
-        Btn.ToolTipText = $"Les valeurs {Flt} sont toutes présentes."
+      If TypeOf Btn Is ToolStripButton Then
+        Dim Flt As String = Mid$(Btn.Name, 4, 1)
+        If Not (Flt >= "1" AndAlso Flt <= "9") Then Continue For
+        Btn.Visible = True
+        Btn.Enabled = True
+        Btn.ToolTipText = $"Filtrer les valeurs ou candidats {Flt}"
+        If U_nb(CInt(Flt)) = 9 Then
+          'Jrn_Add_Yellow(Proc_Name_Get() & " " & Btn.Name)
+          Btn.Enabled = False
+          Btn.ToolTipText = $"Les valeurs {Flt} sont toutes présentes."
+        End If
       End If
     Next Btn
   End Sub
@@ -118,26 +119,28 @@
           Btn.ImageScaling = ToolStripItemImageScaling.SizeToFit
           Btn.ImageAlign = ContentAlignment.MiddleCenter
           Btn.ToolTipText = "Filtrer les valeurs ou candidats " & Flt
-          For i As Integer = 1 To 9
-            If Flt = CStr(i) And n(i) = 9 Then
+          'For i As Integer = 1 To 9
+          'If Flt = CStr(i) And n(i) = 9 Then
+          If n(CInt(Flt)) = 9 Then
               Btn.Image = Sqr_Fantasy(0)     'Donc Subst_Police(Cstr(0)) retourne vide et le bouton n'affiche rien
               Btn.Enabled = False
               Btn.ToolTipText = "Les valeurs " & Flt & " sont toutes présentes."
             End If
-          Next i
-        Case False
+          'Next i
+            Case False
           'Utilisation indifférente de "Arial" ou de "Segoe UI"
           Btn.DisplayStyle = ToolStripItemDisplayStyle.Text
           Btn.Text = Flt
           Btn.Font = New Font("Segoe UI", 8, FontStyle.Bold)
           Btn.ToolTipText = "Filtrer les valeurs ou candidats " & Flt
-          For i As Integer = 1 To 9
-            If Flt = CStr(i) And n(i) = 9 Then
-              Btn.Font = New Font("Segoe UI", 8, FontStyle.Italic)
-              Btn.Enabled = False
-              Btn.ToolTipText = "Les valeurs " & Flt & " sont toutes présentes."
-            End If
-          Next i
+          'For i As Integer = 1 To 9
+          'If Flt = CStr(i) And n(i) = 9 Then
+          If n(CInt(Flt)) = 9 Then
+            Btn.Font = New Font("Segoe UI", 8, FontStyle.Italic)
+            Btn.Enabled = False
+            Btn.ToolTipText = "Les valeurs " & Flt & " sont toutes présentes."
+          End If
+          'Next i
       End Select
     Next Btn
   End Sub
