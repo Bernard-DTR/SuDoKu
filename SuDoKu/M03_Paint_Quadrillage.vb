@@ -34,14 +34,9 @@ Module M03_Paint_Quadrillage
       For i As Integer = 0 To 80
         sc.Numéro = i
         sc.G5_Cellule_Paint_Valeur(g)
-      Next
-      If Plcy_Derniere_Valeur_Unité Then
-        For i As Integer = 0 To 80
-          If U_dv(i) Then G0_Cell_Figure(g, i, "Cercle", Color_Stratégique)
-        Next
-      End If
-      For i As Integer = 0 To 80
-        If U_dv(i) Then G0_Cell_Figure(g, i, "Ellipse", Color_Stratégique)
+        If Plcy_Dernière_Valeur_Unité AndAlso U_dv(i) Then
+          G0_Cell_Figure(g, i, "Ellipse", Color_Stratégique)
+        End If
       Next
     End Using
   End Sub
@@ -191,5 +186,4 @@ Module M03_Paint_Quadrillage
     End Using
   End Sub
 #End Region
-
 End Module

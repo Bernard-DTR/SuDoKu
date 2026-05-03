@@ -57,7 +57,7 @@ Friend Module A01_OnlyOnce
       If WH = 0 Then WH = 80
       Plcy_Dancing_Link = .Prf_05D_Plcy_Dancing_Link
       Plcy_Open_Display = .Prf_05D_Plcy_Open_Display
-      Plcy_Derniere_Valeur_Unité = .Prf_05D_Plcy_Dernière_Valeur_Unité
+      Plcy_Dernière_Valeur_Unité = .Prf_05D_Plcy_Dernière_Valeur_Unité
 
       Plcy_Fond_Grille = .Prf_01C_Fond_Grille
       Plcy_MouseClick_Middle = .Prf_01C_MouseClick_Middle
@@ -98,7 +98,8 @@ Friend Module A01_OnlyOnce
   End Sub
   ''' <summary>Charge le fichier des messages dans un dictionnaire.</summary>
   Public Sub OO_200_Msg_Load()
-    'Cette procédure améliore la vitesse d'affichage d'un message qui sont chargés dans un dictionnaire
+    'Cette procédure améliore la vitesse d'affichage d'un message
+    'Ils sont chargés dans un dictionnaire
     Dim Msg As String
     Dim MsgID As String
     Dim Rcd As New IO.StreamReader(File_SDKMsg, Text.Encoding.Default)
@@ -130,12 +131,11 @@ Friend Module A01_OnlyOnce
       U_Sol(i) = " "                                                        ' Solution                      
       U_Col(i) = i Mod 9
       U_Row(i) = i \ 9
-      U_Reg(i) = Wh_Région_Cel(i)
+      'U_Reg(i) = Wh_Région_Cel(i)
+      U_Reg(i) = ((U_Row(i)) \ 3) * 3 + ((U_Col(i)) \ 3)
+      U_cr(i) = "L" & (U_Row(i) + 1) & "_" & "C" & (U_Col(i) + 1)           ' Format Lx_Cy
     Next i
-    For i As Integer = 0 To 80
-      U_cr(i) = "L" & U_Row(i) + 1 & "_" & "C" & U_Col(i) + 1               ' Format Lx_Cy
-    Next i
-    'Une fois U_Reg construit
+    'Seulement une fois U_Reg construit
     For i As Integer = 0 To 80
       Select Case U_Reg(i)
         Case 0 : U_Bh(i) = 0 : U_Bv(i) = 0

@@ -107,33 +107,33 @@
     Next i
     Return Nb_Candidats
   End Function
-  Public Function Wh_Nb_Cells_Nb_Candidats_Identiques(U_temp(,) As String, Cellule_A As Integer, Cellule_B As Integer) As Integer
-    'La fonction retourne le nombre de candidats communs entre 2 cellules
-    Dim n As Integer = 0
-    Dim Cdd_A As String = U_temp(Cellule_A, 3)
-    Dim Cdd_B As String = U_temp(Cellule_B, 3)
-    For cd As Integer = 1 To 9
-      If Cdd_A.Substring(cd - 1, 1) = Cdd_B.Substring(cd - 1, 1) Then
-        If (Cdd_A.Substring(cd - 1, 1) <> " " And Cdd_B.Substring(cd - 1, 1) <> " ") Then n += 1
-      End If
-    Next cd
-    Return n
-  End Function
+  'Public Function Wh_Nb_Cells_Nb_Candidats_Identiques(U_temp(,) As String, Cellule_A As Integer, Cellule_B As Integer) As Integer
+  '  'La fonction retourne le nombre de candidats communs entre 2 cellules
+  '  Dim n As Integer = 0
+  '  Dim Cdd_A As String = U_temp(Cellule_A, 3)
+  '  Dim Cdd_B As String = U_temp(Cellule_B, 3)
+  '  For cd As Integer = 1 To 9
+  '    If Cdd_A.Substring(cd - 1, 1) = Cdd_B.Substring(cd - 1, 1) Then
+  '      If (Cdd_A.Substring(cd - 1, 1) <> " " And Cdd_B.Substring(cd - 1, 1) <> " ") Then n += 1
+  '    End If
+  '  Next cd
+  '  Return n
+  'End Function
   Public Function Wh_Pourcentage() As String
     'Calcule le Pourcentage de cellules remplies dans la grille
     Return CStr((Wh_Nb_Cell(U).Remplies * 100) \ 81) & " %"
   End Function
-  Public Function Wh_RandomCelluleVide() As Integer
-    'Détermine une Cellule Vide au hasard
-    'Si aucune cellule n'est vide, retourne -1
-    Dim Cdd_Vide_Clct As New Collection
-    '1 Remplissage d'une collection des cellules vides
-    For i As Integer = 0 To 80
-      If U(i, 2) = " " Then Clct_Add(Cdd_Vide_Clct, i)
-    Next i
-    '2 Détermination d'une cellule vide au hasard
-    Wh_RandomCelluleVide = Clct_Random(Cdd_Vide_Clct)
-  End Function
+  'Public Function Wh_RandomCelluleVide() As Integer
+  '  'Détermine une Cellule Vide au hasard
+  '  'Si aucune cellule n'est vide, retourne -1
+  '  Dim Cdd_Vide_Clct As New Collection
+  '  '1 Remplissage d'une collection des cellules vides
+  '  For i As Integer = 0 To 80
+  '    If U(i, 2) = " " Then Clct_Add(Cdd_Vide_Clct, i)
+  '  Next i
+  '  '2 Détermination d'une cellule vide au hasard
+  '  Wh_RandomCelluleVide = Clct_Random(Cdd_Vide_Clct)
+  'End Function
   Public Function Wh_9CellulesRow_Row(Row As Integer) As Integer()
     'Détermine les 9 Cellules de la Ligne, à partir de la Ligne
     Dim Grp(0 To 8) As Integer
@@ -162,22 +162,22 @@
     End Select
     Return Grp
   End Function
-  Public Function Wh_Région_Cel(Cellule As Integer) As Integer
-    'Détermine la Région de 0 à 8 de la cellule
-    Dim Région As Integer = -1
-    Select Case Cellule
-      Case 0, 1, 2, 9, 10, 11, 18, 19, 20 : Région = 0
-      Case 3, 4, 5, 12, 13, 14, 21, 22, 23 : Région = 1
-      Case 6, 7, 8, 15, 16, 17, 24, 25, 26 : Région = 2
-      Case 27, 28, 29, 36, 37, 38, 45, 46, 47 : Région = 3
-      Case 30, 31, 32, 39, 40, 41, 48, 49, 50 : Région = 4
-      Case 33, 34, 35, 42, 43, 44, 51, 52, 53 : Région = 5
-      Case 54, 55, 56, 63, 64, 65, 72, 73, 74 : Région = 6
-      Case 57, 58, 59, 66, 67, 68, 75, 76, 77 : Région = 7
-      Case 60, 61, 62, 69, 70, 71, 78, 79, 80 : Région = 8
-    End Select
-    Return Région
-  End Function
+  'Public Function Wh_Région_Cel(Cellule As Integer) As Integer
+  '  'Détermine la Région de 0 à 8 de la cellule
+  '  Dim Région As Integer = -1
+  '  Select Case Cellule
+  '    Case 0, 1, 2, 9, 10, 11, 18, 19, 20 : Région = 0
+  '    Case 3, 4, 5, 12, 13, 14, 21, 22, 23 : Région = 1
+  '    Case 6, 7, 8, 15, 16, 17, 24, 25, 26 : Région = 2
+  '    Case 27, 28, 29, 36, 37, 38, 45, 46, 47 : Région = 3
+  '    Case 30, 31, 32, 39, 40, 41, 48, 49, 50 : Région = 4
+  '    Case 33, 34, 35, 42, 43, 44, 51, 52, 53 : Région = 5
+  '    Case 54, 55, 56, 63, 64, 65, 72, 73, 74 : Région = 6
+  '    Case 57, 58, 59, 66, 67, 68, 75, 76, 77 : Région = 7
+  '    Case 60, 61, 62, 69, 70, 71, 78, 79, 80 : Région = 8
+  '  End Select
+  '  Return Région
+  'End Function
   Public Function Wh_Cellule_ColRow(Cl As Integer, Rw As Integer) As Integer
     'Donne le numéro de la cellule
     Return (Rw * 9) + Cl

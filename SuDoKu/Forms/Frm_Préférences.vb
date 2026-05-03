@@ -169,7 +169,7 @@
       Case False : CB05_11.Checked = False
     End Select
     CB05_12.Text = Msg_Read("PRF_05120")
-    Select Case Plcy_Derniere_Valeur_Unité
+    Select Case Plcy_Dernière_Valeur_Unité
       Case True : CB05_12.Checked = True
       Case False : CB05_12.Checked = False
     End Select

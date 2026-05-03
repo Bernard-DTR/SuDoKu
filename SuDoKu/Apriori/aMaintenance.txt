@@ -429,6 +429,7 @@
 #752 D  03/05/2026 Correction de bogue dans Insertion d'une valeur
 #753 D  03/05/2026 Mise en place de DCs Mnu04n_SignalerLeCandidatSaisi_Click
 #754 D  03/05/2026 Mise en place de dernière cellule d'une unité
+#755 D  03/05/2026 Corrections diverses
 
 ##############################################################################################################################
 

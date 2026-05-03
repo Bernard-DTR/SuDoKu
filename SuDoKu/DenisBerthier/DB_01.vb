@@ -69,7 +69,8 @@ Module DB_01
     ' Remplissage
     For Each Cdd As Candidate In AllCandidates
       If Not Cdd.IsActive Then Continue For
-      Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
+      'Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
+      Dim Cellule As Integer = Wh_Cellule_ColRow(Cdd.Col - 1, Cdd.Row - 1)
       If Cdd.IsSolved Then
         U_temp(Cellule, 2) = Cdd.Digit.ToString()
         U_temp(Cellule, 3) = Cnddts_Blancs
@@ -138,12 +139,5 @@ Module DB_01
     End If
     Return True
   End Function
-  Public Function Controle_E(Cdd As Candidate) As Boolean
-    Dim Cellule As Integer = Wh_Cellule_RowCol(Cdd.Row - 1, Cdd.Col - 1)
-    If XSolution(Cellule) = CStr(Cdd.Digit) Then
-      Jrn_Add(, {"⛔" & "   Erreur en " & U_Coord(Cellule) & " " & CStr(Cdd.Digit) & " est la solution. "})
-      Return False
-    End If
-    Return True
-  End Function
+
 End Module

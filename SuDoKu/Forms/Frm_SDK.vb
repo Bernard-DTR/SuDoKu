@@ -497,13 +497,6 @@ Public NotInheritable Class Frm_SDK
     Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X, Top + Get_Centre(Cellule, Candidat).Y)
 
     MouseClick_Middle_ToolTip.ShowTooltip(Position)
-    '#713
-    'TTT_Timer.Interval = 2000
-    'AddHandler TTT_Timer.Tick, Sub(senderObj As Object, eventArgs As EventArgs)
-    '                             MouseClick_Middle_ToolTip.HideTooltip()
-    '                             TTT_Timer.Stop()
-    '                           End Sub
-    'TTT_Timer.Start()
     TTT_Timer.Interval = 2000
     TTT_Timer.Start()
   End Sub
@@ -590,7 +583,6 @@ Public NotInheritable Class Frm_SDK
     'U(i,1) est égal à " " tant que Commencer n'est pas lancé.
     'Les candidats collatéraux sont enlevés au fur et à mesure de la Saisie
     'Utilisation de la stratégie
-    'Stg_List.Add(New Stg_Cls("Sai", "N", "N", "N", "N", 0, "Saisir une grille"))
     Plcy_Gnrl = "Nrm"
     Plcy_Strg = "Sai"
     Game_New_Game(Plcy_Gnrl, Plcy_Strg, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
@@ -764,7 +756,9 @@ Public NotInheritable Class Frm_SDK
         End Select
         Strategy_Rslt_Display(Strategy_Rslt, -1)
     End Select
+    Mnu04n_SignalerLeCandidatSaisi.Checked = False
     Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
+
   End Sub
   Private Sub Btn0_Click(sender As Object, e As EventArgs) Handles Btn0.Click
     Strategy_Dsp_Standard()
@@ -780,6 +774,7 @@ Public NotInheritable Class Frm_SDK
       Case MouseButtons.Right
         Strategy_Code("FC" & flt, Proc_Name_Get())
     End Select
+    Mnu04n_SignalerLeCandidatSaisi.Checked = False
     Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
   End Sub
   Public Sub Mnu04n_Stratégie_XW_Click(Sender As Object, e As EventArgs)
