@@ -24,7 +24,6 @@
       '                              ' Dln Le nombre de solutions
       Public Solution() As String    ' Les Solutions
     End Structure
-
     Public Function DL_Solve(U_temp(,) As String) As DL_Solve_Struct
       ' Private _store As SudokuStore est modifié, il passe de = SudokuStore.First
       '                                                     à  = SudokuStore.All 

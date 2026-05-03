@@ -57,6 +57,8 @@ Friend Module A01_OnlyOnce
       If WH = 0 Then WH = 80
       Plcy_Dancing_Link = .Prf_05D_Plcy_Dancing_Link
       Plcy_Open_Display = .Prf_05D_Plcy_Open_Display
+      Plcy_Derniere_Valeur_Unité = .Prf_05D_Plcy_Dernière_Valeur_Unité
+
       Plcy_Fond_Grille = .Prf_01C_Fond_Grille
       Plcy_MouseClick_Middle = .Prf_01C_MouseClick_Middle
       Plcy_Generate_Batch = .Prf_02C_Plcy_Batch_Generate

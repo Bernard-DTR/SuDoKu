@@ -1,6 +1,5 @@
 ﻿Imports System.Drawing.Drawing2D
 Imports System.Runtime.InteropServices   ' Nécessaire à <DllImport("user32.dll")>
-Imports System.Threading
 
 Public Class Cellule_Cls
 #Region "Propriétés"
@@ -21,7 +20,6 @@ Public Class Cellule_Cls
   Private _position As Point
   Private _position_Center As Point
   Private _valeur As Integer                     ' Nouveau : INTEGER 0 si rien ou 1 à 9
-  Private _valeur_initiale As Boolean            ' Nouveau : True ou False
   Private _candidats As String                   ' Nouveau : 123456789 ou 9blancs ou 1b3bb6b89
   Private ReadOnly _cellule_arrondie As Boolean
 
@@ -55,15 +53,6 @@ Public Class Cellule_Cls
       _candidat_unique = False
       If (U(Numéro, 2) = " " AndAlso Trim(U(Numéro, 3)).Length = 1) Then _candidat_unique = True
       Return _candidat_unique
-    End Get
-  End Property
-  ''' <summary> La cellule est-elle une valeur initiale.</summary>
-  Public ReadOnly Property Valeur_Initiale As Boolean
-    'Propriété dépendante de U
-    Get
-      _valeur_initiale = False
-      If U(Numéro, 1) <> " " Then _valeur_initiale = True
-      Return _valeur_initiale
     End Get
   End Property
   ''' <summary> Candidats de la cellule.</summary>

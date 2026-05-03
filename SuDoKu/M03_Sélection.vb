@@ -30,7 +30,7 @@
     ' 022 Traitement divers
     Act_Add(Cellule, "Ajouter", Val, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
     Pbl_Valeur_CdS = Val
-    'CalculDernieresVides()
+    CalculDerniereValeurUnité()
     Build_Bmp_Valeurs()
     Mnu_Mngt_Barre_Outils_Filtres_Enabled()
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00112", {U_nb(10).ToString(), (81 - U_nb(0)).ToString()})
@@ -68,8 +68,6 @@
         U(Cellule, 2) = " "
         U(Cellule, 3) = Cnddts
         U_CddExc(Cellule) = Cnddts_Blancs
-        U_nb(0) -= 1                         ' Décompte les cellules saisies
-        U_nb(CInt(Val)) -= 1                 ' Décompte les cellules par valeur
 
         'Remettre le candidat enlevé Val dans les cellules collatérales
         Dim Grp() As Integer = U_20Cell_Coll(Cellule)
@@ -83,6 +81,9 @@
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
+    U_nb(0) -= 1                         ' Décompte les cellules saisies
+    U_nb(CInt(Val)) -= 1                 ' Décompte les cellules par valeur
+    CalculDerniereValeurUnité()
     Build_Bmp_Valeurs()
     Mnu_Mngt_Barre_Outils_Filtres_Enabled()
     Act_Add(Cellule, "Effacer", Val, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
@@ -307,7 +308,7 @@
     Return If(count = 1, idxVide, -1)
   End Function
 
-  Public Sub CalculDernieresVides()
+  Public Sub CalculDerniereValeurUnité()
 
     Array.Clear(U_dv, 0, U_dv.Length)
 

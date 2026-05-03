@@ -157,5 +157,8 @@
     <Setting Name="Prf_02C_Create_Grille_CdU" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Prf_05D_Plcy_Dernière_Valeur_Unité" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -84,6 +84,7 @@ Partial Class Frm_Préférences
         Me.CB08_01 = New System.Windows.Forms.CheckBox()
         Me.ColorDialog = New System.Windows.Forms.ColorDialog()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.CB05_12 = New System.Windows.Forms.CheckBox()
         Me.Onglet_05.SuspendLayout()
         Me.Onglet_03.SuspendLayout()
         Me.Onglet_02.SuspendLayout()
@@ -99,6 +100,7 @@ Partial Class Frm_Préférences
         'Onglet_05
         '
         Me.Onglet_05.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Onglet_05.Controls.Add(Me.CB05_12)
         Me.Onglet_05.Controls.Add(Me.CB05_11)
         Me.Onglet_05.Controls.Add(Me.CB05_10)
         Me.Onglet_05.Controls.Add(Me.Btn05_90)
@@ -798,6 +800,18 @@ Partial Class Frm_Préférences
         Me.ColorDialog.ShowHelp = True
         Me.ColorDialog.SolidColorOnly = True
         '
+        'CB05_12
+        '
+        Me.CB05_12.AutoSize = True
+        Me.CB05_12.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.CB05_12.Location = New System.Drawing.Point(15, 53)
+        Me.CB05_12.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CB05_12.Name = "CB05_12"
+        Me.CB05_12.Size = New System.Drawing.Size(46, 24)
+        Me.CB05_12.TabIndex = 34
+        Me.CB05_12.Text = "S"
+        Me.CB05_12.UseVisualStyleBackColor = True
+        '
         'Frm_Préférences
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -889,4 +903,5 @@ Partial Class Frm_Préférences
     Friend WithEvents Lbl08_02 As Label
     Friend WithEvents CBB08_03 As ComboBox
     Friend WithEvents CB02_12 As CheckBox
+    Friend WithEvents CB05_12 As CheckBox
 End Class

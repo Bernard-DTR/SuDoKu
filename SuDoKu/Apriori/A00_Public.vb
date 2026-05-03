@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_04_18 #750"
+  Public SDK_Version As String = "V2026_04_18 #754"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -14,6 +14,8 @@ Module A00_Public
   '                                        ' 1 à 9 Nombre de cellules remplies avec la valeur correspondante    
   '      Initialisées dans Game_New_Game()
   '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete()   
+  Public Animation_Cellule As Integer
+  Public Animation_Numéro As Integer = 0
 #End Region
 
 #Region "01 Les Tailles"
@@ -246,6 +248,7 @@ Module A00_Public
   Public Plcy_Open_Display As Boolean = False
   Public Const Dl_Nb_VI_minimal As Integer = 17
   Public Plcy_Format_DAB As Integer
+  Public Plcy_Dernière_Valeur_Unité As Boolean = False
 #End Region
 
 #Region "45 Tableau des actions"

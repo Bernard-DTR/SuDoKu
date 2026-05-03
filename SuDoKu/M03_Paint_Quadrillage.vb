@@ -35,9 +35,14 @@ Module M03_Paint_Quadrillage
         sc.Numéro = i
         sc.G5_Cellule_Paint_Valeur(g)
       Next
-      'For i As Integer = 0 To 80
-      '  If U_dv(i) Then G0_Cell_Figure(g, i, "Cercle", Color_Stratégique)
-      'Next
+      If Plcy_Derniere_Valeur_Unité Then
+        For i As Integer = 0 To 80
+          If U_dv(i) Then G0_Cell_Figure(g, i, "Cercle", Color_Stratégique)
+        Next
+      End If
+      For i As Integer = 0 To 80
+        If U_dv(i) Then G0_Cell_Figure(g, i, "Ellipse", Color_Stratégique)
+      Next
     End Using
   End Sub
   Public Sub Build_Bmp_Saisie()

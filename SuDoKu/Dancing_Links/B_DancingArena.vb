@@ -154,6 +154,7 @@ Namespace DancingLink
     ''' </summary>
     ''' <param name="column"></param>
     Friend Sub CoverColumn(ByVal column As E_DancingColumn)
+      'Console.WriteLine($"Couvre colonne {column.Column}")
       'Exclude column header node from the list.
       _updates += 1
       column.Left().Right = column.Right()
@@ -180,6 +181,7 @@ Namespace DancingLink
     ''' </summary>
     ''' <param name="column"></param>
     Friend Sub UncoverColumn(ByVal column As E_DancingColumn)
+      'Console.WriteLine($"Découvre colonne {column.Column}")
       'For each row in excluded column...
       Dim row As D_DancingNode = column.Upper()
       While (Equals(row, column) = False)
@@ -289,6 +291,8 @@ Namespace DancingLink
         While (Equals(row, nextCol) = False)
           'Add row to solution array.
           _solutionRows(index) = row
+          ' TRACE ICI
+          'TracePlacement(row)
           '... exclude all columns covered by this row ...
           Dim col As D_DancingNode = row.Right()
           While (Equals(col, row) = False)
@@ -363,6 +367,43 @@ Namespace DancingLink
         End While
         col = CType(col.Right(), E_DancingColumn)
       End While
+    End Sub
+
+    Private Function DecodeDLXRow(node As D_DancingNode) As (Integer, Integer, Integer)
+      Dim v As Integer = node.Row - 1
+      Dim digit As Integer = v Mod 9 + 1
+      v \= 9
+      Dim col As Integer = v Mod 9
+      v \= 9
+      Dim row As Integer = v Mod 9
+      Return (row, col, digit)
+    End Function
+
+    Private Sub TracePlacement(node As D_DancingNode)
+      ' Déclaration des variables
+      Dim r As Integer
+      Dim c As Integer
+      Dim v As Integer
+
+      ' Récupération du tuple
+      Dim decoded As (Integer, Integer, Integer)
+      decoded = DecodeDLXRow(node)
+      r = decoded.Item1
+      c = decoded.Item2
+      v = decoded.Item3
+
+      Dim i As Integer = c + r * 9
+      Console.WriteLine($"DLX place {v} en r{r + 1}c{c + 1}")
+
+      ' Mise à jour de votre tableau U
+      U(i, 2) = v.ToString()
+
+      ' Mise à jour des candidats
+      For k As Integer = 0 To 80
+        If U(k, 3).Contains(v.ToString()) Then
+          U(k, 3) = U(k, 3).Replace(v.ToString(), " ")
+        End If
+      Next
     End Sub
 
   End Class

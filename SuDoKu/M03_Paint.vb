@@ -1209,7 +1209,7 @@ Friend Module M03_Paint
 
     Using pen As New Pen(Couleur, 2),
           brsh As New SolidBrush(Couleur),
-          pen_Inflate As New Pen(Couleur, Math.Abs(Inflate) * 2)
+          pen_Inflate As New Pen(Couleur, Math.Abs(Inflate) * 1)
       Select Case Figure
         Case "Cadre"
           ' Comme le trait du rectangle dépasse de la moitié à droite et à gauche du trait, l'inflate doit être le double
@@ -1225,7 +1225,6 @@ Friend Module M03_Paint
         Case "Disque"
           g.FillPie(brsh, Rct_Cercle, 0.0F, 360.0F)
         Case "Ellipse"
-          '28/01/2025 Cette figure n'est plus utilisée
           Dim Rct_V As New Rectangle(x:=Sqr_Cel(Cellule).X + (1 * WHthird), y:=Sqr_Cel(Cellule).Y, width:=WHthird, height:=WH - 3)
           Dim Rct_H As New Rectangle(x:=Sqr_Cel(Cellule).X + 1, y:=Sqr_Cel(Cellule).Y + (1 * WHthird), width:=WH - 3, height:=WHthird)
           g.DrawEllipse(pen, Rct_V)

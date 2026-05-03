@@ -131,6 +131,8 @@ Namespace DancingLink
           value \= _size
           row = value Mod _size
           _solution(row, col) = digit
+          'Dim M As String = ($"Solution finale : r{row + 1}c{col + 1} = {digit}")
+          'Jrn_Add_Yellow(M)
         End If
       Next i
       _solutions += 1

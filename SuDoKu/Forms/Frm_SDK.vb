@@ -14,8 +14,7 @@ Public NotInheritable Class Frm_SDK
   'La ProgressBar ne peut pas adopter la couleur souhaitée
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
-  Private AnimationCellule As Integer
-  Private AnimationNuméro As Integer = 0
+  Private Mnu04n_SignalerLeCandidatSaisi As ToolStripMenuItem
 
   Public Sub New()
     ' Cet appel est requis par le concepteur.
@@ -134,6 +133,27 @@ Public NotInheritable Class Frm_SDK
     CType(Mnu04.DropDown, ContextMenuStrip).ShowImageMargin = True
     CType(Mnu04.DropDown, ContextMenuStrip).ShowCheckMargin = True
 
+    Mnu04n_SignalerLeCandidatSaisi = New ToolStripMenuItem() With
+        {
+        .Text = "Signaler Le Candidat Saisi",
+        .ForeColor = SystemColors.ControlText,
+        .Checked = False,
+        .CheckOnClick = True
+         }
+    AddHandler Mnu04n_SignalerLeCandidatSaisi.Click, AddressOf Mnu04n_SignalerLeCandidatSaisi_Click
+    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_SignalerLeCandidatSaisi)
+
+    Dim Mnu04n_RésoudreUneCellule As New ToolStripMenuItem() With
+        {
+        .Text = "Résoudre Une Cellule",
+        .ForeColor = SystemColors.ControlText,
+        .ShortcutKeys = Keys.F11
+         }
+    AddHandler Mnu04n_RésoudreUneCellule.Click, AddressOf Mnu04n_RésoudreUneCellule_Click
+    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_RésoudreUneCellule)
+
+
+
     Mnu07n_Gbl.Text = Stg_Get("Gbl").Texte
     Mnu07n_Gbv.Text = Stg_Get("Gbv").Texte
     Mnu07n_GCs.Text = Stg_Get("GCs").Texte
@@ -160,15 +180,6 @@ Public NotInheritable Class Frm_SDK
     Mnu0955_WgY.Text = Stg_Get("WgY").Texte
     Mnu0960_WgZ.Text = Stg_Get("WgZ").Texte
     Mnu0965_WgW.Text = Stg_Get("WgW").Texte
-
-    Dim Mnu04n_RésoudreUneCellule As New ToolStripMenuItem() With
-        {
-        .Text = "Résoudre Une Cellule",
-        .ForeColor = SystemColors.ControlText,
-        .ShortcutKeys = Keys.F11
-         }
-    AddHandler Mnu04n_RésoudreUneCellule.Click, AddressOf Mnu04n_RésoudreUneCellule_Click
-    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_RésoudreUneCellule)
 
 #End Region
 
@@ -271,16 +282,16 @@ Public NotInheritable Class Frm_SDK
   Private Sub AnimationTimer_Tick(sender As Object, e As EventArgs) Handles AnimationTimer.Tick
     'L'utilisation de Cell_FY_List permet d'avoir une séquense hasardeuse et
     'une arythmie puisque seules les VI sont animées.
-    Dim cellule As Integer = Cell_FY_List.Item(AnimationNuméro)
-    AnimationNuméro += 1
-    If AnimationNuméro >= 80 Then
+    Dim cellule As Integer = Cell_FY_List.Item(Animation_Numéro)
+    Animation_Numéro += 1
+    If Animation_Numéro >= 80 Then
       AnimationTimer.Stop()
       Invalidate()
       Exit Sub
     End If
     If U(cellule, 1) <> " " Then
-      AnimationCellule = cellule
-      Invalidate(Sqr_Cel(AnimationCellule))
+      Animation_Cellule = cellule
+      Invalidate(Sqr_Cel(Animation_Cellule))
     End If
   End Sub
 
@@ -320,8 +331,8 @@ Public NotInheritable Class Frm_SDK
       g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
     End If
     ' Animation
-    If AnimationTimer.Enabled AndAlso AnimationCellule >= 0 Then
-      g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(AnimationCellule))
+    If AnimationTimer.Enabled AndAlso Animation_Cellule >= 0 Then
+      g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
     End If
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -409,7 +420,7 @@ Public NotInheritable Class Frm_SDK
       'Droit : Le menu contextuel est affiché, ainsi le bouton droit n'est pas traité par Frm_SDK_MouseClick
       Select Case e.Button
         Case MouseButtons.Left
-          Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
+          If U(Pbl_Cell_Select, 2) = " " Then Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
 
         Case MouseButtons.Middle
           ' Affiche les candidats de l'unité en fonction de la position du clic et de l'option Afficher les candidats en InfoBulle
@@ -757,6 +768,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Btn0_Click(sender As Object, e As EventArgs) Handles Btn0.Click
     Strategy_Dsp_Standard()
+    Mnu04n_SignalerLeCandidatSaisi.Checked = False
   End Sub
 
   Private Sub Btn123456789_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn9.MouseDown, Btn8.MouseDown, Btn7.MouseDown, Btn6.MouseDown, Btn5.MouseDown, Btn4.MouseDown, Btn3.MouseDown, Btn2.MouseDown, Btn1.MouseDown
@@ -797,6 +809,11 @@ Public NotInheritable Class Frm_SDK
       Jrn_Add(, {"Sender inconnu : " & Sender.ToString(), "Erreur"})
     End If
   End Sub
+  Private Sub Mnu04n_SignalerLeCandidatSaisi_Click(sender As Object, e As EventArgs)
+    Plcy_Strg = "DCs"
+    Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
+  End Sub
+
   Private Sub Mnu04n_RésoudreUneCellule_Click(sender As Object, e As EventArgs)
     Cell_Slv_Interactif("S", "Résoudre une Cellule")
   End Sub

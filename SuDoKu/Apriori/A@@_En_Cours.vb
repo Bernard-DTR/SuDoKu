@@ -31,8 +31,6 @@ Module A_En_Cours
   End Sub
   Public Sub TestE()
     Jrn_Add(, {Proc_Name_Get()})
-    Plcy_Strg = "DCs"
-    Jrn_Add_Yellow("Plcy_Strg = " & Plcy_Strg)
   End Sub
   Public Sub TestF()
     Jrn_Add(, {Proc_Name_Get()})

@@ -158,11 +158,6 @@
     Onglet_05.Text = Msg_Read("PRF_05000")
     Onglet_05.BackColor = Color_Fond_Typ_I
     Btn05_90.Text = "Reset " & Msg_Read("PRF_05000")
-    'CB05_08.Text = Msg_Read("PRF_05080")
-    'Select Case Plcy_Gbl_Etendue
-    '  Case True : CB05_08.Checked = True
-    '  Case False : CB05_08.Checked = False
-    'End Select
     CB05_10.Text = Msg_Read("PRF_05100")
     Select Case Plcy_Dancing_Link
       Case True : CB05_10.Checked = True
@@ -172,6 +167,11 @@
     Select Case Plcy_Open_Display
       Case True : CB05_11.Checked = True
       Case False : CB05_11.Checked = False
+    End Select
+    CB05_12.Text = Msg_Read("PRF_05120")
+    Select Case Plcy_Derniere_Valeur_Unité
+      Case True : CB05_12.Checked = True
+      Case False : CB05_12.Checked = False
     End Select
 
     'Onglet 06 Couleurs
@@ -517,7 +517,21 @@
       Frm_SDK.Invalidate()
     End If
   End Sub
-
+  Private Sub CB05_12_CheckedChanged(sender As Object, e As EventArgs) Handles CB05_12.CheckedChanged
+    'Affichage de la Dernière Valeur d'une Unité  
+    Select Case CB05_12.CheckState
+      Case CheckState.Unchecked '0  'Non
+        Plcy_Dernière_valeur_unité = False
+        My.Settings.Prf_05D_Plcy_Dernière_valeur_unité = False
+      Case CheckState.Checked '1  'Oui
+        Plcy_Dernière_valeur_unité = True
+        My.Settings.Prf_05D_Plcy_Dernière_valeur_unité = True
+    End Select
+    If Not Mode_Load Then
+      OC_Présentation()
+      Frm_SDK.Invalidate()
+    End If
+  End Sub
   Private Sub Btn03_91_Click(sender As Object, e As EventArgs) Handles Btn03_91.Click
     'Enlever toutes les sélections
     For i As Integer = 0 To Plcy_Stg_Clb.Count - 1
@@ -871,4 +885,6 @@
   Private Sub Btn08_99_Click(sender As Object, e As EventArgs) Handles Btn08_99.Click
     Close()
   End Sub
+
+
 End Class
