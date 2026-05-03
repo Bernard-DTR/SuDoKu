@@ -128,10 +128,7 @@ Public NotInheritable Class Frm_SDK
     Next
 
     'Le menu 04 diffère des autres menus dans la mesure où il est capable d'afficher une image ET le symbole checked/non checked
-    'https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-enable-check-margins-and-image-margins-in-contextmenustrip-controls?view=netframeworkdesktop-4.8
     Mnu04.DropDown = New ContextMenuStrip()
-    CType(Mnu04.DropDown, ContextMenuStrip).ShowImageMargin = True
-    CType(Mnu04.DropDown, ContextMenuStrip).ShowCheckMargin = True
 
     Mnu04n_SignalerLeCandidatSaisi = New ToolStripMenuItem() With
         {
@@ -151,8 +148,6 @@ Public NotInheritable Class Frm_SDK
          }
     AddHandler Mnu04n_RésoudreUneCellule.Click, AddressOf Mnu04n_RésoudreUneCellule_Click
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_RésoudreUneCellule)
-
-
 
     Mnu07n_Gbl.Text = Stg_Get("Gbl").Texte
     Mnu07n_Gbv.Text = Stg_Get("Gbv").Texte
@@ -279,13 +274,13 @@ Public NotInheritable Class Frm_SDK
     Build_Bmp_Saisie()
 
   End Sub
-  Private Sub AnimationTimer_Tick(sender As Object, e As EventArgs) Handles AnimationTimer.Tick
+  Private Sub Animation_Timer_Tick(sender As Object, e As EventArgs) Handles Animation_Timer.Tick
     'L'utilisation de Cell_FY_List permet d'avoir une séquense hasardeuse et
     'une arythmie puisque seules les VI sont animées.
     Dim cellule As Integer = Cell_FY_List.Item(Animation_Numéro)
     Animation_Numéro += 1
     If Animation_Numéro >= 80 Then
-      AnimationTimer.Stop()
+      Animation_Timer.Stop()
       Invalidate()
       Exit Sub
     End If
@@ -320,18 +315,18 @@ Public NotInheritable Class Frm_SDK
     MyBase.OnPaint(e)
     If Not Phase_Démarrage_Terminée Then Exit Sub
     'Le quadrillage, le fond, les valeurs et la grille de saisie ne sont pas redessinés.
-    'C'est 4 bitmaps qui sont affichés pour améliorer les performances d'affichage
+    'Ce sont 4 bitmaps qui sont dessinés pour améliorer les performances d'affichage
     Dim g As Graphics = e.Graphics
-    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)
-    g.DrawImageUnscaled(Bmp_Fond, 0, 0)
-    g.DrawImageUnscaled(Bmp_Valeur, 0, 0)
-    G4_Grid_Stratégie_All(g)
+    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création     
+    g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une création à chaque jeu
+    g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque jeu
+    If Plcy_Gnrl = "Nrm" And Plcy_Strg <> "   " Then G4_Grid_Stratégie_All(g)
     ' Grille de saisie
-    If Cellule_Survolee >= 0 AndAlso U(Cellule_Survolee, 2) = " " Then
-      g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_Survolee).X, Sqr_Cel(Cellule_Survolee).Y)
+    If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
+      g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
     End If
     ' Animation
-    If AnimationTimer.Enabled AndAlso Animation_Cellule >= 0 Then
+    If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
       g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
     End If
   End Sub
@@ -385,23 +380,25 @@ Public NotInheritable Class Frm_SDK
       Mnu_Mngt(Pbl_Cell_Select)
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
+
+    ' Gestion de l'affichage de la grille de saisie
     If {0, 2, 7}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then
-      If Pbl_Cell_Select <> Cellule_Survolee Then
-        If Cellule_Survolee >= 0 Then
-          Me.Invalidate(Sqr_Cel(Cellule_Survolee))  ' Invalider l’ancienne cellule
+      If Pbl_Cell_Select <> Cellule_MouseMove Then
+        If Cellule_MouseMove >= 0 Then
+          Invalidate(Sqr_Cel(Cellule_MouseMove))  ' Invalider l’ancienne cellule
         End If
         If Pbl_Cell_Select >= 0 Then
-          Me.Invalidate(Sqr_Cel(Pbl_Cell_Select))   ' Invalider la nouvelle cellule
+          Invalidate(Sqr_Cel(Pbl_Cell_Select))    ' Invalider la nouvelle cellule
         End If
-        Cellule_Survolee = Pbl_Cell_Select
+        Cellule_MouseMove = Pbl_Cell_Select
       End If
     End If
   End Sub
   Private Sub Frm_SDK_MouseLeave(sender As Object, e As EventArgs) Handles MyBase.MouseLeave
-    If Cellule_Survolee >= 0 Then
-      Me.Invalidate(Sqr_Cel(Cellule_Survolee))
+    If Cellule_MouseMove >= 0 Then
+      Invalidate(Sqr_Cel(Cellule_MouseMove))
     End If
-    Cellule_Survolee = -1
+    Cellule_MouseMove = -1
   End Sub
   Private Sub Frm_SDK_MouseClick(sender As Object, e As MouseEventArgs) Handles MyBase.MouseClick
     ' e as MouseEventArgs permet de localiser la souris
@@ -500,7 +497,6 @@ Public NotInheritable Class Frm_SDK
     TTT_Timer.Interval = 2000
     TTT_Timer.Start()
   End Sub
-
   Private Sub Frm_SDK_MouseWheel(sender As Object, e As MouseEventArgs) Handles MyBase.MouseWheel
     ' Stratégie des Filtres "FV1" To "FV9" et "FC1" to "FC9"
     ' Détermination du sens de défilement
@@ -523,27 +519,10 @@ Public NotInheritable Class Frm_SDK
 
     Plcy_Strg = "FV" & CStr(MW_Val)
     Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
-    Dim MW_Cell_Last As Integer = -1
-    MW_Cell_List.Clear()
-    For i As Integer = 0 To 80
-      If U(i, 2) = CStr(MW_Prv_Val) Or U(i, 2) = CStr(MW_Val) Then
-        MW_Cell_List.Add(i)
-        MW_Cell_Last = i
-      End If
-    Next
-
-    If MW_Cell_Last <> -1 Then
-      Using reg As New Region(Sqr_Pth(MW_Cell_Last))
-        ' On invalide TOUTES les cellules filtrées précédentes et en cours  
-        For Each cell As Integer In MW_Cell_List
-          reg.Union(Sqr_Pth(cell))
-        Next
-        B_Info.Text = Stg_Get(Plcy_Strg).Texte
-        Invalidate(reg, False)
-      End Using
-    End If
+    Invalidate()
     MW_Prv_Val = MW_Val
   End Sub
+
   Public Sub MouseWheel_Candidat(ByVal Sens As Integer)
     Dim FiltreMW As Integer
     If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), FiltreMW) Then Exit Sub
@@ -724,7 +703,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   '--------------04n--------------------------------------------------------------
   ' TOUTES les stratégies de la barre d'outils sont lancées ici
-  Private Sub Btn_CUO_BTXYSJZKQ_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn_CdU.MouseDown, Btn_CdO.MouseDown, Btn_Cdd.MouseDown, Btn_Cbl.MouseDown, Btn_Xwg.MouseDown, Btn_Tpl.MouseDown, Btn_XYw.MouseDown, Btn_Swf.MouseDown, Btn_XYZ.MouseDown, Btn_Unq.MouseDown, Btn_SKy.MouseDown, Btn_Jly.MouseDown
+  Private Sub Btn_CUO_BTXYSJZKQ_MouseDown(sender As Object, e As MouseEventArgs) Handles Btn_XYZ.MouseDown, Btn_XYw.MouseDown, Btn_Xwg.MouseDown, Btn_Unq.MouseDown, Btn_Tpl.MouseDown, Btn_Swf.MouseDown, Btn_SKy.MouseDown, Btn_Jly.MouseDown, Btn_CdU.MouseDown, Btn_CdO.MouseDown, Btn_Cdd.MouseDown, Btn_Cbl.MouseDown
     Dim Lettre As String = sender.ToString()
     Dim Strg_Classique As String = "###"
     For Each Stg As Stg_Cls In Stg_List
@@ -1040,7 +1019,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   '--------------07---------------------------------------------------------------
-  Private Sub Mnu07_Outils(sender As Object, e As EventArgs) Handles Mnu07n_Gbl.Click, Mnu07n_XRp.Click, Mnu07n_XNl.Click, Mnu07n_XCy.Click, Mnu07n_WgZ.Click, Mnu07n_WgY.Click, Mnu07n_WgX.Click, Mnu07n_WgW.Click, Mnu07n_GCx.Click, Mnu07n_GCs.Click, Mnu07n_Gbv.Click
+  Private Sub Mnu07_Outils(sender As Object, e As EventArgs) Handles Mnu07n_XRp.Click, Mnu07n_XNl.Click, Mnu07n_XCy.Click, Mnu07n_WgZ.Click, Mnu07n_WgY.Click, Mnu07n_WgX.Click, Mnu07n_WgW.Click, Mnu07n_GCx.Click, Mnu07n_GCs.Click, Mnu07n_Gbv.Click, Mnu07n_Gbl.Click
     If TypeOf sender Is ToolStripMenuItem Then
       Dim Mnu As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
       Dim Mnu_Name As String = Mnu.Name
@@ -1603,6 +1582,7 @@ Public NotInheritable Class Frm_SDK
     End If
 
   End Sub
+
 
 
 #End Region

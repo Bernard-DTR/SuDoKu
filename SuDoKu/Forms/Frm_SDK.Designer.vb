@@ -253,7 +253,7 @@ Partial Class Frm_SDK
         Me.Enlever_Tout = New System.Windows.Forms.ToolStripMenuItem()
         Me.Lister = New System.Windows.Forms.ToolStripMenuItem()
         Me.TTT_Timer = New System.Windows.Forms.Timer(Me.components)
-        Me.AnimationTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.Animation_Timer = New System.Windows.Forms.Timer(Me.components)
         Me.Mnu_Cel.SuspendLayout()
         Me.Mnu.SuspendLayout()
         Me.BarreOutils.SuspendLayout()
@@ -457,6 +457,7 @@ Partial Class Frm_SDK
         '
         Me.Mnu.ContextMenuStrip = Me.Mnu_Ctxt_Vide
         Me.Mnu.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold)
+        Me.Mnu.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.Mnu.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.Mnu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu01, Me.Mnu02, Me.Mnu03, Me.Mnu04, Me.Mnu08, Me.Mnu05, Me.Mnu06, Me.Mnu07, Me.Mnu09})
         Me.Mnu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
@@ -1828,6 +1829,9 @@ Partial Class Frm_SDK
         Me.Lister.Size = New System.Drawing.Size(245, 32)
         Me.Lister.Text = "Lister les Objets"
         '
+        'Animation_Timer
+        '
+        '
         'Frm_SDK
         '
         Me.AllowDrop = True
@@ -2090,5 +2094,5 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu0955_WgY As ToolStripMenuItem
     Friend WithEvents Mnu0960_WgZ As ToolStripMenuItem
     Friend WithEvents Mnu0965_WgW As ToolStripMenuItem
-    Friend WithEvents AnimationTimer As Timer
+    Friend WithEvents Animation_Timer As Timer
 End Class

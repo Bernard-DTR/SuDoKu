@@ -430,6 +430,7 @@
 #753 D  03/05/2026 Mise en place de DCs Mnu04n_SignalerLeCandidatSaisi_Click
 #754 D  03/05/2026 Mise en place de dernière cellule d'une unité
 #755 D  03/05/2026 Corrections diverses
+#756 D  03/05/2026 Derniers réglages de Invalidate dans MouseWheel_Valeur
 
 ##############################################################################################################################
 
@@ -446,3 +447,6 @@
                    Certaines stratégies propose plusieurs candidats à enlever, le menu conserve la ligne après suppression du candidat
                    Nettoyer la classe Cellule
                    Voir la programmation Undo-Redo
+                   Il me semble que je dois pouvoir faire "des économies de boucles" avec mes For Next
+                   Revoir si U_Sol est utilisé et quand ?
+                   Nettoyer les S95

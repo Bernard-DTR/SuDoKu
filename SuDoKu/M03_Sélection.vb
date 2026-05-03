@@ -48,8 +48,8 @@
         Jrn_Add(, {"La grille est correcte."}, "Red")
         Frm_SDK.B_Info.Text = "La grille est correcte."
         ' Configuration du Timer
-        Frm_SDK.AnimationTimer.Interval = 100 ' ms
-        Frm_SDK.AnimationTimer.Start()
+        Frm_SDK.Animation_Timer.Interval = 100 ' ms
+        Frm_SDK.Animation_Timer.Start()
       End If
     End If
   End Sub
