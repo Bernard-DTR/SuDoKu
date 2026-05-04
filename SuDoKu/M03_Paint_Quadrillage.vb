@@ -1,4 +1,5 @@
 ﻿Imports System.Drawing.Drawing2D
+Imports System.Web.UI.WebControls.Expressions
 Module M03_Paint_Quadrillage
 #Region "G1 Couche Quadrillage"
   Public Sub Build_Bmp_Quadrillage()
@@ -8,6 +9,7 @@ Module M03_Paint_Quadrillage
     End Using
   End Sub
   Public Sub Build_Bmp_Fonds()
+    'le fond des cellules est peint, ainsi que les valeurs des cellules Initiales 
     Bmp_Fond = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
     Bmp_Fond.SetResolution(96, 96)
     Using g As Graphics = Graphics.FromImage(Bmp_Fond)
@@ -16,13 +18,25 @@ Module M03_Paint_Quadrillage
       g.PixelOffsetMode = PixelOffsetMode.None
       g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
       Dim sc As New Cellule_Cls
+      Dim fnt As New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular)
+      Dim brsh As New SolidBrush(Color_VI)
       For i As Integer = 0 To 80
         sc.Numéro = i
         sc.G2_Cellule_Paint_Fond(g)
+        If U(i, 1) <> " " Then
+          g.DrawString(Subst_Police(U(i, 1)),
+                       fnt,
+                       brsh,
+                       Sqr_Cel(i).X + WHhalf, Sqr_Cel(i).Y + WHhalf, Format_Center)
+        End If
       Next
+      fnt.Dispose()
+      brsh.Dispose()
     End Using
   End Sub
   Public Sub Build_Bmp_Valeurs()
+    ' Seules les valeurs des cellules Remplies sont peintes
+    ' Cette fonction est optimisée car elle est appelée à chaque changement de valeur d'une cellule Remplie
     Bmp_Valeur = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
     Bmp_Valeur.SetResolution(96, 96)
     Using g As Graphics = Graphics.FromImage(Bmp_Valeur)
@@ -30,14 +44,21 @@ Module M03_Paint_Quadrillage
       g.InterpolationMode = InterpolationMode.NearestNeighbor
       g.PixelOffsetMode = PixelOffsetMode.None
       g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
-      Dim sc As New Cellule_Cls
+      Dim fnt As New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular)
+      Dim brsh As New SolidBrush(Color_VCdd)
       For i As Integer = 0 To 80
-        sc.Numéro = i
-        sc.G5_Cellule_Paint_Valeur(g)
+        If U(i, 1) = " " AndAlso U(i, 2) <> " " Then
+          g.DrawString(Subst_Police(U(i, 2)),
+                       fnt,
+                       brsh,
+                       Sqr_Cel(i).X + WHhalf, Sqr_Cel(i).Y + WHhalf, Format_Center)
+        End If
         If Plcy_Dernière_Valeur_Unité AndAlso U_dv(i) Then
           G0_Cell_Figure(g, i, "Ellipse", Color_Stratégique)
         End If
       Next
+      fnt.Dispose()
+      brsh.Dispose()
     End Using
   End Sub
   Public Sub Build_Bmp_Saisie()
@@ -49,7 +70,9 @@ Module M03_Paint_Quadrillage
       'Il n'est pas possible d'utiliser Sqr_Cdd( de 1 à 9)
       'Il faut utiliser un bitmap plus large
       Using font9 As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-                              brsh9 As New SolidBrush(Color_Trait)
+            brsh As New SolidBrush(Color_Cell_Select),
+            brsh9 As New SolidBrush(Color_Trait)
+        g.FillRectangle(brsh, r)
         For cdd As Integer = 1 To 9
           Dim row As Integer = (cdd - 1) \ 3
           Dim col As Integer = (cdd - 1) Mod 3

@@ -34,7 +34,7 @@
     Jrn_Add("SDK_30014")
     Jrn_Add("SDK_30015")
     For i As Integer = 0 To 80
-      Dim sc As New Cellule_Cls With {.Numéro = i}
+      ' Dim sc As New Cellule_Cls With {.Numéro = i}
 
       Dim S As String = "| "
       S &= CStr(i).PadLeft(2)
@@ -47,7 +47,7 @@
         Case " " : S &= " "
         Case Else : S &= "i"
       End Select
-      Select Case sc.Candidat_Unique
+      Select Case Trim(U(i, 3)).Length = 1 ' Candidat Unique
         Case True : S = S & " | " & "T "
         Case False : S = S & " |  " & " "
       End Select

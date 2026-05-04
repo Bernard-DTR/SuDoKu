@@ -431,6 +431,7 @@
 #754 D  03/05/2026 Mise en place de dernière cellule d'une unité
 #755 D  03/05/2026 Corrections diverses
 #756 D  03/05/2026 Derniers réglages de Invalidate dans MouseWheel_Valeur
+#757 L  04/05/2026 Optimisation de Build_Bmp_Fonds() et Build_Bmp_Valeurs()  
 
 ##############################################################################################################################
 
@@ -439,7 +440,6 @@
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
 ????               Stratégie sans aucun controle Noc
-????               A quoi sert la propriété paint_fond et paint valeur
 ????               voir dans les formes primaires à quoi sert de mettre le valeurs ou les candidats
 ????               Revoir les couches la couche stratégique doit être l'avant dernière, la saisie la dernière
 ????               Faire un tableau de l'utilisation de strategie.Famille

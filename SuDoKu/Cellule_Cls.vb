@@ -15,7 +15,6 @@ Public Class Cellule_Cls
   Private _numéro As Integer
   Private _isvalid As Boolean                    ' Nouveau : True compris entre 0 et 80, sinon False
   Private _coté As Integer
-  Private _candidat_unique As Boolean
   Private _typologie As String
   Private _position As Point
   Private _position_Center As Point
@@ -45,16 +44,6 @@ Public Class Cellule_Cls
       Return True
     End Get
   End Property
-
-  ''' <summary>le Candidat est-il Unique ? </summary>
-  Public ReadOnly Property Candidat_Unique As Boolean
-    'Propriété dépendante de U
-    Get
-      _candidat_unique = False
-      If (U(Numéro, 2) = " " AndAlso Trim(U(Numéro, 3)).Length = 1) Then _candidat_unique = True
-      Return _candidat_unique
-    End Get
-  End Property
   ''' <summary> Candidats de la cellule.</summary>
   Public ReadOnly Property Candidats As String
     'Propriété dépendante de U
@@ -63,25 +52,6 @@ Public Class Cellule_Cls
       _candidats = blancs
       If U(Numéro, 3) <> blancs Then _candidats = U(Numéro, 3)
       Return _candidats
-    End Get
-  End Property
-  ''' <summary> Nombre de Candidats de la cellule.</summary>
-  Public ReadOnly Property Nombre_Candidats As Integer
-    'Propriété dépendante de U
-    'Retourne le nombre de valeurs candidates pour une cellule (1 à 9) la cellule a x candidats
-    '            0   si la cellule est remplie
-    '            -1 (#Erreur) si la cellule est vide et n'a plus de candidats
-    Get
-      Dim n As Integer
-      If U(Numéro, 2) <> " " Then n = 0
-      If U(Numéro, 2) = " " And U(Numéro, 3) = Cnddts_Blancs Then n = -1
-      If U(Numéro, 2) = " " And U(Numéro, 3) <> Cnddts_Blancs Then
-        n = 0
-        For i As Integer = 0 To 8
-          If U(Numéro, 3).Substring(i, 1) <> " " Then n += 1
-        Next i
-      End If
-      Return n
     End Get
   End Property
   ''' <summary> Valeur de la cellule </summary>
@@ -147,7 +117,6 @@ Public Class Cellule_Cls
     'TODO Le fond de la cellule doit traiter 3 choses:
     '             La valeur saisie est différente de la solution
     '             la cellule est vide et n'a plus de candidats
-    '             l'affichage de la cellule vise présente un quadrillage de saisie et/ou des chiffres
     'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
     'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
     '                 0 est le "Fond Standard", ie une couleur et non une photo
@@ -172,21 +141,6 @@ Public Class Cellule_Cls
       End If
     End Using
   End Sub
-
-  ''' <summary>Peint la valeur d'une cellule IR.</summary>
-  Public Sub G5_Cellule_Paint_Valeur(g As Graphics)
-    'Concerne l'ensemble des Cellules Initiales et Remplies
-    'Les valeurs sont peintes dans une couleur différentes suivant leur typologie I/R
-    If Not IsValid Then Exit Sub
-    Using brsh As New SolidBrush(U_Clr_Cell_Val(Numéro)),
-          fnt As New Font(Font_Name_ValCdd, Font_Val_Size, FontStyle.Regular)
-      g.DrawString(Subst_Police(U(Numéro, 2)),
-                   fnt,
-                   brsh,
-                   Position_Center.X, Position_Center.Y, Format_Center)
-    End Using
-  End Sub
-
   ''' <summary>Dessine UN Candidat de la Cellule.</summary>
   Public Sub G6_Cellule_Paint_Candidat(g As Graphics, Candidat As String, Couleur As Color)
     'Dessine UN Candidat d'une cellule dans un cercle de couleur
