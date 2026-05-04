@@ -4,12 +4,8 @@ Imports System.Runtime.InteropServices   ' Nécessaire à <DllImport("user32.dll
 Public Class Cellule_Cls
 #Region "Propriétés"
 
-  ' --- Listes statiques partagées par toutes les cellules ---
-  Private Shared ReadOnly Format12 As New HashSet(Of Integer) From {0, 8, 72, 80}
-  Private Shared ReadOnly Format34 As New HashSet(Of Integer) From {
-        0, 2, 3, 5, 6, 8, 18, 26, 27, 35, 45, 53, 54, 62, 72, 74, 75, 77, 78, 80}
-  Private Shared ReadOnly Format56_Extra As New HashSet(Of Integer) From {
-        20, 21, 23, 24, 29, 30, 32, 33, 47, 48, 50, 51, 56, 57, 59, 60}
+  Private Shared ReadOnly Format56 As New HashSet(Of Integer) From {
+  0, 2, 3, 5, 6, 8, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33, 35, 45, 47, 48, 50, 51, 53, 54, 56, 57, 59, 60, 62, 72, 74, 75, 77, 78, 80}
 
   ' --- Propriété ---
   Private _numéro As Integer
@@ -103,7 +99,7 @@ Public Class Cellule_Cls
     ' Définition des cellules arrondies selon les formats DAB
     Get 'Propriété dépendante de U et de Plcy_Format_DAB
       Select Case Plcy_Format_DAB
-        Case 1 : Return Format34.Contains(Numéro) OrElse Format56_Extra.Contains(Numéro)
+        Case 1 : Return Format56.Contains(Numéro)
         Case Else
           Return False
       End Select
@@ -114,29 +110,28 @@ Public Class Cellule_Cls
 #Region "Méthodes"
   ''' <summary>Peint le Fond de la Cellule .</summary>
   Public Sub G2_Cellule_Paint_Fond(g As Graphics)
-    'TODO Le fond de la cellule doit traiter 3 choses:
-    '             La valeur saisie est différente de la solution
-    '             la cellule est vide et n'a plus de candidats
-    'Concerne le fond d'une cellule quelque soit sa Typologie : Initiale, Remplie ou Vide ou une image
-    'Plcy_Fond_Grille représente le n° de fond choisi dans la liste des fonds d'image
-    '                 0 est le "Fond Standard", ie une couleur et non une photo
     If Not IsValid Then Exit Sub
-    Using brsh_0 As New SolidBrush(U_Clr_Cell_Fond(Numéro)),
-          brsh As New SolidBrush(Color_Frm_BackColor)
-      If Plcy_Fond_Grille = 0 Then    ' Un fond standard est affiché
+
+    Dim rc As Rectangle = Sqr_Cel(Numéro)
+    Dim pth As GraphicsPath = Sqr_Pth(Numéro)
+    Dim img As Image = Sqr_Img(Numéro)
+    Dim fondCouleur As Boolean = (Plcy_Fond_Grille = 0)
+
+    Using brFond As New SolidBrush(U_Clr_Cell_Fond(Numéro))
+      If fondCouleur Then
         If Cellule_Arrondie Then
-          g.FillPath(brsh_0, Sqr_Pth(Numéro))
+          g.FillPath(brFond, pth)
         Else
-          g.FillRectangle(brsh_0, Sqr_Cel(Numéro))
+          g.FillRectangle(brFond, rc)
         End If
-      Else                            ' L'image de fond est affichée
+      Else
         If Cellule_Arrondie Then
           g.ResetClip()
-          g.SetClip(Sqr_Pth(Numéro), CombineMode.Replace)
-          g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
+          g.SetClip(pth, CombineMode.Replace)
+          g.DrawImage(img, rc)
+          g.ResetClip()   ' ← AJOUT ESSENTIEL
         Else
-          g.FillRectangle(brsh, Sqr_Cel(Numéro))
-          g.DrawImage(Sqr_Img(Numéro), Sqr_Cel(Numéro).X, Sqr_Cel(Numéro).Y)
+          g.DrawImage(img, rc)
         End If
       End If
     End Using

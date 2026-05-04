@@ -62,7 +62,6 @@ Module G20_Général
       Jrn_Add(, {S3})
     End With
   End Sub
-
   Function File_Nb(Racine As String) As Integer
     'Retourne le nombre de parties existantes
     Return (From File In IO.Directory.GetFiles(Path_Batch) Where File.Contains(Racine)).Count
@@ -319,10 +318,8 @@ Module G20_Général
     Dim MEF As String = ""
     For i As Integer = 0 To 8
       ' Permet d'avoir des valeurs alignées, même avec une police proportionnelle
-      'Dim Cdd As String = If(Candidats.Substring(i, 1) <> " ", " " & Candidats.Substring(i, 1), "   ")
       Dim Cdd As String = If(Candidats.Substring(i, 1) <> " ", " " & Candidats.Substring(i, 1), "  ")
       'la valeur de esp ne change en rien la taille de TTT
-      'Dim esp As String = "        "
       Dim esp As String = ""
       Select Case i
         Case 0 : MEF &= esp & Cdd
@@ -422,7 +419,6 @@ Module G20_Général
       MsgBox("L'application ci-dessous doit être installée." & vbCrLf & File)
     End Try
   End Sub
-
   Public Function Subst_Police(Source As String) As String
     'Source est compris entre 1 et 9
     'Donc Subst_Police(Cstr(0)) retourne vide et le bouton n'affiche rien
@@ -439,7 +435,4 @@ Module G20_Général
     End If
     Return Cible
   End Function
-
-
-
 End Module

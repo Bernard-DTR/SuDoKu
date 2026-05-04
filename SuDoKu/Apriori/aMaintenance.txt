@@ -432,10 +432,12 @@
 #755 D  03/05/2026 Corrections diverses
 #756 D  03/05/2026 Derniers réglages de Invalidate dans MouseWheel_Valeur
 #757 L  04/05/2026 Optimisation de Build_Bmp_Fonds() et Build_Bmp_Valeurs()  
+#758 L  04/05/2026 Création expérimentale d'une Font et d'un Brush pour les valeurs
+#759 L  04/05/2026 Correction d'un bogue dans G2_Cellule_Paint_Fond
 
 ##############################################################################################################################
 
-????               Préférences ne met pas correctement à jour le quadrillage et le fond !
+
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt

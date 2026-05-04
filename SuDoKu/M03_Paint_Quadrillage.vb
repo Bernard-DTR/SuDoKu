@@ -66,6 +66,9 @@ Module M03_Paint_Quadrillage
     Bmp_Fond_Saisie = New Bitmap(WH, WH)
     Dim r As New Rectangle(0, 0, WH, WH)
     Using g As Graphics = Graphics.FromImage(Bmp_Fond_Saisie)
+      g.SmoothingMode = SmoothingMode.None
+      g.InterpolationMode = InterpolationMode.NearestNeighbor
+      g.PixelOffsetMode = PixelOffsetMode.None
       g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
       'Il n'est pas possible d'utiliser Sqr_Cdd( de 1 à 9)
       'Il faut utiliser un bitmap plus large

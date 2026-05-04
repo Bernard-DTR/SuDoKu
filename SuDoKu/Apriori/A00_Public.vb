@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #757"
+  Public SDK_Version As String = "V2026_05 #759"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -86,9 +86,6 @@ Module A00_Public
   Public U_Sol(0 To 80) As String
   Public U_Clr_Cell_Fond(0 To 80) As Color      ' Couleur de fond de chaque cellule
   Public U_Clr_Cell_Val(0 To 80) As Color       ' Couleur de la valeur de chaque cellule
-  'Ce tableau concerne les stratégies Cdd, CdU, CdO, Flt et Cbl à Unq
-  'Il stocke les cellules concernées par la stratégie pour n'effacer que celles-là
-  'Public U_Strg(0 To 80) As Boolean
 
   ' U_Strg_Val_Ins comporte pour chaque cellule LE SEUL CANDIDAT à INSéRER, c'est donc une zone de 1 caractère
   ' U_Strg_Cdd_Exc comporte pour chaque cellule le ou les candidats à exclure, c'est donc une zone de 9 caractères
@@ -196,8 +193,10 @@ Module A00_Public
 
   Public Font_Val_Size As Single       ' calcul effectué dans G0_Grid_Compute_Font_Size()
   Public Font_Cdd_Size As Single       ' calcul effectué dans G0_Grid_Compute_Font_Size() 
-  Public Font_Cdd_Size_Zoom As Single  ' calcul effectué dans G0_Grid_Compute_Font_Size()
   Public Font_TTT_Txt As New Font("Arial", 15, FontStyle.Italic)
+  '#758
+  'Public Font_Val As New Font("Arial", 15, FontStyle.Regular)
+  'Public Brsh_Val As New SolidBrush(Color_VCdd)
 
   'Certains caractères des polices ci-dessous ne sont pas explicites,
   ' ils sont donc remplacés
@@ -232,8 +231,6 @@ Module A00_Public
   '      Peut prendre TOUTES les valeurs de Strg_Insertion_List, Strg_Exclusion_List, Plcy_Strg_FiltreVal_List
   '                   ou "   ""
   Public Plcy_Strg As String = "   "
-  Public Prv_Plcy_Strg As String = "###"
-  Public Plcy_Strg_Swt As Integer = -1
   Public Plcy_Stg_Clb As String            ' CkeckedListBox
   Public Plcy_Generate_Batch As Boolean = False
   Public Batch_en_Cours As Boolean = False

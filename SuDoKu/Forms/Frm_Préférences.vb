@@ -343,6 +343,9 @@
     CB01_ColorComboboxVI.Cbb_Color_Exclude = CB01_ColorComboboxVCdd.Cbb_Color_Selected
     My.Settings.Prf_01C_Clr_ComboBoxVCdd = CB01_ColorComboboxVCdd.Cbb_Color_Selected
     Color_VCdd = Color.FromName(CB01_ColorComboboxVCdd.Cbb_Color_Selected)
+    '#758
+    'Brsh_Val.Dispose()
+    'Brsh_Val = New SolidBrush(Color_VCdd)
     If Not Mode_Load Then
       'Pour prendre en compte la nouvelle couleur
       Frm_SDK.Invalidate()
@@ -417,6 +420,10 @@
           Font_Name_ValCdd = "Wingdings"
 
       End Select
+      '#758
+      'Font_Val.Dispose()
+      'Font_Val = New Font(Font_Name_ValCdd, Font_Val_Size, Font_Val.Style)
+
       OC_Présentation()
       Mnu_Mngt_Barre_Outils_Filtres()
       Frm_SDK.Invalidate()
@@ -775,6 +782,10 @@
     Color_VI = Prf06_Clr(4)
     Color_Fond_Typ_RV = Prf06_Clr(5)
     Color_VCdd = Prf06_Clr(6)
+    '#758
+    'Brsh_Val.Dispose()
+    'Brsh_Val = New SolidBrush(Color_VCdd)
+
     Color_Stratégique = Prf06_Clr(7)
     Color_Cell_Select = Prf06_Clr(8)
 

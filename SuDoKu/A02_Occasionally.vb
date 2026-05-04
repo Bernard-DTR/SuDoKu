@@ -41,6 +41,9 @@ Friend Module A02_Occasionally
         Color_VI = Color.Green
         Color_VCdd = Color.Blue
     End Select
+    '#758
+    'Brsh_Val.Dispose()
+    'Brsh_Val = New SolidBrush(Color_VCdd)
   End Sub
 
   Sub OC_Plcy_Stg_UOBTXYSJZKQ()
@@ -280,7 +283,6 @@ Friend Module A02_Occasionally
       Next i
     Next j
 
-    '#714
     ' Calcul de ces mêmes Sqr_Cdd_Inf avec Inflate utilisés lors des clics
     For s As Integer = 0 To 809
       Dim r As Rectangle = Sqr_Cdd(s)
@@ -458,8 +460,10 @@ Friend Module A02_Occasionally
   Public Sub OC_Grid_Compute_Font_Size()
     'Calcul de la taille des polices des Valeurs et des Candidats
     Font_Val_Size = CalculateFontSize(Font_Name_ValCdd, FontStyle.Regular, WH, "1")
-    Font_Cdd_Size_Zoom = (4 * Font_Val_Size) / 6
-    Font_Cdd_Size = CalculateFontSize(Font_Name_ValCdd, FontStyle.Italic, CSng(WH / 3), "1")
+    '#758
+    'Font_Val.Dispose()
+    'Font_Val = New Font(Font_Val.FontFamily, Font_Val_Size, Font_Val.Style)
+    Font_Cdd_Size = CalculateFontSize(Font_Name_ValCdd, FontStyle.Regular, CSng(WH / 3), "1")
   End Sub
   Private Function CalculateFontSize(fontName As String,
                                      fontStyle As FontStyle,
