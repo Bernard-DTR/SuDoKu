@@ -18,7 +18,7 @@ Public Class Frm_SystemInfoBrowser
                      Or System.Windows.Forms.AnchorStyles.Right, System.Windows.Forms.AnchorStyles),
         .Location = New System.Drawing.Point(8, 16),
         .Size = New System.Drawing.Size(272, 60),
-        .BackColor = Color_Fond_Typ_I,
+        .BackColor = Clr_Fnd_VI,
         .Font = New Drawing.Font("Courier New", 9.75!, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CType(0, Byte)),
         .TabIndex = 0
     }
@@ -33,7 +33,7 @@ Public Class Frm_SystemInfoBrowser
                      Or System.Windows.Forms.AnchorStyles.Right, System.Windows.Forms.AnchorStyles),
         .Location = New System.Drawing.Point(8, 86),
         .Size = New System.Drawing.Size(272, 426),
-        .BackColor = Color_Fond_Typ_I,
+        .BackColor = Clr_Fnd_VI,
         .Font = New Drawing.Font("Courier New", 9.75!, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CType(0, Byte)),
         .TabIndex = 0
     }
@@ -46,7 +46,7 @@ Public Class Frm_SystemInfoBrowser
         .Multiline = True,
         .ScrollBars = System.Windows.Forms.ScrollBars.Vertical,
         .Size = New System.Drawing.Size(520, 496),
-        .BackColor = Color_Fond_Typ_RV,
+        .BackColor = Clr_Fnd_VCdd,
         .Font = New Drawing.Font("Courier New", 12.0!, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CType(0, Byte)),
        .TabIndex = 1
     }

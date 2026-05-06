@@ -113,14 +113,7 @@ Friend Module M20_Game
       If LP_Sol(i) >= "1" AndAlso LP_Sol(i) <= "9" Then
         U_Sol(i) = LP_Sol(i)                        ' Solution
       End If
-      '#536
-      If U(i, 1) = " " Then
-        U_Clr_Cell_Fond(i) = Color_Fond_Typ_RV
-        U_Clr_Cell_Val(i) = Color_VCdd
-      Else
-        U_Clr_Cell_Fond(i) = Color_Fond_Typ_I
-        U_Clr_Cell_Val(i) = Color_VI
-      End If
+      U_Clr_Change()
     Next i
 
   End Sub

@@ -198,25 +198,6 @@ Module G20_Général
   End Sub
 
   '-------------------------------------------------------------------------------
-  ' Gestion des fichiers INI
-  '-------------------------------------------------------------------------------
-  Function Ini_Read(Section As String, Poste As String) As String
-    'Cette fonction retourne la valeur du poste ou ? issue du fichier des Valeurs d'Usine
-    Dim Valeur_def As String = ""
-    Try
-      Dim Ch As New System.Text.StringBuilder(NativeMethods.MAX_ENTRY)
-      Dim l As Long = NativeMethods.GetPrivateProfileString(Section, Poste, Valeur_def, Ch, NativeMethods.MAX_ENTRY, File_ValUsi)
-      Return Ch.ToString()
-    Catch
-      Return Valeur_def
-    End Try
-  End Function
-  Public Sub Ini_Write(Section As String, Poste As String, Valeur As String)
-    'Cette procédure met à jour la valeur du poste
-    NativeMethods.WritePrivateProfileString(Section, Poste, Valeur, File_ValUsi)
-  End Sub
-
-  '-------------------------------------------------------------------------------
   ' Gestion de A ( 11, 1000) as string
   ' N°                      4
   ' Action                 10-15
@@ -425,7 +406,7 @@ Module G20_Général
     Dim Cible As String = String.Empty
     If Source >= "1" And Source <= "9" Then
       Dim V As Integer = CInt(Source)
-      Select Case Plcy_Fantasy_Name
+      Select Case Fnt_Name_Fantasy
         Case "Arial" : Cible = Subst_Arial_____(V)
         Case "Wingdings" : Cible = Subst_Wingding__(V)
         Case "MS Outlook" : Cible = Subst_MS_Outlook(V)

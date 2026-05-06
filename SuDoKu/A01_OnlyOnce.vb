@@ -43,8 +43,6 @@ Friend Module A01_OnlyOnce
     Path_Save = Path_SDK & "S50_SDK\"
     Path_SDK_Autres_Jeux = Path2 & Base_Folder & "_S95\"
     File_SDKDoc = Path_SDK & "S01_Documentation\Rapport.docx"
-    File_ValUsi = Path_SDK & "S20_Initial\Valeurs_Initiales.ini"
-
   End Sub
 
   Public Sub OO_110_Variables_My_Settings()
@@ -82,8 +80,8 @@ Friend Module A01_OnlyOnce
         Case 2 : OC_Thèmes_Couleurs(Rdc.Next(0, 3))
         Case Else : OC_Thèmes_Couleurs(.Thème_Clr)
       End Select
-      Color_VI = Color.FromName(.Prf_01C_Clr_ComboBoxVI)
-      Color_VCdd = Color.FromName(.Prf_01C_Clr_ComboBoxVCdd)
+      Clr_VI = Color.FromName(.Prf_01C_Clr_ComboBoxVI)
+      Clr_VCdd = Color.FromName(.Prf_01C_Clr_ComboBoxVCdd)
       Select Case .Format_DAB
         Case 0 To 1 : Plcy_Format_DAB = .Format_DAB
         Case 2 : Plcy_Format_DAB = Rdc.Next(0, 2)

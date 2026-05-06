@@ -5,7 +5,7 @@ Public Class Frm_MySettings
     AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
     PG.SelectedObject = My.Settings
     BackColor = Color_Frm_BackColor
-    PG.CommandsBackColor = Color_Fond_Typ_I
-    PG.ViewBackColor = Color_Fond_Typ_RV
+    PG.CommandsBackColor = Clr_Fnd_VI
+    PG.ViewBackColor = Clr_Fnd_VCdd
   End Sub
 End Class

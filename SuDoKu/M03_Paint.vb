@@ -1312,10 +1312,11 @@ Friend Module M03_Paint
     End Using
 
     ' 3 Affichage de la lettre du lien
+    '   On affiche une lettre grecque, latine ou cyrillique
+    '      et on utilise la Fnt_Cdd en style italic
     Dim PointMid As PointF = DeCasteljau(0.5, Pts.Pt_From, From_Ctrl, To_Ctrl, Pts.Pt_To)
-    Using font As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Italic),
-          brsh As New SolidBrush(Color.Black)
-      g.DrawString(ChrW(Link_Numéro + Lettre_Flèche_ChrW), font, brsh, PointMid.X, PointMid.Y)
+    Using font As New Font(Fnt_Name_ValCdd, Fnt_Cdd_Size, FontStyle.Italic)
+      g.DrawString(ChrW(Link_Numéro + Lettre_Flèche_ChrW), font, Brh_Black, PointMid.X, PointMid.Y)
     End Using
   End Sub
 
@@ -1326,48 +1327,13 @@ Friend Module M03_Paint
     Pt_From_Cellule = New Point(sc_From.Position_Center.X, sc_From.Position_Center.Y)
     Dim sc_To As New Cellule_Cls With {.Numéro = To_Cellule}
     Pt_To_Cellule = New Point(sc_To.Position_Center.X, sc_To.Position_Center.Y)
-    'Cells_Bresenham_Get(U_Strg, From_Cellule, To_Cellule)
     Using Pen As New Pen(Color_Stratégique, WH \ 2)
       g.DrawLine(Pen, Pt_From_Cellule, Pt_To_Cellule)
     End Using
   End Sub
-  Public Sub Cells_Bresenham_Get(ByRef U_Strg() As Boolean, ByVal From_Cellule As Integer, ByVal To_Cellule As Integer)
-    ' Documente U_Strg des cellules traversées par la ligne Pt_From Pt_To
-    ' Algorithme de la droite de Bresenham IBM 1962
-    ' La position Top-Left ou center des Pt_From_To donne des résultats différents, 
-    '    ainsi que l'épaisseur du trait  
-    Dim sc_From As New Cellule_Cls With {.Numéro = From_Cellule}
-    Dim Pt_From As New Point(sc_From.Position_Center.X, sc_From.Position_Center.Y)
-    Dim sc_To As New Cellule_Cls With {.Numéro = To_Cellule}
-    Dim Pt_To As New Point(sc_To.Position_Center.X, sc_To.Position_Center.Y)
-
-    Dim dx As Integer = Math.Abs(Pt_To.X - Pt_From.X)
-    Dim dy As Integer = Math.Abs(Pt_To.Y - Pt_From.Y)
-    Dim sx As Integer = If(Pt_From.X < Pt_To.X, 1, -1)
-    Dim sy As Integer = If(Pt_From.Y < Pt_To.Y, 1, -1)
-    Dim err As Integer = dx - dy
-
-    Dim x As Integer = Pt_From.X
-    Dim y As Integer = Pt_From.Y
-
-    While True
-      Dim Cellule As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(New Point(x, y)))
-      If Cellule <> -1 Then U_Strg(Cellule) = True
-      If x = Pt_To.X And y = Pt_To.Y Then Exit While
-      Dim e2 As Integer = 2 * err
-      If e2 > -dy Then
-        err -= dy
-        x += sx
-      End If
-      If e2 < dx Then
-        err += dx
-        y += sy
-      End If
-    End While
-  End Sub
   Public Sub G4_MdC_Row_Col_Box(Code_LCR As String, LCR As Integer)
     If LCR < 0 Or LCR > 8 Then Exit Sub
-    Dim Grp(0 To 8) As Integer
+    Dim Grp() As Integer
     Dim Cellule As Integer
     Select Case Code_LCR
       Case "Row"

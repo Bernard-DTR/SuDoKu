@@ -44,7 +44,7 @@ Public NotInheritable Class Frm_SDK
     '  La scrollBar verticale est comprise dans la largeur du journal, affichée ou non.
     With Journal
       .Name = "Journal"
-      .BackColor = Color_Fond_Typ_I
+      .BackColor = Clr_Fnd_VI
       .Font = Font_Journal
       .Multiline = True
       .ScrollBars = RichTextBoxScrollBars.ForcedVertical 'Y compris si le texte est inférieur au contrôle
@@ -310,17 +310,18 @@ Public NotInheritable Class Frm_SDK
         Batch_Timer.Interval = 50000
     End Select
   End Sub
-
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
     MyBase.OnPaint(e)
     If Not Phase_Démarrage_Terminée Then Exit Sub
     'Le quadrillage, le fond, les valeurs et la grille de saisie ne sont pas redessinés.
     'Ce sont 4 bitmaps qui sont dessinés pour améliorer les performances d'affichage
     Dim g As Graphics = e.Graphics
-    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création     
-    g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une création à chaque jeu
-    g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque jeu
-    If Plcy_Gnrl = "Nrm" And Plcy_Strg <> "   " Then G4_Grid_Stratégie_All(g)
+    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création (Load/Préférences_Grille)     
+    g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une seule création à chaque jeu
+    g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque saisie/effacement de valeur
+    If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
+      G4_Grid_Stratégie_All(g)
+    End If
     ' Grille de saisie
     If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
       g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
@@ -382,7 +383,7 @@ Public NotInheritable Class Frm_SDK
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
 
     ' Gestion de l'affichage de la grille de saisie
-    If {0, 2, 7}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then
+    If {0, 2}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then
       If Pbl_Cell_Select <> Cellule_MouseMove Then
         If Cellule_MouseMove >= 0 Then
           Invalidate(Sqr_Cel(Cellule_MouseMove))  ' Invalider l’ancienne cellule
@@ -508,12 +509,15 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Public Sub MouseWheel_Valeur(Sens As Integer)
     If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), MW_Val) Then Exit Sub
-    Dim Result As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)    ' Compter les occurrences de chaque valeur sur la grille
+    'Dim Result As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)    ' Compter les occurrences de chaque valeur sur la grille
+    WH_U_nb() ' Plus rapide que Wh_Nb_Cell(U)
 
     Dim StartVal As Integer = MW_Val
     Do
       MW_Val = ((MW_Val + Sens + 8) Mod 9) + 1
-      If Result.Val_Nb(MW_Val) < 9 Then Exit Do
+      '
+      'If Result.Val_Nb(MW_Val) < 9 Then Exit Do
+      If U_nb(MW_Val) < 9 Then Exit Do
       ' Si la valeur n'est pas présente 9 fois, on la présente
     Loop While MW_Val <> StartVal
 
@@ -569,7 +573,6 @@ Public NotInheritable Class Frm_SDK
     Mnu01_Commencer.Enabled = True
     B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
     B_Info.Text = Stg_Get(Plcy_Strg).Texte
-
   End Sub
   Private Sub Mnu01_Commencer_Click(sender As Object, e As EventArgs) Handles Mnu01_Commencer.Click
     Dim Nom As String = "Pzzl_" & "_" & Format(Now, "yyyy_MM_dd_HH_mm_ss")

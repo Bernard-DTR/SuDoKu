@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #759"
+  Public SDK_Version As String = "V2026_05 #760"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -55,7 +55,6 @@ Module A00_Public
   Public Path_Save As String
   Public Path_SDK_Autres_Jeux As String
   Public File_SDKDoc As String
-  Public File_ValUsi As String
 #End Region
 
 #Region "03 LP Last Puzzle"
@@ -84,8 +83,6 @@ Module A00_Public
   Public Const UNbCopy As Integer = 324         ' soit (U.GetUpperBound(0) + 1) * (U.GetUpperBound(1) + 1)
   Public U_CddExc(0 To 80) As String            ' Comporte les candidats exclus 
   Public U_Sol(0 To 80) As String
-  Public U_Clr_Cell_Fond(0 To 80) As Color      ' Couleur de fond de chaque cellule
-  Public U_Clr_Cell_Val(0 To 80) As Color       ' Couleur de la valeur de chaque cellule
 
   ' U_Strg_Val_Ins comporte pour chaque cellule LE SEUL CANDIDAT à INSéRER, c'est donc une zone de 1 caractère
   ' U_Strg_Cdd_Exc comporte pour chaque cellule le ou les candidats à exclure, c'est donc une zone de 9 caractères
@@ -124,7 +121,6 @@ Module A00_Public
   Public Sqr_Cely(0 To 8) As Integer                '  LImites gauches
   Public Sqr_Cdd(809) As Rectangle                  '  Le tableau comporte les informations des 9 rectangles de chaque candidat de chaque cellule
   Public Sqr_Cdd_Inf(809) As Rectangle              '  Le tableau comporte les informations des 9 rectangles inflate pour cliquer plus facilement les candidats
-  'Public Grid_Pth As Drawing2D.GraphicsPath         '  Tracé de la Grille avec angle arrondi
   Public Reg_Pth(8) As Drawing2D.GraphicsPath       '  Tracés des 9 régions avec angle arrondi
   Public Sqr_Pth(0 To 80) As Drawing2D.GraphicsPath '  Tracés des squares du jeu avec ou sans angle arrondi  
   ' Les traitements, compute ou paint, sont identiques que les paths soient des carrés, avec angles arrondis  
@@ -162,12 +158,8 @@ Module A00_Public
   ' Fond d'effacement
   Public Color_Frm_BackColor As Color = Color.FromArgb(255, 216, 245, 216) ' Couleur Fond du formulaire et du Grid
   Public Color_Trait As Color = Color.Green                                ' Couleur des traits du Grid
-  Public Color_Fond_Typ_I As Color = Color.FromArgb(255, 192, 255, 192)    ' Couleur Fond Valeurs Initiales
-  Public Color_Fond_Typ_RV As Color = Color.FromArgb(255, 129, 224, 129)   ' Couleur Fond Cellule Remplie/Vide
   Public Color_Stratégique As Color = Color.FromArgb(128, 15, 196, 101)
 
-  Public Color_VI As Color = Color.FromArgb(255, 211, 40, 10)              ' Couleur d'affichage graphique des Valeurs Initiales       (Rouge)
-  Public Color_VCdd As Color = Color.FromArgb(255, 23, 94, 23)             ' Couleur d'affichage graphique des Valeurs et des Candidats (Vert)
   Public Color_Cell_Select As Color = Color.FromArgb(128 + 64, Color.White)
   Public Color_Cdd_Insérer As Color = Color.Yellow
   Public Color_Cdd_Exclure As Color = Color.Red
@@ -185,18 +177,31 @@ Module A00_Public
   'Il faut ensuite gérer 2 polices:
   ' La police des valeurs et des candidats, et des Sqr_Fantasy
   Public Plcy_Fantasy As Boolean = False
-  Public Plcy_Fantasy_Name As String = "Arial"
 
   ' Font_Mnu_Cel DOIT afficher le menu contextuel texte 
   Public Font_Mnu_Cel As New Font("Segoe UI", 10, FontStyle.Regular)
-  Public Font_Name_ValCdd As String = "Arial"
-
-  Public Font_Val_Size As Single       ' calcul effectué dans G0_Grid_Compute_Font_Size()
-  Public Font_Cdd_Size As Single       ' calcul effectué dans G0_Grid_Compute_Font_Size() 
+  Public Fnt_Name_ValCdd As String = "Arial"
+  Public Fnt_Name_Fantasy As String = "Arial"
+  Public Fnt_Val_Size As Single                 ' calcul effectué dans G0_Grid_Compute_Font_Size()
+  Public Fnt_Cdd_Size As Single                 ' calcul effectué dans G0_Grid_Compute_Font_Size() 
   Public Font_TTT_Txt As New Font("Arial", 15, FontStyle.Italic)
-  '#758
-  'Public Font_Val As New Font("Arial", 15, FontStyle.Regular)
-  'Public Brsh_Val As New SolidBrush(Color_VCdd)
+  Public U_Clr_Cell_Fond(0 To 80) As Color      ' Couleur de fond de chaque cellule
+  Public U_Clr_Cell_Val(0 To 80) As Color       ' Couleur de la valeur de chaque cellule
+
+  '#760
+  'Il existe 4 couleurs (Structure) pour les fonds de cellule et les valeurs (valeurs initiales et valeurs et candidats)
+  Public Clr_Fnd_VI As Color = Color.FromArgb(255, 192, 255, 192)    ' Couleur Fond Valeurs Initiales
+  Public Clr_Fnd_VCdd As Color = Color.FromArgb(255, 129, 224, 129)   ' Couleur Fond Cellule Remplie/Vide
+  Public Clr_VI As Color = Color.FromArgb(255, 211, 40, 10)              ' Couleur d'affichage graphique des Valeurs Initiales       (Rouge)
+  Public Clr_VCdd As Color = Color.FromArgb(255, 23, 94, 23)             ' Couleur d'affichage graphique des Valeurs et des Candidats (Vert)
+  'Il existe 2 polices (Classe) (Nom et Taille) pour les valeurs et pour les candidats
+  Public Fnt_Val As New Font("Arial", 15, FontStyle.Regular)
+  Public Fnt_Cdd As New Font("Arial", 15, FontStyle.Regular)
+  'Il existe 2 pinceaux de couleur (Classe) pour les valeurs initials et pour les valeurs et candidats
+  Public Brh_VI As New SolidBrush(Clr_VI)
+  Public Brh_VCdd As New SolidBrush(Clr_VCdd)
+
+  Public Brh_Black As New SolidBrush(Color.Black)
 
   'Certains caractères des polices ci-dessous ne sont pas explicites,
   ' ils sont donc remplacés

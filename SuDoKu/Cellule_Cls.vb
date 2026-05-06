@@ -146,13 +146,11 @@ Public Class Cellule_Cls
     Dim Cdd_n As Integer = (Numéro * 10) + CInt(Candidat)
     Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd(Cdd_n)
     Sqr_Cdd_n.Inflate(-1, -1)    'Diminution du cercle du candidat  
-    Using brsh_1 As New SolidBrush(Color.FromArgb(128, Couleur)),
-          brsh_2 As New SolidBrush(Color_VCdd),
-          font As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular)
+    Using brsh_1 As New SolidBrush(Color.FromArgb(128, Couleur))
       g.FillPie(brsh_1, Sqr_Cdd_n, 0.0F, 360.0F)
       g.DrawString(Subst_Police(Candidat),
-                   font,
-                   brsh_2,
+                   Fnt_Cdd,
+                   Brh_VCdd,
                    Sqr_Cdd(Cdd_n).X + Coté_6, Sqr_Cdd(Cdd_n).Y + Coté_6, Format_Center)
     End Using
   End Sub
@@ -164,20 +162,18 @@ Public Class Cellule_Cls
     If Typologie = "I" Or Typologie = "R" Then Exit Sub
     Dim Coté_6 As Integer = Coté \ 6
     Dim cdd_n As Integer
-    Using font As New Font(Font_Name_ValCdd, Font_Cdd_Size, FontStyle.Regular),
-          brsh As New SolidBrush(Color_VCdd)
-      For cdd As Integer = 1 To 9
-        If (typeCdd = "Les9Candidats") _
-        Or (typeCdd = "LesCandidatsEligibles" And Candidats.Contains(cdd.ToString())) Then
-          cdd_n = (Numéro * 10) + cdd
-          g.DrawString(Subst_Police(CStr(cdd)),
-                       font,
-                       brsh,
-                       Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
-        End If
-      Next cdd
-    End Using
+    For cdd As Integer = 1 To 9
+      If (typeCdd = "Les9Candidats") _
+      Or (typeCdd = "LesCandidatsEligibles" And Candidats.Contains(cdd.ToString())) Then
+        cdd_n = (Numéro * 10) + cdd
+        g.DrawString(Subst_Police(CStr(cdd)),
+                     Fnt_Cdd,
+                     Brh_VCdd,
+                     Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
+      End If
+    Next cdd
   End Sub
+
 #End Region
 End Class
 

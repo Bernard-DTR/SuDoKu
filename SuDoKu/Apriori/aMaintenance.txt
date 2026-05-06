@@ -434,6 +434,9 @@
 #757 L  04/05/2026 Optimisation de Build_Bmp_Fonds() et Build_Bmp_Valeurs()  
 #758 L  04/05/2026 Création expérimentale d'une Font et d'un Brush pour les valeurs
 #759 L  04/05/2026 Correction d'un bogue dans G2_Cellule_Paint_Fond
+#760 Ma 05/05/2026 Utilisation de font et de brush permanents pour tracer les valeurs et les candidats !
+
+
 
 ##############################################################################################################################
 
@@ -444,10 +447,7 @@
 ????               Stratégie sans aucun controle Noc
 ????               voir dans les formes primaires à quoi sert de mettre le valeurs ou les candidats
 ????               Revoir les couches la couche stratégique doit être l'avant dernière, la saisie la dernière
-????               Faire un tableau de l'utilisation de strategie.Famille
-                   Stg_Get(Plcy_Strg).Family ne sert plus que dans le menu contextuel et Mouse_Clic!
                    Certaines stratégies propose plusieurs candidats à enlever, le menu conserve la ligne après suppression du candidat
-                   Nettoyer la classe Cellule
                    Voir la programmation Undo-Redo
                    Il me semble que je dois pouvoir faire "des économies de boucles" avec mes For Next
                    Revoir si U_Sol est utilisé et quand ?

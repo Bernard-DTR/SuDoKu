@@ -18,7 +18,18 @@
   ' 72 73 74|75 76 77|78 79 80       '         |        |   
   ' 
   '-------------------------------------------------------------------------------
-
+  Public Sub U_Clr_Change()
+    For i As Integer = 0 To 80
+      Dim isEmpty As Boolean = (U(i, 1) = " ")
+      U_Clr_Cell_Fond(i) = If(isEmpty, Clr_Fnd_VCdd, Clr_Fnd_VI)
+      U_Clr_Cell_Val(i) = If(isEmpty, Clr_VCdd, Clr_VI)
+    Next i
+    '#760
+    Brh_VI.Dispose()
+    Brh_VI = New SolidBrush(Clr_VI)
+    Brh_VCdd.Dispose()
+    Brh_VCdd = New SolidBrush(Clr_VCdd)
+  End Sub
   Function U_Coord(Cellule As Integer) As String
     'U_Coord devient un wrapper
     If Cellule < 0 OrElse Cellule > 80 Then

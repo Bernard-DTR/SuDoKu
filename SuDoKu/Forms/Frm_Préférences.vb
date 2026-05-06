@@ -49,7 +49,7 @@
     'Onglet 01 Grille
     Onglet_01.Text = Msg_Read("PRF_01000")
     Onglet_01.ForeColor = Color.Red 'Sans effet
-    Onglet_01.BackColor = Color_Fond_Typ_I
+    Onglet_01.BackColor = Clr_Fnd_VI
     Btn01_90.Text = "Reset " & Msg_Read("PRF_01000")
     TrackBar01_02.Value = WH
     Lbl01_01.Text = Msg_Read("PRF_01011", {CStr(WH), CStr(TrackBar01_02_Minimum), CStr(TrackBar01_02_Maximum)})
@@ -106,7 +106,7 @@
 
     'Onglet 02 Création
     Onglet_02.Text = Msg_Read("PRF_02000")
-    Onglet_02.BackColor = Color_Fond_Typ_I
+    Onglet_02.BackColor = Clr_Fnd_VI
 
     Lbl02_01.Text = Msg_Read("PRF_02010")
     TB02_02.Text = Create_Nb_Cel_Demandées
@@ -141,7 +141,7 @@
 
     'Onglet 03 Stratégie
     Onglet_03.Text = Msg_Read("PRF_03000")
-    Onglet_03.BackColor = Color_Fond_Typ_I
+    Onglet_03.BackColor = Clr_Fnd_VI
     CLB03_Stratégies.Items.Clear()
     ' Seules les stratégies de production sont chargées
     For Each Stg As Stg_Cls In Stg_List
@@ -156,7 +156,7 @@
 
     'Onglet 05 Divers
     Onglet_05.Text = Msg_Read("PRF_05000")
-    Onglet_05.BackColor = Color_Fond_Typ_I
+    Onglet_05.BackColor = Clr_Fnd_VI
     Btn05_90.Text = "Reset " & Msg_Read("PRF_05000")
     CB05_10.Text = Msg_Read("PRF_05100")
     Select Case Plcy_Dancing_Link
@@ -176,7 +176,7 @@
 
     'Onglet 06 Couleurs
     Onglet_06.Text = Msg_Read("PRF_06000")
-    Onglet_06.BackColor = Color_Fond_Typ_I
+    Onglet_06.BackColor = Clr_Fnd_VI
     'Le traitement Paint de Préférences diffère du traitement OnPaint de SDK
     AddHandler Onglet_06.Paint, AddressOf Me.Onglet_06_Paint
     Prf06_Clr_Compute()
@@ -186,7 +186,7 @@
     Mode_Load = False
 
     ' Onglet Nuancier
-    Onglet_07.BackColor = Color_Fond_Typ_I
+    Onglet_07.BackColor = Clr_Fnd_VI
     With DGV07_Color
       .Location = New Point(5, 5)
       .ColumnHeadersVisible = False
@@ -216,7 +216,7 @@
       DGV_Color_Display()
     End With
 
-    Onglet_08.BackColor = Color_Fond_Typ_I
+    Onglet_08.BackColor = Clr_Fnd_VI
     CB08_01.Text = Msg_Read("PRF_08010")
     Select Case Xap
       Case True : CB08_01.Checked = True
@@ -243,8 +243,8 @@
           brsh_6 As New SolidBrush(Prf06_Clr(6)),
           brsh_7 As New SolidBrush(Prf06_Clr(7)),
           brsh_8 As New SolidBrush(Prf06_Clr(8)),
-          font_30 As New Font(Font_Name_ValCdd, 30),
-          font_10 As New Font(Font_Name_ValCdd, 10)
+          font_30 As New Font(Fnt_Name_ValCdd, 30),
+          font_10 As New Font(Fnt_Name_ValCdd, 10)
 
       ' 1 Efface l'intégralité de l'emplacement de la grille avec un carré unique
       e.Graphics.FillRectangle(brsh_1,
@@ -333,21 +333,29 @@
   Private Sub CB01_ColorComboboxVI_SelectedColorChanged(SelectedColor As Color, sender As Object) Handles CB01_ColorComboboxVI.Cbb_Color_Changed_Selected
     CB01_ColorComboboxVCdd.Cbb_Color_Exclude = CB01_ColorComboboxVI.Cbb_Color_Selected
     My.Settings.Prf_01C_Clr_ComboBoxVI = CB01_ColorComboboxVI.Cbb_Color_Selected
-    Color_VI = Color.FromName(CB01_ColorComboboxVI.Cbb_Color_Selected)
+    Clr_VI = Color.FromName(CB01_ColorComboboxVI.Cbb_Color_Selected)
+    U_Clr_Change()
+
     If Not Mode_Load Then
-      'Pour prendre en compte la nouvelle couleur
+      OC_Présentation()
+      Build_Bmp_Quadrillage()
+      Build_Bmp_Fonds()
+      Build_Bmp_Valeurs()
+      Build_Bmp_Saisie()
       Frm_SDK.Invalidate()
     End If
   End Sub
   Private Sub CB01_ColorComboboxVCdd_SelectedColorChanged(SelectedColor As Color, sender As Object) Handles CB01_ColorComboboxVCdd.Cbb_Color_Changed_Selected
     CB01_ColorComboboxVI.Cbb_Color_Exclude = CB01_ColorComboboxVCdd.Cbb_Color_Selected
     My.Settings.Prf_01C_Clr_ComboBoxVCdd = CB01_ColorComboboxVCdd.Cbb_Color_Selected
-    Color_VCdd = Color.FromName(CB01_ColorComboboxVCdd.Cbb_Color_Selected)
-    '#758
-    'Brsh_Val.Dispose()
-    'Brsh_Val = New SolidBrush(Color_VCdd)
+    Clr_VCdd = Color.FromName(CB01_ColorComboboxVCdd.Cbb_Color_Selected)
+    U_Clr_Change()
     If Not Mode_Load Then
-      'Pour prendre en compte la nouvelle couleur
+      OC_Présentation()
+      Build_Bmp_Quadrillage()
+      Build_Bmp_Fonds()
+      Build_Bmp_Valeurs()
+      Build_Bmp_Saisie()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -356,8 +364,10 @@
     Plcy_Fond_Grille = CB01_ComboBoxFond.SelectedIndex
     If Not Mode_Load Then
       OC_Présentation()
+      Build_Bmp_Quadrillage()
       Build_Bmp_Fonds()
       Build_Bmp_Valeurs()
+      Build_Bmp_Saisie()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -379,8 +389,10 @@
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
       OC_Présentation()
+      Build_Bmp_Quadrillage()
       Build_Bmp_Fonds()
       Build_Bmp_Valeurs()
+      Build_Bmp_Saisie()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -388,45 +400,58 @@
   Private Sub CB01_Thèmes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB01_Thèmes.SelectedIndexChanged
     If Not Mode_Load Then
       My.Settings.Thème_Clr = CB01_Thèmes.SelectedIndex
-      OC_Présentation()
-      Frm_SDK.Invalidate()
-      OC_Thèmes_Couleurs(My.Settings.Thème_Clr)
       BackColor = Color_Frm_BackColor
+      OC_Thèmes_Couleurs(My.Settings.Thème_Clr)
       For Each Page As TabPage In Onglet_TC.TabPages
-        Page.BackColor = Color_Fond_Typ_I
+        Page.BackColor = Clr_Fnd_VI
       Next Page
-      Frm_SDK.Journal.BackColor = Color_Fond_Typ_I
+
+      ' Pour afficher correctement les fonds des cellules de la grille
+      U_Clr_Change()
+      OC_Présentation()
+      Build_Bmp_Quadrillage()
+      Build_Bmp_Fonds()
+      Build_Bmp_Valeurs()
+      Build_Bmp_Saisie()
+      Frm_SDK.Invalidate()
     End If
   End Sub
 
   Private Sub CB01_Polices_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB01_Police.SelectedIndexChanged
     If Not Mode_Load Then
-      Plcy_Fantasy_Name = CB01_Police.SelectedItem.ToString()
-      Select Case Plcy_Fantasy_Name
+      Fnt_Name_Fantasy = CB01_Police.SelectedItem.ToString()
+      Select Case Fnt_Name_Fantasy
         Case "Arial"
           Plcy_Fantasy = False
-          Font_Name_ValCdd = "Arial"
+          Fnt_Name_ValCdd = "Arial"
 
         Case "MS Outlook"
           Plcy_Fantasy = True
-          Font_Name_ValCdd = "MS Outlook"
+          Fnt_Name_ValCdd = "MS Outlook"
 
         Case "Webdings"
           Plcy_Fantasy = True
-          Font_Name_ValCdd = "Webdings"
+          Fnt_Name_ValCdd = "Webdings"
 
         Case "Wingdings"
           Plcy_Fantasy = True
-          Font_Name_ValCdd = "Wingdings"
+          Fnt_Name_ValCdd = "Wingdings"
 
       End Select
-      '#758
-      'Font_Val.Dispose()
-      'Font_Val = New Font(Font_Name_ValCdd, Font_Val_Size, Font_Val.Style)
+      '#760 On ne change que le nom
+      Fnt_Val.Dispose()
+      Fnt_Val = New Font(Fnt_Name_ValCdd, Fnt_Val.Size, Fnt_Val.Style)
+      Fnt_Cdd.Dispose()
+      Fnt_Cdd = New Font(Fnt_Name_ValCdd, Fnt_Cdd.Size, Fnt_Cdd.Style)
 
       OC_Présentation()
+      Build_Bmp_Quadrillage()
+      Build_Bmp_Fonds()
+      Build_Bmp_Valeurs()
+      Build_Bmp_Saisie()
       Mnu_Mngt_Barre_Outils_Filtres()
       Frm_SDK.Invalidate()
+
     End If
   End Sub
   Private Sub TB02_02_Validated(sender As Object, e As EventArgs) Handles TB02_02.Validated
@@ -528,11 +553,11 @@
     'Affichage de la Dernière Valeur d'une Unité  
     Select Case CB05_12.CheckState
       Case CheckState.Unchecked '0  'Non
-        Plcy_Dernière_valeur_unité = False
-        My.Settings.Prf_05D_Plcy_Dernière_valeur_unité = False
+        Plcy_Dernière_Valeur_Unité = False
+        My.Settings.Prf_05D_Plcy_Dernière_Valeur_Unité = False
       Case CheckState.Checked '1  'Oui
-        Plcy_Dernière_valeur_unité = True
-        My.Settings.Prf_05D_Plcy_Dernière_valeur_unité = True
+        Plcy_Dernière_Valeur_Unité = True
+        My.Settings.Prf_05D_Plcy_Dernière_Valeur_Unité = True
     End Select
     If Not Mode_Load Then
       OC_Présentation()
@@ -572,15 +597,15 @@
     Select Case Onglet_TC.SelectedIndex ' Quel est l'onglet affecté ?
       Case 0 ' Grille
         '           Quelle est la taille de la grille ? 
-        WH = CInt(Ini_Read("VU", "WH"))
+        WH = 65
         My.Settings.Prf_01C_Taille_Cellule = WH
         OC_Présentation()
         '           Quelle est la couleur des valeurs et des candidats ? Noire
         '           Quelle est la couleur des valeurs initiales        ? Rouge
         My.Settings.Prf_01C_Clr_ComboBoxVCdd = "Black"
         My.Settings.Prf_01C_Clr_ComboBoxVI = "Red"
-        Color_VI = Color.FromName("Red")
-        Color_VCdd = Color.FromName("Black")
+        Clr_VI = Color.FromName("Red")
+        Clr_VCdd = Color.FromName("Black")
         '           Affichage d'un fond de Grille ? Non
         My.Settings.Prf_01C_Fond_Grille = 0
         Plcy_Fond_Grille = 0
@@ -601,6 +626,11 @@
 
       Case Else
     End Select
+    OC_Présentation()
+    Build_Bmp_Quadrillage()
+    Build_Bmp_Fonds()
+    Build_Bmp_Valeurs()
+    Build_Bmp_Saisie()
     Préférences_Load(sender, e)
     Frm_SDK.Invalidate()
   End Sub
@@ -672,10 +702,10 @@
     Prf06_Clr(0) = Color_Frm_BackColor
     Prf06_Clr(1) = Color_Frm_BackColor
     Prf06_Clr(2) = Color_Trait
-    Prf06_Clr(3) = Color_Fond_Typ_I
-    Prf06_Clr(4) = Color_VI
-    Prf06_Clr(5) = Color_Fond_Typ_RV
-    Prf06_Clr(6) = Color_VCdd
+    Prf06_Clr(3) = Clr_Fnd_VI
+    Prf06_Clr(4) = Clr_VI
+    Prf06_Clr(5) = Clr_Fnd_VCdd
+    Prf06_Clr(6) = Clr_VCdd
     Prf06_Clr(7) = Color_Stratégique
     Prf06_Clr(8) = Color_Cell_Select
 
@@ -778,23 +808,23 @@
     Color_Frm_BackColor = Prf06_Clr(0)
     Color_Frm_BackColor = Prf06_Clr(1)
     Color_Trait = Prf06_Clr(2)
-    Color_Fond_Typ_I = Prf06_Clr(3)
-    Color_VI = Prf06_Clr(4)
-    Color_Fond_Typ_RV = Prf06_Clr(5)
-    Color_VCdd = Prf06_Clr(6)
+    Clr_Fnd_VI = Prf06_Clr(3)
+    Clr_VI = Prf06_Clr(4)
+    Clr_Fnd_VCdd = Prf06_Clr(5)
+    Clr_VCdd = Prf06_Clr(6)
     '#758
     'Brsh_Val.Dispose()
-    'Brsh_Val = New SolidBrush(Color_VCdd)
+    'Brsh_Val = New SolidBrush(Clr_VCdd)
 
     Color_Stratégique = Prf06_Clr(7)
     Color_Cell_Select = Prf06_Clr(8)
 
     Prf06_Clr_Name(1) = "Color_Frm_BackColor"
     Prf06_Clr_Name(2) = "Color_Trait"
-    Prf06_Clr_Name(3) = "Color_Fond_Typ_I "
-    Prf06_Clr_Name(4) = "Color_VI"
-    Prf06_Clr_Name(5) = "Color_Fond_Typ_RV"
-    Prf06_Clr_Name(6) = "Color_VCdd"
+    Prf06_Clr_Name(3) = "Clr_Fnd_VI "
+    Prf06_Clr_Name(4) = "Clr_VI"
+    Prf06_Clr_Name(5) = "Clr_Fnd_VCdd"
+    Prf06_Clr_Name(6) = "Clr_VCdd"
     Prf06_Clr_Name(7) = "Color_Stratégique"
     Prf06_Clr_Name(8) = "Color_Cell_Select"
 

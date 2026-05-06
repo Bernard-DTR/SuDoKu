@@ -11,39 +11,39 @@ Friend Module A02_Occasionally
       Case 0
         Color_Frm_BackColor = Color.FromArgb(255, 216, 245, 216)    ' Couleur Fond du formulaire et du Grid
         Color_Trait = Color.Green                                   ' Couleur des traits du Grid
-        Color_Fond_Typ_I = Color.FromArgb(255, 192, 255, 192)       ' Couleur Fond Valeurs Initiales
-        Color_Fond_Typ_RV = Color.FromArgb(255, 129, 224, 129)      ' Couleur Fond Cellule Remplie/Vide 
+        Clr_Fnd_VI = Color.FromArgb(255, 192, 255, 192)       ' Couleur Fond Valeurs Initiales
+        Clr_Fnd_VCdd = Color.FromArgb(255, 129, 224, 129)      ' Couleur Fond Cellule Remplie/Vide 
         Color_Stratégique = Color.FromArgb(128, 15, 196, 101)       ' Couleur Couche Stratégique
-        Color_VI = Color.Green                                      ' Couleur des valeurs initiales
-        Color_VCdd = Color.Blue                                     ' Couleur des valeurs et des candidats
+        Clr_VI = Color.Green                                      ' Couleur des valeurs initiales
+        Clr_VCdd = Color.Blue                                     ' Couleur des valeurs et des candidats
       Case 1
         Color_Frm_BackColor = Color.FromArgb(255, 216, 245, 242)
         Color_Trait = Color.Blue
-        Color_Fond_Typ_I = Color.FromArgb(255, 192, 255, 250)
-        Color_Fond_Typ_RV = Color.FromArgb(255, 128, 193, 225)
+        Clr_Fnd_VI = Color.FromArgb(255, 192, 255, 250)
+        Clr_Fnd_VCdd = Color.FromArgb(255, 128, 193, 225)
         Color_Stratégique = Color.FromArgb(128, 9, 89, 149)
-        Color_VI = Color.Fuchsia
-        Color_VCdd = Color.Purple
+        Clr_VI = Color.Fuchsia
+        Clr_VCdd = Color.Purple
       Case 2
         Color_Frm_BackColor = Color.Beige
         Color_Trait = Color.FromArgb(255, 255, 204, 0)
-        Color_Fond_Typ_I = Color.FromArgb(255, 217, 179, 179) '    Color.FromArgb(255, 184, 180, 131)
-        Color_Fond_Typ_RV = Color.FromArgb(255, 189, 185, 138)
+        Clr_Fnd_VI = Color.FromArgb(255, 217, 179, 179) '    Color.FromArgb(255, 184, 180, 131)
+        Clr_Fnd_VCdd = Color.FromArgb(255, 189, 185, 138)
         Color_Stratégique = Color.FromArgb(128, 162, 100, 94)
-        Color_VI = Color.Navy
-        Color_VCdd = Color.Red
+        Clr_VI = Color.Navy
+        Clr_VCdd = Color.Red
       Case Else 'Identique à Standard
         Color_Frm_BackColor = Color.FromArgb(255, 216, 245, 216)
         Color_Trait = Color.Green
-        Color_Fond_Typ_I = Color.FromArgb(255, 192, 255, 192)
-        Color_Fond_Typ_RV = Color.FromArgb(255, 129, 224, 129)
+        Clr_Fnd_VI = Color.FromArgb(255, 192, 255, 192)
+        Clr_Fnd_VCdd = Color.FromArgb(255, 129, 224, 129)
         Color_Stratégique = Color.FromArgb(128, 15, 196, 101)
-        Color_VI = Color.Green
-        Color_VCdd = Color.Blue
+        Clr_VI = Color.Green
+        Clr_VCdd = Color.Blue
     End Select
-    '#758
+    '#760
     'Brsh_Val.Dispose()
-    'Brsh_Val = New SolidBrush(Color_VCdd)
+    'Brsh_Val = New SolidBrush(Clr_VCdd)
   End Sub
 
   Sub OC_Plcy_Stg_UOBTXYSJZKQ()
@@ -91,6 +91,8 @@ Friend Module A02_Occasionally
     OC_Grid_Cutting_Image()
     OC_Présentation_SDK()
     OC_Présentation_Menu()
+    Build_Bmp_Fonds()
+    Build_Bmp_Valeurs()
   End Sub
   Public Sub OC_Présentation_SDK()
     Dim Int_Seize As Integer = 16
@@ -114,7 +116,7 @@ Friend Module A02_Occasionally
     With Frm_SDK.Journal
       .Location = New Point(Bld_Marge_LT + Bld_WH_Grid + Bld_Marge_LT, Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT)
       .Size = New Drawing.Size(Bld_Journal_Width, Bld_WH_Grid + Bld_Marge_LT + B_Height)
-      .BackColor = Color_Fond_Typ_I
+      .BackColor = Clr_Fnd_VI
     End With
 
     ' les infos B_*
@@ -147,9 +149,9 @@ Friend Module A02_Occasionally
 
     ' Colorisation de 4 options de menu
     With Frm_SDK
-      .Mnu_EDI_Saisir_Valeur.BackColor = Color_Fond_Typ_RV
-      .Mnu_EDI_Val_Normale.BackColor = Color_Fond_Typ_RV
-      .Mnu_EDI_Val_Initiale.BackColor = Color_Fond_Typ_I
+      .Mnu_EDI_Saisir_Valeur.BackColor = Clr_Fnd_VCdd
+      .Mnu_EDI_Val_Normale.BackColor = Clr_Fnd_VCdd
+      .Mnu_EDI_Val_Initiale.BackColor = Clr_Fnd_VI
     End With
 
     With Frm_SDK
@@ -355,9 +357,9 @@ Friend Module A02_Occasionally
     Next j
 
     ' Construction des 10 images correspondantes aux polices substituées
-    ' Ils sont calculés quelque soit Plcy_Fantasy et indépendamment de WH
-    Using font As New Font(Font_Name_ValCdd, 12),
-          brsh As New SolidBrush(Color.Black)          'La couleur Color.Black pour les menus contextuels et les filtres de la BO
+    ' Elles sont calculées quelque soit Plcy_Fantasy et indépendamment de WH
+    Using font As New Font(Fnt_Name_ValCdd, 12),
+          brsh As New SolidBrush(Color.Black)      'La couleur Color.Black pour les menus contextuels et les filtres de la BO
       For i As Integer = 0 To 9
         Dim Bm_MnuBO As New Bitmap(22, 22)
         Using g As Graphics = Graphics.FromImage(image:=Bm_MnuBO)
@@ -459,11 +461,13 @@ Friend Module A02_Occasionally
 
   Public Sub OC_Grid_Compute_Font_Size()
     'Calcul de la taille des polices des Valeurs et des Candidats
-    Font_Val_Size = CalculateFontSize(Font_Name_ValCdd, FontStyle.Regular, WH, "1")
-    '#758
-    'Font_Val.Dispose()
-    'Font_Val = New Font(Font_Val.FontFamily, Font_Val_Size, Font_Val.Style)
-    Font_Cdd_Size = CalculateFontSize(Font_Name_ValCdd, FontStyle.Regular, CSng(WH / 3), "1")
+    Fnt_Val_Size = CalculateFontSize(Fnt_Name_ValCdd, FontStyle.Regular, WH, "1")
+    Fnt_Cdd_Size = CalculateFontSize(Fnt_Name_ValCdd, FontStyle.Regular, CSng(WH / 3), "1")
+    '#760 On ne change que la taille
+    Fnt_Val.Dispose()
+    Fnt_Val = New Font(Fnt_Val.FontFamily, Fnt_Val_Size, Fnt_Val.Style)
+    Fnt_Cdd.Dispose()
+    Fnt_Cdd = New Font(Fnt_Cdd.FontFamily, Fnt_Cdd_Size, Fnt_Cdd.Style)
   End Sub
   Private Function CalculateFontSize(fontName As String,
                                      fontStyle As FontStyle,
