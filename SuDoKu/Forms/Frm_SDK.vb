@@ -35,7 +35,7 @@ Public NotInheritable Class Frm_SDK
     '        ControlStyles.OptimizedDoubleBuffer, True empêche l'affichage de la grille
     'SetStyle(ControlStyles.UserPaint Or ControlStyles.AllPaintingInWmPaint, True)
     'UpdateStyles()
-
+    Build_Bmp_Quadrillage()
 #Region "Contrôles B_*"
     'Mise en place des contrôles B_* de Frm_SDK
     'Il n'est pas possible de copier-coller des infos du journal, sauf avec l'opération Copier le Grid qui effectue un ReadOnly On-Off
@@ -316,20 +316,20 @@ Public NotInheritable Class Frm_SDK
     'Le quadrillage, le fond, les valeurs et la grille de saisie ne sont pas redessinés.
     'Ce sont 4 bitmaps qui sont dessinés pour améliorer les performances d'affichage
     Dim g As Graphics = e.Graphics
-    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création (Load/Préférences_Grille)     
-    g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une seule création à chaque jeu
-    g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque saisie/effacement de valeur
-    If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
-      G4_Grid_Stratégie_All(g)
-    End If
-    ' Grille de saisie
-    If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
-      g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
-    End If
-    ' Animation
-    If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
-      g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
-    End If
+      g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création (Load/Préférences_Grille)     
+      g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une seule création à chaque jeu
+      g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque saisie/effacement de valeur
+      If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
+        G4_Grid_Stratégie_All(g)
+      End If
+      ' Grille de saisie
+      If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
+        g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+      End If
+      ' Animation
+      If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
+        g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
+      End If
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
     'En plaçant à cet endroit l'enregistrement des LP_*, 
@@ -377,7 +377,8 @@ Public NotInheritable Class Frm_SDK
     If Cellule_MM = -1 Then Exit Sub
     Pbl_Cell_Select = Cellule_MM
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
-      B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+      'B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
+      B_Position.Text = U_cr(Pbl_Cell_Select)
       Mnu_Mngt(Pbl_Cell_Select)
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
@@ -1202,6 +1203,7 @@ Public NotInheritable Class Frm_SDK
     Select Case Swt_ModeEdition
       Case 1
         Plcy_Gnrl = "Edi"
+        Plcy_Strg = "Obj"
         Mnu08_EditionDuProblème.Checked = True
         Jrn_Add("SDK_00321")
         ContextMenuStrip = Mnu_EDI
@@ -1269,15 +1271,12 @@ Public NotInheritable Class Frm_SDK
     Cell_Val_Insert(sender.ToString(18), Pbl_Cell_Select, "Mnu_Ctx_Ins")
   End Sub
   Private Sub Mnu_Cel_Val_Effacer(sender As Object, e As EventArgs) Handles Mnu_Cel_Val_Eff_x.Click
-    'Jrn_Add_Yellow(Proc_Name_Get() & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx_Eff")
     Cell_Val_Delete(Pbl_Cell_Select, "Mnu_Ctx_Eff")
   End Sub
   Private Sub Mnu_Cel_Cdd_Insérer(Sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Ins_9.Click, Mnu_Cel_Cdd_Ins_8.Click, Mnu_Cel_Cdd_Ins_7.Click, Mnu_Cel_Cdd_Ins_6.Click, Mnu_Cel_Cdd_Ins_5.Click, Mnu_Cel_Cdd_Ins_4.Click, Mnu_Cel_Cdd_Ins_3.Click, Mnu_Cel_Cdd_Ins_2.Click, Mnu_Cel_Cdd_Ins_1.Click
-    'Jrn_Add_Yellow(Proc_Name_Get() & " V " & Sender.ToString(20) & " " & U_Coord(Pbl_Cell_Select) & " Mnu_Ctx")
     Cell_Cdd_Insert(Sender.ToString(20), Pbl_Cell_Select, "Mnu_Ctx")
   End Sub
   Private Sub Mnu_Cel_Cdd_Exclure(sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Exc_9.Click, Mnu_Cel_Cdd_Exc_8.Click, Mnu_Cel_Cdd_Exc_7.Click, Mnu_Cel_Cdd_Exc_6.Click, Mnu_Cel_Cdd_Exc_5.Click, Mnu_Cel_Cdd_Exc_4.Click, Mnu_Cel_Cdd_Exc_3.Click, Mnu_Cel_Cdd_Exc_2.Click, Mnu_Cel_Cdd_Exc_1.Click
-    'Jrn_Add_Yellow(Proc_Name_Get() & " V " & sender.ToString(20) & " " & U_Coord(Pbl_Cell_Select))
     Cell_Cdd_Exclude(sender.ToString(20), Pbl_Cell_Select)
   End Sub
   '-------------------------------------------------------------------------------

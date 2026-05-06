@@ -41,9 +41,6 @@ Friend Module A02_Occasionally
         Clr_VI = Color.Green
         Clr_VCdd = Color.Blue
     End Select
-    '#760
-    'Brsh_Val.Dispose()
-    'Brsh_Val = New SolidBrush(Clr_VCdd)
   End Sub
 
   Sub OC_Plcy_Stg_UOBTXYSJZKQ()

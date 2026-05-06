@@ -203,8 +203,6 @@ Friend Module P01_Strategy
   End Function
 
   Public Sub RRslt_Control_Cdd_Exclure(Candidat As String)
-    'Jrn_Add_Red(Proc_Name_Get())
-    'Jrn_Add_Red("Liste des cellules du candidat " & Candidat & " à enlever")
     Dim S As String
     For i As Integer = 0 To 80
       If U_Strg_Cdd_Exc(i) <> Cnddts_Blancs Then

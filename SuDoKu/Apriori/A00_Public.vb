@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #760"
+  Public SDK_Version As String = "V2026_05 #761"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -184,7 +184,6 @@ Module A00_Public
   Public Fnt_Name_Fantasy As String = "Arial"
   Public Fnt_Val_Size As Single                 ' calcul effectué dans G0_Grid_Compute_Font_Size()
   Public Fnt_Cdd_Size As Single                 ' calcul effectué dans G0_Grid_Compute_Font_Size() 
-  Public Font_TTT_Txt As New Font("Arial", 15, FontStyle.Italic)
   Public U_Clr_Cell_Fond(0 To 80) As Color      ' Couleur de fond de chaque cellule
   Public U_Clr_Cell_Val(0 To 80) As Color       ' Couleur de la valeur de chaque cellule
 

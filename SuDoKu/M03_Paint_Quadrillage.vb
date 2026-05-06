@@ -1,5 +1,4 @@
 ﻿Imports System.Drawing.Drawing2D
-Imports System.Web.UI.WebControls.Expressions
 Module M03_Paint_Quadrillage
 #Region "G1 Couche Quadrillage"
   Public Sub Build_Bmp_Quadrillage()

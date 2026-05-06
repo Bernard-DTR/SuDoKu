@@ -7,33 +7,35 @@ Friend Module M03_Paint
 #Region "G4 Couche Stratégie"
   '   La couche G4 stratégies n'est appelée que dans G4_Grid_Stratégie_All,
   Public Sub G4_Grid_Stratégie_All(g As Graphics)
-    For i As Integer = 0 To 80
-      U_Strg_Val_Ins(i) = ""
-      U_Strg_Cdd_Exc(i) = Cnddts_Blancs
-    Next i
-    G4_Grid_Stratégie_DCs(g)
-    G4_Grid_Stratégie_Cdd(g)
-    G4_Grid_Stratégie_CdU(g)
-    G4_Grid_Stratégie_CdO(g)
-    G4_Grid_Stratégie_Flt(g)
-    G4_Grid_Stratégie_Cbl(g)
-    G4_Grid_Stratégie_Tpl(g)
-    G4_Grid_Stratégie_Xwg(g)
-    G4_Grid_Stratégie_XYw(g)
-    G4_Grid_Stratégie_Swf(g)
-    G4_Grid_Stratégie_Jly(g)
-    G4_Grid_Stratégie_XYZ(g)
-    G4_Grid_Stratégie_SKy(g)
-    G4_Grid_Stratégie_Unq(g)
-    G4_Grid_Stratégie_Obj(g)
-    G4_Grid_Stratégie_GCx(g)
-    G4_Grid_Stratégie_XCy_XNl(g)
-    G4_Grid_Stratégie_XRp(g)
-    G4_Grid_Stratégie_WgX_WgY_WgZ_WgW(g)
-    G4_Grid_Stratégie_GLk(g)
-    G4_Grid_Stratégie_Gbl(g)
-    G4_Grid_Stratégie_Gbv(g)
-    G4_Grid_Stratégie_GCs(g)
+    If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
+      For i As Integer = 0 To 80
+        U_Strg_Val_Ins(i) = ""
+        U_Strg_Cdd_Exc(i) = Cnddts_Blancs
+      Next i
+      G4_Grid_Stratégie_DCs(g)
+      G4_Grid_Stratégie_Cdd(g)
+      G4_Grid_Stratégie_CdU(g)
+      G4_Grid_Stratégie_CdO(g)
+      G4_Grid_Stratégie_Flt(g)
+      G4_Grid_Stratégie_Cbl(g)
+      G4_Grid_Stratégie_Tpl(g)
+      G4_Grid_Stratégie_Xwg(g)
+      G4_Grid_Stratégie_XYw(g)
+      G4_Grid_Stratégie_Swf(g)
+      G4_Grid_Stratégie_Jly(g)
+      G4_Grid_Stratégie_XYZ(g)
+      G4_Grid_Stratégie_SKy(g)
+      G4_Grid_Stratégie_Unq(g)
+      G4_Grid_Stratégie_Obj(g)
+      G4_Grid_Stratégie_GCx(g)
+      G4_Grid_Stratégie_XCy_XNl(g)
+      G4_Grid_Stratégie_XRp(g)
+      G4_Grid_Stratégie_WgX_WgY_WgZ_WgW(g)
+      G4_Grid_Stratégie_GLk(g)
+      G4_Grid_Stratégie_Gbl(g)
+      G4_Grid_Stratégie_Gbv(g)
+      G4_Grid_Stratégie_GCs(g)
+    End If
   End Sub
   Public Sub G4_Grid_Stratégie_DCs(g As Graphics)
     If Plcy_Strg <> "DCs" Then Exit Sub

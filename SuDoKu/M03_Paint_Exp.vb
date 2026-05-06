@@ -101,17 +101,5 @@
     PaintIfCandidateExists(g, fromCell, fromCdd, Color_Link_W)
     PaintIfCandidateExists(g, toCell, toCdd, Color_Link_W)
   End Sub
-  Private Sub DrawStartIcons_Old(g As Graphics)
-    Select Case Plcy_Strg
-      Case "WgX"
-        For i As Integer = 0 To 1
-          G0_Cell_Icône(g, XRslt.RoadRight(i).Cel(0), "Start")
-        Next
-      Case "WgY", "WgZ"
-        G0_Cell_Icône(g, XRslt.RoadRight(0).Cel(0), "Start")
-      Case "WgW"
-        G0_Cell_Icône(g, XRslt.Cellule(0), "Start")
-        G0_Cell_Icône(g, XRslt.Cellule(1), "Start")
-    End Select
-  End Sub
+
 End Module

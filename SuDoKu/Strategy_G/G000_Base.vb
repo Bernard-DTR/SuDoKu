@@ -314,7 +314,6 @@ Friend Module G000_Base
 
       Nb = 0
       Dim S As String = ""
-      'Jrn_Add_Yellow("soit : " & GRslt.CelExcl_hs.Count.ToString() & " candidat(s)")
       Jrn_Add(, {"soit : " & GRslt.CelExcl_hs.Count.ToString() & " candidat(s)"})
       For Each CelExcl_key As Tuple(Of Integer, String) In GRslt.CelExcl_hs
         Nb += 1

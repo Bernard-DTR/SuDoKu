@@ -146,8 +146,6 @@
     If Plcy_Gnrl = "Edi" Then Exit Sub
     If Plcy_Gnrl = "Nrm" And Plcy_Strg = "Obj" Then Exit Sub
     Try
-      ' Jrn_Add_Yellow(Proc_Name_Get())
-      'If Candidat = XSolution(Cellule) Then Exit Sub
       If Not Cell_Cdd_Controle(V, Cellule, "Exclude") Then Exit Sub
       If U(Cellule, 3).Contains(V) = False Then Exit Sub
       Game_Undo_Redo = "Normal"
@@ -230,7 +228,6 @@
   End Sub
 
   Public Function Cell_Cdd_Controle(Candidat As String, Cellule As Integer, Type_IE As String) As Boolean
-    'Jrn_Add_Yellow(Proc_Name_Get())
     'Le contrôle n'est pas effectué s'il n'y a pas de solution DL.
     If XSolution(Cellule) = "0" Then Return True
     Select Case Type_IE
