@@ -173,6 +173,11 @@
       Case True : CB05_12.Checked = True
       Case False : CB05_12.Checked = False
     End Select
+    CB05_13.Text = Msg_Read("PRF_05130")
+    Select Case Plcy_Only_Cdd_eligible
+      Case True : CB05_13.Checked = True
+      Case False : CB05_13.Checked = False
+    End Select
 
     'Onglet 06 Couleurs
     Onglet_06.Text = Msg_Read("PRF_06000")
@@ -558,6 +563,19 @@
       Case CheckState.Checked '1  'Oui
         Plcy_Dernière_Valeur_Unité = True
         My.Settings.Prf_05D_Plcy_Dernière_Valeur_Unité = True
+    End Select
+    If Not Mode_Load Then
+      OC_Présentation()
+      Frm_SDK.Invalidate()
+    End If
+  End Sub
+  Private Sub CB05_13_CheckedChanged(sender As Object, e As EventArgs) Handles CB05_13.CheckedChanged
+    ' Affichage de la grille de Saisie avec uniquement les candidats éligibles
+    Select Case CB05_13.CheckState
+      Case CheckState.Unchecked '0  'Non
+        Plcy_Only_Cdd_eligible = False
+      Case CheckState.Checked '1  'Oui
+        Plcy_Only_Cdd_eligible = True
     End Select
     If Not Mode_Load Then
       OC_Présentation()

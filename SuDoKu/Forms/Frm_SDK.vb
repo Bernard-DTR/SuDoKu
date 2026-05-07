@@ -322,12 +322,29 @@ Public NotInheritable Class Frm_SDK
       If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
         G4_Grid_Stratégie_All(g)
       End If
-      ' Grille de saisie
-      If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
-        g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+    ' Grille de saisie
+    If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
+      If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_eligible Then
+        G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
+      Else
+        g.DrawImage(Bmp_Fond_Saisie,
+                Sqr_Cel(Cellule_MouseMove).X,
+                Sqr_Cel(Cellule_MouseMove).Y)
       End If
-      ' Animation
-      If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
+
+
+      'If Plcy_Strg = "Sai" Then
+      '  G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
+      'Else
+      '  If Plcy_Only_Cdd_eligible = True Then
+      '    G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
+      '  Else
+      '    g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+      '  End If
+      'End If
+    End If
+    ' Animation
+    If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
         g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
       End If
   End Sub

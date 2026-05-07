@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #761"
+  Public SDK_Version As String = "V2026_05 #763"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -16,6 +16,7 @@ Module A00_Public
   '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete()   
   Public Animation_Cellule As Integer
   Public Animation_Numéro As Integer = 0
+  Public Plcy_Only_Cdd_eligible As Boolean = False
 #End Region
 
 #Region "01 Les Tailles"

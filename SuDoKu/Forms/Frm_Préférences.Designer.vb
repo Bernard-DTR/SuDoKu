@@ -24,6 +24,7 @@ Partial Class Frm_Préférences
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Onglet_05 = New System.Windows.Forms.TabPage()
+        Me.CB05_12 = New System.Windows.Forms.CheckBox()
         Me.CB05_11 = New System.Windows.Forms.CheckBox()
         Me.CB05_10 = New System.Windows.Forms.CheckBox()
         Me.Btn05_90 = New System.Windows.Forms.Button()
@@ -84,7 +85,7 @@ Partial Class Frm_Préférences
         Me.CB08_01 = New System.Windows.Forms.CheckBox()
         Me.ColorDialog = New System.Windows.Forms.ColorDialog()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.CB05_12 = New System.Windows.Forms.CheckBox()
+        Me.CB05_13 = New System.Windows.Forms.CheckBox()
         Me.Onglet_05.SuspendLayout()
         Me.Onglet_03.SuspendLayout()
         Me.Onglet_02.SuspendLayout()
@@ -100,6 +101,7 @@ Partial Class Frm_Préférences
         'Onglet_05
         '
         Me.Onglet_05.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Onglet_05.Controls.Add(Me.CB05_13)
         Me.Onglet_05.Controls.Add(Me.CB05_12)
         Me.Onglet_05.Controls.Add(Me.CB05_11)
         Me.Onglet_05.Controls.Add(Me.CB05_10)
@@ -112,11 +114,23 @@ Partial Class Frm_Préférences
         Me.Onglet_05.TabIndex = 4
         Me.Onglet_05.Text = "D"
         '
+        'CB05_12
+        '
+        Me.CB05_12.AutoSize = True
+        Me.CB05_12.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.CB05_12.Location = New System.Drawing.Point(15, 50)
+        Me.CB05_12.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CB05_12.Name = "CB05_12"
+        Me.CB05_12.Size = New System.Drawing.Size(46, 24)
+        Me.CB05_12.TabIndex = 34
+        Me.CB05_12.Text = "S"
+        Me.CB05_12.UseVisualStyleBackColor = True
+        '
         'CB05_11
         '
         Me.CB05_11.AutoSize = True
         Me.CB05_11.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.CB05_11.Location = New System.Drawing.Point(15, 113)
+        Me.CB05_11.Location = New System.Drawing.Point(15, 110)
         Me.CB05_11.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.CB05_11.Name = "CB05_11"
         Me.CB05_11.Size = New System.Drawing.Size(46, 24)
@@ -128,7 +142,7 @@ Partial Class Frm_Préférences
         '
         Me.CB05_10.AutoSize = True
         Me.CB05_10.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.CB05_10.Location = New System.Drawing.Point(15, 83)
+        Me.CB05_10.Location = New System.Drawing.Point(15, 80)
         Me.CB05_10.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.CB05_10.Name = "CB05_10"
         Me.CB05_10.Size = New System.Drawing.Size(46, 24)
@@ -800,17 +814,17 @@ Partial Class Frm_Préférences
         Me.ColorDialog.ShowHelp = True
         Me.ColorDialog.SolidColorOnly = True
         '
-        'CB05_12
+        'CB05_13
         '
-        Me.CB05_12.AutoSize = True
-        Me.CB05_12.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.CB05_12.Location = New System.Drawing.Point(15, 53)
-        Me.CB05_12.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.CB05_12.Name = "CB05_12"
-        Me.CB05_12.Size = New System.Drawing.Size(46, 24)
-        Me.CB05_12.TabIndex = 34
-        Me.CB05_12.Text = "S"
-        Me.CB05_12.UseVisualStyleBackColor = True
+        Me.CB05_13.AutoSize = True
+        Me.CB05_13.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.CB05_13.Location = New System.Drawing.Point(15, 20)
+        Me.CB05_13.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CB05_13.Name = "CB05_13"
+        Me.CB05_13.Size = New System.Drawing.Size(46, 24)
+        Me.CB05_13.TabIndex = 35
+        Me.CB05_13.Text = "S"
+        Me.CB05_13.UseVisualStyleBackColor = True
         '
         'Frm_Préférences
         '
@@ -904,4 +918,5 @@ Partial Class Frm_Préférences
     Friend WithEvents CBB08_03 As ComboBox
     Friend WithEvents CB02_12 As CheckBox
     Friend WithEvents CB05_12 As CheckBox
+    Friend WithEvents CB05_13 As CheckBox
 End Class

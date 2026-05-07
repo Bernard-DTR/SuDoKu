@@ -89,6 +89,32 @@ Module M03_Paint_Quadrillage
       End Using
     End Using
   End Sub
+  Public Sub G1_Cell_Fond_Saisie(g As Graphics, Cellule As Integer)
+    g.SmoothingMode = SmoothingMode.None
+    g.InterpolationMode = InterpolationMode.NearestNeighbor
+    g.PixelOffsetMode = PixelOffsetMode.None
+    g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
+    Using brsh As New SolidBrush(Color_Cell_Select)
+      g.FillRectangle(brsh, Sqr_Cel(Cellule))
+      For cdd As Integer = 1 To 9
+        Dim cd As Integer = Cellule * 10 + cdd
+        If U(Cellule, 3).Contains(CStr(cdd)) Then
+          g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd), Format_Center)
+        End If
+      Next cdd
+    End Using
+    Dim X As Integer = Sqr_Cel(Cellule).X
+    Dim Y As Integer = Sqr_Cel(Cellule).Y
+    ' Définition des points et du style de trait
+    Dim dashPattern As Single() = {1, 5}
+    Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
+      pen.DashPattern = dashPattern
+      g.DrawLine(pen, X, Y + (WHthird * 1), X + WH, Y + (WHthird * 1))
+      g.DrawLine(pen, X, Y + (WHthird * 2), X + WH, Y + (WHthird * 2))
+      g.DrawLine(pen, X + (WHthird * 1), Y, X + (WHthird * 1), Y + WH)
+      g.DrawLine(pen, X + (WHthird * 2), Y, X + (WHthird * 2), Y + WH)
+    End Using
+  End Sub
 
   Public Sub G1_Grid_Paint(g As Graphics)
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille

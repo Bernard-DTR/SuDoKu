@@ -436,6 +436,8 @@
 #759 L  04/05/2026 Correction d'un bogue dans G2_Cellule_Paint_Fond
 #760 Me 05/05/2026 Utilisation de font et de brush permanents pour tracer les valeurs et les candidats !
 #761 Me 05/05/2026 Utilisation de font et de brush permanents mise au point
+#762 J  06/05/2026 Option permettant de n'afficher que les candidats éligibles dans la grille de saisie
+#763 J  06/05/2026 En mode "Saisie", seuls les candidats éligibles sont affichés dans la grille de saisie
 
 
 
@@ -453,3 +455,4 @@
                    Il me semble que je dois pouvoir faire "des économies de boucles" avec mes For Next
                    Revoir si U_Sol est utilisé et quand ?
                    Nettoyer les S95
+????               Quand on crée une partie avec d'autres VI, peut-on exclure les vi précédentes ? 
