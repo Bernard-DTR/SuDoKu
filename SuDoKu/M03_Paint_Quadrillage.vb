@@ -4,6 +4,11 @@ Module M03_Paint_Quadrillage
   Public Sub Build_Bmp_Quadrillage()
     Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
     Using g As Graphics = Graphics.FromImage(Bmp_Quadrillage)
+      g.SmoothingMode = SmoothingMode.None
+      g.InterpolationMode = InterpolationMode.NearestNeighbor
+      g.PixelOffsetMode = PixelOffsetMode.None
+      g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
+
       G1_Grid_Paint(g)
     End Using
   End Sub
@@ -161,7 +166,7 @@ Module M03_Paint_Quadrillage
     ' 1 Traits intérieurs fins 
     Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
 
-    Using pen_t3 As New Pen(Color_Trait, Bld_Trait_3),
+    Using pen_t3 As New Pen(Color_Trait, 3),
           pen_t1 As New Pen(Color_Trait, Bld_Trait_1)
 
       For i As Integer = 0 To 9
@@ -222,6 +227,7 @@ Module M03_Paint_Quadrillage
             .CloseFigure()
           End With
           ' 2 Entourage avec coins arrondis
+          pen_t3.Alignment = PenAlignment.Center
           g.DrawPath(pen_t3, Reg_Pth)
         Next Région
       End Using

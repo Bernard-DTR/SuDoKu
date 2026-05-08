@@ -331,17 +331,6 @@ Public NotInheritable Class Frm_SDK
                 Sqr_Cel(Cellule_MouseMove).X,
                 Sqr_Cel(Cellule_MouseMove).Y)
       End If
-
-
-      'If Plcy_Strg = "Sai" Then
-      '  G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
-      'Else
-      '  If Plcy_Only_Cdd_eligible = True Then
-      '    G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
-      '  Else
-      '    g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
-      '  End If
-      'End If
     End If
     ' Animation
     If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then

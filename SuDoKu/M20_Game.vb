@@ -59,6 +59,7 @@ Friend Module M20_Game
     '                1 est attendu de préférence
     '                x nombre de solution
     XSolution = StrDup(81, "0")
+    If Plcy_Strg = "Sai" Then Return -2
     If Plcy_Dancing_Link Then
       Dim MsgTit As String = Application.ProductName & " " & SDK_Version
       Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
