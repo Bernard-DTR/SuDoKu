@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #764"
+  Public SDK_Version As String = "V2026_05 #765"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -340,7 +340,10 @@ Module A00_Public
     Public Point_To As PointF
   End Class
   Public Objet_List As New List(Of Objet_Cls)
-  Public Pbl_PtF As PointF
+  Public Obj_PtF As Point
+  Public Obj_Cell As Integer
+  Public Obj_Sqr_Cdd As Integer
+  Public Obj_Cdd As Integer
 
   ' Utilisation du MouseWheel
   Public MW_Val As Integer = 0                          ' Valeur filtrée en cours

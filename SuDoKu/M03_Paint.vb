@@ -1140,7 +1140,6 @@ Friend Module M03_Paint
 
     For Each Obj As Objet_Cls In Objet_List
       With Obj
-
         Select Case .Forme
           Case "Cadre", "Carré", "Disque", "Cercle", "Croix"
             Select Case .Cdd_From

@@ -63,6 +63,7 @@ Module M03_Paint_Quadrillage
     ' le Bmp_Fond_Saisie est calculé une seule fois dans Frm_SDK_Load
     Bmp_Fond_Saisie = New Bitmap(WH, WH)
     Dim r As New Rectangle(0, 0, WH, WH)
+    r.Inflate(-1, -1)
     Using g As Graphics = Graphics.FromImage(Bmp_Fond_Saisie)
       g.SmoothingMode = SmoothingMode.None
       g.InterpolationMode = InterpolationMode.NearestNeighbor
@@ -212,7 +213,6 @@ Module M03_Paint_Quadrillage
                           y:=Pt1.Y + WH_Région)
           Pt4 = New Point(x:=Pt1.X,
                           y:=Pt1.Y + WH_Région)
-
           ' 1 Calcul avec les 4 coins arrondis
           With Reg_Pth
             .StartFigure()

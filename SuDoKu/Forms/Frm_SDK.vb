@@ -1229,7 +1229,8 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Private Sub Mnu08_DessinerSurLaGrille_Click(sender As Object, e As EventArgs) Handles Mnu08_DessinerSurLaGrille.Click
-    Jrn_Add(, {Proc_Name_Get()})
+    'Stg_List.Add(New Stg_Cls("Obj", "N", "N", "N", "N", 9, "Dessiner sur la Grille"))
+    'Jrn_Add(, {Proc_Name_Get()})
     'Public Swt_Mode_Dessin As Integer = -1 Position Initiale
     Swt_Mode_Dessin *= -1
     Select Case Swt_Mode_Dessin
@@ -1293,13 +1294,15 @@ Public NotInheritable Class Frm_SDK
 
   Private Sub Mnu_Obj_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles Mnu_Obj.Opening
     ' Mémorisation du point de clique à l'ouverture du menu
-    Pbl_PtF = Me.PointToClient(MousePosition)
+    Obj_PtF = Me.PointToClient(MousePosition)
+    Obj_Cell = Pbl_Cell_Select
+    Obj_Sqr_Cdd = Wh_Cellule_Candidat_Pt(Obj_Cell, New Point(Obj_PtF.X, Obj_PtF.Y))
+    Obj_Cdd = If(U(Obj_Cell, 3).Contains(CStr(Obj_Sqr_Cdd)), Obj_Sqr_Cdd, 0)
   End Sub
 
   Private Sub Mnu_Obj_Click(sender As Object, e As EventArgs) Handles Origine.Click, Lister.Click, Flèche_Supprimer.Click, Flèche.Click, Enlever_Tout.Click, Enlever.Click, Disque.Click, Destination.Click, D.Click, Croix.Click, Cercle.Click, Cel_Cdd.Click, Carré.Click, Cadre.Click, C.Click, B.Click, A.Click
     Dim ClickedMenuItem As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
     Dim Afficher As Boolean
-
     Select Case ClickedMenuItem.Name
 
       Case "A", "B", "C", "D"
@@ -1316,13 +1319,7 @@ Public NotInheritable Class Frm_SDK
         Afficher = False
 
       Case "Cel_Cdd"
-        Dim Cellule As Integer = Pbl_Cell_Select
-        Dim Candidat As Integer = Pbl_Cell_Candidat_Select
-        Dim Cdd As Integer = 0
-        ' Pour une cellule  Cellule est compris entre 0 et 80 et Cdd = 0
-        ' Pour une candidat Cellule est compris entre 0 et 80 et Cdd est compris entre 1 et 9
-        If U(Cellule, 3).Contains(CStr(Candidat)) Then Cdd = Candidat
-        Objet_List.Add(New Objet_Cls With {.Symbol = Obj_Symbol, .Forme = Obj_Forme, .Cel_From = Cellule, .Cdd_From = Cdd, .Cel_To = -1, .Cdd_To = 0})
+        Objet_List.Add(New Objet_Cls With {.Symbol = Obj_Symbol, .Forme = Obj_Forme, .Cel_From = Obj_Cell, .Cdd_From = Obj_Cdd, .Cel_To = -1, .Cdd_To = 0})
         Afficher = True
 
       Case "Flèche"
@@ -1335,15 +1332,15 @@ Public NotInheritable Class Frm_SDK
         Afficher = False
 
       Case "Origine"
-        Flè_Cel_From = Pbl_Cell_Select
-        Flè_Cdd_From = Pbl_Cell_Candidat_Select
+        Flè_Cel_From = Obj_Cell
+        Flè_Cdd_From = Obj_Cdd
         Flè_From = 0
         If U(Flè_Cel_From, 3).Contains(CStr(Flè_Cdd_From)) Then Flè_From = Flè_Cdd_From
         Afficher = False
 
       Case "Destination"
-        Flè_Cel_To = Pbl_Cell_Select
-        Flè_Cdd_To = Pbl_Cell_Candidat_Select
+        Flè_Cel_To = Obj_Cell
+        Flè_Cdd_To = Obj_Cdd
         Flè_To = 0
         If U(Flè_Cel_To, 3).Contains(CStr(Flè_Cdd_To)) Then Flè_To = Flè_Cdd_To
         ' Il faut 2 cellules différentes et 2 candidats
@@ -1358,24 +1355,14 @@ Public NotInheritable Class Frm_SDK
         Afficher = True
 
       Case "Flèche_Supprimer"
-        ' Pour supprimer la flèche, il faut connaître les 2 points de la flèche.
-        'Candidat_Pt = Me.PointToClient(MousePosition) a été documenté à l'ouverture du menu contextuel
-        '👉 Mnu_Obj_Opening
-        ' Trouver l'objet correspondant
-        Dim ligneàSupprimer As Objet_Cls = Objet_List.FirstOrDefault(Function(l) Get_Distance_Point_Flèche(Pbl_PtF, l.Point_From, l.Point_To) < 5)
+        Dim ligneàSupprimer As Objet_Cls = Objet_List.FirstOrDefault(Function(l) Get_Distance_Point_Flèche(Obj_PtF, l.Point_From, l.Point_To) < 5)
         If ligneàSupprimer IsNot Nothing Then
           Objet_List.Remove(ligneàSupprimer) ' Supprimer l'objet trouvé
         End If
         Afficher = True
 
       Case "Enlever"
-        Dim Cellule As Integer = Pbl_Cell_Select
-        Dim Candidat As Integer = Pbl_Cell_Candidat_Select
-        Dim Cdd As Integer = 0
-        ' Pour une cellule  Cellule est compris entre 0 et 80 et Cdd = 0
-        ' Pour une candidat Cellule est compris entre 0 et 80 et Cdd est compris entre 1 et 9
-        If U(Cellule, 3).Contains(CStr(Candidat)) Then Cdd = Candidat
-        Objet_List.RemoveAll(Function(Obj) Obj.Cel_From = Cellule And Obj.Cdd_From = Cdd And Obj.Cel_To = -1 And Obj.Cdd_To = 0)
+        Objet_List.RemoveAll(Function(Obj) Obj.Cel_From = Obj_Cell And Obj.Cdd_From = Obj_Cdd And Obj.Cel_To = -1 And Obj.Cdd_To = 0)
         Afficher = True
 
       Case "Enlever_Tout"

@@ -439,11 +439,10 @@
 #762 J  06/05/2026 Option permettant de n'afficher que les candidats éligibles dans la grille de saisie
 #763 J  06/05/2026 En mode "Saisie", seuls les candidats éligibles sont affichés dans la grille de saisie
 #764 V  07/05/2026 Quadrillage: pen_t3.Alignment = PenAlignment.Center sans efficacité
-
-
+#765 S  08/05/2026 Remise en place de "Dessiner sur la grille"
 ##############################################################################################################################
 
-
+????               Dessiner la grille à remettre en place.
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt

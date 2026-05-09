@@ -88,8 +88,10 @@ Friend Module A02_Occasionally
     OC_Grid_Cutting_Image()
     OC_Présentation_SDK()
     OC_Présentation_Menu()
+    Build_Bmp_Quadrillage()
     Build_Bmp_Fonds()
     Build_Bmp_Valeurs()
+    Build_Bmp_Saisie()
   End Sub
   Public Sub OC_Présentation_SDK()
     Dim Int_Seize As Integer = 16

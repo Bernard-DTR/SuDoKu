@@ -1,12 +1,5 @@
 ﻿Module M02_Menu_Management
   Sub Mnu_EDI(Action As String, sender As Object, e As EventArgs)
-    'Alternance de Swt_ModeEdition permettant de Lancer puis d'Arrêter le Mode Edition
-    'Arrêt du Mode de clignotement qui "fatigue visuellement"
-    'Suppression de Supprimer Edi_Timer et Edi_Clignotant
-    'Résultat identique
-    'Le menu apparait, la boite de dialogue apparait et disparait, il faut enfoncer Escape
-    'Les autres options fonctionnent correctement
-
     'Le menu Edition permet les actions suivantes:
     '  Placer  une valeur dans une cellule
     '  Gérer les candidats dans une cellule
