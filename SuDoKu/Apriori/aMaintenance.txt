@@ -441,6 +441,7 @@
 #764 V  08/05/2026 Quadrillage: pen_t3.Alignment = PenAlignment.Center sans efficacité
 #765 S  09/05/2026 Remise en place de "Dessiner sur la grille"
 #766 D  10/05/2026 Quadrillage avec angle arrondi, mise en place de WHRayon
+#767 D  10/05/2026 Mise en place de Rayon
 
 ##############################################################################################################################
                    

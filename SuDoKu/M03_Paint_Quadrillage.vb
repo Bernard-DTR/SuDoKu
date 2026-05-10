@@ -1,6 +1,5 @@
 ﻿Imports System.Drawing.Drawing2D
 Module M03_Paint_Quadrillage
-
 #Region "G1 Couche Quadrillage"
   Public Sub Build_Bmp_Quadrillage()
     Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)

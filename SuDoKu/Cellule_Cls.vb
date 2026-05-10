@@ -9,8 +9,7 @@ Public Class Cellule_Cls
 
   ' --- Propriété ---
   Private _numéro As Integer
-  Private _isvalid As Boolean                    ' Nouveau : True compris entre 0 et 80, sinon False
-  Private _coté As Integer
+  Private ReadOnly _isvalid As Boolean           ' Nouveau : True compris entre 0 et 80, sinon False
   Private _typologie As String
   Private _position As Point
   Private _position_Center As Point
@@ -57,13 +56,6 @@ Public Class Cellule_Cls
       _valeur = 0
       If U(Numéro, 2) <> " " Then _valeur = CInt(U(Numéro, 2))
       Return _valeur
-    End Get
-  End Property
-  ''' <summary>Taille de la Cellule, définie dans Préférence/Grille/Taille.</summary>
-  Public ReadOnly Property Coté As Integer
-    Get
-      _coté = WH
-      Return _coté
     End Get
   End Property
   ''' <summary>Position de la Cellule.</summary>
@@ -116,7 +108,6 @@ Public Class Cellule_Cls
     Dim pth As GraphicsPath = Sqr_Pth(Numéro)
     Dim img As Image = Sqr_Img(Numéro)
     Dim fondCouleur As Boolean = (Plcy_Fond_Grille = 0)
-
     Using brFond As New SolidBrush(U_Clr_Cell_Fond(Numéro))
       If fondCouleur Then
         If Cellule_Arrondie Then
@@ -160,7 +151,7 @@ Public Class Cellule_Cls
     'Procédure utilisée pour dessiner le fond de sélection d'une cellule
     If Not IsValid Then Exit Sub
     If Typologie = "I" Or Typologie = "R" Then Exit Sub
-    Dim Coté_6 As Integer = Coté \ 6
+    Dim Coté_6 As Integer = WH \ 6
     Dim cdd_n As Integer
     For cdd As Integer = 1 To 9
       If (typeCdd = "Les9Candidats") _

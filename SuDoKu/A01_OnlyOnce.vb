@@ -89,10 +89,11 @@ Friend Module A01_OnlyOnce
     End With
   End Sub
   Public Sub OO_120_Variables_Autres()
-    WHhalf = (WH \ 2)
-    WHrayon = (WH \ 4)
-    WHthird = (WH \ 3)
-    WHquart = (WH \ 4)
+    WHhalf = WH \ 2
+    WHrayon = WH \ Rayon
+    WHthird = WH \ 3
+    WHquart = WH \ 4
+    WHsix = WH \ 6
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
   End Sub
   ''' <summary>Charge le fichier des messages dans un dictionnaire.</summary>

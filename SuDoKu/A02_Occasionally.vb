@@ -207,10 +207,11 @@ Friend Module A02_Occasionally
 #Region " OC_Compute Sqr_Cel Font Fond d'Image et Sqr_Cdd"
   Public Sub OC_Grid_Compute()
     ' Généralités (Dépendance de WH)
-    WHhalf = (WH \ 2)
-    WHrayon = (WH \ 4)
-    WHthird = (WH \ 3)
-    WHquart = (WH \ 4)
+    WHhalf = WH \ 2
+    WHrayon = WH \ Rayon
+    WHthird = WH \ 3
+    WHquart = WH \ 4
+    WHsix = WH \ 6
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
 
     ' La hauteur de la Barre_Outils est standard (25)  

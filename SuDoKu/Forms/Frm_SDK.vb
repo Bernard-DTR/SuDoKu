@@ -292,9 +292,10 @@ Public NotInheritable Class Frm_SDK
 
   Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)
     Try
-      If MouseClick_Middle_ToolTip IsNot Nothing Then
-        MouseClick_Middle_ToolTip.HideTooltip()
-      End If
+      MouseClick_Middle_ToolTip?.HideTooltip()
+      'If MouseClick_Middle_ToolTip IsNot Nothing Then
+      'MouseClick_Middle_ToolTip.HideTooltip()
+      'End If
     Catch
       ' Ne pas propager l'erreur depuis le timer
     End Try
@@ -318,8 +319,8 @@ Public NotInheritable Class Frm_SDK
     Dim g As Graphics = e.Graphics
     g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création (Load/Préférences_Grille)     
     g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une seule création à chaque jeu
-      g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque saisie/effacement de valeur
-      If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
+    g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque saisie/effacement de valeur
+    If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
         G4_Grid_Stratégie_All(g)
       End If
     ' Grille de saisie
@@ -727,7 +728,9 @@ Public NotInheritable Class Frm_SDK
       Case MouseButtons.Right
         ' Le bouton droit affiche tous les résultats de la stratégie sauf pour Cdd
         Dim U_temp(80, 3) As String
-        Dim Strategy_Rslt(99, 0) As String
+        'Dim Strategy_Rslt(99, 0) As String
+
+        Dim Strategy_Rslt(,) As String
         Array.Copy(U, U_temp, UNbCopy)
         Select Case Lettre
           Case "U" : Strategy_Rslt = Strategy_CdU(U_temp)
@@ -747,7 +750,6 @@ Public NotInheritable Class Frm_SDK
     End Select
     Mnu04n_SignalerLeCandidatSaisi.Checked = False
     Pénalités("Stratégie " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
-
   End Sub
   Private Sub Btn0_Click(sender As Object, e As EventArgs) Handles Btn0.Click
     Strategy_Dsp_Standard()
