@@ -10,7 +10,7 @@
       ' 1 Affichage des Candidats
       For i As Integer = 0 To 80
         sc.Numéro = i
-        sc.G6_Cellule_Paint_Candidats(g, "LesCandidatsEligibles")
+        sc.G6_Cellule_Paint_Candidats_Eligibles(g)
         If U(i, 3).Contains(XRslt.Candidat(0)) Then
           G0_Cdd_Figure(g, i, CInt(XRslt.Candidat(0)), "Cercle", Color.White)
         End If
@@ -72,7 +72,7 @@
         With XCelExcl
           sc.Numéro = .Cel
           If U(.Cel, 3).Contains(.Cdd) Then
-            sc.G6_Cellule_Paint_Candidat(g, .Cdd, Color_Cdd_Exclure)
+            sc.G6_Cellule_Paint_Candidat_Eligible(g, .Cdd, Color_Cdd_Exclure)
             ' Coloration du menu contextuel avec les 2 candidats
             Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
             U_Strg_Cdd_Exc(.Cel) = Candidats
@@ -90,7 +90,7 @@
   Private Sub PaintIfCandidateExists(g As Graphics, cell As Integer, cdd As Integer, color As Color)
     If U(cell, 3).Contains(CStr(cdd)) Then
       Dim sc As New Cellule_Cls With {.Numéro = cell}
-      sc.G6_Cellule_Paint_Candidat(g, CStr(cdd), color)
+      sc.G6_Cellule_Paint_Candidat_Eligible(g, CStr(cdd), color)
     End If
   End Sub
   Private Sub DrawBezierWithCandidates(g As Graphics,

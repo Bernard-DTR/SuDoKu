@@ -503,7 +503,7 @@ Sql_CountParallel_PrcT_End:
     Dim Nbc_T As Integer = 0
     'EnumerateFiles travaille en parallèle dans les sous-répertoires et donne IMMEDIATEMENT accès au début des données
     'GetFiles       donne les résultats à la fin du traitement
-    'Dim Files As String() = Directory.GetFiles(Application_SDK, "*.vb")
+    'Dim Files As String() = Directory.GetFiles(Dossier, "*.vb")
     Dim files As IEnumerable(Of String) = From file In Directory.EnumerateFiles(Application_SDK, "*.vb", SearchOption.AllDirectories)
     For Each File As String In files
       Dim NbL As Integer = 0
@@ -576,4 +576,6 @@ Sql_CountParallel_PrcT_End:
       Jrn_Add(, {CStr(File_nb).PadLeft(3) & " " & File_Sht})
     Next File
   End Sub
+
+
 End Module

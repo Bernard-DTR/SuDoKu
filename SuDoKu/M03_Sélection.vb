@@ -234,7 +234,7 @@
       Case "Include"
         If XSolution(Cellule) <> Candidat Then
           Cpt_Pénalités += 1
-          Jrn_Add(, {Cpt_Pénalités.ToString().PadLeft(3) & " Erreur en " & U_Coord(Cellule) & "! Le candidat " & XSolution(Cellule) & " est attendu à la place de " & Candidat & "."}, "Red")
+          Jrn_Add(, {Cpt_Pénalités.ToString().PadLeft(3) & " Erreur en " & U_Coord(Cellule) & "! Le candidat " & XSolution(Cellule) & " n'est pas attendu à cette place."}, "Red")
           Return False
         End If
       Case "Exclude"

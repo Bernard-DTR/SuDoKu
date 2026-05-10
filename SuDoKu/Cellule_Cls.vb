@@ -128,10 +128,9 @@ Public Class Cellule_Cls
     End Using
   End Sub
   ''' <summary>Dessine UN Candidat de la Cellule.</summary>
-  Public Sub G6_Cellule_Paint_Candidat(g As Graphics, Candidat As String, Couleur As Color)
+  Public Sub G6_Cellule_Paint_Candidat_Eligible(g As Graphics, Candidat As String, Couleur As Color)
     'Dessine UN Candidat d'une cellule dans un cercle de couleur
     'Un candidat a toujours la même couleur, puisqu'il ne peut être affiché que dans la typologie V
-    Dim Coté_6 As Integer = (WH \ 6)
     If Not IsValid Then Exit Sub
     If Not Candidats.Contains(Candidat) Then Exit Sub
     Dim Cdd_n As Integer = (Numéro * 10) + CInt(Candidat)
@@ -142,25 +141,23 @@ Public Class Cellule_Cls
       g.DrawString(Subst_Police(Candidat),
                    Fnt_Cdd,
                    Brh_VCdd,
-                   Sqr_Cdd(Cdd_n).X + Coté_6, Sqr_Cdd(Cdd_n).Y + Coté_6, Format_Center)
+                   Sqr_Cdd(Cdd_n).X + WHsix, Sqr_Cdd(Cdd_n).Y + WHsix, Format_Center)
     End Using
   End Sub
 
   ''' <summary>Dessine les Candidats de la Cellule.</summary>
-  Public Sub G6_Cellule_Paint_Candidats(g As Graphics, ByVal typeCdd As String)
+  Public Sub G6_Cellule_Paint_Candidats_Eligibles(g As Graphics)
     'Procédure utilisée pour dessiner le fond de sélection d'une cellule
     If Not IsValid Then Exit Sub
     If Typologie = "I" Or Typologie = "R" Then Exit Sub
-    Dim Coté_6 As Integer = WH \ 6
     Dim cdd_n As Integer
     For cdd As Integer = 1 To 9
-      If (typeCdd = "Les9Candidats") _
-      Or (typeCdd = "LesCandidatsEligibles" And Candidats.Contains(cdd.ToString())) Then
+      If Candidats.Contains(cdd.ToString()) Then
         cdd_n = (Numéro * 10) + cdd
         g.DrawString(Subst_Police(CStr(cdd)),
                      Fnt_Cdd,
                      Brh_VCdd,
-                     Sqr_Cdd(cdd_n).X + Coté_6, Sqr_Cdd(cdd_n).Y + Coté_6, Format_Center)
+                     Sqr_Cdd(cdd_n).X + WHsix, Sqr_Cdd(cdd_n).Y + WHsix, Format_Center)
       End If
     Next cdd
   End Sub
@@ -188,7 +185,10 @@ Public Class SDK_ColorDialog
       End If
     End Set
   End Property
+
   Protected Overrides Function HookProc(hWnd As IntPtr, msg As Integer, wparam As IntPtr, lparam As IntPtr) As IntPtr
+    ' Cette fonction modifie le titre de la boite de dialogue des couleurs 
+    ' dans Préférences / Couleurs
     If Not _titleSet Then
       SetWindowText(hWnd, _title)
       _titleSet = True

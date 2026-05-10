@@ -442,6 +442,8 @@
 #765 S  09/05/2026 Remise en place de "Dessiner sur la grille"
 #766 D  10/05/2026 Quadrillage avec angle arrondi, mise en place de WHRayon
 #767 D  10/05/2026 Mise en place de Rayon
+#768 D  10/05/2026 G6_Cellule_Paint_Candidats_Eligibles
+#769 D  10/05/2026 Enregistrement des parties AJ
 
 ##############################################################################################################################
                    
@@ -456,3 +458,5 @@
                    Il me semble que je dois pouvoir faire "des économies de boucles" avec mes For Next
                    Revoir si U_Sol est utilisé et quand ?
                    Nettoyer les S95
+????               Le 13/05/2026 est-ce que mon compteur Copilot sera redescendu ?
+                   aujourd'hui : Demandes 78% Completion 100%
