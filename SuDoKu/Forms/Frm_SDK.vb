@@ -316,8 +316,8 @@ Public NotInheritable Class Frm_SDK
     'Le quadrillage, le fond, les valeurs et la grille de saisie ne sont pas redessinés.
     'Ce sont 4 bitmaps qui sont dessinés pour améliorer les performances d'affichage
     Dim g As Graphics = e.Graphics
-      g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création (Load/Préférences_Grille)     
-      g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une seule création à chaque jeu
+    g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création (Load/Préférences_Grille)     
+    g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une seule création à chaque jeu
       g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque saisie/effacement de valeur
       If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
         G4_Grid_Stratégie_All(g)
@@ -884,7 +884,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_SudokuPatriceHenrion_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuPatriceHenrion.Click
-    'Ligne de commande /p lance le jeu en petite taille
+    ' /p lance le jeu en petite taille
     Dim Shell_St As String = Path_SDK_Autres_Jeux & "SudokuPH\Sudoku.exe /p"
     Jrn_Add(, {Shell_St})
     Try

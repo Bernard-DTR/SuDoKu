@@ -208,6 +208,7 @@ Friend Module A02_Occasionally
   Public Sub OC_Grid_Compute()
     ' Généralités (Dépendance de WH)
     WHhalf = (WH \ 2)
+    WHrayon = (WH \ 4)
     WHthird = (WH \ 3)
     WHquart = (WH \ 4)
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
@@ -257,6 +258,7 @@ Friend Module A02_Occasionally
         k += 1
       Next i
     Next j
+
     '#736
     For i As Integer = 0 To 8
       Sqr_Celx(i) = Sqr_Cel(i + 9).X
@@ -304,19 +306,19 @@ Friend Module A02_Occasionally
           Case 0, 3, 6, 27, 30, 33, 54, 57, 60       ' Coin HG arrondi
             With Sqr_Pth(k)
               .StartFigure()
-              .AddArc(New Rectangle(x, y, WHhalf, WHhalf), 180, 90)
-              .AddLine(x + WHhalf, y, x + WH, y)
+              .AddArc(New Rectangle(x, y, WHrayon, WHrayon), 180, 90)
+              .AddLine(x + WHrayon, y, x + WH, y)
               .AddLine(x + WH, y, x + WH, y + WH)
               .AddLine(x + WH, y + WH, x, y + WH)
-              .AddLine(x, y + WH, x, y + WHhalf)
+              .AddLine(x, y + WH, x, y + WHrayon)
               .CloseFigure() 'La figure est déjà fermée
             End With
           Case 2, 5, 8, 29, 32, 35, 56, 59, 62       ' Coin HD arrondi
             With Sqr_Pth(k)
               .StartFigure()
-              .AddLine(x, y, x + WH - WHhalf, y)
-              .AddArc(New Rectangle(x + WH - WHhalf, y, WHhalf, WHhalf), 270, 90)
-              .AddLine(x + WH, y + WHhalf, x + WH, y + WH)
+              .AddLine(x, y, x + WH - WHrayon, y)
+              .AddArc(New Rectangle(x + WH - WHrayon, y, WHrayon, WHrayon), 270, 90)
+              .AddLine(x + WH, y + WHrayon, x + WH, y + WH)
               .AddLine(x + WH, y + WH, x, y + WH)
               .AddLine(x, y + WH, x, y)
               .CloseFigure()
@@ -326,18 +328,18 @@ Friend Module A02_Occasionally
               .StartFigure()
               .AddLine(x, y, x + WH, y)
               .AddLine(x + WH, y, x + WH, y + WH)
-              .AddLine(x + WH, y + WH, x + WHhalf, y + WH)
-              .AddArc(New Rectangle(x, y + WH - WHhalf, WHhalf, WHhalf), 90, 90)
-              .AddLine(x, y + WH - WHhalf, x, y)
+              .AddLine(x + WH, y + WH, x + WHrayon, y + WH)
+              .AddArc(New Rectangle(x, y + WH - WHrayon, WHrayon, WHrayon), 90, 90)
+              .AddLine(x, y + WH - WHrayon, x, y)
               .CloseFigure()
             End With
           Case 20, 23, 26, 47, 50, 53, 74, 77, 80    ' Coin BD arrondi
             With Sqr_Pth(k)
               .StartFigure()
               .AddLine(x, y, x + WH, y)
-              .AddLine(x + WH, y, x + WH, y + WH - WHhalf)
-              .AddArc(New Rectangle(x + WH - WHhalf, y + WH - WHhalf, WHhalf, WHhalf), 0, 90)
-              .AddLine(x + WH - WHhalf, y + WH, x, y + WH)
+              .AddLine(x + WH, y, x + WH, y + WH - WHrayon)
+              .AddArc(New Rectangle(x + WH - WHrayon, y + WH - WHrayon, WHrayon, WHrayon), 0, 90)
+              .AddLine(x + WH - WHrayon, y + WH, x, y + WH)
               .AddLine(x, y + WH, x, y)
               .CloseFigure()
             End With

@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #765"
+  Public SDK_Version As String = "V2026_05 #766"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -20,10 +20,11 @@ Module A00_Public
 #End Region
 
 #Region "01 Les Tailles"
-  Public WH As Integer ' Width et Height Standard
-  Public WHhalf As Integer = (WH \ 2)
-  Public WHthird As Integer = (WH \ 3)
-  Public WHquart As Integer = (WH \ 4)
+  Public WH As Integer            ' Width et Height Standard
+  Public WHhalf As Integer        '= (WH \ 2)
+  Public WHrayon As Integer       '= (WH \ 4)
+  Public WHthird As Integer       '= (WH \ 3)
+  Public WHquart As Integer       '= (WH \ 4)
   Public Barre_Menu_Hauteur As Integer = 32
   Public Barre_Outils_Hauteur As Integer = 23 ' 25
 

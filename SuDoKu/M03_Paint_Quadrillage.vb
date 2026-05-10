@@ -1,5 +1,6 @@
 ﻿Imports System.Drawing.Drawing2D
 Module M03_Paint_Quadrillage
+
 #Region "G1 Couche Quadrillage"
   Public Sub Build_Bmp_Quadrillage()
     Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
@@ -27,6 +28,7 @@ Module M03_Paint_Quadrillage
       For i As Integer = 0 To 80
         sc.Numéro = i
         sc.G2_Cellule_Paint_Fond(g)
+
         If U(i, 1) <> " " Then
           g.DrawString(Subst_Police(U(i, 1)),
                        Fnt_Val,
@@ -137,7 +139,6 @@ Module M03_Paint_Quadrillage
     End Select
   End Sub
   Public Sub G1_Grid_Paint_Quadrillage_00(g As Graphics)
-    'Les suffixes 00,04,20,36 représentent le nombre de coins arrondis ou biseautés
     'Quadrillage de référence pour l'entourage, les régions et les cellules horizontal et vertical
     Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
 
@@ -216,18 +217,18 @@ Module M03_Paint_Quadrillage
           ' 1 Calcul avec les 4 coins arrondis
           With Reg_Pth
             .StartFigure()
-            .AddArc(New Rectangle(CInt(Pt1.X), CInt(Pt1.Y), WHhalf, WHhalf), 180, 90)                 'Coin en haut à gauche  
-            .AddLine(Pt1.X + WHhalf, Pt1.Y, Pt2.X - WHhalf, Pt2.Y)                                    'Ligne horizontale A  B en haut
-            .AddArc(New Rectangle(CInt(Pt2.X) - WHhalf, CInt(Pt2.Y), WHhalf, WHhalf), 270, 90)        'Coin en haut à droite  
-            .AddLine(Pt2.X, Pt2.Y + WHhalf, Pt3.X, Pt3.Y - WHhalf)                                    'Ligne verticale   B  C droite
-            .AddArc(New Rectangle(CInt(Pt3.X) - WHhalf, CInt(Pt3.Y) - WHhalf, WHhalf, WHhalf), 0, 90) 'Coin en bas à droite  
-            .AddLine(Pt3.X - WHhalf, Pt3.Y, Pt4.X + WHhalf, Pt4.Y)                                    'Ligne horizontale C  D en bas
-            .AddArc(New Rectangle(CInt(Pt4.X), CInt(Pt4.Y) - WHhalf, WHhalf, WHhalf), 90, 90)         'Coin en bas à gauche  
-            .AddLine(Pt4.X, Pt4.Y - WHhalf, Pt1.X, Pt1.Y + WHhalf)                                    'Ligne verticale   D  A gauche
+            .AddArc(New Rectangle(CInt(Pt1.X), CInt(Pt1.Y), WHrayon, WHrayon), 180, 90)                 'Coin en haut à gauche  
+            .AddLine(Pt1.X + WHrayon, Pt1.Y, Pt2.X - WHrayon, Pt2.Y)                                    'Ligne horizontale A  B en haut
+            .AddArc(New Rectangle(CInt(Pt2.X) - WHrayon, CInt(Pt2.Y), WHrayon, WHrayon), 270, 90)        'Coin en haut à droite  
+            .AddLine(Pt2.X, Pt2.Y + WHrayon, Pt3.X, Pt3.Y - WHrayon)                                    'Ligne verticale   B  C droite
+            .AddArc(New Rectangle(CInt(Pt3.X) - WHrayon, CInt(Pt3.Y) - WHrayon, WHrayon, WHrayon), 0, 90) 'Coin en bas à droite  
+            .AddLine(Pt3.X - WHrayon, Pt3.Y, Pt4.X + WHrayon, Pt4.Y)                                    'Ligne horizontale C  D en bas
+            .AddArc(New Rectangle(CInt(Pt4.X), CInt(Pt4.Y) - WHrayon, WHrayon, WHrayon), 90, 90)         'Coin en bas à gauche  
+            .AddLine(Pt4.X, Pt4.Y - WHrayon, Pt1.X, Pt1.Y + WHrayon)                                    'Ligne verticale   D  A gauche
             .CloseFigure()
           End With
           ' 2 Entourage avec coins arrondis
-          pen_t3.Alignment = PenAlignment.Center
+          pen_t3.Alignment = PenAlignment.Center ' Valeur par défaut à garder
           g.DrawPath(pen_t3, Reg_Pth)
         Next Région
       End Using

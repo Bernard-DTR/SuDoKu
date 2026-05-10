@@ -90,6 +90,7 @@ Friend Module A01_OnlyOnce
   End Sub
   Public Sub OO_120_Variables_Autres()
     WHhalf = (WH \ 2)
+    WHrayon = (WH \ 4)
     WHthird = (WH \ 3)
     WHquart = (WH \ 4)
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
