@@ -325,7 +325,7 @@ Public NotInheritable Class Frm_SDK
       End If
     ' Grille de saisie
     If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
-      If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_eligible Then
+      If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_Eligible Then
         G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
       Else
         g.DrawImage(Bmp_Fond_Saisie,
@@ -385,7 +385,7 @@ Public NotInheritable Class Frm_SDK
     Pbl_Cell_Select = Cellule_MM
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
       'B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
-      B_Position.Text = U_cr(Pbl_Cell_Select)
+      B_Position.Text = U_cr(Pbl_Cell_Select) & "   " & Pbl_Cell_Select
       Mnu_Mngt(Pbl_Cell_Select)
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select

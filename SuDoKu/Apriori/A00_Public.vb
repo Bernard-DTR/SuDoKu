@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #767"
+  Public SDK_Version As String = "V2026_05 #771"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -16,7 +16,7 @@ Module A00_Public
   '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete()   
   Public Animation_Cellule As Integer
   Public Animation_Numéro As Integer = 0
-  Public Plcy_Only_Cdd_eligible As Boolean = False
+  Public Plcy_Only_Cdd_Eligible As Boolean = False
 #End Region
 
 #Region "01 Les Tailles"
@@ -165,7 +165,9 @@ Module A00_Public
   Public Color_Trait As Color = Color.Green                                ' Couleur des traits du Grid
   Public Color_Stratégique As Color = Color.FromArgb(128, 15, 196, 101)
 
-  Public Color_Cell_Select As Color = Color.FromArgb(128 + 64, Color.White)
+  'Public Color_Cell_Select As Color = Color.FromArgb(128 + 64, Color.White)
+  Public Color_Cell_Select As Color = Color.FromArgb(128 + 64, 197, 254, 220)
+  ' je garde la couleur de sélection plus "calme"
   Public Color_Cdd_Insérer As Color = Color.Yellow
   Public Color_Cdd_Exclure As Color = Color.Red
   Public Format_Center As New StringFormat With

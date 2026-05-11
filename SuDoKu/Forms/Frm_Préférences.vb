@@ -174,7 +174,7 @@
       Case False : CB05_12.Checked = False
     End Select
     CB05_13.Text = Msg_Read("PRF_05130")
-    Select Case Plcy_Only_Cdd_eligible
+    Select Case Plcy_Only_Cdd_Eligible
       Case True : CB05_13.Checked = True
       Case False : CB05_13.Checked = False
     End Select
@@ -573,9 +573,9 @@
     ' Affichage de la grille de Saisie avec uniquement les candidats éligibles
     Select Case CB05_13.CheckState
       Case CheckState.Unchecked '0  'Non
-        Plcy_Only_Cdd_eligible = False
+        Plcy_Only_Cdd_Eligible = False
       Case CheckState.Checked '1  'Oui
-        Plcy_Only_Cdd_eligible = True
+        Plcy_Only_Cdd_Eligible = True
     End Select
     If Not Mode_Load Then
       OC_Présentation()

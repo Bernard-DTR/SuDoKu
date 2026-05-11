@@ -444,6 +444,8 @@
 #767 D  10/05/2026 Mise en place de Rayon
 #768 D  10/05/2026 G6_Cellule_Paint_Candidats_Eligibles
 #769 D  10/05/2026 Enregistrement des parties AJ
+#770 L  11/05/2026 Je conserve le quadrillage arrondi tel qu'il est.
+#771 L  11/05/2026 Je garde une couleur de Sélection moins agresssive.
 
 ##############################################################################################################################
                    
@@ -456,7 +458,7 @@
                    Certaines stratégies propose plusieurs candidats à enlever, le menu conserve la ligne après suppression du candidat
                    Voir la programmation Undo-Redo
                    Il me semble que je dois pouvoir faire "des économies de boucles" avec mes For Next
-                   Revoir si U_Sol est utilisé et quand ?
+                   Revoir si U_Sol est utilisé et quand ?  
                    Nettoyer les S95
 ????               Le 13/05/2026 est-ce que mon compteur Copilot sera redescendu ?
                    aujourd'hui : Demandes 78% Completion 100%

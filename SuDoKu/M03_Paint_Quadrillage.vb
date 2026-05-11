@@ -74,6 +74,7 @@ Module M03_Paint_Quadrillage
       Using brsh As New SolidBrush(Color_Cell_Select)
         g.FillRectangle(brsh, r)
         For cdd As Integer = 1 To 9
+          ' Sqr_Cel et Sqr_Cdd ne sont pas référencés par Cellule
           Dim row As Integer = (cdd - 1) \ 3
           Dim col As Integer = (cdd - 1) Mod 3
           Dim rc As New Rectangle(r.X + col * WHthird, r.Y + row * WHthird, WHthird, WHthird)
@@ -233,5 +234,6 @@ Module M03_Paint_Quadrillage
       End Using
     End Using
   End Sub
+
 #End Region
 End Module
