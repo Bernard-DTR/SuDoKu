@@ -23,12 +23,15 @@ Module A_En_Cours
   End Sub
   Public Sub TestC()
     Jrn_Add(, {Proc_Name_Get()})
+    Frm_Test.Show()
   End Sub
   Public Sub TestD()
     Jrn_Add(, {Proc_Name_Get()})
+    quadrillage_test()
   End Sub
   Public Sub TestE()
     Jrn_Add(, {Proc_Name_Get()})
+    quadrillage_arrondi_test()
   End Sub
   Public Sub TestF()
     Jrn_Add(, {Proc_Name_Get()})

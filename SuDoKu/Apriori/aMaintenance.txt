@@ -446,6 +446,8 @@
 #769 D  10/05/2026 Enregistrement des parties AJ
 #770 L  11/05/2026 Je conserve le quadrillage arrondi tel qu'il est.
 #771 L  11/05/2026 Je garde une couleur de Sélection moins agresssive.
+#772 Me 13/05/2026 Est-ce que les Sqr_cel sont bien séparées par un espace de 1 et 3 en hauteur et en largeur ?
+#773 Me 13/05/2026 Le quadrillage droit est parfait, le quadrillage arrondi l'est également en test
 
 ##############################################################################################################################
                    

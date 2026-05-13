@@ -897,6 +897,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu06_SudokuNKH_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuNKH.Click
     'L'application NKH a été installé, ainsi qu'un raccourci pour l'appeler
+    '"C:\Program Files (x86)\nkh\Sudoku1\"
     Dim Shell_St As String = "C:\Users\Public\Desktop\Sudoku1.lnk"
     Processing_Start(Shell_St)
   End Sub

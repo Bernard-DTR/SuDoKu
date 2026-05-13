@@ -21,15 +21,20 @@
     ' 02  L'insertion dans les ressources
     U(Cellule, 2) = Val : U(Cellule, 3) = Cnddts_Blancs
     U_CddExc(Cellule) = Cnddts_Blancs
-    U_nb(0) += 1                         ' Décompte les cellules saisies
-    U_nb(CInt(Val)) += 1                 ' Décompte les cellules par valeur
+    WH_U_nb()
+    'U_nb(0) += 1                         ' Décompte les cellules saisies
+    'U_nb(CInt(Val)) += 1                 ' Décompte les cellules par valeur
 
     ' 021 Traitement des cellules collatérales
     Cdd_Remove_Cell_Coll_Opt(U, Cellule)
 
     ' 022 Traitement divers
     Act_Add(Cellule, "Ajouter", Val, Candidats_Avant, Origine, Av_Jeu, Av_AllCdd)
-    Pbl_Valeur_CdS = Val
+    'Pbl_Valeur_CdS = Val
+    If Plcy_Dernière_Valeur_Unité AndAlso U_dv(Cellule) Then
+    Else
+      Pbl_Valeur_CdS = Val
+    End If
     CalculDerniereValeurUnité()
     Build_Bmp_Valeurs()
     Mnu_Mngt_Barre_Outils_Filtres_Enabled()
@@ -82,8 +87,9 @@
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
-    U_nb(0) -= 1                         ' Décompte les cellules saisies
-    U_nb(CInt(Val)) -= 1                 ' Décompte les cellules par valeur
+    'U_nb(0) -= 1                         ' Décompte les cellules saisies
+    'U_nb(CInt(Val)) -= 1                 ' Décompte les cellules par valeur
+    WH_U_nb()
     CalculDerniereValeurUnité()
     Build_Bmp_Valeurs()
     Mnu_Mngt_Barre_Outils_Filtres_Enabled()
