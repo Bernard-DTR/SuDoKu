@@ -4,7 +4,7 @@ Module M03_Paint_Quadrillage
   Public Sub Build_Bmp_Quadrillage()
     Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
     Using g As Graphics = Graphics.FromImage(Bmp_Quadrillage)
-      g.SmoothingMode = SmoothingMode.None
+      g.SmoothingMode = SmoothingMode.AntiAlias
       g.InterpolationMode = InterpolationMode.NearestNeighbor
       g.PixelOffsetMode = PixelOffsetMode.None
       g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
@@ -131,108 +131,151 @@ Module M03_Paint_Quadrillage
     g.Clear(Color_Frm_BackColor)
     ' Efface l'intégralité de l'emplacement de la grille avec un carré unique
     Using brsh As New SolidBrush(Color_Frm_BackColor)
-      g.FillRectangle(brsh, Gz_Pt_TopLeft.X, Gz_Pt_TopLeft.Y, Bld_WH_Grid, Bld_WH_Grid)
+      g.FillRectangle(brsh, Gz_tl.X, Gz_tl.Y, Bld_WH_Grid, Bld_WH_Grid)
     End Using
     Select Case Plcy_Format_DAB
-      Case 0 : G1_Grid_Paint_Quadrillage_00(g)
-      Case 1 : G1_Grid_Paint_Quadrillage_36(g)
+      Case 0 : G1_Grid_Paint_Quadrillage_droit(g)
+      Case 1 : G1_Grid_Paint_Quadrillage_arrondi(g)
     End Select
   End Sub
-  Public Sub G1_Grid_Paint_Quadrillage_00(g As Graphics)
-    'Quadrillage de référence pour l'entourage, les régions et les cellules horizontal et vertical
-    Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
+  Public Sub G1_Grid_Paint_Quadrillage_droit(g As Graphics)
+    ' Tracer les traits
+    For i As Integer = 0 To 9
+      Dim y As Integer = Gz_tl.Y + Gz_traits(i)
+      Dim x As Integer = Gz_tl.X + Gz_traits(i)
 
-    Using pen_t3 As New Pen(Color_Trait, Bld_Trait_3),
-          pen_t1 As New Pen(Color_Trait, Bld_Trait_1)
-      For i As Integer = 0 To 9
-        Pt_H1 = New Point(x:=Gz_Pt_TopLeft.X,
-                          y:=Gz_Pt_TopLeft.Y + Gz_Trait_Pos_xy(i))
-        Pt_H2 = New Point(x:=Pt_H1.X + Bld_WH_Grid - 1,
-                          y:=Pt_H1.Y)
-        Pt_V1 = New Point(x:=Gz_Pt_TopLeft.X + Gz_Trait_Pos_xy(i),
-                          y:=Gz_Pt_TopLeft.Y)
-        Pt_V2 = New Point(x:=Pt_V1.X,
-                          y:=Pt_V1.Y + Bld_WH_Grid - 1)
-        Select Case i
-          Case 0, 3, 6, 9        '  Trait de 3
-            g.DrawLine(pen_t3, Pt_H1, Pt_H2)
-            g.DrawLine(pen_t3, Pt_V1, Pt_V2)
-          Case 1, 2, 4, 5, 7, 8  '  Trait de 1
-            g.DrawLine(pen_t1, Pt_H1, Pt_H2)
-            g.DrawLine(pen_t1, Pt_V1, Pt_V2)
-        End Select
-      Next i
-    End Using
+      Dim p As Pen = If(i Mod 3 = 0, Pen_épais, Pen_fin)
+
+      g.DrawLine(p, Gz_tl.X, y, Gz_tl.X + Gz_Trait_Length, y)
+      g.DrawLine(p, x, Gz_tl.Y, x, Gz_tl.Y + Gz_Trait_Length)
+    Next
+    '' tracer les rectangles des cellules (debug)
+    'For i As Integer = 0 To 80
+    '  'g.DrawRectangle(Pens.Green, Sqr_Cel(i))
+    '  g.FillRectangle(Brushes.Green, Sqr_Cel(i))
+    'Next
   End Sub
-  Public Sub G1_Grid_Paint_Quadrillage_36(g As Graphics)
-    ' 1 Traits intérieurs fins 
-    Dim Pt_H1 As Point, Pt_H2 As Point, Pt_V1 As Point, Pt_V2 As Point
+  Public Sub G1_Grid_Paint_Quadrillage_arrondi(g As Graphics)
+    ' Tracer les traits des régions arrondies
+    For i As Integer = 0 To 8
+      g.DrawPath(Pen_épais, Region_Path(i))
+    Next
+    ' Tracer les traits intérieurs fins
+    For i As Integer = 1 To 8
+      If i = 3 Then Continue For
+      If i = 6 Then Continue For
+      Dim y As Integer = Gz_tl.Y + Gz_traits(i)
+      Dim x As Integer = Gz_tl.X + Gz_traits(i)
 
-    Using pen_t3 As New Pen(Color_Trait, 3),
-          pen_t1 As New Pen(Color_Trait, Bld_Trait_1)
+      'Dim p As Pen = If(i Mod 3 = 0, pen_épais, pen_fin)
 
-      For i As Integer = 0 To 9
-        Pt_H1 = New Point(x:=Gz_Pt_TopLeft.X,
-                        y:=Gz_Pt_TopLeft.Y + Gz_Trait_Pos_xy(i))
-        Pt_H2 = New Point(x:=Pt_H1.X + Bld_WH_Grid - 1,
-                        y:=Pt_H1.Y)
-        Pt_V1 = New Point(x:=Gz_Pt_TopLeft.X + Gz_Trait_Pos_xy(i),
-                        y:=Gz_Pt_TopLeft.Y)
-        Pt_V2 = New Point(x:=Pt_V1.X,
-                        y:=Pt_V1.Y + Bld_WH_Grid - 1)
-        Select Case i
-          Case 1, 2, 4, 5, 7, 8  '  Trait de 1
-            g.DrawLine(pen_t1, Pt_H1, Pt_H2)
-            g.DrawLine(pen_t1, Pt_V1, Pt_V2)
-        End Select
-      Next i
+      g.DrawLine(Pen_fin, Gz_tl.X, y, Gz_tl.X + Gz_Trait_Length, y)
+      g.DrawLine(Pen_fin, x, Gz_tl.Y, x, Gz_tl.Y + Gz_Trait_Length)
+    Next
+    'For i As Integer = 0 To 80
+    '  g.FillPath(Brushes.LightGreen, Sqr_Pth(i))
+    '  'g.DrawPath(pen_fin, Sqr_Pth(i))
+    'Next
+  End Sub
 
-      'Les 9 Régions sont arrondies
-      Dim Pt1 As Point, Pt2 As Point, Pt3 As Point, Pt4 As Point
-      Using Reg_Pth As New GraphicsPath
 
-        For Région As Integer = 0 To 8
-          Dim Left, Top As Integer
-          Select Case Région
-            Case 0 : Left = Gz_Trait_Pos_xy(0) : Top = Gz_Trait_Pos_xy(0)
-            Case 1 : Left = Gz_Trait_Pos_xy(0) : Top = Gz_Trait_Pos_xy(3)
-            Case 2 : Left = Gz_Trait_Pos_xy(0) : Top = Gz_Trait_Pos_xy(6)
-            Case 3 : Left = Gz_Trait_Pos_xy(3) : Top = Gz_Trait_Pos_xy(0)
-            Case 4 : Left = Gz_Trait_Pos_xy(3) : Top = Gz_Trait_Pos_xy(3)
-            Case 5 : Left = Gz_Trait_Pos_xy(3) : Top = Gz_Trait_Pos_xy(6)
-            Case 6 : Left = Gz_Trait_Pos_xy(6) : Top = Gz_Trait_Pos_xy(0)
-            Case 7 : Left = Gz_Trait_Pos_xy(6) : Top = Gz_Trait_Pos_xy(3)
-            Case 8 : Left = Gz_Trait_Pos_xy(6) : Top = Gz_Trait_Pos_xy(6)
-          End Select
-          Dim WH_Région As Integer = (WH * 3) + 5
+  Public Sub Gz_Traits_Calcul()
+    ' Calcul des positions des traits de la grille
+    ' Calcul de la longueur d'un trait
+    Dim pos As Integer = Trait_épais \ 2
+    Gz_traits(0) = pos
+    For i As Integer = 1 To 9
+      If i Mod 3 = 0 Then           ' traits 3, 6, 9  
+        pos += WH + Trait_épais
+      Else                          ' traits 1, 2, 4, 5, 7, 8
+        pos += WH + Trait_fin
+      End If
+      Gz_traits(i) = pos
+    Next
+    Gz_Trait_Length = Gz_traits(9) + (Trait_épais \ 2)
+  End Sub
 
-          Pt1 = New Point(x:=Gz_Pt_TopLeft.X + Top,
-                          y:=Gz_Pt_TopLeft.Y + Left)
-          Pt2 = New Point(x:=Pt1.X + WH_Région,
-                          y:=Pt1.Y)
-          Pt3 = New Point(x:=Pt1.X + WH_Région,
-                          y:=Pt1.Y + WH_Région)
-          Pt4 = New Point(x:=Pt1.X,
-                          y:=Pt1.Y + WH_Région)
-          ' 1 Calcul avec les 4 coins arrondis
-          With Reg_Pth
-            .StartFigure()
-            .AddArc(New Rectangle(CInt(Pt1.X), CInt(Pt1.Y), WHrayon, WHrayon), 180, 90)                 'Coin en haut à gauche  
-            .AddLine(Pt1.X + WHrayon, Pt1.Y, Pt2.X - WHrayon, Pt2.Y)                                    'Ligne horizontale A  B en haut
-            .AddArc(New Rectangle(CInt(Pt2.X) - WHrayon, CInt(Pt2.Y), WHrayon, WHrayon), 270, 90)        'Coin en haut à droite  
-            .AddLine(Pt2.X, Pt2.Y + WHrayon, Pt3.X, Pt3.Y - WHrayon)                                    'Ligne verticale   B  C droite
-            .AddArc(New Rectangle(CInt(Pt3.X) - WHrayon, CInt(Pt3.Y) - WHrayon, WHrayon, WHrayon), 0, 90) 'Coin en bas à droite  
-            .AddLine(Pt3.X - WHrayon, Pt3.Y, Pt4.X + WHrayon, Pt4.Y)                                    'Ligne horizontale C  D en bas
-            .AddArc(New Rectangle(CInt(Pt4.X), CInt(Pt4.Y) - WHrayon, WHrayon, WHrayon), 90, 90)         'Coin en bas à gauche  
-            .AddLine(Pt4.X, Pt4.Y - WHrayon, Pt1.X, Pt1.Y + WHrayon)                                    'Ligne verticale   D  A gauche
-            .CloseFigure()
-          End With
-          ' 2 Entourage avec coins arrondis
-          pen_t3.Alignment = PenAlignment.Center ' Valeur par défaut à garder
-          g.DrawPath(pen_t3, Reg_Pth)
-        Next Région
-      End Using
-    End Using
+  Public Sub Gz_Sqr_Cel_Calcul()
+    ' Calcul des 81 rectangles des cellules
+
+    For row As Integer = 0 To 8
+      For col As Integer = 0 To 8
+        Dim cellule As Integer = (row * 9) + col
+        Dim leftTraitWidth As Integer = If(col Mod 3 = 0, Trait_épais, Trait_fin)
+        Dim rightTraitWidth As Integer = If((col + 1) Mod 3 = 0, Trait_épais, Trait_fin)
+        Dim topTraitWidth As Integer = If(row Mod 3 = 0, Trait_épais, Trait_fin)
+        Dim bottomTraitWidth As Integer = If((row + 1) Mod 3 = 0, Trait_épais, Trait_fin)
+
+        Dim x1 As Integer = Gz_tl.X + Gz_traits(col) + leftTraitWidth \ 2
+        Dim x2 As Integer = Gz_tl.X + Gz_traits(col + 1) - rightTraitWidth \ 2
+        Dim y1 As Integer = Gz_tl.Y + Gz_traits(row) + topTraitWidth \ 2
+        Dim y2 As Integer = Gz_tl.Y + Gz_traits(row + 1) - bottomTraitWidth \ 2
+        Sqr_Cel(cellule) = New Rectangle(x1, y1, x2 - x1, y2 - y1)
+      Next
+    Next
+  End Sub
+
+  Public Sub Gz_Region_Path_Calcul()
+    ' Calcul des 9 régions arrondies
+    Dim region As Integer = 0
+
+    For block_row As Integer = 0 To 2
+      For block_col As Integer = 0 To 2
+        Dim x1 As Integer = Gz_tl.X + Gz_traits(block_col * 3)
+        Dim x2 As Integer = Gz_tl.X + Gz_traits(block_col * 3 + 3)
+        Dim y1 As Integer = Gz_tl.Y + Gz_traits(block_row * 3)
+        Dim y2 As Integer = Gz_tl.Y + Gz_traits(block_row * 3 + 3)
+
+        Dim pth As New GraphicsPath()
+        pth.AddArc(x1, y1, Rayon_region * 2, Rayon_region * 2, 180, 90)
+        pth.AddArc(x2 - 2 * Rayon_region, y1, Rayon_region * 2, Rayon_region * 2, 270, 90)
+        pth.AddArc(x2 - 2 * Rayon_region, y2 - 2 * Rayon_region, Rayon_region * 2, Rayon_region * 2, 0, 90)
+        pth.AddArc(x1, y2 - 2 * Rayon_region, Rayon_region * 2, Rayon_region * 2, 90, 90)
+        pth.CloseFigure()
+        Region_Path(region) = pth
+        region += 1
+      Next
+    Next
+  End Sub
+  Public Sub Gz_Sqr_Pth_Calcul()
+    ' Calcul des 81 path des cellules
+
+    For row As Integer = 0 To 8
+      For col As Integer = 0 To 8
+
+        Dim cellule As Integer = row * 9 + col
+        Dim rct As Rectangle = Sqr_Cel(cellule)
+
+        Dim pth As New GraphicsPath()
+
+        Dim TL As Boolean = (row Mod 3 = 0 And col Mod 3 = 0) ' Coin en haut à gauche
+        Dim TR As Boolean = (row Mod 3 = 0 And col Mod 3 = 2) ' Coin en haut à droite
+        Dim BL As Boolean = (row Mod 3 = 2 And col Mod 3 = 0) ' Coin en bas à gauche
+        Dim BR As Boolean = (row Mod 3 = 2 And col Mod 3 = 2) ' Coin en bas à droite
+        If TL Then
+          pth.AddArc(rct.X, rct.Y, 2 * Rayon_cellule, 2 * Rayon_cellule, 180, 90)
+        Else
+          pth.AddLine(rct.X, rct.Y, rct.X + Rayon_cellule, rct.Y)
+        End If
+        If TR Then
+          pth.AddArc(rct.Right - 2 * Rayon_cellule, rct.Y, 2 * Rayon_cellule, 2 * Rayon_cellule, 270, 90)
+        Else
+          pth.AddLine(rct.Right - Rayon_cellule, rct.Y, rct.Right, rct.Y)
+        End If
+        If BR Then
+          pth.AddArc(rct.Right - 2 * Rayon_cellule, rct.Bottom - 2 * Rayon_cellule, 2 * Rayon_cellule, 2 * Rayon_cellule, 0, 90)
+        Else
+          pth.AddLine(rct.Right, rct.Bottom - Rayon_cellule, rct.Right, rct.Bottom)
+        End If
+        If BL Then
+          pth.AddArc(rct.X, rct.Bottom - 2 * Rayon_cellule, 2 * Rayon_cellule, 2 * Rayon_cellule, 90, 90)
+        Else
+          pth.AddLine(rct.X, rct.Bottom, rct.X, rct.Bottom - Rayon_cellule)
+        End If
+        pth.CloseFigure()
+        Sqr_Pth(cellule) = pth
+      Next
+    Next
   End Sub
 
 #End Region

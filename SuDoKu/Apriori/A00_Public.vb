@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #773"
+  Public SDK_Version As String = "V2026_05 ##778"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -121,13 +121,17 @@ Module A00_Public
 
   Public Sqr_Img(0 To 80) As Image                  '  Le tableau comporte les 81 images du fond du jeu 
   Public U_Pt20(80, 19) As PointF                   '  Comporte 20 points pour chaque cellule   
-  Public Sqr_Cel(0 To 80) As Rectangle              '  Le tableau comporte les informations des 81 rectangles du jeu
   Public Sqr_Celx(0 To 8) As Integer                '  Limites hautes
   Public Sqr_Cely(0 To 8) As Integer                '  LImites gauches
   Public Sqr_Cdd(809) As Rectangle                  '  Le tableau comporte les informations des 9 rectangles de chaque candidat de chaque cellule
   Public Sqr_Cdd_Inf(809) As Rectangle              '  Le tableau comporte les informations des 9 rectangles inflate pour cliquer plus facilement les candidats
-  Public Reg_Pth(8) As Drawing2D.GraphicsPath       '  Tracés des 9 régions avec angle arrondi
-  Public Sqr_Pth(0 To 80) As Drawing2D.GraphicsPath '  Tracés des squares du jeu avec ou sans angle arrondi  
+  Public Sqr_Cel(80) As Rectangle                '  Les 81 rectangles des cellules
+  Public Region_Path(8) As Drawing2D.GraphicsPath
+  Public Sqr_Pth(80) As Drawing2D.GraphicsPath
+  Public ReadOnly Rayon_region As Integer = 10
+  Public ReadOnly Rayon_cellule As Integer = Rayon_region
+
+
   ' Les traitements, compute ou paint, sont identiques que les paths soient des carrés, avec angles arrondis  
 
   Public Structure MdC_Struct                       '  Structure des Modèles Composites d'une stratégie
@@ -148,12 +152,10 @@ Module A00_Public
 #End Region
 
 #Region "20 Les Eléments graphiques: Color, ..."
-  Public Gz_Pt_TopLeft As Point
+  Public Gz_tl As Point
   'Structure des Traits
   'Il y a 10 Traits Horizontaux et 10 Traits Verticaux
-  'Ces traits ont la même position ajoutée à Gz_Pt_TopLeft et la même longueur
   'Un trait dépasse d'une demi-épaisseur égale de chaque côté de la ligne et pas à son extrémité.
-  Public Gz_Trait_Pos_xy(9) As Integer
   'Transparence
   'La transparence est associée au pixel A. 
   '   les couleurs Color_Couche_Stratégique et Color_Cell_Select sont transparente à 128 
@@ -165,7 +167,6 @@ Module A00_Public
   Public Color_Trait As Color = Color.Green                                ' Couleur des traits du Grid
   Public Color_Stratégique As Color = Color.FromArgb(128, 15, 196, 101)
 
-  'Public Color_Cell_Select As Color = Color.FromArgb(128 + 64, Color.White)
   Public Color_Cell_Select As Color = Color.FromArgb(128 + 64, 197, 254, 220)
   ' je garde la couleur de sélection plus "calme"
   Public Color_Cdd_Insérer As Color = Color.Yellow
@@ -175,6 +176,12 @@ Module A00_Public
           .Alignment = StringAlignment.Center,
           .LineAlignment = StringAlignment.Center
           }
+  Public Trait_épais As Integer = 3
+  Public Trait_fin As Integer = 1
+  Public Pen_épais As New Pen(Color_Trait, Trait_épais)
+  Public Pen_fin As New Pen(Color_Trait, Trait_fin)
+  Public Gz_traits(9) As Integer                 ' centres des 10 traits
+  Public Gz_Trait_Length As Integer              ' dimension totale de la grille
 
   'Polices non proportionnelles (pour le journal qui est RichTextBox)
   Public Font_Journal As New Font("Courier New", 10, FontStyle.Regular) 'Police non proportionnelle

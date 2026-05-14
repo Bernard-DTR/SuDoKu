@@ -217,48 +217,18 @@ Friend Module A02_Occasionally
     ' La hauteur de la Barre_Outils est standard (25)  
     Barre_Outils_Hauteur = SystemInformation.ToolWindowCaptionHeight ' Hauteur de la Barre d'outils d'un formulaire
 
-    ' Calcul de Gz_Pt_TopLeft As Point   
+    ' Calcul de Gz_tl As Point   
     ' Définition du Point Top-Left, Représente une paire ordonnée de coordonnées x et y entiers
-    Gz_Pt_TopLeft = New Point(Bld_Marge_LT,
+    ' Ce point est utilisé comme origine pour le tracé du quadrillage et le positionnement des cellules
+    ' Le point Gz_tl est calculé à partir de la marge gauche et de la hauteur cumulée de la barre de menu et de la barre d'outils
+    Gz_tl = New Point(Bld_Marge_LT,
                               Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT)
+    'Gz_tl est un point fixe  (5, 60)
 
-    ' Définition des traits Gz_Trait_Pos_xy()
-    Dim Ep_2 As Integer = 2 ' = 2   car le trait a une épaisseur de 3
-    Dim Ep_1 As Integer = 1 ' = 1   car le trait a une épaisseur de 1
-
-    Gz_Trait_Pos_xy(0) = Ep_1
-    Gz_Trait_Pos_xy(1) = Ep_2 + WH + Gz_Trait_Pos_xy(0)
-    Gz_Trait_Pos_xy(2) = Ep_1 + WH + Gz_Trait_Pos_xy(1)
-    Gz_Trait_Pos_xy(3) = Ep_2 + WH + Gz_Trait_Pos_xy(2)
-    Gz_Trait_Pos_xy(4) = Ep_2 + WH + Gz_Trait_Pos_xy(3)
-    Gz_Trait_Pos_xy(5) = Ep_1 + WH + Gz_Trait_Pos_xy(4)
-    Gz_Trait_Pos_xy(6) = Ep_2 + WH + Gz_Trait_Pos_xy(5)
-    Gz_Trait_Pos_xy(7) = Ep_2 + WH + Gz_Trait_Pos_xy(6)
-    Gz_Trait_Pos_xy(8) = Ep_1 + WH + Gz_Trait_Pos_xy(7)
-    Gz_Trait_Pos_xy(9) = Ep_2 + WH + Gz_Trait_Pos_xy(8)
-
-    ' Calcul des 81 Squares (9x9, ils sont TOUS à Angles Droits)
-    '   Les Sqr_Cel semblent corrects, surface maximale et aucun recouvrement des traits.
-    Dim v, h, k As Integer
-    For j As Integer = 0 To 8      ' Axe des y, vertical
-      Select Case j
-        Case 0, 3, 6, 9
-          v = 2
-        Case 1, 2, 4, 5, 7, 8
-          v = 1
-      End Select
-      For i As Integer = 0 To 8  ' Axe des x, horizontal
-        Select Case i
-          Case 0, 3, 6, 9
-            h = 2
-          Case 1, 2, 4, 5, 7, 8
-            h = 1
-        End Select
-        Sqr_Cel(k) = New Rectangle(x:=Gz_Pt_TopLeft.X + Gz_Trait_Pos_xy(i) + h,
-                                   y:=Gz_Pt_TopLeft.Y + Gz_Trait_Pos_xy(j) + v, width:=WH, height:=WH)
-        k += 1
-      Next i
-    Next j
+    Gz_Traits_Calcul()
+    Gz_Region_Path_Calcul()
+    Gz_Sqr_Cel_Calcul()
+    Gz_Sqr_Pth_Calcul()
 
     '#736
     For i As Integer = 0 To 8
@@ -270,19 +240,19 @@ Friend Module A02_Occasionally
     '                                           4 5 6      4 5 6
     '                                           7 8 9      1 2 3
     ' Identification du square de chaque candidat : Cellule * 10  + Candidat 
-    ' Position des candidats : de gauche à droite et de bas en haut
-    k = 0
-    For j As Integer = 0 To 8      ' Axe des y, vertical
-      For i As Integer = 0 To 8    ' Axe des x, horizontal
-        Sqr_Cdd((k * 10) + 1) = New Rectangle(x:=Sqr_Cel(k).X + (0 * WHthird), y:=Sqr_Cel(k).Y + (0 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 1
-        Sqr_Cdd((k * 10) + 2) = New Rectangle(x:=Sqr_Cel(k).X + (1 * WHthird), y:=Sqr_Cel(k).Y + (0 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 2
-        Sqr_Cdd((k * 10) + 3) = New Rectangle(x:=Sqr_Cel(k).X + (2 * WHthird), y:=Sqr_Cel(k).Y + (0 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 3
-        Sqr_Cdd((k * 10) + 4) = New Rectangle(x:=Sqr_Cel(k).X + (0 * WHthird), y:=Sqr_Cel(k).Y + (1 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 4
-        Sqr_Cdd((k * 10) + 5) = New Rectangle(x:=Sqr_Cel(k).X + (1 * WHthird), y:=Sqr_Cel(k).Y + (1 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 5
-        Sqr_Cdd((k * 10) + 6) = New Rectangle(x:=Sqr_Cel(k).X + (2 * WHthird), y:=Sqr_Cel(k).Y + (1 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 6
-        Sqr_Cdd((k * 10) + 7) = New Rectangle(x:=Sqr_Cel(k).X + (0 * WHthird), y:=Sqr_Cel(k).Y + (2 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 7
-        Sqr_Cdd((k * 10) + 8) = New Rectangle(x:=Sqr_Cel(k).X + (1 * WHthird), y:=Sqr_Cel(k).Y + (2 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 8
-        Sqr_Cdd((k * 10) + 9) = New Rectangle(x:=Sqr_Cel(k).X + (2 * WHthird), y:=Sqr_Cel(k).Y + (2 * WHthird), width:=WHthird, height:=WHthird)     ' Cdd 9
+    Dim k As Integer = 0
+
+    For j As Integer = 0 To 8          ' Axe Y (vertical)
+      For i As Integer = 0 To 8        ' Axe X (horizontal)
+        Dim baseX As Integer = Sqr_Cel(k).X
+        Dim baseY As Integer = Sqr_Cel(k).Y
+        ' 9 sous-carrés = 3×3
+        For dy As Integer = 0 To 2
+          For dx As Integer = 0 To 2
+            Dim idx As Integer = (k * 10) + (dy * 3 + dx + 1)
+            Sqr_Cdd(idx) = New Rectangle(baseX + dx * WHthird, baseY + dy * WHthird, WHthird, WHthird)
+          Next dx
+        Next dy
         k += 1
       Next i
     Next j
@@ -295,68 +265,6 @@ Friend Module A02_Occasionally
       Sqr_Cdd_Inf(s) = r
     Next s
 
-    ' Calcul des Squares Path à Coins Arrondis  
-    k = 0
-    For j As Integer = 0 To 8      ' Axe des y, vertical
-      For i As Integer = 0 To 8    ' Axe des x, horizontal
-        Dim x, y As Integer
-        x = Sqr_Cel(k).X
-        y = Sqr_Cel(k).Y
-        Sqr_Pth(k) = New GraphicsPath
-        Select Case k
-          Case 0, 3, 6, 27, 30, 33, 54, 57, 60       ' Coin HG arrondi
-            With Sqr_Pth(k)
-              .StartFigure()
-              .AddArc(New Rectangle(x, y, WHrayon, WHrayon), 180, 90)
-              .AddLine(x + WHrayon, y, x + WH, y)
-              .AddLine(x + WH, y, x + WH, y + WH)
-              .AddLine(x + WH, y + WH, x, y + WH)
-              .AddLine(x, y + WH, x, y + WHrayon)
-              .CloseFigure() 'La figure est déjà fermée
-            End With
-          Case 2, 5, 8, 29, 32, 35, 56, 59, 62       ' Coin HD arrondi
-            With Sqr_Pth(k)
-              .StartFigure()
-              .AddLine(x, y, x + WH - WHrayon, y)
-              .AddArc(New Rectangle(x + WH - WHrayon, y, WHrayon, WHrayon), 270, 90)
-              .AddLine(x + WH, y + WHrayon, x + WH, y + WH)
-              .AddLine(x + WH, y + WH, x, y + WH)
-              .AddLine(x, y + WH, x, y)
-              .CloseFigure()
-            End With
-          Case 18, 21, 24, 45, 48, 51, 72, 75, 78    ' Coin BG arrondi
-            With Sqr_Pth(k)
-              .StartFigure()
-              .AddLine(x, y, x + WH, y)
-              .AddLine(x + WH, y, x + WH, y + WH)
-              .AddLine(x + WH, y + WH, x + WHrayon, y + WH)
-              .AddArc(New Rectangle(x, y + WH - WHrayon, WHrayon, WHrayon), 90, 90)
-              .AddLine(x, y + WH - WHrayon, x, y)
-              .CloseFigure()
-            End With
-          Case 20, 23, 26, 47, 50, 53, 74, 77, 80    ' Coin BD arrondi
-            With Sqr_Pth(k)
-              .StartFigure()
-              .AddLine(x, y, x + WH, y)
-              .AddLine(x + WH, y, x + WH, y + WH - WHrayon)
-              .AddArc(New Rectangle(x + WH - WHrayon, y + WH - WHrayon, WHrayon, WHrayon), 0, 90)
-              .AddLine(x + WH - WHrayon, y + WH, x, y + WH)
-              .AddLine(x, y + WH, x, y)
-              .CloseFigure()
-            End With
-          Case Else                   ' Carré
-            With Sqr_Pth(k)
-              .StartFigure()
-              .AddLine(x, y, x + WH, y)
-              .AddLine(x + WH, y, x + WH, y + WH)
-              .AddLine(x + WH, y + WH, x, y + WH)
-              .AddLine(x, y + WH, x, y)
-              .CloseFigure() 'La figure est déjà fermée
-            End With
-        End Select
-        k += 1
-      Next i
-    Next j
 
     ' Construction des 10 images correspondantes aux polices substituées
     ' Elles sont calculées quelque soit Plcy_Fantasy et indépendamment de WH

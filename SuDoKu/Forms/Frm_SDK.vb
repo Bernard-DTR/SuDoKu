@@ -35,7 +35,6 @@ Public NotInheritable Class Frm_SDK
     '        ControlStyles.OptimizedDoubleBuffer, True empêche l'affichage de la grille
     'SetStyle(ControlStyles.UserPaint Or ControlStyles.AllPaintingInWmPaint, True)
     'UpdateStyles()
-    Build_Bmp_Quadrillage()
 #Region "Contrôles B_*"
     'Mise en place des contrôles B_* de Frm_SDK
     'Il n'est pas possible de copier-coller des infos du journal, sauf avec l'opération Copier le Grid qui effectue un ReadOnly On-Off
@@ -335,8 +334,8 @@ Public NotInheritable Class Frm_SDK
     End If
     ' Animation
     If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
-        g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
-      End If
+      g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
+    End If
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
     'En plaçant à cet endroit l'enregistrement des LP_*, 

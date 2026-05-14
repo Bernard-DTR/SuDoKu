@@ -448,7 +448,11 @@
 #771 L  11/05/2026 Je garde une couleur de Sélection moins agresssive.
 #772 Me 13/05/2026 Est-ce que les Sqr_cel sont bien séparées par un espace de 1 et 3 en hauteur et en largeur ?
 #773 Me 13/05/2026 Le quadrillage droit est parfait, le quadrillage arrondi l'est également en test
-
+#774 J  14/05/2026 Mise en place de Gz_Traits_Calcul()
+#775 J  14/05/2026 Mise en place de Gz_Sqr_Cel_Calcul()
+#776 J  14/05/2026 Mise en place de Gz_Region_Path_Calcul()
+#777 J  14/05/2026 Mise en place de Gz_Sqr_Pth_Calcul()
+#778 J  14/05/2026 Mise en place d'un quadrillage droit et arrondi correct
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie

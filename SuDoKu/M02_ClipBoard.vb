@@ -58,10 +58,10 @@ Friend Module M02_ClipBoard
     Dim Device_Name As String = Screens(Device_Number).DeviceName
 
     Try
-      'Gz_Pt_TopLeft  est le point Top_Left dans le formulaire
+      'Gz_tl  est le point Top_Left dans le formulaire
       'Screen_TopLeft est le point Top_Left dans l'écran
       'PointToScreen convertie le point du formulaire en point sur l'écran
-      Dim Screen_TopLeft As Point = Frm_SDK.PointToScreen(Gz_Pt_TopLeft)
+      Dim Screen_TopLeft As Point = Frm_SDK.PointToScreen(Gz_tl)
       Dim W_Grid As Integer = Bld_WH_Grid
       Dim H_Grid As Integer = Bld_WH_Grid
 

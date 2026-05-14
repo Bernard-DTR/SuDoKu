@@ -104,7 +104,7 @@ Public Class Cellule_Cls
   Public Sub G2_Cellule_Paint_Fond(g As Graphics)
     If Not IsValid Then Exit Sub
 
-    Dim rc As Rectangle = Sqr_Cel(Numéro)
+    Dim rct As Rectangle = Sqr_Cel(Numéro)
     Dim pth As GraphicsPath = Sqr_Pth(Numéro)
     Dim img As Image = Sqr_Img(Numéro)
     Dim fondCouleur As Boolean = (Plcy_Fond_Grille = 0)
@@ -113,16 +113,16 @@ Public Class Cellule_Cls
         If Cellule_Arrondie Then
           g.FillPath(brFond, pth)
         Else
-          g.FillRectangle(brFond, rc)
+          g.FillRectangle(brFond, rct)
         End If
       Else
         If Cellule_Arrondie Then
           g.ResetClip()
           g.SetClip(pth, CombineMode.Replace)
-          g.DrawImage(img, rc)
+          g.DrawImage(img, rct)
           g.ResetClip()   ' ← AJOUT ESSENTIEL
         Else
-          g.DrawImage(img, rc)
+          g.DrawImage(img, rct)
         End If
       End If
     End Using
