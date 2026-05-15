@@ -56,9 +56,7 @@ Partial Class Frm_Préférences
         Me.CB01_11 = New System.Windows.Forms.CheckBox()
         Me.Lbl01_Fond = New System.Windows.Forms.Label()
         Me.CB01_ComboBoxFond = New System.Windows.Forms.ComboBox()
-        Me.CB01_ColorComboboxVI = New SuDoKu.ColorCombobox()
         Me.Lbl01_06VI = New System.Windows.Forms.Label()
-        Me.CB01_ColorComboboxVCdd = New SuDoKu.ColorCombobox()
         Me.Btn01_90 = New System.Windows.Forms.Button()
         Me.Lbl01_06VCdd = New System.Windows.Forms.Label()
         Me.Lbl01_01 = New System.Windows.Forms.Label()
@@ -85,6 +83,10 @@ Partial Class Frm_Préférences
         Me.CB08_01 = New System.Windows.Forms.CheckBox()
         Me.ColorDialog = New System.Windows.Forms.ColorDialog()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Nud = New System.Windows.Forms.NumericUpDown()
+        Me.CB01_ColorComboboxVI = New SuDoKu.ColorCombobox()
+        Me.CB01_ColorComboboxVCdd = New SuDoKu.ColorCombobox()
+        Me.Lbl01_Nud = New System.Windows.Forms.Label()
         Me.Onglet_05.SuspendLayout()
         Me.Onglet_03.SuspendLayout()
         Me.Onglet_02.SuspendLayout()
@@ -95,6 +97,7 @@ Partial Class Frm_Préférences
         Me.Onglet_07.SuspendLayout()
         CType(Me.DGV07_Color, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Onglet_08.SuspendLayout()
+        CType(Me.Nud, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Onglet_05
@@ -407,6 +410,8 @@ Partial Class Frm_Préférences
         'Onglet_01
         '
         Me.Onglet_01.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Onglet_01.Controls.Add(Me.Lbl01_Nud)
+        Me.Onglet_01.Controls.Add(Me.Nud)
         Me.Onglet_01.Controls.Add(Me.CB01_Police)
         Me.Onglet_01.Controls.Add(Me.Cb01_Format)
         Me.Onglet_01.Controls.Add(Me.CB01_Thèmes)
@@ -489,17 +494,6 @@ Partial Class Frm_Préférences
         Me.CB01_ComboBoxFond.Size = New System.Drawing.Size(661, 28)
         Me.CB01_ComboBoxFond.TabIndex = 16
         '
-        'CB01_ColorComboboxVI
-        '
-        Me.CB01_ColorComboboxVI.Cbb_Color_Exclude = "CB01_ColorComboboxVCdd.Cbb_Color_Selected"
-        Me.CB01_ColorComboboxVI.Cbb_Color_Selected = ""
-        Me.CB01_ColorComboboxVI.ForeColor = System.Drawing.Color.White
-        Me.CB01_ColorComboboxVI.Location = New System.Drawing.Point(226, 125)
-        Me.CB01_ColorComboboxVI.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.CB01_ColorComboboxVI.Name = "CB01_ColorComboboxVI"
-        Me.CB01_ColorComboboxVI.Size = New System.Drawing.Size(180, 37)
-        Me.CB01_ColorComboboxVI.TabIndex = 13
-        '
         'Lbl01_06VI
         '
         Me.Lbl01_06VI.AutoSize = True
@@ -511,17 +505,6 @@ Partial Class Frm_Préférences
         Me.Lbl01_06VI.TabIndex = 12
         Me.Lbl01_06VI.Text = "T"
         Me.Lbl01_06VI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'CB01_ColorComboboxVCdd
-        '
-        Me.CB01_ColorComboboxVCdd.Cbb_Color_Exclude = ""
-        Me.CB01_ColorComboboxVCdd.Cbb_Color_Selected = ""
-        Me.CB01_ColorComboboxVCdd.ForeColor = System.Drawing.Color.White
-        Me.CB01_ColorComboboxVCdd.Location = New System.Drawing.Point(710, 125)
-        Me.CB01_ColorComboboxVCdd.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.CB01_ColorComboboxVCdd.Name = "CB01_ColorComboboxVCdd"
-        Me.CB01_ColorComboboxVCdd.Size = New System.Drawing.Size(180, 37)
-        Me.CB01_ColorComboboxVCdd.TabIndex = 10
         '
         'Btn01_90
         '
@@ -813,6 +796,51 @@ Partial Class Frm_Préférences
         Me.ColorDialog.ShowHelp = True
         Me.ColorDialog.SolidColorOnly = True
         '
+        'Nud
+        '
+        Me.Nud.Increment = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.Nud.Location = New System.Drawing.Point(15, 302)
+        Me.Nud.Maximum = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.Nud.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.Nud.Name = "Nud"
+        Me.Nud.Size = New System.Drawing.Size(120, 26)
+        Me.Nud.TabIndex = 27
+        Me.Nud.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        '
+        'CB01_ColorComboboxVI
+        '
+        Me.CB01_ColorComboboxVI.Cbb_Color_Exclude = "CB01_ColorComboboxVCdd.Cbb_Color_Selected"
+        Me.CB01_ColorComboboxVI.Cbb_Color_Selected = ""
+        Me.CB01_ColorComboboxVI.ForeColor = System.Drawing.Color.White
+        Me.CB01_ColorComboboxVI.Location = New System.Drawing.Point(226, 125)
+        Me.CB01_ColorComboboxVI.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CB01_ColorComboboxVI.Name = "CB01_ColorComboboxVI"
+        Me.CB01_ColorComboboxVI.Size = New System.Drawing.Size(180, 37)
+        Me.CB01_ColorComboboxVI.TabIndex = 13
+        '
+        'CB01_ColorComboboxVCdd
+        '
+        Me.CB01_ColorComboboxVCdd.Cbb_Color_Exclude = ""
+        Me.CB01_ColorComboboxVCdd.Cbb_Color_Selected = ""
+        Me.CB01_ColorComboboxVCdd.ForeColor = System.Drawing.Color.White
+        Me.CB01_ColorComboboxVCdd.Location = New System.Drawing.Point(710, 125)
+        Me.CB01_ColorComboboxVCdd.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CB01_ColorComboboxVCdd.Name = "CB01_ColorComboboxVCdd"
+        Me.CB01_ColorComboboxVCdd.Size = New System.Drawing.Size(180, 37)
+        Me.CB01_ColorComboboxVCdd.TabIndex = 10
+        '
+        'Lbl01_Nud
+        '
+        Me.Lbl01_Nud.AutoSize = True
+        Me.Lbl01_Nud.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Lbl01_Nud.Location = New System.Drawing.Point(153, 304)
+        Me.Lbl01_Nud.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Lbl01_Nud.Name = "Lbl01_Nud"
+        Me.Lbl01_Nud.Size = New System.Drawing.Size(18, 20)
+        Me.Lbl01_Nud.TabIndex = 28
+        Me.Lbl01_Nud.Text = "T"
+        Me.Lbl01_Nud.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'Frm_Préférences
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -839,6 +867,7 @@ Partial Class Frm_Préférences
         CType(Me.DGV07_Color, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Onglet_08.ResumeLayout(False)
         Me.Onglet_08.PerformLayout()
+        CType(Me.Nud, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -905,4 +934,6 @@ Partial Class Frm_Préférences
     Friend WithEvents CB02_12 As CheckBox
     Friend WithEvents CB05_12 As CheckBox
     Friend WithEvents CB05_13 As CheckBox
+    Friend WithEvents Nud As NumericUpDown
+    Friend WithEvents Lbl01_Nud As Label
 End Class

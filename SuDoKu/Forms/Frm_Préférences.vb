@@ -103,6 +103,7 @@
     CB01_Police.Items.Add(Msg_Read("PRF_01204"))
 
     CB01_Police.SelectedIndex = 0
+    Lbl01_Nud.Text = Msg_Read("PRF_01120")
 
     'Onglet 02 Création
     Onglet_02.Text = Msg_Read("PRF_02000")
@@ -943,5 +944,15 @@
     Close()
   End Sub
 
+  Private Sub Nud_ValueChanged(sender As Object, e As EventArgs) Handles Nud.ValueChanged
+    Rayon_region = CInt(Nud.Value)
+    Rayon_cellule = Rayon_region
+    OC_Présentation()
+    Build_Bmp_Quadrillage()
+    Build_Bmp_Fonds()
+    Build_Bmp_Valeurs()
+    Build_Bmp_Saisie()
+    Frm_SDK.Invalidate()
 
+  End Sub
 End Class
