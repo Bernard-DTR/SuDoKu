@@ -455,6 +455,7 @@
 #778 J  14/05/2026 Mise en place d'un quadrillage droit et arrondi correct
 #779 V  15/05/2026 Ouf! Mise en place d'un quadrillage droit et arrondi parfait
 #780 V  15/05/2026 Paramètre de variation de l'arrondi
+#781 V  15/05/2026 La grille de saisie épouse l'arrondi du quadrillage
 
 ##############################################################################################################################
                    

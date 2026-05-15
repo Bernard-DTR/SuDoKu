@@ -395,6 +395,7 @@
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
       WH_U_DAB()
+      WH_U_arr()
       OC_Présentation()
       Build_Bmp_Quadrillage()
       Build_Bmp_Fonds()

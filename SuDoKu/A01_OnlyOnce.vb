@@ -86,7 +86,8 @@ Friend Module A01_OnlyOnce
         Case 0 To 1 : Plcy_Format_DAB = .Format_DAB
         Case 2 : Plcy_Format_DAB = Rdc.Next(0, 2)
       End Select
-      wh_U_DAB()
+      WH_U_DAB()
+      WH_U_arr()
     End With
   End Sub
   Public Sub OO_120_Variables_Autres()

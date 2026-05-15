@@ -327,9 +327,17 @@ Public NotInheritable Class Frm_SDK
       If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_Eligible Then
         G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
       Else
-        g.DrawImage(Bmp_Fond_Saisie,
-                    Sqr_Cel(Cellule_MouseMove).X,
-                    Sqr_Cel(Cellule_MouseMove).Y)
+        Select Case U_arr(Pbl_Cell_Select)
+          Case "TL" : g.DrawImage(Bmp_Fond_Saisie_TL, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+          Case "TR" : g.DrawImage(Bmp_Fond_Saisie_TR, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+          Case "BL" : g.DrawImage(Bmp_Fond_Saisie_BL, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+          Case "BR" : g.DrawImage(Bmp_Fond_Saisie_BR, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+          Case Else ' "SQ"
+            g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+        End Select
+        'g.DrawImage(Bmp_Fond_Saisie,
+        '            Sqr_Cel(Cellule_MouseMove).X,
+        '            Sqr_Cel(Cellule_MouseMove).Y)
       End If
     End If
     ' Animation

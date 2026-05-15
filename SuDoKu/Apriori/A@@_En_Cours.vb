@@ -23,6 +23,9 @@ Module A_En_Cours
   End Sub
   Public Sub TestC()
     Jrn_Add(, {Proc_Name_Get()})
+    For i As Integer = 0 To 80
+      Jrn_Add(, {U_Coord(i) & " : " & U_arr(i)})
+    Next
   End Sub
   Public Sub TestD()
     Jrn_Add(, {Proc_Name_Get()})

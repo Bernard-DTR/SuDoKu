@@ -19,6 +19,30 @@
     End Select
   End Sub
 
+  Public Sub WH_U_arr()
+    Select Case Plcy_Format_DAB
+      Case 0
+        For i As Integer = 0 To 80
+          U_arr(i) = "SQ"
+        Next
+      Case Else ' 1
+        For i As Integer = 0 To 80
+          U_arr(i) = CellShape(i)
+        Next
+    End Select
+  End Sub
+  Public Function CellShape(i As Integer) As String
+    Dim r3 As Integer = (i \ 9) Mod 3
+    Dim c3 As Integer = (i Mod 9) Mod 3
+    If r3 = 0 AndAlso c3 = 0 Then Return "TL"
+    If r3 = 0 AndAlso c3 = 2 Then Return "TR"
+    If r3 = 2 AndAlso c3 = 0 Then Return "BL"
+    If r3 = 2 AndAlso c3 = 2 Then Return "BR"
+    Return "SQ"
+  End Function
+
+
+
   Public Sub WH_U_nb()
     ' Retourne le nombre de valeurs différentes des valeurs dans la grille
     For i As Integer = 0 To 10 : U_nb(i) = 0 : Next

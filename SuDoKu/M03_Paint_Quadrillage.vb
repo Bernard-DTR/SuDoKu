@@ -26,7 +26,7 @@ Module M03_Paint_Quadrillage
         Dim fondCouleur As Boolean = (Plcy_Fond_Grille = 0)
         Using brFond As New SolidBrush(U_Clr_Cell_Fond(i))
           If fondCouleur Then
-            If U_DAB(i) Then
+            If U_dab(i) Then
               g.FillPath(brFond, Sqr_Pth(i))
             Else
               g.FillRectangle(brFond, Sqr_Cel(i))
@@ -73,42 +73,60 @@ Module M03_Paint_Quadrillage
       Next
     End Using
   End Sub
+
   Public Sub Build_Bmp_Saisie()
-    ' le Bmp_Fond_Saisie est calculé une seule fois dans Frm_SDK_Load
-    Bmp_Fond_Saisie = New Bitmap(WH, WH)
-    Dim r As New Rectangle(0, 0, WH, WH)
-    Using g As Graphics = Graphics.FromImage(Bmp_Fond_Saisie)
+    Bmp_Fond_Saisie = BuildBmpFondSaisie("SQ")
+    Bmp_Fond_Saisie_TL = BuildBmpFondSaisie("TL")
+    Bmp_Fond_Saisie_TR = BuildBmpFondSaisie("TR")
+    Bmp_Fond_Saisie_BL = BuildBmpFondSaisie("BL")
+    Bmp_Fond_Saisie_BR = BuildBmpFondSaisie("BR")
+  End Sub
+
+  Private Function BuildBmpFondSaisie(shape As String) As Bitmap
+    Dim bmp As New Bitmap(WH, WH)
+    Using g As Graphics = Graphics.FromImage(bmp)
       G1_Graphics_Généralité(g)
-      'Il n'est pas possible d'utiliser Sqr_Cdd( de 1 à 9), mais un bitmap plus large
-      Using brsh As New SolidBrush(Color_Cell_Select)
-        g.FillRectangle(brsh, r)
-        For cdd As Integer = 1 To 9
-          ' Sqr_Cel et Sqr_Cdd ne sont pas référencés par Cellule
-          Dim row As Integer = (cdd - 1) \ 3
-          Dim col As Integer = (cdd - 1) Mod 3
-          Dim rct As New Rectangle(r.X + (col * WHthird), r.Y + (row * WHthird), WHthird, WHthird)
-          g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, rct, Format_Center)
-        Next cdd
-      End Using
-      ' Définition des points et du style de trait
-      Dim dashPattern As Single() = {1, 5}
-      Using pen As New Pen(Color_Trait, Bld_Trait_1)
-        pen.DashPattern = dashPattern
-        Dim x1 As Integer = WHthird
-        Dim x2 As Integer = (2 * WHthird)
-        g.DrawLine(pen, x1, 0, x1, WH)
-        g.DrawLine(pen, x2, 0, x2, WH)
-        ' Lignes horizontales
-        Dim y1 As Integer = WHthird
-        Dim y2 As Integer = +(2 * WHthird)
-        g.DrawLine(pen, 0, y1, WH, y1)
-        g.DrawLine(pen, 0, y2, WH, y2)
-      End Using
+      Select Case shape
+        Case "SQ" : g.FillRectangle(Brsh_Select, 0, 0, WH, WH)
+        Case "TL" : g.FillPath(Brsh_Select, BuildPathTL())
+        Case "TR" : g.FillPath(Brsh_Select, BuildPathTR())
+        Case "BL" : g.FillPath(Brsh_Select, BuildPathBL())
+        Case "BR" : g.FillPath(Brsh_Select, BuildPathBR())
+      End Select
+      Build_Bmp_Saisie_Cdd_Traits(g, New Rectangle(0, 0, WH, WH))
+    End Using
+    Return bmp
+  End Function
+
+  Public Sub Build_Bmp_Saisie_Cdd_Traits(g As Graphics, r As Rectangle)
+    ' le Bmp_Fond_Saisie est complété des candidats et ds traits de séparation des candidats
+    For cdd As Integer = 1 To 9
+      ' Sqr_Cel et Sqr_Cdd ne sont pas référencés par Cellule
+      Dim row As Integer = (cdd - 1) \ 3
+      Dim col As Integer = (cdd - 1) Mod 3
+      Dim rct As New Rectangle(r.X + (col * WHthird), r.Y + (row * WHthird), WHthird, WHthird)
+      g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, rct, Format_Center)
+    Next cdd
+    ' Définition des points et du style de trait
+    Dim dashPattern As Single() = {1, 5}
+    Using pen As New Pen(Color_Trait, Bld_Trait_1)
+      pen.DashPattern = dashPattern
+      Dim x1 As Integer = WHthird
+      Dim x2 As Integer = (2 * WHthird)
+      g.DrawLine(pen, x1, 0, x1, WH)
+      g.DrawLine(pen, x2, 0, x2, WH)
+      ' Lignes horizontales
+      Dim y1 As Integer = WHthird
+      Dim y2 As Integer = +(2 * WHthird)
+      g.DrawLine(pen, 0, y1, WH, y1)
+      g.DrawLine(pen, 0, y2, WH, y2)
     End Using
   End Sub
+
   Public Sub G1_Cell_Fond_Saisie(g As Graphics, Cellule As Integer)
     G1_Graphics_Généralité(g)
     Using brsh As New SolidBrush(Color_Cell_Select)
+      'If Plcy_Format_DAB = 0 Then g.FillRectangle(brsh, Sqr_Cel(Cellule))
       g.FillRectangle(brsh, Sqr_Cel(Cellule))
       For cdd As Integer = 1 To 9
         Dim cd As Integer = Cellule * 10 + cdd
@@ -272,6 +290,71 @@ Module M03_Paint_Quadrillage
       Next col
     Next row
   End Sub
+
+  Private Function BuildPathTL() As GraphicsPath
+    Dim gp As New GraphicsPath()
+    Dim R As Integer = Rayon_cellule
+    Dim D As Integer = R * 2
+    ' Arc en haut-gauche
+    gp.AddArc(0, 0, D, D, 180, 90)
+    ' Haut
+    gp.AddLine(R, 0, WH, 0)
+    ' Droite
+    gp.AddLine(WH, 0, WH, WH)
+    ' Bas
+    gp.AddLine(WH, WH, 0, WH)
+    gp.CloseFigure()
+    Return gp
+  End Function
+
+  Private Function BuildPathTR() As GraphicsPath
+    Dim gp As New GraphicsPath()
+    Dim R As Integer = Rayon_cellule
+    Dim D As Integer = R * 2
+    ' Arc en haut-droite
+    gp.AddArc(WH - D, 0, D, D, 270, 90)
+    ' Droite
+    gp.AddLine(WH, R, WH, WH)
+    ' Bas
+    gp.AddLine(WH, WH, 0, WH)
+    ' Gauche
+    gp.AddLine(0, WH, 0, 0)
+    gp.CloseFigure()
+    Return gp
+  End Function
+  Private Function BuildPathBL() As GraphicsPath
+    Dim gp As New GraphicsPath()
+    Dim R As Integer = Rayon_cellule
+    Dim D As Integer = R * 2
+    ' 1. Haut (gauche → droite)
+    gp.AddLine(0, 0, WH, 0)
+    ' 2. Droite (haut → bas)
+    gp.AddLine(WH, 0, WH, WH)
+    ' 3. Bas (droite → arc)
+    gp.AddLine(WH, WH, R, WH)
+    ' 4. Arc en bas-gauche
+    gp.AddArc(0, WH - D, D, D, 90, 90)
+    ' 5. Gauche (arc → haut)
+    gp.AddLine(0, WH - R, 0, 0)
+
+    gp.CloseFigure()
+    Return gp
+  End Function
+  Private Function BuildPathBR() As GraphicsPath
+    Dim gp As New GraphicsPath()
+    Dim R As Integer = Rayon_cellule
+    Dim D As Integer = R * 2
+    ' Arc en bas-droite
+    gp.AddArc(WH - D, WH - D, D, D, 0, 90)
+    ' Bas
+    gp.AddLine(WH - R, WH, 0, WH)
+    ' Gauche
+    gp.AddLine(0, WH, 0, 0)
+    ' Haut
+    gp.AddLine(0, 0, WH, 0)
+    gp.CloseFigure()
+    Return gp
+  End Function
 
 #End Region
 End Module
