@@ -1,14 +1,16 @@
 ﻿Imports System.Drawing.Drawing2D
 Module M03_Paint_Quadrillage
 #Region "G1 Couche Quadrillage"
+  Public Sub G1_Graphics_Généralité(g As Graphics)
+    g.SmoothingMode = SmoothingMode.AntiAlias
+    g.InterpolationMode = InterpolationMode.NearestNeighbor
+    g.PixelOffsetMode = PixelOffsetMode.None
+    g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
+  End Sub
   Public Sub Build_Bmp_Quadrillage()
     Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
     Using g As Graphics = Graphics.FromImage(Bmp_Quadrillage)
-      g.SmoothingMode = SmoothingMode.AntiAlias
-      g.InterpolationMode = InterpolationMode.NearestNeighbor
-      g.PixelOffsetMode = PixelOffsetMode.None
-      g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
-
+      G1_Graphics_Généralité(g)
       G1_Grid_Paint(g)
     End Using
   End Sub
@@ -18,35 +20,46 @@ Module M03_Paint_Quadrillage
     Bmp_Fond = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
     Bmp_Fond.SetResolution(96, 96)
     Using g As Graphics = Graphics.FromImage(Bmp_Fond)
-      g.SmoothingMode = SmoothingMode.None
-      g.InterpolationMode = InterpolationMode.NearestNeighbor
-      g.PixelOffsetMode = PixelOffsetMode.None
-      g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
-      Dim sc As New Cellule_Cls
-      ' Tous les fonds de cellule sont peints, ainsi que les valeurs initiales
+      G1_Graphics_Généralité(g)
+      ' Tous les fonds de cellule sont peints 
       For i As Integer = 0 To 80
-        sc.Numéro = i
-        sc.G2_Cellule_Paint_Fond(g)
-
-        If U(i, 1) <> " " Then
-          g.DrawString(Subst_Police(U(i, 1)),
-                       Fnt_Val,
-                       Brh_VI,
-                       Sqr_Cel(i).X + WHhalf, Sqr_Cel(i).Y + WHhalf, Format_Center)
-        End If
+        Dim fondCouleur As Boolean = (Plcy_Fond_Grille = 0)
+        Using brFond As New SolidBrush(U_Clr_Cell_Fond(i))
+          If fondCouleur Then
+            If U_DAB(i) Then
+              g.FillPath(brFond, Sqr_Pth(i))
+            Else
+              g.FillRectangle(brFond, Sqr_Cel(i))
+            End If
+          Else
+            If U_dab(i) Then
+              g.ResetClip()
+              g.SetClip(Sqr_Pth(i), CombineMode.Replace)
+              g.DrawImage(Sqr_Img(i), Sqr_Cel(i))
+              g.ResetClip()   ' ← AJOUT ESSENTIEL
+            Else
+              g.DrawImage(Sqr_Img(i), Sqr_Cel(i))
+            End If
+          End If
+          ' et les valeurs initiales
+          If U(i, 1) <> " " Then
+            g.DrawString(Subst_Police(U(i, 1)),
+                         Fnt_Val,
+                         Brh_VI,
+                         Sqr_Cel(i).X + WHhalf, Sqr_Cel(i).Y + WHhalf, Format_Center)
+          End If
+        End Using
       Next
     End Using
   End Sub
+
   Public Sub Build_Bmp_Valeurs()
     ' Seules les valeurs des cellules Remplies sont peintes
     ' Cette fonction est optimisée car elle est appelée à chaque changement de valeur d'une cellule Remplie
     Bmp_Valeur = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
     Bmp_Valeur.SetResolution(96, 96)
     Using g As Graphics = Graphics.FromImage(Bmp_Valeur)
-      g.SmoothingMode = SmoothingMode.None
-      g.InterpolationMode = InterpolationMode.NearestNeighbor
-      g.PixelOffsetMode = PixelOffsetMode.None
-      g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
+      G1_Graphics_Généralité(g)
       For i As Integer = 0 To 80
         If U(i, 1) = " " AndAlso U(i, 2) <> " " Then
           g.DrawString(Subst_Police(U(i, 2)),
@@ -64,12 +77,8 @@ Module M03_Paint_Quadrillage
     ' le Bmp_Fond_Saisie est calculé une seule fois dans Frm_SDK_Load
     Bmp_Fond_Saisie = New Bitmap(WH, WH)
     Dim r As New Rectangle(0, 0, WH, WH)
-    r.Inflate(-1, -1)
     Using g As Graphics = Graphics.FromImage(Bmp_Fond_Saisie)
-      g.SmoothingMode = SmoothingMode.None
-      g.InterpolationMode = InterpolationMode.NearestNeighbor
-      g.PixelOffsetMode = PixelOffsetMode.None
-      g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
+      G1_Graphics_Généralité(g)
       'Il n'est pas possible d'utiliser Sqr_Cdd( de 1 à 9), mais un bitmap plus large
       Using brsh As New SolidBrush(Color_Cell_Select)
         g.FillRectangle(brsh, r)
@@ -77,13 +86,13 @@ Module M03_Paint_Quadrillage
           ' Sqr_Cel et Sqr_Cdd ne sont pas référencés par Cellule
           Dim row As Integer = (cdd - 1) \ 3
           Dim col As Integer = (cdd - 1) Mod 3
-          Dim rc As New Rectangle(r.X + col * WHthird, r.Y + row * WHthird, WHthird, WHthird)
-          g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, rc, Format_Center)
+          Dim rct As New Rectangle(r.X + (col * WHthird), r.Y + (row * WHthird), WHthird, WHthird)
+          g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, rct, Format_Center)
         Next cdd
       End Using
       ' Définition des points et du style de trait
       Dim dashPattern As Single() = {1, 5}
-      Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
+      Using pen As New Pen(Color_Trait, Bld_Trait_1)
         pen.DashPattern = dashPattern
         Dim x1 As Integer = WHthird
         Dim x2 As Integer = (2 * WHthird)
@@ -98,10 +107,7 @@ Module M03_Paint_Quadrillage
     End Using
   End Sub
   Public Sub G1_Cell_Fond_Saisie(g As Graphics, Cellule As Integer)
-    g.SmoothingMode = SmoothingMode.None
-    g.InterpolationMode = InterpolationMode.NearestNeighbor
-    g.PixelOffsetMode = PixelOffsetMode.None
-    g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
+    G1_Graphics_Généralité(g)
     Using brsh As New SolidBrush(Color_Cell_Select)
       g.FillRectangle(brsh, Sqr_Cel(Cellule))
       For cdd As Integer = 1 To 9
@@ -115,7 +121,7 @@ Module M03_Paint_Quadrillage
     Dim Y As Integer = Sqr_Cel(Cellule).Y
     ' Définition des points et du style de trait
     Dim dashPattern As Single() = {1, 5}
-    Using pen As New Pen(Color_Trait, Bld_Trait_1 \ 10)
+    Using pen As New Pen(Color_Trait, Bld_Trait_1)
       pen.DashPattern = dashPattern
       g.DrawLine(pen, X, Y + (WHthird * 1), X + WH, Y + (WHthird * 1))
       g.DrawLine(pen, X, Y + (WHthird * 2), X + WH, Y + (WHthird * 2))
@@ -139,22 +145,18 @@ Module M03_Paint_Quadrillage
     End Select
   End Sub
   Public Sub G1_Grid_Paint_Quadrillage_droit(g As Graphics)
-    ' Tracer les traits
+    G1_Graphics_Généralité(g)
     For i As Integer = 0 To 9
-      Dim y As Integer = Gz_tl.Y + Gz_traits(i)
       Dim x As Integer = Gz_tl.X + Gz_traits(i)
+      Dim y As Integer = Gz_tl.Y + Gz_traits(i)
 
       Dim p As Pen = If(i Mod 3 = 0, Pen_épais, Pen_fin)
 
-      g.DrawLine(p, Gz_tl.X, y, Gz_tl.X + Gz_Trait_Length, y)
-      g.DrawLine(p, x, Gz_tl.Y, x, Gz_tl.Y + Gz_Trait_Length)
+      g.DrawLine(p, Gz_tl.X + 1, y, Gz_tl.X + Gz_Trait_Length, y)
+      g.DrawLine(p, x, Gz_tl.Y + 1, x, Gz_tl.Y + Gz_Trait_Length)
     Next
-    '' tracer les rectangles des cellules (debug)
-    'For i As Integer = 0 To 80
-    '  'g.DrawRectangle(Pens.Green, Sqr_Cel(i))
-    '  g.FillRectangle(Brushes.Green, Sqr_Cel(i))
-    'Next
   End Sub
+
   Public Sub G1_Grid_Paint_Quadrillage_arrondi(g As Graphics)
     ' Tracer les traits des régions arrondies
     For i As Integer = 0 To 8
@@ -167,56 +169,14 @@ Module M03_Paint_Quadrillage
       Dim y As Integer = Gz_tl.Y + Gz_traits(i)
       Dim x As Integer = Gz_tl.X + Gz_traits(i)
 
-      'Dim p As Pen = If(i Mod 3 = 0, pen_épais, pen_fin)
-
       g.DrawLine(Pen_fin, Gz_tl.X, y, Gz_tl.X + Gz_Trait_Length, y)
       g.DrawLine(Pen_fin, x, Gz_tl.Y, x, Gz_tl.Y + Gz_Trait_Length)
-    Next
-    'For i As Integer = 0 To 80
-    '  g.FillPath(Brushes.LightGreen, Sqr_Pth(i))
-    '  'g.DrawPath(pen_fin, Sqr_Pth(i))
-    'Next
-  End Sub
-
-
-  Public Sub Gz_Traits_Calcul()
-    ' Calcul des positions des traits de la grille
-    ' Calcul de la longueur d'un trait
-    Dim pos As Integer = Trait_épais \ 2
-    Gz_traits(0) = pos
-    For i As Integer = 1 To 9
-      If i Mod 3 = 0 Then           ' traits 3, 6, 9  
-        pos += WH + Trait_épais
-      Else                          ' traits 1, 2, 4, 5, 7, 8
-        pos += WH + Trait_fin
-      End If
-      Gz_traits(i) = pos
-    Next
-    Gz_Trait_Length = Gz_traits(9) + (Trait_épais \ 2)
-  End Sub
-
-  Public Sub Gz_Sqr_Cel_Calcul()
-    ' Calcul des 81 rectangles des cellules
-
-    For row As Integer = 0 To 8
-      For col As Integer = 0 To 8
-        Dim cellule As Integer = (row * 9) + col
-        Dim leftTraitWidth As Integer = If(col Mod 3 = 0, Trait_épais, Trait_fin)
-        Dim rightTraitWidth As Integer = If((col + 1) Mod 3 = 0, Trait_épais, Trait_fin)
-        Dim topTraitWidth As Integer = If(row Mod 3 = 0, Trait_épais, Trait_fin)
-        Dim bottomTraitWidth As Integer = If((row + 1) Mod 3 = 0, Trait_épais, Trait_fin)
-
-        Dim x1 As Integer = Gz_tl.X + Gz_traits(col) + leftTraitWidth \ 2
-        Dim x2 As Integer = Gz_tl.X + Gz_traits(col + 1) - rightTraitWidth \ 2
-        Dim y1 As Integer = Gz_tl.Y + Gz_traits(row) + topTraitWidth \ 2
-        Dim y2 As Integer = Gz_tl.Y + Gz_traits(row + 1) - bottomTraitWidth \ 2
-        Sqr_Cel(cellule) = New Rectangle(x1, y1, x2 - x1, y2 - y1)
-      Next
     Next
   End Sub
 
   Public Sub Gz_Region_Path_Calcul()
     ' Calcul des 9 régions arrondies
+    ' il est possible de faire varier le rayon des régions arrondies
     Dim region As Integer = 0
 
     For block_row As Integer = 0 To 2
@@ -237,6 +197,7 @@ Module M03_Paint_Quadrillage
       Next
     Next
   End Sub
+
   Public Sub Gz_Sqr_Pth_Calcul()
     ' Calcul des 81 path des cellules
 
@@ -276,6 +237,40 @@ Module M03_Paint_Quadrillage
         Sqr_Pth(cellule) = pth
       Next
     Next
+  End Sub
+
+  Public Sub Gz_Traits_Sqr_Cel_Calcul()
+    ' Traitement lourd ... mais juste pour le quadrillage droit et le quadrillage arrondi
+    ' Calcul des positions des traits de la grille
+    ' Calcul de la longueur d'un trait
+    Gz_traits(0) = 2                         ' Epais 
+    Gz_traits(1) = 1 + Gz_traits(0) + WH + 1 ' Fin
+    Gz_traits(2) = 0 + Gz_traits(1) + WH + 1 ' Fin
+    Gz_traits(3) = 0 + Gz_traits(2) + WH + 2 ' Epais
+    Gz_traits(4) = 1 + Gz_traits(3) + WH + 1 ' Fin
+    Gz_traits(5) = 0 + Gz_traits(4) + WH + 1 ' Fin
+    Gz_traits(6) = 0 + Gz_traits(5) + WH + 2 ' Epais
+    Gz_traits(7) = 1 + Gz_traits(6) + WH + 1 ' Fin
+    Gz_traits(8) = 0 + Gz_traits(7) + WH + 1 ' Fin
+    Gz_traits(9) = 0 + Gz_traits(8) + WH + 2 ' Epais
+    Gz_Trait_Length = Gz_traits(9) + 2
+    Gz_Cellxy(0) = 2 + Gz_traits(0)
+    Gz_Cellxy(1) = 1 + Gz_traits(1)
+    Gz_Cellxy(2) = 1 + Gz_traits(2)
+    Gz_Cellxy(3) = 2 + Gz_traits(3)
+    Gz_Cellxy(4) = 1 + Gz_traits(4)
+    Gz_Cellxy(5) = 1 + Gz_traits(5)
+    Gz_Cellxy(6) = 2 + Gz_traits(6)
+    Gz_Cellxy(7) = 1 + Gz_traits(7)
+    Gz_Cellxy(8) = 1 + Gz_traits(8)
+    For row As Integer = 0 To 8
+      For col As Integer = 0 To 8
+        Dim cellule As Integer = (row * 9) + col
+        Dim x1 As Integer = Gz_tl.X + Gz_Cellxy(col)
+        Dim y1 As Integer = Gz_tl.Y + Gz_Cellxy(row)
+        Sqr_Cel(cellule) = New Rectangle(x1, y1, WH, WH)
+      Next col
+    Next row
   End Sub
 
 #End Region

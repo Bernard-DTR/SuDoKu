@@ -208,7 +208,6 @@ Friend Module A02_Occasionally
   Public Sub OC_Grid_Compute()
     ' Généralités (Dépendance de WH)
     WHhalf = WH \ 2
-    WHrayon = WH \ Rayon
     WHthird = WH \ 3
     WHquart = WH \ 4
     WHsix = WH \ 6
@@ -225,9 +224,8 @@ Friend Module A02_Occasionally
                               Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT)
     'Gz_tl est un point fixe  (5, 60)
 
-    Gz_Traits_Calcul()
+    Gz_Traits_Sqr_Cel_Calcul()
     Gz_Region_Path_Calcul()
-    Gz_Sqr_Cel_Calcul()
     Gz_Sqr_Pth_Calcul()
 
     '#736

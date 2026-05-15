@@ -453,6 +453,8 @@
 #776 J  14/05/2026 Mise en place de Gz_Region_Path_Calcul()
 #777 J  14/05/2026 Mise en place de Gz_Sqr_Pth_Calcul()
 #778 J  14/05/2026 Mise en place d'un quadrillage droit et arrondi correct
+#779 J  14/05/2026 Ouf! Mise en place d'un quadrillage droit et arrondi parfait
+
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie

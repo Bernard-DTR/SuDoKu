@@ -393,6 +393,7 @@
       My.Settings.Format_DAB = Cb01_Format.SelectedIndex
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
+      WH_U_DAB()
       OC_Présentation()
       Build_Bmp_Quadrillage()
       Build_Bmp_Fonds()
@@ -725,7 +726,7 @@
     Prf06_Clr(5) = Clr_Fnd_VCdd
     Prf06_Clr(6) = Clr_VCdd
     Prf06_Clr(7) = Color_Stratégique
-    Prf06_Clr(8) = Color_Cell_Select
+    'Prf06_Clr(8) = Color_Cell_Select
 
     ' 5 Calcul des 81 cellules des candidats
     k = 0
@@ -763,7 +764,6 @@
     Btn06_05.Text = Prf06_Clr_Txt(5)
     Btn06_06.Text = Prf06_Clr_Txt(6)
     Btn06_07.Text = Prf06_Clr_Txt(7)
-    Btn06_08.Text = Prf06_Clr_Txt(8)
     'Le ToolTip affiche le texte, quand celui-ci est trop foncé
     ToolTip.SetToolTip(Btn06_01, Prf06_Clr_Txt(1))
     ToolTip.SetToolTip(Btn06_02, Prf06_Clr_Txt(2))
@@ -772,7 +772,6 @@
     ToolTip.SetToolTip(Btn06_05, Prf06_Clr_Txt(5))
     ToolTip.SetToolTip(Btn06_06, Prf06_Clr_Txt(6))
     ToolTip.SetToolTip(Btn06_07, Prf06_Clr_Txt(7))
-    ToolTip.SetToolTip(Btn06_08, Prf06_Clr_Txt(8))
     'Le backColor des boutons
     Btn06_01.BackColor = Prf06_Clr(1)
     Btn06_02.BackColor = Prf06_Clr(2)
@@ -781,11 +780,10 @@
     Btn06_05.BackColor = Prf06_Clr(5)
     Btn06_06.BackColor = Prf06_Clr(6)
     Btn06_07.BackColor = Prf06_Clr(7)
-    Btn06_08.BackColor = Prf06_Clr(8)
 
   End Sub
 
-  Private Sub Btn06_Color(sender As Object, e As EventArgs) Handles Btn06_08.Click, Btn06_07.Click, Btn06_06.Click, Btn06_05.Click, Btn06_04.Click, Btn06_03.Click, Btn06_02.Click, Btn06_01.Click
+  Private Sub Btn06_Color(sender As Object, e As EventArgs) Handles Btn06_07.Click, Btn06_06.Click, Btn06_05.Click, Btn06_04.Click, Btn06_03.Click, Btn06_02.Click, Btn06_01.Click
     'Gestion des couleurs
     'La couleur du bouton est affichée
     Dim Clr As Integer = CInt(sender.ToString().Substring(35, 1))
@@ -835,7 +833,7 @@
     'Brsh_Val = New SolidBrush(Clr_VCdd)
 
     Color_Stratégique = Prf06_Clr(7)
-    Color_Cell_Select = Prf06_Clr(8)
+    'Color_Cell_Select = Prf06_Clr(8)
 
     Prf06_Clr_Name(1) = "Color_Frm_BackColor"
     Prf06_Clr_Name(2) = "Color_Trait"

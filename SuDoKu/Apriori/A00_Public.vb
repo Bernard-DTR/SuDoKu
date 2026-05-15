@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 ##778"
+  Public SDK_Version As String = "V2026_05 #779"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -22,9 +22,6 @@ Module A00_Public
 #Region "01 Les Tailles"
   Public WH As Integer            ' Width et Height Standard
   Public WHhalf As Integer        '= (WH \ 2)
-  Public Const Rayon As Integer = 2
-
-  Public WHrayon As Integer       '= (WH \ Rayon)
   Public WHthird As Integer       '= (WH \ 3)
   Public WHquart As Integer       '= (WH \ 4)
   Public WHsix As Integer         '= (WH \ 6)
@@ -75,8 +72,6 @@ Module A00_Public
 #Region "04 Constantes"
   Public Const Cnddts As String = "123456789"
   Public Const Cnddts_Blancs As String = "         "
-  Public Const Les9Candidats As String = "Les9Candidats"
-  Public Const LesCandidatsEligibles As String = "LesCandidatsEligibles"
 #End Region
 
 #Region "10 U et ses dérivés"
@@ -106,6 +101,7 @@ Module A00_Public
   Public U_cr(0 To 80) As String                     '        les coordonnées Lx_Cy de chaque cellule
   Public U_Reg(0 To 80) As Integer                   '        dans quelle Région  se trouve une cellule (de 0 à 8)
   Public U_dv(0 To 80) As Boolean                    'Calcul des dernières cellules vides
+  Public U_dab(0 To 80) As Boolean                   'Cellules droites ou arrondies selon les formats DAB
   'Le terme Rectangle est remplacé par le terme Bande 
   Public U_Bh(0 To 80) As Integer                    '        N° de la bande horizontale
   Public U_Bv(0 To 80) As Integer                    '        N° de la bande verticale
@@ -125,12 +121,11 @@ Module A00_Public
   Public Sqr_Cely(0 To 8) As Integer                '  LImites gauches
   Public Sqr_Cdd(809) As Rectangle                  '  Le tableau comporte les informations des 9 rectangles de chaque candidat de chaque cellule
   Public Sqr_Cdd_Inf(809) As Rectangle              '  Le tableau comporte les informations des 9 rectangles inflate pour cliquer plus facilement les candidats
-  Public Sqr_Cel(80) As Rectangle                '  Les 81 rectangles des cellules
+  Public Sqr_Cel(80) As Rectangle                   '  Les 81 rectangles des cellules
   Public Region_Path(8) As Drawing2D.GraphicsPath
   Public Sqr_Pth(80) As Drawing2D.GraphicsPath
-  Public ReadOnly Rayon_region As Integer = 10
+  Public ReadOnly Rayon_region As Integer = 15
   Public ReadOnly Rayon_cellule As Integer = Rayon_region
-
 
   ' Les traitements, compute ou paint, sont identiques que les paths soient des carrés, avec angles arrondis  
 
@@ -158,7 +153,7 @@ Module A00_Public
   'Un trait dépasse d'une demi-épaisseur égale de chaque côté de la ligne et pas à son extrémité.
   'Transparence
   'La transparence est associée au pixel A. 
-  '   les couleurs Color_Couche_Stratégique et Color_Cell_Select sont transparente à 128 
+  '   les couleurs Color_Couche_Stratégique sont transparente à 128 
   '   afin de laisser en-dessous les fonds et les chiffres (valeurs et candidats)
   '   les figures lors des stratégies doivent être également en transparence
   '   l'image de fond est également mise en tranparence pour ne pas trop masquer les chiffres et les candidats.
@@ -167,8 +162,7 @@ Module A00_Public
   Public Color_Trait As Color = Color.Green                                ' Couleur des traits du Grid
   Public Color_Stratégique As Color = Color.FromArgb(128, 15, 196, 101)
 
-  Public Color_Cell_Select As Color = Color.FromArgb(128 + 64, 197, 254, 220)
-  ' je garde la couleur de sélection plus "calme"
+  Public Color_Cell_Select As Color = Color.FromArgb(128, 176, 249, 210)
   Public Color_Cdd_Insérer As Color = Color.Yellow
   Public Color_Cdd_Exclure As Color = Color.Red
   Public Format_Center As New StringFormat With
@@ -180,9 +174,10 @@ Module A00_Public
   Public Trait_fin As Integer = 1
   Public Pen_épais As New Pen(Color_Trait, Trait_épais)
   Public Pen_fin As New Pen(Color_Trait, Trait_fin)
-  Public Gz_traits(9) As Integer                 ' centres des 10 traits
   Public Gz_Trait_Length As Integer              ' dimension totale de la grille
 
+  Public Gz_traits(9) As Integer                 ' centres des 10 traits
+  Public Gz_Cellxy(8) As Integer                 ' coordonnées x et y des cellules
   'Polices non proportionnelles (pour le journal qui est RichTextBox)
   Public Font_Journal As New Font("Courier New", 10, FontStyle.Regular) 'Police non proportionnelle
   'Police utilisée pour le Frm_SDK.Mnu, et les menus contextuels du Journal et de l'Edition

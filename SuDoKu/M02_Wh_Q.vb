@@ -3,6 +3,22 @@
   ' Wh What Réservé aux fonctions
   ' Hw How  Réservé aux procédures
   '-------------------------------------------------------------------------------
+  Public Sub WH_U_DAB()
+    Dim Format56 As New HashSet(Of Integer) From {
+  0, 2, 3, 5, 6, 8, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33, 35, 45, 47, 48, 50, 51, 53, 54, 56, 57, 59, 60, 62, 72, 74, 75, 77, 78, 80}
+
+    Select Case Plcy_Format_DAB
+      Case 0
+        For i As Integer = 0 To 80
+          U_DAB(i) = False
+        Next
+      Case Else ' 1
+        For i As Integer = 0 To 80
+          U_DAB(i) = Format56.Contains(i)
+        Next
+    End Select
+  End Sub
+
   Public Sub WH_U_nb()
     ' Retourne le nombre de valeurs différentes des valeurs dans la grille
     For i As Integer = 0 To 10 : U_nb(i) = 0 : Next

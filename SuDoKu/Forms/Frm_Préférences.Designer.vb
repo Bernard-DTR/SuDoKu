@@ -24,6 +24,7 @@ Partial Class Frm_Préférences
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Onglet_05 = New System.Windows.Forms.TabPage()
+        Me.CB05_13 = New System.Windows.Forms.CheckBox()
         Me.CB05_12 = New System.Windows.Forms.CheckBox()
         Me.CB05_11 = New System.Windows.Forms.CheckBox()
         Me.CB05_10 = New System.Windows.Forms.CheckBox()
@@ -65,7 +66,6 @@ Partial Class Frm_Préférences
         Me.Onglet_TC = New System.Windows.Forms.TabControl()
         Me.Onglet_06 = New System.Windows.Forms.TabPage()
         Me.Btn_Appliquer = New System.Windows.Forms.Button()
-        Me.Btn06_08 = New System.Windows.Forms.Button()
         Me.Btn06_07 = New System.Windows.Forms.Button()
         Me.Btn06_06 = New System.Windows.Forms.Button()
         Me.Btn06_05 = New System.Windows.Forms.Button()
@@ -85,7 +85,6 @@ Partial Class Frm_Préférences
         Me.CB08_01 = New System.Windows.Forms.CheckBox()
         Me.ColorDialog = New System.Windows.Forms.ColorDialog()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.CB05_13 = New System.Windows.Forms.CheckBox()
         Me.Onglet_05.SuspendLayout()
         Me.Onglet_03.SuspendLayout()
         Me.Onglet_02.SuspendLayout()
@@ -113,6 +112,18 @@ Partial Class Frm_Préférences
         Me.Onglet_05.Size = New System.Drawing.Size(932, 356)
         Me.Onglet_05.TabIndex = 4
         Me.Onglet_05.Text = "D"
+        '
+        'CB05_13
+        '
+        Me.CB05_13.AutoSize = True
+        Me.CB05_13.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.CB05_13.Location = New System.Drawing.Point(15, 20)
+        Me.CB05_13.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.CB05_13.Name = "CB05_13"
+        Me.CB05_13.Size = New System.Drawing.Size(46, 24)
+        Me.CB05_13.TabIndex = 35
+        Me.CB05_13.Text = "S"
+        Me.CB05_13.UseVisualStyleBackColor = True
         '
         'CB05_12
         '
@@ -581,7 +592,6 @@ Partial Class Frm_Préférences
         'Onglet_06
         '
         Me.Onglet_06.Controls.Add(Me.Btn_Appliquer)
-        Me.Onglet_06.Controls.Add(Me.Btn06_08)
         Me.Onglet_06.Controls.Add(Me.Btn06_07)
         Me.Onglet_06.Controls.Add(Me.Btn06_06)
         Me.Onglet_06.Controls.Add(Me.Btn06_05)
@@ -608,17 +618,6 @@ Partial Class Frm_Préférences
         Me.Btn_Appliquer.TabIndex = 18
         Me.Btn_Appliquer.Text = "Appliquer"
         Me.Btn_Appliquer.UseVisualStyleBackColor = True
-        '
-        'Btn06_08
-        '
-        Me.Btn06_08.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.Btn06_08.Location = New System.Drawing.Point(315, 288)
-        Me.Btn06_08.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Btn06_08.Name = "Btn06_08"
-        Me.Btn06_08.Size = New System.Drawing.Size(210, 31)
-        Me.Btn06_08.TabIndex = 17
-        Me.Btn06_08.Text = "_"
-        Me.Btn06_08.UseVisualStyleBackColor = True
         '
         'Btn06_07
         '
@@ -814,18 +813,6 @@ Partial Class Frm_Préférences
         Me.ColorDialog.ShowHelp = True
         Me.ColorDialog.SolidColorOnly = True
         '
-        'CB05_13
-        '
-        Me.CB05_13.AutoSize = True
-        Me.CB05_13.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.CB05_13.Location = New System.Drawing.Point(15, 20)
-        Me.CB05_13.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.CB05_13.Name = "CB05_13"
-        Me.CB05_13.Size = New System.Drawing.Size(46, 24)
-        Me.CB05_13.TabIndex = 35
-        Me.CB05_13.Text = "S"
-        Me.CB05_13.UseVisualStyleBackColor = True
-        '
         'Frm_Préférences
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -893,7 +880,6 @@ Partial Class Frm_Préférences
     Friend WithEvents Btn06_01 As Button
     Friend WithEvents Btn06_02 As Button
     Friend WithEvents ColorDialog As ColorDialog
-    Friend WithEvents Btn06_08 As Button
     Friend WithEvents Btn06_07 As Button
     Friend WithEvents Btn06_06 As Button
     Friend WithEvents Btn06_05 As Button

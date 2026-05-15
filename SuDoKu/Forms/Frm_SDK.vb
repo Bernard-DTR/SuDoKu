@@ -320,16 +320,16 @@ Public NotInheritable Class Frm_SDK
     g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une seule création à chaque jeu
     g.DrawImageUnscaled(Bmp_Valeur, 0, 0)           ' Une création à chaque saisie/effacement de valeur
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
-        G4_Grid_Stratégie_All(g)
-      End If
+      G4_Grid_Stratégie_All(g)
+    End If
     ' Grille de saisie
     If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
       If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_Eligible Then
         G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
       Else
         g.DrawImage(Bmp_Fond_Saisie,
-                Sqr_Cel(Cellule_MouseMove).X,
-                Sqr_Cel(Cellule_MouseMove).Y)
+                    Sqr_Cel(Cellule_MouseMove).X,
+                    Sqr_Cel(Cellule_MouseMove).Y)
       End If
     End If
     ' Animation

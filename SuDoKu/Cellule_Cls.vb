@@ -4,9 +4,6 @@ Imports System.Runtime.InteropServices   ' Nécessaire à <DllImport("user32.dll
 Public Class Cellule_Cls
 #Region "Propriétés"
 
-  Private Shared ReadOnly Format56 As New HashSet(Of Integer) From {
-  0, 2, 3, 5, 6, 8, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33, 35, 45, 47, 48, 50, 51, 53, 54, 56, 57, 59, 60, 62, 72, 74, 75, 77, 78, 80}
-
   ' --- Propriété ---
   Private _numéro As Integer
   Private ReadOnly _isvalid As Boolean           ' Nouveau : True compris entre 0 et 80, sinon False
@@ -15,7 +12,6 @@ Public Class Cellule_Cls
   Private _position_Center As Point
   Private _valeur As Integer                     ' Nouveau : INTEGER 0 si rien ou 1 à 9
   Private _candidats As String                   ' Nouveau : 123456789 ou 9blancs ou 1b3bb6b89
-  Private ReadOnly _cellule_arrondie As Boolean
 
   ''' <summary>Numéro de la Cellule, compris entre 0 et 80, sinon 0.</summary>
   Public Property Numéro As Integer
@@ -86,47 +82,9 @@ Public Class Cellule_Cls
       Return _typologie
     End Get
   End Property
-  ''' <summary>Précise si la cellule est arrondie ou non.</summary>
-  Public ReadOnly Property Cellule_Arrondie As Boolean
-    ' Définition des cellules arrondies selon les formats DAB
-    Get 'Propriété dépendante de U et de Plcy_Format_DAB
-      Select Case Plcy_Format_DAB
-        Case 1 : Return Format56.Contains(Numéro)
-        Case Else
-          Return False
-      End Select
-    End Get
-  End Property
 #End Region
 
 #Region "Méthodes"
-  ''' <summary>Peint le Fond de la Cellule .</summary>
-  Public Sub G2_Cellule_Paint_Fond(g As Graphics)
-    If Not IsValid Then Exit Sub
-
-    Dim rct As Rectangle = Sqr_Cel(Numéro)
-    Dim pth As GraphicsPath = Sqr_Pth(Numéro)
-    Dim img As Image = Sqr_Img(Numéro)
-    Dim fondCouleur As Boolean = (Plcy_Fond_Grille = 0)
-    Using brFond As New SolidBrush(U_Clr_Cell_Fond(Numéro))
-      If fondCouleur Then
-        If Cellule_Arrondie Then
-          g.FillPath(brFond, pth)
-        Else
-          g.FillRectangle(brFond, rct)
-        End If
-      Else
-        If Cellule_Arrondie Then
-          g.ResetClip()
-          g.SetClip(pth, CombineMode.Replace)
-          g.DrawImage(img, rct)
-          g.ResetClip()   ' ← AJOUT ESSENTIEL
-        Else
-          g.DrawImage(img, rct)
-        End If
-      End If
-    End Using
-  End Sub
   ''' <summary>Dessine UN Candidat de la Cellule.</summary>
   Public Sub G6_Cellule_Paint_Candidat_Eligible(g As Graphics, Candidat As String, Couleur As Color)
     'Dessine UN Candidat d'une cellule dans un cercle de couleur
