@@ -155,7 +155,6 @@ Module A00_Public
   'Transparence
   'La transparence est associée au pixel A. 
   '   les couleurs Color_Couche_Stratégique sont transparente à 128 
-  '   afin de laisser en-dessous les fonds et les chiffres (valeurs et candidats)
   '   les figures lors des stratégies doivent être également en transparence
   '   l'image de fond est également mise en tranparence pour ne pas trop masquer les chiffres et les candidats.
   ' Fond d'effacement
@@ -192,7 +191,7 @@ Module A00_Public
 
   ' Font_Mnu_Cel DOIT afficher le menu contextuel texte 
   Public Font_Mnu_Cel As New Font("Segoe UI", 10, FontStyle.Regular)
-  Public Fnt_Name_ValCdd As String = "Arial"
+  Public Fnt_Name_ValCdd As String = "Arial" 
   Public Fnt_Name_Fantasy As String = "Arial"
   Public Fnt_Val_Size As Single                 ' calcul effectué dans G0_Grid_Compute_Font_Size()
   Public Fnt_Cdd_Size As Single                 ' calcul effectué dans G0_Grid_Compute_Font_Size() 
@@ -201,8 +200,8 @@ Module A00_Public
 
   '#760
   'Il existe 4 couleurs (Structure) pour les fonds de cellule et les valeurs (valeurs initiales et valeurs et candidats)
-  Public Clr_Fnd_VI As Color = Color.FromArgb(255, 192, 255, 192)    ' Couleur Fond Valeurs Initiales
-  Public Clr_Fnd_VCdd As Color = Color.FromArgb(255, 129, 224, 129)   ' Couleur Fond Cellule Remplie/Vide
+  Public Clr_Fnd_VI As Color = Color.FromArgb(255, 192, 255, 192)        ' Couleur Fond Valeurs Initiales
+  Public Clr_Fnd_VCdd As Color = Color.FromArgb(255, 129, 224, 129)      ' Couleur Fond Cellule Remplie/Vide
   Public Clr_VI As Color = Color.FromArgb(255, 211, 40, 10)              ' Couleur d'affichage graphique des Valeurs Initiales       (Rouge)
   Public Clr_VCdd As Color = Color.FromArgb(255, 23, 94, 23)             ' Couleur d'affichage graphique des Valeurs et des Candidats (Vert)
   'Il existe 2 polices (Classe) (Nom et Taille) pour les valeurs et pour les candidats

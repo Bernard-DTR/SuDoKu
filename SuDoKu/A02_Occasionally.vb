@@ -460,7 +460,6 @@ Friend Module A02_Occasionally
     'Calcul de la taille des polices des Valeurs et des Candidats
     Fnt_Val_Size = CalculateFontSize(Fnt_Name_ValCdd, FontStyle.Regular, WH, "1")
     Fnt_Cdd_Size = CalculateFontSize(Fnt_Name_ValCdd, FontStyle.Regular, CSng(WH / 3), "1")
-    '#760 On ne change que la taille
     Fnt_Val.Dispose()
     Fnt_Val = New Font(Fnt_Val.FontFamily, Fnt_Val_Size, Fnt_Val.Style)
     Fnt_Cdd.Dispose()

@@ -339,7 +339,10 @@ Public NotInheritable Class Frm_SDK
     End If
     ' Animation
     If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
+      g.ResetClip()
+      g.SetClip(Sqr_Pth(Animation_Cellule), Drawing2D.CombineMode.Replace)
       g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
+      g.ResetClip()
     End If
   End Sub
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -388,7 +391,6 @@ Public NotInheritable Class Frm_SDK
     If Cellule_MM = -1 Then Exit Sub
     Pbl_Cell_Select = Cellule_MM
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
-      'B_Position.Text = U_cr(Pbl_Cell_Select) & " (" & Pbl_Cell_Select & ")"
       B_Position.Text = U_cr(Pbl_Cell_Select) & "   " & Pbl_Cell_Select
       Mnu_Mngt(Pbl_Cell_Select)
     End If
@@ -450,7 +452,6 @@ Public NotInheritable Class Frm_SDK
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
     Dim TTT_Message As String = Cnddts_Blancs
     Dim Cellule As Integer = Pbl_Cell_Select
-    Pénalités(Proc_Name_Get() & " " & U_Coord(Cellule) & "(" & Candidat & ")")
     If Plcy_Fantasy Then Exit Sub    'Le TTT_Message ne fonctionne pas avec une police fantaisie.
     Select Case Cellule
       Case 1, 2, 3, 4, 5, 6, 7, 73, 74, 75, 76, 77, 78, 79           ' Colonnes haut et bas
@@ -503,6 +504,7 @@ Public NotInheritable Class Frm_SDK
     Dim TTT_Font As New Font("Consolas", 14, FontStyle.Italic)
     ' Créer une instance de CustomToolTip
     MouseClick_Middle_ToolTip = New CustomToolTip(TTT_ToolTipText, TTT_Font)
+    Pénalités(Proc_Name_Get() & " " & U_Coord(Cellule) & "(" & Candidat & ") " & TTT_Message)
 
     Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X, Top + Get_Centre(Cellule, Candidat).Y)
 
