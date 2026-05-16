@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #781"
+  Public SDK_Version As String = "V2026_05 #783"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -101,7 +101,7 @@ Module A00_Public
   Public U_cr(0 To 80) As String                     '        les coordonnées Lx_Cy de chaque cellule
   Public U_Reg(0 To 80) As Integer                   '        dans quelle Région  se trouve une cellule (de 0 à 8)
   Public U_dv(0 To 80) As Boolean                    'Calcul des dernières cellules vides
-  Public U_dab(0 To 80) As Boolean                   'Cellules droites ou arrondies selon les formats DAB
+  'Public U_dab(0 To 80) As Boolean                   'Cellules droites ou arrondies selon les formats DAB
   Public U_arr(0 To 80) As String                    'Cellules droites ou arrondies selon les formats DAB
 
   'Le terme Rectangle est remplacé par le terme Bande 
@@ -126,8 +126,7 @@ Module A00_Public
   Public Sqr_Cel(80) As Rectangle                   '  Les 81 rectangles des cellules
   Public Region_Path(8) As Drawing2D.GraphicsPath
   Public Sqr_Pth(80) As Drawing2D.GraphicsPath
-  Public Rayon_region As Integer = 10        '10
-  Public Rayon_cellule As Integer = Rayon_region
+  Public Rayon As Integer = 25
 
   ' Les traitements, compute ou paint, sont identiques que les paths soient des carrés, avec angles arrondis  
 
@@ -166,7 +165,7 @@ Module A00_Public
 
   'Public Color_Cell_Select As Color = Color.FromArgb(128, 176, 249, 210)
   Public Color_Cell_Select As Color = SystemColors.HighlightText
-  Public Brsh_Select As New SolidBrush(SystemColors.HighlightText)
+  Public Brh_Select As New SolidBrush(SystemColors.HighlightText)
   Public Color_Cdd_Insérer As Color = Color.Yellow
   Public Color_Cdd_Exclure As Color = Color.Red
   Public Format_Center As New StringFormat With
@@ -266,6 +265,7 @@ Module A00_Public
   Public Plcy_Open_Display As Boolean = False
   Public Const Dl_Nb_VI_minimal As Integer = 17
   Public Plcy_Format_DAB As Integer
+
   Public Plcy_Dernière_Valeur_Unité As Boolean = False
 #End Region
 

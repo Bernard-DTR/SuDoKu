@@ -335,9 +335,6 @@ Public NotInheritable Class Frm_SDK
           Case Else ' "SQ"
             g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
         End Select
-        'g.DrawImage(Bmp_Fond_Saisie,
-        '            Sqr_Cel(Cellule_MouseMove).X,
-        '            Sqr_Cel(Cellule_MouseMove).Y)
       End If
     End If
     ' Animation
@@ -676,7 +673,7 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 1) = " " And U_Sol(i) <> " " Then U(i, 2) = U_Sol(i)
     Next i
-    Build_Bmp_Valeurs()
+    Build_Bmp_valeur_saisie()
     B_Info.Text = "Affichage de la Solution"
     Invalidate()
     Application.DoEvents()    'Affiche la grille sans solutions immédiatement
@@ -684,7 +681,7 @@ Public NotInheritable Class Frm_SDK
     Thread.Sleep(2000) 'Le temps de lire quelques valeurs
 
     For i As Integer = 0 To 80 : U(i, 2) = jeu_Save.Substring(i, 1) : Next i
-    Build_Bmp_Valeurs()
+    Build_Bmp_valeur_saisie()
     B_Info.Text = " _ "
     Invalidate()
   End Sub
@@ -1146,7 +1143,7 @@ Public NotInheritable Class Frm_SDK
     Array.Copy(U, U_Chk, UNbCopy)
     Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
     U_Checking_Display(U_Check, True)
-    Build_Bmp_Valeurs()
+    Build_Bmp_valeur_saisie()
     Invalidate()
   End Sub
   Private Sub Mnu08_RésoudreEnForceBrute_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreEnForceBrute.Click
@@ -1185,7 +1182,7 @@ Public NotInheritable Class Frm_SDK
         For i As Integer = 0 To 80
           U(i, 2) = DL.Solution(0).Substring(i, 1)
         Next i
-        Build_Bmp_Valeurs()
+        Build_Bmp_valeur_saisie()
         Invalidate()
       Case Else
         Jrn_Add(, {"Dancing Link        : " & DL.DLCode & " Solutions multiples."})
@@ -1210,7 +1207,7 @@ Public NotInheritable Class Frm_SDK
     Dim Solved As Boolean = DB_Solution(AllCandidates)
     If Solved Then Jrn_Add(, {"Les stratégies de Denis Berthier ont résolu la grille."}, "Red")
     AllCandidates_SDK(AllCandidates)
-    Build_Bmp_Valeurs()
+    Build_Bmp_valeur_saisie()
   End Sub
   Private Sub Mnu08_EditionDuProblème_Click(sender As Object, e As EventArgs) Handles Mnu08_EditionDuProblème.Click
     Jrn_Add(, {Proc_Name_Get()})
@@ -1277,7 +1274,7 @@ Public NotInheritable Class Frm_SDK
     For i As Integer = 0 To 80
       If U(i, 2) = " " Then U(i, 2) = U_Sol(i)
     Next i
-    Build_Bmp_Valeurs()
+    Build_Bmp_valeur_saisie()
     Invalidate()
   End Sub
 

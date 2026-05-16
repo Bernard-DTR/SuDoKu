@@ -45,7 +45,7 @@ Friend Module M20_Game
     Frm_SDK.Text = LP_Nom
     Cpt_Pénalités = 0
     Build_Bmp_Fonds()
-    Build_Bmp_Valeurs()
+    Build_Bmp_valeur_saisie()
     Frm_SDK.Invalidate()
   End Sub
 

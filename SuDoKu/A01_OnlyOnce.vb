@@ -86,8 +86,8 @@ Friend Module A01_OnlyOnce
         Case 0 To 1 : Plcy_Format_DAB = .Format_DAB
         Case 2 : Plcy_Format_DAB = Rdc.Next(0, 2)
       End Select
-      WH_U_DAB()
-      WH_U_arr()
+      ' Dès que le format DAB est défini, on peut construire U_arr
+      HW_U_arr()
     End With
   End Sub
   Public Sub OO_120_Variables_Autres()
@@ -132,7 +132,6 @@ Friend Module A01_OnlyOnce
       U_Sol(i) = " "                                                        ' Solution                      
       U_Col(i) = i Mod 9
       U_Row(i) = i \ 9
-      'U_Reg(i) = Wh_Région_Cel(i)
       U_Reg(i) = ((U_Row(i)) \ 3) * 3 + ((U_Col(i)) \ 3)
       U_cr(i) = "L" & (U_Row(i) + 1) & "_" & "C" & (U_Col(i) + 1)           ' Format Lx_Cy
     Next i

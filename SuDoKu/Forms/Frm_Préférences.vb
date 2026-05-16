@@ -89,6 +89,7 @@
     Cb01_Format.SelectedIndex = My.Settings.Format_DAB
     Plcy_Format_DAB = My.Settings.Format_DAB
     If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
+    HW_U_arr()
 
     CB01_Thèmes.Items.Clear()
     Nsd_i = CB01_Thèmes.Items.Add("Standard")               ' 0     
@@ -329,10 +330,7 @@
     My.Settings.Prf_01C_Taille_Cellule = WH
     If Not Mode_Load Then
       OC_Présentation()
-      Build_Bmp_Quadrillage()
-      Build_Bmp_Fonds()
-      Build_Bmp_Valeurs()
-      Build_Bmp_Saisie()
+      Build_Bmp_QFVS()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -344,10 +342,7 @@
 
     If Not Mode_Load Then
       OC_Présentation()
-      Build_Bmp_Quadrillage()
-      Build_Bmp_Fonds()
-      Build_Bmp_Valeurs()
-      Build_Bmp_Saisie()
+      Build_Bmp_QFVS()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -358,10 +353,7 @@
     U_Clr_Change()
     If Not Mode_Load Then
       OC_Présentation()
-      Build_Bmp_Quadrillage()
-      Build_Bmp_Fonds()
-      Build_Bmp_Valeurs()
-      Build_Bmp_Saisie()
+      Build_Bmp_QFVS()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -370,10 +362,7 @@
     Plcy_Fond_Grille = CB01_ComboBoxFond.SelectedIndex
     If Not Mode_Load Then
       OC_Présentation()
-      Build_Bmp_Quadrillage()
-      Build_Bmp_Fonds()
-      Build_Bmp_Valeurs()
-      Build_Bmp_Saisie()
+      Build_Bmp_QFVS()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -394,13 +383,9 @@
       My.Settings.Format_DAB = Cb01_Format.SelectedIndex
       Plcy_Format_DAB = My.Settings.Format_DAB
       If My.Settings.Format_DAB = 2 Then Plcy_Format_DAB = Rdc.Next(0, 2)
-      WH_U_DAB()
-      WH_U_arr()
+      HW_U_arr()
       OC_Présentation()
-      Build_Bmp_Quadrillage()
-      Build_Bmp_Fonds()
-      Build_Bmp_Valeurs()
-      Build_Bmp_Saisie()
+      Build_Bmp_QFVS()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -417,10 +402,7 @@
       ' Pour afficher correctement les fonds des cellules de la grille
       U_Clr_Change()
       OC_Présentation()
-      Build_Bmp_Quadrillage()
-      Build_Bmp_Fonds()
-      Build_Bmp_Valeurs()
-      Build_Bmp_Saisie()
+      Build_Bmp_QFVS()
       Frm_SDK.Invalidate()
     End If
   End Sub
@@ -453,10 +435,7 @@
       Fnt_Cdd = New Font(Fnt_Name_ValCdd, Fnt_Cdd.Size, Fnt_Cdd.Style)
 
       OC_Présentation()
-      Build_Bmp_Quadrillage()
-      Build_Bmp_Fonds()
-      Build_Bmp_Valeurs()
-      Build_Bmp_Saisie()
+      Build_Bmp_QFVS()
       Mnu_Mngt_Barre_Outils_Filtres()
       Frm_SDK.Invalidate()
 
@@ -648,10 +627,7 @@
       Case Else
     End Select
     OC_Présentation()
-    Build_Bmp_Quadrillage()
-    Build_Bmp_Fonds()
-    Build_Bmp_Valeurs()
-    Build_Bmp_Saisie()
+    Build_Bmp_QFVS()
     Préférences_Load(sender, e)
     Frm_SDK.Invalidate()
   End Sub
@@ -946,14 +922,9 @@
   End Sub
 
   Private Sub Nud_ValueChanged(sender As Object, e As EventArgs) Handles Nud.ValueChanged
-    Rayon_region = CInt(Nud.Value)
-    Rayon_cellule = Rayon_region
+    Rayon = CInt(Nud.Value)
     OC_Présentation()
-    Build_Bmp_Quadrillage()
-    Build_Bmp_Fonds()
-    Build_Bmp_Valeurs()
-    Build_Bmp_Saisie()
     Frm_SDK.Invalidate()
-
   End Sub
+
 End Class

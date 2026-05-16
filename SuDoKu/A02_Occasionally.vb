@@ -88,10 +88,7 @@ Friend Module A02_Occasionally
     OC_Grid_Cutting_Image()
     OC_Présentation_SDK()
     OC_Présentation_Menu()
-    Build_Bmp_Quadrillage()
-    Build_Bmp_Fonds()
-    Build_Bmp_Valeurs()
-    Build_Bmp_Saisie()
+    Build_Bmp_QFVS()
   End Sub
   Public Sub OC_Présentation_SDK()
     Dim Int_Seize As Integer = 16
@@ -141,7 +138,7 @@ Friend Module A02_Occasionally
       .B_ProgressBar.Size = New Size(Bld_Marge_LT + Bld_WH_Grid - B_Width, B_Height)
       .B_ProgressBar.Visible = False
     End With
-    Build_Bmp_Quadrillage()
+    Build_Bmp_Quadrillage() 'Exceptionnellement 
   End Sub
 
   Public Sub OC_Présentation_Menu()
@@ -224,9 +221,101 @@ Friend Module A02_Occasionally
                               Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT)
     'Gz_tl est un point fixe  (5, 60)
 
-    Gz_Traits_Sqr_Cel_Calcul()
-    Gz_Region_Path_Calcul()
-    Gz_Sqr_Pth_Calcul()
+    ' Calcul des traits du quadrillage et des positions des cellules
+    ' Traitement lourd ... mais juste pour le quadrillage droit et le quadrillage arrondi
+    ' Calcul des positions des traits de la grille
+    ' Calcul de la longueur d'un trait
+    Gz_traits(0) = 2                         ' Epais 
+    Gz_traits(1) = 1 + Gz_traits(0) + WH + 1 ' Fin
+    Gz_traits(2) = 0 + Gz_traits(1) + WH + 1 ' Fin
+    Gz_traits(3) = 0 + Gz_traits(2) + WH + 2 ' Epais
+    Gz_traits(4) = 1 + Gz_traits(3) + WH + 1 ' Fin
+    Gz_traits(5) = 0 + Gz_traits(4) + WH + 1 ' Fin
+    Gz_traits(6) = 0 + Gz_traits(5) + WH + 2 ' Epais
+    Gz_traits(7) = 1 + Gz_traits(6) + WH + 1 ' Fin
+    Gz_traits(8) = 0 + Gz_traits(7) + WH + 1 ' Fin
+    Gz_traits(9) = 0 + Gz_traits(8) + WH + 2 ' Epais
+    Gz_Trait_Length = Gz_traits(9) + 2
+
+    ' Calcul des 81 Sqr_cel
+    Gz_Cellxy(0) = 2 + Gz_traits(0)
+    Gz_Cellxy(1) = 1 + Gz_traits(1)
+    Gz_Cellxy(2) = 1 + Gz_traits(2)
+    Gz_Cellxy(3) = 2 + Gz_traits(3)
+    Gz_Cellxy(4) = 1 + Gz_traits(4)
+    Gz_Cellxy(5) = 1 + Gz_traits(5)
+    Gz_Cellxy(6) = 2 + Gz_traits(6)
+    Gz_Cellxy(7) = 1 + Gz_traits(7)
+    Gz_Cellxy(8) = 1 + Gz_traits(8)
+    For row As Integer = 0 To 8
+      For col As Integer = 0 To 8
+        Dim cellule As Integer = (row * 9) + col
+        Dim x1 As Integer = Gz_tl.X + Gz_Cellxy(col)
+        Dim y1 As Integer = Gz_tl.Y + Gz_Cellxy(row)
+        Sqr_Cel(cellule) = New Rectangle(x1, y1, WH, WH)
+      Next col
+    Next row
+    Dim R As Integer = Rayon 'Pour alléger la lecture du code 
+    Dim D As Integer = R * 2
+
+    ' Calcul des 9 paths des régions arrondies
+    ' il est possible de faire varier le rayon des régions arrondies
+    Dim region As Integer = 0
+
+    For block_row As Integer = 0 To 2
+      For block_col As Integer = 0 To 2
+        Dim x1 As Integer = Gz_tl.X + Gz_traits(block_col * 3)
+        Dim x2 As Integer = Gz_tl.X + Gz_traits(block_col * 3 + 3)
+        Dim y1 As Integer = Gz_tl.Y + Gz_traits(block_row * 3)
+        Dim y2 As Integer = Gz_tl.Y + Gz_traits(block_row * 3 + 3)
+
+        Dim pth As New GraphicsPath()
+        pth.AddArc(x1, y1, D, D, 180, 90)
+        pth.AddArc(x2 - D, y1, D, D, 270, 90)
+        pth.AddArc(x2 - D, y2 - D, D, D, 0, 90)
+        pth.AddArc(x1, y2 - D, D, D, 90, 90)
+        pth.CloseFigure()
+        Region_Path(region) = pth
+        region += 1
+      Next
+    Next
+
+    ' Calcul des 81 sqr_pth des cellules
+
+    For row As Integer = 0 To 8
+      For col As Integer = 0 To 8
+        Dim cellule As Integer = row * 9 + col
+        Dim rct As Rectangle = Sqr_Cel(cellule)
+        Dim pth As New GraphicsPath()
+        ' soit le trait est tracé, soit le coin arrondi
+        Dim TL As Boolean = (row Mod 3 = 0 And col Mod 3 = 0) ' Coin en haut à gauche
+        Dim TR As Boolean = (row Mod 3 = 0 And col Mod 3 = 2) ' Coin en haut à droite
+        Dim BL As Boolean = (row Mod 3 = 2 And col Mod 3 = 0) ' Coin en bas à gauche
+        Dim BR As Boolean = (row Mod 3 = 2 And col Mod 3 = 2) ' Coin en bas à droite
+        If TL Then
+          pth.AddArc(rct.X, rct.Y, D, D, 180, 90)
+        Else
+          pth.AddLine(rct.X, rct.Y, rct.X + R, rct.Y)
+        End If
+        If TR Then
+          pth.AddArc(rct.Right - D, rct.Y, D, D, 270, 90)
+        Else
+          pth.AddLine(rct.Right - R, rct.Y, rct.Right, rct.Y)
+        End If
+        If BR Then
+          pth.AddArc(rct.Right - D, rct.Bottom - D, D, D, 0, 90)
+        Else
+          pth.AddLine(rct.Right, rct.Bottom - R, rct.Right, rct.Bottom)
+        End If
+        If BL Then
+          pth.AddArc(rct.X, rct.Bottom - D, D, D, 90, 90)
+        Else
+          pth.AddLine(rct.X, rct.Bottom, rct.X, rct.Bottom - R)
+        End If
+        pth.CloseFigure()
+        Sqr_Pth(cellule) = pth
+      Next
+    Next
 
     '#736
     For i As Integer = 0 To 8
@@ -257,10 +346,10 @@ Friend Module A02_Occasionally
 
     ' Calcul de ces mêmes Sqr_Cdd_Inf avec Inflate utilisés lors des clics
     For s As Integer = 0 To 809
-      Dim r As Rectangle = Sqr_Cdd(s)
+      Dim Rct_s As Rectangle = Sqr_Cdd(s)
       'Agrandissement du rectangle (1 pixel autour)
-      r.Inflate(1, 1)
-      Sqr_Cdd_Inf(s) = r
+      Rct_s.Inflate(1, 1)
+      Sqr_Cdd_Inf(s) = Rct_s
     Next s
 
 

@@ -3,33 +3,13 @@
   ' Wh What Réservé aux fonctions
   ' Hw How  Réservé aux procédures
   '-------------------------------------------------------------------------------
-  Public Sub WH_U_DAB()
-    Dim Format56 As New HashSet(Of Integer) From {
-  0, 2, 3, 5, 6, 8, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33, 35, 45, 47, 48, 50, 51, 53, 54, 56, 57, 59, 60, 62, 72, 74, 75, 77, 78, 80}
-
-    Select Case Plcy_Format_DAB
-      Case 0
-        For i As Integer = 0 To 80
-          U_DAB(i) = False
-        Next
-      Case Else ' 1
-        For i As Integer = 0 To 80
-          U_DAB(i) = Format56.Contains(i)
-        Next
-    End Select
-  End Sub
-
-  Public Sub WH_U_arr()
-    Select Case Plcy_Format_DAB
-      Case 0
-        For i As Integer = 0 To 80
-          U_arr(i) = "SQ"
-        Next
-      Case Else ' 1
-        For i As Integer = 0 To 80
-          U_arr(i) = CellShape(i)
-        Next
-    End Select
+  Public Sub HW_U_arr()
+    For i As Integer = 0 To 80
+      U_arr(i) = "SQ"
+      If Plcy_Format_DAB <> 0 Then
+        U_arr(i) = CellShape(i)
+      End If
+    Next i
   End Sub
   Public Function CellShape(i As Integer) As String
     Dim r3 As Integer = (i \ 9) Mod 3
@@ -40,8 +20,6 @@
     If r3 = 2 AndAlso c3 = 2 Then Return "BR"
     Return "SQ"
   End Function
-
-
 
   Public Sub WH_U_nb()
     ' Retourne le nombre de valeurs différentes des valeurs dans la grille
@@ -311,10 +289,6 @@
   End Function
 
   Public Function Wh_Cellule_Candidat_Pt(cellule As Integer, pt As Point) As Integer
-    '#746 La cellule est correcte
-    'If cellule < 0 OrElse cellule > 80 Then
-    '  Return -1
-    'End If
     Dim baseIdx As Integer = cellule * 10
     For cdd As Integer = 1 To 9
       If Sqr_Cdd_Inf(baseIdx + cdd).Contains(pt) Then

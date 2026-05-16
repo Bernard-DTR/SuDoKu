@@ -456,6 +456,9 @@
 #779 V  15/05/2026 Ouf! Mise en place d'un quadrillage droit et arrondi parfait
 #780 V  15/05/2026 Paramètre de variation de l'arrondi
 #781 V  15/05/2026 La grille de saisie épouse l'arrondi du quadrillage
+#782 S  16/05/2026 U_dab doit être abandonné
+#783 S  16/05/2026 La grille de saisie (complète ou incomplète) est arrondie ou droite
+#784 S  16/05/2026 Factorisations diverses
 
 ##############################################################################################################################
                    

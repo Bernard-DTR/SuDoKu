@@ -833,7 +833,7 @@ Pzzl_Prd_Boucle:
     Dim Wh_Nb As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
     Wh_Nb_Cell_Display(Wh_Nb)
     Build_Bmp_Fonds()
-    Build_Bmp_Valeurs()
+    Build_Bmp_valeur_saisie()
     Frm_SDK.Invalidate()
 
 Pzzl_Prd_End:
