@@ -1,9 +1,6 @@
 ﻿Imports System.Data
 Imports System.Data.SqlClient
 
-' DGV           DataGridView
-' BDS           BindingSource
-'               Composant conçu pour simplifier la liaison du DGV à une source de données 
 Public Class Frm_Dictionnaire
   Private ReadOnly SQL_Connect As String = My.Settings.Connect
   Private SQL_DataAdaptateur As New SqlDataAdapter()

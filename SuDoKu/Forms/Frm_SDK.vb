@@ -322,21 +322,27 @@ Public NotInheritable Class Frm_SDK
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
       G4_Grid_Stratégie_All(g)
     End If
+
     ' Grille de saisie
     If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
+      Dim rct As Rectangle = Sqr_Cel(Cellule_MouseMove)
       If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_Eligible Then
         G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
       Else
+        Dim bmp As Bitmap = Nothing
         Select Case U_arr(Pbl_Cell_Select)
-          Case "TL" : g.DrawImage(Bmp_Fond_Saisie_TL, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
-          Case "TR" : g.DrawImage(Bmp_Fond_Saisie_TR, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
-          Case "BL" : g.DrawImage(Bmp_Fond_Saisie_BL, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
-          Case "BR" : g.DrawImage(Bmp_Fond_Saisie_BR, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
-          Case Else ' "SQ"
-            g.DrawImage(Bmp_Fond_Saisie, Sqr_Cel(Cellule_MouseMove).X, Sqr_Cel(Cellule_MouseMove).Y)
+          Case "TL" : bmp = Bmp_Fond_Saisie_TL
+          Case "TR" : bmp = Bmp_Fond_Saisie_TR
+          Case "BL" : bmp = Bmp_Fond_Saisie_BL
+          Case "BR" : bmp = Bmp_Fond_Saisie_BR
+          Case "SQ" : bmp = Bmp_Fond_Saisie_SQ
         End Select
+        If bmp IsNot Nothing Then
+          g.DrawImage(bmp, rct.X, rct.Y)
+        End If
       End If
     End If
+
     ' Animation
     If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
       g.ResetClip()

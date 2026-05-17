@@ -323,9 +323,9 @@ Module G20_Général
   ' Résolutions
   '-------------------------------------------------------------------------------
 
-  Public Function Get_Scale(Device_Number As Integer) As PointF
+  Public Function Get_Scale(Device_Number As Integer) As Point
     ' Paire ordonnée x et y en virgule flottante pour définir l'échelle personnalisée
-    Dim Scale_Personnalisée As New PointF(1.0, 1.0)
+    Dim Scale_Personnalisée As New Point(1, 1)
     Dim Screens As Screen() = Screen.AllScreens
     'Screens.count = 1 s'il n'y a pas d'écran connecté. 
     'Screens.count = 2 si le BENQ est connecté (en fonction ou éteint)
@@ -335,15 +335,15 @@ Module G20_Général
     With Screens(Device_Number)
       '.Bounds.propose la dimension "agrandie"
       ' Get_Résolution_Physique(.DeviceName). propose le dimension physique réelle
-      Scale_Personnalisée.X = CSng(Get_Résolution_Physique(.DeviceName).X / .Bounds.Width)
-      Scale_Personnalisée.Y = CSng(Get_Résolution_Physique(.DeviceName).Y / .Bounds.Height)
+      Scale_Personnalisée.X = CInt(Get_Résolution_Physique(.DeviceName).X / .Bounds.Width)
+      Scale_Personnalisée.Y = CInt(Get_Résolution_Physique(.DeviceName).Y / .Bounds.Height)
     End With
     Return Scale_Personnalisée
   End Function
 
-  Public Function Get_Résolution_Physique(Device_Name As String) As PointF
+  Public Function Get_Résolution_Physique(Device_Name As String) As Point
     ' Donne la Résolution Physique Réelle de l'écran
-    Dim Résolution_Physique As New PointF(-1, -1)
+    Dim Résolution_Physique As New Point(-1, -1)
     Dim DisplayDevice As New NativeMethods.DISPLAY_DEVICE()
     DisplayDevice.cb = Marshal.SizeOf(DisplayDevice)
     Dim DevMode As New NativeMethods.DEVMODE()

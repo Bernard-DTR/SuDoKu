@@ -105,17 +105,17 @@ Friend Module A__Colorisation
     Next Item
   End Sub
 
-  Public Sub DrawCustomArrow(g As Graphics, startPoint As PointF, endPoint As PointF, color As Color, width As Single)
+  Public Sub DrawCustomArrow(g As Graphics, startPoint As Point, endPoint As Point, color As Color, width As Single)
     ' Fonction auxiliaire pour dessiner une flèche personnalisée
     ' Calculer l'angle de la ligne
     Dim angle As Single = CSng(Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X))
     ' Définir la taille de la flèche
     Dim arrowSize As Integer = 10
     ' Calculer les points de la flèche
-    Dim arrowPoint1 As New PointF(
+    Dim arrowPoint1 As New Point(
         CInt(endPoint.X - arrowSize * Math.Cos(angle - Math.PI / 6)),
         CInt(endPoint.Y - arrowSize * Math.Sin(angle - Math.PI / 6)))
-    Dim arrowPoint2 As New PointF(
+    Dim arrowPoint2 As New Point(
         CInt(endPoint.X - arrowSize * Math.Cos(angle + Math.PI / 6)),
         CInt(endPoint.Y - arrowSize * Math.Sin(angle + Math.PI / 6)))
     ' Dessiner la flèche
@@ -125,43 +125,48 @@ Friend Module A__Colorisation
     End Using
   End Sub
 
-  Public Function Get_Distance_Point_Flèche(p As PointF, a As PointF, b As PointF) As Double
+  Public Function Get_Distance_Point_Flèche(p As Point, a As Point, b As Point) As Double
     Dim num As Double = Math.Abs((b.Y - a.Y) * p.X - (b.X - a.X) * p.Y + b.X * a.Y - b.Y * a.X)
     Dim den As Double = Math.Sqrt((b.Y - a.Y) ^ 2 + (b.X - a.X) ^ 2)
     Return num / den
-  End Function
-
-  Public Function Get_CentreF(Cellule As Integer, Candidat As Integer) As PointF
-    Dim Sqr As Rectangle = Sqr_Cdd(Cellule * 10 + Candidat)
-    Return New PointF(Sqr.X + (Sqr.Width \ 2), Sqr.Y + (Sqr.Height \ 2))
   End Function
 
   Public Function Get_Centre(Cellule As Integer, Candidat As Integer) As Point
     Dim Sqr As Rectangle = Sqr_Cdd(Cellule * 10 + Candidat)
     Return New Point(Sqr.X + (Sqr.Width \ 2), Sqr.Y + (Sqr.Height \ 2))
   End Function
+  Public Function Get_AdjustedPoints(From_Centre As Point, To_Centre As Point) As Points_Struct
+    Dim dx As Integer = To_Centre.X - From_Centre.X
+    Dim dy As Integer = To_Centre.Y - From_Centre.Y
+    Dim dist As Double = Math.Sqrt(dx * dx + dy * dy)
 
-  Public Function Get_AdjustedPoints(From_Centre As PointF, To_Centre As PointF) As Points_Struct
-    Dim dx As Single = To_Centre.X - From_Centre.X
-    Dim dy As Single = To_Centre.Y - From_Centre.Y
-    Dim dist As Single = CSng(Math.Sqrt(dx * dx + dy * dy))
+    If dist = 0 Then Return New Points_Struct
 
-    If dist = 0 Then Return New Points_Struct ' Éviter la division par zéro
+    ' Distance de retrait depuis chaque centre (rayon du candidat)
+    Dim offset As Double = WH / 6.0   ' valeur initiale 6
 
-    Dim t As Single = (WH \ 6) / dist
+    ' Vecteur unitaire
+    Dim ux As Double = dx / dist
+    Dim uy As Double = dy / dist
+
     Dim Pts As New Points_Struct With {
-      .Pt_From = New PointF(From_Centre.X + t * dx, From_Centre.Y + t * dy),
-      .Pt_To = New PointF(To_Centre.X - t * dx, To_Centre.Y - t * dy)
+        .Pt_From = New Point(
+            CInt(From_Centre.X + offset * ux),
+            CInt(From_Centre.Y + offset * uy)
+        ),
+        .Pt_To = New Point(
+            CInt(To_Centre.X - offset * ux),
+            CInt(To_Centre.Y - offset * uy)
+        )
     }
+
     Return Pts
   End Function
-
   Public Sub G0_Cdd_Flèche(g As Graphics, From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer, Color As Color)
-    Jrn_Add_Yellow(Proc_Name_Get())
     If From_Cellule = -1 Or From_Candidat = 0 Or To_Cellule = -1 Or To_Candidat = 0 Then Exit Sub
 
-    Dim From_Centre As PointF = Get_CentreF(From_Cellule, From_Candidat)
-    Dim To_Centre As PointF = Get_CentreF(To_Cellule, To_Candidat)
+    Dim From_Centre As Point = Get_Centre(From_Cellule, From_Candidat)
+    Dim To_Centre As Point = Get_Centre(To_Cellule, To_Candidat)
     Dim Pts As Points_Struct = Get_AdjustedPoints(From_Centre, To_Centre)
 
     Using LinePen As New Pen(Color, 2) With {.DashStyle = DashStyle.Solid}
@@ -176,8 +181,9 @@ Friend Module A__Colorisation
   Public Function Get_Pt_From_To_Flèche(From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer) As Points_Struct
     If From_Cellule = -1 Or To_Cellule = -1 Then Return New Points_Struct ' Retourne une structure vide
 
-    Dim From_Centre As PointF = Get_CentreF(From_Cellule, From_Candidat)
-    Dim To_Centre As PointF = Get_CentreF(To_Cellule, To_Candidat)
+    Dim From_Centre As Point = Get_Centre(From_Cellule, From_Candidat)
+    Dim To_Centre As Point = Get_Centre(To_Cellule, To_Candidat)
     Return Get_AdjustedPoints(From_Centre, To_Centre)
+
   End Function
 End Module

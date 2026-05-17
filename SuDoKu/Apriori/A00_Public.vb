@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #783"
+  Public SDK_Version As String = "V2026_05 #786"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -21,10 +21,10 @@ Module A00_Public
 
 #Region "01 Les Tailles"
   Public WH As Integer            ' Width et Height Standard
-  Public WHhalf As Integer        '= (WH \ 2)
-  Public WHthird As Integer       '= (WH \ 3)
-  Public WHquart As Integer       '= (WH \ 4)
-  Public WHsix As Integer         '= (WH \ 6)
+  Public WHh As Integer           '= (WH \ 2)
+  Public WHt As Integer           '= (WH \ 3)
+  Public WHq As Integer           '= (WH \ 4)
+  Public WHs As Integer           '= (WH \ 6)
   Public Barre_Menu_Hauteur As Integer = 32
   Public Barre_Outils_Hauteur As Integer = 23 ' 25
 
@@ -118,7 +118,7 @@ Module A00_Public
   Public U_20Cell_Coll(0 To 80)() As Integer
 
   Public Sqr_Img(0 To 80) As Image                  '  Le tableau comporte les 81 images du fond du jeu 
-  Public U_Pt20(80, 19) As PointF                   '  Comporte 20 points pour chaque cellule   
+  Public U_Pt20(80, 19) As Point                    '  Comporte 20 points pour chaque cellule   
   Public Sqr_Celx(0 To 8) As Integer                '  Limites hautes
   Public Sqr_Cely(0 To 8) As Integer                '  LImites gauches
   Public Sqr_Cdd(809) As Rectangle                  '  Le tableau comporte les informations des 9 rectangles de chaque candidat de chaque cellule
@@ -191,7 +191,7 @@ Module A00_Public
 
   ' Font_Mnu_Cel DOIT afficher le menu contextuel texte 
   Public Font_Mnu_Cel As New Font("Segoe UI", 10, FontStyle.Regular)
-  Public Fnt_Name_ValCdd As String = "Arial" 
+  Public Fnt_Name_ValCdd As String = "Arial"
   Public Fnt_Name_Fantasy As String = "Arial"
   Public Fnt_Val_Size As Single                 ' calcul effectué dans G0_Grid_Compute_Font_Size()
   Public Fnt_Cdd_Size As Single                 ' calcul effectué dans G0_Grid_Compute_Font_Size() 
@@ -234,7 +234,7 @@ Module A00_Public
   Public Bmp_Quadrillage As Bitmap
   Public Bmp_Fond As Bitmap
   Public Bmp_Valeur As Bitmap
-  Public Bmp_Fond_Saisie As Bitmap
+  Public Bmp_Fond_Saisie_SQ As Bitmap
   Public Bmp_Fond_Saisie_TL As Bitmap
   Public Bmp_Fond_Saisie_TR As Bitmap
   Public Bmp_Fond_Saisie_BL As Bitmap
@@ -351,8 +351,8 @@ Module A00_Public
     Public Cdd_From As Integer
     Public Cel_To As Integer
     Public Cdd_To As Integer
-    Public Point_From As PointF
-    Public Point_To As PointF
+    Public Point_From As Point
+    Public Point_To As Point
   End Class
   Public Objet_List As New List(Of Objet_Cls)
   Public Obj_PtF As Point
@@ -366,8 +366,8 @@ Module A00_Public
   Public MW_Cell_List As New List(Of Integer)           ' Liste des cellules filtrées valeur précédente ET en_cours
 
   Public Structure Points_Struct
-    Public Pt_From As PointF
-    Public Pt_To As PointF
+    Public Pt_From As Point
+    Public Pt_To As Point
   End Structure
 
   Public Obj_Color As Color                                   ' Couleur choisie  
@@ -392,11 +392,11 @@ Module A00_Public
   Public Flè_Cel_From As Integer
   Public Flè_Cdd_From As Integer
   Public Flè_From As Integer
-  Public Flè_Pt_From As PointF
+  Public Flè_Pt_From As Point
   Public Flè_Cel_To As Integer
   Public Flè_Cdd_To As Integer
   Public Flè_To As Integer
-  Public Flè_Pt_To As PointF
+  Public Flè_Pt_To As Point
 #End Region
 
 #Region "Structures"

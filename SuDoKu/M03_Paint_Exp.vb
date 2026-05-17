@@ -87,19 +87,24 @@
       Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
     End Try
   End Sub
-  Private Sub PaintIfCandidateExists(g As Graphics, cell As Integer, cdd As Integer, color As Color)
-    If U(cell, 3).Contains(CStr(cdd)) Then
-      Dim sc As New Cellule_Cls With {.Numéro = cell}
-      sc.G6_Cellule_Paint_Candidat_Eligible(g, CStr(cdd), color)
-    End If
-  End Sub
+  'Private Sub PaintIfCandidateExists(g As Graphics, cell As Integer, cdd As Integer, color As Color)
+  '  If U(cell, 3).Contains(CStr(cdd)) Then
+  '    Dim sc As New Cellule_Cls With {.Numéro = cell}
+  '    sc.G6_Cellule_Paint_Candidat_Eligible(g, CStr(cdd), color)
+  '  End If
+  'End Sub
   Private Sub DrawBezierWithCandidates(g As Graphics,
                                        fromCell As Integer, fromCdd As Integer,
                                        toCell As Integer, toCdd As Integer,
                                        linkType As String, index As Integer)
     G0_Cdd_Bézier(g, fromCell, fromCdd, toCell, toCdd, linkType, index)
-    PaintIfCandidateExists(g, fromCell, fromCdd, Color_Link_W)
-    PaintIfCandidateExists(g, toCell, toCdd, Color_Link_W)
+    'PaintIfCandidateExists(g, fromCell, fromCdd, Color_Link_W)
+    'PaintIfCandidateExists(g, toCell, toCdd, Color_Link_W)
+    Dim sc As New Cellule_Cls
+    sc.Numéro = fromCell
+    sc.G6_Cellule_Paint_Candidat_Eligible(g, CStr(fromCdd), Color_Link_W)
+    sc.Numéro = toCell
+    sc.G6_Cellule_Paint_Candidat_Eligible(g, CStr(toCdd), Color_Link_W)
   End Sub
 
 End Module

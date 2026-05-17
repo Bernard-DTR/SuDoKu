@@ -29,11 +29,11 @@ Friend Module Q000_Strategy_X
     Return True
   End Function
 
-  Private Function ExisteLienFaible(U_temp(,) As String, cel1 As Integer, cel2 As Integer, cdd As String) As Boolean
-    Return Is_Vu(cel1, cel2) AndAlso
-           U_temp(cel1, 3).Contains(cdd) AndAlso
-           U_temp(cel2, 3).Contains(cdd)
-  End Function
+  'Private Function ExisteLienFaible(U_temp(,) As String, cel1 As Integer, cel2 As Integer, cdd As String) As Boolean
+  '  Return Is_Vu(cel1, cel2) AndAlso
+  '         U_temp(cel1, 3).Contains(cdd) AndAlso
+  '         U_temp(cel2, 3).Contains(cdd)
+  'End Function
 #Region "GCels"
 
   Public Sub XCels_List_Get(U_temp(,) As String, n As Integer)

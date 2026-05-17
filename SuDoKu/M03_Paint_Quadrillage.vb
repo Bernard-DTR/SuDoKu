@@ -7,6 +7,7 @@ Module M03_Paint_Quadrillage
     g.PixelOffsetMode = PixelOffsetMode.None
     g.TextRenderingHint = Text.TextRenderingHint.AntiAliasGridFit
   End Sub
+
   Public Sub G1_Grid_Paint(g As Graphics)
     ' Cette fonction construit un seul et grand carré (taille de la grille) pour effacer l'ensemble de la grille
     ' et dessiner ensuite le quadrillage
@@ -105,16 +106,15 @@ Module M03_Paint_Quadrillage
           ' et les valeurs initiales
           If U(i, 1) <> " " Then
             g.DrawString(Subst_Police(U(i, 1)), Fnt_Val, Brh_VI,
-                         Sqr_Cel(i).X + WHhalf, Sqr_Cel(i).Y + WHhalf, Format_Center)
+                         Sqr_Cel(i).X + WHh, Sqr_Cel(i).Y + WHh, Format_Center)
           End If
         End Using
       Next
     End Using
   End Sub
-
   Public Sub Build_Bmp_valeur_saisie()
-    ' Seules les valeurs des cellules Remplies sont peintes
     ' Cette fonction est optimisée car elle est appelée à chaque changement de valeur d'une cellule Remplie
+    ' Seules les valeurs des cellules Remplies sont peintes
     Bmp_Valeur = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
     Bmp_Valeur.SetResolution(96, 96)
     Using g As Graphics = Graphics.FromImage(Bmp_Valeur)
@@ -122,7 +122,7 @@ Module M03_Paint_Quadrillage
       For i As Integer = 0 To 80
         If U(i, 1) = " " AndAlso U(i, 2) <> " " Then
           g.DrawString(Subst_Police(U(i, 2)), Fnt_Val, Brh_VCdd,
-                       Sqr_Cel(i).X + WHhalf, Sqr_Cel(i).Y + WHhalf, Format_Center)
+                       Sqr_Cel(i).X + WHh, Sqr_Cel(i).Y + WHh, Format_Center)
         End If
         If Plcy_Dernière_Valeur_Unité AndAlso U_dv(i) Then
           G0_Cell_Figure(g, i, "Ellipse", Color_Stratégique)
@@ -132,7 +132,7 @@ Module M03_Paint_Quadrillage
   End Sub
 
   Public Sub Build_Bmp_Saisie()
-    Bmp_Fond_Saisie = Build_Bmp_Fond_Saisie("SQ")
+    Bmp_Fond_Saisie_SQ = Build_Bmp_Fond_Saisie("SQ")
     Bmp_Fond_Saisie_TL = Build_Bmp_Fond_Saisie("TL")
     Bmp_Fond_Saisie_TR = Build_Bmp_Fond_Saisie("TR")
     Bmp_Fond_Saisie_BL = Build_Bmp_Fond_Saisie("BL")
@@ -141,10 +141,10 @@ Module M03_Paint_Quadrillage
   Public Sub Build_Bmp_Saisie_Traits(g As Graphics, x As Integer, y As Integer)
     Using pen As New Pen(Color_Trait, Bld_Trait_1)
       pen.DashPattern = {1, 5}
-      Dim x1 As Integer = x + WHthird
-      Dim x2 As Integer = x + (WHthird * 2)
-      Dim y1 As Integer = y + WHthird
-      Dim y2 As Integer = y + (WHthird * 2)
+      Dim x1 As Integer = x + WHt
+      Dim x2 As Integer = x + (WHt * 2)
+      Dim y1 As Integer = y + WHt
+      Dim y2 As Integer = y + (WHt * 2)
       g.DrawLine(pen, x, y1, x + WH, y1)
       g.DrawLine(pen, x, y2, x + WH, y2)
       g.DrawLine(pen, x1, y, x1, y + WH)
@@ -169,12 +169,12 @@ Module M03_Paint_Quadrillage
     Return bmp
   End Function
   Public Sub Build_Bmp_Saisie_Cdd(g As Graphics, r As Rectangle)
-    ' le Bmp_Fond_Saisie est complété des candidats et ds traits de séparation des candidats
+    ' le Bmp_Fond_Saisie_SQ est complété des candidats et ds traits de séparation des candidats
     For cdd As Integer = 1 To 9
       ' Sqr_Cel et Sqr_Cdd ne sont pas référencés par Cellule
       Dim row As Integer = (cdd - 1) \ 3
       Dim col As Integer = (cdd - 1) Mod 3
-      Dim rct As New Rectangle(r.X + (col * WHthird), r.Y + (row * WHthird), WHthird, WHthird)
+      Dim rct As New Rectangle(r.X + (col * WHt), r.Y + (row * WHt), WHt, WHt)
       g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, rct, Format_Center)
     Next cdd
   End Sub

@@ -460,6 +460,7 @@
 #783 S  16/05/2026 La grille de saisie (complète ou incomplète) est arrondie ou droite
 #784 S  16/05/2026 Factorisations diverses
 #785 S  16/05/2026 L'animation prend en compte les cellules arrondies ou droites
+#786 D  17/05/2026 Les points PointF sont passés en Point pour éviter les problèmes d'arrondi
 
 ##############################################################################################################################
                    
@@ -476,3 +477,4 @@
                    Nettoyer les S95
 ????               Le 13/05/2026 est-ce que mon compteur Copilot sera redescendu ?
                    aujourd'hui : Demandes 78% Completion 100%
+                   Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}

@@ -1215,8 +1215,8 @@ Friend Module M03_Paint
         Case "Disque"
           g.FillPie(brsh, Rct_Cercle, 0.0F, 360.0F)
         Case "Ellipse"
-          Dim Rct_V As New Rectangle(x:=Sqr_Cel(Cellule).X + (1 * WHthird), y:=Sqr_Cel(Cellule).Y, width:=WHthird, height:=WH - 3)
-          Dim Rct_H As New Rectangle(x:=Sqr_Cel(Cellule).X + 1, y:=Sqr_Cel(Cellule).Y + (1 * WHthird), width:=WH - 3, height:=WHthird)
+          Dim Rct_V As New Rectangle(x:=Sqr_Cel(Cellule).X + (1 * WHt), y:=Sqr_Cel(Cellule).Y, width:=WHt, height:=WH - 3)
+          Dim Rct_H As New Rectangle(x:=Sqr_Cel(Cellule).X + 1, y:=Sqr_Cel(Cellule).Y + (1 * WHt), width:=WH - 3, height:=WHt)
           g.DrawEllipse(pen, Rct_V)
           g.DrawEllipse(pen, Rct_H)
           g.DrawArc(pen, Rct_Cercle, 0.0F, 360.0F)
@@ -1268,7 +1268,7 @@ Friend Module M03_Paint
     End Using
   End Sub
 
-  Function DeCasteljau(t As Single, p0 As PointF, p1 As PointF, p2 As PointF, p3 As PointF) As PointF
+  Function DeCasteljau(t As Single, p0 As Point, p1 As Point, p2 As Point, p3 As Point) As Point
     ' Algorithme de De Casteljau
     Dim x As Double = (1 - t) ^ 3 * p0.X +
           3 * (1 - t) ^ 2 * t * p1.X +
@@ -1278,17 +1278,18 @@ Friend Module M03_Paint
           3 * (1 - t) ^ 2 * t * p1.Y +
           3 * (1 - t) * t ^ 2 * p2.Y +
           t ^ 3 * p3.Y
-    Return New PointF(CSng(x), CSng(y))
+    'Return New Point(CSng(x), CSng(y))
+    Return New Point(CInt(x), CInt(y))
   End Function
 
   Public Sub G0_Cdd_Bézier(g As Graphics, From_Cellule As Integer, From_Candidat As Integer, To_Cellule As Integer, To_Candidat As Integer, Link_Type As String, Link_Numéro As Integer)
     ' 1 Calcul des Centres et des Points de contrôle pour une courbe de Bézier
-    Dim From_Centre As PointF = Get_CentreF(From_Cellule, From_Candidat)
-    Dim To_Centre As PointF = Get_CentreF(To_Cellule, To_Candidat)
+    Dim From_Centre As Point = Get_Centre(From_Cellule, From_Candidat)
+    Dim To_Centre As Point = Get_Centre(To_Cellule, To_Candidat)
     Dim Pts As Points_Struct = Get_AdjustedPoints(From_Centre, To_Centre)
-    Dim Décalage As Integer = 5
-    Dim From_Ctrl As New PointF(From_Centre.X + Décalage, From_Centre.Y + Décalage)
-    Dim To_Ctrl As New PointF(To_Centre.X + Décalage, To_Centre.Y + Décalage)
+    Dim Décalage As Integer = 10
+    Dim From_Ctrl As New Point(From_Centre.X + Décalage, From_Centre.Y + Décalage)
+    Dim To_Ctrl As New Point(To_Centre.X + Décalage, To_Centre.Y + Décalage)
 
     ' 2 Dessine la courbe de Bézier 
     '   la couleur dépend du type de lien, ainsi que le style
@@ -1315,7 +1316,7 @@ Friend Module M03_Paint
     ' 3 Affichage de la lettre du lien
     '   On affiche une lettre grecque, latine ou cyrillique
     '      et on utilise la Fnt_Cdd en style italic
-    Dim PointMid As PointF = DeCasteljau(0.5, Pts.Pt_From, From_Ctrl, To_Ctrl, Pts.Pt_To)
+    Dim PointMid As Point = DeCasteljau(0.5, Pts.Pt_From, From_Ctrl, To_Ctrl, Pts.Pt_To)
     Using font As New Font(Fnt_Name_ValCdd, Fnt_Cdd_Size, FontStyle.Italic)
       g.DrawString(ChrW(Link_Numéro + Lettre_Flèche_ChrW), font, Brh_Black, PointMid.X, PointMid.Y)
     End Using
@@ -1573,20 +1574,20 @@ Friend Module M03_Paint
     Dim Pth_Modèle As New GraphicsPath
     Select Case Modèle
       Case "R" 'Rectangle Vertical
-        Dim A As New Point(Cell_A.X + WHquart, Cell_A.Y)
-        Dim B As New Point(Cell_B.X - WHquart, Cell_B.Y)
-        Dim C As New Point(Cell_C.X - WHquart, Cell_C.Y)
-        Dim D As New Point(Cell_D.X + WHquart, Cell_D.Y)
+        Dim A As New Point(Cell_A.X + WHq, Cell_A.Y)
+        Dim B As New Point(Cell_B.X - WHq, Cell_B.Y)
+        Dim C As New Point(Cell_C.X - WHq, Cell_C.Y)
+        Dim D As New Point(Cell_D.X + WHq, Cell_D.Y)
         With Pth_Modèle
           .StartFigure()
           .AddPolygon({A, B, C, D, A})
           .CloseFigure()
         End With
       Case "S" 'Carré Central (Utilisé dans le centre des régions)
-        Dim A As New Point(Cell_A.X + WHquart, Cell_A.Y + WHquart)
-        Dim B As New Point(Cell_B.X - WHquart, Cell_B.Y + WHquart)
-        Dim C As New Point(Cell_C.X - WHquart, Cell_C.Y - WHquart)
-        Dim D As New Point(Cell_D.X + WHquart, Cell_D.Y - WHquart)
+        Dim A As New Point(Cell_A.X + WHq, Cell_A.Y + WHq)
+        Dim B As New Point(Cell_B.X - WHq, Cell_B.Y + WHq)
+        Dim C As New Point(Cell_C.X - WHq, Cell_C.Y - WHq)
+        Dim D As New Point(Cell_D.X + WHq, Cell_D.Y - WHq)
         With Pth_Modèle
           .StartFigure()
           .AddPolygon({A, B, C, D, A})
@@ -1594,16 +1595,16 @@ Friend Module M03_Paint
         End With
 
       Case "P" 'Pouce Bas
-        Dim A As New Point(Cell_A.X + WHquart, Cell_A.Y + WHquart)
-        Dim B As New Point(Cell_B.X - WHquart, Cell_B.Y + WHquart)
-        Dim C As New Point(Cell_A.X + WHquart + WHhalf, Cell_C.Y)
-        Dim D As New Point(Cell_D.X + WHquart, Cell_D.Y)
-        Dim AD As New Point(Cell_A.X + WHquart, Cell_A.Y + WHhalf)
-        Dim BC As New Point(Cell_A.X + WHquart + WHhalf, Cell_A.Y + WHhalf)
-        Dim Rect_A_m As New Rectangle(A.X, A.Y, WHhalf, WHhalf)
-        Dim A1 As New Point(Cell_A.X + WHquart, Cell_A.Y + WHhalf)
-        Dim A2 As New Point(Cell_A.X + WHhalf, Cell_A.Y + WHquart)
-        Dim A3 As New Point(Cell_A.X + WHhalf + WHquart, Cell_A.Y + WHhalf)
+        Dim A As New Point(Cell_A.X + WHq, Cell_A.Y + WHq)
+        Dim B As New Point(Cell_B.X - WHq, Cell_B.Y + WHq)
+        Dim C As New Point(Cell_A.X + WHq + WHh, Cell_C.Y)
+        Dim D As New Point(Cell_D.X + WHq, Cell_D.Y)
+        Dim AD As New Point(Cell_A.X + WHq, Cell_A.Y + WHh)
+        Dim BC As New Point(Cell_A.X + WHq + WHh, Cell_A.Y + WHh)
+        Dim Rect_A_m As New Rectangle(A.X, A.Y, WHh, WHh)
+        Dim A1 As New Point(Cell_A.X + WHq, Cell_A.Y + WHh)
+        Dim A2 As New Point(Cell_A.X + WHh, Cell_A.Y + WHq)
+        Dim A3 As New Point(Cell_A.X + WHh + WHq, Cell_A.Y + WHh)
         With Pth_Modèle
           .StartFigure()
           Select Case Plcy_Format_DAB
@@ -1618,16 +1619,16 @@ Friend Module M03_Paint
           .CloseFigure()
         End With
       Case "C" 'Coin Haut Gauche
-        Dim A As New Point(Cell_A.X + WHquart, Cell_A.Y + WHquart)
-        Dim B As New Point(Cell_B.X, Cell_B.Y + WHquart)
-        Dim BC As New Point(Cell_C.X, Cell_C.Y - WHquart)
-        Dim C As New Point(Cell_C.X - WHquart, Cell_C.Y - WHquart)
-        Dim CD As New Point(Cell_C.X - WHquart, Cell_C.Y)
-        Dim D As New Point(Cell_D.X + WHquart, Cell_D.Y)
-        Dim Rect_A_g As New Rectangle(A.X, A.Y, WH + WHhalf, WH + WHhalf)
-        Dim Rect_C_p As New Rectangle(C.X, C.Y, WHhalf, WHhalf)
-        Dim A1 As New Point(Cell_A.X + WHquart, Cell_A.Y + WHhalf + WHquart)
-        Dim A2 As New Point(Cell_A.X + WHhalf + WHquart, Cell_A.Y + WHquart)
+        Dim A As New Point(Cell_A.X + WHq, Cell_A.Y + WHq)
+        Dim B As New Point(Cell_B.X, Cell_B.Y + WHq)
+        Dim BC As New Point(Cell_C.X, Cell_C.Y - WHq)
+        Dim C As New Point(Cell_C.X - WHq, Cell_C.Y - WHq)
+        Dim CD As New Point(Cell_C.X - WHq, Cell_C.Y)
+        Dim D As New Point(Cell_D.X + WHq, Cell_D.Y)
+        Dim Rect_A_g As New Rectangle(A.X, A.Y, WH + WHh, WH + WHh)
+        Dim Rect_C_p As New Rectangle(C.X, C.Y, WHh, WHh)
+        Dim A1 As New Point(Cell_A.X + WHq, Cell_A.Y + WHh + WHq)
+        Dim A2 As New Point(Cell_A.X + WHh + WHq, Cell_A.Y + WHq)
 
         With Pth_Modèle
           .StartFigure()
@@ -1665,7 +1666,7 @@ Friend Module M03_Paint
       Case "RH" 'Rectangle Horizontal
         Pth_Modèle = G0_MdP_Build(Cellule, "R")
         Using mat As New Matrix
-          mat.RotateAt(90, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
+          mat.RotateAt(90, New Point(sc.Position_Center.X, sc.Position_Center.Y))
           Pth_Modèle.Transform(mat)
         End Using
 
@@ -1680,7 +1681,7 @@ Friend Module M03_Paint
         If Modèle = "CBG" Then Angle = 270
         Pth_Modèle = G0_MdP_Build(Cellule, "C")
         Using mat As New Matrix
-          mat.RotateAt(Angle, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
+          mat.RotateAt(Angle, New Point(sc.Position_Center.X, sc.Position_Center.Y))
           Pth_Modèle.Transform(mat)
         End Using
 
@@ -1692,7 +1693,7 @@ Friend Module M03_Paint
         If Modèle = "PD" Then Angle = 270
         Pth_Modèle = G0_MdP_Build(Cellule, "P")
         Using mat As New Matrix
-          mat.RotateAt(Angle, New PointF(sc.Position_Center.X, sc.Position_Center.Y))
+          mat.RotateAt(Angle, New Point(sc.Position_Center.X, sc.Position_Center.Y))
           Pth_Modèle.Transform(mat)
         End Using
       Case Else

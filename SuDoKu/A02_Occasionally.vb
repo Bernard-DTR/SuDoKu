@@ -204,10 +204,10 @@ Friend Module A02_Occasionally
 #Region " OC_Compute Sqr_Cel Font Fond d'Image et Sqr_Cdd"
   Public Sub OC_Grid_Compute()
     ' Généralités (Dépendance de WH)
-    WHhalf = WH \ 2
-    WHthird = WH \ 3
-    WHquart = WH \ 4
-    WHsix = WH \ 6
+    WHh = WH \ 2
+    WHt = WH \ 3
+    WHq = WH \ 4
+    WHs = WH \ 6
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
 
     ' La hauteur de la Barre_Outils est standard (25)  
@@ -337,7 +337,7 @@ Friend Module A02_Occasionally
         For dy As Integer = 0 To 2
           For dx As Integer = 0 To 2
             Dim idx As Integer = (k * 10) + (dy * 3 + dx + 1)
-            Sqr_Cdd(idx) = New Rectangle(baseX + dx * WHthird, baseY + dy * WHthird, WHthird, WHthird)
+            Sqr_Cdd(idx) = New Rectangle(baseX + dx * WHt, baseY + dy * WHt, WHt, WHt)
           Next dx
         Next dy
         k += 1
@@ -383,17 +383,17 @@ Friend Module A02_Occasionally
     'Le tableau est calculé dans OC_Grid_Compute_Squares
     '           est utilisé dans G0_Cell_Figure
     For Cellule As Integer = 0 To 80
-      Dim Pt_Origine As New PointF(Sqr_Cel(Cellule).X, Sqr_Cel(Cellule).Y)
-      Dim Pt_Left As Single = Pt_Origine.X + 1
-      Dim Pt_Top As Single = Pt_Origine.Y + 1
-      Dim Pt_Right As Single = Sqr_Cel(Cellule).Right - 3
-      Dim Pt_Bottom As Single = Sqr_Cel(Cellule).Bottom - 3
-      Dim PA0, PB0, PC0, PD0, PA1, PB1, PC1, PD1, PA2, PB2, PC2, PD2, PA3, PB3, PC3, PD3 As PointF
-      Dim PE0, PF0, PG0, PH0 As PointF
+      Dim Pt_Origine As New Point(Sqr_Cel(Cellule).X, Sqr_Cel(Cellule).Y)
+      Dim Pt_Left As Integer = Pt_Origine.X + 1
+      Dim Pt_Top As Integer = Pt_Origine.Y + 1
+      Dim Pt_Right As Integer = Sqr_Cel(Cellule).Right - 3
+      Dim Pt_Bottom As Integer = Sqr_Cel(Cellule).Bottom - 3
+      Dim PA0, PB0, PC0, PD0, PA1, PB1, PC1, PD1, PA2, PB2, PC2, PD2, PA3, PB3, PC3, PD3 As Point
+      Dim PE0, PF0, PG0, PH0 As Point
 
-      Dim D1_4 As Single = ((1 * WH) \ 4)
-      Dim D2_4 As Single = 2 * D1_4
-      Dim D3_4 As Single = 3 * D1_4
+      Dim D1_4 As Integer = ((1 * WH) \ 4)
+      Dim D2_4 As Integer = 2 * D1_4
+      Dim D3_4 As Integer = 3 * D1_4
 
       PA0.X = Pt_Left
       PA0.Y = Pt_Top

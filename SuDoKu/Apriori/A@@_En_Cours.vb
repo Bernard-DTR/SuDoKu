@@ -1,6 +1,4 @@
-﻿Imports System.IO
-
-Module A_En_Cours
+﻿Module A_En_Cours
 #Region "Menus Test A à J"
   Public Sub TestA()
     Jrn_Add(, {Proc_Name_Get()})

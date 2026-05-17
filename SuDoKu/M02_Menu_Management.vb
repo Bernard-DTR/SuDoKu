@@ -114,12 +114,12 @@
           'For i As Integer = 1 To 9
           'If Flt = CStr(i) And n(i) = 9 Then
           If n(CInt(Flt)) = 9 Then
-              Btn.Image = Sqr_Fantasy(0)     'Donc Subst_Police(Cstr(0)) retourne vide et le bouton n'affiche rien
-              Btn.Enabled = False
-              Btn.ToolTipText = "Les valeurs " & Flt & " sont toutes présentes."
-            End If
+            Btn.Image = Sqr_Fantasy(0)     'Donc Subst_Police(Cstr(0)) retourne vide et le bouton n'affiche rien
+            Btn.Enabled = False
+            Btn.ToolTipText = "Les valeurs " & Flt & " sont toutes présentes."
+          End If
           'Next i
-            Case False
+        Case False
           'Utilisation indifférente de "Arial" ou de "Segoe UI"
           Btn.DisplayStyle = ToolStripItemDisplayStyle.Text
           Btn.Text = Flt

@@ -1,5 +1,4 @@
-﻿Imports System.Drawing.Drawing2D
-Imports System.Runtime.InteropServices   ' Nécessaire à <DllImport("user32.dll")>
+﻿Imports System.Runtime.InteropServices   ' Nécessaire à <DllImport("user32.dll")>
 
 Public Class Cellule_Cls
 #Region "Propriétés"
@@ -65,8 +64,8 @@ Public Class Cellule_Cls
   ''' <summary>Position Centrale de la Cellule.</summary>
   Public ReadOnly Property Position_Center As Point
     Get
-      _position_Center.X = Sqr_Cel(Numéro).X + WHhalf
-      _position_Center.Y = Sqr_Cel(Numéro).Y + WHhalf
+      _position_Center.X = Sqr_Cel(Numéro).X + WHh
+      _position_Center.Y = Sqr_Cel(Numéro).Y + WHh
       Return _position_Center
     End Get
   End Property
@@ -99,7 +98,7 @@ Public Class Cellule_Cls
       g.DrawString(Subst_Police(Candidat),
                    Fnt_Cdd,
                    Brh_VCdd,
-                   Sqr_Cdd(Cdd_n).X + WHsix, Sqr_Cdd(Cdd_n).Y + WHsix, Format_Center)
+                   Sqr_Cdd(Cdd_n).X + WHs, Sqr_Cdd(Cdd_n).Y + WHs, Format_Center)
     End Using
   End Sub
 
@@ -115,7 +114,7 @@ Public Class Cellule_Cls
         g.DrawString(Subst_Police(CStr(cdd)),
                      Fnt_Cdd,
                      Brh_VCdd,
-                     Sqr_Cdd(cdd_n).X + WHsix, Sqr_Cdd(cdd_n).Y + WHsix, Format_Center)
+                     Sqr_Cdd(cdd_n).X + WHs, Sqr_Cdd(cdd_n).Y + WHs, Format_Center)
       End If
     Next cdd
   End Sub

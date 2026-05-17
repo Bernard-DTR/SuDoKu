@@ -1,6 +1,4 @@
-﻿Imports SuDoKu.DancingLink
-
-Module DB_01
+﻿Module DB_01
   '--------------------------------------------------------------------------------
   ' Objectifs:
   '    Transférer les données entre l'application SDK <---> Denis_Berthier

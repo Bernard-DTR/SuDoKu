@@ -2,9 +2,6 @@
 
 '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ' Mise en place 19/12/2025
-' Objectif      Module de base des stratégies à base de graphe
-' Construction des liens Forts
-' .26.....4....2..1...75.8....9.4......5.8....24..6...39.....1...9.5..4.2.7...8.6.5
 '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Friend Module G000_Base
   Public Class Edge
@@ -14,7 +11,6 @@ Friend Module G000_Base
   Public Class DFS_Coloration
 
     ' Graphe: cellule → liste d'arêtes (voisin)
-    'Public ReadOnly Graph As Dictionary(Of Integer, List(Of Edge)) = New Dictionary(Of Integer, List(Of Edge))()
     Public ReadOnly Graph As New Dictionary(Of Integer, List(Of Edge))()
     ' Liste de tous les chemins trouvés
     Public AllPaths As New List(Of List(Of Integer))
@@ -65,7 +61,6 @@ Friend Module G000_Base
     ' Fonction récursive pour construire les chemins
     Private Sub Paths_Build(current As Integer, visited As HashSet(Of Integer), path As List(Of Integer))
       ' Ajouter le nœud courant au chemin
-      ' Un HashSet est une collection de données non ordonnée qui ne permet pas les doublons
       path.Add(current)
       visited.Add(current)
 
