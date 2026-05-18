@@ -291,7 +291,8 @@
   Public Function Wh_Cellule_Candidat_Pt(cellule As Integer, pt As Point) As Integer
     Dim baseIdx As Integer = cellule * 10
     For cdd As Integer = 1 To 9
-      If Sqr_Cdd_Inf(baseIdx + cdd).Contains(pt) Then
+      'If Sqr_Cdd_Inf(baseIdx + cdd).Contains(pt) Then
+      If Sqr_Cdd(baseIdx + cdd).Contains(pt) Then
         Return cdd
       End If
     Next

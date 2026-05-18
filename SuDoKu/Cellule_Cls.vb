@@ -91,7 +91,7 @@ Public Class Cellule_Cls
     If Not IsValid Then Exit Sub
     If Not Candidats.Contains(Candidat) Then Exit Sub
     Dim Cdd_n As Integer = (Numéro * 10) + CInt(Candidat)
-    Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd(Cdd_n)
+    Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd_Inf(Cdd_n)
     Sqr_Cdd_n.Inflate(-1, -1)    'Diminution du cercle du candidat  
     Using brsh_1 As New SolidBrush(Color.FromArgb(128, Couleur))
       g.FillPie(brsh_1, Sqr_Cdd_n, 0.0F, 360.0F)

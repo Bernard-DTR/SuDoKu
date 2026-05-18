@@ -203,7 +203,7 @@
       .Columns(0).Width = 2 * WH
       .Columns(1).Width = 3 * WH
       For r As Integer = 0 To 3
-        .Rows(r).Height = WH \ 2
+        .Rows(r).Height = WHh
       Next r
       'AllowUserToAddRows = False ne doit pas être utilisé
       .AllowUserToDeleteRows = False
@@ -212,7 +212,7 @@
       .AllowUserToResizeRows = False
 
       .Width = 5 * WH
-      .Height = 4 * (WH \ 2) + 5
+      .Height = 4 * WH + 5
       .ScrollBars = ScrollBars.None
       .BorderStyle = BorderStyle.Fixed3D
 

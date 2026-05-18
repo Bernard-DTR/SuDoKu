@@ -1188,23 +1188,21 @@ Friend Module M03_Paint
     '                             déclinés en A1, B1, C1, D1 décalé de 1/4 
     '                             déclinés en A2, B2, C2, D2 décalé de 2/4 
     '                             déclinés en A3, B3, C3, D3 décalé de 3/4 
-    Const Inflate As Integer = -5
 
-    Dim Rct_Cercle As New Rectangle(x:=CInt(U_Pt20(Cellule, 0).X), CInt(U_Pt20(Cellule, 0).Y), width:=WH - 3, height:=WH - 3)
+    Dim Rct_Cercle As New Rectangle(U_Pt20(Cellule, 0).X, U_Pt20(Cellule, 0).Y, width:=WH - 3, height:=WH - 3)
     Dim Pt1 As Point, Pt2 As Point, Pt3 As Point, Pt4 As Point
-    Pt1 = New Point(CInt(U_Pt20(Cellule, 0).X), CInt(U_Pt20(Cellule, 0).Y))
-    Pt2 = New Point(CInt(U_Pt20(Cellule, 1).X), CInt(U_Pt20(Cellule, 1).Y))
-    Pt3 = New Point(CInt(U_Pt20(Cellule, 2).X), CInt(U_Pt20(Cellule, 2).Y))
-    Pt4 = New Point(CInt(U_Pt20(Cellule, 3).X), CInt(U_Pt20(Cellule, 3).Y))
+    Pt1 = New Point(U_Pt20(Cellule, 0).X, U_Pt20(Cellule, 0).Y)
+    Pt2 = New Point(U_Pt20(Cellule, 1).X, U_Pt20(Cellule, 1).Y)
+    Pt3 = New Point(U_Pt20(Cellule, 2).X, U_Pt20(Cellule, 2).Y)
+    Pt4 = New Point(U_Pt20(Cellule, 3).X, U_Pt20(Cellule, 3).Y)
 
     Using pen As New Pen(Couleur, 2),
-          brsh As New SolidBrush(Couleur),
-          pen_Inflate As New Pen(Couleur, Math.Abs(Inflate) * 1)
+          brsh As New SolidBrush(Couleur)
       Select Case Figure
         Case "Cadre"
           ' Comme le trait du rectangle dépasse de la moitié à droite et à gauche du trait, l'inflate doit être le double
-          Rct_Cercle.Inflate(Inflate, Inflate)
-          g.DrawRectangle(pen_Inflate, Rct_Cercle)
+          Rct_Cercle.Inflate(-2, -2)
+          g.DrawRectangle(pen, Rct_Cercle)
         Case "Carré"
           g.FillRectangle(brsh, Rct_Cercle)
         Case "Croix"
@@ -1215,8 +1213,8 @@ Friend Module M03_Paint
         Case "Disque"
           g.FillPie(brsh, Rct_Cercle, 0.0F, 360.0F)
         Case "Ellipse"
-          Dim Rct_V As New Rectangle(x:=Sqr_Cel(Cellule).X + (1 * WHt), y:=Sqr_Cel(Cellule).Y, width:=WHt, height:=WH - 3)
-          Dim Rct_H As New Rectangle(x:=Sqr_Cel(Cellule).X + 1, y:=Sqr_Cel(Cellule).Y + (1 * WHt), width:=WH - 3, height:=WHt)
+          Dim Rct_V As New Rectangle(Sqr_Cel(Cellule).X + WHt, Sqr_Cel(Cellule).Y, width:=WHt, height:=WH - 3)
+          Dim Rct_H As New Rectangle(Sqr_Cel(Cellule).X + 1, Sqr_Cel(Cellule).Y + WHt, width:=WH - 3, height:=WHt)
           g.DrawEllipse(pen, Rct_V)
           g.DrawEllipse(pen, Rct_H)
           g.DrawArc(pen, Rct_Cercle, 0.0F, 360.0F)
@@ -1240,8 +1238,7 @@ Friend Module M03_Paint
     If Candidat < 1 Or Candidat > 9 Then Exit Sub
 
     Dim Cdd_n As Integer = (Cellule * 10) + Candidat
-    Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd(Cdd_n)
-    Sqr_Cdd_n.Inflate(-1, -1)    'Diminution du cercle du candidat  
+    Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd_Inf(Cdd_n)
     ' Définir les coins du rectangle
     Dim Pt1 As New Point(Sqr_Cdd_n.X, Sqr_Cdd_n.Y)                                      ' Coin supérieur gauche
     Dim Pt2 As New Point(Sqr_Cdd_n.X + Sqr_Cdd_n.Width, Sqr_Cdd_n.Y)                    ' Coin supérieur droit
@@ -1329,7 +1326,7 @@ Friend Module M03_Paint
     Pt_From_Cellule = New Point(sc_From.Position_Center.X, sc_From.Position_Center.Y)
     Dim sc_To As New Cellule_Cls With {.Numéro = To_Cellule}
     Pt_To_Cellule = New Point(sc_To.Position_Center.X, sc_To.Position_Center.Y)
-    Using Pen As New Pen(Color_Stratégique, WH \ 2)
+    Using Pen As New Pen(Color_Stratégique, WHh)
       g.DrawLine(Pen, Pt_From_Cellule, Pt_To_Cellule)
     End Using
   End Sub

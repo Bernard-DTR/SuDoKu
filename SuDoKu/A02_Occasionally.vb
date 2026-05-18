@@ -344,14 +344,13 @@ Friend Module A02_Occasionally
       Next i
     Next j
 
-    ' Calcul de ces mêmes Sqr_Cdd_Inf avec Inflate utilisés lors des clics
+    ' Calcul de ces mêmes Sqr_Cdd_Inf avec Inflate utilisés  
     For s As Integer = 0 To 809
       Dim Rct_s As Rectangle = Sqr_Cdd(s)
       'Agrandissement du rectangle (1 pixel autour)
       Rct_s.Inflate(1, 1)
       Sqr_Cdd_Inf(s) = Rct_s
     Next s
-
 
     ' Construction des 10 images correspondantes aux polices substituées
     ' Elles sont calculées quelque soit Plcy_Fantasy et indépendamment de WH

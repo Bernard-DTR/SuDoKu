@@ -5,14 +5,14 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #786"
+  Public SDK_Version As String = "V2026_05 #788"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
   '                                        ' 0     Nombre de cellules remplies
   '                                        ' 10    Nombre de cellules initiales
   '                                        ' 1 à 9 Nombre de cellules remplies avec la valeur correspondante    
-  Public Enum nb_idx As Integer
+  Public Enum Nb_idx As Integer
     Remplies = 0
     'Val_1 = 1
     'Val_2 = 2
@@ -25,8 +25,6 @@ Module A00_Public
     'Val_9 = 9
     Initiales = 10
   End Enum
-
-
   '      Initialisées dans Game_New_Game()
   '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete()   
   Public Animation_Cellule As Integer
@@ -137,7 +135,7 @@ Module A00_Public
   Public Sqr_Celx(0 To 8) As Integer                '  Limites hautes
   Public Sqr_Cely(0 To 8) As Integer                '  LImites gauches
   Public Sqr_Cdd(809) As Rectangle                  '  Le tableau comporte les informations des 9 rectangles de chaque candidat de chaque cellule
-  Public Sqr_Cdd_Inf(809) As Rectangle              '  Le tableau comporte les informations des 9 rectangles inflate pour cliquer plus facilement les candidats
+  Public Sqr_Cdd_Inf(809) As Rectangle              '  Le tableau comporte les informations des 9 rectangles inflate  
   Public Sqr_Cel(80) As Rectangle                   '  Les 81 rectangles des cellules
   Public Region_Path(8) As Drawing2D.GraphicsPath
   Public Sqr_Pth(80) As Drawing2D.GraphicsPath

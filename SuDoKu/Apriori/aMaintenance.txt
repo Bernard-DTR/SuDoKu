@@ -462,6 +462,7 @@
 #785 S  16/05/2026 L'animation prend en compte les cellules arrondies ou droites
 #786 D  17/05/2026 Les points PointF sont passés en Point pour éviter les problèmes d'arrondi
 #787 L  18/05/2026 Réglage de l'animation
+#788 L  18/05/2026 Erreur en L3_C6! Le candidat 5 n'est pas attendu à cette place.
 
 ##############################################################################################################################
                    
