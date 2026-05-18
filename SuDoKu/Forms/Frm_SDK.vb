@@ -271,7 +271,6 @@ Public NotInheritable Class Frm_SDK
       Batch_Initial()
     End If
     Build_Bmp_Saisie()
-
   End Sub
   Private Sub Animation_Timer_Tick(sender As Object, e As EventArgs) Handles Animation_Timer.Tick
     'L'utilisation de Cell_FY_List permet d'avoir une séquense hasardeuse et
@@ -344,7 +343,9 @@ Public NotInheritable Class Frm_SDK
     End If
 
     ' Animation
-    If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
+    'If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
+    If Animation_Timer.Enabled AndAlso Animation_Numéro >= 0 AndAlso Animation_Numéro <= 80 Then
+      ' l'icône est dessinée dans la sqr_pth de la cellule pour épouser les coins arrondis du quadrillage
       g.ResetClip()
       g.SetClip(Sqr_Pth(Animation_Cellule), Drawing2D.CombineMode.Replace)
       g.DrawIcon(My.Resources.SuDoKu, Sqr_Cel(Animation_Cellule))
@@ -523,20 +524,17 @@ Public NotInheritable Class Frm_SDK
     ' Détermination du sens de défilement
     Dim ScrollDelta As Integer = e.Delta * SystemInformation.MouseWheelScrollLines \ SystemInformation.MouseWheelScrollDelta
     Dim Sens As Integer = Math.Sign(ScrollDelta)
-
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg.StartsWith("FV") Then MouseWheel_Valeur(Sens)
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg.StartsWith("FC") Then MouseWheel_Candidat(Sens)
   End Sub
   Public Sub MouseWheel_Valeur(Sens As Integer)
     If Not Integer.TryParse(Plcy_Strg.Substring(2, 1), MW_Val) Then Exit Sub
-    'Dim Result As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)    ' Compter les occurrences de chaque valeur sur la grille
     WH_U_nb() ' Plus rapide que Wh_Nb_Cell(U)
 
     Dim StartVal As Integer = MW_Val
     Do
       MW_Val = ((MW_Val + Sens + 8) Mod 9) + 1
       '
-      'If Result.Val_Nb(MW_Val) < 9 Then Exit Do
       If U_nb(MW_Val) < 9 Then Exit Do
       ' Si la valeur n'est pas présente 9 fois, on la présente
     Loop While MW_Val <> StartVal

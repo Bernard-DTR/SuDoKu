@@ -461,6 +461,7 @@
 #784 S  16/05/2026 Factorisations diverses
 #785 S  16/05/2026 L'animation prend en compte les cellules arrondies ou droites
 #786 D  17/05/2026 Les points PointF sont passés en Point pour éviter les problèmes d'arrondi
+#787 L  18/05/2026 Réglage de l'animation
 
 ##############################################################################################################################
                    
@@ -478,3 +479,9 @@
 ????               Le 13/05/2026 est-ce que mon compteur Copilot sera redescendu ?
                    aujourd'hui : Demandes 78% Completion 100%
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
+
+????                12 Erreur en L3_C6! Le candidat 5 n'est pas attendu à cette place.
+                  | L1_C6 | 3 |   3       |        61 | Ajouter        | Mse_Clk             
+                  | L1_C5 | 4 |    4      |        62 | Ajouter        | Mse_Clk             
+                  | L3_C6 | 5 |     5     |        63 | Ajouter        | Mse_Clk
+????              Revoir le déroulement de l'animation début et fin                  

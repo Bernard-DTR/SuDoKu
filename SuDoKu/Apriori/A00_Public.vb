@@ -12,6 +12,21 @@ Module A00_Public
   '                                        ' 0     Nombre de cellules remplies
   '                                        ' 10    Nombre de cellules initiales
   '                                        ' 1 à 9 Nombre de cellules remplies avec la valeur correspondante    
+  Public Enum nb_idx As Integer
+    Remplies = 0
+    'Val_1 = 1
+    'Val_2 = 2
+    'Val_3 = 3
+    'Val_4 = 4
+    'Val_5 = 5
+    'Val_6 = 6
+    'Val_7 = 7
+    'Val_8 = 8
+    'Val_9 = 9
+    Initiales = 10
+  End Enum
+
+
   '      Initialisées dans Game_New_Game()
   '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete()   
   Public Animation_Cellule As Integer

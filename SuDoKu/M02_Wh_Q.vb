@@ -28,9 +28,9 @@
     For i As Integer = 0 To 80
       If U(i, 2) <> " " Then
         V = CInt(U(i, 2))
-        U_nb(0) += 1                         ' Compte les cellules saisies
-        U_nb(V) += 1                         ' Compte les cellules par valeur
-        If U(i, 1) <> " " Then U_nb(10) += 1 ' Compte les cellules initiales
+        U_nb(nb_idx.Remplies) += 1                         ' Compte les cellules saisies
+        U_nb(V) += 1                                       ' Compte les cellules par valeur
+        If U(i, 1) <> " " Then U_nb(nb_idx.Initiales) += 1 ' Compte les cellules initiales
       End If
     Next i
   End Sub

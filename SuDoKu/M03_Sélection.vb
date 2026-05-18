@@ -44,17 +44,18 @@
     ' 03  L'affichage du résultat
     Frm_SDK.Invalidate()
     ' 04  Fin de partie
-    If U_nb(0) = 81 Then
+    If U_nb(nb_idx.Remplies) = 81 Then
       Dim U_Chk(80, 3) As String
       Array.Copy(U, U_Chk, UNbCopy)
       Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
       'Il est peu vraisemblble que la grille ne soit pas correcte !
-      If U_Check.Check AndAlso U_nb(10) < 81 Then
+      If U_Check.Check AndAlso U_nb(nb_idx.Initiales) < 81 Then
         Plcy_Strg = "   "
         Jrn_Add(, {"La grille est correcte."}, "Red")
         Frm_SDK.B_Info.Text = "La grille est correcte."
         ' Configuration du Timer
-        Frm_SDK.Animation_Timer.Interval = 100 ' ms
+        Animation_Numéro = 0
+        Frm_SDK.Animation_Timer.Interval = 200 ' ms
         Frm_SDK.Animation_Timer.Start()
       End If
     End If
