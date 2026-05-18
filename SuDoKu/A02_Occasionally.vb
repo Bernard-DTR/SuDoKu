@@ -347,8 +347,8 @@ Friend Module A02_Occasionally
     ' Calcul de ces mêmes Sqr_Cdd_Inf avec Inflate utilisés  
     For s As Integer = 0 To 809
       Dim Rct_s As Rectangle = Sqr_Cdd(s)
-      'Agrandissement du rectangle (1 pixel autour)
-      Rct_s.Inflate(1, 1)
+      'diminution du rectangle (-1 pixel autour)
+      Rct_s.Inflate(-1, -1)
       Sqr_Cdd_Inf(s) = Rct_s
     Next s
 

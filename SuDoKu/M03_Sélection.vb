@@ -22,8 +22,6 @@
     U(Cellule, 2) = Val : U(Cellule, 3) = Cnddts_Blancs
     U_CddExc(Cellule) = Cnddts_Blancs
     WH_U_nb()
-    'U_nb(0) += 1                         ' Décompte les cellules saisies
-    'U_nb(CInt(Val)) += 1                 ' Décompte les cellules par valeur
 
     ' 021 Traitement des cellules collatérales
     Cdd_Remove_Cell_Coll_Opt(U, Cellule)
@@ -44,12 +42,12 @@
     ' 03  L'affichage du résultat
     Frm_SDK.Invalidate()
     ' 04  Fin de partie
-    If U_nb(nb_idx.Remplies) = 81 Then
+    If U_nb(Nb_idx.Remplies) = 81 Then
       Dim U_Chk(80, 3) As String
       Array.Copy(U, U_Chk, UNbCopy)
       Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
       'Il est peu vraisemblble que la grille ne soit pas correcte !
-      If U_Check.Check AndAlso U_nb(nb_idx.Initiales) < 81 Then
+      If U_Check.Check AndAlso U_nb(Nb_idx.Initiales) < 81 Then
         Plcy_Strg = "   "
         Jrn_Add(, {"La grille est correcte."}, "Red")
         Frm_SDK.B_Info.Text = "La grille est correcte."
@@ -88,8 +86,6 @@
         Next g
         Grid_Cdd_Remove_Cell_Coll(U)
     End Select
-    'U_nb(0) -= 1                         ' Décompte les cellules saisies
-    'U_nb(CInt(Val)) -= 1                 ' Décompte les cellules par valeur
     WH_U_nb()
     CalculDerniereValeurUnité()
     Build_Bmp_valeur_saisie()
@@ -241,7 +237,7 @@
       Case "Include"
         If XSolution(Cellule) <> Candidat Then
           Cpt_Pénalités += 1
-          Jrn_Add(, {Cpt_Pénalités.ToString().PadLeft(3) & " Erreur en " & U_Coord(Cellule) & "! Le candidat " & XSolution(Cellule) & " n'est pas attendu à cette place."}, "Red")
+          Jrn_Add(, {Cpt_Pénalités.ToString().PadLeft(3) & " Erreur en " & U_Coord(Cellule) & "! Le candidat " & Candidat & " n'est pas attendu à cette place."}, "Red")
           Return False
         End If
       Case "Exclude"
@@ -262,7 +258,6 @@
   Public Function UniqueVideLigne(U(,) As String, row As Integer) As Integer
     Dim idxVide As Integer = -1
     Dim count As Integer = 0
-
     For c As Integer = 0 To 8
       Dim i As Integer = row * 9 + c
       If U(i, 2) = " " Then
@@ -271,14 +266,12 @@
         If count > 1 Then Return -1
       End If
     Next
-
     Return If(count = 1, idxVide, -1)
   End Function
 
   Public Function UniqueVideCol(U(,) As String, col As Integer) As Integer
     Dim idxVide As Integer = -1
     Dim count As Integer = 0
-
     For r As Integer = 0 To 8
       Dim i As Integer = r * 9 + col
       If U(i, 2) = " " Then
@@ -287,54 +280,43 @@
         If count > 1 Then Return -1
       End If
     Next
-
     Return If(count = 1, idxVide, -1)
   End Function
 
   Public Function UniqueVideRegion(U(,) As String, reg As Integer) As Integer
     Dim r0 As Integer = (reg \ 3) * 3
     Dim c0 As Integer = (reg Mod 3) * 3
-
     Dim idxVide As Integer = -1
     Dim count As Integer = 0
-
     For k As Integer = 0 To 8
       Dim r As Integer = r0 + (k \ 3)
       Dim c As Integer = c0 + (k Mod 3)
       Dim i As Integer = r * 9 + c
-
       If U(i, 2) = " " Then
         idxVide = i
         count += 1
         If count > 1 Then Return -1
       End If
     Next
-
     Return If(count = 1, idxVide, -1)
   End Function
 
   Public Sub CalculDerniereValeurUnité()
-
     Array.Clear(U_dv, 0, U_dv.Length)
-
     ' Lignes
     For r As Integer = 0 To 8
       Dim i As Integer = UniqueVideLigne(U, r)
       If i >= 0 Then U_dv(i) = True
     Next
-
     ' Colonnes
     For c As Integer = 0 To 8
       Dim i As Integer = UniqueVideCol(U, c)
       If i >= 0 Then U_dv(i) = True
     Next
-
     ' Régions
     For reg As Integer = 0 To 8
       Dim i As Integer = UniqueVideRegion(U, reg)
       If i >= 0 Then U_dv(i) = True
     Next
-
   End Sub
-
 End Module

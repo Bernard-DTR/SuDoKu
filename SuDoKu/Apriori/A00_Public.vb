@@ -114,7 +114,6 @@ Module A00_Public
   Public U_cr(0 To 80) As String                     '        les coordonnées Lx_Cy de chaque cellule
   Public U_Reg(0 To 80) As Integer                   '        dans quelle Région  se trouve une cellule (de 0 à 8)
   Public U_dv(0 To 80) As Boolean                    'Calcul des dernières cellules vides
-  'Public U_dab(0 To 80) As Boolean                   'Cellules droites ou arrondies selon les formats DAB
   Public U_arr(0 To 80) As String                    'Cellules droites ou arrondies selon les formats DAB
 
   'Le terme Rectangle est remplacé par le terme Bande 
@@ -588,24 +587,7 @@ Module A00_Public
   End Structure
   Public RRslt As New RRslt_Struct
 
-  Public Class DCdd_Cls 'Classe structurant la stratégie du Dernier Candidat
-    Public Property Cellule As Integer
-    Public Property Candidat As String
-    Public Property Stratégie As String
-    Public Property Sous_Stratégie As String
-    'Constructeur
-    Public Sub New(cellule As Integer, candidat As String, stratégie As String, sous_stratégie As String)
-      Me.Cellule = cellule
-      Me.Candidat = candidat
-      Me.Stratégie = stratégie
-      Me.Sous_Stratégie = sous_stratégie
-    End Sub
-  End Class
-  Public DCdd_List As New List(Of DCdd_Cls)
-  Public DCdd_Max As Integer = 5
-
   ' Liste aléatoire des cellules suivant algorithme de Fisher-Yates, Knuth
   Public Cell_FY_List As New List(Of Integer)
 #End Region
-
 End Module
