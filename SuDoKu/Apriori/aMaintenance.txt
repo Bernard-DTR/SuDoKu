@@ -464,6 +464,14 @@
 #787 L  18/05/2026 Réglage de l'animation
 #788 L  18/05/2026 Erreur en L3_C6! Le candidat 5 n'est pas attendu à cette place.
 #789 L  18/05/2026 Bogue message Le candidat 5 n'est pas attendu à cette place.
+                   SDK fonctionne sur HPOmen16, IA est sollicité, Dl est généralisé, 
+                   il existe un standard de stockage, les stratégies sont regroupées en familles,  
+                   9 stratégies de Liens sont opérationnelles
+                   OnPaint fonctionne en double-buffering
+                   les arrondis sont corrects et variables
+                   les pens et brushs sont créés une fois pour toutes et réutilisés
+#790 Ma 18/05/2026 ClipBoard_Coller_RTF ClipBoard_Coller Correct sur HPOmen16 et Benq
+
 
 ##############################################################################################################################
                    
@@ -478,12 +486,7 @@
                    Il me semble que je dois pouvoir faire "des économies de boucles" avec mes For Next
                    Revoir si U_Sol est utilisé et quand ?  
                    Nettoyer les S95
-????               Le 13/05/2026 est-ce que mon compteur Copilot sera redescendu ?
-                   aujourd'hui : Demandes 78% Completion 100%
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
 
-????                12 Erreur en L3_C6! Le candidat 5 n'est pas attendu à cette place.
-                  | L1_C6 | 3 |   3       |        61 | Ajouter        | Mse_Clk             
-                  | L1_C5 | 4 |    4      |        62 | Ajouter        | Mse_Clk             
-                  | L3_C6 | 5 |     5     |        63 | Ajouter        | Mse_Clk
-????              Revoir le déroulement de l'animation début et fin                  
+                   Quelle est la différence entre Bld_WH_Grid et Gz_Trait_Length ? écart de 1 pixel
+                   Gestion du TTT_Timer pourquoi ajouter et supprimer ce handler ?

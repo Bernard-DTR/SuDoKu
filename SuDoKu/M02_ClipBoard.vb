@@ -40,7 +40,6 @@ Friend Module M02_ClipBoard
       Exit Sub
     End Try
   End Sub
-
   Public Sub ClipBoard_Coller_RTF()
     'Colle la grille sous forme graphique dans le journal RTF
     'Accessible par Ctrl + P, le PP n'est pas effacé 
@@ -62,13 +61,13 @@ Friend Module M02_ClipBoard
       'Screen_TopLeft est le point Top_Left dans l'écran
       'PointToScreen convertie le point du formulaire en point sur l'écran
       Dim Screen_TopLeft As Point = Frm_SDK.PointToScreen(Gz_tl)
-      Dim W_Grid As Integer = Bld_WH_Grid
-      Dim H_Grid As Integer = Bld_WH_Grid
+      Dim W_Grid As Integer
+      Dim H_Grid As Integer
 
       Screen_TopLeft.X = CInt(Screen_TopLeft.X * Get_Scale(Device_Number).X)
       Screen_TopLeft.Y = CInt(Screen_TopLeft.Y * Get_Scale(Device_Number).Y)
-      W_Grid = CInt(Bld_WH_Grid * Get_Scale(Device_Number).X)
-      H_Grid = CInt(Bld_WH_Grid * Get_Scale(Device_Number).Y)
+      W_Grid = CInt(Gz_Trait_Length * Get_Scale(Device_Number).X)
+      H_Grid = CInt(Gz_Trait_Length * Get_Scale(Device_Number).Y)
       ' Le format est de 32 bits par pixel. Les composants ARGB ont 8 bits chacun
       Try
         Using bmp As New Bitmap(W_Grid, H_Grid, PixelFormat.Format32bppArgb)

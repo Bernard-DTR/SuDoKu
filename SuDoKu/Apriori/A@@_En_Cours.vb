@@ -21,6 +21,7 @@
   End Sub
   Public Sub TestC()
     Jrn_Add(, {Proc_Name_Get()})
+    Jrn_Add_Yellow("Bld_WH_Grid " & CStr(Bld_WH_Grid) & "Gz_Trait_Length " & CStr(Gz_Trait_Length))
   End Sub
   Public Sub TestD()
     Jrn_Add(, {Proc_Name_Get()})

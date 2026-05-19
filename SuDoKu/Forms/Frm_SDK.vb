@@ -326,10 +326,10 @@ Public NotInheritable Class Frm_SDK
     If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
       Dim rct As Rectangle = Sqr_Cel(Cellule_MouseMove)
       If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_Eligible Then
-        G1_Cell_Fond_Saisie(g, Pbl_Cell_Select)
+        G1_Cell_Fond_Saisie(g, Cellule_MouseMove)
       Else
         Dim bmp As Bitmap = Nothing
-        Select Case U_arr(Pbl_Cell_Select)
+        Select Case U_arr(Cellule_MouseMove)
           Case "TL" : bmp = Bmp_Fond_Saisie_TL
           Case "TR" : bmp = Bmp_Fond_Saisie_TR
           Case "BL" : bmp = Bmp_Fond_Saisie_BL

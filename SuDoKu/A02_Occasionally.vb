@@ -218,7 +218,7 @@ Friend Module A02_Occasionally
     ' Ce point est utilisé comme origine pour le tracé du quadrillage et le positionnement des cellules
     ' Le point Gz_tl est calculé à partir de la marge gauche et de la hauteur cumulée de la barre de menu et de la barre d'outils
     Gz_tl = New Point(Bld_Marge_LT,
-                              Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT)
+                      Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT)
     'Gz_tl est un point fixe  (5, 60)
 
     ' Calcul des traits du quadrillage et des positions des cellules
