@@ -235,7 +235,6 @@ Friend Module A02_Occasionally
     Gz_traits(7) = 1 + Gz_traits(6) + WH + 1 ' Fin
     Gz_traits(8) = 0 + Gz_traits(7) + WH + 1 ' Fin
     Gz_traits(9) = 0 + Gz_traits(8) + WH + 2 ' Epais
-    Gz_Trait_Length = Gz_traits(9) + 2
 
     ' Calcul des 81 Sqr_cel
     Gz_Cellxy(0) = 2 + Gz_traits(0)

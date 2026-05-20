@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #788"
+  Public SDK_Version As String = "V2026_05 #793"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -14,15 +14,7 @@ Module A00_Public
   '                                        ' 1 à 9 Nombre de cellules remplies avec la valeur correspondante    
   Public Enum Nb_idx As Integer
     Remplies = 0
-    'Val_1 = 1
-    'Val_2 = 2
-    'Val_3 = 3
-    'Val_4 = 4
-    'Val_5 = 5
-    'Val_6 = 6
-    'Val_7 = 7
-    'Val_8 = 8
-    'Val_9 = 9
+    'Val_1 = 1, Val_2 = 2, Val_3 = 3, Val_4 = 4, Val_5 = 5, Val_6 = 6, Val_7 = 7, Val_8 = 8, Val_9 = 9
     Initiales = 10
   End Enum
   '      Initialisées dans Game_New_Game()
@@ -42,12 +34,12 @@ Module A00_Public
   Public Barre_Outils_Hauteur As Integer = 23 ' 25
 
   Public Bld_Marge_LT As Integer = 5       ' Séparation entre le trait du formulaire et le trait de l'entourage de la grille
-  Public Bld_Trait_1 As Integer = 1
-  Public Bld_Trait_3 As Integer = 3
-  Public Bld_WH_Grid As Integer = (WH * 9) + Bld_Trait_3 + Bld_Trait_1 + Bld_Trait_1 +
-                                             Bld_Trait_3 + Bld_Trait_1 + Bld_Trait_1 +
-                                             Bld_Trait_3 + Bld_Trait_1 + Bld_Trait_1 +
-                                             Bld_Trait_3
+  Public Trait_épais As Integer = 3
+  Public Trait_fin As Integer = 1
+  Public Bld_WH_Grid As Integer = (WH * 9) + Trait_épais + Trait_fin + Trait_fin +
+                                             Trait_épais + Trait_fin + Trait_fin +
+                                             Trait_épais + Trait_fin + Trait_fin +
+                                             Trait_épais
   Public Bld_Journal_Width As Integer = 750 ' quelque soit la taille de WH
 #End Region
 
@@ -184,11 +176,9 @@ Module A00_Public
           .Alignment = StringAlignment.Center,
           .LineAlignment = StringAlignment.Center
           }
-  Public Trait_épais As Integer = 3
-  Public Trait_fin As Integer = 1
   Public Pen_épais As New Pen(Color_Trait, Trait_épais)
   Public Pen_fin As New Pen(Color_Trait, Trait_fin)
-  Public Gz_Trait_Length As Integer              ' dimension totale de la grille
+  'Public Gz_Trait_Length As Integer              ' dimension totale de la grille
 
   Public Gz_traits(9) As Integer                 ' centres des 10 traits
   Public Gz_Cellxy(8) As Integer                 ' coordonnées x et y des cellules

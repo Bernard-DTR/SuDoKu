@@ -662,7 +662,7 @@
     Prf06_WH2 = 30
     Prf06_WH3 = 20
     Prf06_WH6 = 10
-    Prf06_WH_Grid = (Prf06_WH * 3) + Bld_Trait_3 + Bld_Trait_1 + Bld_Trait_1 + Bld_Trait_3
+    Prf06_WH_Grid = (Prf06_WH * 3) + Trait_épais + Trait_fin + Trait_fin + Trait_épais
 
     ' 2 Définition des traits Prf06_Trait_Pos_xy()
     Dim Ep_2 As Integer = 2 ' = 2   car le trait a une épaisseur de 3

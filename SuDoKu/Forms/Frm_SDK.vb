@@ -102,9 +102,6 @@ Public NotInheritable Class Frm_SDK
     Controls.Add(B_ProgressBar)
 #End Region
 
-    '#713
-    AddHandler TTT_Timer.Tick, AddressOf TTT_Timer_Tick
-
 #Region "Mnu04_Stratégies"
     'Text et TTT des Btn_Stratégies
     For Each Stg As Stg_Cls In Stg_List
@@ -388,7 +385,6 @@ Public NotInheritable Class Frm_SDK
       Enabled = True
     End If
 
-    RemoveHandler TTT_Timer.Tick, AddressOf TTT_Timer_Tick
   End Sub
 
 #Region "Mouse Clic"
@@ -1590,6 +1586,7 @@ Public NotInheritable Class Frm_SDK
     End If
 
   End Sub
+
 
 
 

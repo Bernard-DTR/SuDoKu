@@ -49,7 +49,7 @@ Friend Module M02_ClipBoard
     ' et une mise à l'échelle de 150% également recommandée
     'BENQ Les résolutions physiques et trouvées sont les mêmes
     Jrn_Add(, {Proc_Name_Get() & " " & LP_Nom})
-    'Question N° 1 Sur quel écran suis-je ?
+    ' Sur quel écran suis-je ?
     Dim Screens As Screen() = Screen.AllScreens
     Dim Device_Number As Integer = 1 ' Concerne le BENQ
     'La position du TopLeft de Frm_SDK indique si l'application se trouve sur HPOmen16 ou BENQ
@@ -63,15 +63,14 @@ Friend Module M02_ClipBoard
       Dim Screen_TopLeft As Point = Frm_SDK.PointToScreen(Gz_tl)
       Dim W_Grid As Integer
       Dim H_Grid As Integer
-
+      ' La taill de l'image semble la même qqs WH que ce soit sur HPOmen16 ou BENQ
       Screen_TopLeft.X = CInt(Screen_TopLeft.X * Get_Scale(Device_Number).X)
       Screen_TopLeft.Y = CInt(Screen_TopLeft.Y * Get_Scale(Device_Number).Y)
-      W_Grid = CInt(Gz_Trait_Length * Get_Scale(Device_Number).X)
-      H_Grid = CInt(Gz_Trait_Length * Get_Scale(Device_Number).Y)
+      W_Grid = CInt(Bld_WH_Grid * Get_Scale(Device_Number).X)
+      H_Grid = CInt(Bld_WH_Grid * Get_Scale(Device_Number).Y)
       ' Le format est de 32 bits par pixel. Les composants ARGB ont 8 bits chacun
       Try
         Using bmp As New Bitmap(W_Grid, H_Grid, PixelFormat.Format32bppArgb)
-          ' Utilisez Graphics pour effectuer la capture d'écran
           Using g As Graphics = Graphics.FromImage(bmp)
             ' The source area is copied directly to the destination area.
             g.CopyFromScreen(Screen_TopLeft.X, Screen_TopLeft.Y, 0, 0, New Size(W_Grid, H_Grid), CopyPixelOperation.SourceCopy)

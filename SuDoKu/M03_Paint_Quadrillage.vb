@@ -25,8 +25,8 @@ Module M03_Paint_Quadrillage
           Dim y As Integer = Gz_tl.Y + Gz_traits(i)
 
           Dim p As Pen = If(i Mod 3 = 0, Pen_épais, Pen_fin)
-          g.DrawLine(p, Gz_tl.X + 1, y, Gz_tl.X + Gz_Trait_Length, y)
-          g.DrawLine(p, x, Gz_tl.Y + 1, x, Gz_tl.Y + Gz_Trait_Length)
+          g.DrawLine(p, Gz_tl.X + 1, y, Gz_tl.X + Bld_WH_Grid, y)
+          g.DrawLine(p, x, Gz_tl.Y + 1, x, Gz_tl.Y + Bld_WH_Grid)
         Next
 
       Case 1 ' Quadrillage arrondi
@@ -40,8 +40,8 @@ Module M03_Paint_Quadrillage
           If i = 6 Then Continue For
           Dim y As Integer = Gz_tl.Y + Gz_traits(i)
           Dim x As Integer = Gz_tl.X + Gz_traits(i)
-          g.DrawLine(Pen_fin, Gz_tl.X, y, Gz_tl.X + Gz_Trait_Length, y)
-          g.DrawLine(Pen_fin, x, Gz_tl.Y, x, Gz_tl.Y + Gz_Trait_Length)
+          g.DrawLine(Pen_fin, Gz_tl.X, y, Gz_tl.X + Bld_WH_Grid, y)
+          g.DrawLine(Pen_fin, x, Gz_tl.Y, x, Gz_tl.Y + Bld_WH_Grid)
         Next
 
     End Select
@@ -139,7 +139,7 @@ Module M03_Paint_Quadrillage
     Bmp_Fond_Saisie_BR = Build_Bmp_Fond_Saisie("BR")
   End Sub
   Public Sub Build_Bmp_Saisie_Traits(g As Graphics, x As Integer, y As Integer)
-    Using pen As New Pen(Color_Trait, Bld_Trait_1)
+    Using pen As New Pen(Color_Trait, Trait_fin)
       pen.DashPattern = {1, 5}
       Dim x1 As Integer = x + WHt
       Dim x2 As Integer = x + (WHt * 2)

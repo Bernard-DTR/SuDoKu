@@ -470,7 +470,10 @@
                    OnPaint fonctionne en double-buffering
                    les arrondis sont corrects et variables
                    les pens et brushs sont créés une fois pour toutes et réutilisés
-#790 Ma 18/05/2026 ClipBoard_Coller_RTF ClipBoard_Coller Correct sur HPOmen16 et Benq
+#790 Ma 19/05/2026 ClipBoard_Coller_RTF ClipBoard_Coller Correct sur HPOmen16 et Benq
+#791 Ma 19/05/2026 TTT_Timer_Tick est mis en place de façon permanente
+#792 Me 20/05/2026 Utilisation de Trait_épais et Trait_fin
+#793 Me 20/05/2026 Bld_WH_Grid remplace Gz_Trait_Length
 
 
 ##############################################################################################################################
@@ -489,4 +492,5 @@
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
 
                    Quelle est la différence entre Bld_WH_Grid et Gz_Trait_Length ? écart de 1 pixel
-                   Gestion du TTT_Timer pourquoi ajouter et supprimer ce handler ?
+                   Comment remplacer l'un par l'autre pour pouvoir revenir en arrière facilement ?
+                   Bld_WH_Grid    15
