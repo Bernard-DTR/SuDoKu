@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #793"
+  Public SDK_Version As String = "V2026_05 #794"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -29,7 +29,6 @@ Module A00_Public
   Public WHh As Integer           '= (WH \ 2)
   Public WHt As Integer           '= (WH \ 3)
   Public WHq As Integer           '= (WH \ 4)
-  Public WHs As Integer           '= (WH \ 6)
   Public Barre_Menu_Hauteur As Integer = 32
   Public Barre_Outils_Hauteur As Integer = 23 ' 25
 
@@ -174,11 +173,11 @@ Module A00_Public
   Public Format_Center As New StringFormat With
           {
           .Alignment = StringAlignment.Center,
-          .LineAlignment = StringAlignment.Center
+          .LineAlignment = StringAlignment.Center,
+          .FormatFlags = StringFormatFlags.NoClip
           }
   Public Pen_épais As New Pen(Color_Trait, Trait_épais)
   Public Pen_fin As New Pen(Color_Trait, Trait_fin)
-  'Public Gz_Trait_Length As Integer              ' dimension totale de la grille
 
   Public Gz_traits(9) As Integer                 ' centres des 10 traits
   Public Gz_Cellxy(8) As Integer                 ' coordonnées x et y des cellules

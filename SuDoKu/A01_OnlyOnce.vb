@@ -94,7 +94,6 @@ Friend Module A01_OnlyOnce
     WHh = WH \ 2
     WHt = WH \ 3
     WHq = WH \ 4
-    WHs = WH \ 6
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
   End Sub
   ''' <summary>Charge le fichier des messages dans un dictionnaire.</summary>

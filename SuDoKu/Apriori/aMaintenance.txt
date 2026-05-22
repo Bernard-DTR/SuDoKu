@@ -474,6 +474,7 @@
 #791 Ma 19/05/2026 TTT_Timer_Tick est mis en place de façon permanente
 #792 Me 20/05/2026 Utilisation de Trait_épais et Trait_fin
 #793 Me 20/05/2026 Bld_WH_Grid remplace Gz_Trait_Length
+#794 V  22/05/2026 DrawString dessine soit dans un rectangle, soit à une position donnée X, Y
 
 
 ##############################################################################################################################

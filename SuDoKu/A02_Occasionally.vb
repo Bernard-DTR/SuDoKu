@@ -207,7 +207,6 @@ Friend Module A02_Occasionally
     WHh = WH \ 2
     WHt = WH \ 3
     WHq = WH \ 4
-    WHs = WH \ 6
     Bld_WH_Grid = (WH * 9) + 3 + 1 + 1 + 3 + 1 + 1 + 3 + 1 + 1 + 3
 
     ' La hauteur de la Barre_Outils est standard (25)  

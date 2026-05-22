@@ -58,7 +58,8 @@ Module M03_Paint_Quadrillage
     For cdd As Integer = 1 To 9
       Dim cd As Integer = Cellule * 10 + cdd
       If U(Cellule, 3).Contains(CStr(cdd)) Then
-        g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd), Format_Center)
+        'g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd), Format_Center)
+        g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd))
       End If
     Next cdd
     Build_Bmp_Saisie_Traits(g, Sqr_Cel(Cellule).X, Sqr_Cel(Cellule).Y)
@@ -106,7 +107,7 @@ Module M03_Paint_Quadrillage
           ' et les valeurs initiales
           If U(i, 1) <> " " Then
             g.DrawString(Subst_Police(U(i, 1)), Fnt_Val, Brh_VI,
-                         Sqr_Cel(i).X + WHh, Sqr_Cel(i).Y + WHh, Format_Center)
+                         Sqr_Cel(i), Format_Center)
           End If
         End Using
       Next
@@ -122,7 +123,7 @@ Module M03_Paint_Quadrillage
       For i As Integer = 0 To 80
         If U(i, 1) = " " AndAlso U(i, 2) <> " " Then
           g.DrawString(Subst_Police(U(i, 2)), Fnt_Val, Brh_VCdd,
-                       Sqr_Cel(i).X + WHh, Sqr_Cel(i).Y + WHh, Format_Center)
+                       Sqr_Cel(i), Format_Center)
         End If
         If Plcy_Dernière_Valeur_Unité AndAlso U_dv(i) Then
           G0_Cell_Figure(g, i, "Ellipse", Color_Stratégique)
