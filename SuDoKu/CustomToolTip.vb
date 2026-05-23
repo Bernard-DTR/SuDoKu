@@ -19,9 +19,11 @@ Public Class CustomToolTip
   End Sub
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
     MyBase.OnPaint(e)
-    Using sf As New StringFormat With {.Alignment = StringAlignment.Center}
-      e.Graphics.DrawString(_text, _font, Brushes.Black, New RectangleF(0, 0, Me.ClientSize.Width, Me.ClientSize.Height), sf)
-    End Using
+    'Using sf As New StringFormat With {.Alignment = StringAlignment.Center}
+    '  e.Graphics.DrawString(_text, _font, Brushes.Black, New RectangleF(0, 0, Me.ClientSize.Width, Me.ClientSize.Height), sf)
+    'End Using
+    ' Pas de centrage pour les candidats, afin de les aligner à gauche
+    e.Graphics.DrawString(_text, _font, Brushes.Black, New RectangleF(0, 0, Me.ClientSize.Width, Me.ClientSize.Height))
   End Sub
   Public Sub ShowTooltip(location As Point)
     Me.Location = location

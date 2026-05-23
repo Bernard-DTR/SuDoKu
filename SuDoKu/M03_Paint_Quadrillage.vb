@@ -58,7 +58,6 @@ Module M03_Paint_Quadrillage
     For cdd As Integer = 1 To 9
       Dim cd As Integer = Cellule * 10 + cdd
       If U(Cellule, 3).Contains(CStr(cdd)) Then
-        'g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd), Format_Center)
         g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd))
       End If
     Next cdd

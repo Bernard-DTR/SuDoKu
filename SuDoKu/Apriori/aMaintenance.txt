@@ -475,6 +475,7 @@
 #792 Me 20/05/2026 Utilisation de Trait_épais et Trait_fin
 #793 Me 20/05/2026 Bld_WH_Grid remplace Gz_Trait_Length
 #794 V  22/05/2026 DrawString dessine soit dans un rectangle, soit à une position donnée X, Y
+#795 S  23/05/2026 Suppression du format Center pour le TTT. Il est centré !
 
 
 ##############################################################################################################################
@@ -492,6 +493,3 @@
                    Nettoyer les S95
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
 
-                   Quelle est la différence entre Bld_WH_Grid et Gz_Trait_Length ? écart de 1 pixel
-                   Comment remplacer l'un par l'autre pour pouvoir revenir en arrière facilement ?
-                   Bld_WH_Grid    15

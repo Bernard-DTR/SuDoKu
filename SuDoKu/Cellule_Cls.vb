@@ -94,10 +94,6 @@ Public Class Cellule_Cls
     Dim Sqr_Cdd_n As Rectangle = Sqr_Cdd_Inf(Cdd_n)
     Using brsh_1 As New SolidBrush(Color.FromArgb(128, Couleur))
       g.FillPie(brsh_1, Sqr_Cdd_n, 0.0F, 360.0F)
-      'g.DrawString(Subst_Police(Candidat),
-      '             Fnt_Cdd,
-      '             Brh_VCdd,
-      '             Sqr_Cdd(Cdd_n).X + WHs, Sqr_Cdd(Cdd_n).Y + WHs, Format_Center)
       g.DrawString(Subst_Police(Candidat),
                    Fnt_Cdd,
                    Brh_VCdd,
@@ -114,15 +110,10 @@ Public Class Cellule_Cls
     For cdd As Integer = 1 To 9
       If Candidats.Contains(cdd.ToString()) Then
         cdd_n = (Numéro * 10) + cdd
-        'g.DrawString(Subst_Police(CStr(cdd)),
-        '             Fnt_Cdd,
-        '             Brh_VCdd,
-        '             Sqr_Cdd(cdd_n).X + WHs, Sqr_Cdd(cdd_n).Y + WHs, Format_Center)
         g.DrawString(Subst_Police(CStr(cdd)),
                      Fnt_Cdd,
                      Brh_VCdd,
                      Sqr_Cdd(cdd_n), Format_Center)
-
       End If
     Next cdd
   End Sub
