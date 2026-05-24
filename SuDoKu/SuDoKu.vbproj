@@ -169,7 +169,7 @@
     <Compile Include="A01_OnlyOnce.vb" />
     <Compile Include="A02_Occasionally.vb" />
     <Compile Include="CustomToolTip.vb">
-      <SubType>Form</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Dancing_Links\B_DancingArena.vb" />
     <Compile Include="Dancing_Links\E_DancingColumn.vb" />
@@ -297,6 +297,9 @@
     <EmbeddedResource Include="ColorComboBox.resx">
       <DependentUpon>ColorComboBox.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomToolTip.resx">
+      <DependentUpon>CustomToolTip.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm_Dictionnaire.resx">
       <DependentUpon>Frm_Dictionnaire.vb</DependentUpon>

@@ -286,14 +286,9 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)
-    Try
-      MouseClick_Middle_ToolTip?.HideTooltip()
-      'If MouseClick_Middle_ToolTip IsNot Nothing Then
-      'MouseClick_Middle_ToolTip.HideTooltip()
-      'End If
-    Catch
-      ' Ne pas propager l'erreur depuis le timer
-    End Try
+    If MouseClick_Middle_ToolTip IsNot Nothing Then
+      MouseClick_Middle_ToolTip.Close()
+    End If
     TTT_Timer.Stop()
   End Sub
   Private Sub Batch_Timer_Tick(sender As Object, e As EventArgs) Handles Batch_Timer.Tick
@@ -504,12 +499,11 @@ Public NotInheritable Class Frm_SDK
     Else
       TTT_ToolTipText = "  M a l" & vbCrLf & "  P l a" & vbCrLf & "  c é ! "
     End If
-    Dim TTT_Font As New Font("Consolas", 14, FontStyle.Italic)
+    Dim TTT_Font As New Font("Courier New", 14, FontStyle.Regular)
     ' Créer une instance de CustomToolTip
     MouseClick_Middle_ToolTip = New CustomToolTip(TTT_ToolTipText, TTT_Font)
     Pénalités(Proc_Name_Get() & " " & U_Coord(Cellule) & "(" & Candidat & ") " & TTT_Message)
-
-    Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X, Top + Get_Centre(Cellule, Candidat).Y)
+    Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X + WHh, Top + Get_Centre(Cellule, Candidat).Y + WHh)
 
     MouseClick_Middle_ToolTip.ShowTooltip(Position)
     TTT_Timer.Interval = 2000

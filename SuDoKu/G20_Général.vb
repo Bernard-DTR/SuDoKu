@@ -294,22 +294,32 @@ Module G20_Général
     Act_Candidats = ""
     For i As Integer = 0 To 80 : Act_Candidats &= U(i, 3) : Next i
   End Function
+  Function TTT_MEF_Cdd(candidats As String) As String
+    Dim sb As New System.Text.StringBuilder(32)
 
-  Function TTT_MEF_Cdd(Candidats As String) As String
+    For i As Integer = 0 To 8
+      Dim c As Char = candidats(i)
+      sb.Append(If(c <> " "c, " " & c, "  "))
+
+      If (i Mod 3) = 2 AndAlso i < 8 Then
+        sb.AppendLine()
+      End If
+    Next
+
+    Return sb.ToString()
+  End Function
+  Function TTT_MEF_Cdd_old(Candidats As String) As String
     Dim MEF As String = ""
     For i As Integer = 0 To 8
-      ' Permet d'avoir des valeurs alignées, même avec une police proportionnelle
       Dim Cdd As String = If(Candidats.Substring(i, 1) <> " ", " " & Candidats.Substring(i, 1), "  ")
-      'la valeur de esp ne change en rien la taille de TTT
-      Dim esp As String = ""
       Select Case i
-        Case 0 : MEF &= esp & Cdd
+        Case 0 : MEF &= Cdd
         Case 1 : MEF &= Cdd
         Case 2 : MEF &= Cdd & vbCrLf
-        Case 3 : MEF &= esp & Cdd
+        Case 3 : MEF &= Cdd
         Case 4 : MEF &= Cdd
         Case 5 : MEF &= Cdd & vbCrLf
-        Case 6 : MEF &= esp & Cdd
+        Case 6 : MEF &= Cdd
         Case 7 : MEF &= Cdd
         Case 8 : MEF &= Cdd
         Case Else : Exit Select
