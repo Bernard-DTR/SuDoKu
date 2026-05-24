@@ -477,6 +477,7 @@
 #794 V  22/05/2026 DrawString dessine soit dans un rectangle, soit à une position donnée X, Y
 #795 S  23/05/2026 Suppression du format Center pour le TTT. Il est centré !
 #796 D  24/05/2026 Taille correcte du TTT qui est devenu Class CustomToolTip Inherits ToolStripDropDowne 
+#797 D  24/05/2026 Couleur du TTT  
 
 ##############################################################################################################################
                    

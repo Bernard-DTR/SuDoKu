@@ -1,7 +1,7 @@
 ﻿Public Class CustomToolTip
   Inherits ToolStripDropDown
 
-  Private panel As ToolStripControlHost
+  Private pnl As ToolStripControlHost
   Private lbl As Label
 
   Public Sub New(text As String, font As Font)
@@ -10,18 +10,20 @@
     Margin = Padding.Empty
     Padding = Padding.Empty
 
+    Dim isEmpty As Boolean = (U(Pbl_Cell_Select, 1) = " ")
     lbl = New Label()
     lbl.Text = text
     lbl.Font = font
-    lbl.BackColor = Color.Yellow
+    lbl.BackColor = If(isEmpty, Clr_Fnd_VI, Clr_Fnd_VCdd)
+    lbl.ForeColor = If(isEmpty, Clr_VI, Clr_VCdd)
     lbl.AutoSize = True
     lbl.Padding = New Padding(4)
 
-    panel = New ToolStripControlHost(lbl)
-    panel.Margin = Padding.Empty
-    panel.Padding = Padding.Empty
+    pnl = New ToolStripControlHost(lbl)
+    pnl.Margin = Padding.Empty
+    pnl.Padding = Padding.Empty
 
-    Items.Add(panel)
+    Items.Add(pnl)
   End Sub
 
   Public Sub ShowTooltip(location As Point)

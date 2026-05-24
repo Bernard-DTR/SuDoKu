@@ -493,18 +493,18 @@ Public NotInheritable Class Frm_SDK
       Case Else
     End Select
 
+    Pénalités(Proc_Name_Get() & " " & U_Coord(Cellule) & "(" & Candidat & ") " & TTT_Message)
     Dim TTT_ToolTipText As String
     If TTT_Message <> Cnddts_Blancs Then
       TTT_ToolTipText = TTT_MEF_Cdd(TTT_Message)
     Else
       TTT_ToolTipText = "  M a l" & vbCrLf & "  P l a" & vbCrLf & "  c é ! "
     End If
-    Dim TTT_Font As New Font("Courier New", 14, FontStyle.Regular)
     ' Créer une instance de CustomToolTip
+    Dim TTT_Font As New Font("Courier New", 14, FontStyle.Italic)
     MouseClick_Middle_ToolTip = New CustomToolTip(TTT_ToolTipText, TTT_Font)
-    Pénalités(Proc_Name_Get() & " " & U_Coord(Cellule) & "(" & Candidat & ") " & TTT_Message)
-    Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X + WHh, Top + Get_Centre(Cellule, Candidat).Y + WHh)
-
+    Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X + WHh,
+                              Top + Get_Centre(Cellule, Candidat).Y + WHh)
     MouseClick_Middle_ToolTip.ShowTooltip(Position)
     TTT_Timer.Interval = 2000
     TTT_Timer.Start()
