@@ -501,10 +501,10 @@ Public NotInheritable Class Frm_SDK
       TTT_ToolTipText = "  M a l" & vbCrLf & "  P l a" & vbCrLf & "  c é ! "
     End If
     ' Créer une instance de CustomToolTip
-    Dim TTT_Font As New Font("Courier New", 14, FontStyle.Italic)
+    Dim TTT_Font As New Font("Courier New", 16, FontStyle.Italic)
     MouseClick_Middle_ToolTip = New CustomToolTip(TTT_ToolTipText, TTT_Font)
     Dim Position As New Point(Left + Get_Centre(Cellule, Candidat).X + WHh,
-                              Top + Get_Centre(Cellule, Candidat).Y + WHh)
+                               Top + Get_Centre(Cellule, Candidat).Y + WHh)
     MouseClick_Middle_ToolTip.ShowTooltip(Position)
     TTT_Timer.Interval = 2000
     TTT_Timer.Start()
@@ -524,7 +524,6 @@ Public NotInheritable Class Frm_SDK
     Dim StartVal As Integer = MW_Val
     Do
       MW_Val = ((MW_Val + Sens + 8) Mod 9) + 1
-      '
       If U_nb(MW_Val) < 9 Then Exit Do
       ' Si la valeur n'est pas présente 9 fois, on la présente
     Loop While MW_Val <> StartVal
@@ -641,14 +640,14 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Mnu02_Copier_Click(sender As Object, e As EventArgs) Handles Mnu02_Copier.Click
     'Uniquement les Valeurs initiales
-    ClipBoard_Copier_New("1")
+    ClipBoard_Copier("1")
   End Sub
   Private Sub Mnu02_Copier2_Click(sender As Object, e As EventArgs) Handles Mnu02_Copier2.Click
     'Toutes les Valeurs  
-    ClipBoard_Copier_New("2")
+    ClipBoard_Copier("2")
   End Sub
   Private Sub Mnu02_Copie3_Click(sender As Object, e As EventArgs) Handles Mnu02_Copie3.Click
-    ClipBoard_Copier_New("3")
+    ClipBoard_Copier("3")
   End Sub
   Private Sub Mnu02_Coller_Click(sender As Object, e As EventArgs) Handles Mnu02_Coller.Click
     'Coller le Presse-Papier dans la Grille
@@ -904,7 +903,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_Hodoku220_Click(sender As Object, e As EventArgs) Handles Mnu06_Hodoku220.Click
     ' L'application est lancée et
     ' Il est ajouté une copie de la grille en cours et un collage dans Hodoku 
-    ClipBoard_Copier_New("1") ' Copier les valeurs initiales de SDK
+    ClipBoard_Copier("1") ' Copier les valeurs initiales de SDK
     Dim Shell_St As String = "C:\Program Files (x86)\HoDoKu\hodoku.exe"
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -959,7 +958,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Private Sub Mnu06_DiufSudokuJava_Click(sender As Object, e As EventArgs) Handles Mnu06_DiufSudokuJava.Click
-    ClipBoard_Copier_New("1") ' Copier les valeurs initiales de SDK
+    ClipBoard_Copier("1") ' Copier les valeurs initiales de SDK
     Dim Processing As New Process()
     Processing.StartInfo.FileName = "cmd.exe"
     Processing.StartInfo.Arguments = "/c """ & Path_SDK_Autres_Jeux & "DiufSudoku\gui.bat"""
@@ -971,7 +970,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Private Sub Mnu06_MUDancingLink_Click(sender As Object, e As EventArgs) Handles Mnu06_MUDancingLink.Click
-    ClipBoard_Copier_New("1") ' Copier les valeurs initiales de SDK
+    ClipBoard_Copier("1") ' Copier les valeurs initiales de SDK
 
     Dim Shell_St As String = Path_SDK_Autres_Jeux & "Dancing_Link\Dancing_Links_Library_100\Dancing_Links_Library\Dancing_Links_Library\bin\Debug\Dancing_Links_Library.exe"
     Jrn_Add(, {Shell_St})
@@ -1194,7 +1193,7 @@ Public NotInheritable Class Frm_SDK
     Cursor.Current = Cursors.Default
   End Sub
   Private Sub Mnu08_RésoudreDenisBerthier_Click(sender As Object, e As EventArgs) Handles Mnu08_RésoudreDenisBerthier.Click
-    Dim Grid As String = ClipBoard_Copier_New("1")
+    Dim Grid As String = ClipBoard_Copier("1")
     Jrn_Add(, {Grid})
     Dim AllCandidates(728) As Candidate
     AllCandidates_Init(AllCandidates)

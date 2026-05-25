@@ -113,11 +113,11 @@ Friend Module A__Colorisation
     Dim arrowSize As Integer = 10
     ' Calculer les points de la flèche
     Dim arrowPoint1 As New Point(
-        CInt(endPoint.X - arrowSize * Math.Cos(angle - Math.PI / 6)),
-        CInt(endPoint.Y - arrowSize * Math.Sin(angle - Math.PI / 6)))
+        CInt(endPoint.X - (arrowSize * Math.Cos(angle - (Math.PI / 6)))),
+        CInt(endPoint.Y - (arrowSize * Math.Sin(angle - (Math.PI / 6)))))
     Dim arrowPoint2 As New Point(
-        CInt(endPoint.X - arrowSize * Math.Cos(angle + Math.PI / 6)),
-        CInt(endPoint.Y - arrowSize * Math.Sin(angle + Math.PI / 6)))
+        CInt(endPoint.X - (arrowSize * Math.Cos(angle + (Math.PI / 6)))),
+        CInt(endPoint.Y - (arrowSize * Math.Sin(angle + (Math.PI / 6)))))
     ' Dessiner la flèche
     Using arrowPen As New Pen(color, width)
       g.DrawLine(arrowPen, endPoint, arrowPoint1)
@@ -126,19 +126,19 @@ Friend Module A__Colorisation
   End Sub
 
   Public Function Get_Distance_Point_Flèche(p As Point, a As Point, b As Point) As Double
-    Dim num As Double = Math.Abs((b.Y - a.Y) * p.X - (b.X - a.X) * p.Y + b.X * a.Y - b.Y * a.X)
-    Dim den As Double = Math.Sqrt((b.Y - a.Y) ^ 2 + (b.X - a.X) ^ 2)
+    Dim num As Double = Math.Abs(((b.Y - a.Y) * p.X) - ((b.X - a.X) * p.Y) + (b.X * a.Y) - (b.Y * a.X))
+    Dim den As Double = Math.Sqrt(((b.Y - a.Y) ^ 2) + ((b.X - a.X) ^ 2))
     Return num / den
   End Function
 
   Public Function Get_Centre(Cellule As Integer, Candidat As Integer) As Point
-    Dim Sqr As Rectangle = Sqr_Cdd(Cellule * 10 + Candidat)
+    Dim Sqr As Rectangle = Sqr_Cdd((Cellule * 10) + Candidat)
     Return New Point(Sqr.X + (Sqr.Width \ 2), Sqr.Y + (Sqr.Height \ 2))
   End Function
   Public Function Get_AdjustedPoints(From_Centre As Point, To_Centre As Point) As Points_Struct
     Dim dx As Integer = To_Centre.X - From_Centre.X
     Dim dy As Integer = To_Centre.Y - From_Centre.Y
-    Dim dist As Double = Math.Sqrt(dx * dx + dy * dy)
+    Dim dist As Double = Math.Sqrt((dx * dx) + (dy * dy))
 
     If dist = 0 Then Return New Points_Struct
 
@@ -150,14 +150,8 @@ Friend Module A__Colorisation
     Dim uy As Double = dy / dist
 
     Dim Pts As New Points_Struct With {
-        .Pt_From = New Point(
-            CInt(From_Centre.X + offset * ux),
-            CInt(From_Centre.Y + offset * uy)
-        ),
-        .Pt_To = New Point(
-            CInt(To_Centre.X - offset * ux),
-            CInt(To_Centre.Y - offset * uy)
-        )
+        .Pt_From = New Point(CInt(From_Centre.X + (offset * ux)), CInt(From_Centre.Y + (offset * uy))),
+          .Pt_To = New Point(CInt(To_Centre.X - (offset * ux)), CInt(To_Centre.Y - (offset * uy)))
     }
 
     Return Pts

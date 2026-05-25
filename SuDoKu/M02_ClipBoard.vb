@@ -91,45 +91,39 @@ Friend Module M02_ClipBoard
       Nsd_i = MsgBox("Presse-Papier inaccessible. Please try again.",, MsgTit)
     End Try
   End Sub
-  Public Function ClipBoard_Copier_New(Cel_Type As String) As String
+
+  Public Function ClipBoard_Copier(Cel_Type As String) As String
     '-----------------------------------------------------------------------
     ' OK    Coller dans Angus Johnson 
     '              AJ accepte Espace ou point pour une valeur absente
     ' OK    Coller dans Coles à partir de Game/acTestGrid
     '-----------------------------------------------------------------------
-    Dim Value As String = "#"
-    Dim CC As String = ""
-    'Une valeur absente est remplacée par un espace
-    '                                 par un point  pour HODOKU
+    Dim sb As New System.Text.StringBuilder(900)
+
     Select Case Cel_Type
-      Case "1"  ' Valeurs initiales
+      Case "1"   ' Valeurs initiales
         For i As Integer = 0 To 80
-          Select Case U(i, 1)
-            Case " " : CC &= "."
-            Case Else : CC &= U(i, 1)
-          End Select
-        Next i
-        'Jrn_Add("SDK_00000", {"VI        :" & CC})
+          sb.Append(If(U(i, 1) = " ", ".", U(i, 1)))
+        Next
 
-      Case "2" ' Toutes les valeurs
+      Case "2"   ' Valeurs trouvées
         For i As Integer = 0 To 80
-          Select Case U(i, 2)
-            Case " " : CC &= "."
-            Case Else : CC &= U(i, 2)
-          End Select
-        Next i
-        'Jrn_Add("SDK_00000", {"Valeurs   :" & CC})
+          sb.Append(If(U(i, 2) = " ", ".", U(i, 2)))
+        Next
 
-      Case "3" ' Les candidats
+      Case "3"   ' Candidats
         For i As Integer = 0 To 80
-          CC &= U(i, 3).Replace(" ", "") & ";"
-        Next i
-        'Jrn_Add("SDK_00000", {"Candidats :" & CC})
+          sb.Append(U(i, 3).Replace(" ", ""))
+          sb.Append(";"c)
+        Next
     End Select
+
+    Dim CC As String = sb.ToString()
+
     Clipboard.Clear()
-    Clipboard.SetData(DataFormats.Text, CType(CC, Object))
-    Value = Clipboard.GetText(TextDataFormat.Text)
-    Return Value
+    Clipboard.SetText(CC)
+
+    Return Clipboard.GetText()
   End Function
 
 End Module
