@@ -479,6 +479,8 @@
 #796 D  24/05/2026 Taille correcte du TTT qui est devenu Class CustomToolTip Inherits ToolStripDropDowne 
 #797 D  24/05/2026 Couleur du TTT  
 #798 L  25/05/2026 Nouvelle écriture de ClipBoard_Copier
+#799 J  28/05/2026 Modification du menu Graphe pour afficher les stratégies G et X
+
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie
