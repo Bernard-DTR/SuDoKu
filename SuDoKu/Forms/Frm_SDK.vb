@@ -335,7 +335,6 @@ Public NotInheritable Class Frm_SDK
     End If
 
     ' Animation
-    'If Animation_Timer.Enabled AndAlso Animation_Cellule >= 0 Then
     If Animation_Timer.Enabled AndAlso Animation_Numéro >= 0 AndAlso Animation_Numéro <= 80 Then
       ' l'icône est dessinée dans la sqr_pth de la cellule pour épouser les coins arrondis du quadrillage
       g.ResetClip()
@@ -384,15 +383,16 @@ Public NotInheritable Class Frm_SDK
 
 #Region "Mouse Clic"
   Private Sub Frm_SDK_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
-    'Dim Cellule_MM As Integer = Array.FindIndex(Sqr_Cel, Function(cel) cel.Contains(e.X, e.Y))
     Dim Cellule_MM As Integer = Wh_Cellule_Pt(pt:=New Point(e.X, e.Y))
     If Cellule_MM = -1 Then Exit Sub
     Pbl_Cell_Select = Cellule_MM
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
       B_Position.Text = U_cr(Pbl_Cell_Select) & "   " & Pbl_Cell_Select
-      Mnu_Mngt(Pbl_Cell_Select)
+      'Mnu_Mngt(Pbl_Cell_Select)
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
+    'Pour supprimer plusieurs candidats d'une même cellule, sans la quitter
+    Mnu_Mngt(Pbl_Cell_Select)
 
     ' Gestion de l'affichage de la grille de saisie
     If {0, 2}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then
@@ -448,7 +448,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
   Private Sub Frm_SDK_MouseClick_Middle(sender As Object, Candidat As Integer)
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
-    Dim TTT_Message As String = Cnddts_Blancs
+    Dim TTT_Message As String
     Dim Cellule As Integer = Pbl_Cell_Select
     If Plcy_Fantasy Then Exit Sub    'Le TTT_Message ne fonctionne pas avec une police fantaisie.
     Select Case Cellule
@@ -465,6 +465,7 @@ Public NotInheritable Class Frm_SDK
           Case 4, 7 ' Pour la Ligne   : Emplacement 4, 7
             TTT_Message = Wh_Candidats_Unité(U_9CelRow(U_Row(Cellule)))
           Case Else
+            TTT_Message = "?"
         End Select
       Case 8                                                         ' Coin en haut à droite
         Select Case Candidat
@@ -473,6 +474,7 @@ Public NotInheritable Class Frm_SDK
           Case 6, 9 ' Pour la Ligne   : Emplacement 6, 9
             TTT_Message = Wh_Candidats_Unité(U_9CelRow(U_Row(Cellule)))
           Case Else
+            TTT_Message = "?"
         End Select
       Case 72                                                        ' Coin en bas  à gauche
         Select Case Candidat
@@ -481,6 +483,7 @@ Public NotInheritable Class Frm_SDK
           Case 8, 9  ' Pour la Colonne  : Emplacement 8, 9
             TTT_Message = Wh_Candidats_Unité(U_9CelCol(U_Col(Cellule)))
           Case Else
+            TTT_Message = "?"
         End Select
       Case 80                                                        ' Coin en bas  à droite
         Select Case Candidat
@@ -489,17 +492,18 @@ Public NotInheritable Class Frm_SDK
           Case 3, 6 ' Pour la Ligne   : Emplacement 3, 6
             TTT_Message = Wh_Candidats_Unité(U_9CelRow(U_Row(Cellule)))
           Case Else
+            TTT_Message = "?"
         End Select
       Case Else
+        TTT_Message = "?"
     End Select
 
     Pénalités(Proc_Name_Get() & " " & U_Coord(Cellule) & "(" & Candidat & ") " & TTT_Message)
     Dim TTT_ToolTipText As String
-    If TTT_Message <> Cnddts_Blancs Then
-      TTT_ToolTipText = TTT_MEF_Cdd(TTT_Message)
-    Else
-      TTT_ToolTipText = "  M a l" & vbCrLf & "  P l a" & vbCrLf & "  c é ! "
-    End If
+    Select Case TTT_Message
+      Case "?" : TTT_ToolTipText = "  M a l" & vbCrLf & "  P l a" & vbCrLf & "  c é ! "
+      Case Else : TTT_ToolTipText = TTT_MEF_Cdd(TTT_Message)
+    End Select
     ' Créer une instance de CustomToolTip
     Dim TTT_Font As New Font("Courier New", 16, FontStyle.Italic)
     MouseClick_Middle_ToolTip = New CustomToolTip(TTT_ToolTipText, TTT_Font)

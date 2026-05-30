@@ -806,9 +806,6 @@
     Clr_VI = Prf06_Clr(4)
     Clr_Fnd_VCdd = Prf06_Clr(5)
     Clr_VCdd = Prf06_Clr(6)
-    '#758
-    'Brsh_Val.Dispose()
-    'Brsh_Val = New SolidBrush(Clr_VCdd)
 
     Color_Stratégique = Prf06_Clr(7)
     'Color_Cell_Select = Prf06_Clr(8)
@@ -831,6 +828,7 @@
          " G " & Prf06_Clr(i).G.ToString().PadLeft(3) &
          " B " & Prf06_Clr(i).B.ToString().PadLeft(3)})
     Next i
+    U_Clr_Change()
     OC_Présentation()
     Frm_SDK.Invalidate()
   End Sub

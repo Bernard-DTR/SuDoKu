@@ -16,6 +16,7 @@
     lbl.Font = font
     lbl.BackColor = If(isEmpty, Clr_Fnd_VI, Clr_Fnd_VCdd)
     lbl.ForeColor = If(isEmpty, Clr_VI, Clr_VCdd)
+    lbl.BorderStyle = BorderStyle.FixedSingle
     lbl.AutoSize = True
     lbl.Padding = New Padding(4)
 

@@ -294,7 +294,7 @@ Module G20_Général
     Act_Candidats = ""
     For i As Integer = 0 To 80 : Act_Candidats &= U(i, 3) : Next i
   End Function
-  Function TTT_MEF_Cdd(candidats As String) As String
+  Public Function TTT_MEF_Cdd(candidats As String) As String
     Dim sb As New System.Text.StringBuilder(32)
 
     For i As Integer = 0 To 8
