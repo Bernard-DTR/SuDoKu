@@ -482,7 +482,8 @@
 #799 J  28/05/2026 Modification du menu Graphe pour afficher les stratégies G et X
 #800 J  28/05/2026 le TTT est présenté vide si l'unité est remplie
 #801 S  30/05/2026 Le menu contextuel est mis à jour même si on reste dans la même cellule
-
+#802 L  01/06/2026 CalculDerniereValeurUnité() dans GameNewGame()
+ 
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie

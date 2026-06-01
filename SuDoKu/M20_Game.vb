@@ -33,6 +33,7 @@ Friend Module M20_Game
         End If
     End Select
     WH_U_nb()
+
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
     Animation_Numéro = 0
     Pbl_Cell_Select = 0
@@ -44,6 +45,7 @@ Friend Module M20_Game
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.Text = LP_Nom
     Cpt_Pénalités = 0
+    CalculDerniereValeurUnité()
     Build_Bmp_Fonds()
     Build_Bmp_valeur_saisie()
     Frm_SDK.Invalidate()
