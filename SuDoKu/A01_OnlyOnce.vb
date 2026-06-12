@@ -217,7 +217,7 @@ Friend Module A01_OnlyOnce
   End Sub
   Sub OO_330_Cell_FY_List_Build()
     ' Liste aléatoire des cellules suivant algorithme de Fisher-Yates, Knuth
-    ' Étape 1 : Créer la liste Cell_FY_Lis aléatoire des entiers de 0 à 80
+    ' Étape 1 : Créer la liste Cell_FY_List aléatoire des entiers de 0 à 80
     For i As Integer = 0 To 80
       Cell_FY_List.Add(i)
     Next
@@ -231,6 +231,23 @@ Friend Module A01_OnlyOnce
       Cell_FY_List(j) = temp
     Next
   End Sub
+  Sub OO_330_Cell_VI_FY_List_Build()
+    ' Liste aléatoire des cellules initiales suivant algorithme de Fisher-Yates, Knuth
+    ' Étape 1 : Créer la liste Cell_VI_FY_List aléatoire des entiers de 0 à 80
+    For i As Integer = 0 To 80
+      If U(i, 1) <> " " Then Cell_VI_FY_List.Add(i)
+    Next
+    ' Étape 2 : Mélanger la liste
+    ' - Le mélange est fait avec l’algorithme de Fisher-Yates, qui est efficace et équitable.
+    For i As Integer = Cell_VI_FY_List.Count - 1 To 1 Step -1
+      Dim j As Integer = Rdf.Next(i + 1)
+      ' Échanger les éléments i et j
+      Dim temp As Integer = Cell_VI_FY_List(i)
+      Cell_VI_FY_List(i) = Cell_VI_FY_List(j)
+      Cell_VI_FY_List(j) = temp
+    Next
+  End Sub
+
   Sub OO_400_Pzzl_Load_Txt()
     ' Chargement des parties du fichier GSP_Puzzle.txt dans Pzzl_List
     Dim Ligne As String()

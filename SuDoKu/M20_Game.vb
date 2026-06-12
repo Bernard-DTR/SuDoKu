@@ -33,6 +33,7 @@ Friend Module M20_Game
         End If
     End Select
     WH_U_nb()
+    OO_330_Cell_VI_FY_List_Build()
 
     Game_Nb_Cellules_Initiales = Wh_Nb_Cell(U).Initiales
     Animation_Numéro = 0
@@ -40,7 +41,7 @@ Friend Module M20_Game
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
     Mnu_Mngt_Barre_Outils_Filtres()
     Game_New_Game_DL_Solution(U)
-    Frm_SDK.B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    Frm_SDK.B_Famille.Text = Wh_Famille()
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Wh_Nb_Cell(U).Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
     Frm_SDK.Text = LP_Nom

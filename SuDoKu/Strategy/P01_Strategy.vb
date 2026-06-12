@@ -438,4 +438,9 @@ Friend Module P01_Strategy
     Next Stg
     Return New Stg_Cls(Code, "#", "#", "#", "#", -1, "#")
   End Function
+
+  Public Function Wh_Famille() As String
+    Dim Code As String = If(Plcy_Strg = "   ", "PdS", Plcy_Strg)
+    Return Code & "-" & Stg_Get(Plcy_Strg).Family.ToString()
+  End Function
 End Module

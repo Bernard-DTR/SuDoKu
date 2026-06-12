@@ -45,8 +45,9 @@
     If U_nb(Nb_idx.Remplies) = 81 Then
       Dim U_Chk(80, 3) As String
       Array.Copy(U, U_Chk, UNbCopy)
+
       Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
-      'Il est peu vraisemblble que la grille ne soit pas correcte !
+      'Il est peu vraisemblable que la grille ne soit pas correcte !
       If U_Check.Check AndAlso U_nb(Nb_idx.Initiales) < 81 Then
         Plcy_Strg = "   "
         Jrn_Add(, {"La grille est correcte."}, "Red")
@@ -55,6 +56,7 @@
         Animation_Numéro = 0
         Frm_SDK.Animation_Timer.Interval = 200 ' ms
         Frm_SDK.Animation_Timer.Start()
+        Animation_En_Cours = True
       End If
     End If
   End Sub

@@ -270,12 +270,12 @@ Public NotInheritable Class Frm_SDK
     Build_Bmp_Saisie()
   End Sub
   Private Sub Animation_Timer_Tick(sender As Object, e As EventArgs) Handles Animation_Timer.Tick
-    'L'utilisation de Cell_FY_List permet d'avoir une séquense hasardeuse et
-    'une arythmie puisque seules les VI sont animées.
-    Dim cellule As Integer = Cell_FY_List.Item(Animation_Numéro)
+    'L'utilisation de Cell_VIFY_List permet d'avoir une séquense hasardeuse des cellules VIt
+    Dim cellule As Integer = Cell_VI_FY_List.Item(Animation_Numéro)
     Animation_Numéro += 1
-    If Animation_Numéro >= 80 Then
+    If Animation_Numéro >= Cell_VI_FY_List.Count Then
       Animation_Timer.Stop()
+      Animation_En_Cours = False
       Invalidate()
       Exit Sub
     End If
@@ -291,6 +291,24 @@ Public NotInheritable Class Frm_SDK
     End If
     TTT_Timer.Stop()
   End Sub
+  Protected Overrides Sub OnMouseDown(e As MouseEventArgs)
+    If Animation_En_Cours Then Exit Sub
+    MyBase.OnMouseDown(e)
+  End Sub
+
+  Protected Overrides Sub OnMouseMove(e As MouseEventArgs)
+    If Animation_En_Cours Then Exit Sub
+    MyBase.OnMouseMove(e)
+  End Sub
+
+  Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+    If Animation_En_Cours Then
+      Return True   ' bloque TOUTE touche
+    End If
+    Return MyBase.ProcessCmdKey(msg, keyData)
+  End Function
+
+
   Private Sub Batch_Timer_Tick(sender As Object, e As EventArgs) Handles Batch_Timer.Tick
     If Mnu08.Image Is Nothing Then Exit Sub
     Select Case Batch_en_Cours
@@ -328,9 +346,7 @@ Public NotInheritable Class Frm_SDK
           Case "BR" : bmp = Bmp_Fond_Saisie_BR
           Case "SQ" : bmp = Bmp_Fond_Saisie_SQ
         End Select
-        If bmp IsNot Nothing Then
-          g.DrawImage(bmp, rct.X, rct.Y)
-        End If
+        g.DrawImage(bmp, rct.X, rct.Y)
       End If
     End If
 
@@ -343,6 +359,14 @@ Public NotInheritable Class Frm_SDK
       g.ResetClip()
     End If
   End Sub
+  Protected Overrides Sub OnFormClosing(e As FormClosingEventArgs)
+    If Animation_En_Cours Then
+      e.Cancel = True
+      Return
+    End If
+    MyBase.OnFormClosing(e)
+  End Sub
+
   Private Sub Frm_SDK_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
     'En plaçant à cet endroit l'enregistrement des LP_*, 
     'Ceux-ci sont enregistrés correctement pour les 12 ouvertures de jeux de SDK.
@@ -396,6 +420,8 @@ Public NotInheritable Class Frm_SDK
 
     ' Gestion de l'affichage de la grille de saisie
     If {0, 2}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then
+      'La grille de saisie est affichée UNIQUEMENT pour les stratégies de famille 0 et 2
+      '   et pour les cellules vides
       If Pbl_Cell_Select <> Cellule_MouseMove Then
         If Cellule_MouseMove >= 0 Then
           Invalidate(Sqr_Cel(Cellule_MouseMove))  ' Invalider l’ancienne cellule
@@ -1546,9 +1572,29 @@ Public NotInheritable Class Frm_SDK
           Cell_Cdd_Exclude(XCel.Cdd, XCel.Cel)
         Next XCel
     End Select
+    Jrn_Add(, {"Les candidats sont supprimés."})
+
+    Dim auMoinsUnCduAjoute As Boolean = False
+    Dim changement As Boolean
+    Do
+      changement = False
+      For i As Integer = 0 To 80
+        Dim candidats As String = U(i, 3).Trim()
+        If U(i, 2) = " " AndAlso candidats.Length = 1 Then
+          Cell_Val_Insert(candidats, i, "CdU_" & Plcy_Strg)
+          changement = True
+          auMoinsUnCduAjoute = True
+        End If
+      Next
+    Loop While changement
+    If auMoinsUnCduAjoute Then
+      Jrn_Add(, {"Les CdU sont ajoutés"})
+    End If
+
     Mnu0902.Enabled = False
     Strategy_Dsp_Standard()
-    Jrn_Add(, {"Les candidats sont supprimés"})
+    ClipBoard_Coller_RTF()
+    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
   End Sub
 
   Private Sub Mnu09_Exec(sender As Object, e As EventArgs) Handles Mnu0965_WgW.Click, Mnu0960_WgZ.Click, Mnu0955_WgY.Click, Mnu0950_WgX.Click, Mnu0945_XNl.Click, Mnu0940_XRp.Click, Mnu0935_XCy.Click, Mnu0930_GCx.Click, Mnu0925_GCs.Click, Mnu0920_Gbv.Click, Mnu0915_Gbl.Click, Mnu0910_GLk.Click
@@ -1558,8 +1604,6 @@ Public NotInheritable Class Frm_SDK
 
       Jrn_Add(, {Mnu_Name.Substring(8, 3)})
       Plcy_Strg = Mnu_Name.Substring(8, 3)
-
-
 
       Dim U_temp(80, 3) As String
       Array.Copy(U, U_temp, UNbCopy)
@@ -1583,9 +1627,6 @@ Public NotInheritable Class Frm_SDK
     End If
 
   End Sub
-
-
-
 
 #End Region
 End Class

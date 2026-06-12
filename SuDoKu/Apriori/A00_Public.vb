@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #802"
+  Public SDK_Version As String = "V2026_05 #807"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -21,6 +21,8 @@ Module A00_Public
   '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete()   
   Public Animation_Cellule As Integer
   Public Animation_Numéro As Integer = 0
+  Public Animation_En_Cours As Boolean = False
+
   Public Plcy_Only_Cdd_Eligible As Boolean = False
 #End Region
 
@@ -577,6 +579,7 @@ Module A00_Public
   Public RRslt As New RRslt_Struct
 
   ' Liste aléatoire des cellules suivant algorithme de Fisher-Yates, Knuth
-  Public Cell_FY_List As New List(Of Integer)
+  Public Cell_FY_List As New List(Of Integer)       ' les cellules de 0 à 80 dans un ordre aléatoire, réinitialisé à chaque nouveau jeu
+  Public Cell_VI_FY_List As New List(Of Integer)    ' les cellules initiales dans un ordre aléatoire, réinitialisé à chaque nouveau jeu
 #End Region
 End Module
