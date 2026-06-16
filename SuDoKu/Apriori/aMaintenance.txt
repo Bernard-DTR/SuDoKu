@@ -488,6 +488,7 @@
 #805 J  04/06/2026 Les CdU sont placés quand on supprime les candidats dans les stratégies G ou X
 #806 V  12/06/2026 Blocage de l'animation
 #807 V  12/06/2026 Mise en place de OO_330_Cell_VI_FY_List_Build qui utilise uniquement les VI
+#808 Ma 16/06/2026 Mise en place d'un automate pour les stratégies G et X
 
 ##############################################################################################################################
                    
@@ -502,3 +503,4 @@
                    Revoir si U_Sol est utilisé et quand ?  
                    Nettoyer les S95
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
+                   Remplacer les MsgBox (28) par MessageBox.Show

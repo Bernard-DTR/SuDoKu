@@ -176,10 +176,11 @@ Partial Class Frm_SDK
         Me.Mnu07n_WgZ = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu07n_WgW = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu09 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RésoudreToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.Mnu0901 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0902 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu09_Sep1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Mnu0910_GLk = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0915_Gbl = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0920_Gbv = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0925_GCs = New System.Windows.Forms.ToolStripMenuItem()
@@ -191,6 +192,8 @@ Partial Class Frm_SDK
         Me.Mnu0955_WgY = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0960_WgZ = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0965_WgW = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu0910_GLk = New System.Windows.Forms.ToolStripMenuItem()
         Me.BarreOutils = New System.Windows.Forms.ToolStrip()
         Me.Btn_Cdd = New System.Windows.Forms.ToolStripButton()
         Me.Btn_CdU = New System.Windows.Forms.ToolStripButton()
@@ -254,7 +257,6 @@ Partial Class Frm_SDK
         Me.Lister = New System.Windows.Forms.ToolStripMenuItem()
         Me.TTT_Timer = New System.Windows.Forms.Timer(Me.components)
         Me.Animation_Timer = New System.Windows.Forms.Timer(Me.components)
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.Mnu_Cel.SuspendLayout()
         Me.Mnu.SuspendLayout()
         Me.BarreOutils.SuspendLayout()
@@ -1279,11 +1281,23 @@ Partial Class Frm_SDK
         '
         'Mnu09
         '
-        Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW, Me.ToolStripSeparator3, Me.Mnu0910_GLk})
+        Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RésoudreToolStripMenuItem, Me.ToolStripSeparator4, Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW, Me.ToolStripSeparator3, Me.Mnu0910_GLk})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
         Me.Mnu09.Size = New System.Drawing.Size(75, 28)
         Me.Mnu09.Text = "Graphe"
+        '
+        'RésoudreToolStripMenuItem
+        '
+        Me.RésoudreToolStripMenuItem.Name = "RésoudreToolStripMenuItem"
+        Me.RésoudreToolStripMenuItem.Size = New System.Drawing.Size(386, 26)
+        Me.RésoudreToolStripMenuItem.Text = "Résoudre"
+        AddHandler Me.RésoudreToolStripMenuItem.Click, AddressOf Me.Mnu9000_Click
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(383, 6)
         '
         'Mnu0901
         '
@@ -1301,12 +1315,6 @@ Partial Class Frm_SDK
         '
         Me.Mnu09_Sep1.Name = "Mnu09_Sep1"
         Me.Mnu09_Sep1.Size = New System.Drawing.Size(383, 6)
-        '
-        'Mnu0910_GLk
-        '
-        Me.Mnu0910_GLk.Name = "Mnu0910_GLk"
-        Me.Mnu0910_GLk.Size = New System.Drawing.Size(386, 26)
-        Me.Mnu0910_GLk.Text = "#"
         '
         'Mnu0915_Gbl
         '
@@ -1373,6 +1381,17 @@ Partial Class Frm_SDK
         Me.Mnu0965_WgW.Name = "Mnu0965_WgW"
         Me.Mnu0965_WgW.Size = New System.Drawing.Size(386, 26)
         Me.Mnu0965_WgW.Text = "#"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(383, 6)
+        '
+        'Mnu0910_GLk
+        '
+        Me.Mnu0910_GLk.Name = "Mnu0910_GLk"
+        Me.Mnu0910_GLk.Size = New System.Drawing.Size(386, 26)
+        Me.Mnu0910_GLk.Text = "#"
         '
         'BarreOutils
         '
@@ -1833,11 +1852,6 @@ Partial Class Frm_SDK
         '
         AddHandler Me.TTT_Timer.Tick, AddressOf Me.TTT_Timer_Tick
         '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(383, 6)
-        '
         'Frm_SDK
         '
         Me.AllowDrop = True
@@ -2101,4 +2115,6 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu0965_WgW As ToolStripMenuItem
     Friend WithEvents Animation_Timer As Timer
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents RésoudreToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
 End Class

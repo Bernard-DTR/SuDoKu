@@ -286,9 +286,7 @@ Public NotInheritable Class Frm_SDK
   End Sub
 
   Private Sub TTT_Timer_Tick(sender As Object, e As EventArgs)
-    If MouseClick_Middle_ToolTip IsNot Nothing Then
-      MouseClick_Middle_ToolTip.Close()
-    End If
+    MouseClick_Middle_ToolTip?.Close()
     TTT_Timer.Stop()
   End Sub
   Protected Overrides Sub OnMouseDown(e As MouseEventArgs)
@@ -893,7 +891,9 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      'Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+
     End Try
   End Sub
   Private Sub Mnu06_SudokuAngusJohnson_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuAngusJohnson.Click
@@ -1524,77 +1524,17 @@ Public NotInheritable Class Frm_SDK
 #End Region
 
 #Region "Menu Graphe"
+
+  Private Sub Mnu9000_Click(sender As Object, e As EventArgs)
+    Stratégies_G_Automate()
+  End Sub
+
   Private Sub Mnu0901_Click(sender As Object, e As EventArgs) Handles Mnu0901.Click
-    Jrn_Add("SDK_Space")
-    Jrn_Add(, {Proc_Name_Get() & " Lancement des Stratégies G "})
-    Plcy_Strg = "   "
-    B_Info.Text = Proc_Name_Get()
-    Invalidate()
-    Application.DoEvents()
-    Dim U_temp(80, 3) As String
-
-    For i As Integer = 0 To Stg_List_Link.Count - 1
-      Plcy_Strg = Stg_List_Link(i)
-      Jrn_Add("SDK_Space")
-      Jrn_Add(, {"Strategie " & Plcy_Strg})
-      Array.Copy(U, U_temp, UNbCopy)
-
-      GRslt.Productivité = False
-      XRslt.Productivité = False
-
-      Select Case Plcy_Strg
-        Case "Gbl" : Strategy_Gbl(U_temp)
-        Case "Gbv" : Strategy_Gbv(U_temp)
-        Case "GCs" : Strategy_GCs(U_temp)
-        Case "GCx" : Strategy_GCx(U_temp)
-        Case "XCy" : Strategy_XCy(U_temp)
-        Case "XRp" : Strategy_XRp(U_temp)
-        Case "XNl" : Strategy_XNl(U_temp)
-        Case "WgX" : Strategy_WgX(U_temp)
-        Case "WgY" : Strategy_WgY(U_temp)
-        Case "WgZ" : Strategy_WgZ(U_temp)
-        Case "WgW" : Strategy_WgW(U_temp)
-      End Select
-      B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
-      If GRslt.Productivité Or XRslt.Productivité Then Exit For
-    Next i
-    If Pzzl_Slv_UO(U_temp) Then Jrn_Add(, {"La grille est désormais résolvable en CdU_CdO."}, "Red")
+    Stratégies_G_Execute()
   End Sub
   Private Sub Mnu0902_Click(sender As Object, e As EventArgs) Handles Mnu0902.Click
     ' Cette option permet de supprimer les candidats et rétablit l'affichage standard
-    Jrn_Add(, {Proc_Name_Get() & " Suppression des Candidats Exclus "})
-    Jrn_Add(, {"Stratégie en cours: " & Plcy_Strg})
-    Select Case Plcy_Strg
-      Case "Gbl", "Gbv", "GCs", "GCx"
-        Cell_Cdd_Exclude_GRslt()
-      Case "XCy", "XRp", "XNl", "WgX", "WgY", "WgZ", "WgW"
-        For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
-          Cell_Cdd_Exclude(XCel.Cdd, XCel.Cel)
-        Next XCel
-    End Select
-    Jrn_Add(, {"Les candidats sont supprimés."})
-
-    Dim auMoinsUnCduAjoute As Boolean = False
-    Dim changement As Boolean
-    Do
-      changement = False
-      For i As Integer = 0 To 80
-        Dim candidats As String = U(i, 3).Trim()
-        If U(i, 2) = " " AndAlso candidats.Length = 1 Then
-          Cell_Val_Insert(candidats, i, "CdU_" & Plcy_Strg)
-          changement = True
-          auMoinsUnCduAjoute = True
-        End If
-      Next
-    Loop While changement
-    If auMoinsUnCduAjoute Then
-      Jrn_Add(, {"Les CdU sont ajoutés"})
-    End If
-
-    Mnu0902.Enabled = False
-    Strategy_Dsp_Standard()
-    ClipBoard_Coller_RTF()
-    B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+    Stratégies_G_Candidats_Delete()
   End Sub
 
   Private Sub Mnu09_Exec(sender As Object, e As EventArgs) Handles Mnu0965_WgW.Click, Mnu0960_WgZ.Click, Mnu0955_WgY.Click, Mnu0950_WgX.Click, Mnu0945_XNl.Click, Mnu0940_XRp.Click, Mnu0935_XCy.Click, Mnu0930_GCx.Click, Mnu0925_GCs.Click, Mnu0920_Gbv.Click, Mnu0915_Gbl.Click, Mnu0910_GLk.Click

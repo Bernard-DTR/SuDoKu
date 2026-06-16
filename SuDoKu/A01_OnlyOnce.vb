@@ -218,6 +218,7 @@ Friend Module A01_OnlyOnce
   Sub OO_330_Cell_FY_List_Build()
     ' Liste aléatoire des cellules suivant algorithme de Fisher-Yates, Knuth
     ' Étape 1 : Créer la liste Cell_FY_List aléatoire des entiers de 0 à 80
+    Cell_FY_List.Clear()
     For i As Integer = 0 To 80
       Cell_FY_List.Add(i)
     Next
@@ -234,6 +235,7 @@ Friend Module A01_OnlyOnce
   Sub OO_330_Cell_VI_FY_List_Build()
     ' Liste aléatoire des cellules initiales suivant algorithme de Fisher-Yates, Knuth
     ' Étape 1 : Créer la liste Cell_VI_FY_List aléatoire des entiers de 0 à 80
+    Cell_VI_FY_List.Clear()
     For i As Integer = 0 To 80
       If U(i, 1) <> " " Then Cell_VI_FY_List.Add(i)
     Next

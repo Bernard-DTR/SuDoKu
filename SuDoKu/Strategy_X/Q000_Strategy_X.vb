@@ -401,6 +401,113 @@ Friend Module Q000_Strategy_X
 
 
 #End Region
+  Public Sub Stratégies_G_Execute()
+    Jrn_Add("SDK_Space")
+    Jrn_Add(, {Proc_Name_Get() & " Lancement des Stratégies G "})
+    Plcy_Strg = "   "
+    Frm_SDK.B_Info.Text = Proc_Name_Get()
+    Frm_SDK.Invalidate()
+    Application.DoEvents()
+    Dim U_temp(80, 3) As String
+
+    For i As Integer = 0 To Stg_List_Link.Count - 1
+      Plcy_Strg = Stg_List_Link(i)
+      Jrn_Add("SDK_Space")
+      Jrn_Add(, {"Strategie " & Plcy_Strg})
+      Array.Copy(U, U_temp, UNbCopy)
+
+      GRslt.Productivité = False
+      XRslt.Productivité = False
+
+      Select Case Plcy_Strg
+        Case "Gbl" : Strategy_Gbl(U_temp)
+        Case "Gbv" : Strategy_Gbv(U_temp)
+        Case "GCs" : Strategy_GCs(U_temp)
+        Case "GCx" : Strategy_GCx(U_temp)
+        Case "XCy" : Strategy_XCy(U_temp)
+        Case "XRp" : Strategy_XRp(U_temp)
+        Case "XNl" : Strategy_XNl(U_temp)
+        Case "WgX" : Strategy_WgX(U_temp)
+        Case "WgY" : Strategy_WgY(U_temp)
+        Case "WgZ" : Strategy_WgZ(U_temp)
+        Case "WgW" : Strategy_WgW(U_temp)
+      End Select
+      Frm_SDK.B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+      If GRslt.Productivité Or XRslt.Productivité Then Exit For
+    Next i
+    If Pzzl_Slv_UO(U_temp) Then Jrn_Add(, {"La grille est désormais résolvable en CdU_CdO."}, "Red")
+
+  End Sub
+  Public Sub Stratégies_G_Candidats_Delete()
+    Jrn_Add(, {Proc_Name_Get() & " Suppression des Candidats Exclus "})
+    Jrn_Add(, {"Stratégie en cours: " & Plcy_Strg})
+    ClipBoard_Coller_RTF()
+    Select Case Plcy_Strg
+      Case "Gbl", "Gbv", "GCs", "GCx"
+        Cell_Cdd_Exclude_GRslt()
+      Case "XCy", "XRp", "XNl", "WgX", "WgY", "WgZ", "WgW"
+        For Each XCel As XCel_Excl_Cls In XRslt.CelExcl
+          Cell_Cdd_Exclude(XCel.Cdd, XCel.Cel)
+        Next XCel
+    End Select
+    Jrn_Add(, {"Les candidats sont supprimés."})
+
+    Dim auMoinsUnCduAjoute As Boolean = False
+    Dim changement As Boolean
+    Do
+      changement = False
+      For i As Integer = 0 To 80
+        Dim candidats As String = U(i, 3).Trim()
+        If U(i, 2) = " " AndAlso candidats.Length = 1 Then
+          Cell_Val_Insert(candidats, i, "CdU_" & Plcy_Strg)
+          changement = True
+          auMoinsUnCduAjoute = True
+        End If
+      Next
+    Loop While changement
+    If auMoinsUnCduAjoute Then
+      Jrn_Add(, {"Les CdU sont ajoutés"})
+    End If
+
+    Frm_SDK.Mnu0902.Enabled = False
+    Strategy_Dsp_Standard()
+    Frm_SDK.B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+
+  End Sub
+
+  Public Sub Stratégies_G_Automate()
+Stratégies_G_Automate_Start:
+    Stratégies_G_Execute()
+
+    If GRslt.Productivité Or XRslt.Productivité Then
+      Dim Titre As String = "Résolution Strategie G"
+      Dim Texte As String = "Stratégie productive ! " & vbCrLf
+
+      Select Case Plcy_Strg
+        Case "Gbl", "Gbv", "GCs", "GCx"
+          If GRslt.Productivité Then
+            Texte &= "mettre à jour " & GRslt.CelExcl_hs.Count & " Candidat(s) " & vbCrLf
+          End If
+        Case "XCy", "XRp", "XNl", "WgX", "WgY", "WgZ", "WgW"
+          If XRslt.Productivité Then
+            Texte &= "mettre à jour " & XRslt.CelExcl.Count & " Candidat(s) " & vbCrLf
+          End If
+      End Select
+      Texte &= Stg_Get(Plcy_Strg).Texte & vbCrLf
+      Texte &= "et poursuivre."
+      Dim rep As DialogResult = MessageBox.Show(Texte, Titre,
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question)
+      If rep = DialogResult.No Then Exit Sub
+
+      Stratégies_G_Candidats_Delete()
+
+      If U_nb(Nb_idx.Remplies) < 81 Then
+        GoTo Stratégies_G_Automate_Start
+      End If
+
+    End If
+  End Sub
 
   Public Sub Stratégies_G_End()
     ' Traitement commun aux stratégies G
