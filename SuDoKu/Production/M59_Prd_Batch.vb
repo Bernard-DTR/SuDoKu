@@ -17,12 +17,13 @@ Friend Module M59_Prd_Batch
 
     If ProcessStarted("devenv") Then
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
-      Dim reponse As MsgBoxResult
-      reponse = MsgBox("Vous êtes en maintenance d'application " & vbCrLf &
-                   "devenv est démarré " & vbCrLf &
-                   "Souhaitez-vous lancer la génération de grilles en arrière-plan ?",
-                   MsgBoxStyle.YesNoCancel, MsgTit)
-      If reponse = vbNo Or reponse = vbCancel Then Exit Sub
+      Dim reponse As DialogResult
+      reponse = MessageBox.Show("Vous êtes en maintenance d'application " & vbCrLf &
+                                "devenv est démarré " & vbCrLf &
+                                "Souhaitez-vous lancer la génération de grilles en arrière-plan ?",
+                                MsgTit,
+                                MessageBoxButtons.YesNoCancel)
+      If reponse = DialogResult.No Or reponse = DialogResult.Cancel Then Exit Sub
     End If
 
     Batch_Thread = New Thread(AddressOf Batch_Sudoku) _
@@ -97,7 +98,7 @@ Friend Module M59_Prd_Batch
     Catch ex As Exception
       '28/05/2024 le message permet de comprendre l'arrêt anormal du traitement
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
-      MsgBox(ex.ToString(),, MsgTit)
+      MessageBox.Show(ex.ToString(), MsgTit)
     End Try
 
     Batch_en_Cours = False

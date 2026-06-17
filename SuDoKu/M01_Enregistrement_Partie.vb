@@ -115,7 +115,7 @@ Module M01_Enregistrement_Partie
       ' Une erreur se produit lors de la création du fichier
       '28/05/2024 le message permet de comprendre l'arrêt anormal du traitement
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
-      MsgBox(ex.ToString(),, MsgTit)
+      MessageBox.Show(ex.ToString(), MsgTit)
     End Try
     Return File_Save_Name
   End Function

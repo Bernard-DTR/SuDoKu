@@ -228,7 +228,7 @@ Public Class Frm_Dictionnaire
       BDS.DataSource = Table
     Catch ex As SqlException
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
-      Nsd_i = MsgBox("Chaîne de connection incorrecte" & vbCrLf & SQL_Connect & vbCrLf & Cmd_Select,, MsgTit)
+      Nsd_i = MessageBox.Show("Chaîne de connection incorrecte" & vbCrLf & SQL_Connect & vbCrLf & Cmd_Select, MsgTit)
     End Try
   End Sub
   Private Sub DGV_Dictionnaire_ColumnWidthChanged(sender As Object, e As DataGridViewColumnEventArgs) Handles DGV_Dictionnaire.ColumnWidthChanged

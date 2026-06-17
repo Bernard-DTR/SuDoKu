@@ -68,11 +68,11 @@ Friend Module M20_Game
       Dim DL As DL_Solve_Struct = A_Copyright.DL_Solve(U)
       Select Case DL.Nb_Solution
         Case -1, 0
-          Nsd_i = MsgBox("Dancing Link : " & DL.DLCode & "  Solution Impossible à calculer pour DL !",, MsgTit)
+          Nsd_i = MessageBox.Show("Dancing Link : " & DL.DLCode & "  Solution Impossible à calculer pour DL !", MsgTit)
         Case 1
           XSolution = DL.Solution(0)
         Case Else
-          Nsd_i = MsgBox("Dancing Link : " & DL.DLCode & "  Solutions multiples.",, MsgTit)
+          Nsd_i = MessageBox.Show("Dancing Link : " & DL.DLCode & "  Solutions multiples.", MsgTit)
       End Select
       Return DL.Nb_Solution
     End If

@@ -400,7 +400,7 @@ Module G20_Général
   Public Sub Processing_Start(File As String)
     Try
       If Not System.IO.File.Exists(File) Then      ' Vérifie si le fichier existe
-        MsgBox("Le fichier suivant n'existe pas : " & vbCrLf & File)
+        MessageBox.Show("Le fichier suivant n'existe pas : " & vbCrLf & File)
         Exit Sub
       End If
 
@@ -410,7 +410,7 @@ Module G20_Général
         Processing.Start()
       End Using
     Catch ex As Exception
-      MsgBox("L'application ci-dessous doit être installée." & vbCrLf & File)
+      MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & File)
     End Try
   End Sub
   Public Function Subst_Police(Source As String) As String

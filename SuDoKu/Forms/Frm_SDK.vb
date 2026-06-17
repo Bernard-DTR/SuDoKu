@@ -392,8 +392,10 @@ Public NotInheritable Class Frm_SDK
 
       ' Attendre la fin du thread
       Invalidate()
-      MsgBox("SuDoKu est en train de calculer des grilles " & vbCrLf & "Merci de patienter ! ",
-      MsgBoxStyle.Information, "SuDoKu")
+      MessageBox.Show("SuDoKu est en train de calculer des grilles " & vbCrLf & "Merci de patienter ! ",
+                      "SuDoKu",
+                      MessageBoxButtons.OK,
+                      MessageBoxIcon.Information)
       Batch_Thread.Join()
 
       ' Restaurer l'état de l'interface
@@ -891,7 +893,6 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      'Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
       Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
 
     End Try
@@ -902,7 +903,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
   Private Sub Mnu06_SudokuDarrenColes_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuDarrenColes.Click
@@ -911,7 +912,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
   Private Sub Mnu06_SudokuPatriceHenrion_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuPatriceHenrion.Click
@@ -921,7 +922,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
   Private Sub Mnu06_SudokuNKH_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuNKH.Click
@@ -938,7 +939,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
       Jrn_Add(, {ex.Message})
       Jrn_Add(, {ex.ToString()})
     End Try
@@ -957,7 +958,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
     Thread.Sleep(500) ' Attendre que la fenêtre soit prête
     ' Récupération du processus
@@ -983,7 +984,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
 
@@ -1007,7 +1008,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
   Private Sub Mnu06_CB_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Mnu06_CB.SelectedIndexChanged
@@ -1030,7 +1031,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
   Private Sub Mnu06_SudokuSolver_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuSolver.Click
@@ -1039,7 +1040,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
   Private Sub Mnu06_MicrosoftSudoku_Click(sender As Object, e As EventArgs) Handles Mnu06_MicrosoftSudoku.Click
@@ -1048,7 +1049,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
   Private Sub Mnu06_HHSudokuGame_Click(sender As Object, e As EventArgs) Handles Mnu06_HHSudokuGame.Click
@@ -1057,7 +1058,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
   '--------------07---------------------------------------------------------------
@@ -1138,7 +1139,8 @@ Public NotInheritable Class Frm_SDK
       Next File
     Else
       Dim MsgTit As String = Proc_Name_Get() & " " & Difficulté & " " & Application.ProductName & " " & SDK_Version
-      Nsd_i = MsgBox("Il n'a pas été trouvé de parties à jouer.",, MsgTit)
+      Nsd_i = MessageBox.Show("Il n'a pas été trouvé de parties à jouer.", MsgTit)
+
     End If
   End Sub
   Private Sub Mnu08_JouerAutrement_Click(sender As Object, e As EventArgs) Handles Mnu08_JouerAutrement.Click
@@ -1447,7 +1449,7 @@ Public NotInheritable Class Frm_SDK
     Try
       Nsd_P = Diagnostics.Process.Start(e.LinkText)
     Catch ex As Exception
-      MsgBox("Url inconnue.")
+      MessageBox.Show("Url inconnue.")
     End Try
   End Sub
   Private Sub Journal_Click(sender As Object, e As EventArgs)

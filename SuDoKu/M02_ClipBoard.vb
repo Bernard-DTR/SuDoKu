@@ -36,7 +36,7 @@ Friend Module M02_ClipBoard
       Game_New_Game(Gnrl:="Nrm", "   ", Nom:=Proc_Name_Get(), Prb:=Prb, Jeu:=Prb, Sol:=StrDup(81, " "), Cdd729:=StrDup(729, " "), Frc:="5", Proc_Name_Get())
     Catch Ex As Exception
       Dim Msg As String = "Le ClipBoard Coller n'est pas exploitable." & vbCrLf & Ex.ToString() & vbCrLf & Len(Ex.ToString())
-      Nsd_i = MsgBox(Msg & vbCrLf & Prb,, Proc_Name_Get())
+      Nsd_i = MessageBox.Show(Msg & vbCrLf & Prb, Proc_Name_Get())
       Exit Sub
     End Try
   End Sub
@@ -88,7 +88,7 @@ Friend Module M02_ClipBoard
       Jrn_Add("SDK_Space")
     Catch ex As System.Runtime.InteropServices.ExternalException
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
-      Nsd_i = MsgBox("Presse-Papier inaccessible. Please try again.",, MsgTit)
+      Nsd_i = MessageBox.Show("Presse-Papier inaccessible. Please try again.", MsgTit)
     End Try
   End Sub
 

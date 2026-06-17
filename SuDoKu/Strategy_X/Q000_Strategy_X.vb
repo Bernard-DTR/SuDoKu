@@ -481,20 +481,21 @@ Stratégies_G_Automate_Start:
 
     If GRslt.Productivité Or XRslt.Productivité Then
       Dim Titre As String = "Résolution Strategie G"
-      Dim Texte As String = "Stratégie productive ! " & vbCrLf
+      Dim Texte As String = "Stratégie productive ! " & vbCrLf & vbCrLf
+      Texte &= Stg_Get(Plcy_Strg).Texte & vbCrLf
 
       Select Case Plcy_Strg
         Case "Gbl", "Gbv", "GCs", "GCx"
           If GRslt.Productivité Then
-            Texte &= "mettre à jour " & GRslt.CelExcl_hs.Count & " Candidat(s) " & vbCrLf
+            Texte &= "Mettre à jour " & GRslt.CelExcl_hs.Count & " Candidat(s) " & vbCrLf
           End If
         Case "XCy", "XRp", "XNl", "WgX", "WgY", "WgZ", "WgW"
           If XRslt.Productivité Then
-            Texte &= "mettre à jour " & XRslt.CelExcl.Count & " Candidat(s) " & vbCrLf
+            Texte &= "Mettre à jour " & XRslt.CelExcl.Count & " Candidat(s) " & vbCrLf
           End If
       End Select
-      Texte &= Stg_Get(Plcy_Strg).Texte & vbCrLf
-      Texte &= "et poursuivre."
+      Texte &= "Placer les CdU, " & vbCrLf
+      Texte &= "Et poursuivre ..."
       Dim rep As DialogResult = MessageBox.Show(Texte, Titre,
                                 MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Question)

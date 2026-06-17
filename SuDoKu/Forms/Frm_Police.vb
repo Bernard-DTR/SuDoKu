@@ -89,7 +89,7 @@ Public Class Frm_Police
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
-      Nsd_i = MsgBox("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
+      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
 

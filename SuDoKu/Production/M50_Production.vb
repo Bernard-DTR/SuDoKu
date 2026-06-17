@@ -889,7 +889,7 @@ Pzzl_Prd_End:
         Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
         Dim MsgTxt As String = "Le Puzzle n'est pas résolu par SDK ! Abandon "
         Jrn_Add(, {"Résolution                   : " & MsgTxt}, "Orange")
-        Nsd_i = MsgBox(MsgTxt,, MsgTit)
+        Nsd_i = MessageBox.Show(MsgTxt, MsgTit)
         Exit Sub
       End If
 
@@ -1468,7 +1468,7 @@ Pzzl_Prd_Batch_End:
       Dim File As String = Pzzl_Rcd(Prd)
     Catch ex As Exception
       Dim MsgTit As String = Proc_Name_Get() & " " & Application.ProductName & " " & SDK_Version
-      MsgBox(ex.ToString(),, MsgTit)
+      MessageBox.Show(ex.ToString(), MsgTit)
     End Try
 Pzzl_Prd_Batch_Exit:
   End Sub
