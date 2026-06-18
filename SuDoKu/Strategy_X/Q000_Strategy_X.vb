@@ -487,15 +487,15 @@ Stratégies_G_Automate_Start:
       Select Case Plcy_Strg
         Case "Gbl", "Gbv", "GCs", "GCx"
           If GRslt.Productivité Then
-            Texte &= "Mettre à jour " & GRslt.CelExcl_hs.Count & " Candidat(s) " & vbCrLf
+            Texte &= "Exclure " & GRslt.CelExcl_hs.Count & " Candidat(s) " & vbCrLf
           End If
         Case "XCy", "XRp", "XNl", "WgX", "WgY", "WgZ", "WgW"
           If XRslt.Productivité Then
-            Texte &= "Mettre à jour " & XRslt.CelExcl.Count & " Candidat(s) " & vbCrLf
+            Texte &= "Exclure " & XRslt.CelExcl.Count & " Candidat(s) " & vbCrLf
           End If
       End Select
       Texte &= "Placer les CdU, " & vbCrLf
-      Texte &= "Et poursuivre ..."
+      Texte &= "... et poursuivre. "
       Dim rep As DialogResult = MessageBox.Show(Texte, Titre,
                                 MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Question)

@@ -176,7 +176,7 @@ Partial Class Frm_SDK
         Me.Mnu07n_WgZ = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu07n_WgW = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu09 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RésoudreToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu0900 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.Mnu0901 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0902 = New System.Windows.Forms.ToolStripMenuItem()
@@ -1281,18 +1281,18 @@ Partial Class Frm_SDK
         '
         'Mnu09
         '
-        Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RésoudreToolStripMenuItem, Me.ToolStripSeparator4, Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW, Me.ToolStripSeparator3, Me.Mnu0910_GLk})
+        Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0900, Me.ToolStripSeparator4, Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW, Me.ToolStripSeparator3, Me.Mnu0910_GLk})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
         Me.Mnu09.Size = New System.Drawing.Size(75, 28)
         Me.Mnu09.Text = "Graphe"
         '
-        'RésoudreToolStripMenuItem
+        'Mnu0900
         '
-        Me.RésoudreToolStripMenuItem.Name = "RésoudreToolStripMenuItem"
-        Me.RésoudreToolStripMenuItem.Size = New System.Drawing.Size(386, 26)
-        Me.RésoudreToolStripMenuItem.Text = "Résoudre"
-        AddHandler Me.RésoudreToolStripMenuItem.Click, AddressOf Me.Mnu9000_Click
+        Me.Mnu0900.Name = "Mnu0900"
+        Me.Mnu0900.Size = New System.Drawing.Size(386, 26)
+        Me.Mnu0900.Text = "Résoudre"
+        AddHandler Me.Mnu0900.Click, AddressOf Me.Mnu9000_Click
         '
         'ToolStripSeparator4
         '
@@ -2115,6 +2115,6 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu0965_WgW As ToolStripMenuItem
     Friend WithEvents Animation_Timer As Timer
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
-    Friend WithEvents RésoudreToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Mnu0900 As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
 End Class
