@@ -106,7 +106,7 @@ Friend Module Q040_Strategy_XY_Chain
           If U_temp(Road_CelFin, 3).Contains(Cdd_Y) Then                ' Test 2
             If U_temp(Road_CelDéb, 3) <> U_temp(Road_CelFin, 3) Then    ' Test 3
               If CddB <> Cdd_Y Then                                     ' Test 4 
-                If Candidats_Exclure_XCx_XCy(U_temp, Cdd_Y, Road_CelDéb, Road_CelFin) > 0 Then
+                If Candidats_Exclure_XCy(U_temp, Cdd_Y, Road_CelDéb, Road_CelFin) > 0 Then
                   XRslt.Candidat(0) = CStr(Cdd_Y)
                   XRslt.XRoads_Numéro = Road_Numéro
                   XRslt.XLinks_Nombre = Road.Count
@@ -122,6 +122,17 @@ Friend Module Q040_Strategy_XY_Chain
 
     Stratégies_G_End()
   End Sub
+
+  Public Function Candidats_Exclure_XCy(U_temp(,) As String, Candidat As String, Road_CelDéb As Integer, Road_CelFin As Integer) As Integer
+    For i As Integer = 0 To 80
+      If Not U_temp(i, 3).Contains(Candidat) Then Continue For
+      If i = Road_CelDéb Or i = Road_CelFin Then Continue For
+      If Is_Vu(i, Road_CelDéb) AndAlso Is_Vu(i, Road_CelFin) Then
+        XRslt.CelExcl.Add(New XCel_Excl_Cls With {.Cel = i, .Cdd = Candidat, .Exc = {Road_CelDéb, Road_CelFin}})
+      End If
+    Next i
+    Return XRslt.CelExcl.Count
+  End Function
 
   Public Sub XLinks_List_Generate_XCy()
     'Il s'agit de 2 boucles permettant i vers j et j vers i

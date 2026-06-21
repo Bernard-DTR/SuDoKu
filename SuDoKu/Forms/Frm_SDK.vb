@@ -1098,6 +1098,7 @@ Public NotInheritable Class Frm_SDK
     'Extension / Jouer un Sudoku FMDE
     Dim s, l As Integer
     ' Classique "shuffle LINQ" (mélange)
+
     Dim rnd As New Random()
     Dim Files As IEnumerable(Of String) =
         IO.Directory.GetFiles(Path_Batch).Where(Function(f) f.Contains("SDK_" & Difficulté)).OrderBy(Function(f) rnd.Next())

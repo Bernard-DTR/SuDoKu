@@ -492,17 +492,17 @@
 #809 Me 17/06/2026 MessageBox.Show remplacer les MsgBox (28) 
 #810 J  18/06/2026 Correction du bogue du formulaire Frm_SDK 
 #811 D  21/06/2026 Strategy Automate calcule désormais les CdU et les CdO
+#812 D  21/06/2026 Suppression et répartition des fonction de l'ancienne stratéie X_Chain
 
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
-????               Stratégie sans aucun controle Noc
+????               Stratégie sans aucun controle NoC ou G&C
 ????               voir dans les formes primaires à quoi sert de mettre le valeurs ou les candidats
 ????               Revoir les couches la couche stratégique doit être l'avant dernière, la saisie la dernière
                    Voir la programmation Undo-Redo
                    Revoir si U_Sol est utilisé et quand ?  
                    Nettoyer les S95
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
-                   Dans Résoudre Stratégie G, Ajouter les CdO ?

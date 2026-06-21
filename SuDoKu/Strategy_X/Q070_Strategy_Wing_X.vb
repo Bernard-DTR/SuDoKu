@@ -34,8 +34,8 @@ Friend Module Q070_Strategy_Wing_X
 
       ' 20 Création des Liens Forts, il faut seulement 2 candidats par unité pour faire un lien fort
       XLinks_List.Clear()
-      XLinks_List_Generate_XCs_XCx_XNl(U_temp, XCdd.Cdd, "Row", U_9CelRow) ' Analyse des rangées
-      XLinks_List_Generate_XCs_XCx_XNl(U_temp, XCdd.Cdd, "Col", U_9CelCol) ' Analyse des colonnes
+      XLinks_List_Generate_XNl(U_temp, XCdd.Cdd, "Row", U_9CelRow) ' Analyse des rangées
+      XLinks_List_Generate_XNl(U_temp, XCdd.Cdd, "Col", U_9CelCol) ' Analyse des colonnes
       'Links_List_Generate_XCs_XCx_XNl(U_temp, XCdd.Cdd, "Reg", U_9CelReg) ' l'Analyse des régions n'est pas concernée par cette stratégie
       If Xap Then XLinks_List_Display("1")
 

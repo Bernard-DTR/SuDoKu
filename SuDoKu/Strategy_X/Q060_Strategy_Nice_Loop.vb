@@ -43,14 +43,14 @@ Friend Module Q060_Strategy_Nice_Loop
 
       ' 20 Création des Liens Forts, il faut seulement 2 candidats par unité pour faire un lien fort
       XLinks_List.Clear()
-      XLinks_List_Generate_XCs_XCx_XNl(U_temp, XCdd.Cdd, "Row", U_9CelRow) ' Analyse des rangées
-      XLinks_List_Generate_XCs_XCx_XNl(U_temp, XCdd.Cdd, "Col", U_9CelCol) ' Analyse des colonnes
-      XLinks_List_Generate_XCs_XCx_XNl(U_temp, XCdd.Cdd, "Reg", U_9CelReg) ' Analyse des régions
+      XLinks_List_Generate_XNl(U_temp, XCdd.Cdd, "Row", U_9CelRow) ' Analyse des rangées
+      XLinks_List_Generate_XNl(U_temp, XCdd.Cdd, "Col", U_9CelCol) ' Analyse des colonnes
+      XLinks_List_Generate_XNl(U_temp, XCdd.Cdd, "Reg", U_9CelReg) ' Analyse des régions
       If Xap Then XLinks_List_Display("1")
 
       ' 30 Construction des chemins
       XAllRoads_List.Clear()
-      XRoads_Inventory_XCs_XCx_XNl(XLinks_List, New List(Of XLink_Cls)(), XAllRoads_List)
+      XRoads_Inventory_XNl(XLinks_List, New List(Of XLink_Cls)(), XAllRoads_List)
       'If Xap Then Jrn_Add(, {CStr(XAllRoads_List.Count) & " XAllRoads_List.Count"})
       XRslt.XRoads_Nombre = XAllRoads_List.Count
 
@@ -60,6 +60,83 @@ Friend Module Q060_Strategy_Nice_Loop
     Next XCdd
 
     Stratégies_G_End()
+  End Sub
+  Public Sub XLinks_List_Generate_XNl(U_temp(,) As String, Ccd As String, Code_LCR As String, GrpArray()() As Integer)
+    ' On recherche dans chaque rangée, colonne, région les unités comportant seulement 2 candidats (Liens Forts)
+    ' Contrairement à Remote Pairs, les liens sont établis uniquement dans un sens
+    For Lcr As Integer = 0 To 8
+      Dim Grp() As Integer = GrpArray(Lcr)
+      Dim Cel1 As Integer = -1, Cel2 As Integer = -1
+      Dim n As Integer = 0
+      ' Combien de candidats comporte l'unité ?
+      For Each Cel As Integer In Grp
+        If U_temp(Cel, 3).Contains(CStr(Ccd)) Then      ' Rechercher les cellules contenant le candidat
+          n += 1
+          If n = 1 Then Cel1 = Cel
+          If n = 2 Then Cel2 = Cel
+        End If
+      Next Cel
+      ' L'unité ne doit contenir que 2 candidats pour qu'un lien fort soit ajouté
+      If n = 2 Then
+        Select Case Code_LCR
+          Case "Row"
+            XLinks_List.Add(New XLink_Cls With {.Cel = New Integer() {Cel1, Cel2},
+                                              .Cdd = New String() {Ccd, "0", Ccd, "0", Ccd},
+                                              .Type = "S",
+                                              .Unité = "Row" & U_Row(Cel1) + 1})
+          Case "Col"
+            XLinks_List.Add(New XLink_Cls With {.Cel = New Integer() {Cel1, Cel2},
+                                              .Cdd = New String() {Ccd, "0", Ccd, "0", Ccd},
+                                              .Type = "S",
+                                              .Unité = "Col" & U_Col(Cel1) + 1})
+          Case "Reg"
+            ' il ne faut pas que les 2 cellules soient dans la même ligne / Colonne
+            ' l'analyse des lignes/colonne a déjà été faite auparavant
+            If U_Row(Cel1) <> U_Row(Cel2) And U_Col(Cel1) <> U_Col(Cel2) Then
+              XLinks_List.Add(New XLink_Cls With {.Cel = New Integer() {Cel1, Cel2},
+                                                .Cdd = New String() {Ccd, "0", Ccd, "0", Ccd},
+                                                .Type = "S",
+                                                .Unité = "Reg" & U_Reg(Cel1) + 1})
+            End If
+        End Select
+      End If
+    Next Lcr
+  End Sub
+
+  Public Sub XRoads_Inventory_XNl(XRoad As List(Of XLink_Cls),
+                                          Road As List(Of XLink_Cls),
+                                          XAllRoads_List As List(Of List(Of XLink_Cls)))
+    ' La procédure établit TOUS les Chemins possibles à/partir des Liens trouvés
+    ' Le nombre de liens peut être important, il est donc limité à XRoads_Max
+    If XAllRoads_List.Count >= XRoads_Max Then Exit Sub
+
+    ' Si tous les Lnks sont utilisés
+    If XRoad.Count = 0 Then
+      Dim CompletedRoad As List(Of XLink_Cls)
+      CompletedRoad = New List(Of XLink_Cls)(Road)
+      XAllRoads_List.Add(CompletedRoad) 'Ajout du chemin dans la liste des chemins
+      Return
+    End If
+
+    Dim i As Integer, Link As XLink_Cls
+
+    ' Parcourir chaque Link
+    For i = 0 To XRoad.Count - 1
+
+      Link = XRoad(i)
+      ' Direction Item1 -> Item2
+      Road.Add(Link)
+      Dim RestantRoad As List(Of XLink_Cls) = XRoad.Where(Function(t, index) index <> i).ToList()
+      If XAllRoads_List.Count < XRoads_Max Then XRoads_Inventory_XNl(RestantRoad, Road, XAllRoads_List)
+      Road.RemoveAt(Road.Count - 1)
+      ' Direction Item2 -> Item1 
+      Road.Add(New XLink_Cls With {.Cel = New Integer() {Link.Cel(1), Link.Cel(0)},
+                                   .Cdd = New String() {Link.Cdd(2), Link.Cdd(3), Link.Cdd(0), Link.Cdd(1), Link.Cdd(4)},
+                                   .Type = "S",
+                                   .Unité = Link.Unité})
+      If XAllRoads_List.Count < XRoads_Max Then XRoads_Inventory_XNl(RestantRoad, Road, XAllRoads_List)
+      Road.RemoveAt(Road.Count - 1)
+    Next i
   End Sub
 
   Public Function XRoads_Vérification_XNl(XAllRoads_List As List(Of List(Of XLink_Cls))) As Boolean
