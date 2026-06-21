@@ -491,6 +491,7 @@
 #808 Ma 16/06/2026 Mise en place d'un automate pour les stratégies G et X
 #809 Me 17/06/2026 MessageBox.Show remplacer les MsgBox (28) 
 #810 J  18/06/2026 Correction du bogue du formulaire Frm_SDK 
+#811 D  21/06/2026 Strategy Automate calcule désormais les CdU et les CdO
 
 ##############################################################################################################################
                    
@@ -504,4 +505,4 @@
                    Revoir si U_Sol est utilisé et quand ?  
                    Nettoyer les S95
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
-                   
+                   Dans Résoudre Stratégie G, Ajouter les CdO ?

@@ -398,9 +398,8 @@ Friend Module Q000_Strategy_X
     End If
     Jrn_Add(, {"/" & Proc_Name_Get()})
   End Sub
-
-
 #End Region
+
   Public Sub Stratégies_G_Execute()
     Jrn_Add("SDK_Space")
     Jrn_Add(, {Proc_Name_Get() & " Lancement des Stratégies G "})
@@ -441,7 +440,7 @@ Friend Module Q000_Strategy_X
   Public Sub Stratégies_G_Candidats_Delete()
     Jrn_Add(, {Proc_Name_Get() & " Suppression des Candidats Exclus "})
     Jrn_Add(, {"Stratégie en cours: " & Plcy_Strg})
-    ClipBoard_Coller_RTF()
+
     Select Case Plcy_Strg
       Case "Gbl", "Gbv", "GCs", "GCx"
         Cell_Cdd_Exclude_GRslt()
@@ -452,21 +451,41 @@ Friend Module Q000_Strategy_X
     End Select
     Jrn_Add(, {"Les candidats sont supprimés."})
 
-    Dim auMoinsUnCduAjoute As Boolean = False
-    Dim changement As Boolean
-    Do
-      changement = False
-      For i As Integer = 0 To 80
-        Dim candidats As String = U(i, 3).Trim()
-        If U(i, 2) = " " AndAlso candidats.Length = 1 Then
-          Cell_Val_Insert(candidats, i, "CdU_" & Plcy_Strg)
-          changement = True
-          auMoinsUnCduAjoute = True
-        End If
-      Next
-    Loop While changement
-    If auMoinsUnCduAjoute Then
-      Jrn_Add(, {"Les CdU sont ajoutés"})
+    'Analyse des candidats CdU_CdO
+    Dim Strategy_Rslt(,) As String
+    Dim Strg_CdU_CdO As Boolean = False
+    Dim Strg_CdU As Boolean
+    Dim Strg_CdO As Boolean
+    Do                                 'Démarre la définition de la Do boucle.
+      Strg_CdU = False
+      Strategy_Rslt = Strategy_CdU(U)
+      For i As Integer = 1 To UBound(Strategy_Rslt, 2)
+        Strg_CdU = True
+        Strg_CdU_CdO = True
+        Dim Cellule As Integer = CInt(Strategy_Rslt(10, i))
+        Dim Candidat As String = Strategy_Rslt(5, i)
+        Dim Stratégie As String = Strategy_Rslt(1, i) & "_"
+        Cell_Val_Insert(Candidat, Cellule, Stratégie & Plcy_Strg)
+      Next i
+      If Strg_CdU Then Continue Do
+
+      Strg_CdO = False
+      Strategy_Rslt = Strategy_CdO(U)
+      For i As Integer = 1 To UBound(Strategy_Rslt, 2)
+        Strg_CdO = True
+        Strg_CdU_CdO = True
+        Dim Cellule As Integer = CInt(Strategy_Rslt(10, i))
+        Dim Candidat As String = Strategy_Rslt(5, i)
+        Dim Stratégie As String = Strategy_Rslt(1, i) & "_"
+        Cell_Val_Insert(Candidat, Cellule, Stratégie & Plcy_Strg)
+      Next i
+      If Strg_CdO Then Continue Do     'Transfère le contrôle à l’itération suivante de la Do boucle     
+
+      Exit Do                          'Transfère le contrôle hors de la Do boucle.
+    Loop                               'Termine la définition de la Do boucle.
+
+    If Strg_CdU_CdO Then
+      Jrn_Add(, {"Les CdU et CdO sont ajoutés"})
     End If
 
     Frm_SDK.Mnu0902.Enabled = False
@@ -476,11 +495,13 @@ Friend Module Q000_Strategy_X
   End Sub
 
   Public Sub Stratégies_G_Automate()
+    Dim Passage As Integer = 0
 Stratégies_G_Automate_Start:
+    Passage += 1
     Stratégies_G_Execute()
 
-    If GRslt.Productivité Or XRslt.Productivité Then
-      Dim Titre As String = "Résolution Strategie G"
+    If GRslt.Productivité OrElse XRslt.Productivité Then
+      Dim Titre As String = "Passage n° " & Passage & " _ Résolution Strategie G"
       Dim Texte As String = "Stratégie productive ! " & vbCrLf & vbCrLf
       Texte &= Stg_Get(Plcy_Strg).Texte & vbCrLf
 
@@ -494,12 +515,16 @@ Stratégies_G_Automate_Start:
             Texte &= "Exclure " & XRslt.CelExcl.Count & " Candidat(s) " & vbCrLf
           End If
       End Select
-      Texte &= "Placer les CdU, " & vbCrLf
+
+      Texte &= "    Placer les CdU, les CdO, " & vbCrLf
       Texte &= "... et poursuivre. "
+      ' MessageBox affiche le boite au milieu de l'écran
+      ' Il est possible que le message soit peint dans le ClipBoard
       Dim rep As DialogResult = MessageBox.Show(Texte, Titre,
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question)
+                                MessageBoxButtons.YesNo)
       If rep = DialogResult.No Then Exit Sub
+
+      ClipBoard_Coller_RTF()
 
       Stratégies_G_Candidats_Delete()
 

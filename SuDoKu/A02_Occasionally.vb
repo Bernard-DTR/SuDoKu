@@ -119,8 +119,8 @@ Friend Module A02_Occasionally
     B_Top = Barre_Menu_Hauteur + Barre_Outils_Hauteur + Bld_Marge_LT + Bld_WH_Grid + Bld_Marge_LT
     With Frm_SDK
       .B_Famille.Location = New Point(B_Width, B_Top)
-      '.B_Famille.Size = New Size(20, B_Height)
-      .B_Famille.Size = New Size(40, B_Height)
+      .B_Famille.Size = New Size(20, B_Height)
+      '.B_Famille.Size = New Size(40, B_Height)
 
       B_Width = Bld_Marge_LT + .B_Famille.Width
       .B_Position.Location = New Point(B_Width, B_Top)

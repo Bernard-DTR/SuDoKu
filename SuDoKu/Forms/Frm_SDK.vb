@@ -305,8 +305,6 @@ Public NotInheritable Class Frm_SDK
     End If
     Return MyBase.ProcessCmdKey(msg, keyData)
   End Function
-
-
   Private Sub Batch_Timer_Tick(sender As Object, e As EventArgs) Handles Batch_Timer.Tick
     If Mnu08.Image Is Nothing Then Exit Sub
     Select Case Batch_en_Cours
@@ -1528,13 +1526,16 @@ Public NotInheritable Class Frm_SDK
 #Region "Menu Graphe"
 
   Private Sub Mnu9000_Click(sender As Object, e As EventArgs)
+    Jrn_Add(, {Proc_Name_Get()})
     Stratégies_G_Automate()
   End Sub
 
   Private Sub Mnu0901_Click(sender As Object, e As EventArgs) Handles Mnu0901.Click
+    Jrn_Add(, {Proc_Name_Get()})
     Stratégies_G_Execute()
   End Sub
   Private Sub Mnu0902_Click(sender As Object, e As EventArgs) Handles Mnu0902.Click
+    Jrn_Add(, {Proc_Name_Get()})
     ' Cette option permet de supprimer les candidats et rétablit l'affichage standard
     Stratégies_G_Candidats_Delete()
   End Sub
