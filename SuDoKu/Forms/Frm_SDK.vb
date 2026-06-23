@@ -625,6 +625,9 @@ Public NotInheritable Class Frm_SDK
     'Stg_List.Add(New Stg_Cls("   ", "N", "N", "N", "N", 0, "Aucune Stratégie"))
     Plcy_Gnrl = "Nrm"
     Plcy_Strg = "   "
+    Jrn_Add(, {Proc_Name_Get()})
+    Jrn_Add(, {Prb.Replace(" ", "0")})
+
     Game_New_Game(Plcy_Gnrl, Plcy_Strg, Nom, Prb, Jeu, Sol, StrDup(729, " "), Frc, Proc_Name_Get())
     Mnu01_Saisir.Enabled = True
     Mnu01_Commencer.Enabled = False

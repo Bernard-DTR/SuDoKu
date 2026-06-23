@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #812"
+  Public SDK_Version As String = "V2026_05 #813"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -131,7 +131,7 @@ Module A00_Public
   Public Sqr_Cel(80) As Rectangle                   '  Les 81 rectangles des cellules
   Public Region_Path(8) As Drawing2D.GraphicsPath
   Public Sqr_Pth(80) As Drawing2D.GraphicsPath
-  Public Rayon As Integer = 25
+  Public Rayon As Integer = 15
 
   ' Les traitements, compute ou paint, sont identiques que les paths soient des carrés, avec angles arrondis  
 

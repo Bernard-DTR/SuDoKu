@@ -492,8 +492,8 @@
 #809 Me 17/06/2026 MessageBox.Show remplacer les MsgBox (28) 
 #810 J  18/06/2026 Correction du bogue du formulaire Frm_SDK 
 #811 D  21/06/2026 Strategy Automate calcule désormais les CdU et les CdO
-#812 D  21/06/2026 Suppression et répartition des fonction de l'ancienne stratéie X_Chain
-
+#812 D  21/06/2026 Suppression et répartition des fonction de l'ancienne stratégie X_Chain
+#813 Ma 23/06/2026 L'option Commencer affiche les valeurs initiales
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie
