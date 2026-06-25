@@ -494,6 +494,9 @@
 #811 D  21/06/2026 Strategy Automate calcule désormais les CdU et les CdO
 #812 D  21/06/2026 Suppression et répartition des fonction de l'ancienne stratégie X_Chain
 #813 Ma 23/06/2026 L'option Commencer affiche les valeurs initiales
+#814 Ma 23/06/2026 G1_Cell_Fond_Saisie retrouve Format_Center
+#815 J  25/06/2026 Correction d'un bogue dans Pzzl_Slv Prv_Col3 = ""
+
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie

@@ -399,7 +399,7 @@ Pzzl_Crt_Exit:
     Dim U_temp(80, 3) As String
     Dim Strategy_CdU_Nb As Integer = 0
     Dim Strategy_CdO_Nb As Integer = 0
-
+    Prv_Col3 = ""
     Prd.Prd_Phase = "Slv"
 
     ' Configuration de U_temp en fonction du type de production
