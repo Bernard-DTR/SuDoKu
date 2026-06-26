@@ -496,6 +496,8 @@
 #813 Ma 23/06/2026 L'option Commencer affiche les valeurs initiales
 #814 Ma 23/06/2026 G1_Cell_Fond_Saisie retrouve Format_Center
 #815 J  25/06/2026 Correction d'un bogue dans Pzzl_Slv Prv_Col3 = ""
+#816 V  26/06/2026 Menu Graphe _ Résoudre (Automate)
+
 
 ##############################################################################################################################
                    

@@ -178,7 +178,6 @@ Partial Class Frm_SDK
         Me.Mnu09 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0900 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Mnu0901 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu0902 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu09_Sep1 = New System.Windows.Forms.ToolStripSeparator()
         Me.Mnu0915_Gbl = New System.Windows.Forms.ToolStripMenuItem()
@@ -810,37 +809,37 @@ Partial Class Frm_SDK
         Me.Mnu08_Jouer.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu08J_F, Me.Mnu08J_M, Me.Mnu08J_D, Me.Mnu08J_E})
         Me.Mnu08_Jouer.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_Jouer.Name = "Mnu08_Jouer"
-        Me.Mnu08_Jouer.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_Jouer.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_Jouer.Text = "Jouer un SuDoKu"
         '
         'Mnu08J_F
         '
         Me.Mnu08J_F.Name = "Mnu08J_F"
-        Me.Mnu08J_F.Size = New System.Drawing.Size(135, 26)
+        Me.Mnu08J_F.Size = New System.Drawing.Size(240, 26)
         Me.Mnu08J_F.Text = "Facile"
         '
         'Mnu08J_M
         '
         Me.Mnu08J_M.Name = "Mnu08J_M"
-        Me.Mnu08J_M.Size = New System.Drawing.Size(135, 26)
+        Me.Mnu08J_M.Size = New System.Drawing.Size(240, 26)
         Me.Mnu08J_M.Text = "Moyen"
         '
         'Mnu08J_D
         '
         Me.Mnu08J_D.Name = "Mnu08J_D"
-        Me.Mnu08J_D.Size = New System.Drawing.Size(135, 26)
+        Me.Mnu08J_D.Size = New System.Drawing.Size(240, 26)
         Me.Mnu08J_D.Text = "Difficile"
         '
         'Mnu08J_E
         '
         Me.Mnu08J_E.Name = "Mnu08J_E"
-        Me.Mnu08J_E.Size = New System.Drawing.Size(135, 26)
+        Me.Mnu08J_E.Size = New System.Drawing.Size(240, 26)
         Me.Mnu08J_E.Text = "Expert"
         '
         'Mnu08_JouerAutrement
         '
         Me.Mnu08_JouerAutrement.Name = "Mnu08_JouerAutrement"
-        Me.Mnu08_JouerAutrement.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_JouerAutrement.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_JouerAutrement.Text = "Jouer la même partie avec d'autres VI"
         '
         'Mnu08_Création
@@ -848,7 +847,7 @@ Partial Class Frm_SDK
         Me.Mnu08_Création.ForeColor = System.Drawing.Color.Black
         Me.Mnu08_Création.Image = Global.SuDoKu.My.Resources.Resources.Create_16x
         Me.Mnu08_Création.Name = "Mnu08_Création"
-        Me.Mnu08_Création.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_Création.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_Création.Text = "Création d'un Sudoku"
         '
         'Mnu08_Résolution
@@ -856,33 +855,33 @@ Partial Class Frm_SDK
         Me.Mnu08_Résolution.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_Résolution.Name = "Mnu08_Résolution"
         Me.Mnu08_Résolution.ShowShortcutKeys = False
-        Me.Mnu08_Résolution.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_Résolution.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_Résolution.Text = "Résolution SDK Stratégies"
         '
         'Mnu08_RésoudreEnForceBrute
         '
         Me.Mnu08_RésoudreEnForceBrute.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_RésoudreEnForceBrute.Name = "Mnu08_RésoudreEnForceBrute"
-        Me.Mnu08_RésoudreEnForceBrute.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_RésoudreEnForceBrute.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_RésoudreEnForceBrute.Text = "Résoudre en Force Brute"
         '
         'Mnu08_RésoudreDancingLink
         '
         Me.Mnu08_RésoudreDancingLink.Name = "Mnu08_RésoudreDancingLink"
-        Me.Mnu08_RésoudreDancingLink.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_RésoudreDancingLink.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_RésoudreDancingLink.Text = "Résoudre avec Dancing Link"
         '
         'Mnu08_RésoudreDenisBerthier
         '
         Me.Mnu08_RésoudreDenisBerthier.Name = "Mnu08_RésoudreDenisBerthier"
-        Me.Mnu08_RésoudreDenisBerthier.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_RésoudreDenisBerthier.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_RésoudreDenisBerthier.Text = "Résoudre avec Denis Berthier"
         '
         'Mnu08_Sep01
         '
         Me.Mnu08_Sep01.ForeColor = System.Drawing.Color.Red
         Me.Mnu08_Sep01.Name = "Mnu08_Sep01"
-        Me.Mnu08_Sep01.Size = New System.Drawing.Size(359, 6)
+        Me.Mnu08_Sep01.Size = New System.Drawing.Size(367, 6)
         '
         'Mnu08_EditionDuProblème
         '
@@ -890,39 +889,39 @@ Partial Class Frm_SDK
         Me.Mnu08_EditionDuProblème.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu08_EditionDuProblème.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_EditionDuProblème.Name = "Mnu08_EditionDuProblème"
-        Me.Mnu08_EditionDuProblème.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_EditionDuProblème.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_EditionDuProblème.Text = "Editer la Grille"
         '
         'Mnu08_DessinerSurLaGrille
         '
         Me.Mnu08_DessinerSurLaGrille.Name = "Mnu08_DessinerSurLaGrille"
-        Me.Mnu08_DessinerSurLaGrille.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_DessinerSurLaGrille.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_DessinerSurLaGrille.Text = "Dessiner sur la grille"
         '
         'Mnu08_Sep03
         '
         Me.Mnu08_Sep03.ForeColor = System.Drawing.Color.Red
         Me.Mnu08_Sep03.Name = "Mnu08_Sep03"
-        Me.Mnu08_Sep03.Size = New System.Drawing.Size(359, 6)
+        Me.Mnu08_Sep03.Size = New System.Drawing.Size(367, 6)
         '
         'Mnu08_InsérerTouteLaSolution
         '
         Me.Mnu08_InsérerTouteLaSolution.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_InsérerTouteLaSolution.Name = "Mnu08_InsérerTouteLaSolution"
-        Me.Mnu08_InsérerTouteLaSolution.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_InsérerTouteLaSolution.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_InsérerTouteLaSolution.Text = "Insérer toute la solution"
         '
         'Mnu08_Sep04
         '
         Me.Mnu08_Sep04.Name = "Mnu08_Sep04"
-        Me.Mnu08_Sep04.Size = New System.Drawing.Size(359, 6)
+        Me.Mnu08_Sep04.Size = New System.Drawing.Size(367, 6)
         '
         'Mnu08_TestA
         '
         Me.Mnu08_TestA.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_TestA.Name = "Mnu08_TestA"
         Me.Mnu08_TestA.ShowShortcutKeys = False
-        Me.Mnu08_TestA.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestA.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestA.Text = "Test_A"
         '
         'Mnu08_TestB
@@ -930,7 +929,7 @@ Partial Class Frm_SDK
         Me.Mnu08_TestB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_TestB.Name = "Mnu08_TestB"
         Me.Mnu08_TestB.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.Mnu08_TestB.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestB.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestB.Text = "Test_B"
         '
         'Mnu08_TestC
@@ -938,51 +937,51 @@ Partial Class Frm_SDK
         Me.Mnu08_TestC.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_TestC.Name = "Mnu08_TestC"
         Me.Mnu08_TestC.ShowShortcutKeys = False
-        Me.Mnu08_TestC.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestC.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestC.Text = "Test_C"
         '
         'Mnu08_TestD
         '
         Me.Mnu08_TestD.Name = "Mnu08_TestD"
         Me.Mnu08_TestD.ShowShortcutKeys = False
-        Me.Mnu08_TestD.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestD.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestD.Text = "Test_D"
         '
         'Mnu08_TestE
         '
         Me.Mnu08_TestE.Name = "Mnu08_TestE"
         Me.Mnu08_TestE.ShowShortcutKeys = False
-        Me.Mnu08_TestE.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestE.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestE.Text = "Test_E"
         '
         'Mnu08_TestF
         '
         Me.Mnu08_TestF.Name = "Mnu08_TestF"
-        Me.Mnu08_TestF.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestF.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestF.Text = "Test_F"
         '
         'Mnu08_TestG
         '
         Me.Mnu08_TestG.Name = "Mnu08_TestG"
-        Me.Mnu08_TestG.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestG.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestG.Text = "Test_G"
         '
         'Mnu08_TestH
         '
         Me.Mnu08_TestH.Name = "Mnu08_TestH"
-        Me.Mnu08_TestH.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestH.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestH.Text = "Test_H"
         '
         'Mnu08_TestI
         '
         Me.Mnu08_TestI.Name = "Mnu08_TestI"
-        Me.Mnu08_TestI.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestI.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestI.Text = "Test_I"
         '
         'Mnu08_TestJ
         '
         Me.Mnu08_TestJ.Name = "Mnu08_TestJ"
-        Me.Mnu08_TestJ.Size = New System.Drawing.Size(362, 26)
+        Me.Mnu08_TestJ.Size = New System.Drawing.Size(370, 30)
         Me.Mnu08_TestJ.Text = "Test_J"
         '
         'Mnu05
@@ -1281,7 +1280,7 @@ Partial Class Frm_SDK
         '
         'Mnu09
         '
-        Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0900, Me.ToolStripSeparator4, Me.Mnu0901, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW, Me.ToolStripSeparator3, Me.Mnu0910_GLk})
+        Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0900, Me.ToolStripSeparator4, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW, Me.ToolStripSeparator3, Me.Mnu0910_GLk})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
         Me.Mnu09.Size = New System.Drawing.Size(75, 28)
@@ -1291,19 +1290,13 @@ Partial Class Frm_SDK
         '
         Me.Mnu0900.Name = "Mnu0900"
         Me.Mnu0900.Size = New System.Drawing.Size(386, 26)
-        Me.Mnu0900.Text = "Résoudre"
+        Me.Mnu0900.Text = "Résoudre (Automate)"
         AddHandler Me.Mnu0900.Click, AddressOf Me.Mnu9000_Click
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
         Me.ToolStripSeparator4.Size = New System.Drawing.Size(383, 6)
-        '
-        'Mnu0901
-        '
-        Me.Mnu0901.Name = "Mnu0901"
-        Me.Mnu0901.Size = New System.Drawing.Size(386, 26)
-        Me.Mnu0901.Text = "Résoudre avec les Stratégies G"
         '
         'Mnu0902
         '
@@ -2101,7 +2094,6 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu0915_Gbl As ToolStripMenuItem
     Friend WithEvents Mnu0920_Gbv As ToolStripMenuItem
     Friend WithEvents Mnu0925_GCs As ToolStripMenuItem
-    Friend WithEvents Mnu0901 As ToolStripMenuItem
     Friend WithEvents Mnu0902 As ToolStripMenuItem
     Friend WithEvents Mnu09_Sep1 As ToolStripSeparator
     Friend WithEvents Mnu08_RésoudreDenisBerthier As ToolStripMenuItem

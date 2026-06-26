@@ -1534,10 +1534,6 @@ Public NotInheritable Class Frm_SDK
     Stratégies_G_Automate()
   End Sub
 
-  Private Sub Mnu0901_Click(sender As Object, e As EventArgs) Handles Mnu0901.Click
-    Jrn_Add(, {Proc_Name_Get()})
-    Stratégies_G_Execute()
-  End Sub
   Private Sub Mnu0902_Click(sender As Object, e As EventArgs) Handles Mnu0902.Click
     Jrn_Add(, {Proc_Name_Get()})
     ' Cette option permet de supprimer les candidats et rétablit l'affichage standard
