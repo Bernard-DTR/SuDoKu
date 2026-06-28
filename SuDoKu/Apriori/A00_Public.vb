@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #816"
+  Public SDK_Version As String = "V2026_05 #818"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -18,7 +18,7 @@ Module A00_Public
     Initiales = 10
   End Enum
   '      Initialisées dans Game_New_Game()
-  '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete()   
+  '      Mises à jour dans Cell_Val_Insert() et Cell_Val_Delete_Old()   
   Public Animation_Cellule As Integer
   Public Animation_Numéro As Integer = 0
   Public Animation_En_Cours As Boolean = False
@@ -273,8 +273,8 @@ Module A00_Public
 
 #Region "45 Tableau des actions"
   'Ce tableau est documenté lors de Cell_Val_Insert     Ajouter / ? Ajouter      
-  '                                 Cell_Val_Delete     Effacer
-  '                                 Cell_Cdd_Insert     Replacer
+  '                                 Cell_Val_Delete_Old     Effacer
+  '                                 Cell_Cdd_Insert_Old     Replacer
   '                                 Cell_Cdd_Exclude    Exclure_Cdd
   Public Act(11, 100) As String
   Public Act_Index As Integer = -1
@@ -323,6 +323,7 @@ Module A00_Public
   Public Nsd_P As Process
   'Préférences_Grille
   Public Swt_Mode_Dessin As Integer = -1                     '(Non)
+  Public Swt_Mode_CaG As Integer = -1                        '(Non)
   Public Swt_DéroulerJournal As Integer = 1                  '(Oui)
   Public Journal_Emp_Blocage As Integer = 0
 

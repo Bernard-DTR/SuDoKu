@@ -366,6 +366,7 @@ Friend Module P01_Strategy
     Stg_List.Add(New Stg_Cls("FC8", "N", "N", "N", "N", 3, "Filtre des Candidats 8"))
     Stg_List.Add(New Stg_Cls("FC9", "N", "N", "N", "N", 3, "Filtre des Candidats 9"))
     '                                N pas de lettre
+    Stg_List.Add(New Stg_Cls("CaG", "N", "N", "N", "N", 6, "Stratégie Crayon et Gomme"))
     Stg_List.Add(New Stg_Cls("Obj", "N", "N", "N", "N", 9, "Dessiner sur la Grille"))
     Stg_List.Add(New Stg_Cls("Edi", "N", "N", "N", "N", 9, "Edition de la Grille"))
     Stg_List.Add(New Stg_Cls("Cbl", "B", "O", "E", "O", 3, "Stratégie des Candidats bloqués"))

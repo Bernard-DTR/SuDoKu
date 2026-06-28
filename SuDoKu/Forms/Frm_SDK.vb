@@ -318,8 +318,20 @@ Public NotInheritable Class Frm_SDK
   Protected Overrides Sub OnPaint(e As PaintEventArgs)
     MyBase.OnPaint(e)
     If Not Phase_Démarrage_Terminée Then Exit Sub
+    '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     'Le quadrillage, le fond, les valeurs et la grille de saisie ne sont pas redessinés.
     'Ce sont 4 bitmaps qui sont dessinés pour améliorer les performances d'affichage
+    '
+    'L'affichage de la grille est effectué de cette manière :
+    ' 1 Le quadrillage est créé une seule fois  
+    ' 2 Le fond est créé une seule fois à chaque jeu, il comporte les fonds des cellules I, R et V
+    '                                                 et les valeurs initiales des cellules I
+    ' 3 Les valeurs saisies qui créées à chaque saisie ou effacement de valeur
+    ' 4 La couche "stratégique"
+    '   Cette couche comporte les candidats, les figures, les traits larges, les flèches de Bézier ...
+    ' 5 La grille de saisie qui est affichée uniquement pour les stratégies de famille 0 et 2
+    ' 6 L'animation qui est affichée en fin de partie réussie
+    '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Dim g As Graphics = e.Graphics
     g.DrawImageUnscaled(Bmp_Quadrillage, 0, 0)      ' Une seule création (Load/Préférences_Grille)     
     g.DrawImageUnscaled(Bmp_Fond, 0, 0)             ' Une seule création à chaque jeu
@@ -452,6 +464,7 @@ Public NotInheritable Class Frm_SDK
       'Gauche: Rien de particulier, le menu contextuel est préparé,
       'Milieu: Affichage des candidats de l'unité si Plcy_MouseClick_Middle = True 
       'Droit : Le menu contextuel est affiché, ainsi le bouton droit n'est pas traité par Frm_SDK_MouseClick
+
       Select Case e.Button
         Case MouseButtons.Left
           If U(Pbl_Cell_Select, 2) = " " Then Cell_Val_Insert(CStr(Candidat_Pt), Pbl_Cell_Select, "Mse_Clk")
@@ -474,7 +487,9 @@ Public NotInheritable Class Frm_SDK
     ' Provient UNIQUEMENT de Frm_SDK_Mouse_Click
     Dim TTT_Message As String
     Dim Cellule As Integer = Pbl_Cell_Select
-    If Plcy_Fantasy Then Exit Sub    'Le TTT_Message ne fonctionne pas avec une police fantaisie.
+    If Plcy_Fantasy Then Exit Sub      'Le TTT_Message ne fonctionne pas avec une police fantaisie.
+    '#817
+    If Plcy_Strg = "CaG" Then Exit Sub 'Le TTT_Message ne fonctionne pas avec la stratégie CaG
     Select Case Cellule
       Case 1, 2, 3, 4, 5, 6, 7, 73, 74, 75, 76, 77, 78, 79           ' Colonnes haut et bas
         TTT_Message = Wh_Candidats_Unité(U_9CelCol(U_Col(Cellule)))
@@ -1317,7 +1332,7 @@ Public NotInheritable Class Frm_SDK
     Cell_Val_Delete(Pbl_Cell_Select, "Mnu_Ctx_Eff")
   End Sub
   Private Sub Mnu_Cel_Cdd_Insérer(Sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Ins_9.Click, Mnu_Cel_Cdd_Ins_8.Click, Mnu_Cel_Cdd_Ins_7.Click, Mnu_Cel_Cdd_Ins_6.Click, Mnu_Cel_Cdd_Ins_5.Click, Mnu_Cel_Cdd_Ins_4.Click, Mnu_Cel_Cdd_Ins_3.Click, Mnu_Cel_Cdd_Ins_2.Click, Mnu_Cel_Cdd_Ins_1.Click
-    Cell_Cdd_Insert(Sender.ToString(20), Pbl_Cell_Select, "Mnu_Ctx")
+    Cell_Cdd_Insert(Sender.ToString(20), Pbl_Cell_Select)
   End Sub
   Private Sub Mnu_Cel_Cdd_Exclure(sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Exc_9.Click, Mnu_Cel_Cdd_Exc_8.Click, Mnu_Cel_Cdd_Exc_7.Click, Mnu_Cel_Cdd_Exc_6.Click, Mnu_Cel_Cdd_Exc_5.Click, Mnu_Cel_Cdd_Exc_4.Click, Mnu_Cel_Cdd_Exc_3.Click, Mnu_Cel_Cdd_Exc_2.Click, Mnu_Cel_Cdd_Exc_1.Click
     Cell_Cdd_Exclude(sender.ToString(20), Pbl_Cell_Select)

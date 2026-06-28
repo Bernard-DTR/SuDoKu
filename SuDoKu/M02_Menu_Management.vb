@@ -136,7 +136,7 @@
     Dim Candidats As String
     Dim Opt As String
 
-    Mnu_Mngt_Barre_Outils_Filtres()
+    If Plcy_Strg <> "CaG" Then Mnu_Mngt_Barre_Outils_Filtres()
 
     For Each Ligne In Frm_SDK.Mnu_Cel.Items
       Try
@@ -201,6 +201,15 @@
                 Next XCel
               End If
             End If
+            '#817 Mode Crayon et Gomme
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 6 AndAlso U(Cellule, 2) = " " Then
+              Candidats = U(Cellule, 3)
+              Opt = Ligne.Name(16)
+              If Candidats(CInt(Opt) - 1) <> " " Then
+                Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
+              End If
+            End If
+
           Case "Mnu_Cel_Cdd_Ins_" 'Insérer les Candidats .... en NORMAL
             If Mnu_Sep AndAlso Stg_Get(Plcy_Strg).Family = 1 AndAlso U(Cellule, 2) = " " Then
               Candidats = U_CddExc(Cellule)
@@ -215,6 +224,23 @@
                 Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
               End If
             End If
+
+            '#817 Mode Crayon et Gomme
+            If Mnu_Sep AndAlso Stg_Get(Plcy_Strg).Family = 6 AndAlso U(Cellule, 2) = " " Then
+              Candidats = U(Cellule, 3)
+              If Candidats <> Cnddts_Blancs Then
+                Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
+              End If
+            End If
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 6 AndAlso U(Cellule, 2) = " " Then
+              'Jrn_Add_Yellow("#817")
+              Candidats = U(Cellule, 3)
+              Opt = Ligne.Name(16)
+              If Candidats(CInt(Opt) - 1) = " " Then
+                Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
+              End If
+            End If
+
           Case "Mnu_Cel_Val_Eff_" 'On efface la valeur de la cellule remplie
             If (U(Cellule, 1) = " " AndAlso U(Cellule, 2) <> " ") Then
               If Mnu_Item Then

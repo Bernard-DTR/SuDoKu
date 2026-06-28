@@ -497,6 +497,10 @@
 #814 Ma 23/06/2026 G1_Cell_Fond_Saisie retrouve Format_Center
 #815 J  25/06/2026 Correction d'un bogue dans Pzzl_Slv Prv_Col3 = ""
 #816 V  26/06/2026 Menu Graphe _ Résoudre (Automate)
+#817 V  26/06/2026 Stratégie Crayon et Gomme
+#818 D  28/06/2026 La Stratégie Crayon et Gomme est opérationnelle en mode expérimental
+
+????               Comment sortir de CaG ? 
 
 
 ##############################################################################################################################

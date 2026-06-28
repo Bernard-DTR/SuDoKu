@@ -4,10 +4,13 @@ Friend Module M03_Paint
   '   La couche G4 stratégies n'est appelée que dans G4_Grid_Stratégie_All,
   Public Sub G4_Grid_Stratégie_All(g As Graphics)
     If Plcy_Gnrl = "Nrm" AndAlso Plcy_Strg <> "   " Then
+      'Utilisation de ces tableaux pour insérer une valeur (jaune)
+      '                              ou exclure un  candidat (rouge) 
       For i As Integer = 0 To 80
         U_Strg_Val_Ins(i) = ""
         U_Strg_Cdd_Exc(i) = Cnddts_Blancs
       Next i
+      G4_Grid_Stratégie_CaG(g)
       G4_Grid_Stratégie_DCs(g)
       G4_Grid_Stratégie_Cdd(g)
       G4_Grid_Stratégie_CdU(g)
@@ -32,6 +35,18 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_Gbv(g)
       G4_Grid_Stratégie_GCs(g)
     End If
+  End Sub
+  Public Sub G4_Grid_Stratégie_CaG(g As Graphics)
+    '#817 Dans la Stratégie Crayon et Gomme
+    '     G4_Grid_Stratégie_CaG affiche les candidats éligibles des cellules vides
+    If Plcy_Strg <> "CaG" Then Exit Sub
+    Dim sc As New Cellule_Cls
+    For i As Integer = 0 To 80
+      If U(i, 2) = " " Then
+        sc.Numéro = i
+        sc.G6_Cellule_Paint_Candidats_Eligibles(g)
+      End If
+    Next i
   End Sub
   Public Sub G4_Grid_Stratégie_DCs(g As Graphics)
     If Plcy_Strg <> "DCs" Then Exit Sub
