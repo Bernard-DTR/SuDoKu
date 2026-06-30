@@ -145,6 +145,18 @@ Public NotInheritable Class Frm_SDK
     AddHandler Mnu04n_RésoudreUneCellule.Click, AddressOf Mnu04n_RésoudreUneCellule_Click
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_RésoudreUneCellule)
 
+    Dim Mnu04n_CaG As New ToolStripMenuItem() With
+        {
+        .Text = "Stratégie Crayon et Gomme",
+        .ForeColor = SystemColors.ControlText,
+        .Checked = False,
+        .CheckOnClick = True
+         }
+    AddHandler Mnu04n_CaG.Click, AddressOf Mnu04n_CaG_Click
+    Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_CaG)
+
+
+
     Mnu07n_Gbl.Text = Stg_Get("Gbl").Texte
     Mnu07n_Gbv.Text = Stg_Get("Gbv").Texte
     Mnu07n_GCs.Text = Stg_Get("GCs").Texte
@@ -848,6 +860,51 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu04n_RésoudreUneCellule_Click(sender As Object, e As EventArgs)
     Cell_Slv_Interactif("S", "Résoudre une Cellule")
   End Sub
+  Private Sub Mnu04n_CaG_Click(sender As Object, e As EventArgs)
+    Jrn_Add(, {Proc_Name_Get()})
+    'Public Swt_CaG As Integer = -1 Position Initiale
+    Swt_Mode_CaG *= -1
+    Select Case Swt_Mode_CaG
+      Case 1
+        Plcy_Gnrl = "Nrm"
+        Plcy_Strg = "CaG"
+        Jrn_Add(, {Stg_Get(Plcy_Strg).Texte & " " & Stg_Get(Plcy_Strg).Family})
+        ' Liste des règles Msg_Read("MNU_0800A")
+        Jrn_Add(, {Msg_Read("CAG_00000")})
+        Jrn_Add(, {Msg_Read("CAG_00010")})
+        Jrn_Add(, {Msg_Read("CAG_00020")})
+        Jrn_Add(, {Msg_Read("CAG_00030")})
+        Jrn_Add(, {Msg_Read("CAG_00040")})
+        Jrn_Add(, {Msg_Read("CAG_00050")})
+        Jrn_Add(, {Msg_Read("CAG_00060")})
+        Jrn_Add(, {Msg_Read("CAG_00070")})
+        Jrn_Add(, {Msg_Read("CAG_00080")})
+        Jrn_Add(, {Msg_Read("CAG_00090")})
+        Jrn_Add(, {Msg_Read("CAG_00100")})
+        Jrn_Add(, {Msg_Read("CAG_00110")})
+
+
+        ' Prise en Compte de la Grille
+        B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
+        B_Info.Text = Stg_Get(Plcy_Strg).Texte
+        B_Info.BackColor = Color.Orange
+        For i As Integer = 0 To 80
+          U(i, 3) = Cnddts_Blancs
+          U_CddExc(i) = Cnddts_Blancs
+          U_Sol(i) = "0"
+        Next
+        Invalidate()
+
+      Case -1
+        Plcy_Gnrl = "Nrm"
+        Plcy_Strg = "   "
+        B_Info.Text = ""
+        B_Info.BackColor = Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+    End Select
+
+  End Sub
+
+
   '--------------04---------------------------------------------------------------
   '--------------05---------------------------------------------------------------
   Private Sub Mnu05_APropos_Click(sender As Object, e As EventArgs) Handles Mnu05_APropos.Click

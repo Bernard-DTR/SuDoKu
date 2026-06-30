@@ -499,9 +499,7 @@
 #816 V  26/06/2026 Menu Graphe _ Résoudre (Automate)
 #817 V  26/06/2026 Stratégie Crayon et Gomme
 #818 D  28/06/2026 La Stratégie Crayon et Gomme est opérationnelle en mode expérimental
-
-????               Comment sortir de CaG ? 
-
+#819 Ma 30/06/2026 Mise en place de La Stratégie Crayon et Gomme 
 
 ##############################################################################################################################
                    
