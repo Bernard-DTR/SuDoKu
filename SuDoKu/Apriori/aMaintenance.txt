@@ -500,6 +500,10 @@
 #817 V  26/06/2026 Stratégie Crayon et Gomme
 #818 D  28/06/2026 La Stratégie Crayon et Gomme est opérationnelle en mode expérimental
 #819 Ma 30/06/2026 Mise en place de La Stratégie Crayon et Gomme 
+#820 V  03/07/2026 CaG, j'affiche le grille de saisie
+#821 V             Elle est vide ou comporte les candidats ajoutés
+#822 V             On peut cliquer sur un espace vide ou sur un candidat pour ajouter la valeur
+#823 V             Abandon prochain de Plcy_Only_Cdd_Eligible qui n'est plus utilisé
 
 ##############################################################################################################################
                    

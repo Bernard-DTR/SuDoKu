@@ -74,7 +74,7 @@
 
     If Plcy_Gnrl <> "Nrm" Then Exit Sub
     If Plcy_Strg = "CaG" Then
-      If U(Cellule, 3).Contains(Val) = False Then Exit Sub
+      'If U(Cellule, 3).Contains(Val) = False Then Exit Sub
       Pbl_Cell_Select = Cellule
       U(Cellule, 2) = Val
       Build_Bmp_valeur_saisie()

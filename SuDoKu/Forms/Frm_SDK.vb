@@ -355,7 +355,21 @@ Public NotInheritable Class Frm_SDK
     ' Grille de saisie
     If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
       Dim rct As Rectangle = Sqr_Cel(Cellule_MouseMove)
-      If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_Eligible Then
+      'If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_Eligible Then
+      '  G1_Cell_Fond_Saisie(g, Cellule_MouseMove)
+      'Else
+      '  Dim bmp As Bitmap = Nothing
+      '  Select Case U_arr(Cellule_MouseMove)
+      '    Case "TL" : bmp = Bmp_Fond_Saisie_TL
+      '    Case "TR" : bmp = Bmp_Fond_Saisie_TR
+      '    Case "BL" : bmp = Bmp_Fond_Saisie_BL
+      '    Case "BR" : bmp = Bmp_Fond_Saisie_BR
+      '    Case "SQ" : bmp = Bmp_Fond_Saisie_SQ
+      '  End Select
+      '  g.DrawImage(bmp, rct.X, rct.Y)
+      'End If
+
+      If Plcy_Strg = "Sai" Or Plcy_Strg = "CaG" Then
         G1_Cell_Fond_Saisie(g, Cellule_MouseMove)
       Else
         Dim bmp As Bitmap = Nothing
@@ -368,6 +382,8 @@ Public NotInheritable Class Frm_SDK
         End Select
         g.DrawImage(bmp, rct.X, rct.Y)
       End If
+
+
     End If
 
     ' Animation
@@ -434,14 +450,14 @@ Public NotInheritable Class Frm_SDK
     Pbl_Cell_Select = Cellule_MM
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
       B_Position.Text = U_cr(Pbl_Cell_Select) & "   " & Pbl_Cell_Select
-      'Mnu_Mngt(Pbl_Cell_Select)
+
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
     'Pour supprimer plusieurs candidats d'une même cellule, sans la quitter
     Mnu_Mngt(Pbl_Cell_Select)
 
     ' Gestion de l'affichage de la grille de saisie
-    If {0, 2}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then
+    If {0, 2, 6}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then
       'La grille de saisie est affichée UNIQUEMENT pour les stratégies de famille 0 et 2
       '   et pour les cellules vides
       If Pbl_Cell_Select <> Cellule_MouseMove Then

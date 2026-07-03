@@ -47,7 +47,8 @@ Module M03_Paint_Quadrillage
     End Select
   End Sub
   Public Sub G1_Cell_Fond_Saisie(g As Graphics, Cellule As Integer)
-    'Il s'agit d'afficher la grille de saisie SEULEMENT avec les candidats éligibles
+    'Plcy_Strg = "Sai" : Il s'agit d'afficher la grille de saisie SEULEMENT avec les candidats éligibles
+    'Plcy_Strg = "CaG" : La grille m^me vide permet de saisir une valeur
     G1_Graphics_Généralité(g)
     If U_arr(Cellule) <> "SQ" Then
       g.FillPath(Brh_Select, Sqr_Pth(Cellule))
