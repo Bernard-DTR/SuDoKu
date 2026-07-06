@@ -355,20 +355,6 @@ Public NotInheritable Class Frm_SDK
     ' Grille de saisie
     If Cellule_MouseMove >= 0 AndAlso U(Cellule_MouseMove, 2) = " " Then
       Dim rct As Rectangle = Sqr_Cel(Cellule_MouseMove)
-      'If Plcy_Strg = "Sai" OrElse Plcy_Only_Cdd_Eligible Then
-      '  G1_Cell_Fond_Saisie(g, Cellule_MouseMove)
-      'Else
-      '  Dim bmp As Bitmap = Nothing
-      '  Select Case U_arr(Cellule_MouseMove)
-      '    Case "TL" : bmp = Bmp_Fond_Saisie_TL
-      '    Case "TR" : bmp = Bmp_Fond_Saisie_TR
-      '    Case "BL" : bmp = Bmp_Fond_Saisie_BL
-      '    Case "BR" : bmp = Bmp_Fond_Saisie_BR
-      '    Case "SQ" : bmp = Bmp_Fond_Saisie_SQ
-      '  End Select
-      '  g.DrawImage(bmp, rct.X, rct.Y)
-      'End If
-
       If Plcy_Strg = "Sai" Or Plcy_Strg = "CaG" Then
         G1_Cell_Fond_Saisie(g, Cellule_MouseMove)
       Else
@@ -382,8 +368,6 @@ Public NotInheritable Class Frm_SDK
         End Select
         g.DrawImage(bmp, rct.X, rct.Y)
       End If
-
-
     End If
 
     ' Animation
@@ -898,7 +882,7 @@ Public NotInheritable Class Frm_SDK
         Jrn_Add(, {Msg_Read("CAG_00090")})
         Jrn_Add(, {Msg_Read("CAG_00100")})
         Jrn_Add(, {Msg_Read("CAG_00110")})
-
+        Jrn_Add(, {Msg_Read("CAG_00120")})
 
         ' Prise en Compte de la Grille
         B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()

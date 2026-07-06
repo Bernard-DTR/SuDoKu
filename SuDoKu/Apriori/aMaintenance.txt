@@ -504,6 +504,7 @@
 #821 V             Elle est vide ou comporte les candidats ajoutés
 #822 V             On peut cliquer sur un espace vide ou sur un candidat pour ajouter la valeur
 #823 V             Abandon prochain de Plcy_Only_Cdd_Eligible qui n'est plus utilisé
+#824 L  06/07/2026 En mode CaG, la grille de Saisie affiche tous les candidats ou seulement les candidats ajoutés.
 
 ##############################################################################################################################
                    

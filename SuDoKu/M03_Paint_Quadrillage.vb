@@ -48,7 +48,7 @@ Module M03_Paint_Quadrillage
   End Sub
   Public Sub G1_Cell_Fond_Saisie(g As Graphics, Cellule As Integer)
     'Plcy_Strg = "Sai" : Il s'agit d'afficher la grille de saisie SEULEMENT avec les candidats éligibles
-    'Plcy_Strg = "CaG" : La grille m^me vide permet de saisir une valeur
+    'Plcy_Strg = "CaG" : La grille même vide permet de saisir une valeur
     G1_Graphics_Généralité(g)
     If U_arr(Cellule) <> "SQ" Then
       g.FillPath(Brh_Select, Sqr_Pth(Cellule))
@@ -58,6 +58,16 @@ Module M03_Paint_Quadrillage
 
     For cdd As Integer = 1 To 9
       Dim cd As Integer = Cellule * 10 + cdd
+      If Plcy_Strg = "CaG" Then
+        If U(Cellule, 3) = Cnddts_Blancs Then
+          g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd), Format_Center)
+        Else
+          If U(Cellule, 3).Contains(CStr(cdd)) Then
+            g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd), Format_Center)
+          End If
+        End If
+      End If
+
       If U(Cellule, 3).Contains(CStr(cdd)) Then
         g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd), Format_Center)
       End If
