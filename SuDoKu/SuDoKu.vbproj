@@ -160,6 +160,12 @@
     <Compile Include="DenisBerthier\DB_01.vb" />
     <Compile Include="DenisBerthier\DB_02.vb" />
     <Compile Include="DenisBerthier\DB_03.vb" />
+    <Compile Include="Forms\Frm_Dlg_YesNo.Designer.vb">
+      <DependentUpon>Frm_Dlg_YesNo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frm_Dlg_YesNo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="M03_Paint_Exp.vb" />
     <Compile Include="M03_Paint_Quadrillage.vb" />
     <Compile Include="Models\XLink_Cls.vb" />
@@ -303,6 +309,9 @@
     <EmbeddedResource Include="Forms\Frm_Dictionnaire.resx">
       <DependentUpon>Frm_Dictionnaire.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_Dlg_YesNo.resx">
+      <DependentUpon>Frm_Dlg_YesNo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm_LoadPartiesHodoku.resx">
       <DependentUpon>Frm_LoadPartiesHodoku.vb</DependentUpon>

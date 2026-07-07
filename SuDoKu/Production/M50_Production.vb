@@ -430,12 +430,12 @@ Pzzl_Crt_Exit:
     ' Analyse des candidats
     Do
       Strategy_Rslt = Strategy_CdU(U_temp)
-      If Pzzl_Slv_AnalyseStrategie_CdU_CdO("CdU", Production_Type, U_temp, Prd, Strategy_Rslt, Cellules_Type, Strategy_CdU_Nb) Then Continue Do
+      If Pzzl_Slv_AnalyseStrategy_CdU_CdO("CdU", Production_Type, U_temp, Prd, Strategy_Rslt, Cellules_Type, Strategy_CdU_Nb) Then Continue Do
 
       Strategy_Rslt = Strategy_CdO(U_temp)
-      If Pzzl_Slv_AnalyseStrategie_CdU_CdO("CdO", Production_Type, U_temp, Prd, Strategy_Rslt, Cellules_Type, Strategy_CdO_Nb) Then Continue Do
+      If Pzzl_Slv_AnalyseStrategy_CdU_CdO("CdO", Production_Type, U_temp, Prd, Strategy_Rslt, Cellules_Type, Strategy_CdO_Nb) Then Continue Do
 
-      If Pzzl_Slv_AnalyseComprehensive("Slv", Production_Type, U_temp, Prd) Then Continue Do
+      If Pzzl_Slv_Analyse_Strategy_BTXYSJZKQ("Slv", Production_Type, U_temp, Prd) Then Continue Do
 
       Exit Do
     Loop
@@ -468,7 +468,7 @@ Pzzl_Crt_Exit:
     Return True
   End Function
 
-  Private Function Pzzl_Slv_AnalyseStrategie_CdU_CdO(StrgUO As String, Production_Type As String, ByRef U_temp(,) As String, ByRef Prd As Prd_Struct, Strategy_Rslt(,) As String, Cellules_Type As String, ByRef Strategy_Nb As Integer) As Boolean
+  Private Function Pzzl_Slv_AnalyseStrategy_CdU_CdO(StrgUO As String, Production_Type As String, ByRef U_temp(,) As String, ByRef Prd As Prd_Struct, Strategy_Rslt(,) As String, Cellules_Type As String, ByRef Strategy_Nb As Integer) As Boolean
     Select Case Cellules_Type
       Case "*One"
         If Strategy_Rslt.GetUpperBound(1) <> 0 Then Return False
@@ -480,7 +480,7 @@ Pzzl_Crt_Exit:
     Return Strategy_Nb > 0
   End Function
 
-  Private Function Pzzl_Slv_AnalyseComprehensive(Type As String, Production_Type As String, ByRef U_temp(,) As String, ByRef Prd As Prd_Struct) As Boolean
+  Private Function Pzzl_Slv_Analyse_Strategy_BTXYSJZKQ(Type As String, Production_Type As String, ByRef U_temp(,) As String, ByRef Prd As Prd_Struct) As Boolean
     For i As Integer = 2 To 10
       If i = 10 AndAlso Production_Type <> "S" Then Exit For
       If Strategy_Upd_BTXYSJZKQ(Type, Production_Type, i, U_temp, Prd) > 0 Then Return True

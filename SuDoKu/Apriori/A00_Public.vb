@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_05 #824"
+  Public SDK_Version As String = "V2026_07 #825"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -331,7 +331,14 @@ Module A00_Public
   Public Msg_Dsp_MsgId As Boolean = False         ' Affiche ou non le MsgId devant le texte du message
 
   Public Game_Undo_Redo As String = String.Empty
+
   Public Game_Nb_Cellules_Initiales As Integer    ' Permet d'éviter le calcul systématique et répété de la zone B_Info
+
+  Public Frm_Dlg_Titre As String
+  Public Frm_Dlg_Texte As String
+  Public Frm_Dlg_Reponse As String
+
+
 #End Region
 
 #Region "Coloration"

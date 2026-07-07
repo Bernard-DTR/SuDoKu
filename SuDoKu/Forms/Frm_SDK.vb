@@ -1225,6 +1225,10 @@ Public NotInheritable Class Frm_SDK
     Jrn_Add(, {Proc_Name_Get()})
     Pzzl_Prd_Interactif("P")
   End Sub
+  Private Sub Mnu08_Automate_Click(sender As Object, e As EventArgs)
+    MsgBox("en cours de déceloppement")
+  End Sub
+
   Private Sub Mnu08_Résolution_Click(sender As Object, e As EventArgs) Handles Mnu08_Résolution.Click
     Jrn_Add(, {Proc_Name_Get()})
     Dim Stat As String() = {"#", "#", "#", "#", "#"} '  VI, Val av, Val ap, Cdd av, Cdd ap
@@ -1642,6 +1646,7 @@ Public NotInheritable Class Frm_SDK
     End If
 
   End Sub
+
 
 #End Region
 End Class

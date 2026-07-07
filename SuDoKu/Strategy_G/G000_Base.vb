@@ -520,13 +520,21 @@ Stratégies_G_Automate_Start:
           End If
       End Select
 
-      Texte &= "    Placer les CdU, les CdO, " & vbCrLf
+      Texte &= "    Placer les CdU,          " & vbCrLf
+      Texte &= "           les CdO,          " & vbCrLf
+      Texte &= "                             " & vbCrLf
+
       Texte &= "... et poursuivre. "
-      ' MessageBox affiche le boite au milieu de l'écran
-      ' Il est possible que le message soit peint dans le ClipBoard
-      Dim rep As DialogResult = MessageBox.Show(Texte, Titre,
-                                MessageBoxButtons.YesNo)
-      If rep = DialogResult.No Then Exit Sub
+
+      Frm_Dlg_Titre = Titre
+      Frm_Dlg_Texte = Texte
+      Frm_Dlg_YesNo.ShowDialog()
+
+      'Dim rep As DialogResult = MessageBox.Show(Texte, Titre,
+      '                          MessageBoxButtons.YesNo)
+      'If rep = DialogResult.No Then Exit Sub
+
+      If Frm_Dlg_Reponse <> "Yes" Then Exit Sub
 
       ClipBoard_Coller_RTF()
 
@@ -563,5 +571,4 @@ Stratégies_G_Automate_Start:
     End Select
     Frm_SDK.Invalidate()
   End Sub
-
 End Module

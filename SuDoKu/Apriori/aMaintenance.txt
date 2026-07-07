@@ -505,14 +505,17 @@
 #822 V             On peut cliquer sur un espace vide ou sur un candidat pour ajouter la valeur
 #823 V             Abandon prochain de Plcy_Only_Cdd_Eligible qui n'est plus utilisé
 #824 L  06/07/2026 En mode CaG, la grille de Saisie affiche tous les candidats ou seulement les candidats ajoutés.
+#825 Ma 07/07/2026 Mise en place d'un formulaire correctement placé pour les automates
+
+                   Mise en place d'un automate de résolution des stratégies classiques
+                   Mise en place d'un formulaire pour l'automate classique et graphe
 
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
-????               Stratégie sans aucun controle NoC ou G&C
-????               voir dans les formes primaires à quoi sert de mettre le valeurs ou les candidats
+????               voir dans les formes primaires à quoi sert de mettre les valeurs ou les candidats
 ????               Revoir les couches la couche stratégique doit être l'avant dernière, la saisie la dernière
                    Voir la programmation Undo-Redo
                    Revoir si U_Sol est utilisé et quand ?  
