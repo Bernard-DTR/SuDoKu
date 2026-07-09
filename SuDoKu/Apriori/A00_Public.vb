@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_07 #825"
+  Public SDK_Version As String = "V2026_07 #826"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -237,11 +237,11 @@ Module A00_Public
   Public Bmp_Quadrillage As Bitmap
   Public Bmp_Fond As Bitmap
   Public Bmp_Valeur As Bitmap
-  Public Bmp_Fond_Saisie_SQ As Bitmap
-  Public Bmp_Fond_Saisie_TL As Bitmap
-  Public Bmp_Fond_Saisie_TR As Bitmap
-  Public Bmp_Fond_Saisie_BL As Bitmap
-  Public Bmp_Fond_Saisie_BR As Bitmap
+  Public Bmp_Grille_Saisie_SQ As Bitmap
+  Public Bmp_Grille_Saisie_TL As Bitmap
+  Public Bmp_Grille_Saisie_TR As Bitmap
+  Public Bmp_Grille_Saisie_BL As Bitmap
+  Public Bmp_Grille_Saisie_BR As Bitmap
   Public Cellule_MouseMove As Integer = -1
 
 #End Region
@@ -333,11 +333,6 @@ Module A00_Public
   Public Game_Undo_Redo As String = String.Empty
 
   Public Game_Nb_Cellules_Initiales As Integer    ' Permet d'éviter le calcul systématique et répété de la zone B_Info
-
-  Public Frm_Dlg_Titre As String
-  Public Frm_Dlg_Texte As String
-  Public Frm_Dlg_Reponse As String
-
 
 #End Region
 

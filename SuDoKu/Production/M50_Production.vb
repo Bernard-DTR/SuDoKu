@@ -527,10 +527,16 @@ Pzzl_Crt_Exit:
         Case 9 : Strategy_Rslt = Strategy_SKy(U_temp)   ' K
         Case 10 : Strategy_Rslt = Strategy_Unq(U_temp)  ' Q
       End Select
+
+      Dim index As Integer = RRslt_Copy_Rnd(Strategy_Rslt)
+
+
+
+
       'Pour les stratégies Cbl, Tpl, Xwg, XYw, Swf, Jly, XYZ, SKy
-      '                    on a Dim Candidat As String = Strategy_Rslt(5, i)
+      '                    on a Dim Candidat As String = Strategy_Rslt(5, j)
       'Pour la stratégie   Unq
-      '                    on a Dim Candidats As String = Strategy_Rslt(5, i)
+      '                    on a Dim Candidats As String = Strategy_Rslt(5, j)
       Select Case Strg
         Case 2, 3, 4, 5, 6, 7, 8, 9
           For i As Integer = 1 To UBound(Strategy_Rslt, 2)
@@ -833,7 +839,7 @@ Pzzl_Prd_Boucle:
     Dim Wh_Nb As Wh_Nb_Cell_Struct = Wh_Nb_Cell(U)
     Wh_Nb_Cell_Display(Wh_Nb)
     Build_Bmp_Fonds()
-    Build_Bmp_valeur_saisie()
+    Build_Bmp_Valeur()
     Frm_SDK.Invalidate()
 
 Pzzl_Prd_End:
@@ -1017,7 +1023,7 @@ Phase_End:
 
   Public Sub Pzzl_Slv_Interactif(ByVal Production_Type As String)
     Jrn_Add(, {Proc_Name_Get()})
-    ' Production_Type est positionné "S"
+    ' Production_Type est positionné "S" comme Solve
     Dim Prd As Prd_Struct = Nothing
     Prd_Init(Prd, U, "I")
     Dim Strategy_Rslt(99, 0) As String
@@ -1032,6 +1038,158 @@ Phase_End:
 
     Frm_SDK.Invalidate()
   End Sub
+
+  Public Sub Pzzl_Automate()
+    '...9.76.1.......5.619.........23....4.......7.835...14..2.6...8....1..7..568.....
+    Jrn_Add(, {Proc_Name_Get()})
+    ' Production_Type est positionné "S" comme Solve
+    Dim Production_Type As String = "S"
+    Dim Cellules_Type As String = "*All"
+    Dim Prd As Prd_Struct = Nothing
+    Prd_Init(Prd, U, "I")
+    Dim Strategy_Rslt(99, 0) As String
+    'Pzzl_Slv(Production_Type, "*All", Prd, Strategy_Rslt)
+
+    '////////////////////////////////////////////////////
+
+    'ByVal Cellules_Type As String             Soit *All, *One
+    '      Cellules_Type tente de résoudre TOUTES les cellules ou Une seule            
+    'ByRef Prd As Prd_Struct paramètres cochées dans Préférences / Stratégies (y compris les stratégies)
+    'ByRef Strategy_Rslt(,) As String
+    '      Permet de récupérer le résultat de la dernière stratégie si Cellules_Type = "*One"
+    '      TOUTES les stratégies utilisent Strategy_Rslt(,)
+    'Pzzl_Slv est une procédure et non une fonction
+    '      Prd et Strategy_Rslt(,) sont passées en ByRef
+    '
+    'La fonction tente de résoudre une grille ou une cellule AVEC les stratégies développées dans SDK
+    '            et cochées dans Préférences / Stratégies
+    '
+    ' Pzzl_Crt propose à Pzzl_Slv une grille dont certains candidats ont été enlevés suite aux stratégies
+
+    ' Initialisation des variables
+    Dim U_temp(80, 3) As String
+    Dim Strategy_CdU_Nb As Integer = 0
+    Dim Strategy_CdO_Nb As Integer = 0
+    Prv_Col3 = ""
+    Prd.Prd_Phase = "Slv"
+
+    ' Configuration de U_temp en fonction du type de production
+    Select Case Production_Type
+      Case "P"
+        For i As Integer = 0 To 80
+          U_temp(i, 2) = Prd.Prd_Val(i)
+          If Prd.Prd_Val(i) = " " Then
+            U_temp(i, 1) = " "
+            U_temp(i, 3) = Cnddts
+          Else
+            U_temp(i, 1) = Prd.Prd_Ini(i)
+            U_temp(i, 3) = Cnddts_Blancs
+          End If
+        Next i
+        Grid_Cdd_Remove_Cell_Coll(U_temp) ' Mise à jour des candidats éligibles
+      Case "S"
+        For i As Integer = 0 To 80
+          U_temp(i, 1) = Prd.Prd_Ini(i)
+          U_temp(i, 2) = Prd.Prd_Val(i)
+          U_temp(i, 3) = Prd.Prd_Candidats(i)
+        Next i
+    End Select
+
+    ' Contrôle de la grille et arrêt si incorrecte
+    If Not Pzzl_Slv_ControlGrille(U_temp, Prd) Then Exit Sub
+
+    ' Analyse des candidats
+    Do
+      Strategy_Rslt = Strategy_CdU(U_temp)
+      If Pzzl_Slv_AnalyseStrategy_CdU_CdO("CdU", Production_Type, U_temp, Prd, Strategy_Rslt, Cellules_Type, Strategy_CdU_Nb) Then Continue Do
+
+      Strategy_Rslt = Strategy_CdO(U_temp)
+      If Pzzl_Slv_AnalyseStrategy_CdU_CdO("CdO", Production_Type, U_temp, Prd, Strategy_Rslt, Cellules_Type, Strategy_CdO_Nb) Then Continue Do
+
+      For i As Integer = 2 To 10
+        Dim Strg_Productive As Integer
+        Strg_Productive = Strategy_Upd_BTXYSJZKQ("Slv", Production_Type, i, U_temp, Prd)
+
+        If Strg_Productive > 0 Then
+
+
+          Jrn_Add_Yellow("Stratégies_G_Automate arrêt " & Strategy_Rslt(1, 0))
+          Dim Texte As String = ""
+          Texte = "Texte " & vbCrLf
+
+          Texte &= "Texte " & i & vbCrLf
+          Texte &= "Texte " & Stg_List_Code(i) & vbCrLf
+          Texte &= "Texte " & Stg_List_Lettre(i) & vbCrLf
+
+          Dim dlg As New Frm_Dlg_YesNo With {
+            .Frm_Dlg_Titre = Proc_Name_Get(),
+            .Frm_Dlg_Texte = Texte
+          }
+
+          Plcy_Strg = Stg_List_Code(i)
+
+          For j As Integer = 0 To 80
+            U(j, 1) = U_temp(j, 1)
+            U(j, 2) = U_temp(j, 2)
+            U(j, 3) = U_temp(j, 3)
+          Next j
+
+          Build_Bmp_Valeur()
+          Frm_SDK.Invalidate()
+          dlg.ShowDialog()
+
+          If dlg.Frm_Dlg_Reponse = "Yes" Then
+            Continue Do
+          Else
+            Exit Sub
+          End If
+
+        End If
+
+      Next i
+
+
+
+
+
+      Exit Do
+    Loop
+
+    ' Finalisation
+    With Prd
+      If .Prd_Code_Retour <> -1 Then
+        .Prd_Code_Retour = If(Wh_Nb_Cell(U_temp).Vides = 0, 0, 1)
+      End If
+      For j As Integer = 0 To 80
+        .Prd_Ini(j) = U_temp(j, 1)
+        .Prd_Val(j) = U_temp(j, 2)
+        .Prd_Candidats(j) = U_temp(j, 3)
+      Next j
+
+    End With
+
+
+    '////////////////////////////////////////////////////
+
+    Prd_Display(Prd)
+
+    For i As Integer = 0 To 80
+      U(i, 1) = Prd.Prd_Ini(i)
+      U(i, 2) = Prd.Prd_Val(i)
+      U(i, 3) = Prd.Prd_Candidats(i)
+    Next i
+
+    'Vérification
+    Dim U_Chk(80, 3) As String
+    Array.Copy(U, U_Chk, UNbCopy)
+    Dim U_Check As U_Check_Struct = U_Checking(U_Chk)
+    U_Checking_Display(U_Check, True)
+
+    Build_Bmp_Valeur()
+    Frm_SDK.Invalidate()
+    Strategy_Dsp_Standard()
+  End Sub
+
 
   Public Sub Pzzl_Crt_Triplet(ByRef Prd As Prd_Struct)
     'Le calcul de Triplet prend en compte 3 cellules vides par Ligne, Colonne ou Région
@@ -1444,7 +1602,7 @@ Pzzl_Prd_Batch_End:
       Dim Cdu_Exists As Boolean
       For i As Integer = 0 To 80
         U_tempa(i, 2) = Prd.Prd_Ini(i)
-        '  Select Case U_tempa(i, 2)
+        '  Select Case U_tempa(j, 2)
         If U_tempa(i, 2) = " " Then U_tempa(i, 3) = Cnddts
         If U_tempa(i, 2) <> " " Then U_tempa(i, 3) = Cnddts_Blancs
       Next i

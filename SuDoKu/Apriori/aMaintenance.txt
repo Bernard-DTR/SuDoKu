@@ -506,9 +506,10 @@
 #823 V             Abandon prochain de Plcy_Only_Cdd_Eligible qui n'est plus utilisé
 #824 L  06/07/2026 En mode CaG, la grille de Saisie affiche tous les candidats ou seulement les candidats ajoutés.
 #825 Ma 07/07/2026 Mise en place d'un formulaire correctement placé pour les automates
+#826 J  08/07/2026 Amélioration du formulaire Frm_Dlg_YesNo (Placement et Enter + Escape)
 
                    Mise en place d'un automate de résolution des stratégies classiques
-                   Mise en place d'un formulaire pour l'automate classique et graphe
+                   
 
 ##############################################################################################################################
                    

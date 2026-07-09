@@ -523,19 +523,14 @@ Stratégies_G_Automate_Start:
       Texte &= "    Placer les CdU,          " & vbCrLf
       Texte &= "           les CdO,          " & vbCrLf
       Texte &= "                             " & vbCrLf
-
       Texte &= "... et poursuivre. "
+      Dim dlg As New Frm_Dlg_YesNo With {
+        .Frm_Dlg_Titre = Titre,
+        .Frm_Dlg_Texte = Texte
+      }
+      dlg.ShowDialog()
 
-      Frm_Dlg_Titre = Titre
-      Frm_Dlg_Texte = Texte
-      Frm_Dlg_YesNo.ShowDialog()
-
-      'Dim rep As DialogResult = MessageBox.Show(Texte, Titre,
-      '                          MessageBoxButtons.YesNo)
-      'If rep = DialogResult.No Then Exit Sub
-
-      If Frm_Dlg_Reponse <> "Yes" Then Exit Sub
-
+      If dlg.Frm_Dlg_Reponse <> "Yes" Then Exit Sub
       ClipBoard_Coller_RTF()
 
       Stratégies_G_Candidats_Delete()
@@ -571,4 +566,8 @@ Stratégies_G_Automate_Start:
     End Select
     Frm_SDK.Invalidate()
   End Sub
+
+
+
+
 End Module

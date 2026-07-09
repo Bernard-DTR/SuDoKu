@@ -49,7 +49,7 @@ Friend Module M20_Game
     Cpt_Pénalités = 0
     CalculDerniereValeurUnité()
     Build_Bmp_Fonds()
-    Build_Bmp_valeur_saisie()
+    Build_Bmp_Valeur()
     Frm_SDK.Invalidate()
   End Sub
 

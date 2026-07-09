@@ -34,7 +34,7 @@
       Pbl_Valeur_CdS = Val
     End If
     CalculDerniereValeurUnité()
-    Build_Bmp_valeur_saisie()
+    Build_Bmp_Valeur()
     Mnu_Mngt_Barre_Outils_Filtres_Enabled()
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00112", {U_nb(10).ToString(), (81 - U_nb(0)).ToString()})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
@@ -77,7 +77,7 @@
       'If U(Cellule, 3).Contains(Val) = False Then Exit Sub
       Pbl_Cell_Select = Cellule
       U(Cellule, 2) = Val
-      Build_Bmp_valeur_saisie()
+      Build_Bmp_Valeur()
       Frm_SDK.Invalidate()
       Application.DoEvents()
       Act_Add(Cellule, "Ajouter", Val, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
@@ -107,7 +107,7 @@
       Pbl_Valeur_CdS = Val
     End If
     CalculDerniereValeurUnité()
-    Build_Bmp_valeur_saisie()
+    Build_Bmp_Valeur()
     Mnu_Mngt_Barre_Outils_Filtres_Enabled()
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00112", {U_nb(10).ToString(), (81 - U_nb(0)).ToString()})
     Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
@@ -163,7 +163,7 @@
     End Select
     WH_U_nb()
     CalculDerniereValeurUnité()
-    Build_Bmp_valeur_saisie()
+    Build_Bmp_Valeur()
     Mnu_Mngt_Barre_Outils_Filtres_Enabled()
     Act_Add(Cellule, "Effacer", Val, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
     Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})
@@ -187,7 +187,7 @@
       'Jrn_Add_Yellow("La valeur " & Val & " est effacée de la cellule " & U_Coord(Cellule) & ".")
       U(Cellule, 2) = " "
       U(Cellule, 3) = Cnddts_Blancs
-      Build_Bmp_valeur_saisie()
+      Build_Bmp_Valeur()
       Act_Add(Cellule, "Effacer", Val, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
       Frm_SDK.B_Pourcentage.Text = Wh_Pourcentage()
       Frm_SDK.Invalidate()
@@ -212,7 +212,7 @@
       Grid_Cdd_Remove_Cell_Coll(U)
       WH_U_nb()
       CalculDerniereValeurUnité()
-      Build_Bmp_valeur_saisie()
+      Build_Bmp_Valeur()
       Mnu_Mngt_Barre_Outils_Filtres_Enabled()
       Act_Add(Cellule, "Effacer", Val, U(Cellule, 3), Origine, Av_Jeu, Av_AllCdd)
       Frm_SDK.B_Info.Text = Msg_Read("SDK_00114", {CStr(Game_Nb_Cellules_Initiales), CStr(Wh_Nb_Cell(U).Vides), CStr(Wh_Grid_Nb_Candidats(U))})

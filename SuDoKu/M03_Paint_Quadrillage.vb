@@ -72,13 +72,13 @@ Module M03_Paint_Quadrillage
         g.DrawString(Subst_Police(CStr(cdd)), Fnt_Cdd, Brh_VCdd, Sqr_Cdd(cd), Format_Center)
       End If
     Next cdd
-    Build_Bmp_Saisie_Traits(g, Sqr_Cel(Cellule).X, Sqr_Cel(Cellule).Y)
+    Build_Bmp_Grille_Saisie_Traits(g, Sqr_Cel(Cellule).X, Sqr_Cel(Cellule).Y)
   End Sub
   Public Sub Build_Bmp_QFVS()
     Build_Bmp_Quadrillage()
     Build_Bmp_Fonds()
-    Build_Bmp_valeur_saisie()
-    Build_Bmp_Saisie()
+    Build_Bmp_Valeur()
+    Build_Bmp_Grille_Saisie()
   End Sub
   Public Sub Build_Bmp_Quadrillage()
     Bmp_Quadrillage = New Bitmap(Frm_SDK.Width, Frm_SDK.Height)
@@ -123,7 +123,7 @@ Module M03_Paint_Quadrillage
       Next
     End Using
   End Sub
-  Public Sub Build_Bmp_valeur_saisie()
+  Public Sub Build_Bmp_Valeur()
     ' Cette fonction est optimisée car elle est appelée à chaque changement de valeur d'une cellule Remplie
     ' Seules les valeurs des cellules Remplies sont peintes
     Bmp_Valeur = New Bitmap(Frm_SDK.Width, Frm_SDK.Height, Imaging.PixelFormat.Format32bppPArgb)
@@ -141,14 +141,14 @@ Module M03_Paint_Quadrillage
     End Using
   End Sub
 
-  Public Sub Build_Bmp_Saisie()
-    Bmp_Fond_Saisie_SQ = Build_Bmp_Fond_Saisie("SQ")
-    Bmp_Fond_Saisie_TL = Build_Bmp_Fond_Saisie("TL")
-    Bmp_Fond_Saisie_TR = Build_Bmp_Fond_Saisie("TR")
-    Bmp_Fond_Saisie_BL = Build_Bmp_Fond_Saisie("BL")
-    Bmp_Fond_Saisie_BR = Build_Bmp_Fond_Saisie("BR")
+  Public Sub Build_Bmp_Grille_Saisie()
+    Bmp_Grille_Saisie_SQ = Build_Bmp_Grille_Saisie("SQ")
+    Bmp_Grille_Saisie_TL = Build_Bmp_Grille_Saisie("TL")
+    Bmp_Grille_Saisie_TR = Build_Bmp_Grille_Saisie("TR")
+    Bmp_Grille_Saisie_BL = Build_Bmp_Grille_Saisie("BL")
+    Bmp_Grille_Saisie_BR = Build_Bmp_Grille_Saisie("BR")
   End Sub
-  Public Sub Build_Bmp_Saisie_Traits(g As Graphics, x As Integer, y As Integer)
+  Public Sub Build_Bmp_Grille_Saisie_Traits(g As Graphics, x As Integer, y As Integer)
     Using pen As New Pen(Color_Trait, Trait_fin)
       pen.DashPattern = {1, 5}
       Dim x1 As Integer = x + WHt
@@ -162,7 +162,7 @@ Module M03_Paint_Quadrillage
     End Using
   End Sub
 
-  Private Function Build_Bmp_Fond_Saisie(shape As String) As Bitmap
+  Private Function Build_Bmp_Grille_Saisie(shape As String) As Bitmap
     Dim bmp As New Bitmap(WH, WH)
     Using g As Graphics = Graphics.FromImage(bmp)
       G1_Graphics_Généralité(g)
@@ -173,13 +173,13 @@ Module M03_Paint_Quadrillage
         Case "BL" : g.FillPath(Brh_Select, Build_Path_BL())
         Case "BR" : g.FillPath(Brh_Select, Build_Path_BR())
       End Select
-      Build_Bmp_Saisie_Cdd(g, New Rectangle(0, 0, WH, WH))
-      Build_Bmp_Saisie_Traits(g, 0, 0)
+      Build_Bmp_Grille_Saisie_Cdd(g, New Rectangle(0, 0, WH, WH))
+      Build_Bmp_Grille_Saisie_Traits(g, 0, 0)
     End Using
     Return bmp
   End Function
-  Public Sub Build_Bmp_Saisie_Cdd(g As Graphics, r As Rectangle)
-    ' le Bmp_Fond_Saisie_SQ est complété des candidats et ds traits de séparation des candidats
+  Public Sub Build_Bmp_Grille_Saisie_Cdd(g As Graphics, r As Rectangle)
+    ' le Bmp_Grille_Saisie_SQ est complété des candidats et ds traits de séparation des candidats
     For cdd As Integer = 1 To 9
       ' Sqr_Cel et Sqr_Cdd ne sont pas référencés par Cellule
       Dim row As Integer = (cdd - 1) \ 3
