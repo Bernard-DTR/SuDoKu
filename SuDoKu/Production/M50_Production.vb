@@ -528,11 +528,6 @@ Pzzl_Crt_Exit:
         Case 10 : Strategy_Rslt = Strategy_Unq(U_temp)  ' Q
       End Select
 
-      Dim index As Integer = RRslt_Copy_Rnd(Strategy_Rslt)
-
-
-
-
       'Pour les stratégies Cbl, Tpl, Xwg, XYw, Swf, Jly, XYZ, SKy
       '                    on a Dim Candidat As String = Strategy_Rslt(5, j)
       'Pour la stratégie   Unq
@@ -1041,117 +1036,100 @@ Phase_End:
 
   Public Sub Pzzl_Automate()
     '...9.76.1.......5.619.........23....4.......7.835...14..2.6...8....1..7..568.....
-    Jrn_Add(, {Proc_Name_Get()})
-    ' Production_Type est positionné "S" comme Solve
-    Dim Production_Type As String = "S"
-    Dim Cellules_Type As String = "*All"
+    '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ' Il existe un automate qui tente de résoudre une grille en utilisant les stratégies de type Graphe
+    ' Cet automate présente les stratégies graphes et les résoud
+    ' les CdU et CdO sont traités sans être présentés à l'utilisateur, 
+    ' Objectif : Automate de résolutions de grilles avec les stratégies classiques
+    '            Les stratégies sont affichées
+    '            le moteur propose de les résoudre
+    '            les CdU et CdO sont traités sans être présentés à l'utilisateur
+    '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    ' A0 Les variables utilisées
+    Dim Production_Type As String = "S"    ' ? à garder
+    Dim Cellules_Type As String = "*All"   ' ? à garder
+    Dim Strategy_CdU_Nb As Integer = 0     ' ? à garder
+    Dim Strategy_CdO_Nb As Integer = 0     ' ? à garder
+    Dim Passage As Integer = 0
+
+    ' A1 U(,)       est la grille présentée à résoudre
+    '    Prd_Struct est la structure utilisée pour la résolution
+    '               Prd.Prd_Ini(i), Prd.Prd_Val(i), Prd.Prd_Candidats(i)
+    '    U_temp(,)  est utilisé dans le calcul des stratégies
     Dim Prd As Prd_Struct = Nothing
     Prd_Init(Prd, U, "I")
-    Dim Strategy_Rslt(99, 0) As String
-    'Pzzl_Slv(Production_Type, "*All", Prd, Strategy_Rslt)
-
-    '////////////////////////////////////////////////////
-
-    'ByVal Cellules_Type As String             Soit *All, *One
-    '      Cellules_Type tente de résoudre TOUTES les cellules ou Une seule            
-    'ByRef Prd As Prd_Struct paramètres cochées dans Préférences / Stratégies (y compris les stratégies)
-    'ByRef Strategy_Rslt(,) As String
-    '      Permet de récupérer le résultat de la dernière stratégie si Cellules_Type = "*One"
-    '      TOUTES les stratégies utilisent Strategy_Rslt(,)
-    'Pzzl_Slv est une procédure et non une fonction
-    '      Prd et Strategy_Rslt(,) sont passées en ByRef
-    '
-    'La fonction tente de résoudre une grille ou une cellule AVEC les stratégies développées dans SDK
-    '            et cochées dans Préférences / Stratégies
-    '
-    ' Pzzl_Crt propose à Pzzl_Slv une grille dont certains candidats ont été enlevés suite aux stratégies
-
-    ' Initialisation des variables
-    Dim U_temp(80, 3) As String
-    Dim Strategy_CdU_Nb As Integer = 0
-    Dim Strategy_CdO_Nb As Integer = 0
-    Prv_Col3 = ""
+    ' Prd.Prd_Ini(i), Prd.Prd_Val(i) et Prd.Prd_Candidats(i) sont initialisés à partir de U(,)
     Prd.Prd_Phase = "Slv"
+    Dim Strategy_Rslt(99, 0) As String
+    Dim U_temp(80, 3) As String
 
-    ' Configuration de U_temp en fonction du type de production
-    Select Case Production_Type
-      Case "P"
-        For i As Integer = 0 To 80
-          U_temp(i, 2) = Prd.Prd_Val(i)
-          If Prd.Prd_Val(i) = " " Then
-            U_temp(i, 1) = " "
-            U_temp(i, 3) = Cnddts
-          Else
-            U_temp(i, 1) = Prd.Prd_Ini(i)
-            U_temp(i, 3) = Cnddts_Blancs
-          End If
-        Next i
-        Grid_Cdd_Remove_Cell_Coll(U_temp) ' Mise à jour des candidats éligibles
-      Case "S"
-        For i As Integer = 0 To 80
-          U_temp(i, 1) = Prd.Prd_Ini(i)
-          U_temp(i, 2) = Prd.Prd_Val(i)
-          U_temp(i, 3) = Prd.Prd_Candidats(i)
-        Next i
-    End Select
+    ' A3       
+    Prv_Col3 = ""
 
-    ' Contrôle de la grille et arrêt si incorrecte
+    ' B0 Contrôle de la grille et arrêt si elle est incorrecte
+    ' U(,) et Prd (Prd_STruct) sont initialisés
+    For i As Integer = 0 To 80
+      U_temp(i, 1) = Prd.Prd_Ini(i)
+      U_temp(i, 2) = Prd.Prd_Val(i)
+      U_temp(i, 3) = Prd.Prd_Candidats(i)
+    Next i
+
     If Not Pzzl_Slv_ControlGrille(U_temp, Prd) Then Exit Sub
 
-    ' Analyse des candidats
+    ' C0 Analyse des candidats
     Do
+
+      ' C1 Analyse des stratégies CdU et CdO
+      '    Les analyses     sont effectuées dans U_temp
+      '    Les mises à jour sont effectuées dans U_temp
       Strategy_Rslt = Strategy_CdU(U_temp)
       If Pzzl_Slv_AnalyseStrategy_CdU_CdO("CdU", Production_Type, U_temp, Prd, Strategy_Rslt, Cellules_Type, Strategy_CdU_Nb) Then Continue Do
 
       Strategy_Rslt = Strategy_CdO(U_temp)
       If Pzzl_Slv_AnalyseStrategy_CdU_CdO("CdO", Production_Type, U_temp, Prd, Strategy_Rslt, Cellules_Type, Strategy_CdO_Nb) Then Continue Do
 
+      ' C2 Analyse des stratégies BTXYSJZKQ
       For i As Integer = 2 To 10
         Dim Strg_Productive As Integer
-        Strg_Productive = Strategy_Upd_BTXYSJZKQ("Slv", Production_Type, i, U_temp, Prd)
+        Strg_Productive = Strategy_Automate_Upd_BTXYSJZKQ("Slv", Production_Type, i, U_temp, Prd)
 
         If Strg_Productive > 0 Then
-
-
-          Jrn_Add_Yellow("Stratégies_G_Automate arrêt " & Strategy_Rslt(1, 0))
+          Passage += 1
+          Dim Titre As String = "Passage n° " & Passage & " _ Automate C"
           Dim Texte As String = ""
-          Texte = "Texte " & vbCrLf
-
-          Texte &= "Texte " & i & vbCrLf
-          Texte &= "Texte " & Stg_List_Code(i) & vbCrLf
-          Texte &= "Texte " & Stg_List_Lettre(i) & vbCrLf
-
+          Texte &= Stg_Get(Stg_List_Code(i)).Texte & vbCrLf
+          Texte &= "Sous/Strg    : " & RRslt.Code_Sous_Strg & ") " & vbCrLf
+          Texte &= "Candidat     : " & RRslt.Candidat & " rouge à enlever." & vbCrLf
+          Texte &= "Nb Candidats : " & RRslt.CelExcl.Count & " cellules exclues." & vbCrLf
+          Texte &= "    Placer les CdU,          " & vbCrLf
+          Texte &= "           les CdO,          " & vbCrLf
+          Texte &= "                             " & vbCrLf
+          Texte &= "... et poursuivre. "
           Dim dlg As New Frm_Dlg_YesNo With {
-            .Frm_Dlg_Titre = Proc_Name_Get(),
+            .Frm_Dlg_Titre = Titre,
             .Frm_Dlg_Texte = Texte
           }
 
           Plcy_Strg = Stg_List_Code(i)
-
+          ' Pour afficher la grille correctement avec les valeurs et les candidats
+          ' il faut que U(,) soit mis à jour avec U_temp(,) SAUF pour les candidats qui sont dans U_temp(,3) 
           For j As Integer = 0 To 80
             U(j, 1) = U_temp(j, 1)
             U(j, 2) = U_temp(j, 2)
-            U(j, 3) = U_temp(j, 3)
+            'U(j, 3) = U_temp(j, 3)
           Next j
-
           Build_Bmp_Valeur()
           Frm_SDK.Invalidate()
-          dlg.ShowDialog()
 
+          dlg.ShowDialog()
           If dlg.Frm_Dlg_Reponse = "Yes" Then
+            ClipBoard_Coller_RTF()
             Continue Do
           Else
             Exit Sub
           End If
-
         End If
-
       Next i
-
-
-
-
-
       Exit Do
     Loop
 
@@ -1165,13 +1143,7 @@ Phase_End:
         .Prd_Val(j) = U_temp(j, 2)
         .Prd_Candidats(j) = U_temp(j, 3)
       Next j
-
     End With
-
-
-    '////////////////////////////////////////////////////
-
-    Prd_Display(Prd)
 
     For i As Integer = 0 To 80
       U(i, 1) = Prd.Prd_Ini(i)
@@ -1189,6 +1161,67 @@ Phase_End:
     Frm_SDK.Invalidate()
     Strategy_Dsp_Standard()
   End Sub
+
+  Public Function Strategy_Automate_Upd_BTXYSJZKQ(Origine As String, Production_Type As String, Strg As Integer, ByRef U_temp(,) As String, ByRef Prd As Prd_Struct) As Integer
+    'Utilisation dans Pzzl_Crt ET Pzzl_Slv SAUF pour Unq qui n'est utilisé QUE pour Pzzl_Slv S'il est Production_Type = "S"
+    'Exécution et Application des Mises à jour des Stratégies BTXYSJZKQ 
+    'Un candidat est enlevé de U_temp(Cellule, 3)
+    Dim Strategy_Nb As Integer = 0
+    If Prd.Prd_Plcy_Strg_Bll(Strg) Then
+      Dim Strategy_Rslt(99, 0) As String
+      Select Case Strg
+        'ase 0 : Strategy_Rslt = Strategy_CdU(U_temp)   ' U
+        'ase 1 : Strategy_Rslt = Strategy_CdO(U_temp)   ' O
+        'ase 10 : Strategy_Rslt = Strategy_Unq(U_temp)  ' Q
+        Case 2 : Strategy_Rslt = Strategy_Cbl(U_temp)   ' B
+        Case 3 : Strategy_Rslt = Strategy_Tpl(U_temp)   ' T
+        Case 4 : Strategy_Rslt = Strategy_Xwg(U_temp)   ' X
+        Case 5 : Strategy_Rslt = Strategy_XYw(U_temp)   ' Y
+        Case 6 : Strategy_Rslt = Strategy_Swf(U_temp)   ' S
+        Case 7 : Strategy_Rslt = Strategy_Jly(U_temp)   ' J
+        Case 8 : Strategy_Rslt = Strategy_XYZ(U_temp)   ' Z
+        Case 9 : Strategy_Rslt = Strategy_SKy(U_temp)   ' K
+      End Select
+      'Pour ne retenir qu'une seule stratégie gagnante, la première
+      Dim index As Integer = RRslt_Copy_First(Strategy_Rslt)
+      'RRslt_Display()
+      'Pour les stratégies Cbl, Tpl, Xwg, XYw, Swf, Jly, XYZ, SKy
+      '                    on a Dim Candidat As String = Strategy_Rslt(5, j)
+      Select Case Strg
+        Case 2, 3, 4, 5, 6, 7, 8, 9
+          For i As Integer = 1 To UBound(Strategy_Rslt, 2)
+            If i <> index Then Continue For
+            For j As Integer = 55 To 99
+              If Strategy_Rslt(j, i) = "__" Then Exit For
+              If Strategy_Rslt(j, i) <> "__" Then
+                Dim Candidat As String = Strategy_Rslt(5, i)
+                Dim Cellule As Integer = CInt(Strategy_Rslt(j, i))
+                If U_temp(Cellule, 3).Contains(Candidat) = True Then
+                  Dim Candidats_av As String = U_temp(Cellule, 3)
+                  Dim Valeur As String = " "
+                  Dim Candidats As String = U_temp(Cellule, 3)
+                  Mid$(Candidats, CInt(Candidat), 1) = " "
+                  U_temp(Cellule, 3) = Candidats
+                  Dim Candidats_ap As String = U_temp(Cellule, 3)
+                  Jrn_Add_Pzzl_Slv(Production_Type, U_temp, Strategy_Rslt, i, Prd, Cellule, Valeur, Candidat, Candidats_av, Candidats_ap, Nsd_i)
+                  Strategy_Nb += 1
+                End If
+              End If
+            Next j
+            Exit For
+          Next i
+
+      End Select
+      Prd.Slv_Strg_Nb(Strg) += Strategy_Nb
+      '' Pour une stratégie d'éviction, la fonction enlève le candidat dans les cellules concernées
+      'Select Case Origine
+      '  Case "Crt" : Prd.Crt_Strg_Nb(Strg) += Strategy_Nb
+      '  Case "Slv" : Prd.Slv_Strg_Nb(Strg) += Strategy_Nb
+      'End Select
+    End If
+    Return Strategy_Nb
+
+  End Function
 
 
   Public Sub Pzzl_Crt_Triplet(ByRef Prd As Prd_Struct)

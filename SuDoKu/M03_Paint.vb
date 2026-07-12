@@ -10,7 +10,6 @@ Friend Module M03_Paint
         U_Strg_Val_Ins(i) = ""
         U_Strg_Cdd_Exc(i) = Cnddts_Blancs
       Next i
-      Jrn_Add_Yellow("jepasse " & Proc_Name_Get())
       G4_Grid_Stratégie_CaG(g)
       G4_Grid_Stratégie_DCs(g)
       G4_Grid_Stratégie_Cdd(g)
@@ -151,7 +150,6 @@ Friend Module M03_Paint
   End Sub
   Public Sub G4_Grid_Stratégie_Cbl(g As Graphics)
     If Not Plcy_Strg = "Cbl" Then Exit Sub
-    Jrn_Add_Yellow("je passe " & Proc_Name_Get() & "RRslt.Productivité = " & RRslt.Productivité)
     Dim Candidat As String
 
     If RRslt.Productivité = False Then

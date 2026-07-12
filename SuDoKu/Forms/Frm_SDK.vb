@@ -1226,7 +1226,6 @@ Public NotInheritable Class Frm_SDK
     Pzzl_Prd_Interactif("P")
   End Sub
   Private Sub Mnu08_Automate_Click(sender As Object, e As EventArgs)
-    MsgBox("en cours de déceloppement")
     Pzzl_Automate()
   End Sub
 

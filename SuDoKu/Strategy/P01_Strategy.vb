@@ -161,6 +161,51 @@ Friend Module P01_Strategy
     End With
   End Sub
 
+  Public Function RRslt_Copy_First(Strategy_Rslt(,) As String) As Integer
+    ' La procédure documente RRSlt du premier résultat de Strategy_Rslt
+    If Strategy_Rslt Is Nothing OrElse UBound(Strategy_Rslt, 2) <= 0 Then     'Strategy_Rslt.GetLength(1) = 0
+      RRslt.Productivité = False
+      Return -1
+    End If
+
+    'Dim rnd As New Random()
+    'Dim Index As Integer = rnd.Next(1, Strategy_Rslt.GetUpperBound(1) + 1)   ' Tire un nombre entre min inclus et max non inclus
+
+    Dim Index As Integer = 1
+    With RRslt
+      .Occurence = Index
+      .Nb_Occurences = Strategy_Rslt.GetUpperBound(1)
+      .Code_Strg = Strategy_Rslt(1, Index)
+      .Code_Sous_Strg = Strategy_Rslt(2, Index)
+      .Code_LCR = Strategy_Rslt(3, Index)
+      .LCR = CInt(Strategy_Rslt(4, Index))
+      .Candidat = Strategy_Rslt(5, Index)
+
+      Dim valeurs As New List(Of Integer)
+      For k As Integer = 0 To 44
+        Dim s As String = Strategy_Rslt(10 + k, Index)
+        If s = "__" Then Exit For
+        valeurs.Add(CInt(s))
+      Next
+      .Cellule = valeurs.ToArray()
+      valeurs.Clear()
+      For k As Integer = 0 To 44
+        Dim s As String = Strategy_Rslt(55 + k, Index)
+        If s = "__" Then Exit For
+        valeurs.Add(CInt(s))
+      Next
+      .CelExcl = valeurs.ToArray()
+
+      .Productivité = True
+    End With
+    'Strategy_Rslt_Display(Strategy_Rslt, -1)
+    'RRslt_Display()
+    Return Index
+
+  End Function
+
+
+
   Public Function RRslt_Copy_Rnd(Strategy_Rslt(,) As String) As Integer
     ' La procédure documente RRSlt d'un résultat pris au hasard de Strategy_Rslt
     If Strategy_Rslt Is Nothing OrElse UBound(Strategy_Rslt, 2) <= 0 Then     'Strategy_Rslt.GetLength(1) = 0

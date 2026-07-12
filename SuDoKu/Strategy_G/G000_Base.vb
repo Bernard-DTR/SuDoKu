@@ -505,7 +505,7 @@ Stratégies_G_Automate_Start:
     Stratégies_G_Execute()
 
     If GRslt.Productivité OrElse XRslt.Productivité Then
-      Dim Titre As String = "Passage n° " & Passage & " _ Résolution Strategie G"
+      Dim Titre As String = "Passage n° " & Passage & " _ Automate G"
       Dim Texte As String = "Stratégie productive ! " & vbCrLf & vbCrLf
       Texte &= Stg_Get(Plcy_Strg).Texte & vbCrLf
 
