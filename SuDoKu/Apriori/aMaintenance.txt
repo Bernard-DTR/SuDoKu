@@ -508,6 +508,7 @@
 #825 Ma 07/07/2026 Mise en place d'un formulaire correctement placé pour les automates
 #826 J  08/07/2026 Amélioration du formulaire Frm_Dlg_YesNo (Placement et Enter + Escape)
 #827 D  12/07/2026 Mise en place d'un automate de résolution des stratégies classiques
+#828 Ma 14/07/2026 Automate de résolution (ajout des stratégies cochées)
                    
 
 ##############################################################################################################################

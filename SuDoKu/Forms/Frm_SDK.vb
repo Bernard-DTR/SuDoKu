@@ -15,6 +15,7 @@ Public NotInheritable Class Frm_SDK
   Dim Prv_MM_Pt As Point
   Dim Prv_Rct_Cdd_Numéro As Integer
   Private Mnu04n_SignalerLeCandidatSaisi As ToolStripMenuItem
+  Private Mnu04n_CaG As ToolStripMenuItem
 
   Public Sub New()
     ' Cet appel est requis par le concepteur.
@@ -145,7 +146,7 @@ Public NotInheritable Class Frm_SDK
     AddHandler Mnu04n_RésoudreUneCellule.Click, AddressOf Mnu04n_RésoudreUneCellule_Click
     Nsd_i = Mnu04.DropDown.Items.Add(Mnu04n_RésoudreUneCellule)
 
-    Dim Mnu04n_CaG As New ToolStripMenuItem() With
+    Mnu04n_CaG = New ToolStripMenuItem() With
         {
         .Text = "Stratégie Crayon et Gomme",
         .ForeColor = SystemColors.ControlText,
@@ -885,9 +886,12 @@ Public NotInheritable Class Frm_SDK
         Jrn_Add(, {Msg_Read("CAG_00120")})
 
         ' Prise en Compte de la Grille
+        Mnu04n_CaG.BackColor = Color.Orange
+        Mnu04n_CaG.ForeColor = SystemColors.ControlText
         B_Famille.Text = Stg_Get(Plcy_Strg).Family.ToString()
         B_Info.Text = Stg_Get(Plcy_Strg).Texte
         B_Info.BackColor = Color.Orange
+
         For i As Integer = 0 To 80
           U(i, 3) = Cnddts_Blancs
           U_CddExc(i) = Cnddts_Blancs
@@ -898,6 +902,8 @@ Public NotInheritable Class Frm_SDK
       Case -1
         Plcy_Gnrl = "Nrm"
         Plcy_Strg = "   "
+        Mnu04n_CaG.BackColor = SystemColors.Control
+        Mnu04n_CaG.ForeColor = SystemColors.ControlText
         B_Info.Text = ""
         B_Info.BackColor = Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
     End Select
