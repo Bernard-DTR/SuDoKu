@@ -288,6 +288,7 @@
     <Compile Include="Strategy_G\G150_Strategy_bi-values.vb" />
     <Compile Include="Strategy_G\G200_Strategy_Coloration_Simple.vb" />
     <Compile Include="Strategy_G\G250_Strategy_X_Chain.vb" />
+    <Compile Include="Strategy_G\G300_Strategy_Loop_Continu_Discontinu.vb" />
     <Compile Include="Strategy_X\Q000_Strategy_X.vb" />
     <Compile Include="Strategy_X\Q040_Strategy_XY_Chain.vb" />
     <Compile Include="Strategy_X\Q060_Strategy_Nice_Loop.vb" />

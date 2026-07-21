@@ -42,9 +42,9 @@ Friend Module A01_OnlyOnce
     Path_Batch_Poubelle = Path_SDK & "S50_SDK\Batch_Poubelle\"
     Path_Save = Path_SDK & "S50_SDK\"
     Path_SDK_Autres_Jeux = Path2 & Base_Folder & "_S95\"
-    'File_SDKDoc = Path_SDK & "S01_Documentation\Rapport.docx"
+    File_SDKDoc = Path_SDK & "S01_Documentation\Rapport.docx"
     'Utilisation de OpenOffice pour générer le rapport
-    File_SDKDoc = Path_SDK & "S01_Documentation\LO_Rapport.odt"
+    'File_SDKDoc = Path_SDK & "S01_Documentation\LO_Rapport.odt"
   End Sub
 
   Public Sub OO_110_Variables_My_Settings()
