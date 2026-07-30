@@ -194,7 +194,7 @@ Module M01_Enregistrement_Partie
       Jrn_Add("Prl_00000", {"Avant              : " & Stg_Profondeur})
       Jrn_Add("Prl_00000", {"... partie test    : " & Stg})
       Jrn_Add("Prl_00000", {"Stratégies         : "})
-      Jrn_Add("Prl_00000", {"Plcy_Stg_Clb       : " & Plcy_Stg_Clb})
+      'Jrn_Add("Prl_00000", {"Plcy_Stg_Clb       : " & Plcy_Stg_Clb})
       Jrn_Add("Prl_00000", {"Stg_Profondeur     : " & Stg_Profondeur})
     End If
 

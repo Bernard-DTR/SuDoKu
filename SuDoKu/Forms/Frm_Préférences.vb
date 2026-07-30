@@ -588,7 +588,7 @@
     OC_Plcy_Stg_UOBTXYSJZKQ()
     ' Affichage de contrôle
     Jrn_Add("Prl_00000", {"Stratégies         : "})
-    Jrn_Add("Prl_00000", {"Plcy_Stg_Clb       : " & Plcy_Stg_Clb})
+    'Jrn_Add("Prl_00000", {"Plcy_Stg_Clb       : " & Plcy_Stg_Clb})
     Jrn_Add("Prl_00000", {"Stg_Profondeur     : " & Stg_Profondeur})
 
     Me.Close()

@@ -42,6 +42,12 @@
   End Sub
   Public Sub TestJ()
     Jrn_Add(, {Proc_Name_Get()})
+    Dim U_temp(80, 3) As String
+    Array.Copy(U, U_temp, UNbCopy)
+
+    Plcy_Strg = "CNL"
+    Strategy_CNL(U_temp)
+    Frm_SDK.Invalidate()
   End Sub
 #End Region
 End Module

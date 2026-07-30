@@ -5,7 +5,8 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_07 #828"
+  Public Cpt As Integer
+  Public SDK_Version As String = "V2026_07 #001"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
@@ -313,6 +314,7 @@ Module A00_Public
   Public Pbl_Cell_Candidat_Select As Integer
   ''' <summary>Indication de la Cellule Clickée Précédente.</summary>
   Public Prv_Pbl_Cell_Select As Integer
+  Public Prv_Pbl_Cell_Candidat_Select As Integer
   Public Msg_Dcty As New Dictionary(Of String, String)()
   'uNuSeD
   Public Nsd_i As Integer

@@ -435,11 +435,19 @@ Public NotInheritable Class Frm_SDK
     Pbl_Cell_Select = Cellule_MM
     If Prv_Pbl_Cell_Select <> -1 And Prv_Pbl_Cell_Select <> Pbl_Cell_Select Then
       B_Position.Text = U_cr(Pbl_Cell_Select) & "   " & Pbl_Cell_Select
-
     End If
     Prv_Pbl_Cell_Select = Pbl_Cell_Select
-    'Pour supprimer plusieurs candidats d'une même cellule, sans la quitter
-    Mnu_Mngt(Pbl_Cell_Select)
+
+    Dim Candidat_MM As Integer = Wh_Cellule_Candidat_Pt(Pbl_Cell_Select, New Point(x:=e.X, y:=e.Y))
+    If Candidat_MM = -1 Then Exit Sub
+    Pbl_Cell_Candidat_Select = Candidat_MM
+    If Pbl_Cell_Candidat_Select = Prv_Pbl_Cell_Candidat_Select Then Exit Sub
+    Prv_Pbl_Cell_Candidat_Select = Pbl_Cell_Candidat_Select
+
+    'Pour supprimer plusieurs candidats d'une même cellule,
+    '   il est nécessaire de changer de position de candidat dans la cellule
+
+    Mnu_Mngt(Pbl_Cell_Select, Pbl_Cell_Candidat_Select.ToString())
 
     ' Gestion de l'affichage de la grille de saisie
     If {0, 2, 6}.Contains(Stg_Get(Plcy_Strg).Family) AndAlso U(Pbl_Cell_Select, 2) = " " Then

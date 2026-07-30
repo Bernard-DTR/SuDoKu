@@ -1,3 +1,0 @@
-﻿Module G300_Strategy_Loop_Continu_Discontinu
-
-End Module

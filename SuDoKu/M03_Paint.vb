@@ -34,6 +34,7 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_Gbl(g)
       G4_Grid_Stratégie_Gbv(g)
       G4_Grid_Stratégie_GCs(g)
+      G4_Grid_Stratégie_CNL(g)
     End If
   End Sub
   Public Sub G4_Grid_Stratégie_CaG(g As Graphics)
@@ -1140,7 +1141,79 @@ Friend Module M03_Paint
     End Try
 
   End Sub
+  Public Sub G4_Grid_Stratégie_CNL(g As Graphics)
+    If Not Plcy_Strg = "CNL" Then Exit Sub
+    Try
+      Dim sc As New Cellule_Cls
+      If GcnlRslt.Productivité = False Then
+        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+        Exit Sub
+      End If
 
+      ' 1 Affichage des Candidats
+      For i As Integer = 0 To 80
+        sc.Numéro = i
+        sc.G6_Cellule_Paint_Candidats_Eligibles(g)
+        If U(i, 3).Contains(GcnlRslt.Candidat) Then
+          G0_Cdd_Figure(g, i, CInt(GcnlRslt.Candidat), "Cercle", Color.White)
+        End If
+      Next i
+
+      ' 2 Affichage des Courbes de Bézier
+      Dim Nb As Integer = 0
+      For Each Link As GcnlLink_Cls In GcnlRslt.RoadRight
+        Nb += 1
+        Select Case Plcy_Strg
+
+
+          Case "CNL"
+            G0_Cdd_Bézier(g, Link.Cel(0), CInt(Link.Cdd), Link.Cel(1), CInt(Link.Cdd), Link.Type, Nb)
+            ' C'est une alternance lien-fort lien-faible 
+            'Select Case Nb Mod 2
+            'Case 0
+            Dim sc_XNl As New Cellule_Cls With {.Numéro = Link.Cel(1)}
+                sc_XNl.G6_Cellule_Paint_Candidat_Eligible(g, CStr(CInt(Link.Cdd)), Color.Green)
+            'Case Else
+            'Dim sc_XNl As New Cellule_Cls With {.Numéro = Link.Cel(1)}
+            'sc_XNl.G6_Cellule_Paint_Candidat_Eligible(g, CStr(CInt(Link.Cdd)), Color.Blue)
+            'End Select
+        End Select
+
+        ' 3 Affichage des Extrémités des liens  
+        Dim PremierLien As GcnlLink_Cls = GcnlRslt.RoadRight.First()
+        Dim DernierLien As GcnlLink_Cls = GcnlRslt.RoadRight.Last()
+        G0_Cell_Icône(g, PremierLien.Cel(0), "Start")
+        G0_Cell_Icône(g, DernierLien.Cel(1), "End")
+        Select Case Plcy_Strg
+          Case "XCy"
+            G0_Cdd_Figure(g, PremierLien.Cel(0), CInt(PremierLien.Cdd), "Disque", Color_Link_S)
+            G0_Cdd_Figure(g, DernierLien.Cel(1), CInt(DernierLien.Cdd), "Disque", Color_Link_S)
+          Case "XNl"
+            ' il n'y en a pas car c'est une boucle Arrivée = Départ
+        End Select
+      Next Link
+
+      ' 4 Affichage des Candidats à exclure 
+      'Dim Candidats As String = Cnddts_Blancs
+      'For Each XCelExcl As XCel_Excl_Cls In GcnlRslt.CelExcl
+      '  With XCelExcl
+      '    sc.Numéro = .Cel
+      '    If U(.Cel, 3).Contains(.Cdd) Then
+      '      sc.G6_Cellule_Paint_Candidat_Eligible(g, .Cdd, Color_Cdd_Exclure)
+      '      ' Coloration du menu contextuel avec les 2 candidats
+      '      Mid$(Candidats, CInt(.Cdd), 1) = .Cdd
+      '      U_Strg_Cdd_Exc(.Cel) = Candidats
+      '    End If
+      '  End With
+      'Next XCelExcl
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & ": " & GcnlRslt.Candidat & " rouge à enlever."
+
+    Catch ex As Exception
+      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+    End Try
+
+  End Sub
   Public Sub G4_Grid_Stratégie_Obj(g As Graphics)
     Dim sc As New Cellule_Cls
     If Not Plcy_Strg = "Obj" Then Exit Sub

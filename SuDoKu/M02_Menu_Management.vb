@@ -130,12 +130,15 @@
     Next Btn
   End Sub
 
-  Sub Mnu_Mngt(Cellule As Integer)
+  Sub Mnu_Mngt(Cellule As Integer, Candidat As String)
     Dim Mnu_Item As Boolean, Mnu_Sep As Boolean
     Dim Ligne As ToolStripItem
     Dim Candidats As String
     Dim Opt As String
-
+    'Dim Prv_Cellule As Integer
+    'Dim Cdds As String = ""
+    'Cpt += 1
+    'Jrn_Add_Orange(Proc_Name_Get() & " " & Cpt.ToString.PadLeft(6) & " Plcy_Strg: " & Plcy_Strg & " " & U_Coord(Cellule) & "_" & Candidat & " Plcy_Strg: " & Plcy_Strg)
     If Plcy_Strg <> "CaG" Then Mnu_Mngt_Barre_Outils_Filtres()
 
     For Each Ligne In Frm_SDK.Mnu_Cel.Items

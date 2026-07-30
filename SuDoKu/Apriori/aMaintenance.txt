@@ -14,16 +14,28 @@
                    Le document @Maintenance.txt est repris à #001
                    Le documant Rapport est en SuDoKu 2026_07_#001
 
-#000 Ma 21/07/2026 Enregistrement Git et GitHub et sauvegardes diverses
-
+#000 Ma 21/07/2026 Enregistrement Git et GitHub et sauvegardes diverses, SQL
+#001 Me 22/07/2026 Mise en place d'une stratégie CNL
+                   Il y a des doublons de définitions de variables
+                   il y a les fonctions de déterminations des liens forts et des liens faibles
+                   la stratégie ne génère pas d'erreurs
+                   J'ai 350 lignes de code pour la stratégie CNL
+                   Objectifs : je la mets en place et j'enlève les doublons
+#002 J  30/07/2026 je dois tracer CNL qui est incorrect en résultat et incomplet
+#003 J  30/07/2026 Mnu_Mngt semble se déclencher anormalement
+#004 J  30/07/2026 Mnu_Mngt est appelé par Frm_SDK_MouseMove
+                   Frm_SDK_mouseMove doit changer de cellule ou de candiodat-cellule pour appeler Mnu_Mngt
+                   De ce fait si une stratégie propose 2 candidats à enlever, le menu rouge sera à jour si
+                   Mnu_Mngt est appelé.
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
 	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
-????               voir dans les formes primaires à quoi sert de mettre les valeurs ou les candidats
+????               Voir dans les formes primaires à quoi sert de mettre les valeurs ou les candidats
 ????               Revoir les couches la couche stratégique doit être l'avant dernière, la saisie la dernière
                    Voir la programmation Undo-Redo
-                   Revoir si U_Sol est utilisé et quand ?  
+                   Revoir si U_Sol est utilisé et quand ? et U_vi (boolean)
                    Nettoyer les S95
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
+                   Est-ce que les menus sont correctement placés ?
