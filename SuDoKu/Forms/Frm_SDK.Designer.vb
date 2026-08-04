@@ -56,6 +56,10 @@ Partial Class Frm_SDK
         Me.Mnu_Cel_Cdd_Ins_9 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu_Cel_Val_Eff_Separator = New System.Windows.Forms.ToolStripSeparator()
         Me.Mnu_Cel_Val_Eff_x = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_CAG_Separator = New System.Windows.Forms.ToolStripSeparator()
+        Me.Mnu_Cel_Cdd_CAG_X = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_CAG_C = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Mnu_Cel_Cdd_CAG_V = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu = New System.Windows.Forms.MenuStrip()
         Me.Mnu_Ctxt_Vide = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.Mnu01 = New System.Windows.Forms.ToolStripMenuItem()
@@ -269,9 +273,9 @@ Partial Class Frm_SDK
         '
         Me.Mnu_Cel.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.Mnu_Cel.ImeMode = System.Windows.Forms.ImeMode.Off
-        Me.Mnu_Cel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu_Cel_Val_Ins_1, Me.Mnu_Cel_Val_Ins_2, Me.Mnu_Cel_Val_Ins_3, Me.Mnu_Cel_Val_Ins_4, Me.Mnu_Cel_Val_Ins_5, Me.Mnu_Cel_Val_Ins_6, Me.Mnu_Cel_Val_Ins_7, Me.Mnu_Cel_Val_Ins_8, Me.Mnu_Cel_Val_Ins_9, Me.Mnu_Cel_Cdd_Exc_Separator, Me.Mnu_Cel_Cdd_Exc_1, Me.Mnu_Cel_Cdd_Exc_2, Me.Mnu_Cel_Cdd_Exc_3, Me.Mnu_Cel_Cdd_Exc_4, Me.Mnu_Cel_Cdd_Exc_5, Me.Mnu_Cel_Cdd_Exc_6, Me.Mnu_Cel_Cdd_Exc_7, Me.Mnu_Cel_Cdd_Exc_8, Me.Mnu_Cel_Cdd_Exc_9, Me.Mnu_Cel_Cdd_Ins_Separator, Me.Mnu_Cel_Cdd_Ins_1, Me.Mnu_Cel_Cdd_Ins_2, Me.Mnu_Cel_Cdd_Ins_3, Me.Mnu_Cel_Cdd_Ins_4, Me.Mnu_Cel_Cdd_Ins_5, Me.Mnu_Cel_Cdd_Ins_6, Me.Mnu_Cel_Cdd_Ins_7, Me.Mnu_Cel_Cdd_Ins_8, Me.Mnu_Cel_Cdd_Ins_9, Me.Mnu_Cel_Val_Eff_Separator, Me.Mnu_Cel_Val_Eff_x})
+        Me.Mnu_Cel.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu_Cel_Val_Ins_1, Me.Mnu_Cel_Val_Ins_2, Me.Mnu_Cel_Val_Ins_3, Me.Mnu_Cel_Val_Ins_4, Me.Mnu_Cel_Val_Ins_5, Me.Mnu_Cel_Val_Ins_6, Me.Mnu_Cel_Val_Ins_7, Me.Mnu_Cel_Val_Ins_8, Me.Mnu_Cel_Val_Ins_9, Me.Mnu_Cel_Cdd_Exc_Separator, Me.Mnu_Cel_Cdd_Exc_1, Me.Mnu_Cel_Cdd_Exc_2, Me.Mnu_Cel_Cdd_Exc_3, Me.Mnu_Cel_Cdd_Exc_4, Me.Mnu_Cel_Cdd_Exc_5, Me.Mnu_Cel_Cdd_Exc_6, Me.Mnu_Cel_Cdd_Exc_7, Me.Mnu_Cel_Cdd_Exc_8, Me.Mnu_Cel_Cdd_Exc_9, Me.Mnu_Cel_Cdd_Ins_Separator, Me.Mnu_Cel_Cdd_Ins_1, Me.Mnu_Cel_Cdd_Ins_2, Me.Mnu_Cel_Cdd_Ins_3, Me.Mnu_Cel_Cdd_Ins_4, Me.Mnu_Cel_Cdd_Ins_5, Me.Mnu_Cel_Cdd_Ins_6, Me.Mnu_Cel_Cdd_Ins_7, Me.Mnu_Cel_Cdd_Ins_8, Me.Mnu_Cel_Cdd_Ins_9, Me.Mnu_Cel_Val_Eff_Separator, Me.Mnu_Cel_Val_Eff_x, Me.Mnu_Cel_Cdd_CAG_Separator, Me.Mnu_Cel_Cdd_CAG_X, Me.Mnu_Cel_Cdd_CAG_C, Me.Mnu_Cel_Cdd_CAG_V})
         Me.Mnu_Cel.Name = "ContextMenuStrip1"
-        Me.Mnu_Cel.Size = New System.Drawing.Size(255, 862)
+        Me.Mnu_Cel.Size = New System.Drawing.Size(255, 991)
         '
         'Mnu_Cel_Val_Ins_1
         '
@@ -456,6 +460,32 @@ Partial Class Frm_SDK
         Me.Mnu_Cel_Val_Eff_x.Size = New System.Drawing.Size(254, 30)
         Me.Mnu_Cel_Val_Eff_x.Text = "Effacer la valeur saisie"
         '
+        'Mnu_Cel_Cdd_CAG_Separator
+        '
+        Me.Mnu_Cel_Cdd_CAG_Separator.Name = "Mnu_Cel_Cdd_CAG_Separator"
+        Me.Mnu_Cel_Cdd_CAG_Separator.Size = New System.Drawing.Size(251, 6)
+        '
+        'Mnu_Cel_Cdd_CAG_X
+        '
+        Me.Mnu_Cel_Cdd_CAG_X.Name = "Mnu_Cel_Cdd_CAG_X"
+        Me.Mnu_Cel_Cdd_CAG_X.Size = New System.Drawing.Size(254, 30)
+        Me.Mnu_Cel_Cdd_CAG_X.Text = "Couper"
+        AddHandler Me.Mnu_Cel_Cdd_CAG_X.Click, AddressOf Me.Mnu_Cel_Cdd_CAG_X_Click
+        '
+        'Mnu_Cel_Cdd_CAG_C
+        '
+        Me.Mnu_Cel_Cdd_CAG_C.Name = "Mnu_Cel_Cdd_CAG_C"
+        Me.Mnu_Cel_Cdd_CAG_C.Size = New System.Drawing.Size(254, 30)
+        Me.Mnu_Cel_Cdd_CAG_C.Text = "Copier"
+        AddHandler Me.Mnu_Cel_Cdd_CAG_C.Click, AddressOf Me.Mnu_Cel_Cdd_CAG_C_Click
+        '
+        'Mnu_Cel_Cdd_CAG_V
+        '
+        Me.Mnu_Cel_Cdd_CAG_V.Name = "Mnu_Cel_Cdd_CAG_V"
+        Me.Mnu_Cel_Cdd_CAG_V.Size = New System.Drawing.Size(254, 30)
+        Me.Mnu_Cel_Cdd_CAG_V.Text = "Coller"
+        AddHandler Me.Mnu_Cel_Cdd_CAG_V.Click, AddressOf Me.Mnu_Cel_Cdd_CAG_V_Click
+        '
         'Mnu
         '
         Me.Mnu.ContextMenuStrip = Me.Mnu_Ctxt_Vide
@@ -465,7 +495,7 @@ Partial Class Frm_SDK
         Me.Mnu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow
         Me.Mnu.Location = New System.Drawing.Point(0, 0)
         Me.Mnu.Name = "Mnu"
-        Me.Mnu.Size = New System.Drawing.Size(1869, 32)
+        Me.Mnu.Size = New System.Drawing.Size(1869, 29)
         Me.Mnu.TabIndex = 18
         Me.Mnu.Text = "MenuStrip1"
         '
@@ -481,7 +511,7 @@ Partial Class Frm_SDK
         Me.Mnu01.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu01.Name = "Mnu01"
         Me.Mnu01.ShowShortcutKeys = False
-        Me.Mnu01.Size = New System.Drawing.Size(71, 28)
+        Me.Mnu01.Size = New System.Drawing.Size(71, 25)
         Me.Mnu01.Text = "&Fichier"
         '
         'Mnu01_Ouvrir
@@ -596,7 +626,7 @@ Partial Class Frm_SDK
         Me.Mnu02.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu02_Annuler, Me.Mnu02_Refaire, Me.Mnu02_Sep01, Me.Mnu02_Copier, Me.Mnu02_Copier2, Me.Mnu02_Copie3, Me.Mnu02_Coller, Me.Mnu02_CopierlaGrilleDansLeJournal})
         Me.Mnu02.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu02.Name = "Mnu02"
-        Me.Mnu02.Size = New System.Drawing.Size(74, 28)
+        Me.Mnu02.Size = New System.Drawing.Size(74, 25)
         Me.Mnu02.Text = "Copier "
         '
         'Mnu02_Annuler
@@ -670,7 +700,7 @@ Partial Class Frm_SDK
         Me.Mnu03.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu03_EffacerLeJournal, Me.Mnu03_Sep01, Me.Mnu03_Transformation, Me.Mnu03_AfficherLaSolution, Me.Mnu03_Rafraîchir})
         Me.Mnu03.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu03.Name = "Mnu03"
-        Me.Mnu03.Size = New System.Drawing.Size(91, 28)
+        Me.Mnu03.Size = New System.Drawing.Size(91, 25)
         Me.Mnu03.Text = "&Affichage"
         '
         'Mnu03_EffacerLeJournal
@@ -793,7 +823,7 @@ Partial Class Frm_SDK
         '
         Me.Mnu04.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu04.Name = "Mnu04"
-        Me.Mnu04.Size = New System.Drawing.Size(97, 28)
+        Me.Mnu04.Size = New System.Drawing.Size(97, 25)
         Me.Mnu04.Text = "&Stratégies"
         '
         'Mnu08
@@ -802,7 +832,7 @@ Partial Class Frm_SDK
         Me.Mnu08.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu08.ForeColor = System.Drawing.Color.Black
         Me.Mnu08.Name = "Mnu08"
-        Me.Mnu08.Size = New System.Drawing.Size(94, 28)
+        Me.Mnu08.Size = New System.Drawing.Size(94, 25)
         Me.Mnu08.Text = "E&xtension"
         '
         'Mnu08_Jouer
@@ -810,7 +840,7 @@ Partial Class Frm_SDK
         Me.Mnu08_Jouer.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu08J_F, Me.Mnu08J_M, Me.Mnu08J_D, Me.Mnu08J_E})
         Me.Mnu08_Jouer.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_Jouer.Name = "Mnu08_Jouer"
-        Me.Mnu08_Jouer.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_Jouer.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_Jouer.Text = "Jouer un SuDoKu"
         '
         'Mnu08J_F
@@ -840,7 +870,7 @@ Partial Class Frm_SDK
         'Mnu08_JouerAutrement
         '
         Me.Mnu08_JouerAutrement.Name = "Mnu08_JouerAutrement"
-        Me.Mnu08_JouerAutrement.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_JouerAutrement.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_JouerAutrement.Text = "Jouer la même partie avec d'autres VI"
         '
         'Mnu08_Création
@@ -848,13 +878,13 @@ Partial Class Frm_SDK
         Me.Mnu08_Création.ForeColor = System.Drawing.Color.Black
         Me.Mnu08_Création.Image = Global.SuDoKu.My.Resources.Resources.Create_16x
         Me.Mnu08_Création.Name = "Mnu08_Création"
-        Me.Mnu08_Création.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_Création.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_Création.Text = "Création d'un Sudoku"
         '
         'Mnu08_Automate
         '
         Me.Mnu08_Automate.Name = "Mnu08_Automate"
-        Me.Mnu08_Automate.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_Automate.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_Automate.Text = "Résoudre (Automate)"
         AddHandler Me.Mnu08_Automate.Click, AddressOf Me.Mnu08_Automate_Click
         '
@@ -863,33 +893,33 @@ Partial Class Frm_SDK
         Me.Mnu08_Résolution.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_Résolution.Name = "Mnu08_Résolution"
         Me.Mnu08_Résolution.ShowShortcutKeys = False
-        Me.Mnu08_Résolution.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_Résolution.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_Résolution.Text = "Résolution SDK Stratégies"
         '
         'Mnu08_RésoudreEnForceBrute
         '
         Me.Mnu08_RésoudreEnForceBrute.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_RésoudreEnForceBrute.Name = "Mnu08_RésoudreEnForceBrute"
-        Me.Mnu08_RésoudreEnForceBrute.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_RésoudreEnForceBrute.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_RésoudreEnForceBrute.Text = "Résoudre en Force Brute"
         '
         'Mnu08_RésoudreDancingLink
         '
         Me.Mnu08_RésoudreDancingLink.Name = "Mnu08_RésoudreDancingLink"
-        Me.Mnu08_RésoudreDancingLink.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_RésoudreDancingLink.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_RésoudreDancingLink.Text = "Résoudre avec Dancing Link"
         '
         'Mnu08_RésoudreDenisBerthier
         '
         Me.Mnu08_RésoudreDenisBerthier.Name = "Mnu08_RésoudreDenisBerthier"
-        Me.Mnu08_RésoudreDenisBerthier.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_RésoudreDenisBerthier.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_RésoudreDenisBerthier.Text = "Résoudre avec Denis Berthier"
         '
         'Mnu08_Sep01
         '
         Me.Mnu08_Sep01.ForeColor = System.Drawing.Color.Red
         Me.Mnu08_Sep01.Name = "Mnu08_Sep01"
-        Me.Mnu08_Sep01.Size = New System.Drawing.Size(367, 6)
+        Me.Mnu08_Sep01.Size = New System.Drawing.Size(359, 6)
         '
         'Mnu08_EditionDuProblème
         '
@@ -897,39 +927,39 @@ Partial Class Frm_SDK
         Me.Mnu08_EditionDuProblème.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu08_EditionDuProblème.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_EditionDuProblème.Name = "Mnu08_EditionDuProblème"
-        Me.Mnu08_EditionDuProblème.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_EditionDuProblème.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_EditionDuProblème.Text = "Editer la Grille"
         '
         'Mnu08_DessinerSurLaGrille
         '
         Me.Mnu08_DessinerSurLaGrille.Name = "Mnu08_DessinerSurLaGrille"
-        Me.Mnu08_DessinerSurLaGrille.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_DessinerSurLaGrille.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_DessinerSurLaGrille.Text = "Dessiner sur la grille"
         '
         'Mnu08_Sep03
         '
         Me.Mnu08_Sep03.ForeColor = System.Drawing.Color.Red
         Me.Mnu08_Sep03.Name = "Mnu08_Sep03"
-        Me.Mnu08_Sep03.Size = New System.Drawing.Size(367, 6)
+        Me.Mnu08_Sep03.Size = New System.Drawing.Size(359, 6)
         '
         'Mnu08_InsérerTouteLaSolution
         '
         Me.Mnu08_InsérerTouteLaSolution.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_InsérerTouteLaSolution.Name = "Mnu08_InsérerTouteLaSolution"
-        Me.Mnu08_InsérerTouteLaSolution.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_InsérerTouteLaSolution.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_InsérerTouteLaSolution.Text = "Insérer toute la solution"
         '
         'Mnu08_Sep04
         '
         Me.Mnu08_Sep04.Name = "Mnu08_Sep04"
-        Me.Mnu08_Sep04.Size = New System.Drawing.Size(367, 6)
+        Me.Mnu08_Sep04.Size = New System.Drawing.Size(359, 6)
         '
         'Mnu08_TestA
         '
         Me.Mnu08_TestA.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_TestA.Name = "Mnu08_TestA"
         Me.Mnu08_TestA.ShowShortcutKeys = False
-        Me.Mnu08_TestA.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestA.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestA.Text = "Test_A"
         '
         'Mnu08_TestB
@@ -937,7 +967,7 @@ Partial Class Frm_SDK
         Me.Mnu08_TestB.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_TestB.Name = "Mnu08_TestB"
         Me.Mnu08_TestB.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.X), System.Windows.Forms.Keys)
-        Me.Mnu08_TestB.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestB.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestB.Text = "Test_B"
         '
         'Mnu08_TestC
@@ -945,51 +975,51 @@ Partial Class Frm_SDK
         Me.Mnu08_TestC.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu08_TestC.Name = "Mnu08_TestC"
         Me.Mnu08_TestC.ShowShortcutKeys = False
-        Me.Mnu08_TestC.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestC.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestC.Text = "Test_C"
         '
         'Mnu08_TestD
         '
         Me.Mnu08_TestD.Name = "Mnu08_TestD"
         Me.Mnu08_TestD.ShowShortcutKeys = False
-        Me.Mnu08_TestD.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestD.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestD.Text = "Test_D"
         '
         'Mnu08_TestE
         '
         Me.Mnu08_TestE.Name = "Mnu08_TestE"
         Me.Mnu08_TestE.ShowShortcutKeys = False
-        Me.Mnu08_TestE.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestE.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestE.Text = "Test_E"
         '
         'Mnu08_TestF
         '
         Me.Mnu08_TestF.Name = "Mnu08_TestF"
-        Me.Mnu08_TestF.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestF.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestF.Text = "Test_F"
         '
         'Mnu08_TestG
         '
         Me.Mnu08_TestG.Name = "Mnu08_TestG"
-        Me.Mnu08_TestG.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestG.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestG.Text = "Test_G"
         '
         'Mnu08_TestH
         '
         Me.Mnu08_TestH.Name = "Mnu08_TestH"
-        Me.Mnu08_TestH.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestH.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestH.Text = "Test_H"
         '
         'Mnu08_TestI
         '
         Me.Mnu08_TestI.Name = "Mnu08_TestI"
-        Me.Mnu08_TestI.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestI.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestI.Text = "Test_I"
         '
         'Mnu08_TestJ
         '
         Me.Mnu08_TestJ.Name = "Mnu08_TestJ"
-        Me.Mnu08_TestJ.Size = New System.Drawing.Size(370, 30)
+        Me.Mnu08_TestJ.Size = New System.Drawing.Size(362, 26)
         Me.Mnu08_TestJ.Text = "Test_J"
         '
         'Mnu05
@@ -997,7 +1027,7 @@ Partial Class Frm_SDK
         Me.Mnu05.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu05_Préférences, Me.Mnu05_FichierDesMessages, Me.Mnu05_APropos, Me.Mnu05_Documentation, Me.Mnu05_Maintenance, Me.Mnu05_Dictionnaire, Me.Mnu05_ModeEtendu})
         Me.Mnu05.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu05.Name = "Mnu05"
-        Me.Mnu05.Size = New System.Drawing.Size(55, 28)
+        Me.Mnu05.Size = New System.Drawing.Size(55, 25)
         Me.Mnu05.Text = "A&ide"
         '
         'Mnu05_Préférences
@@ -1053,7 +1083,7 @@ Partial Class Frm_SDK
         Me.Mnu06.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu06_ListerU, Me.Mnu06_ListerA, Me.Mnu06_Manuel_des_Stratégies, Me.Mnu063_VérificationDeLaGrille, Me.Mnu06_Sep01, Me.Mnu06_EffacerLaGrille, Me.Mnu06_Sep02, Me.Mnu06_SudokuPCA, Me.Mnu06_SudokuAngusJohnson, Me.Mnu06_SudokuDarrenColes, Me.Mnu06_SudokuPatriceHenrion, Me.Mnu06_SudokuNKH, Me.Mnu06_Hodoku220, Me.Mnu06_SudokuFedynaK, Me.Mnu06_SudoCue, Me.Mnu06_DiufSudokuJava, Me.Mnu06_Sep03, Me.Mnu06_ClassicSudoku, Me.Mnu06_SudokuSolver, Me.Mnu06_MicrosoftSudoku, Me.Mnu06_HHSudokuGame, Me.Mnu06_MUDancingLink, Me.Mnu06_Sep04, Me.Mnu06_CB})
         Me.Mnu06.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu06.Name = "Mnu06"
-        Me.Mnu06.Size = New System.Drawing.Size(69, 28)
+        Me.Mnu06.Size = New System.Drawing.Size(69, 25)
         Me.Mnu06.Text = "&Divers"
         '
         'Mnu06_ListerU
@@ -1217,7 +1247,7 @@ Partial Class Frm_SDK
         Me.Mnu07.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu07n_Gbl, Me.Mnu07n_Gbv, Me.Mnu07n_GCs, Me.Mnu07n_GCx, Me.Mnu07n_XCy, Me.Mnu07n_XRp, Me.Mnu07n_XNl, Me.Mnu07n_WgX, Me.Mnu07n_WgY, Me.Mnu07n_WgZ, Me.Mnu07n_WgW})
         Me.Mnu07.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu07.Name = "Mnu07"
-        Me.Mnu07.Size = New System.Drawing.Size(65, 28)
+        Me.Mnu07.Size = New System.Drawing.Size(65, 25)
         Me.Mnu07.Text = "O&utils"
         '
         'Mnu07n_Gbl
@@ -1291,7 +1321,7 @@ Partial Class Frm_SDK
         Me.Mnu09.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu0900, Me.ToolStripSeparator4, Me.Mnu0902, Me.Mnu09_Sep1, Me.Mnu0915_Gbl, Me.Mnu0920_Gbv, Me.Mnu0925_GCs, Me.Mnu0930_GCx, Me.Mnu0935_XCy, Me.Mnu0940_XRp, Me.Mnu0945_XNl, Me.Mnu0950_WgX, Me.Mnu0955_WgY, Me.Mnu0960_WgZ, Me.Mnu0965_WgW, Me.ToolStripSeparator3, Me.Mnu0910_GLk})
         Me.Mnu09.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu09.Name = "Mnu09"
-        Me.Mnu09.Size = New System.Drawing.Size(75, 28)
+        Me.Mnu09.Size = New System.Drawing.Size(75, 25)
         Me.Mnu09.Text = "Graphe"
         '
         'Mnu0900
@@ -1400,7 +1430,7 @@ Partial Class Frm_SDK
         Me.BarreOutils.ContextMenuStrip = Me.Mnu_Ctxt_Vide
         Me.BarreOutils.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.BarreOutils.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Btn_Cdd, Me.Btn_CdU, Me.Btn_CdO, Me.ToolStripSeparator13, Me.Btn1, Me.Btn2, Me.Btn3, Me.Btn4, Me.Btn5, Me.Btn6, Me.Btn7, Me.Btn8, Me.Btn9, Me.ToolStripSeparator14, Me.Btn_Cbl, Me.Btn_Tpl, Me.Btn_Xwg, Me.Btn_XYw, Me.Btn_Swf, Me.Btn_Jly, Me.Btn_XYZ, Me.Btn_SKy, Me.Btn_Unq, Me.ToolStripSeparator15, Me.Btn0, Me.ToolStripSeparator16})
-        Me.BarreOutils.Location = New System.Drawing.Point(0, 32)
+        Me.BarreOutils.Location = New System.Drawing.Point(0, 29)
         Me.BarreOutils.Name = "BarreOutils"
         Me.BarreOutils.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
         Me.BarreOutils.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -2016,7 +2046,7 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu08_Sep03 As ToolStripSeparator
     Friend WithEvents Mnu08_InsérerTouteLaSolution As ToolStripMenuItem
     Friend WithEvents Btn_XYZ As ToolStripButton
-    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_CAG_X As ToolStripMenuItem
     Friend WithEvents Mnu_Cel_Val_Eff_x As ToolStripMenuItem
     Friend WithEvents Mnu06_Hodoku220 As ToolStripMenuItem
     Friend WithEvents Mnu01_OuvrirLaBibliothèqueTestDeHodoku As ToolStripMenuItem
@@ -2118,4 +2148,7 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu0900 As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents Mnu08_Automate As ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_CAG_Separator As ToolStripSeparator
+    Friend WithEvents Mnu_Cel_Cdd_CAG_C As ToolStripMenuItem
+    Friend WithEvents Mnu_Cel_Cdd_CAG_V As ToolStripMenuItem
 End Class

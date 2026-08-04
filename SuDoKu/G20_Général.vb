@@ -2,8 +2,10 @@
 '     Sous l'onglet COM ,recherchez la Bibliothèque d'objets Microsoft Word, 
 '     cliquez sur Sélectionner.
 Imports System.Reflection                                     ' Nécessaire pour Assembly et StackFrame
+Imports System.ComponentModel
 Imports System.Runtime.InteropServices                        ' Nécessaire pour Marshal.SizeOf(DisplayDevice)
 Imports SuDoKu.NativeMethods
+
 Module G20_Général
   '-------------------------------------------------------------------------------
   ' Traitement 
@@ -138,6 +140,50 @@ Module G20_Général
     For Each Item In Menu.Items
       Jrn_Add(, {(Mid$((Item.Name).PadRight(30), 1, 30) & " " & Item.Text)})
     Next Item
+  End Sub
+
+  Public Sub Get_AllCtxtMenuItems_WithHandlers(Menu As ContextMenuStrip)
+
+    '--- Déclarations explicites obligatoires ---
+    Dim clickEventField As FieldInfo
+    Dim clickEventKey As Object
+    Dim eventsProp As PropertyInfo
+    Dim eventList As EventHandlerList
+    Dim handler As [Delegate]
+    Dim d As [Delegate]
+
+    '--- Récupération de la clé interne EventClick ---
+    clickEventField =
+        GetType(ToolStripItem).GetField("EventClick",
+        BindingFlags.NonPublic Or BindingFlags.Static)
+
+    clickEventKey = clickEventField.GetValue(Nothing)
+
+    '--- Parcours des items du menu ---
+    Dim item As ToolStripItem
+    For Each item In Menu.Items
+
+      'Récupération de la liste des événements du composant
+      eventsProp =
+            GetType(Component).GetProperty("Events",
+            BindingFlags.NonPublic Or BindingFlags.Instance)
+
+      eventList = CType(eventsProp.GetValue(item), EventHandlerList)
+
+      'Lecture du handler Click
+      handler = eventList(clickEventKey)
+
+      If handler Is Nothing Then
+        Jrn_Add(, {$"{item.Name.PadRight(30)} {item.Text.PadRight(30)} Handler: (aucun)"})
+      Else
+        'Plusieurs handlers possibles → on les liste
+        For Each d In handler.GetInvocationList()
+          Jrn_Add(, {$"{item.Name.PadRight(30)} {item.Text.PadRight(30)} Handler: {d.Method.Name}"})
+        Next d
+      End If
+
+    Next item
+
   End Sub
   Public Sub Get_AllBarreOutilsItems(Menu As ToolStrip)
     'La procédure liste les options et sous-options d'une Barre d'Outils  

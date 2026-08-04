@@ -131,14 +131,13 @@
   End Sub
 
   Sub Mnu_Mngt(Cellule As Integer, Candidat As String)
+    'La procédure n'est sollicitée que si le curseur change de candidat ou de cellule
     Dim Mnu_Item As Boolean, Mnu_Sep As Boolean
     Dim Ligne As ToolStripItem
     Dim Candidats As String
     Dim Opt As String
     'Dim Prv_Cellule As Integer
     'Dim Cdds As String = ""
-    'Cpt += 1
-    'Jrn_Add_Orange(Proc_Name_Get() & " " & Cpt.ToString.PadLeft(6) & " Plcy_Strg: " & Plcy_Strg & " " & U_Coord(Cellule) & "_" & Candidat & " Plcy_Strg: " & Plcy_Strg)
     If Plcy_Strg <> "CaG" Then Mnu_Mngt_Barre_Outils_Filtres()
 
     For Each Ligne In Frm_SDK.Mnu_Cel.Items
@@ -236,12 +235,29 @@
               End If
             End If
             If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 6 AndAlso U(Cellule, 2) = " " Then
-              'Jrn_Add_Yellow("#817")
               Candidats = U(Cellule, 3)
               Opt = Ligne.Name(16)
               If Candidats(CInt(Opt) - 1) = " " Then
                 Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
               End If
+            End If
+
+          Case "Mnu_Cel_Cdd_CAG_" 'XCV .... en CAG
+            If Mnu_Sep AndAlso Stg_Get(Plcy_Strg).Family = 6 AndAlso U(Cellule, 2) = " " Then
+              Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor
+            End If
+            If Mnu_Item AndAlso Stg_Get(Plcy_Strg).Family = 6 AndAlso U(Cellule, 2) = " " Then
+              Opt = Ligne.Name(16)
+              If Opt = "X" Then Ligne.Text = "Effacer les candidats"
+              If Opt = "C" Then Ligne.Text = "Copier les candidats"
+              'If Opt = "V" Then Ligne.Text = "Coller les candidats " & FormatCandidates(CAG_Clipboard)
+              If Opt = "V" Then Ligne.Text = "Coller les candidats " &
+                String.Join(",", CAG_Clipboard.Where(Function(c) Char.IsDigit(c)).Select(Function(c) c.ToString()))
+              Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor : Ligne.Enabled = True
+              Candidats = U(Cellule, 3)
+              If Opt = "X" And Candidats = Cnddts_Blancs Then Ligne.Enabled = False
+              If Opt = "C" And Candidats = Cnddts_Blancs Then Ligne.Enabled = False
+              If Opt = "V" And CAG_Clipboard = Cnddts_Blancs Then Ligne.Enabled = False
             End If
 
           Case "Mnu_Cel_Val_Eff_" 'On efface la valeur de la cellule remplie
@@ -264,4 +280,18 @@
       End Try
     Next Ligne
   End Sub
+
+  Public Function FormatCandidates(ByVal s As String) As String
+    'String.Join(",", s.Where(Function(c) Char.IsDigit(c)).Select(Function(c) c.ToString()))
+    Dim lst As New List(Of String)
+
+    For Each ch As Char In s
+      If Char.IsDigit(ch) Then
+        lst.Add(ch.ToString())
+      End If
+    Next
+
+    Return String.Join(",", lst)
+  End Function
+
 End Module

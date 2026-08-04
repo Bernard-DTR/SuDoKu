@@ -1413,6 +1413,18 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu_Cel_Cdd_Exclure(sender As Object, e As EventArgs) Handles Mnu_Cel_Cdd_Exc_9.Click, Mnu_Cel_Cdd_Exc_8.Click, Mnu_Cel_Cdd_Exc_7.Click, Mnu_Cel_Cdd_Exc_6.Click, Mnu_Cel_Cdd_Exc_5.Click, Mnu_Cel_Cdd_Exc_4.Click, Mnu_Cel_Cdd_Exc_3.Click, Mnu_Cel_Cdd_Exc_2.Click, Mnu_Cel_Cdd_Exc_1.Click
     Cell_Cdd_Exclude(sender.ToString(20), Pbl_Cell_Select)
   End Sub
+  Private Sub Mnu_Cel_Cdd_CAG_X_Click(sender As Object, e As EventArgs)
+    Cell_Cdd_Exclude_CAG(Pbl_Cell_Select)
+  End Sub
+  Private Sub Mnu_Cel_Cdd_CAG_C_Click(sender As Object, e As EventArgs)
+    Cell_Cdd_Copy_CAG(Pbl_Cell_Select)
+  End Sub
+  Private Sub Mnu_Cel_Cdd_CAG_V_Click(sender As Object, e As EventArgs)
+    Cell_Cdd_Paste_CAG(Pbl_Cell_Select)
+  End Sub
+
+
+
   '-------------------------------------------------------------------------------
   '
   ' Menu Contextuel Objet
@@ -1661,6 +1673,7 @@ Public NotInheritable Class Frm_SDK
     End If
 
   End Sub
+
 
 
 #End Region

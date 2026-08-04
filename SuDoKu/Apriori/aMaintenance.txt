@@ -27,6 +27,36 @@
                    Frm_SDK_mouseMove doit changer de cellule ou de candiodat-cellule pour appeler Mnu_Mngt
                    De ce fait si une stratégie propose 2 candidats à enlever, le menu rouge sera à jour si
                    Mnu_Mngt est appelé.
+#005 L  03/08/2026 Stratégie CAG
+                   Dans le menu, une option propose d'insérer le ou les candidats insérés dans le cellule précédente
+                   Get_AllCtxtMenuItems(Frm_SDK.Mnu_Cel) liste les options du menu contextuel
+                   ces options sont :
+                   Mnu_Cel_Val_Ins_1 à 9          Insérer la valeur 1 à 9
+                   Mnu_Cel_Cdd_Exc_Separator      
+                   Mnu_Cel_Cdd_Exc_1 à 9          Exclure le candidat 1 à 9
+                   Mnu_Cel_Cdd_Ins_Separator      
+                   Mnu_Cel_Cdd_Ins_1 à 9          Insérer le candidat 1 à 9
+                   Mnu_Cel_Val_Eff_Separator      
+                   Mnu_Cel_Val_Eff_x              Effacer la valeur saisie
+                   Il convient d'ajouter
+                   Mnu_Cel_Cdd_Exc_A              Exclure tous les candidats
+                   Mnu_Cel_Cdd_Ins_A              Insérer les candidats 1,2,3,4,5,6,7,8,9
+                   Il faudra voir le séparateur
+                   Premier objectif: la liste des candidats insérés pour une cellule
+                   j'utilise un tableau de 10 cases Mnu_Cel_Cdd(0 To 9) As Boolean
+                   Abandon
+#006 Ma 04/08/2026 Il me semble qu'il serait plus juste d'avoir un menu du type
+                   Mnu_Cel_Cdd_CAG_Separator
+                   Mnu_Cel_Cdd_CAG_X Couper X Cut
+                   Mnu_Cel_Cdd_CAG_C Copier C Copy
+                   Mnu_Cel_Cdd_CAG_V Coller V Paste (les 3 touches de clavier se suivent)
+#007 Ma 04/08/2026 Mise en place des options dans le menu contextuel pour la stratégie CAG
+#008 Ma 04/08/2026 Mise en place de l'option X Effacer tous les candidats de la cellule
+#009 Ma 04/08/2026 Get_AllCtxtMenuItems_WithHandlers(Menu As ContextMenuStrip)
+#010 Ma 04/08/2026 Mise en place de l'option C Copier les candidats de la cellule
+#011 Ma 04/08/2026 Mise en place de l'option V Coller les candidats  
+#012 Ma 04/08/2026 Mise en place de l'option V Coller les candidats en présentant les candidats
+
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie

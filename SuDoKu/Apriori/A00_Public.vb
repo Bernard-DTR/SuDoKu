@@ -5,10 +5,10 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public Cpt As Integer
-  Public SDK_Version As String = "V2026_07 #001"
+  Public SDK_Version As String = "V2026_08 #012"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
+  Public CAG_Clipboard As String = Cnddts_Blancs
   Public U_nb(0 To 10) As Integer          ' Nombre des valeurs placées
   '                                        ' 0     Nombre de cellules remplies
   '                                        ' 10    Nombre de cellules initiales
@@ -23,7 +23,6 @@ Module A00_Public
   Public Animation_Cellule As Integer
   Public Animation_Numéro As Integer = 0
   Public Animation_En_Cours As Boolean = False
-
   Public Plcy_Only_Cdd_Eligible As Boolean = False
 #End Region
 
@@ -273,10 +272,6 @@ Module A00_Public
 #End Region
 
 #Region "45 Tableau des actions"
-  'Ce tableau est documenté lors de Cell_Val_Insert     Ajouter / ? Ajouter      
-  '                                 Cell_Val_Delete_Old     Effacer
-  '                                 Cell_Cdd_Insert_Old     Replacer
-  '                                 Cell_Cdd_Exclude    Exclure_Cdd
   Public Act(11, 100) As String
   Public Act_Index As Integer = -1
 #End Region
