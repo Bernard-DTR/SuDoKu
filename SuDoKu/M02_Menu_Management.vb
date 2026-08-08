@@ -250,9 +250,9 @@
               Opt = Ligne.Name(16)
               If Opt = "X" Then Ligne.Text = "Effacer les candidats"
               If Opt = "C" Then Ligne.Text = "Copier les candidats"
-              'If Opt = "V" Then Ligne.Text = "Coller les candidats " & FormatCandidates(CAG_Clipboard)
-              If Opt = "V" Then Ligne.Text = "Coller les candidats " &
-                String.Join(",", CAG_Clipboard.Where(Function(c) Char.IsDigit(c)).Select(Function(c) c.ToString()))
+              If Opt = "V" Then Ligne.Text = "Coller les candidats " & FormatCandidates(CAG_Clipboard)
+              'If Opt = "V" Then Ligne.Text = "Coller les candidats " &
+              '  String.Join(",", CAG_Clipboard.Where(Function(c) Char.IsDigit(c)).Select(Function(c) c.ToString()))
               Ligne.Visible = True : Ligne.BackColor = Control.DefaultBackColor : Ligne.Enabled = True
               Candidats = U(Cellule, 3)
               If Opt = "X" And Candidats = Cnddts_Blancs Then Ligne.Enabled = False
