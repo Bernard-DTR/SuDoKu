@@ -434,6 +434,8 @@ Friend Module P01_Strategy
     Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 5, "Stratégie XY-Chain"))
     Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 5, "Stratégie Remote Pairs"))
     Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 5, "Stratégie Nice_Loop"))
+    Stg_List.Add(New Stg_Cls("NLC", "L", "N", "E", "N", 7, "Stratégie Nice_Loop Continuous"))
+    Stg_List.Add(New Stg_Cls("NLD", "L", "N", "E", "N", 7, "Stratégie Nice_Loop Discontinuous"))
     Stg_List.Add(New Stg_Cls("CNL", "L", "N", "E", "N", 7, "Stratégie Continuous Nice_Loop"))
     Stg_List.Add(New Stg_Cls("DNl", "L", "N", "E", "N", 7, "Stratégie Discontinuous Nice_Loop"))
     Stg_List.Add(New Stg_Cls("AIC", "L", "N", "E", "N", 7, "Stratégie Alternating Inference Chain"))
@@ -453,33 +455,33 @@ Friend Module P01_Strategy
       End If
     Next i
   End Sub
+
+  Private Function JoinList(list As IList(Of String)) As String
+    If list Is Nothing OrElse list.Count = 0 Then
+      Return ""
+    End If
+    Return String.Join(" ,", list)
+  End Function
+
   Sub Stg_List_Display()
-    'Liste les Stratégies et les Listes des Codes, Lettres et Liens
+    ' Liste les Stratégies et les Listes des Codes, Lettres et Liens
     Jrn_Add("SDK_Space")
     Jrn_Add(, {"Liste des Stratégies"})
-    For i As Integer = 0 To Stg_List.Count - 1
-      With Stg_List.Item(i)
-        Jrn_Add(, {CStr(i).PadRight(3) & " " & .Code & " " & .Lettre & " " & .Dsp_BO & " " & .Type & " " & .Prd & " " & .Family & " " & .Texte})
-      End With
-    Next i
-    Dim S As String = ""
-    For i As Integer = 0 To Stg_List_Code.Count - 1
-      S &= Stg_List_Code.Item(i) & " ,"
-    Next i
-    Jrn_Add(, {"Stg_List_Code    : " & S.Substring(0, S.Length - 2)})
 
-    S = ""
-    For i As Integer = 0 To Stg_List_Lettre.Count - 1
-      S &= Stg_List_Lettre.Item(i) & " ,"
+    ' --- Affichage des stratégies ---
+    Dim i As Integer
+    For i = 0 To Stg_List.Count - 1
+      Dim S As Stg_Cls = Stg_List(i)
+      Dim Ligne As String = $"{i,3} {S.Code} {S.Lettre} {S.Dsp_BO} {S.Type} {S.Prd} {S.Family} {S.Texte}"
+      Jrn_Add(, {Ligne})
     Next i
-    Jrn_Add(, {"Stg_List_Lettre  : " & S.Substring(0, S.Length - 2)})
 
-    S = ""
-    For i As Integer = 0 To Stg_List_Link.Count - 1
-      S &= Stg_List_Link.Item(i) & " ,"
-    Next i
-    Jrn_Add(, {"Stg_List_Link    : " & S.Substring(0, S.Length - 2)})
+    ' --- Affichage des listes annexes ---
+    Jrn_Add(, {"Stg_List_Code    : " & JoinList(Stg_List_Code)})
+    Jrn_Add(, {"Stg_List_Lettre  : " & JoinList(Stg_List_Lettre)})
+    Jrn_Add(, {"Stg_List_Link    : " & JoinList(Stg_List_Link)})
   End Sub
+
   Public Function Stg_Get(Code As String) As Stg_Cls
     'Retourne les informations de la stratégie correspondant au Code
     For Each Stg As Stg_Cls In Stg_List

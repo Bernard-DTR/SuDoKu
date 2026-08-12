@@ -56,6 +56,8 @@
 #010 Ma 04/08/2026 Mise en place de l'option C Copier les candidats de la cellule
 #011 Ma 04/08/2026 Mise en place de l'option V Coller les candidats  
 #012 Ma 04/08/2026 Mise en place de l'option V Coller les candidats en présentant les candidats
+#013 S  08/08/2026 Sauvegarde
+#014 Me 12/08/2026 Fonction Stg_List_Display()
 
 ##############################################################################################################################
                    
