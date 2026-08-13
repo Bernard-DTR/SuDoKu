@@ -98,7 +98,7 @@ Friend Module G000_Base
           If node_prv <> -1 Then
             Road_List.Add(New GLink_Cls With {.Cel = New Integer() {node_prv, node},
                                             .Cdd = New String() {Candidat, "0", Candidat, "0", Candidat},
-                                            .Type = "S", .Unité = Wh_Unité(node_prv, node), .Cdd_Composition = "024"})
+                                            .Type = "S", .Unité = Wh_Unité(node_prv, node), .Composition = "024"})
           End If
           node_prv = node
         Next
@@ -186,7 +186,7 @@ Friend Module G000_Base
         End Select
         GLinks.Add(New GLink_Cls With {.Cel = New Integer() {Cel1, Cel2},
                                        .Cdd = New String() {Candidat, " ", Candidat, " ", Candidat}, .Type = "S",
-                                       .Unité = gLink_Unité, .Cdd_Composition = "024"})
+                                       .Unité = gLink_Unité, .Composition = "024"})
       End If
     Next lcr
   End Sub
@@ -240,7 +240,7 @@ Friend Module G000_Base
           Dim S As String = .Cdd(4) & " " &
             U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
             U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
-            " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Cdd_Composition &
+            " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Composition &
             " Cellules n° " & CStr(.Cel(0)).PadLeft(2) & "-" & CStr(.Cel(1)).PadLeft(2)
           Jrn_Add(, {ChrW(Nb + Lettre_Flèche_ChrW) & " " & CStr(Nb).PadLeft(2) & " " & S})
         End With
@@ -290,7 +290,7 @@ Friend Module G000_Base
           Dim S As String = .Cdd(4) & " " &
             U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
             U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
-            " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Cdd_Composition &
+            " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Composition &
             " Cellules n° " & CStr(.Cel(0)).PadLeft(2) & "↔" & CStr(.Cel(1)).PadLeft(2)
           Jrn_Add(, {ChrW(Nb + Lettre_Flèche_ChrW) & " " & CStr(Nb).PadLeft(2) & " " & S})
         End With

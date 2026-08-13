@@ -112,7 +112,7 @@ Module G100_Strategy_bi_values
           .Cdd = {Cddi(0), Cddi(1), Cddj(0), Cddj(1), "0"},
           .Type = "S",
           .Unité = UnitéNom,
-          .Cdd_Composition = "0123"
+          .Composition = "0123"
       })
     End If
   End Sub

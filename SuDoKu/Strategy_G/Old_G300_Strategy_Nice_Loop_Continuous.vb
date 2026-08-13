@@ -68,7 +68,7 @@ Module Old_G300_Strategy_CNL
   ' ==========================================================================================
   ' CONSTRUCTION DES LIENS FORTS
   ' ==========================================================================================
-  Public Function GLinks_Build_Strong(U_temp(,) As String, candidat As String) As List(Of GcnlLink_Cls)
+  Public Function GLinks_Build_cnl_Strong(U_temp(,) As String, candidat As String) As List(Of GcnlLink_Cls)
 
     Dim L As New List(Of GcnlLink_Cls)
     Dim i As Integer, j As Integer
@@ -119,7 +119,7 @@ Module Old_G300_Strategy_CNL
   ' ==========================================================================================
   ' CONSTRUCTION DES LIENS FAIBLES
   ' ==========================================================================================
-  Public Function GLinks_Build_Weak(U_temp(,) As String, candidat As String) As List(Of GcnlLink_Cls)
+  Public Function GLinks_Build_cnl_Weak(U_temp(,) As String, candidat As String) As List(Of GcnlLink_Cls)
 
     Dim L As New List(Of GcnlLink_Cls)
     Dim i As Integer, j As Integer
@@ -340,13 +340,13 @@ Module Old_G300_Strategy_CNL
       GcnlRslt_Init()
       GcnlRslt.Candidat = Candidat
 
-      Dim Lstrong As List(Of GcnlLink_Cls) = GLinks_Build_Strong(U_temp, Candidat)
+      Dim Lstrong As List(Of GcnlLink_Cls) = GLinks_Build_cnl_Strong(U_temp, Candidat)
       'Jrn_Add(, {"Nombre de liens forts pour le candidat " & Candidat & " : " & Lstrong.Count.ToString()})
       'For Each ln As GcnlLink_Cls In Lstrong
       'Jrn_Add(, {"Lien : " & ln.Type & " - Candidat : " & ln.Cdd & " - Cellules : " & ln.Cel(0) & ", " & ln.Cel(1) & " - Unité : " & ln.Unité})
       'N'ext ln
 
-      Dim Lweak As List(Of GcnlLink_Cls) = GLinks_Build_Weak(U_temp, Candidat)
+      Dim Lweak As List(Of GcnlLink_Cls) = GLinks_Build_cnl_Weak(U_temp, Candidat)
       'Jrn_Add(, {"Nombre de liens faibles pour le candidat " & Candidat & " : " & Lweak.Count.ToString()})
 
       Dim Lall As New List(Of GcnlLink_Cls)

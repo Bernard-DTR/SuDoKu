@@ -33,5 +33,5 @@ Public Class GLink_Cls
   '               équivalent à      Cdd = {"0", "0", "0", "0", "0", "0", "0", "0", "0"}
   Public Property Type As String = "#"
   Public Property Unité As String = "#"
-  Public Property Cdd_Composition As String = "#"
+  Public Property Composition As String = "#"
 End Class

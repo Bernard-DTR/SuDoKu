@@ -86,7 +86,7 @@ Module G200_Strategy_Coloration_Simple
           .Cdd = New String() {Link.Cdd(0), Link.Cdd(1), Link.Cdd(2), Link.Cdd(3), "0"},
           .Type = Link.Type,
           .Unité = Link.Unité,
-          .Cdd_Composition = Link.Cdd_Composition
+          .Composition = Link.Composition
       })
 
       ' Attribution des couleurs (alternance)

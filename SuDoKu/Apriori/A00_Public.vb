@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_08 #014"
+  Public SDK_Version As String = "V2026_08 #015"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public CAG_Clipboard As String = Cnddts_Blancs
@@ -520,6 +520,8 @@ Module A00_Public
   Public Const XRoads_Max As Integer = 645120          ' Nombre de chemins pour 7 liens
   '                                                      (2 ** n ) x n! 2 puissance n fois factoriel n
   Public GLinks As New List(Of GLink_Cls)              ' Liste des liens 
+  Public GLinks_Strong As New List(Of GLink_Cls)       ' Liste des liens Forts
+  Public GLinks_Weak As New List(Of GLink_Cls)         ' Liste des liens Faibles
   Public GAllRoads As New List(Of List(Of GLink_Cls))  ' Liste de tous les chemins possibles
 
   Public GCels As New List(Of GCel_Cls)                ' Liste des cellules
