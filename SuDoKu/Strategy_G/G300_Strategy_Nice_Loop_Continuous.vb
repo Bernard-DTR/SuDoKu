@@ -3,12 +3,42 @@
 ' Stratégie Nice_Loop Continuous & Discontinuous, et AIC (Alternating Inference Chains)
 '  
 ' Préfixe NLC
-'5..9.........2.4.98..7...........6...2.......4.6315....1.67..42.....3.7..4.....86
 '   Les stratégies NLC, NLD et AIC sont en famille 7 pour ne pas générer d'erreur dans la gestion du menu
 '                                  et elles passeront en famille 4 !
+' Quelles sont les ressources nécessaires ? 
+'      Je les place dans le module G000_Base.vb
+'
+'
+'
+'
+'Exemple 1
+'5..9.........2.4.98..7...........6...2.......4.6315....1.67..42.....3.7..4.....86
+'Hodoku 220 détermine une NLC:
+'2/3/4/6/8/9 5= r3c5 =3= r1c5 -3- r1c2 -6- r8c2 =6= r8c1 =2= r8c4 -2- r9c6 -9- r7c6 -8- r2c6 =8= r2c4 =5= r3c5 =3
+'=> r9c4<>2, r1c8<>3, r3c5<>4, r2c2,r3c5<>6, r45c6<>8, r45c6,r8c15,r9c5<>9
+'5..9.........2.4.989.7...........6...2.......4.631529..1.67..42.....3.7..4.....86
+'SDK arrive à ce résultat avec Plcy_Strg_Profondeur         : UOBTXYSJZKQ
+'Automate Graphe ne trouve rien
+
+'Exemple 2
 '548.......3....8..1.......3.72..86........3......47..9.1.3...2.2569.........6.7..
+'Hodoku 220 détermine une NLC:
+'1/2/4/5/7/9 7= r1c4 =6= r1c8 =9= r1c5 -9- r3c5 -5- r3c7 -4- r8c7 =4= r8c6 -4- r9c4 =4= r2c4 =7= r1c4 =6
+'=> r1c48,r2c4<>1, r12c4<>2, r9c6<>4, r2c4,r3c8<>5, r1c8<>7, r2c56,r3c6,r5c5<>9
+'548..3...63....8..12.8....3972.386..4.....3..3...47..971438592625697..38893.6.7..
+'SDK arrive à ce résultat avec Plcy_Strg_Profondeur         : UOBTXYSJZKQ
+'Automate Graphe ne trouve rien
 'NLC : Exclusion(s) détectée(s) pour le candidat 3 : 3
+
+'Exemple 3
 '6..91.52......7.....................5....4.16..86..4.5.4....1..93.86......5.4138.
+'Hodoku 220 détermine une NLC:
+'2/3/5/7/8/9 8= r4c6 =5= r7c6 -5- r7c4 -3- r5c4 -2- r6c5 =2= r6c2 =1= r6c1 =7= r3c1 -7- r1c2 -8- r1c6 =8= r4c6 =5
+'=> r45c5<>2, r23c4,r4c6,r6c1<>3, r7c5<>5, r36c2<>7, r1c9<>8, r4c6,r6c2<>
+'6.491.52......76.......6...4.6......5....4.16..86..4.5847...162931862754265741389
+'SDK arrive à ce résultat avec Plcy_Strg_Profondeur         : UOBTXYSJZKQ
+'Automate Graphe ne trouve rien
+
 'NLC: Exclusion(s) détectée(s) pour le candidat 6 : 3
 'NLC: Exclusion(s) détectée(s) pour le candidat 6 : 4
 
@@ -31,64 +61,51 @@ Module G300_Strategy_Nice_Loop_Continuous
 
 
   Public Sub Strategy_NLC(U_temp(,) As String)
-
-
-    Dim cand As String = "2"
-    GLinks_Strong.Clear()
-    GLinks_Build_Strong(U_temp, cand)
-    GLinks_Strong = GLinks_Strong.OrderBy(Function(s) s.Cdd(4)).ThenBy(Function(s) s.Cel(0)).ThenBy(Function(s) s.Cel(1)).ToList()
-    GLinks_Display_SW(GLinks_Strong)
-    Jrn_Add("SDK_Space")
-
-    GLinks_Weak.Clear()
-    GLinks_Build_Weak(U_temp, cand)
-    GLinks_Weak = GLinks_Weak.OrderBy(Function(s) s.Cdd(4)).ThenBy(Function(s) s.Cel(0)).ThenBy(Function(s) s.Cel(1)).ToList()
-    GLinks_Display_SW(GLinks_Weak)
-    Jrn_Add("SDK_Space")
-
-    GLinks.AddRange(GLinks_Strong)
-    GLinks.AddRange(GLinks_Weak)
-    GLinks = GLinks.OrderBy(Function(s) s.Cdd(4)).ThenBy(Function(s) s.Cel(0)).ThenBy(Function(s) s.Cel(1)).ToList()
-    GLinks_Display_SW(GLinks)
-    Jrn_Add("SDK_Space")
-
-
-
-    Exit Sub
-
     Plcy_Strg = "NLC"
+    Jrn_Add_Yellow(Proc_Name_Get() & " " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
 
-    Dim Candidat As String
-    GLinks.Clear()
 
-    For Cdd As Integer = 1 To 9
-      If GRslt.Productivité Then Exit For
 
+    For Cdd As Integer = 8 To 8
       Jrn_Add(, {"NLC : Analyse du candidat " & Cdd.ToString()})
       GRslt_Init()
+      If GRslt.Productivité Then Exit For
 
-      Candidat = Cdd.ToString()
-      GRslt_Init()
-      GRslt.Candidat(0) = Candidat
+      Dim Candidat As String = Cdd.ToString()
+      GRslt.Candidat = {Candidat, "0"}
 
-
+      ' Liste des liens forts et Faible pour un candidat donné
       GLinks_Strong.Clear()
-      GLinks_Build_Strong(U_temp, Candidat)
-      GLinks_Display_SW(GLinks_Strong)
+      GLinks_Build_Strong(U, Candidat)
 
       GLinks_Weak.Clear()
-      GLinks_Build_Weak(U_temp, Candidat)
-      GLinks_Display_SW(GLinks_Weak)
+      GLinks_Build_Weak(U, Candidat)
 
-
-
+      GLinks.Clear()
       GLinks.AddRange(GLinks_Strong)
       GLinks.AddRange(GLinks_Weak)
-      GLinks_Display_SW(GLinks)
-      'Dim Solver As New DFS_CNL()
-      'Solver.Graph_Build_cnl(Lall)
-      ''Solver.Graph_cnl_Display()
-      'Solver.AllPaths_Build_cnl(U_temp)
+      If Xap Then GLinks_Display_SW(GLinks)
+      Jrn_Add("SDK_Space")
+
+      ' Création des Noeuds du graphe. On passe de GLinks à Graph
+      'Dim Solver As New DFS_NLC()
+      'Solver.Graph_NLC_Build(GLinks)
+      'If Xap Then Solver.Graph_NLC_Display()
+      'GRslt.Nb_Noeuds = Solver.Graph.Count
+
+      Dim Solver_NLC As New DFS_NLC()
+      Solver_NLC.Graph_NLC_Build(GLinks)
+
+      If Xap Then Solver_NLC.Graph_NLC_Display()
+      GRslt.Nb_Noeuds = Solver_NLC.Graph.Count
+
+
+      ' Liste du graphe et copie pour affichage des noeuds et des arêtes 
+
+      'Solver.AllPaths_Build()
+      'If Xap Then Solver.AllPaths_Display()
+      'Solver.Node_To_Paths(Candidat)
+      GRslt.Nb_Paths = Solver_NLC.AllPaths.Count
 
       'If GcnlRslt.Productivité Then
       '  For Each excl As GCel_Excl_Cls In GcnlRslt.CelExcl
@@ -102,15 +119,21 @@ Module G300_Strategy_Nice_Loop_Continuous
 
       'End If
     Next
-    GLinks_Display_SW(GLinks)
+    GRslt.Productivité = True
+    GRslt.Nb_Liens = GLinks.Count
     GRslt_Display()
-
+    Frm_SDK.Invalidate()
   End Sub
+
+
+  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  ' Les liens forts et faibles  
   Public Sub GLinks_Build_Strong(U_temp(,) As String, candidat As String)
     'La procédure remplie la liste Public GLinks_Strong As New List(Of GLink_Cls) des liens forts pour le candidat donné
 
     Dim i As Integer, j As Integer
-    Dim gLink_Unité As String = "#"
+    Dim gLink_Unité As String
 
     ' --- Lignes ---
     For i = 0 To 8
@@ -167,7 +190,7 @@ Module G300_Strategy_Nice_Loop_Continuous
     'La procédure remplie la liste Public GLinks_Weak As New List(Of GLink_Cls) des liens faibles pour le candidat donné
 
     Dim i As Integer, j As Integer
-    Dim gLink_Unité As String = "#"
+    Dim gLink_Unité As String
 
     ' --- Lignes ---
     For i = 0 To 8
@@ -233,6 +256,8 @@ Module G300_Strategy_Nice_Loop_Continuous
   Public Sub GLinks_Display_SW(L As List(Of GLink_Cls))
     ' Affichage de La liste L Liste des liens forts ou faibles
     Jrn_Add(, {Proc_Name_Get() & " Affichage de L As List(Of GLink_Cls) : " & L.Count & " Lignes."})
+    L = L.OrderBy(Function(s) s.Cdd(4)).ThenBy(Function(s) s.Cel(0)).ThenBy(Function(s) s.Cel(1)).ToList()
+
     If L.Count <> 0 Then
       Dim Nb As Integer = 0
       For Each gLink As GLink_Cls In L
@@ -243,11 +268,80 @@ Module G300_Strategy_Nice_Loop_Continuous
             U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
             " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Composition &
             " Cellules n° " & CStr(.Cel(0)).PadLeft(2) & "-" & CStr(.Cel(1)).PadLeft(2)
-          Jrn_Add(, {ChrW(Nb + Lettre_Flèche_ChrW) & " " & CStr(Nb).PadLeft(2) & " " & S})
+          Jrn_Add(, {ChrW(Nb + Lettre_Flèche_ChrW) & " " & CStr(Nb).PadLeft(3) & " " & S})
         End With
       Next gLink
     End If
     Jrn_Add("SDK_Space")
   End Sub
+  Public Sub Exemple_01()
+    'Le programme liste pour un candidat donné les liens forts et faibles,
+    ' Les liens sont triés dans le programme GLinks_Display_SW
 
+    Dim Titre As String = "Stratégie NLC"
+    Dim Texte As String = "Entrez le candidat à traiter pour afficher les liens S et W :"
+    Dim Candidat_IB As String = InputBox(Texte, Titre)
+    If Candidat_IB Is "" Then Exit Sub 'Cancel enfoncé
+    GRslt_Init()
+    GRslt.Candidat = {Candidat_IB, "0"}
+    ' Liste des liens forts et Faible pour un candidat donné
+    GLinks_Strong.Clear()
+    GLinks_Build_Strong(U, Candidat_IB)
+    Jrn_Add("SDK_Space")
+
+    GLinks_Weak.Clear()
+    GLinks_Build_Weak(U, Candidat_IB)
+    Jrn_Add("SDK_Space")
+
+    GLinks.Clear()
+    GLinks.AddRange(GLinks_Strong)
+    GLinks.AddRange(GLinks_Weak)
+    GLinks_Display_SW(GLinks)
+    Jrn_Add("SDK_Space")
+    GRslt.Productivité = True
+    GRslt.Nb_Liens = GLinks.Count
+    GRslt_Display()
+    Frm_SDK.Invalidate()
+
+  End Sub
+
+
+
+  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Public Class DFS_NLC
+
+    Public Graph As New Dictionary(Of Integer, List(Of Edge))()
+    Public AllPaths As New List(Of List(Of GLink_Cls))()
+
+    Public Sub Graph_NLC_Build(L As List(Of GLink_Cls))
+      Graph.Clear()
+
+      For Each glink As GLink_Cls In L
+        Dim a As Integer = glink.Cel(0)
+        Dim b As Integer = glink.Cel(1)
+
+        If Not Graph.ContainsKey(a) Then Graph(a) = New List(Of Edge)
+        If Not Graph.ContainsKey(b) Then Graph(b) = New List(Of Edge)
+
+        Graph(a).Add(New Edge With {.Neighbor = b, .Link = glink})
+        Graph(b).Add(New Edge With {.Neighbor = a, .Link = glink})
+      Next
+    End Sub
+
+    Public Sub Graph_NLC_Display()
+      Jrn_Add(, {Graph.Count & " entrée(s)."})
+      Dim l As Integer = 0
+      For Each kvp As KeyValuePair(Of Integer, List(Of Edge)) In Graph
+        l += 1
+        Dim edges As List(Of Edge) = Graph(kvp.Key)
+        Dim sb As New Text.StringBuilder()
+        For Each edge As Edge In edges
+          sb.AppendFormat(" → {0}", U_Coord(edge.Neighbor))
+        Next
+        Dim edgeCount As String = $" {edges.Count}"
+        Jrn_Add(, {$"{l,3} De {U_Coord(kvp.Key)} _{edgeCount}_ {sb}"})
+      Next
+    End Sub
+  End Class
 End Module

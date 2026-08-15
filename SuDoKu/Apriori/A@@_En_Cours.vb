@@ -21,6 +21,7 @@
   End Sub
   Public Sub TestC()
     Jrn_Add(, {Proc_Name_Get()})
+    Jrn_Exemple()
   End Sub
   Public Sub TestD()
     Jrn_Add(, {Proc_Name_Get()})

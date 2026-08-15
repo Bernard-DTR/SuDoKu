@@ -434,8 +434,8 @@ Friend Module P01_Strategy
     Stg_List.Add(New Stg_Cls("XCy", "L", "N", "E", "N", 5, "Stratégie XY-Chain"))
     Stg_List.Add(New Stg_Cls("XRp", "L", "N", "E", "N", 5, "Stratégie Remote Pairs"))
     Stg_List.Add(New Stg_Cls("XNl", "L", "N", "E", "N", 5, "Stratégie Nice_Loop"))
-    Stg_List.Add(New Stg_Cls("NLC", "L", "N", "E", "N", 7, "Stratégie Nice_Loop Continuous"))
-    Stg_List.Add(New Stg_Cls("NLD", "L", "N", "E", "N", 7, "Stratégie Nice_Loop Discontinuous"))
+    Stg_List.Add(New Stg_Cls("NLC", "A", "N", "E", "N", 7, "Stratégie Nice_Loop Continuous"))
+    Stg_List.Add(New Stg_Cls("NLD", "A", "N", "E", "N", 7, "Stratégie Nice_Loop Discontinuous"))
     Stg_List.Add(New Stg_Cls("CNL", "L", "N", "E", "N", 7, "Stratégie Continuous Nice_Loop"))
     Stg_List.Add(New Stg_Cls("DNl", "L", "N", "E", "N", 7, "Stratégie Discontinuous Nice_Loop"))
     Stg_List.Add(New Stg_Cls("AIC", "L", "N", "E", "N", 7, "Stratégie Alternating Inference Chain"))
@@ -484,6 +484,8 @@ Friend Module P01_Strategy
 
   Public Function Stg_Get(Code As String) As Stg_Cls
     'Retourne les informations de la stratégie correspondant au Code
+    ' Exemple Mnu0920_Gbv.Text = Stg_Get("Gbv").Texte
+    '                          = Stg_Get(Plcy_Strg).Texte
     For Each Stg As Stg_Cls In Stg_List
       If Stg.Code = Code Then Return Stg
     Next Stg

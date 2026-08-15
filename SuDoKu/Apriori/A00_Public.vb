@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_08 #015"
+  Public SDK_Version As String = "V2026_08 #016"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public CAG_Clipboard As String = Cnddts_Blancs
@@ -519,9 +519,9 @@ Module A00_Public
   Public XAllRoads_List As New List(Of List(Of XLink_Cls))
   Public Const XRoads_Max As Integer = 645120          ' Nombre de chemins pour 7 liens
   '                                                      (2 ** n ) x n! 2 puissance n fois factoriel n
-  Public GLinks As New List(Of GLink_Cls)              ' Liste des liens 
-  Public GLinks_Strong As New List(Of GLink_Cls)       ' Liste des liens Forts
-  Public GLinks_Weak As New List(Of GLink_Cls)         ' Liste des liens Faibles
+  'Public GLinks As New List(Of GLink_Cls)              ' Liste des liens 
+  'Public GLinks_Strong As New List(Of GLink_Cls)       ' Liste des liens Forts
+  'Public GLinks_Weak As New List(Of GLink_Cls)         ' Liste des liens Faibles
   Public GAllRoads As New List(Of List(Of GLink_Cls))  ' Liste de tous les chemins possibles
 
   Public GCels As New List(Of GCel_Cls)                ' Liste des cellules
@@ -543,29 +543,29 @@ Module A00_Public
   Public XSolution As String
   Public U_Road(0 To 80) As Boolean               ' Tableau des Cellules sur le chemin
 
-  Public Structure GRslt_Struct
-    Public Code As String                         ' Code Stratégie 
-    Public Candidat() As String                   ' Le ou les candidats de la stratégie
-    Public Cellule() As Integer                   ' La ou les cellules de la stratégie
+  'Public Structure GRslt_Struct
+  '  Public Code As String                         ' Code Stratégie 
+  '  Public Candidat() As String                   ' Le ou les candidats de la stratégie
+  '  Public Cellule() As Integer                   ' La ou les cellules de la stratégie
 
-    Public Nb_Liens As Integer
-    Public Nb_Noeuds As Integer
-    Public Nb_Paths As Integer
-    Public Path_Number As Integer
+  '  Public Nb_Liens As Integer
+  '  Public Nb_Noeuds As Integer
+  '  Public Nb_Paths As Integer
+  '  Public Path_Number As Integer
 
-    Public RoadRight As List(Of GLink_Cls)        ' Liste des liens du Chemin correct
-    Public Productivité As Boolean                ' If GRslt.CelExcl.Count > 0 Then GRslt.Productivité = True
-    Public CelExcl As List(Of GCel_Excl_Cls)      ' Liste de Cellules concernées avec Cdd
-    '                                             ' la liste   comporte la cellule concernée, le candidat et les 2 cellules d'extrémités 
-    Public CelExcl_hs As HashSet(Of Tuple(Of Integer, String))
-    '                                             ' le HashSet comporte la cellule concernée et le candidat sous forme unique
-  End Structure
-  Public GRslt As New GRslt_Struct
-  Public Class GCel_Excl_Cls 'Classe déterminant la structure des Cellules concernées Cdd_Excluses de la stratégie
-    Public Property Cel As Integer = -1          ' La Cellule
-    Public Property Cdd As String = "0"          ' Le Candidat
-    Public Property Exc As Integer() = {-1, -1}  ' Les Cellules Origines de l'exclusion
-  End Class
+  '  Public RoadRight As List(Of GLink_Cls)        ' Liste des liens du Chemin correct
+  '  Public Productivité As Boolean                ' If GRslt.CelExcl.Count > 0 Then GRslt.Productivité = True
+  '  Public CelExcl As List(Of GCel_Excl_Cls)      ' Liste de Cellules concernées avec Cdd
+  '  '                                             ' la liste   comporte la cellule concernée, le candidat et les 2 cellules d'extrémités 
+  '  Public CelExcl_hs As HashSet(Of Tuple(Of Integer, String))
+  '  '                                             ' le HashSet comporte la cellule concernée et le candidat sous forme unique
+  'End Structure
+  'Public GRslt As New GRslt_Struct
+  'Public Class GCel_Excl_Cls 'Classe déterminant la structure des Cellules concernées Cdd_Excluses de la stratégie
+  '  Public Property Cel As Integer = -1          ' La Cellule
+  '  Public Property Cdd As String = "0"          ' Le Candidat
+  '  Public Property Exc As Integer() = {-1, -1}  ' Les Cellules Origines de l'exclusion
+  'End Class
   Public Structure RRslt_Struct
     Public Occurence As Integer
     Public Nb_Occurences As Integer

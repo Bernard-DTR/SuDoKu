@@ -35,6 +35,7 @@ Friend Module M03_Paint
       G4_Grid_Stratégie_Gbv(g)
       G4_Grid_Stratégie_GCs(g)
       G4_Grid_Stratégie_CNL(g)
+      G4_Grid_Stratégie_NLC(g)
     End If
   End Sub
   Public Sub G4_Grid_Stratégie_CaG(g As Graphics)
@@ -1214,6 +1215,68 @@ Friend Module M03_Paint
     End Try
 
   End Sub
+  Public Sub G4_Grid_Stratégie_NLC(g As Graphics)
+    If Not Plcy_Strg = "NLC" Then Exit Sub
+    Try
+      If GLinks.Count = 0 Then
+        Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " sans résultat."
+        Exit Sub
+      End If
+
+      ' 1 Affichage des Candidats dans la grille
+      Dim sc As New Cellule_Cls
+      For i As Integer = 0 To 80
+        sc.Numéro = i
+        sc.G6_Cellule_Paint_Candidats_Eligibles(g)
+        If U(i, 3).Contains(GRslt.Candidat(0)) Then
+          G0_Cdd_Figure(g, i, CInt(GRslt.Candidat(0)), "Cercle", Color.White)
+        End If
+      Next i
+
+      '' 2 Affichage des Liens Forts et Faibles de la list GLinks
+      'Dim Nb As Integer = 0
+      'Dim Color_Link As Color
+      'For Each gLink As GLink_Cls In GLinks
+      '  Select Case gLink.Type
+      '    Case "S" : Color_Link = Color_Link_S
+      '    Case "W" : Color_Link = Color_Link_W
+      '  End Select
+
+      '  Nb += 1
+      '  G0_Cdd_Bézier(g, gLink.Cel(0), CInt(gLink.Cdd(0)), gLink.Cel(1), CInt(gLink.Cdd(2)), gLink.Type, Nb)
+      '  Dim sc_gLink As New Cellule_Cls With {.Numéro = gLink.Cel(0)}
+      '  If U(gLink.Cel(0), 3).Contains(gLink.Cdd(0)) Then
+      '    sc_gLink.G6_Cellule_Paint_Candidat_Eligible(g, gLink.Cdd(0), Color_Link)
+      '  End If
+      '  sc_gLink.Numéro = gLink.Cel(1)
+      '  If U(gLink.Cel(1), 3).Contains(gLink.Cdd(2)) Then
+      '    sc_gLink.G6_Cellule_Paint_Candidat_Eligible(g, gLink.Cdd(2), Color_Link)
+      '  End If
+      'Next gLink
+
+      ''3 Affichage des Noeuds 
+      'Dim l As Integer = 0
+      'For Each kvp As KeyValuePair(Of Integer, List(Of Edge)) In SolverNLC.Graph
+      '  l += 1
+      '  Dim edges As List(Of Edge) = SolverNLC.Graph(kvp.Key)
+      '  Dim sb As New Text.StringBuilder()
+      '  For Each edge As Edge In edges
+      '    sb.AppendFormat(" → {0}", U_Coord(edge.Neighbor))
+      '  Next
+      '  Dim edgeCount As String = $" {edges.Count}"
+      '  Jrn_Add_Yellow($"{l,3} De {U_Coord(kvp.Key)} _{edgeCount}_ {sb}")
+      '  G0_Cell_Figure(g, kvp.Key, "Cercle", Color.Beige)
+      'Next
+
+      Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " " & GRslt.Nb_Liens & " Liens Forts et Faibles."
+
+    Catch ex As Exception
+      Jrn_Add("ERR_00000", {ex.Message}, "Erreur")
+      Jrn_Add("ERR_00000", {ex.ToString()}, "Erreur")
+    End Try
+
+  End Sub
+
   Public Sub G4_Grid_Stratégie_Obj(g As Graphics)
     Dim sc As New Cellule_Cls
     If Not Plcy_Strg = "Obj" Then Exit Sub

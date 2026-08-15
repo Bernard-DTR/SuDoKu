@@ -4,8 +4,58 @@
 ' Mise en place 19/12/2025
 '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Friend Module G000_Base
+
+  Public Class GLink_Cls
+    ' Mise en place le 19/12/2025
+    ' Classe structurant un Lien
+    '   La structure d'un Lien comporte 2 cellules, le lien sera Cel(0) → Cel(1)
+    '   puis un tableau de 9 candidats.
+    '      En général Cdd(0) et Cdd(1) concerneront Cel(0)
+    '                 Cdd(2) et Cdd(3) concerneront Cel(1) et Cdd(4) sera le candidat commun à Cel(0) et à Cel(1)
+    '      Le Type de Lien sera "S" pour Lien Fort (Strong Link) ou "W" pour Lien Faible (Weak Link)
+    '      L'Unité sera Rowx/Colx/Regx c'est à dire l'emplacement du lien dans la rangée x, dans la colonne x ou dans le région x
+    '      La Composition sera une chaîne de caractères indiquant la composition des candidats du lien
+    Public Property Cel As Integer() = {-1, -1}
+    Public Property Cdd As String() = Enumerable.Repeat("0", 9).ToArray()
+    '               équivalent à      Cdd = {"0", "0", "0", "0", "0", "0", "0", "0", "0"}
+    Public Property Type As String = "#"
+    Public Property Unité As String = "#"
+    Public Property Composition As String = "#"
+  End Class
+  Public GLinks As New List(Of GLink_Cls)              ' Liste des liens 
+  Public GLinks_Strong As New List(Of GLink_Cls)       ' Liste des liens Forts
+  Public GLinks_Weak As New List(Of GLink_Cls)         ' Liste des liens Faibles
+
+  Public Class GCel_Excl_Cls
+    'Classe déterminant la structure des Cellules concernées Cdd_Excluses de la stratégie
+    Public Property Cel As Integer = -1          ' La Cellule
+    Public Property Cdd As String = "0"          ' Le Candidat
+    Public Property Exc As Integer() = {-1, -1}  ' Les Cellules Origines de l'exclusion
+  End Class
+  Public Structure GRslt_Struct
+    'Structure des résultats d'une stratégie G
+    Public Code As String                         ' Code Stratégie 
+    Public Candidat() As String                   ' Le ou les candidats de la stratégie
+    Public Cellule() As Integer                   ' La ou les cellules de la stratégie
+
+    Public Nb_Liens As Integer
+    Public Nb_Noeuds As Integer
+    Public Nb_Paths As Integer
+    Public Path_Number As Integer
+
+    Public RoadRight As List(Of GLink_Cls)        ' Liste des liens du Chemin correct
+    Public Productivité As Boolean                ' If GRslt.CelExcl.Count > 0 Then GRslt.Productivité = True
+    Public CelExcl As List(Of GCel_Excl_Cls)      ' Liste de Cellules concernées avec Cdd
+    '                                             ' la liste   comporte la cellule concernée, le candidat et les 2 cellules d'extrémités 
+    Public CelExcl_hs As HashSet(Of Tuple(Of Integer, String))
+    '                                             ' le HashSet comporte la cellule concernée et le candidat sous forme unique
+  End Structure
+  Public GRslt As New GRslt_Struct
+
+
   Public Class Edge
     Public Property Neighbor As Integer
+    Public Link As GLink_Cls
   End Class
 
   Public Class DFS_Coloration
@@ -29,8 +79,8 @@ Friend Module G000_Base
         If Not Graph.ContainsKey(a) Then Graph(a) = New List(Of Edge)()
         If Not Graph.ContainsKey(b) Then Graph(b) = New List(Of Edge)()
 
-        Graph(a).Add(New Edge() With {.Neighbor = b})
-        Graph(b).Add(New Edge() With {.Neighbor = a})
+        Graph(a).Add(New Edge() With {.Neighbor = b, .Link = glink})
+        Graph(b).Add(New Edge() With {.Neighbor = a, .Link = glink})
       Next
 
     End Sub
@@ -274,7 +324,7 @@ Friend Module G000_Base
     With GRslt
       Jrn_Add(, {"Code Stratégie " & .Code & ", " & Stg_Get(.Code).Texte})
       Jrn_Add(, {"Candidat       " & String.Join(", ", .Candidat)})
-      Jrn_Add(, {"Nb Liens forts " & .Nb_Liens & " (Glinks.count)"})
+      Jrn_Add(, {"Nb Liens       " & .Nb_Liens & " (Glinks.count)"})
       Jrn_Add(, {"Nb Noeuds      " & .Nb_Noeuds})
       Jrn_Add(, {"Nb Paths       " & .Nb_Paths})
       Jrn_Add(, {"Path_Number    " & .Path_Number})
@@ -566,8 +616,5 @@ Stratégies_G_Automate_Start:
     End Select
     Frm_SDK.Invalidate()
   End Sub
-
-
-
 
 End Module
