@@ -5,7 +5,7 @@ Module A00_Public
 
 #Region "00 Généralités"
   'Le nom de l'application est Application.ProductName    
-  Public SDK_Version As String = "V2026_08 #016"
+  Public SDK_Version As String = "V2026_08 #017"
   Public Phase_Démarrage_Terminée As Boolean = False
   Public Cpt_Pénalités As Integer
   Public CAG_Clipboard As String = Cnddts_Blancs
@@ -57,7 +57,7 @@ Module A00_Public
   Public File_Puzzle As String
   Public File_Hodoku As String
   Public File_SDKEtd As String
-  Public File_SDKJrn As String
+  'Public File_SDKJrn As String
   Public Path_Batch As String
   Public Path_Batch_Poubelle As String
   Public Path_Save As String

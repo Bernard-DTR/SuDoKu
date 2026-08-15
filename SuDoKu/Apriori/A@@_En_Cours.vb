@@ -25,6 +25,7 @@
   End Sub
   Public Sub TestD()
     Jrn_Add(, {Proc_Name_Get()})
+    Jrn_Add(, {"Taille du journal:" & Frm_SDK.Journal.Rtf.Length.ToString()})
   End Sub
   Public Sub TestE()
     Jrn_Add(, {Proc_Name_Get()})

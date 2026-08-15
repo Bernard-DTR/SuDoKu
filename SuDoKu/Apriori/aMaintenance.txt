@@ -60,6 +60,7 @@
 #014 Me 12/08/2026 Fonction Stg_List_Display()
 #015 J  13/08/2026 NLC Fonctions GLinks_Build_Strong et GLinks_Build_Weak
 #016 S  15/08/2026 Fonction Jrn_Add ré-écrite
+#017 S  15/08/2026 Le journal est désormais sauvegardé en rtf (Option menu et taille volumineuse)
 
 ##############################################################################################################################
                    

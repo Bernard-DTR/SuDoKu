@@ -26,21 +26,6 @@ Module M10_Message
       FontJournalItalic = New Font(Font_Journal, FontStyle.Italic)
       FontJournalBold = New Font(Font_Journal, FontStyle.Bold)
 
-      ' Styles
-      'JournalStyles = New Dictionary(Of String, (Font, Color, Color)) From {
-      '      {"", (FontJournalRegular, Color.Black, Color.Transparent)},
-      '      {"Insertion", (FontJournalItalic, Color.Red, Color.Transparent)},
-      '      {"Refaire", (FontJournalItalic, Color.Blue, Color.Transparent)},
-      '      {"Annuler", (FontJournalItalic, Color.Green, Color.Transparent)},
-      '      {"Info", (FontJournalRegular, Color.Black, Color.White)},
-      '      {"Yellow", (FontJournalRegular, Color.Black, Color.Yellow)},
-      '      {"Orange", (FontJournalRegular, Color.Black, Color.Orange)},
-      '      {"White", (FontJournalRegular, Color.Black, Color.White)},
-      '      {"Blue", (FontJournalItalic, Color.Blue, Color.White)},
-      '      {"Red", (FontJournalItalic, Color.Red, Color.White)},
-      '      {"Italique", (FontJournalItalic, Color.Black, Color.Transparent)},
-      '      {"Erreur", (FontJournalBold, Color.Black, Color.Red)}
-      '  }
       JournalStyles = New Dictionary(Of String, (Font As Font, Fore As Color, Back As Color)) From
         {
         {"", (FontJournalRegular, Color.Black, Nothing)},               'Conserve le fond du thème
@@ -56,10 +41,7 @@ Module M10_Message
         {"Italique", (FontJournalItalic, Color.Black, Nothing)},        'Conserve le fond du thème
         {"Erreur", (FontJournalBold, Color.Black, Color.Red)}           'Fond explicite
         }
-
-
     End Sub
-
   End Class
 
   ''' <summary>Retourne un message documenté des variables.</summary>
@@ -156,9 +138,11 @@ Module M10_Message
 
     With Frm_SDK.Journal
       '--- Purge si trop volumineux ---
-      If .Rtf.Length >= 2610000 Then
-        Dim Jrn() As String = .Lines
-        Dim File_SDK As String = Jrn_Rcd(Jrn)
+      If .Rtf.Length >= 3000000 Then  ' soit une dizaine de copies de la grille 
+        Dim File_SDK As String = Path_SDK & "S50_SDK\Journal_" & Format(Now, "yyyyMMdd_HHmmss") & ".rtf"
+        IO.File.WriteAllText(File_SDK, Frm_SDK.Journal.Rtf)
+        'Pour recharger le fichier RTF dans le journal
+        'Frm_SDK.Journal.LoadFile(File_SDK, RichTextBoxStreamType.RichText)
         .Clear()
         .AppendText("Le journal a été enregistré sous : " & vbCrLf & File_SDK & vbCrLf)
         .AppendText(Format(Now, "dddd d MMM yyyy") & "; à " & DateAndTime.TimeOfDay & "." & vbCrLf)
@@ -203,104 +187,104 @@ Module M10_Message
     End With
   End Sub
 
-  Public Sub Jrn_Add_Old(Optional MsgId As String = "SDK_00000", Optional V() As String = Nothing, Optional Style As String = "")
-    '09/07/2023 MsgId est optionnel
-    'Insère une information dans le journal RTF
-    '-------------------------------------------'
-    ' La procédure NE DOIT PAS comporter Jrn_Add '
-    '-------------------------------------------'
-    If Thread.CurrentThread.IsBackground Then
-      ' La fonction est exécutée dans un traitement d'arrière-plan
-      Exit Sub
-    End If
+  'Public Sub Jrn_Add_Old(Optional MsgId As String = "SDK_00000", Optional V() As String = Nothing, Optional Style As String = "")
+  '  '09/07/2023 MsgId est optionnel
+  '  'Insère une information dans le journal RTF
+  '  '-------------------------------------------'
+  '  ' La procédure NE DOIT PAS comporter Jrn_Add '
+  '  '-------------------------------------------'
+  '  If Thread.CurrentThread.IsBackground Then
+  '    ' La fonction est exécutée dans un traitement d'arrière-plan
+  '    Exit Sub
+  '  End If
 
-    Dim Inf As String = "#Nothing"
-    If Msg_Dsp_MsgId Then
-      Inf = MsgId & " " & Msg_Read(MsgId, V)
-    Else
-      Inf = Msg_Read(MsgId, V)
-    End If
+  '  Dim Inf As String = "#Nothing"
+  '  If Msg_Dsp_MsgId Then
+  '    Inf = MsgId & " " & Msg_Read(MsgId, V)
+  '  Else
+  '    Inf = Msg_Read(MsgId, V)
+  '  End If
 
-    With Frm_SDK.Journal
-      'La taille du journal est définie dans Frm_SDK_Load à .MaxLength = 262144 
-      If .Text.Length >= 261000 Then
-        Dim Jrn() As String = .Lines
-        Dim File_SDK As String = Jrn_Rcd(Jrn)
-        .Clear()
-        .AppendText("Le journal a été enregistré sous : " & vbCrLf & File_SDK)
-        .AppendText(Environment.NewLine)
-        .AppendText(Format(Now, "dddd d MMM yyyy") & "; à " & DateAndTime.TimeOfDay & ".")
-        .AppendText(Environment.NewLine)
-      End If
-      'S'il est fait une sélection dans le journal, alors la ligne suivante perd son style
-      ' et la sélection change de style !
-      Select Case Style
-        Case ""             'Affichage standard d'une ligne dans le journal
-          .SelectionFont = New Font(Font_Journal, FontStyle.Regular)
-          .SelectionColor = Color.Black
-          .SelectionBackColor = Nothing
-        Case "Insertion"    'Insertion d'une valeur
-          .SelectionFont = New Font(.Font, FontStyle.Italic)
-          .SelectionColor = Color.Red
-        Case "Refaire"      'Insertion d'une valeur
-          .SelectionFont = New Font(.Font, FontStyle.Italic)
-          .SelectionColor = Color.Blue
-        Case "Annuler"      'Insertion d'une valeur
-          .SelectionFont = New Font(.Font, FontStyle.Italic)
-          .SelectionColor = Color.Green
-        Case "Info"         'Pour info 
-          .SelectionFont = New Font(.Font, FontStyle.Regular)
-          .SelectionColor = Color.Black
-          .SelectionBackColor = Color.White
-        Case "Yellow"       'Pour info 
-          .SelectionFont = New Font(.Font, FontStyle.Regular)
-          .SelectionColor = Color.Black
-          .SelectionBackColor = Color.Yellow
-        Case "Orange"       'Pour info 
-          .SelectionFont = New Font(.Font, FontStyle.Regular)
-          .SelectionColor = Color.Black
-          .SelectionBackColor = Color.Orange
-        Case "White"       'Pour info 
-          .SelectionFont = New Font(.Font, FontStyle.Regular)
-          .SelectionColor = Color.Black
-          .SelectionBackColor = Color.White
-        Case "Blue"       'Pour info 
-          .SelectionFont = New Font(.Font, FontStyle.Italic)
-          .SelectionColor = Color.Blue
-          .SelectionBackColor = Color.White
-        Case "Red"       'Pour info 
-          .SelectionFont = New Font(.Font, FontStyle.Italic)
-          .SelectionColor = Color.Red
-          .SelectionBackColor = Color.White
-        Case "Italique"    'Pour info, en italique
-          .SelectionFont = New Font(.Font, FontStyle.Italic)
-          .SelectionColor = Color.Black
-        Case "Erreur"      'Affichage d'une erreur 
-          .SelectionFont = New Font(.Font, FontStyle.Bold)
-          .SelectionColor = Color.Black
-          .SelectionBackColor = Color.Red
-        Case Else          'Affichage standard d'une ligne dans le journal
-          .SelectionFont = New Font(.Font, FontStyle.Regular)
-          .SelectionColor = Color.White
-          .SelectionBackColor = Color.Yellow
-          Inf = Inf & " Style Inconnu : /" & Style & "/"
-      End Select
-      .AppendText(Inf)
-      .AppendText(Environment.NewLine)
-      '.ScrollToCaret()
-      'Fait défiler le contenu du contrôle vers la position indiquée par le signe insertion.
-      'Cette méthode n’a aucun effet si le contrôle n’a pas le focus ou si le signe insertion est déjà positionné dans la zone visible du contrôle.
-      'Swt_DéroulerJournal = 1 le texte défile
-      '                     -1 le contrôle est bloqué
-      Select Case Swt_DéroulerJournal
-        Case 1
-          .SelectionStart = .Text.Length
-          .ScrollToCaret()
-        Case -1
-          .SelectionStart = Journal_Emp_Blocage
-      End Select
-    End With
-  End Sub
+  '  With Frm_SDK.Journal
+  '    'La taille du journal est définie dans Frm_SDK_Load à .MaxLength = 262144 
+  '    If .Text.Length >= 261000 Then
+  '      Dim Jrn() As String = .Lines
+  '      Dim File_SDK As String = Jrn_Rcd(Jrn)
+  '      .Clear()
+  '      .AppendText("Le journal a été enregistré sous : " & vbCrLf & File_SDK)
+  '      .AppendText(Environment.NewLine)
+  '      .AppendText(Format(Now, "dddd d MMM yyyy") & "; à " & DateAndTime.TimeOfDay & ".")
+  '      .AppendText(Environment.NewLine)
+  '    End If
+  '    'S'il est fait une sélection dans le journal, alors la ligne suivante perd son style
+  '    ' et la sélection change de style !
+  '    Select Case Style
+  '      Case ""             'Affichage standard d'une ligne dans le journal
+  '        .SelectionFont = New Font(Font_Journal, FontStyle.Regular)
+  '        .SelectionColor = Color.Black
+  '        .SelectionBackColor = Nothing
+  '      Case "Insertion"    'Insertion d'une valeur
+  '        .SelectionFont = New Font(.Font, FontStyle.Italic)
+  '        .SelectionColor = Color.Red
+  '      Case "Refaire"      'Insertion d'une valeur
+  '        .SelectionFont = New Font(.Font, FontStyle.Italic)
+  '        .SelectionColor = Color.Blue
+  '      Case "Annuler"      'Insertion d'une valeur
+  '        .SelectionFont = New Font(.Font, FontStyle.Italic)
+  '        .SelectionColor = Color.Green
+  '      Case "Info"         'Pour info 
+  '        .SelectionFont = New Font(.Font, FontStyle.Regular)
+  '        .SelectionColor = Color.Black
+  '        .SelectionBackColor = Color.White
+  '      Case "Yellow"       'Pour info 
+  '        .SelectionFont = New Font(.Font, FontStyle.Regular)
+  '        .SelectionColor = Color.Black
+  '        .SelectionBackColor = Color.Yellow
+  '      Case "Orange"       'Pour info 
+  '        .SelectionFont = New Font(.Font, FontStyle.Regular)
+  '        .SelectionColor = Color.Black
+  '        .SelectionBackColor = Color.Orange
+  '      Case "White"       'Pour info 
+  '        .SelectionFont = New Font(.Font, FontStyle.Regular)
+  '        .SelectionColor = Color.Black
+  '        .SelectionBackColor = Color.White
+  '      Case "Blue"       'Pour info 
+  '        .SelectionFont = New Font(.Font, FontStyle.Italic)
+  '        .SelectionColor = Color.Blue
+  '        .SelectionBackColor = Color.White
+  '      Case "Red"       'Pour info 
+  '        .SelectionFont = New Font(.Font, FontStyle.Italic)
+  '        .SelectionColor = Color.Red
+  '        .SelectionBackColor = Color.White
+  '      Case "Italique"    'Pour info, en italique
+  '        .SelectionFont = New Font(.Font, FontStyle.Italic)
+  '        .SelectionColor = Color.Black
+  '      Case "Erreur"      'Affichage d'une erreur 
+  '        .SelectionFont = New Font(.Font, FontStyle.Bold)
+  '        .SelectionColor = Color.Black
+  '        .SelectionBackColor = Color.Red
+  '      Case Else          'Affichage standard d'une ligne dans le journal
+  '        .SelectionFont = New Font(.Font, FontStyle.Regular)
+  '        .SelectionColor = Color.White
+  '        .SelectionBackColor = Color.Yellow
+  '        Inf = Inf & " Style Inconnu : /" & Style & "/"
+  '    End Select
+  '    .AppendText(Inf)
+  '    .AppendText(Environment.NewLine)
+  '    '.ScrollToCaret()
+  '    'Fait défiler le contenu du contrôle vers la position indiquée par le signe insertion.
+  '    'Cette méthode n’a aucun effet si le contrôle n’a pas le focus ou si le signe insertion est déjà positionné dans la zone visible du contrôle.
+  '    'Swt_DéroulerJournal = 1 le texte défile
+  '    '                     -1 le contrôle est bloqué
+  '    Select Case Swt_DéroulerJournal
+  '      Case 1
+  '        .SelectionStart = .Text.Length
+  '        .ScrollToCaret()
+  '      Case -1
+  '        .SelectionStart = Journal_Emp_Blocage
+  '    End Select
+  '  End With
+  'End Sub
   Public Sub Jrn_Add_Yellow(V As String)
     'Affichage rapide d'une information en jaune
     Jrn_Add(, {V}, "Yellow")
@@ -345,56 +329,68 @@ Module M10_Message
 
 
   End Sub
-  ''' <summary>Efface le journal.</summary>
-  Public Sub Jrn_Clear()
-    Frm_SDK.Journal.Text = ""
-    Jrn_Add("SDK_00011", JourDateHeure())
-  End Sub
-  ''' <summary>Enregistre le journal.</summary>
-  Public Function Jrn_Rcd(Jrn() As String) As String
-    Dim File_SDKJrn_Name As String = File_SDKJrn & Format(Now, "yyyy_MM_d_hh_mm_ss") & ".txt"
-    Try
-      Dim File As System.IO.FileStream = System.IO.File.Create(File_SDKJrn_Name)
-      Dim WT_lig0 As String = File_SDKJrn_Name
-      Dim WLigne0 As Byte() = New System.Text.UTF8Encoding(True).GetBytes(WT_lig0 & vbCrLf)
-      File.Write(WLigne0, 0, WLigne0.Length)
+  ' <summary>Efface le journal.</summary>
+  'Public Sub Jrn_Clear()
+  '  Frm_SDK.Journal.Text = ""
+  '  Jrn_Add("SDK_00011", JourDateHeure())
+  'End Sub
+  ' <summary>Enregistre le journal.</summary>
+  'Public Function Jrn_Rcd(Jrn() As String) As String
+  '  Dim File_SDKJrn_Name As String = File_SDKJrn & Format(Now, "yyyy_MM_d_hh_mm_ss") & ".txt"
+  '  Try
+  '    Dim File As System.IO.FileStream = System.IO.File.Create(File_SDKJrn_Name)
+  '    Dim WT_lig0 As String = File_SDKJrn_Name
+  '    Dim WLigne0 As Byte() = New System.Text.UTF8Encoding(True).GetBytes(WT_lig0 & vbCrLf)
+  '    File.Write(WLigne0, 0, WLigne0.Length)
 
-      For i As Integer = 0 To Jrn.GetUpperBound(0)
-        Dim WLigne2 As Byte() = New System.Text.UTF8Encoding(True).GetBytes(Jrn(i) & vbCrLf)
-        File.Write(WLigne2, 0, WLigne2.Length)
-      Next i
-      File.Close()
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.Message})
-      Jrn_Add("ERR_00000", {ex.ToString()})
-    End Try
-    Return File_SDKJrn_Name
-  End Function
+  '    For i As Integer = 0 To Jrn.GetUpperBound(0)
+  '      Dim WLigne2 As Byte() = New System.Text.UTF8Encoding(True).GetBytes(Jrn(i) & vbCrLf)
+  '      File.Write(WLigne2, 0, WLigne2.Length)
+  '    Next i
+  '    File.Close()
+  '  Catch ex As Exception
+  '    Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
+  '    Jrn_Add("ERR_00000", {ex.Message})
+  '    Jrn_Add("ERR_00000", {ex.ToString()})
+  '  End Try
+  '  Return File_SDKJrn_Name
+  'End Function
 
   Public Function Jrn_RcdRTF() As String
-    Cursor.Current = Cursors.WaitCursor
-    Dim aWord As Word._Application
-    aWord = CType(CreateObject("Word.Application"), Word.Application)
-    Dim dWord As Word._Document = aWord.Documents.Add()
-    Dim ObjName As Object = File_SDKJrn & Format(Now, "yyyy_MM_d_hh_mm_ss") & ".docx"
-    Try
-      Clipboard.Clear() 'Copie le journal dans le clipboard en format RTF 
-      Clipboard.SetData(DataFormats.Rtf, CType(Frm_SDK.Journal.Rtf, Object))
-      aWord.Selection.Paste()
-      'Enregistre le journal RTF dans un fichier, le nom de l'objet comporte la date et l'heure
-      dWord.SaveAs(FileName:=ObjName)
-      dWord.Close(True)
-      aWord.Quit(True)
-      Clipboard.Clear()
-    Catch ex As Exception
-      Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
-      Jrn_Add("ERR_00000", {ex.Message})
-      Jrn_Add("ERR_00000", {ex.ToString()})
-    End Try
-    Jrn_Add(, {"Le journal est enregistré : " & ObjName.ToString})
-    Return ObjName.ToString()
-    Cursor.Current = Cursors.Default
+    Dim File_SDK As String = Path_SDK & "S50_SDK\Journal_" & Format(Now, "yyyyMMdd_HHmmss") & ".rtf"
+    IO.File.WriteAllText(File_SDK, Frm_SDK.Journal.Rtf)
+    With Frm_SDK.Journal
+      .Clear()
+      .AppendText("Le journal a été enregistré sous : " & vbCrLf & File_SDK & vbCrLf)
+      .AppendText(Format(Now, "dddd d MMM yyyy") & "; à " & DateAndTime.TimeOfDay & "." & vbCrLf)
+    End With
+    Return File_SDK
   End Function
+
+
+  'Public Function Jrn_RcdRTF_old() As String
+  '  Cursor.Current = Cursors.WaitCursor
+  '  Dim aWord As Word._Application
+  '  aWord = CType(CreateObject("Word.Application"), Word.Application)
+  '  Dim dWord As Word._Document = aWord.Documents.Add()
+  '  Dim ObjName As Object = File_SDKJrn & Format(Now, "yyyy_MM_d_hh_mm_ss") & ".docx"
+  '  Try
+  '    Clipboard.Clear() 'Copie le journal dans le clipboard en format RTF 
+  '    Clipboard.SetData(DataFormats.Rtf, CType(Frm_SDK.Journal.Rtf, Object))
+  '    aWord.Selection.Paste()
+  '    'Enregistre le journal RTF dans un fichier, le nom de l'objet comporte la date et l'heure
+  '    dWord.SaveAs(FileName:=ObjName)
+  '    dWord.Close(True)
+  '    aWord.Quit(True)
+  '    Clipboard.Clear()
+  '  Catch ex As Exception
+  '    Jrn_Add("ERR_00000", {Proc_Name_Get()}, "Erreur")
+  '    Jrn_Add("ERR_00000", {ex.Message})
+  '    Jrn_Add("ERR_00000", {ex.ToString()})
+  '  End Try
+  '  Jrn_Add(, {"Le journal est enregistré : " & ObjName.ToString})
+  '  Return ObjName.ToString()
+  '  Cursor.Current = Cursors.Default
+  'End Function
 
 End Module

@@ -36,7 +36,7 @@ Friend Module A01_OnlyOnce
     File_Puzzle = Path_SDK & "S20_Initial\GSP_Puzzle.txt"
     File_Hodoku = Path_SDK & "S20_Initial\GSP_PuzzleHodoku.txt"
     File_SDKEtd = Path_SDK & "S50_SDK\Etude\"
-    File_SDKJrn = Path_SDK & "S50_SDK\Jrn_"
+    'File_SDKJrn = Path_SDK & "S50_SDK\Jrn_"
 
     Path_Batch = Path_SDK & "S50_SDK\Batch\"
     Path_Batch_Poubelle = Path_SDK & "S50_SDK\Batch_Poubelle\"

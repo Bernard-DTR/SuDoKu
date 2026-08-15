@@ -725,7 +725,8 @@ Public NotInheritable Class Frm_SDK
   End Sub
   '--------------03---------------------------------------------------------------
   Private Sub Mnu03_EffacerLeJournal_Click(sender As Object, e As EventArgs) Handles Mnu03_EffacerLeJournal.Click
-    Jrn_Clear()
+    Journal.Text = ""
+    Jrn_Add("SDK_00011", JourDateHeure())
   End Sub
   Private Sub Mnu03_AfficherLaSolution_Click(sender As Object, e As EventArgs) Handles Mnu03_AfficherLaSolution.Click
     If Plcy_Solution_Existante = False Then Exit Sub
