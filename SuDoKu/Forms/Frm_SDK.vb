@@ -680,8 +680,7 @@ Public NotInheritable Class Frm_SDK
     Frm_LoadPartiesHodoku.Show()
   End Sub
   Private Sub Mnu01_CopierLeJournalEnModeRTF_Click(sender As Object, e As EventArgs) Handles Mnu01_CopierLeJournalEnModeRTF.Click
-    Dim File_SDK As String = Jrn_RcdRTF()
-    Processing_Start(File_SDK)
+    Processing_Start(Jrn_RcdRTF())
   End Sub
   Private Sub Mnu01_OuvrirLeRépertoire_Click(sender As Object, e As EventArgs) Handles Mnu01_OuvrirLeRépertoire.Click
     Dim Pgm As String = "Explorer /e, /n, " & File_SDK

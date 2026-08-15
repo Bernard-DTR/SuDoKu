@@ -58,15 +58,22 @@ Module G300_Strategy_Nice_Loop_Continuous
   '    il est nécessaire de clearer ces listes avant de les remplir
   '    Elles sont cumulées dans Glinks avec AddRange
   '-------------------------------------------------------------------------------------------
-
+  Public Solver_NLC As New DFS_NLC()
+  'Public Noeud_NLC As String = ""
 
   Public Sub Strategy_NLC(U_temp(,) As String)
     Plcy_Strg = "NLC"
     Jrn_Add_Yellow(Proc_Name_Get() & " " & Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte)
+    ' Quel Candidat à traiter ?   
+    Dim Titre As String = Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte
+    Dim Texte As String = "Candidat à traiter pour afficher les liens S et W :"
+    Dim Candidat_IB As String = InputBox(Texte, Titre)
+    If Candidat_IB Is "" Then Exit Sub 'Cancel enfoncé
 
 
+    For Cdd As Integer = 1 To 9
+      If Cdd.ToString <> Candidat_IB Then Continue For
 
-    For Cdd As Integer = 8 To 8
       Jrn_Add(, {"NLC : Analyse du candidat " & Cdd.ToString()})
       GRslt_Init()
       If GRslt.Productivité Then Exit For
@@ -84,28 +91,21 @@ Module G300_Strategy_Nice_Loop_Continuous
       GLinks.Clear()
       GLinks.AddRange(GLinks_Strong)
       GLinks.AddRange(GLinks_Weak)
-      If Xap Then GLinks_Display_SW(GLinks)
+      GLinks_Display_SW(GLinks)
       Jrn_Add("SDK_Space")
 
       ' Création des Noeuds du graphe. On passe de GLinks à Graph
-      'Dim Solver As New DFS_NLC()
-      'Solver.Graph_NLC_Build(GLinks)
-      'If Xap Then Solver.Graph_NLC_Display()
-      'GRslt.Nb_Noeuds = Solver.Graph.Count
-
-      Dim Solver_NLC As New DFS_NLC()
+      ' Solver_NLC As New DFS_NLC() est Public pour être exploité dans Paint
       Solver_NLC.Graph_NLC_Build(GLinks)
-
-      If Xap Then Solver_NLC.Graph_NLC_Display()
+      Solver_NLC.Graph_NLC_Display()
       GRslt.Nb_Noeuds = Solver_NLC.Graph.Count
 
+      'Titre = Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte
+      'Texte = "le graphe comporte " & Solver_NLC.Graph.Count & " nœuds. "
+      'Texte &= vbCrLf & "Entrez le nœud à traiter pour afficher les chemins :"
+      'Noeud_NLC = InputBox(Texte, Titre)
+      'If Noeud_NLC Is "" Then Exit Sub 'Cancel enfoncé
 
-      ' Liste du graphe et copie pour affichage des noeuds et des arêtes 
-
-      'Solver.AllPaths_Build()
-      'If Xap Then Solver.AllPaths_Display()
-      'Solver.Node_To_Paths(Candidat)
-      GRslt.Nb_Paths = Solver_NLC.AllPaths.Count
 
       'If GcnlRslt.Productivité Then
       '  For Each excl As GCel_Excl_Cls In GcnlRslt.CelExcl
@@ -314,6 +314,9 @@ Module G300_Strategy_Nice_Loop_Continuous
     Public Graph As New Dictionary(Of Integer, List(Of Edge))()
     Public AllPaths As New List(Of List(Of GLink_Cls))()
 
+    ' le graph est représenté par un dictionnaire
+    '  où chaque clé est un nœud (cellule)
+    '  et la valeur est une liste d'arêtes (liens) connectées à ce nœud.
     Public Sub Graph_NLC_Build(L As List(Of GLink_Cls))
       Graph.Clear()
 
@@ -328,7 +331,6 @@ Module G300_Strategy_Nice_Loop_Continuous
         Graph(b).Add(New Edge With {.Neighbor = a, .Link = glink})
       Next
     End Sub
-
     Public Sub Graph_NLC_Display()
       Jrn_Add(, {Graph.Count & " entrée(s)."})
       Dim l As Integer = 0
@@ -337,11 +339,21 @@ Module G300_Strategy_Nice_Loop_Continuous
         Dim edges As List(Of Edge) = Graph(kvp.Key)
         Dim sb As New Text.StringBuilder()
         For Each edge As Edge In edges
-          sb.AppendFormat(" → {0}", U_Coord(edge.Neighbor))
+          sb.AppendFormat(" Voisin = {0}  Lien {1} ({2} → {3}) " & vbCrLf & "                   ",
+                          U_Coord(edge.Neighbor),
+                          edge.Link.Type,
+                          U_Coord(edge.Link.Cel(0)),
+                          U_Coord(edge.Link.Cel(1)))
         Next
         Dim edgeCount As String = $" {edges.Count}"
-        Jrn_Add(, {$"{l,3} De {U_Coord(kvp.Key)} _{edgeCount}_ {sb}"})
+        Jrn_Add(, {$"{l,3} De {U_Coord(kvp.Key)} _{edgeCount,3}_ {sb}"})
       Next
     End Sub
   End Class
+
+  Public Class Edge
+    Public Property Neighbor As Integer
+    Public Link As GLink_Cls
+  End Class
+
 End Module

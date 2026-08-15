@@ -53,10 +53,6 @@ Friend Module G000_Base
   Public GRslt As New GRslt_Struct
 
 
-  Public Class Edge
-    Public Property Neighbor As Integer
-    Public Link As GLink_Cls
-  End Class
 
   Public Class DFS_Coloration
 

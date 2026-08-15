@@ -36,15 +36,11 @@ Friend Module A01_OnlyOnce
     File_Puzzle = Path_SDK & "S20_Initial\GSP_Puzzle.txt"
     File_Hodoku = Path_SDK & "S20_Initial\GSP_PuzzleHodoku.txt"
     File_SDKEtd = Path_SDK & "S50_SDK\Etude\"
-    'File_SDKJrn = Path_SDK & "S50_SDK\Jrn_"
-
     Path_Batch = Path_SDK & "S50_SDK\Batch\"
     Path_Batch_Poubelle = Path_SDK & "S50_SDK\Batch_Poubelle\"
     Path_Save = Path_SDK & "S50_SDK\"
     Path_SDK_Autres_Jeux = Path2 & Base_Folder & "_S95\"
     File_SDKDoc = Path_SDK & "S01_Documentation\Rapport.docx"
-    'Utilisation de OpenOffice pour générer le rapport
-    'File_SDKDoc = Path_SDK & "S01_Documentation\LO_Rapport.odt"
   End Sub
 
   Public Sub OO_110_Variables_My_Settings()

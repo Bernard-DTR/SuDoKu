@@ -1255,10 +1255,12 @@ Friend Module M03_Paint
       'Next gLink
 
       ''3 Affichage des Noeuds 
+      'Jrn_Add_Red("G4_Grid_Stratégie_NLC " & Noeud_NLC.ToString())
       'Dim l As Integer = 0
-      'For Each kvp As KeyValuePair(Of Integer, List(Of Edge)) In SolverNLC.Graph
+      'For Each kvp As KeyValuePair(Of Integer, List(Of Edge)) In Solver_NLC.Graph
       '  l += 1
-      '  Dim edges As List(Of Edge) = SolverNLC.Graph(kvp.Key)
+      '  If l <> CInt(Noeud_NLC) Then Continue For
+      '  Dim edges As List(Of Edge) = Solver_NLC.Graph(kvp.Key)
       '  Dim sb As New Text.StringBuilder()
       '  For Each edge As Edge In edges
       '    sb.AppendFormat(" → {0}", U_Coord(edge.Neighbor))
@@ -1266,6 +1268,12 @@ Friend Module M03_Paint
       '  Dim edgeCount As String = $" {edges.Count}"
       '  Jrn_Add_Yellow($"{l,3} De {U_Coord(kvp.Key)} _{edgeCount}_ {sb}")
       '  G0_Cell_Figure(g, kvp.Key, "Cercle", Color.Beige)
+
+      '  Dim l2 As Integer = 0
+      '  For Each edge As Edge In edges
+      '    l2 += 1
+      '    G0_Cdd_Bézier(g, edge.Link.Cel(0), CInt(edge.Link.Cdd(0)), edge.Link.Cel(1), CInt(edge.Link.Cdd(2)), edge.Link.Type, l2)
+      '  Next
       'Next
 
       Frm_SDK.B_Info.Text = Stg_Get(Plcy_Strg).Texte & " " & GRslt.Nb_Liens & " Liens Forts et Faibles."
