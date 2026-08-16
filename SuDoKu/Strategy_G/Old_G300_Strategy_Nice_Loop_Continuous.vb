@@ -231,11 +231,11 @@ Module Old_G300_Strategy_CNL
       For Each node As Integer In Graph.Keys
         visited = New HashSet(Of GcnlLink_Cls)
         path = New List(Of GcnlLink_Cls)
-        DFS(U_temp, node, Nothing, visited, path)
+        DFScnl(U_temp, node, Nothing, visited, path)
       Next
     End Sub
 
-    Private Sub DFS(U_temp(,) As String, current As Integer,
+    Private Sub DFScnl(U_temp(,) As String, current As Integer,
                     lastType As String,
                     visited As HashSet(Of GcnlLink_Cls),
                     path As List(Of GcnlLink_Cls))
@@ -255,12 +255,12 @@ Module Old_G300_Strategy_CNL
         visited.Add(ln)
         path.Add(ln)
 
-        If Path_Is_Productive(U_temp, path, path(0).Cel(0), nextNode) Then
+        If Path_Is_Productivecnl(U_temp, path, path(0).Cel(0), nextNode) Then
           AllPaths.Add(New List(Of GcnlLink_Cls)(path))
           Exit Sub
         End If
 
-        DFS(U_temp, nextNode, ln.Type, visited, path)
+        DFScnl(U_temp, nextNode, ln.Type, visited, path)
 
         path.RemoveAt(path.Count - 1)
         visited.Remove(ln)
@@ -272,7 +272,7 @@ Module Old_G300_Strategy_CNL
   ' ==========================================================================================
   ' DETECTION CNL
   ' ==========================================================================================
-  Private Function Path_Is_Productive(U_temp(,) As String, path As List(Of GcnlLink_Cls),
+  Private Function Path_Is_Productivecnl(U_temp(,) As String, path As List(Of GcnlLink_Cls),
                                    startCel As Integer,
                                    currentCel As Integer) As Boolean
 

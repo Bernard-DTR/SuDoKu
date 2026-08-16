@@ -2,6 +2,7 @@
 
 '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ' Mise en place 19/12/2025
+' Ce module ne devrait contenir que les structures de données et les procédures communes à toutes les stratégies G
 '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Friend Module G000_Base
 
@@ -51,6 +52,218 @@ Friend Module G000_Base
     '                                             ' le HashSet comporte la cellule concernée et le candidat sous forme unique
   End Structure
   Public GRslt As New GRslt_Struct
+
+  Public Class DFS
+
+    Public Graph As New Dictionary(Of Integer, List(Of Edge))()
+    Public AllPaths As New List(Of List(Of GLink_Cls))()
+
+    ' le graph est représenté par un dictionnaire
+    '  où chaque clé est un nœud (cellule)
+    '  et la valeur est une liste d'arêtes (liens) connectées à ce nœud.
+    Public Sub Graph_Build(L As List(Of GLink_Cls))
+      Graph.Clear()
+
+      For Each glink As GLink_Cls In L
+        Dim a As Integer = glink.Cel(0)
+        Dim b As Integer = glink.Cel(1)
+
+        If Not Graph.ContainsKey(a) Then Graph(a) = New List(Of Edge)
+        If Not Graph.ContainsKey(b) Then Graph(b) = New List(Of Edge)
+
+        Graph(a).Add(New Edge With {.Neighbor = b, .Link = glink})
+        Graph(b).Add(New Edge With {.Neighbor = a, .Link = glink})
+      Next
+    End Sub
+    Public Sub Graph_Display()
+      Jrn_Add(, {Graph.Count & " Noeud(s)."})
+      Dim l As Integer = 0
+      For Each kvp As KeyValuePair(Of Integer, List(Of Edge)) In Graph
+        l += 1
+        Dim edges As List(Of Edge) = Graph(kvp.Key)
+        Dim sb As New Text.StringBuilder()
+        For Each edge As Edge In edges
+          sb.AppendFormat(" Voisin = {0}  Lien {1} ({2} → {3}) " & vbCrLf & "                   ",
+                          U_Coord(edge.Neighbor),
+                          edge.Link.Type,
+                          U_Coord(edge.Link.Cel(0)),
+                          U_Coord(edge.Link.Cel(1)))
+        Next
+        Dim edgeCount As String = $" {edges.Count}"
+        Jrn_Add(, {$"{l,3} De {U_Coord(kvp.Key)} _{edgeCount,3}_ {sb}"})
+      Next
+    End Sub
+    Public Sub Graph_Display_Light()
+      Jrn_Add(, {Graph.Count & " Noeud(s)."})
+      Dim l As Integer = 0
+      For Each kvp As KeyValuePair(Of Integer, List(Of Edge)) In Graph
+        l += 1
+        Dim edges As List(Of Edge) = Graph(kvp.Key)
+        Dim edgeCount As String = $" {edges.Count}"
+        Jrn_Add(, {$"{l,3} De {U_Coord(kvp.Key)} _{edgeCount,3}"})
+      Next
+    End Sub
+
+  End Class
+
+  Public Class Edge
+    Public Property Neighbor As Integer
+    Public Link As GLink_Cls
+  End Class
+
+
+
+  ' Les liens forts et faibles  
+  Public Sub GLinks_Build_Strong(U_temp(,) As String, candidat As String)
+    'La procédure remplie la liste Public GLinks_Strong As New List(Of GLink_Cls) des liens forts pour le candidat donné
+
+    Dim i As Integer, j As Integer
+    Dim gLink_Unité As String
+
+    ' --- Lignes ---
+    For i = 0 To 8
+      Dim cells As New List(Of Integer)
+      For j = 0 To 8
+        Dim idx As Integer = i * 9 + j
+        If U_temp(idx, 3).Contains(candidat) Then cells.Add(idx)
+      Next
+      If cells.Count = 2 Then
+        gLink_Unité = "Row" + (U_Row(cells(0)) + 1).ToString()
+        GLinks_Strong.Add(New GLink_Cls With {.Cel = New Integer() {cells(0), cells(1)},
+                                       .Cdd = New String() {candidat, " ", candidat, " ", candidat}, .Type = "S",
+                                       .Unité = gLink_Unité, .Composition = "024"})
+
+      End If
+    Next
+
+    ' --- Colonnes ---
+    For j = 0 To 8
+      Dim cells As New List(Of Integer)
+      For i = 0 To 8
+        Dim idx As Integer = i * 9 + j
+        If U_temp(idx, 3).Contains(candidat) Then cells.Add(idx)
+      Next
+      If cells.Count = 2 Then
+        gLink_Unité = "Col" + (U_Col(cells(0)) + 1).ToString()
+        GLinks_Strong.Add(New GLink_Cls With {.Cel = New Integer() {cells(0), cells(1)},
+                                       .Cdd = New String() {candidat, " ", candidat, " ", candidat}, .Type = "S",
+                                       .Unité = gLink_Unité, .Composition = "024"})
+      End If
+    Next
+
+    ' --- Régions ---
+    For b As Integer = 0 To 8
+      Dim cells As New List(Of Integer)
+      Dim r0 As Integer = (b \ 3) * 3
+      Dim c0 As Integer = (b Mod 3) * 3
+      For i = 0 To 2
+        For j = 0 To 2
+          Dim idx As Integer = (r0 + i) * 9 + (c0 + j)
+          If U_temp(idx, 3).Contains(candidat) Then cells.Add(idx)
+        Next
+      Next
+      If cells.Count = 2 Then
+        gLink_Unité = "Reg" + (U_Reg(cells(0)) + 1).ToString()
+        GLinks_Strong.Add(New GLink_Cls With {.Cel = New Integer() {cells(0), cells(1)},
+                                       .Cdd = New String() {candidat, " ", candidat, " ", candidat}, .Type = "S",
+                                       .Unité = gLink_Unité, .Composition = "024"})
+      End If
+    Next
+
+  End Sub
+  Public Sub GLinks_Build_Weak(U_temp(,) As String, candidat As String)
+    'La procédure remplie la liste Public GLinks_Weak As New List(Of GLink_Cls) des liens faibles pour le candidat donné
+
+    Dim i As Integer, j As Integer
+    Dim gLink_Unité As String
+
+    ' --- Lignes ---
+    For i = 0 To 8
+      Dim cells As New List(Of Integer)
+      For j = 0 To 8
+        Dim idx As Integer = i * 9 + j
+        If U_temp(idx, 3).Contains(candidat) Then cells.Add(idx)
+      Next
+      If cells.Count > 2 Then
+        For a As Integer = 0 To cells.Count - 2
+          For b As Integer = a + 1 To cells.Count - 1
+            gLink_Unité = "Row" + (U_Row(i) + 1).ToString()
+            GLinks_Weak.Add(New GLink_Cls With {.Cel = New Integer() {cells(a), cells(b)},
+                                       .Cdd = New String() {candidat, " ", candidat, " ", candidat}, .Type = "W",
+                                       .Unité = gLink_Unité, .Composition = "024"})
+          Next
+        Next
+      End If
+    Next
+
+    ' --- Colonnes ---
+    For j = 0 To 8
+      Dim cells As New List(Of Integer)
+      For i = 0 To 8
+        Dim idx As Integer = i * 9 + j
+        If U_temp(idx, 3).Contains(candidat) Then cells.Add(idx)
+      Next
+      If cells.Count > 2 Then
+        For a As Integer = 0 To cells.Count - 2
+          For b As Integer = a + 1 To cells.Count - 1
+            gLink_Unité = "Col" + (U_Col(j) + 1).ToString()
+            GLinks_Weak.Add(New GLink_Cls With {.Cel = New Integer() {cells(a), cells(b)},
+                                       .Cdd = New String() {candidat, " ", candidat, " ", candidat}, .Type = "W",
+                                       .Unité = gLink_Unité, .Composition = "024"})
+          Next
+        Next
+      End If
+    Next
+
+    ' --- Régions ---
+    For b As Integer = 0 To 8
+      Dim cells As New List(Of Integer)
+      Dim r0 As Integer = (b \ 3) * 3
+      Dim c0 As Integer = (b Mod 3) * 3
+      For i = 0 To 2
+        For j = 0 To 2
+          Dim idx As Integer = (r0 + i) * 9 + (c0 + j)
+          If U_temp(idx, 3).Contains(candidat) Then cells.Add(idx)
+        Next
+      Next
+      If cells.Count > 2 Then
+        For a As Integer = 0 To cells.Count - 2
+          For b2 As Integer = a + 1 To cells.Count - 1
+            gLink_Unité = "Reg" + (b + 1).ToString()
+            GLinks_Weak.Add(New GLink_Cls With {.Cel = New Integer() {cells(a), cells(b2)},
+                                       .Cdd = New String() {candidat, " ", candidat, " ", candidat}, .Type = "W",
+                                       .Unité = gLink_Unité, .Composition = "024"})
+          Next
+        Next
+      End If
+    Next
+  End Sub
+  Public Sub GLinks_Display_SW(L As List(Of GLink_Cls))
+    ' Affichage de La liste L Liste des liens forts ou faibles
+    Jrn_Add(, {Proc_Name_Get() & " Affichage de L As List(Of GLink_Cls) : " & L.Count & " Lignes."})
+    L = L.OrderBy(Function(s) s.Cdd(4)).ThenBy(Function(s) s.Cel(0)).ThenBy(Function(s) s.Cel(1)).ToList()
+
+    If L.Count <> 0 Then
+      Dim Nb As Integer = 0
+      For Each gLink As GLink_Cls In L
+        With gLink
+          Nb += 1
+          Dim S As String = .Cdd(4) & " " &
+            U_Coord(.Cel(0)) & " (" & .Cdd(0) & "-" & .Cdd(1) & ")" & " → " &
+            U_Coord(.Cel(1)) & " (" & .Cdd(2) & "-" & .Cdd(3) & ") " &
+            " Lien " & .Type & "  Unité " & .Unité.PadRight(6) & " Comp " & .Composition &
+            " Cellules n° " & CStr(.Cel(0)).PadLeft(2) & "-" & CStr(.Cel(1)).PadLeft(2)
+          Jrn_Add(, {ChrW(Nb + Lettre_Flèche_ChrW) & " " & CStr(Nb).PadLeft(3) & " " & S})
+        End With
+      Next gLink
+    End If
+    Jrn_Add("SDK_Space")
+  End Sub
+
+
+
+
+  '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 

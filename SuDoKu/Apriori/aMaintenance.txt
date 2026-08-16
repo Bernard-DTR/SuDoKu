@@ -62,6 +62,7 @@
 #016 S  15/08/2026 Fonction Jrn_Add ré-écrite
 #017 S  15/08/2026 Le journal est désormais sauvegardé en RTF (Option menu et taille volumineuse)
 #018 S  15/08/2026 NLC Graph_NLC_Build et Graph_NLC_Display
+#019 D  16/08/2026 NLC AllPaths_NLC_Build(U_temp)
 
 ##############################################################################################################################
                    

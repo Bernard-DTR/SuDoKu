@@ -105,9 +105,22 @@
       Jrn_Add(, {Mid$(Cdd, 1, Cdd.Length - 1)})
     Next row
 
-    Jrn_Add(, {"XSolution"})
+    Jrn_Add(, {"Valeurs initiales, Valeurs et XSolution(DL)"})
+    Dim sb As New System.Text.StringBuilder(900)
+    sb.Clear()
+
+    For i As Integer = 0 To 80
+      sb.Append(If(U(i, 1) = " ", ".", U(i, 1)))
+    Next
+    Jrn_Add(, {sb.ToString()})
+    sb.Clear()
+    For i As Integer = 0 To 80
+      sb.Append(If(U(i, 2) = " ", ".", U(i, 2)))
+    Next
+    Jrn_Add(, {sb.ToString()})
+
     Jrn_Add(, {XSolution})
-    Jrn_Add(, {"/XSolution"})
+    Jrn_Add(, {"/Valeurs initiales, Valeurs et XSolution(DL)"})
 
   End Sub
 End Module

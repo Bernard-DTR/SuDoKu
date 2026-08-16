@@ -45,6 +45,7 @@ Module G20_Général
     End With
   End Function
   Public Sub Wh_Nb_Cell_Display(Wh_Nb_Cell As Wh_Nb_Cell_Struct)
+    Jrn_Add(, {"Inventaire des valeurs et des candidats de la grille"})
     With Wh_Nb_Cell
       Jrn_Add(, {"Cell Initiales   : " & CStr(.Initiales).PadLeft(2)})
       Jrn_Add(, {"Cell Vides       : " & CStr(.Vides).PadLeft(2)})
