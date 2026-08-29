@@ -101,7 +101,8 @@ Module G300_Strategy_Nice_Loop_Continuous
 
       ' Création des Noeuds du graphe. On passe de GLinks à Graph
       Solver_NLC.Graph_Build(GLinks)
-      Solver_NLC.Graph_Display_Light()
+      'Solver_NLC.Graph_Display_Light()
+      Solver_NLC.Graph_Display()
       GRslt.Nb_Noeuds = Solver_NLC.Graph.Count
 
       'Titre = Plcy_Strg & " " & Stg_Get(Plcy_Strg).Texte
@@ -136,7 +137,7 @@ Module G300_Strategy_Nice_Loop_Continuous
     Dim path As List(Of GLink_Cls)
 
     For Each node As Integer In Solver_NLC.Graph.Keys
-      Jrn_Add_Red("NLC : Recherche de chemins à partir du nœud " & node.ToString().PadRight(2) & " " & U_Coord(node))
+      Jrn_Add_Red("NLC : Recherche de chemins à partir du nœud: " & U_Coord(node))
       visited = New HashSet(Of GLink_Cls)
       path = New List(Of GLink_Cls)
       DFS_NLC(U_temp, node, Nothing, visited, path)
@@ -147,6 +148,9 @@ Module G300_Strategy_Nice_Loop_Continuous
                     lastType As String,
                     visited As HashSet(Of GLink_Cls),
                     path As List(Of GLink_Cls))
+    Jrn_Add_Yellow("NLC : Exploration du nœud: " & U_Coord(current))
+    Jrn_Add_Yellow("NLC : Nœuds visités      : " & visited.Count.ToString())
+    Jrn_Add_Yellow("NLC : path               : " & path.Count.ToString())
 
     Dim e As Edge
     Dim ln As GLink_Cls
@@ -165,6 +169,8 @@ Module G300_Strategy_Nice_Loop_Continuous
 
       If Path_NLC_Is_Productive(U_temp, path, path(0).Cel(0), nextNode) Then
         Solver_NLC.AllPaths.Add(New List(Of GLink_Cls)(path))
+
+        Jrn_Add_Orange("NLC : Chemin productif trouvé : " & String.Join(" -> ", path.Select(Function(l) l.Type & "-" & U_Coord(l.Cel(0)) & U_Coord(l.Cel(1)))))
         Exit Sub
       End If
 
@@ -178,6 +184,7 @@ Module G300_Strategy_Nice_Loop_Continuous
   Private Function Path_NLC_Is_Productive(U_temp(,) As String, path As List(Of GLink_Cls),
                                    startCel As Integer,
                                    currentCel As Integer) As Boolean
+    Jrn_Add_Blue("NLC : Chemin productif etudié : " & String.Join(" -> ", path.Select(Function(l) l.Type & "-" & U_Coord(l.Cel(0)) & "-" & U_Coord(l.Cel(1)))))
 
     Dim isLoop As Boolean = (path.Count >= 3 AndAlso currentCel = startCel)
     If Not isLoop Then Return False
