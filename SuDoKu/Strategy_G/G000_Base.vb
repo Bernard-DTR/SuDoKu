@@ -714,6 +714,7 @@ Friend Module G000_Base
     End Select
     Jrn_Add(, {"Les candidats sont supprimés."})
 
+    Strategy_Dsp_Standard()
     'Analyse des candidats CdU_CdO
     Dim Strategy_Rslt(,) As String
     Dim Strg_CdU_CdO As Boolean = False
