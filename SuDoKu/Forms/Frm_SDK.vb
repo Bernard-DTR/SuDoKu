@@ -1106,6 +1106,7 @@ Public NotInheritable Class Frm_SDK
     Dim Index02_03 As Integer = Mnu06_CB.FindString(Item)
     My.Settings.SDK_IE_Last_Url = Index02_03
     Shell_St &= Item
+
     Using Processing As New Diagnostics.Process()
       Processing.StartInfo.WindowStyle = ProcessWindowStyle.Maximized
       Processing.StartInfo.FileName = Shell_St

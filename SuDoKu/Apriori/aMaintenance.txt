@@ -66,6 +66,7 @@
 #020 D  29/08/2026 NLC AllPaths_NLC_Build(U_temp)_2
 #021 V  04/09/2026 Affichage standard après la suppression des candidats dans Automate_Graphe
 #022 Me 16/09/2026 MS VSC 18.10.1
+#023 V  02/10/2026 MS VSC 18.10.3
 
 ##############################################################################################################################
                    
