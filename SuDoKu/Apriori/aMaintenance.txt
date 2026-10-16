@@ -71,18 +71,17 @@
 #025 V  02/10/2026 KP_02
 #025 Me 14/10/2026 VSC 2026 18.11.0
 #026 Me 14/10/2026 VSC 2026 18.11.0 + Git + GitHUB
+#027 V  16/10/2026 Construction du Dictionnaire
 
 
 ##############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)
-	               Il faudrait que je dégage mes documents de Google Drive, de One Drive plutôt
 ????               Voir dans les formes primaires à quoi sert de mettre les valeurs ou les candidats
 ????               Revoir les couches la couche stratégique doit être l'avant dernière, la saisie la dernière
                    Voir la programmation Undo-Redo
                    Revoir si U_Sol est utilisé et quand ? et U_vi (boolean)
-                   Nettoyer les S95
                    Pour chercher 3 lignes de commentaires : ('.*\r?\n){3}
                    Est-ce que les menus sont correctement placés ?
                    La grille SDK_E_00434 est mal résolu avec les stratégies UOBTXYSJZKQ
