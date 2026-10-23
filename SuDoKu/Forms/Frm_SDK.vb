@@ -1,5 +1,6 @@
 ﻿Imports System.Threading
 Imports SuDoKu.DancingLink
+Imports SuDoKu.NativeMethods
 
 Public NotInheritable Class Frm_SDK
   Private MouseClick_Middle_ToolTip As CustomToolTip
@@ -1002,17 +1003,12 @@ Public NotInheritable Class Frm_SDK
       Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
     End Try
   End Sub
-  Private Sub Mnu06_SudokuNKH_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuNKH.Click
-    'L'application NKH a été installé, ainsi qu'un raccourci pour l'appeler
-    '"C:\Program Files (x86)\nkh\Sudoku1\"
-    Dim Shell_St As String = "C:\Users\Public\Desktop\Sudoku1.lnk"
-    Processing_Start(Shell_St)
-  End Sub
   Private Sub Mnu06_Hodoku220_Click(sender As Object, e As EventArgs) Handles Mnu06_Hodoku220.Click
     ' L'application est lancée et
     ' Il est ajouté une copie de la grille en cours et un collage dans Hodoku 
     ClipBoard_Copier("1") ' Copier les valeurs initiales de SDK
-    Dim Shell_St As String = "C:\Program Files (x86)\HoDoKu\hodoku.exe"
+    'Dim Shell_St As String = "C:\Program Files (x86)\HoDoKu\hodoku.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "HoDoKu_220\hodoku.exe"
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
     Catch ex As Exception
@@ -1053,6 +1049,9 @@ Public NotInheritable Class Frm_SDK
         ' Envoi des touches
         SendKeys.Send("{ESC}")
         SendKeys.Send("{ENTER}")
+        Dim X As Integer = Me.Location.X
+        Dim Y As Integer = Me.Location.Y
+        NativeMethods.SetWindowPos(hWnd, IntPtr.Zero, X + 600, Y + 50, 0, 0, NativeMethods.SWP_NOSIZE)
       Else
         MessageBox.Show("Fenêtre inaccessible (MainWindowHandle = 0)")
       End If

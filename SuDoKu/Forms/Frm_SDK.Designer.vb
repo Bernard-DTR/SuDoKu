@@ -154,7 +154,6 @@ Partial Class Frm_SDK
         Me.Mnu06_SudokuAngusJohnson = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu06_SudokuDarrenColes = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu06_SudokuPatriceHenrion = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Mnu06_SudokuNKH = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu06_Hodoku220 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu06_SudokuFedynaK = New System.Windows.Forms.ToolStripMenuItem()
         Me.Mnu06_SudoCue = New System.Windows.Forms.ToolStripMenuItem()
@@ -1079,7 +1078,7 @@ Partial Class Frm_SDK
         '
         'Mnu06
         '
-        Me.Mnu06.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu06_ListerU, Me.Mnu06_ListerA, Me.Mnu06_Manuel_des_Stratégies, Me.Mnu063_VérificationDeLaGrille, Me.Mnu06_Sep01, Me.Mnu06_EffacerLaGrille, Me.Mnu06_Sep02, Me.Mnu06_SudokuAngusJohnson, Me.Mnu06_SudokuDarrenColes, Me.Mnu06_SudokuPatriceHenrion, Me.Mnu06_SudokuNKH, Me.Mnu06_Hodoku220, Me.Mnu06_SudokuFedynaK, Me.Mnu06_SudoCue, Me.Mnu06_DiufSudokuJava, Me.Mnu06_Sep03, Me.Mnu06_ClassicSudoku, Me.Mnu06_SudokuSolver, Me.Mnu06_MicrosoftSudoku, Me.Mnu06_HHSudokuGame, Me.Mnu06_MUDancingLink, Me.Mnu06_Sep04, Me.Mnu06_CB})
+        Me.Mnu06.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Mnu06_ListerU, Me.Mnu06_ListerA, Me.Mnu06_Manuel_des_Stratégies, Me.Mnu063_VérificationDeLaGrille, Me.Mnu06_Sep01, Me.Mnu06_EffacerLaGrille, Me.Mnu06_Sep02, Me.Mnu06_SudokuAngusJohnson, Me.Mnu06_SudokuDarrenColes, Me.Mnu06_SudokuPatriceHenrion, Me.Mnu06_Hodoku220, Me.Mnu06_SudokuFedynaK, Me.Mnu06_SudoCue, Me.Mnu06_DiufSudokuJava, Me.Mnu06_Sep03, Me.Mnu06_ClassicSudoku, Me.Mnu06_SudokuSolver, Me.Mnu06_MicrosoftSudoku, Me.Mnu06_HHSudokuGame, Me.Mnu06_MUDancingLink, Me.Mnu06_Sep04, Me.Mnu06_CB})
         Me.Mnu06.Font = New System.Drawing.Font("Tahoma", 8.25!)
         Me.Mnu06.Name = "Mnu06"
         Me.Mnu06.Size = New System.Drawing.Size(69, 28)
@@ -1153,16 +1152,9 @@ Partial Class Frm_SDK
         Me.Mnu06_SudokuPatriceHenrion.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_SudokuPatriceHenrion.Text = "Sudoku Patrice Henrion"
         '
-        'Mnu06_SudokuNKH
-        '
-        Me.Mnu06_SudokuNKH.ForeColor = System.Drawing.Color.Red
-        Me.Mnu06_SudokuNKH.Name = "Mnu06_SudokuNKH"
-        Me.Mnu06_SudokuNKH.Size = New System.Drawing.Size(510, 26)
-        Me.Mnu06_SudokuNKH.Text = "Sudoku NKH"
-        '
         'Mnu06_Hodoku220
         '
-        Me.Mnu06_Hodoku220.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_Hodoku220.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_Hodoku220.Name = "Mnu06_Hodoku220"
         Me.Mnu06_Hodoku220.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_Hodoku220.Text = "Hodoku 220"
@@ -2012,7 +2004,6 @@ Partial Class Frm_SDK
     Friend WithEvents Mnu02_Annuler As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Mnu02_Refaire As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Mnu02_Sep01 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents Mnu06_SudokuNKH As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Mnu01_Sep03 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents Mnu01_EnregistrerUnePartieTest As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Mnu01_ChargerUnePartieTest As System.Windows.Forms.ToolStripMenuItem

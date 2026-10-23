@@ -75,8 +75,11 @@
 #028 V  23/10/2026 Suppression de Divers /PCA Sudoku refusé par Smart APP Control
 #029 V  23/10/2026 Mise en place de Divers / Angus Johnson
 #030 V  23/10/2026 Mise en place de Divers / Patrice Henrion et Darren Coles
+#031 V  23/10/2026 Sudoku NKH abandonné (non sécurisé)
+#032 V  23/10/2026 Mise en place de Divers / hodoku 220 et java
+#033 V  23/10/2026 Mise en place de Divers / Python Fedyna K est placé à droite de la grille
 
-##############################################################################################################################
+#############################################################################################################################
                    
 ????               Revoir à quel moment on déclenche la stratégie
                    DL_Solve est utilisé 16 fois! voir si on peut remplacer tout celà par Game_New_DL_Solution(U)

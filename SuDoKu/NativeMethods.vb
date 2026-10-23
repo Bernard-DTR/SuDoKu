@@ -79,6 +79,19 @@ Class NativeMethods
     Return True
   End Function
 
+  <DllImport("user32.dll")>
+  Public Shared Function SetWindowPos(
+    hWnd As IntPtr,
+    hWndInsertAfter As IntPtr,
+    X As Integer,
+    Y As Integer,
+    cx As Integer,
+    cy As Integer,
+    uFlags As UInteger
+) As Boolean
+  End Function
+
+  Public Const SWP_NOSIZE As UInteger = &H1
   Public Const ENUM_CURRENT_SETTINGS As Integer = -1
   Public Const EDD_GET_DEVICE_INTERFACE_NAME As Integer = &H1
 
