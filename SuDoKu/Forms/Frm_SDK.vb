@@ -974,16 +974,6 @@ Public NotInheritable Class Frm_SDK
     Mnu01_Saisir.Enabled = True
     Mnu01_Commencer.Enabled = True
   End Sub
-  Private Sub Mnu06_SudokuPCA_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuPCA.Click
-    Dim Shell_St As String = Path_SDK_Autres_Jeux & "PCA_Sudoku\Sudoku.exe"
-    Jrn_Add(, {Shell_St})
-    Try
-      Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
-    Catch ex As Exception
-      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
-
-    End Try
-  End Sub
   Private Sub Mnu06_SudokuAngusJohnson_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuAngusJohnson.Click
     Dim Shell_St As String = Path_SDK_Autres_Jeux & "SimpleSudoku\simplesudoku.exe"
     Jrn_Add(, {Shell_St})
@@ -1041,12 +1031,18 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_SudokuFedynaK_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuFedynaK.Click
     'Lancement Grille Python + Escape + Entrée
     Dim Grille As String = LP_Prb.Replace(" ", "0")
-    Dim Shell_St As String = "C:\Users\berna\AppData\Local\Programs\Python\Python313\pythonw.exe " & Path_SDK_Autres_Jeux & "Python\FedynaK\Sudoku_FedynaK\Sudoku_FedynaK.py " & Grille
-    Try
-      Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
-    Catch ex As Exception
-      Nsd_i = MessageBox.Show("L'application ci-dessous doit être installée." & vbCrLf & Shell_St)
-    End Try
+    Dim psi As New ProcessStartInfo()
+
+    psi.FileName = "C:\Users\berna\AppData\Local\Programs\Python\Python312\pythonw.exe"
+    psi.Arguments = """" & Path_SDK_Autres_Jeux & "Python\FedynaK\Sudoku_FedynaK\Sudoku_FedynaK.py"" " & Grille
+
+    psi.UseShellExecute = False
+    psi.CreateNoWindow = True
+    psi.RedirectStandardOutput = False
+    psi.RedirectStandardError = False
+
+    Process.Start(psi)
+
     Thread.Sleep(500) ' Attendre que la fenêtre soit prête
     ' Récupération du processus
     Dim procList As Process() = Process.GetProcessesByName("pythonw")

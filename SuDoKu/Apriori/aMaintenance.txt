@@ -72,7 +72,8 @@
 #025 Me 14/10/2026 VSC 2026 18.11.0
 #026 Me 14/10/2026 VSC 2026 18.11.0 + Git + GitHUB
 #027 V  16/10/2026 Construction du Dictionnaire
-
+#028 V  23/10/2026 Suppression de Divers /PCA Sudoku refusé par Smart APP Control
+#029 V  23/10/2026 Mise en place de Divers / Angus Johnson
 
 ##############################################################################################################################
                    
