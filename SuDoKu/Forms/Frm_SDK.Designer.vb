@@ -1141,14 +1141,14 @@ Partial Class Frm_SDK
         '
         'Mnu06_SudokuDarrenColes
         '
-        Me.Mnu06_SudokuDarrenColes.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_SudokuDarrenColes.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_SudokuDarrenColes.Name = "Mnu06_SudokuDarrenColes"
         Me.Mnu06_SudokuDarrenColes.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_SudokuDarrenColes.Text = "Sudoku Darren Coles"
         '
         'Mnu06_SudokuPatriceHenrion
         '
-        Me.Mnu06_SudokuPatriceHenrion.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_SudokuPatriceHenrion.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_SudokuPatriceHenrion.Name = "Mnu06_SudokuPatriceHenrion"
         Me.Mnu06_SudokuPatriceHenrion.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_SudokuPatriceHenrion.Text = "Sudoku Patrice Henrion"
