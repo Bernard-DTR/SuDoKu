@@ -1167,14 +1167,14 @@ Partial Class Frm_SDK
         '
         'Mnu06_SudoCue
         '
-        Me.Mnu06_SudoCue.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_SudoCue.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_SudoCue.Name = "Mnu06_SudoCue"
         Me.Mnu06_SudoCue.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_SudoCue.Text = "SudoCue"
         '
         'Mnu06_DiufSudokuJava
         '
-        Me.Mnu06_DiufSudokuJava.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_DiufSudokuJava.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_DiufSudokuJava.Name = "Mnu06_DiufSudokuJava"
         Me.Mnu06_DiufSudokuJava.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_DiufSudokuJava.Text = "DiufSudoku (Java)"
@@ -1186,35 +1186,35 @@ Partial Class Frm_SDK
         '
         'Mnu06_ClassicSudoku
         '
-        Me.Mnu06_ClassicSudoku.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_ClassicSudoku.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_ClassicSudoku.Name = "Mnu06_ClassicSudoku"
         Me.Mnu06_ClassicSudoku.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_ClassicSudoku.Text = "1 ZG Classic Sudoku Solver"
         '
         'Mnu06_SudokuSolver
         '
-        Me.Mnu06_SudokuSolver.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_SudokuSolver.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_SudokuSolver.Name = "Mnu06_SudokuSolver"
         Me.Mnu06_SudokuSolver.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_SudokuSolver.Text = "2 JO VB.Net Sudoku Solver"
         '
         'Mnu06_MicrosoftSudoku
         '
-        Me.Mnu06_MicrosoftSudoku.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_MicrosoftSudoku.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_MicrosoftSudoku.Name = "Mnu06_MicrosoftSudoku"
         Me.Mnu06_MicrosoftSudoku.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_MicrosoftSudoku.Text = "3 MS Microsoft Sudoku"
         '
         'Mnu06_HHSudokuGame
         '
-        Me.Mnu06_HHSudokuGame.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_HHSudokuGame.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_HHSudokuGame.Name = "Mnu06_HHSudokuGame"
         Me.Mnu06_HHSudokuGame.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_HHSudokuGame.Text = "4 HH SudokuGame"
         '
         'Mnu06_MUDancingLink
         '
-        Me.Mnu06_MUDancingLink.ForeColor = System.Drawing.Color.Red
+        Me.Mnu06_MUDancingLink.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Mnu06_MUDancingLink.Name = "Mnu06_MUDancingLink"
         Me.Mnu06_MUDancingLink.Size = New System.Drawing.Size(510, 26)
         Me.Mnu06_MUDancingLink.Text = "5 MU Sudoku Solver DL"

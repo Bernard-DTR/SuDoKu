@@ -1085,7 +1085,7 @@ Public NotInheritable Class Frm_SDK
   Private Sub Mnu06_MUDancingLink_Click(sender As Object, e As EventArgs) Handles Mnu06_MUDancingLink.Click
     ClipBoard_Copier("1") ' Copier les valeurs initiales de SDK
 
-    Dim Shell_St As String = Path_SDK_Autres_Jeux & "Dancing_Link\Dancing_Links_Library_100\Dancing_Links_Library\Dancing_Links_Library\bin\Debug\Dancing_Links_Library.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "\5MU\Dancing_Links_Library_100\Dancing_Links_Library\Dancing_Links_Library\bin\Debug\Dancing_Links_Library.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1109,7 +1109,7 @@ Public NotInheritable Class Frm_SDK
     End Using
   End Sub
   Private Sub Mnu06_ClassicSudoku_Click(sender As Object, e As EventArgs) Handles Mnu06_ClassicSudoku.Click
-    Dim Shell_St As String = Path_SDK_Autres_Jeux & "CP_Sudoku\SudokuSolver_src\SudokuSolver src\bin\Debug\SudokuSolver.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "1ZG\SudokuSolver src\bin\Debug\SudokuSolver.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1118,7 +1118,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_SudokuSolver_Click(sender As Object, e As EventArgs) Handles Mnu06_SudokuSolver.Click
-    Dim Shell_St As String = Path_SDK_Autres_Jeux & "Planete\VB_Net_Sud1916447222005\Sudoku\bin\Sudoku.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "2JO\Sudoku\bin\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1127,7 +1127,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_MicrosoftSudoku_Click(sender As Object, e As EventArgs) Handles Mnu06_MicrosoftSudoku.Click
-    Dim Shell_St As String = Path_SDK_Autres_Jeux & "Sudoku_VisualBasic\bin\Debug\Sudoku.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "3MS\Sudoku_VisualBasic\bin\Debug\Sudoku.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
@@ -1136,7 +1136,7 @@ Public NotInheritable Class Frm_SDK
     End Try
   End Sub
   Private Sub Mnu06_HHSudokuGame_Click(sender As Object, e As EventArgs) Handles Mnu06_HHSudokuGame.Click
-    Dim Shell_St As String = Path_SDK_Autres_Jeux & "SudokuGame\SudokuGame\bin\Debug\SudokuPuzzle.exe"
+    Dim Shell_St As String = Path_SDK_Autres_Jeux & "4HH\SudokuGame\bin\Debug\SudokuPuzzle.exe"
     Jrn_Add(, {Shell_St})
     Try
       Nsd_i = Shell(Shell_St, AppWinStyle.NormalFocus)
